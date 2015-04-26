@@ -13,7 +13,7 @@ import (
 // Ex: ### - 481 - random numbers
 //
 // Ex: ??? - fda - random letters
-func New(dataVal string) string {
+func Generate(dataVal string) string {
 	// Identify items between brackets: {name.first}
 	for strings.Count(dataVal, "{") > 0 && strings.Count(dataVal, "}") > 0 {
 		cat_value := ""
