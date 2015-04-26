@@ -1,6 +1,7 @@
 package gofakeit
 
 import (
+	"math/rand"
 	"strings"
 )
 
@@ -13,31 +14,31 @@ func Address() string {
 func Street() (street string) {
 	switch randInt := randIntRange(1, 2); randInt {
 	case 1:
-		street = AddressNumber() + " " + AddressStreetPrefix() + " " + AddressStreetName() + " " + AddressStreetSuffix()
+		street = StreetNumber() + " " + StreetPrefix() + " " + StreetName() + " " + StreetSuffix()
 	case 2:
-		street = AddressNumber() + " " + AddressStreetName() + " " + AddressStreetSuffix()
+		street = StreetNumber() + " " + StreetName() + " " + StreetSuffix()
 	}
 
 	return
 }
 
-// Generate Address Number
-func AddressNumber() string {
+// Generate Street Number
+func StreetNumber() string {
 	return strings.TrimLeft(replaceWithNumbers(getRandValue([]string{"address", "number"})), "0")
 }
 
 // Generate Street Prefix
-func AddressStreetPrefix() string {
+func StreetPrefix() string {
 	return getRandValue([]string{"address", "street_prefix"})
 }
 
 // Generate Street Name
-func AddressStreetName() string {
+func StreetName() string {
 	return getRandValue([]string{"address", "street_name"})
 }
 
 // Generate Street Suffix
-func AddressStreetSuffix() string {
+func StreetSuffix() string {
 	return getRandValue([]string{"address", "street_suffix"})
 }
 
@@ -45,11 +46,11 @@ func AddressStreetSuffix() string {
 func City() (city string) {
 	switch randInt := randIntRange(1, 3); randInt {
 	case 1:
-		city = FirstName() + AddressStreetSuffix()
+		city = FirstName() + StreetSuffix()
 	case 2:
-		city = LastName() + AddressStreetSuffix()
+		city = LastName() + StreetSuffix()
 	case 3:
-		city = AddressStreetPrefix() + " " + LastName()
+		city = StreetPrefix() + " " + LastName()
 	}
 
 	return
@@ -74,3 +75,9 @@ func Zip() string {
 func Country() string {
 	return getRandValue([]string{"address", "country"})
 }
+
+// Generate Latitude
+func Latitude() float64 { return (rand.Float64() * 180) - 90 }
+
+// Generate Latitude
+func Longitude() float64 { return (rand.Float64() * 360) - 180 }

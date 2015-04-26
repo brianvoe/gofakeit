@@ -6,8 +6,9 @@ import (
 )
 
 func ExampleAddress() {
+	Seed(11)
 	fmt.Println(Address())
-	// Output: 2503 East Manor land, Milesfurt, New Jersey 03746-2050
+	// Output: 872 East Rapids borough, Andrestad, New Jersey 74853-6757
 }
 
 func BenchmarkAddress(b *testing.B) {
@@ -17,8 +18,9 @@ func BenchmarkAddress(b *testing.B) {
 }
 
 func ExampleStreet() {
+	Seed(11)
 	fmt.Println(Street())
-	// Output: 1573 East Courts fort
+	// Output: 872 East Rapids borough
 }
 
 func BenchmarkStreet(b *testing.B) {
@@ -27,53 +29,58 @@ func BenchmarkStreet(b *testing.B) {
 	}
 }
 
-func ExampleAddressNumber() {
-	fmt.Println(AddressNumber())
-	// Output: 14314
+func ExampleStreetNumber() {
+	Seed(11)
+	fmt.Println(StreetNumber())
+	// Output: 28727
 }
 
-func BenchmarkAddressNumber(b *testing.B) {
+func BenchmarkStreetNumber(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		AddressNumber()
+		StreetNumber()
 	}
 }
 
-func ExampleAddressStreetPrefix() {
-	fmt.Println(AddressStreetPrefix())
-	// Output: New
+func ExampleStreetPrefix() {
+	Seed(11)
+	fmt.Println(StreetPrefix())
+	// Output: Lake
 }
 
-func BenchmarkAddressStreetPrefix(b *testing.B) {
+func BenchmarkStreetPrefix(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		AddressStreetPrefix()
+		StreetPrefix()
 	}
 }
 
-func ExampleAddressStreetName() {
-	fmt.Println(AddressStreetName())
-	// Output: Isle
+func ExampleStreetName() {
+	Seed(11)
+	fmt.Println(StreetName())
+	// Output: View
 }
 
-func BenchmarkAddressStreetName(b *testing.B) {
+func BenchmarkStreetName(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		AddressStreetName()
+		StreetName()
 	}
 }
 
-func ExampleAddressStreetSuffix() {
-	fmt.Println(AddressStreetSuffix())
-	// Output: burgh
+func ExampleStreetSuffix() {
+	Seed(11)
+	fmt.Println(StreetSuffix())
+	// Output: land
 }
 
-func BenchmarkAddressStreetSuffix(b *testing.B) {
+func BenchmarkStreetSuffix(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		AddressStreetSuffix()
+		StreetSuffix()
 	}
 }
 
 func ExampleCity() {
+	Seed(11)
 	fmt.Println(City())
-	// Output: Gusikowskiview
+	// Output: Marcelside
 }
 
 func BenchmarkCity(b *testing.B) {
@@ -83,8 +90,9 @@ func BenchmarkCity(b *testing.B) {
 }
 
 func ExampleState() {
+	Seed(11)
 	fmt.Println(State())
-	// Output: California
+	// Output: Hawaii
 }
 
 func BenchmarkState(b *testing.B) {
@@ -94,8 +102,9 @@ func BenchmarkState(b *testing.B) {
 }
 
 func ExampleStateAbr() {
+	Seed(11)
 	fmt.Println(StateAbr())
-	// Output: FL
+	// Output: OR
 }
 
 func BenchmarkStateAbr(b *testing.B) {
@@ -105,8 +114,9 @@ func BenchmarkStateAbr(b *testing.B) {
 }
 
 func ExampleZip() {
+	Seed(11)
 	fmt.Println(Zip())
-	// Output: 51063
+	// Output: 28727
 }
 
 func BenchmarkZip(b *testing.B) {
@@ -116,12 +126,37 @@ func BenchmarkZip(b *testing.B) {
 }
 
 func ExampleCountry() {
+	Seed(11)
 	fmt.Println(Country())
-	// Output: Macao
+	// Output: Tajikistan
 }
 
 func BenchmarkCountry(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		Country()
+	}
+}
+
+func ExampleLatitude() {
+	Seed(11)
+	fmt.Println(Latitude())
+	// Output: -73.53405629980608
+}
+
+func BenchmarkLatitude(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Latitude()
+	}
+}
+
+func ExampleLongitude() {
+	Seed(11)
+	fmt.Println(Longitude())
+	// Output: -147.06811259961216
+}
+
+func BenchmarkLongitude(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Longitude()
 	}
 }

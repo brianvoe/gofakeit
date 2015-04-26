@@ -6,8 +6,9 @@ import (
 )
 
 func ExamplePhone() {
+	Seed(11)
 	fmt.Println(Phone())
-	// Output: 1-138-021-2711
+	// Output: 287-271-5702
 }
 
 func BenchmarkPhone(b *testing.B) {
@@ -17,8 +18,9 @@ func BenchmarkPhone(b *testing.B) {
 }
 
 func ExampleEmail() {
+	Seed(11)
 	fmt.Println(Email())
-	// Output: antonettalangosh@abshire.info
+	// Output: markusmoen@pagac.net
 }
 
 func BenchmarkEmail(b *testing.B) {

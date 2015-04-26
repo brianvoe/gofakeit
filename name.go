@@ -1,26 +1,26 @@
 package gofakeit
 
-// Ex: Billy Smith, Kim Barker, James Volk
+// Generate First and Last Name
 func Name() string {
 	return getRandValue([]string{"name", "first"}) + " " + getRandValue([]string{"name", "last"})
 }
 
-// Ex: Billy, Kim, James
+// Generate First Name
 func FirstName() string {
 	return getRandValue([]string{"name", "first"})
 }
 
-// Ex: Smith, Barker, Volk
+// Generate Last Name
 func LastName() string {
 	return getRandValue([]string{"name", "last"})
 }
 
-// Ex: Mr., Mrs., Ms., Miss, Dr.
+// Ganerate Name Prefix
 func PrefixName() string {
 	return getRandValue([]string{"name", "prefix"})
 }
 
-// Ex: Jr., Sr., MD, PhD
+// Generate Suffix Name
 func SuffixName() string {
 	return getRandValue([]string{"name", "suffix"})
 }

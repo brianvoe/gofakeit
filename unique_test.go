@@ -1,8 +1,6 @@
 package gofakeit
 
-import (
-	"testing"
-)
+import "testing"
 
 func TestUniqueId(t *testing.T) {
 	id := UniqueId()

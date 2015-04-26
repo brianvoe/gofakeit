@@ -1,7 +1,5 @@
 package gofakeit
 
-import "crypto/rand"
-
 // Password generator
 func Password(lower bool, upper bool, numeric bool, special bool, space bool, length int) string {
 	var passString string = ""
@@ -32,10 +30,10 @@ func Password(lower bool, upper bool, numeric bool, special bool, space bool, le
 		passString = lowerStr + numericStr
 	}
 
-	var passBytes = make([]byte, length)
-	rand.Read(passBytes)
-	for i, b := range passBytes {
-		passBytes[i] = passString[b%byte(len(passString))]
+	passBytes := []byte(passString)
+	finalBytes := make([]byte, length)
+	for i := 0; i < length; i++ {
+		finalBytes[i] = passBytes[randIntRange(0, len(passBytes))]
 	}
-	return string(passBytes)
+	return string(finalBytes)
 }

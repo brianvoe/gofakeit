@@ -6,8 +6,9 @@ import (
 )
 
 func ExampleJob() {
+	Seed(11)
 	fmt.Println(Job())
-	// Output: Analyst
+	// Output: Director
 }
 
 func BenchmarkJob(b *testing.B) {
@@ -17,8 +18,9 @@ func BenchmarkJob(b *testing.B) {
 }
 
 func ExampleJobDescriptor() {
+	Seed(11)
 	fmt.Println(JobDescriptor())
-	// Output: Internal
+	// Output: Central
 }
 
 func BenchmarkJobDescriptor(b *testing.B) {
@@ -28,6 +30,7 @@ func BenchmarkJobDescriptor(b *testing.B) {
 }
 
 func ExampleJobLevel() {
+	Seed(11)
 	fmt.Println(JobLevel())
 	// Output: Assurance
 }

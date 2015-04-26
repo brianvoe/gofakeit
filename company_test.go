@@ -6,8 +6,9 @@ import (
 )
 
 func ExampleCompany() {
+	Seed(11)
 	fmt.Println(Company())
-	// Output: Bauch-Ritchie
+	// Output: Moen, Pagac and Wuckert
 }
 
 func BenchmarkCompany(b *testing.B) {
@@ -17,6 +18,7 @@ func BenchmarkCompany(b *testing.B) {
 }
 
 func ExampleCompanySuffix() {
+	Seed(11)
 	fmt.Println(CompanySuffix())
 	// Output: Inc
 }
@@ -28,8 +30,9 @@ func BenchmarkCompanySuffix(b *testing.B) {
 }
 
 func ExampleBuzzWord() {
+	Seed(11)
 	fmt.Println(BuzzWord())
-	// Output: Triple-buffered
+	// Output: disintermediate
 }
 
 func BenchmarkBuzzWord(b *testing.B) {
@@ -39,8 +42,9 @@ func BenchmarkBuzzWord(b *testing.B) {
 }
 
 func ExampleBS() {
+	Seed(11)
 	fmt.Println(BS())
-	// Output: distributed
+	// Output: front-end
 }
 
 func BenchmarkBS(b *testing.B) {

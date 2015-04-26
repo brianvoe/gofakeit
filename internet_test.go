@@ -6,8 +6,9 @@ import (
 )
 
 func ExampleDomainSuffix() {
+	Seed(11)
 	fmt.Println(DomainSuffix())
-	// Output: net
+	// Output: com
 }
 
 func BenchmarkDomainSuffix(b *testing.B) {
