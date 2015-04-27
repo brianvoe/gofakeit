@@ -1,7 +1,6 @@
 package gofakeit
 
 import (
-	crand "crypto/rand"
 	"math/rand"
 	"strconv"
 	"strings"
@@ -52,11 +51,6 @@ func randIntRange(min, max int) int {
 
 // Generate random letter
 func randLetter() string {
-	alpha := "abcdefghijklmnopqrstuvwxyz"
-	var bytes = make([]byte, 1)
-	crand.Read(bytes)
-	for i, b := range bytes {
-		bytes[i] = alpha[b%byte(len(alpha))]
-	}
-	return string(bytes)
+	alpha := []byte("abcdefghijklmnopqrstuvwxyz")
+	return string(alpha[randIntRange(0, 26)])
 }
