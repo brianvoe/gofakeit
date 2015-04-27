@@ -14,8 +14,9 @@ func TestGenerate(t *testing.T) {
 }
 
 func ExampleGenerate() {
+	Seed(11)
 	fmt.Println(Generate("{name.first} {name.last} lives at {address.number} {address.street_name} {address.street_suffix}"))
-	// Output: Estell Fay lives at 54407 Plaza berg
+	// Output: Markus Moen lives at 715 Garden mouth
 }
 
 func BenchmarkGenerate(b *testing.B) {
