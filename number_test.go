@@ -28,3 +28,15 @@ func BenchmarkNumerify(b *testing.B) {
 		Numerify("###-###-####")
 	}
 }
+
+func ExampleSliceInt() {
+	Seed(11)
+	fmt.Println(SliceInt([]int{52, 854, 941, 74125, 8413, 777, 89416, 841657}))
+	// Output: 52
+}
+
+func BenchmarkSliceInt(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		SliceInt([]int{52, 854, 941, 74125, 8413, 777, 89416, 841657})
+	}
+}

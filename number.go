@@ -9,3 +9,8 @@ func Number(min int, max int) int {
 func Numerify(str string) string {
 	return replaceWithNumbers(str)
 }
+
+// Return Random Int From Slice of Ints
+func SliceInt(slice []int) int {
+	return slice[randIntRange(0, len(slice))]
+}
