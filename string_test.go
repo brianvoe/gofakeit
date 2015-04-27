@@ -29,14 +29,14 @@ func BenchmarkLexify(b *testing.B) {
 	}
 }
 
-func ExampleSlice() {
+func ExampleSliceString() {
 	Seed(11)
-	fmt.Println(Slice([]string{"happy", "times", "for", "everyone", "have", "a", "good", "day"}))
+	fmt.Println(SliceString([]string{"happy", "times", "for", "everyone", "have", "a", "good", "day"}))
 	// Output: happy
 }
 
-func BenchmarkSlice(b *testing.B) {
+func BenchmarkSliceString(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Slice([]string{"happy", "times", "for", "everyone", "have", "a", "good", "day"})
+		SliceString([]string{"happy", "times", "for", "everyone", "have", "a", "good", "day"})
 	}
 }

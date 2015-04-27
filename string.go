@@ -11,6 +11,6 @@ func Lexify(str string) string {
 }
 
 // Return Random String From Slice of Strings
-func Slice(slice []string) string {
+func SliceString(slice []string) string {
 	return slice[randIntRange(0, len(slice))]
 }
