@@ -3,11 +3,33 @@ package gofakeit
 import (
 	"fmt"
 	"math/rand"
+	"strings"
 )
+
+// Generate Domain Name
+func DomainName() string {
+	return strings.ToLower(JobDescriptor()+BS()) + "." + DomainSuffix()
+}
 
 // Generate Domain Suffix
 func DomainSuffix() string {
 	return getRandValue([]string{"internet", "domain_suffix"})
+}
+
+// Generate Url
+func Url() string {
+	url := "http" + SliceString([]string{"s", ""}) + "://www."
+	url += DomainName()
+
+	// Slugs
+	num := Number(1, 4)
+	slug := make([]string, num)
+	for i := 0; i < num; i++ {
+		slug[i] = BS()
+	}
+	url += "/" + strings.ToLower(strings.Join(slug, "/"))
+
+	return url
 }
 
 // Generate IP Version 4

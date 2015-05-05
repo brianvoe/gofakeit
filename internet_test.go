@@ -5,6 +5,18 @@ import (
 	"testing"
 )
 
+func ExampleDomainName() {
+	Seed(11)
+	fmt.Println(DomainName())
+	// Output: centraltarget.org
+}
+
+func BenchmarkDomainName(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		DomainName()
+	}
+}
+
 func ExampleDomainSuffix() {
 	Seed(11)
 	fmt.Println(DomainSuffix())
@@ -14,6 +26,18 @@ func ExampleDomainSuffix() {
 func BenchmarkDomainSuffix(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		DomainSuffix()
+	}
+}
+
+func ExampleUrl() {
+	Seed(11)
+	fmt.Println(Url())
+	// Output: https://www.nationalseamless.net/iterate/streamline/systems
+}
+
+func BenchmarkUrl(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Url()
 	}
 }
 
