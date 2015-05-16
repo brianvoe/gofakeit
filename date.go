@@ -17,14 +17,14 @@ func Month() string {
 	return time.Month(Number(1, 12)).String()
 }
 
-// Generate Random Day
+// Generate Random Day, 1 - 31
 func Day() int {
 	return Number(1, 31)
 }
 
-// Generate Random Year
+// Generate Random Year, 1900 - current year
 func Year() int {
-	return Number(1900, 2015)
+	return Number(1900, time.Now().Year())
 }
 
 // Generate Random Hour
