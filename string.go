@@ -1,5 +1,7 @@
 package gofakeit
 
+import "math/rand"
+
 // Generate Random Lower Case Letter
 func Letter() string {
 	return randLetter()
@@ -10,7 +12,12 @@ func Lexify(str string) string {
 	return replaceWithLetters(str)
 }
 
-// Return Random String From Slice of Strings
-func SliceString(slice []string) string {
-	return slice[randIntRange(0, len(slice))]
+// Randomize []string
+func ShuffleStrings(str []string) []string {
+	final := make([]string, len(str))
+	perm := rand.Perm(len(str))
+	for i, v := range perm {
+		final[v] = str[i]
+	}
+	return final
 }

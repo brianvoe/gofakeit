@@ -29,14 +29,14 @@ func BenchmarkLexify(b *testing.B) {
 	}
 }
 
-func ExampleSliceString() {
+func ExampleShuffleStrings() {
 	Seed(11)
-	fmt.Println(SliceString([]string{"happy", "times", "for", "everyone", "have", "a", "good", "day"}))
-	// Output: happy
+	fmt.Println(ShuffleStrings([]string{"happy", "times", "for", "everyone", "have", "a", "good", "day"}))
+	// Output: [good a for happy have times everyone day]
 }
 
-func BenchmarkSliceString(b *testing.B) {
+func BenchmarkShuffleStrings(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		SliceString([]string{"happy", "times", "for", "everyone", "have", "a", "good", "day"})
+		ShuffleStrings([]string{"happy", "times", "for", "everyone", "have", "a", "good", "day"})
 	}
 }

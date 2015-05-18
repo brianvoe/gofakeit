@@ -32,7 +32,7 @@ func BenchmarkDomainSuffix(b *testing.B) {
 func ExampleUrl() {
 	Seed(11)
 	fmt.Println(Url())
-	// Output: https://www.nationalseamless.net/iterate/streamline/systems
+	// Output: https://www.futurefunctionalities.info/streamline/systems
 }
 
 func BenchmarkUrl(b *testing.B) {
