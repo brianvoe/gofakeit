@@ -29,14 +29,14 @@ func BenchmarkNumerify(b *testing.B) {
 	}
 }
 
-func ExampleSliceInt() {
+func ExampleShuffleInts() {
 	Seed(11)
-	fmt.Println(SliceInt([]int{52, 854, 941, 74125, 8413, 777, 89416, 841657}))
-	// Output: 52
+	fmt.Println(ShuffleInts([]int{52, 854, 941, 74125, 8413, 777, 89416, 841657}))
+	// Output: [89416 777 941 52 8413 854 74125 841657]
 }
 
-func BenchmarkSliceInt(b *testing.B) {
+func BenchmarkShuffleInts(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		SliceInt([]int{52, 854, 941, 74125, 8413, 777, 89416, 841657})
+		ShuffleInts([]int{52, 854, 941, 74125, 8413, 777, 89416, 841657})
 	}
 }
