@@ -54,4 +54,21 @@ var Data = map[string]map[string][]string{
 		"mac_processor":    {"Intel", "PPC", "U; Intel", "U; PPC"},
 		"windows_platform": {"Windows NT 6.2", "Windows NT 6.1", "Windows NT 6.0", "Windows NT 5.2", "Windows NT 5.1", "Windows NT 5.01", "Windows NT 5.0", "Windows NT 4.0", "Windows 98; Win 9x 4.90", "Windows 98", "Windows 95", "Windows CE"},
 	},
+	"payment": {
+		"card_type": {"Visa", "MasterCard", "American Express", "Discover"},
+		"number": {
+			// Visa
+			"4###############",
+			"4###############",
+			// Mastercard
+			"222100##########",
+			"272099##########",
+			// American Express
+			"34#############",
+			"37#############",
+			// Discover
+			"65##############",
+			"65##############",
+		},
+	},
 }
