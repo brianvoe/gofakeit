@@ -1,0 +1,6 @@
+* Build/Replace Universal Unique Identifier [Wiki](https://en.wikipedia.org/wiki/Universally%20unique%20identifier)
+* SSN(Social Security Number) ###-###-####
+* Struct Groups. Ex: Person struct {name: gofakeit.FirstName()+' '+gofakeit.LastName()}
+* Take a look at [chance.js](http://chancejs.com/) and see if i missed anything.
+* Look into [National Baby Name List](http://www.ssa.gov/oact/babynames/limits.html) and see if that makes sense to replace over what we currently have.
+* Look at [data list](https://github.com/dariusk/corpora/tree/master/data) and see if it makes sense to add that data in or if it seems unncessary.
