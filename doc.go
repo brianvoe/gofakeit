@@ -1,6 +1,8 @@
 /*
 Go Fake It
 
-Examples set seed in order for test to successfully return same results. In actual use you only need to set seed once.
+Fake Data Generator. A large goal is to keep things extremely simple, clean, self contained, tested and documented.
+
+Contributions are welcome as im sure things can always be better.
 */
 package gofakeit
