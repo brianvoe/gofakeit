@@ -5,9 +5,34 @@ import (
 	"strings"
 )
 
-// Generate Address
-func Address() string {
-	return Street() + ", " + City() + ", " + State() + " " + Zip()
+type AddressInfo struct {
+	Address   string
+	Street    string
+	City      string
+	State     string
+	Zip       string
+	Country   string
+	Latitude  float64
+	Longitude float64
+}
+
+// Generate Address struct
+func Address() *AddressInfo {
+	street := Street()
+	city := City()
+	state := State()
+	zip := Zip()
+
+	return &AddressInfo{
+		Address:   street + ", " + city + ", " + state + " " + zip,
+		Street:    street,
+		City:      city,
+		State:     state,
+		Zip:       zip,
+		Country:   Country(),
+		Latitude:  Latitude(),
+		Longitude: Longitude(),
+	}
 }
 
 // Generate Street

@@ -7,7 +7,7 @@ func Example() {
 	fmt.Println("Name:", Name())
 	fmt.Println("Email:", Email())
 	fmt.Println("Phone:", Phone())
-	fmt.Println("Address:", Address())
+	fmt.Println("Address:", Address().Address)
 	// Output:
 	// Name: Markus Moen
 	// Email: alaynawuckert@kozey.biz

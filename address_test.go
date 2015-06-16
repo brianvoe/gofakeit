@@ -7,8 +7,23 @@ import (
 
 func ExampleAddress() {
 	Seed(11)
-	fmt.Println(Address())
+	address := Address()
+	fmt.Println(address.Address)
+	fmt.Println(address.Street)
+	fmt.Println(address.City)
+	fmt.Println(address.State)
+	fmt.Println(address.Zip)
+	fmt.Println(address.Country)
+	fmt.Println(address.Latitude)
+	fmt.Println(address.Longitude)
 	// Output: 872 East Rapids borough, Andrestad, New Jersey 74853-6757
+	// 872 East Rapids borough
+	// Andrestad
+	// New Jersey
+	// 74853-6757
+	// Tajikistan
+	// -37.581128692020386
+	// -68.9641386085956
 }
 
 func BenchmarkAddress(b *testing.B) {
