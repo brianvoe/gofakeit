@@ -4,6 +4,18 @@ import (
 	"strings"
 )
 
+type ContactInfo struct {
+	Phone string
+	Email string
+}
+
+func Contact() *ContactInfo {
+	return &ContactInfo{
+		Phone: Phone(),
+		Email: Email(),
+	}
+}
+
 // Generate Phone Number
 func Phone() string {
 	return replaceWithNumbers(getRandValue([]string{"contact", "phone"}))
