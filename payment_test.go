@@ -5,6 +5,25 @@ import (
 	"testing"
 )
 
+func ExampleCreditCard() {
+	Seed(11)
+	ccInfo := CreditCard()
+	fmt.Println(ccInfo.Type)
+	fmt.Println(ccInfo.Number)
+	fmt.Println(ccInfo.Exp)
+	fmt.Println(ccInfo.Cvv)
+	// Output: Visa
+	// 6587271570245748
+	// 05/16
+	// 675
+}
+
+func BenchmarkCreditCard(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		CreditCard()
+	}
+}
+
 func ExampleCreditCardType() {
 	Seed(11)
 	fmt.Println(CreditCardType())

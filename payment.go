@@ -2,6 +2,22 @@ package gofakeit
 
 import "strconv"
 
+type CreditCardInfo struct {
+	Type   string
+	Number int
+	Exp    string
+	Cvv    string
+}
+
+func CreditCard() *CreditCardInfo {
+	return &CreditCardInfo{
+		Type:   CreditCardType(),
+		Number: CreditCardNumber(),
+		Exp:    CreditCardExp(),
+		Cvv:    CreditCardCvv(),
+	}
+}
+
 // Generate Random Credit Card Type
 func CreditCardType() string {
 	return getRandValue([]string{"payment", "card_type"})
