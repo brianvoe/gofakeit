@@ -12,5 +12,5 @@ func Example() {
 	// Name: Markus Moen
 	// Email: alaynawuckert@kozey.biz
 	// Phone: (570)245-7485
-	// Address: 75776 Lake View land, Rueckerstad, New Hampshire 82250-2868
+	// Address: 75776 Lake View land, Sterlingstad, New Hampshire 82250-2868
 }

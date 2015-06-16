@@ -20,13 +20,13 @@ func dataCheck(dataVal []string) bool {
 
 // Get Random Value
 func getRandValue(dataVal []string) string {
-	return Data[dataVal[0]][dataVal[1]][randIntRange(0, len(Data[dataVal[0]][dataVal[1]]))]
+	return Data[dataVal[0]][dataVal[1]][rand.Intn(len(Data[dataVal[0]][dataVal[1]]))]
 }
 
 // Replace # with numbers
 func replaceWithNumbers(str string) string {
 	for strings.Count(str, "#") > 0 {
-		str = strings.Replace(str, "#", strconv.Itoa(randIntRange(0, 9)), 1)
+		str = strings.Replace(str, "#", strconv.Itoa(rand.Intn(9)), 1)
 	}
 
 	return str
@@ -41,16 +41,16 @@ func replaceWithLetters(str string) string {
 	return str
 }
 
+// Generate random letter
+func randLetter() string {
+	alpha := []byte("abcdefghijklmnopqrstuvwxyz")
+	return string(alpha[rand.Intn(len(alpha))])
+}
+
 // Generate random integer between min and max
 func randIntRange(min, max int) int {
 	if min == max {
 		return min
 	}
-	return min + rand.Intn(max-min)
-}
-
-// Generate random letter
-func randLetter() string {
-	alpha := []byte("abcdefghijklmnopqrstuvwxyz")
-	return string(alpha[randIntRange(0, 26)])
+	return rand.Intn((max+1)-min) + min
 }

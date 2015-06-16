@@ -8,7 +8,7 @@ import (
 func ExampleUserAgent() {
 	Seed(11)
 	fmt.Println(UserAgent())
-	// Output: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/5321 (KHTML, like Gecko) Chrome/36.0.883.0 Mobile Safari/5321
+	// Output: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/5362 (KHTML, like Gecko) Chrome/37.0.834.0 Mobile Safari/5362
 }
 
 func BenchmarkUserAgent(b *testing.B) {
@@ -20,7 +20,7 @@ func BenchmarkUserAgent(b *testing.B) {
 func ExampleChromeUserAgent() {
 	Seed(11)
 	fmt.Println(ChromeUserAgent())
-	// Output: Mozilla/5.0 (X11; Linux i686) AppleWebKit/5311 (KHTML, like Gecko) Chrome/37.0.807.0 Mobile Safari/5311
+	// Output: Mozilla/5.0 (X11; Linux i686) AppleWebKit/5312 (KHTML, like Gecko) Chrome/39.0.836.0 Mobile Safari/5312
 }
 
 func BenchmarkChromeUserAgent(b *testing.B) {
@@ -32,7 +32,7 @@ func BenchmarkChromeUserAgent(b *testing.B) {
 func ExampleFirefoxUserAgent() {
 	Seed(11)
 	fmt.Println(FirefoxUserAgent())
-	// Output: Mozilla/5.0 (X11; Linux x86_64; rv:6.0) Gecko/1925-24-11 Firefox/36.0
+	// Output: Mozilla/5.0 (X11; Linux x86_64; rv:6.0) Gecko/1912-07-01 Firefox/37.0
 }
 
 func BenchmarkFirefoxUserAgent(b *testing.B) {
@@ -44,7 +44,7 @@ func BenchmarkFirefoxUserAgent(b *testing.B) {
 func ExampleSafariUserAgent() {
 	Seed(11)
 	fmt.Println(SafariUserAgent())
-	// Output: Mozilla/5.0 (Windows; U; Windows NT 6.1) AppleWebKit/531.2.2 (KHTML, like Gecko) Version/4.0 Safari/531.2.2
+	// Output: Mozilla/5.0 (Windows; U; Windows NT 6.1) AppleWebKit/531.15.6 (KHTML, like Gecko) Version/5.2 Safari/531.15.6
 }
 
 func BenchmarkSafariUserAgent(b *testing.B) {
@@ -56,7 +56,7 @@ func BenchmarkSafariUserAgent(b *testing.B) {
 func ExampleOperaUserAgent() {
 	Seed(11)
 	fmt.Println(OperaUserAgent())
-	// Output: Opera/9.57 (X11; Linux i686; en-US) Presto/2.12.298 Version/12.00
+	// Output: Opera/9.15 (X11; Linux i686; en-US) Presto/2.12.262 Version/11.00
 }
 
 func BenchmarkOperaUserAgent(b *testing.B) {

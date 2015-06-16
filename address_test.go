@@ -16,9 +16,9 @@ func ExampleAddress() {
 	fmt.Println(address.Country)
 	fmt.Println(address.Latitude)
 	fmt.Println(address.Longitude)
-	// Output: 872 East Rapids borough, Andrestad, New Jersey 74853-6757
+	// Output: 872 East Rapids borough, Rutherfordstad, New Jersey 74853-6757
 	// 872 East Rapids borough
-	// Andrestad
+	// Rutherfordstad
 	// New Jersey
 	// 74853-6757
 	// Tajikistan

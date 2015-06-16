@@ -27,7 +27,7 @@ func Year() int {
 	return Number(1900, time.Now().Year())
 }
 
-// Generate Random Hour
+// Generate Random Hour - in military time
 func Hour() int {
 	return Number(0, 23)
 }

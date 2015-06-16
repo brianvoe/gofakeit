@@ -9,7 +9,7 @@ import (
 func ExampleDate() {
 	Seed(11)
 	fmt.Println(Date())
-	// Output: 1925-11-24 22:58:31.68533903 +0000 UTC
+	// Output: 1912-01-07 04:14:25.685339029 +0000 UTC
 }
 
 func BenchmarkDate(b *testing.B) {
@@ -45,7 +45,7 @@ func BenchmarkMonth(b *testing.B) {
 func ExampleDay() {
 	Seed(11)
 	fmt.Println(Day())
-	// Output: 1
+	// Output: 12
 }
 
 func BenchmarkDay(b *testing.B) {
@@ -57,7 +57,7 @@ func BenchmarkDay(b *testing.B) {
 func ExampleYear() {
 	Seed(11)
 	fmt.Println(Year())
-	// Output: 1925
+	// Output: 1912
 }
 
 func BenchmarkYear(b *testing.B) {
@@ -69,7 +69,7 @@ func BenchmarkYear(b *testing.B) {
 func ExampleHour() {
 	Seed(11)
 	fmt.Println(Hour())
-	// Output: 2
+	// Output: 0
 }
 
 func BenchmarkHour(b *testing.B) {
@@ -81,7 +81,7 @@ func BenchmarkHour(b *testing.B) {
 func ExampleMinute() {
 	Seed(11)
 	fmt.Println(Minute())
-	// Output: 19
+	// Output: 0
 }
 
 func BenchmarkMinute(b *testing.B) {
@@ -93,7 +93,7 @@ func BenchmarkMinute(b *testing.B) {
 func ExampleSecond() {
 	Seed(11)
 	fmt.Println(Second())
-	// Output: 19
+	// Output: 0
 }
 
 func BenchmarkSecond(b *testing.B) {

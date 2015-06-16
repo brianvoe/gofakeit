@@ -1,10 +1,8 @@
 package gofakeit
 
-import "math/rand"
-
 // Generate Random Boolean value
 func Bool() bool {
-	if rand.Intn(2) == 1 {
+	if randIntRange(0, 1) == 1 {
 		return true
 	}
 

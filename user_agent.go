@@ -4,7 +4,7 @@ import "strconv"
 
 // Generate Random User Agent
 func UserAgent() string {
-	randNum := randIntRange(0, 4)
+	randNum := randIntRange(0, 3)
 	switch randNum {
 	case 0:
 		return ChromeUserAgent()

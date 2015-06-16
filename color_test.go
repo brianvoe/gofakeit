@@ -44,7 +44,7 @@ func BenchmarkHexColor(b *testing.B) {
 func ExampleRGBColor() {
 	Seed(11)
 	fmt.Println(RGBColor())
-	// Output: [225 116 203]
+	// Output: [152 23 53]
 }
 
 func BenchmarkRGBColor(b *testing.B) {

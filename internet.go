@@ -82,7 +82,7 @@ func Password(lower bool, upper bool, numeric bool, special bool, space bool, le
 	passBytes := []byte(passString)
 	finalBytes := make([]byte, length)
 	for i := 0; i < length; i++ {
-		finalBytes[i] = passBytes[randIntRange(0, len(passBytes))]
+		finalBytes[i] = passBytes[rand.Intn(len(passBytes))]
 	}
 	return string(finalBytes)
 }

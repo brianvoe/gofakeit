@@ -8,7 +8,7 @@ import (
 func ExampleNumber() {
 	Seed(11)
 	fmt.Println(Number(50, 23456))
-	// Output: 23258
+	// Output: 14866
 }
 
 func BenchmarkNumber(b *testing.B) {
