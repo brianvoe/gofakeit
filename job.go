@@ -1,7 +1,24 @@
 package gofakeit
 
-// Generate Job
-func Job() string {
+type JobInfo struct {
+	Company    string
+	Title      string
+	Descriptor string
+	Level      string
+}
+
+// Generate JobInfo Struct
+func Job() *JobInfo {
+	return &JobInfo{
+		Company:    Company(),
+		Title:      JobTitle(),
+		Descriptor: JobDescriptor(),
+		Level:      JobLevel(),
+	}
+}
+
+// Generate Job Title
+func JobTitle() string {
 	return getRandValue([]string{"job", "title"})
 }
 
