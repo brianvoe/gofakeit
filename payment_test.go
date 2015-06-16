@@ -28,3 +28,27 @@ func BenchmarkCreditCardNumber(b *testing.B) {
 		CreditCardNumber()
 	}
 }
+
+func ExampleCreditCardExp() {
+	Seed(11)
+	fmt.Println(CreditCardExp())
+	// Output: 01/16
+}
+
+func BenchmarkCreditCardExp(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		CreditCardExp()
+	}
+}
+
+func ExampleCreditCardCvv() {
+	Seed(11)
+	fmt.Println(CreditCardCvv())
+	// Output: 328
+}
+
+func BenchmarkCreditCardCvv(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		CreditCardCvv()
+	}
+}
