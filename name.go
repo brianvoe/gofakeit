@@ -1,26 +1,26 @@
 package gofakeit
 
-// Generate First and Last Name
+// Name will generate a random First and Last Name
 func Name() string {
 	return getRandValue([]string{"name", "first"}) + " " + getRandValue([]string{"name", "last"})
 }
 
-// Generate First Name
+// FirstName will generate a random first name
 func FirstName() string {
 	return getRandValue([]string{"name", "first"})
 }
 
-// Generate Last Name
+// LastName will generate a random last name
 func LastName() string {
 	return getRandValue([]string{"name", "last"})
 }
 
-// Ganerate Name Prefix
-func PrefixName() string {
+// NamePrefix will generate a random name prefix
+func NamePrefix() string {
 	return getRandValue([]string{"name", "prefix"})
 }
 
-// Generate Suffix Name
-func SuffixName() string {
+// NameSuffix will generate a random name suffix
+func NameSuffix() string {
 	return getRandValue([]string{"name", "suffix"})
 }

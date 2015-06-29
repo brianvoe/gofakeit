@@ -1,6 +1,6 @@
 package gofakeit
 
-// Generate Company Name
+// Company will generate a random company name string
 func Company() (company string) {
 	switch randInt := randIntRange(1, 3); randInt {
 	case 1:
@@ -14,17 +14,17 @@ func Company() (company string) {
 	return
 }
 
-// Generate Company Suffix
+// CompanySuffix will generate a random company suffix string
 func CompanySuffix() string {
 	return getRandValue([]string{"company", "suffix"})
 }
 
-// Generate Company Buzzword
+// BuzzWord will generate a random company buzz word string
 func BuzzWord() string {
 	return getRandValue([]string{"company", "buzzwords"})
 }
 
-// Generate Company BS
+// BS will generate a random company bs string
 func BS() string {
 	return getRandValue([]string{"company", "bs"})
 }

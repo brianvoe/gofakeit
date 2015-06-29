@@ -5,22 +5,22 @@ import (
 	"testing"
 )
 
-func TestUniqueId(t *testing.T) {
-	id := UniqueId()
+func TestUniqueID(t *testing.T) {
+	id := UniqueID()
 
 	if len(id) != 32 {
 		t.Error("unique length does not equal requested length")
 	}
 }
 
-func ExampleUniqueId() {
+func ExampleUniqueID() {
 	Seed(11)
-	fmt.Println(UniqueId())
+	fmt.Println(UniqueID())
 	// Output: Q3LewXJfQuPrnLiduMnTnQcsGJ1NqBmv
 }
 
-func BenchmarkUniqueId(b *testing.B) {
+func BenchmarkUniqueID(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		UniqueId()
+		UniqueID()
 	}
 }

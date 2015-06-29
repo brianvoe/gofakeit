@@ -4,11 +4,13 @@ import (
 	"strings"
 )
 
+// ContactInfo struct full of contact info
 type ContactInfo struct {
 	Phone string
 	Email string
 }
 
+// Contact will generate a struct with information randomly populated contact information
 func Contact() *ContactInfo {
 	return &ContactInfo{
 		Phone: Phone(),
@@ -16,12 +18,12 @@ func Contact() *ContactInfo {
 	}
 }
 
-// Generate Phone Number
+// Phone will generate a random phone number string
 func Phone() string {
 	return replaceWithNumbers(getRandValue([]string{"contact", "phone"}))
 }
 
-// Generate Email
+// Email will generate a random email string
 func Email() string {
 	var email string
 

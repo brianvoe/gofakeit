@@ -2,6 +2,7 @@ package gofakeit
 
 import "strconv"
 
+// CreditCardInfo is a struct containing credit variables
 type CreditCardInfo struct {
 	Type   string
 	Number int
@@ -9,6 +10,7 @@ type CreditCardInfo struct {
 	Cvv    string
 }
 
+// CreditCard will generate a struct full of credit card information
 func CreditCard() *CreditCardInfo {
 	return &CreditCardInfo{
 		Type:   CreditCardType(),
@@ -18,18 +20,18 @@ func CreditCard() *CreditCardInfo {
 	}
 }
 
-// Generate Random Credit Card Type
+// CreditCardType will generate a random credit card type string
 func CreditCardType() string {
 	return getRandValue([]string{"payment", "card_type"})
 }
 
-// Generate Random Credit Card Number
+// CreditCardNumber will generate a random credit card number int
 func CreditCardNumber() int {
 	integer, _ := strconv.Atoi(replaceWithNumbers(getRandValue([]string{"payment", "number"})))
 	return integer
 }
 
-// Generate Random Credit Card Expiration Date
+// CreditCardExp will generate a random credit card expiration date string
 func CreditCardExp() string {
 	month := strconv.Itoa(randIntRange(1, 12))
 	if len(month) == 1 {
@@ -38,7 +40,7 @@ func CreditCardExp() string {
 	return month + "/" + strconv.Itoa(randIntRange(15, 20))
 }
 
-// Generate Random CVV - Its a string because you could have 017 as an exp date
+// CreditCardCvv will generate a random CVV number - Its a string because you could have 017 as an exp date
 func CreditCardCvv() string {
 	return Numerify("###")
 }

@@ -29,15 +29,15 @@ func BenchmarkDomainSuffix(b *testing.B) {
 	}
 }
 
-func ExampleUrl() {
+func ExampleURL() {
 	Seed(11)
-	fmt.Println(Url())
+	fmt.Println(URL())
 	// Output: https://www.futurefunctionalities.info/streamline/systems
 }
 
-func BenchmarkUrl(b *testing.B) {
+func BenchmarkURL(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Url()
+		URL()
 	}
 }
 

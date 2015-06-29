@@ -2,47 +2,47 @@ package gofakeit
 
 import "time"
 
-// Generate Random Date
+// Date will generate a random time.Time struct
 func Date() time.Time {
 	return time.Date(Year(), time.Month(Number(0, 12)), Day(), Hour(), Minute(), Second(), NanoSecond(), time.UTC)
 }
 
-// Generate Random Date From Given Range
+// DateRange will generate a random time.Time struct between a start and end date
 func DateRange(start, end time.Time) time.Time {
 	return time.Unix(0, int64(Number(int(start.UnixNano()), int(end.UnixNano()))))
 }
 
-// Generate Random Month
+// Month will generate a random month string
 func Month() string {
 	return time.Month(Number(1, 12)).String()
 }
 
-// Generate Random Day, 1 - 31
+// Day will generate a random day between 1 - 31
 func Day() int {
 	return Number(1, 31)
 }
 
-// Generate Random Year, 1900 - current year
+// Year will generate a random year bewteen 1900 - current year
 func Year() int {
 	return Number(1900, time.Now().Year())
 }
 
-// Generate Random Hour - in military time
+// Hour will generate a random hour - in military time
 func Hour() int {
 	return Number(0, 23)
 }
 
-// Generate Random Minute
+// Minute will generate a random minute
 func Minute() int {
 	return Number(0, 59)
 }
 
-// Generate Random Second
+// Second will generate a random second
 func Second() int {
 	return Number(0, 59)
 }
 
-// Generate Random Nano Second
+// NanoSecond will generate a random nano second
 func NanoSecond() int {
 	return Number(0, 999999999)
 }

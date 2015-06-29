@@ -2,4 +2,4 @@
 Fake info generator written in go
 
 ## Documentation
-See [GoDoc](http://godoc.org/github.com/brianvoe/gofakeit)
+[![GoDoc](https://godoc.org/github.com/brianvoe/gofakeit?status.svg)](https://godoc.org/github.com/brianvoe/gofakeit)

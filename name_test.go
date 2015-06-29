@@ -41,26 +41,26 @@ func BenchmarkLastName(b *testing.B) {
 	}
 }
 
-func ExamplePrefixName() {
+func ExampleNamePrefix() {
 	Seed(11)
-	fmt.Println(PrefixName())
+	fmt.Println(NamePrefix())
 	// Output: Mr.
 }
 
-func BenchmarkPrefixName(b *testing.B) {
+func BenchmarkNamePrefix(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		PrefixName()
+		NamePrefix()
 	}
 }
 
-func ExampleSuffixName() {
+func ExampleNameSuffix() {
 	Seed(11)
-	fmt.Println(SuffixName())
+	fmt.Println(NameSuffix())
 	// Output: Jr.
 }
 
-func BenchmarkSuffixName(b *testing.B) {
+func BenchmarkNameSuffix(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		SuffixName()
+		NameSuffix()
 	}
 }

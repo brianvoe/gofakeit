@@ -5,6 +5,7 @@ import (
 	"strings"
 )
 
+// AddressInfo is a struct full of address information
 type AddressInfo struct {
 	Address   string
 	Street    string
@@ -16,7 +17,7 @@ type AddressInfo struct {
 	Longitude float64
 }
 
-// Generate Address struct
+// Address will generate a struct of address information
 func Address() *AddressInfo {
 	street := Street()
 	city := City()
@@ -35,7 +36,7 @@ func Address() *AddressInfo {
 	}
 }
 
-// Generate Street
+// Street will generate a random address street string
 func Street() (street string) {
 	switch randInt := randIntRange(1, 2); randInt {
 	case 1:
@@ -47,27 +48,27 @@ func Street() (street string) {
 	return
 }
 
-// Generate Street Number
+// StreetNumber will generate a random address street number string
 func StreetNumber() string {
 	return strings.TrimLeft(replaceWithNumbers(getRandValue([]string{"address", "number"})), "0")
 }
 
-// Generate Street Prefix
+// StreetPrefix will generate a random address street prefix string
 func StreetPrefix() string {
 	return getRandValue([]string{"address", "street_prefix"})
 }
 
-// Generate Street Name
+// StreetName will generate a random address street name string
 func StreetName() string {
 	return getRandValue([]string{"address", "street_name"})
 }
 
-// Generate Street Suffix
+// StreetSuffix will generate a random address street suffix string
 func StreetSuffix() string {
 	return getRandValue([]string{"address", "street_suffix"})
 }
 
-// Generate City
+// City will generate a random city string
 func City() (city string) {
 	switch randInt := randIntRange(1, 3); randInt {
 	case 1:
@@ -81,28 +82,28 @@ func City() (city string) {
 	return
 }
 
-// Generate State
+// State will generate a random state string
 func State() string {
 	return getRandValue([]string{"address", "state"})
 }
 
-// Generate Abreviated State
+// StateAbr will generate a random abreviated state string
 func StateAbr() string {
 	return getRandValue([]string{"address", "state_abr"})
 }
 
-// Generate Zip Code
+// Zip will generate a random Zip code string
 func Zip() string {
 	return replaceWithNumbers(getRandValue([]string{"address", "zip"}))
 }
 
-// Generate Country
+// Country will generate a random country string
 func Country() string {
 	return getRandValue([]string{"address", "country"})
 }
 
-// Generate Latitude
+// Latitude will generate a random latitude float64
 func Latitude() float64 { return (rand.Float64() * 180) - 90 }
 
-// Generate Latitude
+// Longitude will generate a random longitude float64
 func Longitude() float64 { return (rand.Float64() * 360) - 180 }

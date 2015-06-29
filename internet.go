@@ -6,18 +6,18 @@ import (
 	"strings"
 )
 
-// Generate Domain Name
+// DomainName will generate a random url domain name
 func DomainName() string {
 	return strings.ToLower(JobDescriptor()+BS()) + "." + DomainSuffix()
 }
 
-// Generate Domain Suffix
+// DomainSuffix will generate a random domain suffix
 func DomainSuffix() string {
 	return getRandValue([]string{"internet", "domain_suffix"})
 }
 
-// Generate Url
-func Url() string {
+// URL will generate a random url string
+func URL() string {
 	url := "http" + ShuffleStrings([]string{"s", ""})[0] + "://www."
 	url += DomainName()
 
@@ -32,31 +32,31 @@ func Url() string {
 	return url
 }
 
-// Generate IP Version 4
+// IPv4Address will generate a random version 4 ip address
 func IPv4Address() string {
 	num := func() int { return 2 + rand.Intn(254) }
 	return fmt.Sprintf("%d.%d.%d.%d", num(), num(), num(), num())
 }
 
-// Generate IP Version 6
+// IPv6Address will generate a random version 6 ip address
 func IPv6Address() string {
 	num := 65536
 	return fmt.Sprintf("2001:cafe:%x:%x:%x:%x:%x:%x", rand.Intn(num), rand.Intn(num), rand.Intn(num), rand.Intn(num), rand.Intn(num), rand.Intn(num))
 }
 
-// Generate Username
+// Username will genrate a random username based upon picking a random lastname and random numbers at the end
 func Username() string {
 	return getRandValue([]string{"name", "last"}) + replaceWithNumbers("####")
 }
 
-// Generator Password
+// Password will generate a random password
 func Password(lower bool, upper bool, numeric bool, special bool, space bool, length int) string {
-	var passString string = ""
-	var lowerStr string = "abcdefghijklmnopqrstuvwxyz"
-	var upperStr string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	var numericStr string = "0123456789"
-	var specialStr string = "!@#$%&?-_"
-	var spaceStr string = " "
+	var passString string
+	lowerStr := "abcdefghijklmnopqrstuvwxyz"
+	upperStr := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	numericStr := "0123456789"
+	specialStr := "!@#$%&?-_"
+	spaceStr := " "
 
 	if lower {
 		passString += lowerStr

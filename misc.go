@@ -8,7 +8,7 @@ import (
 
 // Check if in lib
 func dataCheck(dataVal []string) bool {
-	var checkOk bool = false
+	checkOk := false
 
 	_, checkOk = Data[dataVal[0]]
 	if len(dataVal) == 2 && checkOk {

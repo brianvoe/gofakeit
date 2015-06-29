@@ -1,11 +1,11 @@
 package gofakeit
 
-// Generate Random File Mime Type
+// MimeType will generate a random mime file type
 func MimeType() string {
 	return getRandValue([]string{"file", "mime_type"})
 }
 
-// Generate Random File Extension
+// Extension will generate a random file extension
 func Extension() string {
 	return getRandValue([]string{"file", "extension"})
 }

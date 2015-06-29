@@ -1,10 +1,11 @@
 package gofakeit
 
-// Generate random Social Security Number
+// SSN will generate a random Social Security Number
 func SSN() string {
 	return Numerify("###-###-####")
 }
 
+// Gender will generate a random gender string
 func Gender() string {
 	if Bool() == true {
 		return "male"
@@ -13,6 +14,7 @@ func Gender() string {
 	return "female"
 }
 
+// PersonInfo is a struct of person information
 type PersonInfo struct {
 	FirstName  string
 	LastName   string
@@ -25,14 +27,14 @@ type PersonInfo struct {
 	CreditCard *CreditCardInfo
 }
 
-// Generate struct full of person information
+// Person will generate a struct with person information
 func Person() *PersonInfo {
 	return &PersonInfo{
 		FirstName:  FirstName(),
 		LastName:   LastName(),
 		Gender:     Gender(),
 		SSN:        SSN(),
-		Image:      ImageUrl(300, 300) + "/people",
+		Image:      ImageURL(300, 300) + "/people",
 		Job:        Job(),
 		Address:    Address(),
 		Contact:    Contact(),

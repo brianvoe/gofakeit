@@ -5,14 +5,14 @@ import (
 	"testing"
 )
 
-func ExampleImageUrl() {
+func ExampleImageURL() {
 	Seed(11)
-	fmt.Println(ImageUrl(640, 480))
+	fmt.Println(ImageURL(640, 480))
 	// Output: http://lorempixel.com/640/480
 }
 
-func BenchmarkImageUrl(b *testing.B) {
+func BenchmarkImageURL(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		ImageUrl(640, 480)
+		ImageURL(640, 480)
 	}
 }

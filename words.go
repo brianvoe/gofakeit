@@ -4,13 +4,12 @@ import (
 	"strings"
 )
 
-// Generate Random Word
+// Word will generate a random word
 func Word() string {
 	return getRandValue([]string{"lorem", "word"})
 }
 
-// Generate Random Sentence.
-// Set word count.
+// Sentence will generate a random sentence
 func Sentence(wordCount int) string {
 	words := []string{}
 	sentence := ""
@@ -22,11 +21,11 @@ func Sentence(wordCount int) string {
 	return strings.ToUpper(sentence[:1]) + sentence[1:] + "."
 }
 
-// Generate Random Paragraph.
-// Set Paragraph Count.
-// Set Sentence Count.
-// Set Word Count.
-// Set Paragraph Seperator.
+// Paragraph will generate a random paragraph
+// Set Paragraph Count
+// Set Sentence Count
+// Set Word Count
+// Set Paragraph Seperator
 func Paragraph(paragraphCount int, sentenceCount int, wordCount int, seperator string) string {
 	sentences := []string{}
 	paragraphs := []string{}

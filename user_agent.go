@@ -2,7 +2,7 @@ package gofakeit
 
 import "strconv"
 
-// Generate Random User Agent
+// UserAgent will generate a random broswer user agent
 func UserAgent() string {
 	randNum := randIntRange(0, 3)
 	switch randNum {
@@ -19,7 +19,7 @@ func UserAgent() string {
 	return ChromeUserAgent()
 }
 
-// Generate Random Chrome User Agent
+// ChromeUserAgent will generate a random chrome browser user agent string
 func ChromeUserAgent() string {
 	randNum1 := strconv.Itoa(randIntRange(531, 536)) + strconv.Itoa(randIntRange(0, 2))
 	randNum2 := strconv.Itoa(randIntRange(36, 40))
@@ -27,7 +27,7 @@ func ChromeUserAgent() string {
 	return "Mozilla/5.0 " + "(" + randomPlatform() + ") AppleWebKit/" + randNum1 + " (KHTML, like Gecko) Chrome/" + randNum2 + ".0." + randNum3 + ".0 Mobile Safari/" + randNum1
 }
 
-// Generate Random Firefox User Agent
+// FirefoxUserAgent will generate a random firefox broswer user agent string
 func FirefoxUserAgent() string {
 	ver := "Gecko/" + Date().Format("2006-02-01") + " Firefox/" + strconv.Itoa(randIntRange(35, 37)) + ".0"
 	platforms := []string{
@@ -39,7 +39,7 @@ func FirefoxUserAgent() string {
 	return "Mozilla/5.0 " + ShuffleStrings(platforms)[0]
 }
 
-// Generate Random Safari User Agent
+// SafariUserAgent will generate a random safari browser user agent string
 func SafariUserAgent() string {
 	randNum := strconv.Itoa(randIntRange(531, 536)) + "." + strconv.Itoa(randIntRange(1, 51)) + "." + strconv.Itoa(randIntRange(1, 8))
 	ver := strconv.Itoa(randIntRange(4, 6)) + "." + strconv.Itoa(randIntRange(0, 2))
@@ -58,28 +58,29 @@ func SafariUserAgent() string {
 	return "Mozilla/5.0 " + ShuffleStrings(platforms)[0]
 }
 
-// Generate Random Opera User Agent
+// OperaUserAgent will generate a random opera browser user agent string
 func OperaUserAgent() string {
 	platform := "(" + randomPlatform() + "; en-US) Presto/2." + strconv.Itoa(randIntRange(8, 13)) + "." + strconv.Itoa(randIntRange(160, 355)) + " Version/" + strconv.Itoa(randIntRange(10, 13)) + ".00"
 
 	return "Opera/" + strconv.Itoa(randIntRange(8, 10)) + "." + strconv.Itoa(randIntRange(10, 99)) + " " + platform
 }
 
-// Random linux platform
+// linuxPlatformToken will generate a random linux platform
 func linuxPlatformToken() string {
 	return "X11; Linux " + getRandValue([]string{"useragent", "linux_processor"})
 }
 
-// Random mac platform
+// macPlatformToken will generate a random mac platform
 func macPlatformToken() string {
 	return "Macintosh; " + getRandValue([]string{"useragent", "mac_processor"}) + " Mac OS X 10_" + strconv.Itoa(randIntRange(5, 9)) + "_" + strconv.Itoa(randIntRange(0, 10))
 }
 
-// Random windows platform
+// windowsPlatformToken will generate a random windows platform
 func windowsPlatformToken() string {
 	return getRandValue([]string{"useragent", "windows_platform"})
 }
 
+// randomPlatform will generate a random platform
 func randomPlatform() string {
 	platforms := []string{
 		linuxPlatformToken(),

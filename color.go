@@ -2,17 +2,17 @@ package gofakeit
 
 import "strings"
 
-// Generate Random Color
+// Color will generate a random color string
 func Color() string {
 	return getRandValue([]string{"color", "full"})
 }
 
-// Generate Random Safe Color
+// SafeColor will generate a random safe color string
 func SafeColor() string {
 	return getRandValue([]string{"color", "safe"})
 }
 
-// Generate Random Hex Color
+// HexColor will generate a random hexadecimal color string
 func HexColor() string {
 	color := ""
 	for i := 1; i <= 6; i++ {
@@ -30,7 +30,7 @@ func HexColor() string {
 	return "#" + color
 }
 
-// Generate Random RGB Color
+// RGBColor will generate a random int slice color
 func RGBColor() []int {
 	return []int{randIntRange(0, 255), randIntRange(0, 255), randIntRange(0, 255)}
 }

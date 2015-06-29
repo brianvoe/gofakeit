@@ -6,7 +6,7 @@ import (
 )
 
 func TestGenerate(t *testing.T) {
-	var numTests int = 100
+	numTests := 100
 
 	for i := 0; i < numTests; i++ {
 		Generate("{name.first} {name.last} {contact.email} #?#?#?")

@@ -2,17 +2,17 @@ package gofakeit
 
 import "math/rand"
 
-// Generate Random Number Between Min And Max Number
+// Number will generate a random number between given min And max
 func Number(min int, max int) int {
 	return randIntRange(min, max)
 }
 
-// Replace # With Random Numerical Values
+// Numerify will replace # with random numerical values
 func Numerify(str string) string {
 	return replaceWithNumbers(str)
 }
 
-// Randomize []int
+// ShuffleInts will randomize a slice of ints
 func ShuffleInts(ints []int) []int {
 	final := make([]int, len(ints))
 	perm := rand.Perm(len(ints))

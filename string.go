@@ -2,17 +2,17 @@ package gofakeit
 
 import "math/rand"
 
-// Generate Random Lower Case Letter
+// Letter will generate a single random lower case letter
 func Letter() string {
 	return randLetter()
 }
 
-// Generate Random Letters Replacing ? With Letters
+// Lexify will replace ? will random generated letters
 func Lexify(str string) string {
 	return replaceWithLetters(str)
 }
 
-// Randomize []string
+// ShuffleStrings will randomize a slice of strings
 func ShuffleStrings(str []string) []string {
 	final := make([]string, len(str))
 	perm := rand.Perm(len(str))
