@@ -22,7 +22,7 @@ func Day() int {
 	return Number(1, 31)
 }
 
-// Year will generate a random year bewteen 1900 - current year
+// Year will generate a random year between 1900 - current year
 func Year() int {
 	return Number(1900, time.Now().Year())
 }

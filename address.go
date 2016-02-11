@@ -87,7 +87,7 @@ func State() string {
 	return getRandValue([]string{"address", "state"})
 }
 
-// StateAbr will generate a random abreviated state string
+// StateAbr will generate a random abbreviated state string
 func StateAbr() string {
 	return getRandValue([]string{"address", "state_abr"})
 }

@@ -25,7 +25,7 @@ func Sentence(wordCount int) string {
 // Set Paragraph Count
 // Set Sentence Count
 // Set Word Count
-// Set Paragraph Seperator
+// Set Paragraph Separator
 func Paragraph(paragraphCount int, sentenceCount int, wordCount int, seperator string) string {
 	sentences := []string{}
 	paragraphs := []string{}
