@@ -26,7 +26,7 @@ func Sentence(wordCount int) string {
 // Set Sentence Count
 // Set Word Count
 // Set Paragraph Separator
-func Paragraph(paragraphCount int, sentenceCount int, wordCount int, seperator string) string {
+func Paragraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
 	sentences := []string{}
 	paragraphs := []string{}
 	for i := 0; i < paragraphCount; i++ {
@@ -37,5 +37,5 @@ func Paragraph(paragraphCount int, sentenceCount int, wordCount int, seperator s
 		paragraphs = append(paragraphs, strings.Join(sentences, " "))
 	}
 
-	return strings.Join(paragraphs, seperator)
+	return strings.Join(paragraphs, separator)
 }
