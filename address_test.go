@@ -16,8 +16,8 @@ func ExampleAddress() {
 	fmt.Println(address.Country)
 	fmt.Println(address.Latitude)
 	fmt.Println(address.Longitude)
-	// Output: 872 East Rapids borough, Rutherfordstad, New Jersey 74853-6757
-	// 872 East Rapids borough
+	// Output: 872 East Rapidsborough, Rutherfordstad, New Jersey 74853-6757
+	// 872 East Rapidsborough
 	// Rutherfordstad
 	// New Jersey
 	// 74853-6757
@@ -35,7 +35,7 @@ func BenchmarkAddress(b *testing.B) {
 func ExampleStreet() {
 	Seed(11)
 	fmt.Println(Street())
-	// Output: 872 East Rapids borough
+	// Output: 872 East Rapidsborough
 }
 
 func BenchmarkStreet(b *testing.B) {

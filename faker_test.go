@@ -1,6 +1,9 @@
 package gofakeit
 
-import "fmt"
+import (
+	"fmt"
+	"testing"
+)
 
 func Example() {
 	Seed(11)
@@ -12,5 +15,9 @@ func Example() {
 	// Name: Markus Moen
 	// Email: alaynawuckert@kozey.biz
 	// Phone: (570)245-7485
-	// Address: 75776 Lake View land, Sterlingstad, New Hampshire 82250-2868
+	// Address: 75776 Lake Viewland, Sterlingstad, New Hampshire 82250-2868
+}
+
+func TestSeed(t *testing.T) {
+	Seed(0)
 }

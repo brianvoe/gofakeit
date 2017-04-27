@@ -74,8 +74,8 @@ func ExamplePerson() {
 	// Director
 	// Forward
 	// Accounts
-	// 776 Roads haven, Hilllville, Montana 08225
-	// 776 Roads haven
+	// 776 Roadshaven, Hilllville, Montana 08225
+	// 776 Roadshaven
 	// Hilllville
 	// Montana
 	// 08225
