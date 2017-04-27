@@ -9,7 +9,7 @@ func Date() time.Time {
 
 // DateRange will generate a random time.Time struct between a start and end date
 func DateRange(start, end time.Time) time.Time {
-	return time.Unix(0, int64(Number(int(start.UnixNano()), int(end.UnixNano()))))
+	return time.Unix(0, int64(Number(int(start.UnixNano()), int(end.UnixNano())))).UTC()
 }
 
 // Month will generate a random month string

@@ -21,7 +21,7 @@ func BenchmarkDate(b *testing.B) {
 func ExampleDateRange() {
 	Seed(11)
 	fmt.Println(DateRange(time.Unix(0, 484633944473634951), time.Unix(0, 1431318744473668209))) // May 10, 1985 years to May 10, 2015
-	// Output: 2012-02-04 08:10:37.166933216 -0600 CST
+	// Output: 2012-02-04 14:10:37.166933216 +0000 UTC
 }
 
 func BenchmarkDateRange(b *testing.B) {
