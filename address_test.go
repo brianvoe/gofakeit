@@ -98,6 +98,12 @@ func ExampleCity() {
 	// Output: Marcelside
 }
 
+func TestCity(t *testing.T) {
+	for i := 0; i < 100; i++ {
+		City()
+	}
+}
+
 func BenchmarkCity(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		City()
