@@ -17,6 +17,12 @@ func BenchmarkCompany(b *testing.B) {
 	}
 }
 
+func TestCompany(t *testing.T) {
+	for i := 0; i < 100; i++ {
+		Company()
+	}
+}
+
 func ExampleCompanySuffix() {
 	Seed(11)
 	fmt.Println(CompanySuffix())

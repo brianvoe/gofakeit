@@ -85,6 +85,12 @@ func TestPassword(t *testing.T) {
 	if len(pass) != length {
 		t.Error("Password length does not equal requested length")
 	}
+
+	// Test fully empty
+	pass = Password(false, false, false, false, false, length)
+	if pass == "" {
+		t.Error("Password should not be empty")
+	}
 }
 
 func ExamplePassword() {

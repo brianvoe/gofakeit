@@ -4,7 +4,7 @@ import "strconv"
 
 // UserAgent will generate a random broswer user agent
 func UserAgent() string {
-	randNum := randIntRange(0, 3)
+	randNum := randIntRange(0, 4)
 	switch randNum {
 	case 0:
 		return ChromeUserAgent()
@@ -14,9 +14,9 @@ func UserAgent() string {
 		return SafariUserAgent()
 	case 3:
 		return OperaUserAgent()
+	default:
+		return ChromeUserAgent()
 	}
-
-	return ChromeUserAgent()
 }
 
 // ChromeUserAgent will generate a random chrome browser user agent string
