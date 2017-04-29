@@ -12,7 +12,7 @@ func Word() string {
 // Sentence will generate a random sentence
 func Sentence(wordCount int) string {
 	words := []string{}
-	sentence := ""
+	var sentence string
 	for i := 0; i < wordCount; i++ {
 		words = append(words, getRandValue([]string{"lorem", "word"}))
 	}
@@ -27,7 +27,7 @@ func Sentence(wordCount int) string {
 // Set Word Count
 // Set Paragraph Separator
 func Paragraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	sentences := []string{}
+	var sentences []string
 	paragraphs := []string{}
 	for i := 0; i < paragraphCount; i++ {
 		sentences = []string{}

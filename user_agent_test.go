@@ -17,6 +17,12 @@ func BenchmarkUserAgent(b *testing.B) {
 	}
 }
 
+func TestUserAgent(t *testing.T) {
+	for i := 0; i < 100; i++ {
+		UserAgent()
+	}
+}
+
 func ExampleChromeUserAgent() {
 	Seed(11)
 	fmt.Println(ChromeUserAgent())
