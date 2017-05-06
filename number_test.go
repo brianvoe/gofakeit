@@ -31,8 +31,11 @@ func BenchmarkNumerify(b *testing.B) {
 
 func ExampleShuffleInts() {
 	Seed(11)
-	fmt.Println(ShuffleInts([]int{52, 854, 941, 74125, 8413, 777, 89416, 841657}))
-	// Output: [89416 777 941 52 8413 854 74125 841657]
+
+	ints := []int{52, 854, 941, 74125, 8413, 777, 89416, 841657}
+	ShuffleInts(ints)
+	fmt.Println(ints)
+	// Output: [74125 777 941 89416 8413 854 52 841657]
 }
 
 func BenchmarkShuffleInts(b *testing.B) {

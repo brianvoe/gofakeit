@@ -18,7 +18,7 @@ func DomainSuffix() string {
 
 // URL will generate a random url string
 func URL() string {
-	url := "http" + ShuffleStrings([]string{"s", ""})[0] + "://www."
+	url := "http" + RandString([]string{"s", ""}) + "://www."
 	url += DomainName()
 
 	// Slugs

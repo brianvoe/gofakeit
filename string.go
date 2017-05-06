@@ -13,11 +13,14 @@ func Lexify(str string) string {
 }
 
 // ShuffleStrings will randomize a slice of strings
-func ShuffleStrings(str []string) []string {
-	final := make([]string, len(str))
-	perm := rand.Perm(len(str))
-	for i, v := range perm {
-		final[v] = str[i]
+func ShuffleStrings(a []string) {
+	for i := range a {
+		j := rand.Intn(i + 1)
+		a[i], a[j] = a[j], a[i]
 	}
-	return final
+}
+
+// RandString will take in a slice of string and return a randomly selected value
+func RandString(a []string) string {
+	return a[rand.Intn(len(a))]
 }

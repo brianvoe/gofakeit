@@ -13,11 +13,9 @@ func Numerify(str string) string {
 }
 
 // ShuffleInts will randomize a slice of ints
-func ShuffleInts(ints []int) []int {
-	final := make([]int, len(ints))
-	perm := rand.Perm(len(ints))
-	for i, v := range perm {
-		final[v] = ints[i]
+func ShuffleInts(a []int) {
+	for i := range a {
+		j := rand.Intn(i + 1)
+		a[i], a[j] = a[j], a[i]
 	}
-	return final
 }

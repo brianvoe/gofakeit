@@ -36,7 +36,7 @@ func FirefoxUserAgent() string {
 		"(" + macPlatformToken() + " rv:" + strconv.Itoa(randIntRange(2, 7)) + ".0) " + ver,
 	}
 
-	return "Mozilla/5.0 " + ShuffleStrings(platforms)[0]
+	return "Mozilla/5.0 " + RandString(platforms)
 }
 
 // SafariUserAgent will generate a random safari browser user agent string
@@ -52,10 +52,10 @@ func SafariUserAgent() string {
 	platforms := []string{
 		"(Windows; U; " + windowsPlatformToken() + ") AppleWebKit/" + randNum + " (KHTML, like Gecko) Version/" + ver + " Safari/" + randNum,
 		"(" + macPlatformToken() + " rv:" + strconv.Itoa(randIntRange(4, 7)) + ".0; en-US) AppleWebKit/" + randNum + " (KHTML, like Gecko) Version/" + ver + " Safari/" + randNum,
-		"(" + ShuffleStrings(mobileDevices)[0] + " " + strconv.Itoa(randIntRange(7, 9)) + "_" + strconv.Itoa(randIntRange(0, 3)) + "_" + strconv.Itoa(randIntRange(1, 3)) + " like Mac OS X; " + "en-US" + ") AppleWebKit/" + randNum + " (KHTML, like Gecko) Version/" + strconv.Itoa(randIntRange(3, 5)) + ".0.5 Mobile/8B" + strconv.Itoa(randIntRange(111, 120)) + " Safari/6" + randNum,
+		"(" + RandString(mobileDevices) + " " + strconv.Itoa(randIntRange(7, 9)) + "_" + strconv.Itoa(randIntRange(0, 3)) + "_" + strconv.Itoa(randIntRange(1, 3)) + " like Mac OS X; " + "en-US" + ") AppleWebKit/" + randNum + " (KHTML, like Gecko) Version/" + strconv.Itoa(randIntRange(3, 5)) + ".0.5 Mobile/8B" + strconv.Itoa(randIntRange(111, 120)) + " Safari/6" + randNum,
 	}
 
-	return "Mozilla/5.0 " + ShuffleStrings(platforms)[0]
+	return "Mozilla/5.0 " + RandString(platforms)
 }
 
 // OperaUserAgent will generate a random opera browser user agent string
@@ -88,5 +88,5 @@ func randomPlatform() string {
 		windowsPlatformToken(),
 	}
 
-	return ShuffleStrings(platforms)[0]
+	return RandString(platforms)
 }
