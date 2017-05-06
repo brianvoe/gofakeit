@@ -16,7 +16,7 @@ func SafeColor() string {
 func HexColor() string {
 	color := ""
 	for i := 1; i <= 6; i++ {
-		color += ShuffleStrings([]string{"?", "#"})[0]
+		color += RandString([]string{"?", "#"})
 	}
 
 	// Replace # with number
@@ -24,7 +24,7 @@ func HexColor() string {
 
 	// Replace ? with letter
 	for strings.Count(color, "?") > 0 {
-		color = strings.Replace(color, "?", ShuffleStrings([]string{"a", "b", "c", "d", "e", "f"})[0], 1)
+		color = strings.Replace(color, "?", RandString([]string{"a", "b", "c", "d", "e", "f"}), 1)
 	}
 
 	return "#" + color

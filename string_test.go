@@ -31,8 +31,10 @@ func BenchmarkLexify(b *testing.B) {
 
 func ExampleShuffleStrings() {
 	Seed(11)
-	fmt.Println(ShuffleStrings([]string{"happy", "times", "for", "everyone", "have", "a", "good", "day"}))
-	// Output: [good a for happy have times everyone day]
+	strings := []string{"happy", "times", "for", "everyone", "have", "a", "good", "day"}
+	ShuffleStrings(strings)
+	fmt.Println(strings)
+	// Output: [everyone a for good have times happy day]
 }
 
 func BenchmarkShuffleStrings(b *testing.B) {
