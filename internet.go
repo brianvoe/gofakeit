@@ -46,7 +46,7 @@ func IPv6Address() string {
 
 // Username will genrate a random username based upon picking a random lastname and random numbers at the end
 func Username() string {
-	return getRandValue([]string{"name", "last"}) + replaceWithNumbers("####")
+	return getRandValue([]string{"person", "last"}) + replaceWithNumbers("####")
 }
 
 // Password will generate a random password
