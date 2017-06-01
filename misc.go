@@ -20,6 +20,9 @@ func dataCheck(dataVal []string) bool {
 
 // Get Random Value
 func getRandValue(dataVal []string) string {
+	if !dataCheck(dataVal) {
+		return ""
+	}
 	return Data[dataVal[0]][dataVal[1]][rand.Intn(len(Data[dataVal[0]][dataVal[1]]))]
 }
 
