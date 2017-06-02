@@ -13,4 +13,5 @@ var Data = map[string]map[string][]string{
 	"color":    DataColors,
 	"computer": DataComputer,
 	"payment":  DataPayment,
+	"hipster":  DataHipster,
 }
