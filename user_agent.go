@@ -67,17 +67,17 @@ func OperaUserAgent() string {
 
 // linuxPlatformToken will generate a random linux platform
 func linuxPlatformToken() string {
-	return "X11; Linux " + getRandValue([]string{"useragent", "linux_processor"})
+	return "X11; Linux " + getRandValue([]string{"computer", "linux_processor"})
 }
 
 // macPlatformToken will generate a random mac platform
 func macPlatformToken() string {
-	return "Macintosh; " + getRandValue([]string{"useragent", "mac_processor"}) + " Mac OS X 10_" + strconv.Itoa(randIntRange(5, 9)) + "_" + strconv.Itoa(randIntRange(0, 10))
+	return "Macintosh; " + getRandValue([]string{"computer", "mac_processor"}) + " Mac OS X 10_" + strconv.Itoa(randIntRange(5, 9)) + "_" + strconv.Itoa(randIntRange(0, 10))
 }
 
 // windowsPlatformToken will generate a random windows platform
 func windowsPlatformToken() string {
-	return getRandValue([]string{"useragent", "windows_platform"})
+	return getRandValue([]string{"computer", "windows_platform"})
 }
 
 // randomPlatform will generate a random platform

@@ -16,5 +16,5 @@ gofakeit.Name() // Markus Moen
 gofakeit.Email() // alaynawuckert@kozey.biz
 gofakeit.Phone() // (570)245-7485
 gofakeit.Address().Address // 75776 Lake Viewland, Sterlingstad, New Hampshire 82250-2868
-// 70+ more!!!
+// 80+ more!!!
 ```

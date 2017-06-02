@@ -27,9 +27,9 @@ func Phone() string {
 func Email() string {
 	var email string
 
-	email = getRandValue([]string{"name", "first"}) + getRandValue([]string{"name", "last"})
+	email = getRandValue([]string{"person", "first"}) + getRandValue([]string{"person", "last"})
 	email += "@"
-	email += getRandValue([]string{"name", "last"}) + "." + getRandValue([]string{"internet", "domain_suffix"})
+	email += getRandValue([]string{"person", "last"}) + "." + getRandValue([]string{"internet", "domain_suffix"})
 
 	return strings.ToLower(email)
 }

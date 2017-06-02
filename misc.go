@@ -20,6 +20,9 @@ func dataCheck(dataVal []string) bool {
 
 // Get Random Value
 func getRandValue(dataVal []string) string {
+	if !dataCheck(dataVal) {
+		return ""
+	}
 	return Data[dataVal[0]][dataVal[1]][rand.Intn(len(Data[dataVal[0]][dataVal[1]]))]
 }
 
@@ -53,4 +56,11 @@ func randIntRange(min, max int) int {
 		return min
 	}
 	return rand.Intn((max+1)-min) + min
+}
+
+func randFloatRange(min, max float64) float64 {
+	if min == max {
+		return min
+	}
+	return rand.Float64()*(max-min) + min
 }
