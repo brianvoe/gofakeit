@@ -57,3 +57,10 @@ func randIntRange(min, max int) int {
 	}
 	return rand.Intn((max+1)-min) + min
 }
+
+func randFloatRange(min, max float64) float64 {
+	if min == max {
+		return min
+	}
+	return rand.Float64()*(max-min) + min
+}
