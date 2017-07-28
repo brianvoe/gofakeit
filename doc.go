@@ -1,8 +1,10 @@
 /*
-Package gofakeit is an extensive fake data generator.
+Package gofakeit is a random data generator written in go
 
-A large goal is to keep things extremely simple, clean, self contained, tested and documented.
+Every function has an example and a benchmark
 
-Contributions are welcome as im sure things can always be better.
+See the full list here https://godoc.org/github.com/brianvoe/gofakeit
+
+80+ Functions!!!
 */
 package gofakeit
