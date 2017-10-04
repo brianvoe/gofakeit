@@ -4,8 +4,8 @@ Random data generator written in go
 Every function has an example and a benchmark
 
 ### 80+ Functions!!!
-If their is something that is generic enough missing from this package [add an issue](https://github.com/brianvoe/gofakeit/issues) and let me know what you need.
-Most of the time ill add it!
+If there is something that is generic enough missing from this package [add an issue](https://github.com/brianvoe/gofakeit/issues) and let me know what you need.
+Most of the time i'll add it!
 
 ## Documentation
 [![GoDoc](https://godoc.org/github.com/brianvoe/gofakeit?status.svg)](https://godoc.org/github.com/brianvoe/gofakeit)
