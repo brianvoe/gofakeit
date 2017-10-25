@@ -74,20 +74,20 @@ func ExamplePerson() {
 	// Director
 	// Forward
 	// Accounts
-	// 776 Roadshaven, Hilllville, Montana 08225
+	// 776 Roadshaven, Hilllville, Montana 58225
 	// 776 Roadshaven
 	// Hilllville
 	// Montana
-	// 08225
-	// Guinea
-	// 51.22873780466347
-	// -48.659223281845556
-	// 874-803-3615
-	// pinkschaden@bernier.net
+	// 58225
+	// Rwanda
+	// -24.329611640922778
+	// -133.75991475181377
+	// 748.033.6154
+	// berniecebernier@halvorson.biz
 	// Discover
-	// 2720991332448275
-	// 03/19
-	// 246
+	// 343324482755424
+	// 04/15
+	// 278
 }
 
 func BenchmarkPerson(b *testing.B) {

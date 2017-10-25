@@ -2,8 +2,6 @@ package gofakeit
 
 import (
 	"math/rand"
-	"strconv"
-	"strings"
 )
 
 // Check if in lib
@@ -48,26 +46,38 @@ func getRandIntValue(dataVal []string) int {
 
 // Replace # with numbers
 func replaceWithNumbers(str string) string {
-	for strings.Count(str, "#") > 0 {
-		str = strings.Replace(str, "#", strconv.Itoa(rand.Intn(9)), 1)
+	bytestr := []byte(str)
+	hashtag := []byte("#")[0]
+	numbers := []byte("0123456789")
+	for i := 0; i < len(bytestr); i++ {
+		if bytestr[i] == hashtag {
+			bytestr[i] = numbers[rand.Intn(9)]
+		}
+	}
+	if bytestr[0] == []byte("0")[0] {
+		bytestr[0] = numbers[rand.Intn(8)+1]
 	}
 
-	return str
+	return string(bytestr)
 }
 
 // Replace ? with letters
 func replaceWithLetters(str string) string {
-	for strings.Count(str, "?") > 0 {
-		str = strings.Replace(str, "?", randLetter(), 1)
+	bytestr := []byte(str)
+	question := []byte("?")[0]
+	letters := []byte("abcdefghijklmnopqrstuvwxyz")
+	for i := 0; i < len(bytestr); i++ {
+		if bytestr[i] == question {
+			bytestr[i] = letters[rand.Intn(26)]
+		}
 	}
 
-	return str
+	return string(bytestr)
 }
 
 // Generate random letter
 func randLetter() string {
-	alpha := []byte("abcdefghijklmnopqrstuvwxyz")
-	return string(alpha[rand.Intn(len(alpha))])
+	return string([]byte("abcdefghijklmnopqrstuvwxyz")[rand.Intn(26)])
 }
 
 // Generate random integer between min and max

@@ -1,6 +1,6 @@
 package gofakeit
 
-import "strings"
+import "math/rand"
 
 // Color will generate a random color string
 func Color() string {
@@ -14,20 +14,28 @@ func SafeColor() string {
 
 // HexColor will generate a random hexadecimal color string
 func HexColor() string {
-	color := ""
-	for i := 1; i <= 6; i++ {
-		color += RandString([]string{"?", "#"})
+	color := make([]byte, 6)
+	hashQuestion := []byte("?#")
+	for i := 0; i < 6; i++ {
+		color[i] = hashQuestion[rand.Intn(2)]
 	}
 
-	// Replace # with number
-	color = replaceWithNumbers(color)
+	return "#" + replaceWithLetters(replaceWithNumbers(string(color)))
 
-	// Replace ? with letter
-	for strings.Count(color, "?") > 0 {
-		color = strings.Replace(color, "?", RandString([]string{"a", "b", "c", "d", "e", "f"}), 1)
-	}
+	// color := ""
+	// for i := 1; i <= 6; i++ {
+	// 	color += RandString([]string{"?", "#"})
+	// }
 
-	return "#" + color
+	// // Replace # with number
+	// color = replaceWithNumbers(color)
+
+	// // Replace ? with letter
+	// for strings.Count(color, "?") > 0 {
+	// 	color = strings.Replace(color, "?", RandString(letters), 1)
+	// }
+
+	// return "#" + color
 }
 
 // RGBColor will generate a random int slice color

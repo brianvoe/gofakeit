@@ -32,7 +32,7 @@ func BenchmarkSafeColor(b *testing.B) {
 func ExampleHexColor() {
 	Seed(11)
 	fmt.Println(HexColor())
-	// Output: #a15fb7
+	// Output: #i15jb7
 }
 
 func BenchmarkHexColor(b *testing.B) {
