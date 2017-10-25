@@ -16,12 +16,32 @@ func dataCheck(dataVal []string) bool {
 	return checkOk
 }
 
+// Check if in lib
+func intDataCheck(dataVal []string) bool {
+	var checkOk bool
+
+	_, checkOk = IntData[dataVal[0]]
+	if len(dataVal) == 2 && checkOk {
+		_, checkOk = IntData[dataVal[0]][dataVal[1]]
+	}
+
+	return checkOk
+}
+
 // Get Random Value
 func getRandValue(dataVal []string) string {
 	if !dataCheck(dataVal) {
 		return ""
 	}
 	return Data[dataVal[0]][dataVal[1]][rand.Intn(len(Data[dataVal[0]][dataVal[1]]))]
+}
+
+// Get Random Integer Value
+func getRandIntValue(dataVal []string) int {
+	if !intDataCheck(dataVal) {
+		return 0
+	}
+	return IntData[dataVal[0]][dataVal[1]][rand.Intn(len(IntData[dataVal[0]][dataVal[1]]))]
 }
 
 // Replace # with numbers
