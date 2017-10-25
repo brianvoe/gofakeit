@@ -17,3 +17,8 @@ var Data = map[string]map[string][]string{
 	"beer":     DataBeer,
 	"hacker":   DataHacker,
 }
+
+// IntData consists of the main set of fake information (integer only)
+var IntData = map[string]map[string][]int{
+	"status_code": DataStatusCodes,
+}
