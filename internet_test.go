@@ -41,6 +41,18 @@ func BenchmarkURL(b *testing.B) {
 	}
 }
 
+func ExampleHTTPMethod() {
+	Seed(11)
+	fmt.Println(HTTPMethod())
+	// Output: HEAD
+}
+
+func BenchmarkHTTPMethod(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		HTTPMethod()
+	}
+}
+
 func ExampleIPv4Address() {
 	Seed(11)
 	fmt.Println(IPv4Address())

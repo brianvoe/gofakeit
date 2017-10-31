@@ -32,6 +32,10 @@ func URL() string {
 	return url
 }
 
+func HTTPMethod() string {
+	return getRandValue([]string{"internet", "http_method"})
+}
+
 // IPv4Address will generate a random version 4 ip address
 func IPv4Address() string {
 	num := func() int { return 2 + rand.Intn(254) }
