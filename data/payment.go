@@ -1,7 +1,7 @@
-package gofakeit
+package data
 
-// DataPayment contains payment information
-var DataPayment = map[string][]string{
+// Payment contains payment information
+var Payment = map[string][]string{
 	"card_type": {"Visa", "MasterCard", "American Express", "Discover"},
 	"number": {
 		// Visa
