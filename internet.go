@@ -32,6 +32,7 @@ func URL() string {
 	return url
 }
 
+// HTTPMethod will generate a random http method
 func HTTPMethod() string {
 	return getRandValue([]string{"internet", "http_method"})
 }
