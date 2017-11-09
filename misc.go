@@ -2,15 +2,17 @@ package gofakeit
 
 import (
 	"math/rand"
+
+	"github.com/brianvoe/gofakeit/data"
 )
 
 // Check if in lib
 func dataCheck(dataVal []string) bool {
 	var checkOk bool
 
-	_, checkOk = Data[dataVal[0]]
+	_, checkOk = data.Data[dataVal[0]]
 	if len(dataVal) == 2 && checkOk {
-		_, checkOk = Data[dataVal[0]][dataVal[1]]
+		_, checkOk = data.Data[dataVal[0]][dataVal[1]]
 	}
 
 	return checkOk
@@ -20,9 +22,9 @@ func dataCheck(dataVal []string) bool {
 func intDataCheck(dataVal []string) bool {
 	var checkOk bool
 
-	_, checkOk = IntData[dataVal[0]]
+	_, checkOk = data.IntData[dataVal[0]]
 	if len(dataVal) == 2 && checkOk {
-		_, checkOk = IntData[dataVal[0]][dataVal[1]]
+		_, checkOk = data.IntData[dataVal[0]][dataVal[1]]
 	}
 
 	return checkOk
@@ -33,7 +35,7 @@ func getRandValue(dataVal []string) string {
 	if !dataCheck(dataVal) {
 		return ""
 	}
-	return Data[dataVal[0]][dataVal[1]][rand.Intn(len(Data[dataVal[0]][dataVal[1]]))]
+	return data.Data[dataVal[0]][dataVal[1]][rand.Intn(len(data.Data[dataVal[0]][dataVal[1]]))]
 }
 
 // Get Random Integer Value
@@ -41,7 +43,7 @@ func getRandIntValue(dataVal []string) int {
 	if !intDataCheck(dataVal) {
 		return 0
 	}
-	return IntData[dataVal[0]][dataVal[1]][rand.Intn(len(IntData[dataVal[0]][dataVal[1]]))]
+	return data.IntData[dataVal[0]][dataVal[1]][rand.Intn(len(data.IntData[dataVal[0]][dataVal[1]]))]
 }
 
 // Replace # with numbers
