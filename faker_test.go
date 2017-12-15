@@ -19,6 +19,8 @@ func Example() {
 	fmt.Println("Hacker Phrase:", HackerPhrase())
 	fmt.Println("Job Title:", JobTitle())
 	fmt.Println("Password:", Password(true, true, true, true, true, 32))
+	currency := Currency()
+	fmt.Printf("Currency: %s - %s", currency.Short, currency.Long)
 	// Output:
 	// Name: Markus Moen
 	// Email: alaynawuckert@kozey.biz
@@ -32,6 +34,7 @@ func Example() {
 	// Hacker Phrase: If we calculate the capacitor, we can get to the THX port through the back-end SSL matrix!
 	// Job Title: Manager
 	// Password: E1&U_#fm&89QExx$X%83qC-$9Z2qPA2t
+	// Currency: INR - India Rupee
 }
 
 func TestSeed(t *testing.T) {
