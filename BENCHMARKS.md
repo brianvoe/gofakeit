@@ -35,6 +35,9 @@ BenchmarkBS-8                   	10000000	       136 ns/op	       0 B/op	       
 BenchmarkContact-8              	 1000000	      1469 ns/op	     179 B/op	       7 allocs/op
 BenchmarkPhone-8                	 3000000	       520 ns/op	      16 B/op	       1 allocs/op
 BenchmarkEmail-8                	 2000000	       876 ns/op	     131 B/op	       5 allocs/op
+BenchmarkCurrency-8             	10000000	       156 ns/op	      32 B/op	       1 allocs/op
+BenchmarkCurrencyShort-8        	10000000	       133 ns/op	       0 B/op	       0 allocs/op
+BenchmarkCurrencyLong-8         	10000000	       138 ns/op	       0 B/op	       0 allocs/op
 BenchmarkDate-8                 	 5000000	       347 ns/op	       0 B/op	       0 allocs/op
 BenchmarkDateRange-8            	10000000	       179 ns/op	       0 B/op	       0 allocs/op
 BenchmarkMonth-8                	30000000	        43.6 ns/op	       0 B/op	       0 allocs/op

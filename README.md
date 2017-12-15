@@ -25,5 +25,6 @@ gofakeit.CreditCardNumber() // 4287271570245748
 gofakeit.HackerPhrase() // Connecting the array won't do anything, we need to generate the haptic COM driver!
 gofakeit.JobTitle() // Director
 gofakeit.Password(true, true, true, true, true, 32) // WV10MzLxq2DX79w1omH97_0ga59j8!kj
+gofakeit.CurrencyShort() // USD
 // 80+ more!!!
 ```
