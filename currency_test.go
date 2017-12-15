@@ -6,7 +6,7 @@ import (
 )
 
 func ExampleCurrency() {
-	Seed(20)
+	Seed(11)
 	fmt.Println(Currency())
 }
 
@@ -17,7 +17,7 @@ func BenchmarkCurrency(b *testing.B) {
 }
 
 func ExampleCurrencyShort() {
-	Seed(20)
+	Seed(11)
 	fmt.Println(CurrencyShort())
 }
 
@@ -28,7 +28,7 @@ func BenchmarkCurrencyShort(b *testing.B) {
 }
 
 func ExampleCurrencyLong() {
-	Seed(20)
+	Seed(11)
 	fmt.Println(CurrencyLong())
 }
 

@@ -8,13 +8,17 @@ import (
 
 // CurrencyInfo is a struct of currency information
 type CurrencyInfo struct {
-	Code string
-	Name string
+	Short string
+	Long  string
 }
 
 // Currency will generate a struct with random currency information
 func Currency() *CurrencyInfo {
-	return CurrencyFull()
+	index := rand.Intn(len(data.Data["currency"]["short"]))
+	return &CurrencyInfo{
+		Short: data.Data["currency"]["short"][index],
+		Long:  data.Data["currency"]["long"][index],
+	}
 }
 
 // CurrencyShort will generate a random short currency value
@@ -25,13 +29,4 @@ func CurrencyShort() string {
 // CurrencyLong will generate a random long currency name
 func CurrencyLong() string {
 	return getRandValue([]string{"currency", "long"})
-}
-
-// CurrencyFull gives back a full currency with code and name
-func CurrencyFull() *CurrencyInfo {
-	index := rand.Intn(len(data.Data["currency"]["short"]))
-	return &CurrencyInfo{
-		Code: data.Data["currency"]["short"][index],
-		Name: data.Data["currency"]["long"][index],
-	}
 }

@@ -20,7 +20,7 @@ func Example() {
 	fmt.Println("Job Title:", JobTitle())
 	fmt.Println("Password:", Password(true, true, true, true, true, 32))
 	currency := Currency()
-	fmt.Printf("Currency: %s - %s", currency.Code, currency.Name)
+	fmt.Printf("Currency: %s - %s", currency.Short, currency.Long)
 	// Output:
 	// Name: Markus Moen
 	// Email: alaynawuckert@kozey.biz
