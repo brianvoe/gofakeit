@@ -7,7 +7,9 @@ import (
 
 func ExampleCurrency() {
 	Seed(11)
-	fmt.Println(Currency())
+	currency := Currency()
+	fmt.Printf("%s - %s", currency.Short, currency.Long)
+	// Output: IQD - Iraq Dinar
 }
 
 func BenchmarkCurrency(b *testing.B) {
@@ -19,6 +21,7 @@ func BenchmarkCurrency(b *testing.B) {
 func ExampleCurrencyShort() {
 	Seed(11)
 	fmt.Println(CurrencyShort())
+	// Output: IQD
 }
 
 func BenchmarkCurrencyShort(b *testing.B) {
@@ -30,6 +33,7 @@ func BenchmarkCurrencyShort(b *testing.B) {
 func ExampleCurrencyLong() {
 	Seed(11)
 	fmt.Println(CurrencyLong())
+	// Output: Iraq Dinar
 }
 
 func BenchmarkCurrencyLong(b *testing.B) {
