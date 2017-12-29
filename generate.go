@@ -26,7 +26,7 @@ func Generate(dataVal string) string {
 			catValue = getRandValue([]string{categories[0], categories[1]})
 		}
 
-		dataVal = strings.Replace(dataVal, "{"+replace+"}", catValue, 1)
+		dataVal = strings.Replace(dataVal, "{"+replace+"}", catValue, -1)
 	}
 
 	// Replace # with numbers
