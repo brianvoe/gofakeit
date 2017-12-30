@@ -1,6 +1,12 @@
 package gofakeit
 
-import "testing"
+import (
+	"reflect"
+	"sort"
+	"testing"
+
+	"github.com/brianvoe/gofakeit/data"
+)
 
 func TestRandIntRange(t *testing.T) {
 	if randIntRange(5, 5) != 5 {
@@ -23,5 +29,20 @@ func TestGetRandIntValueFail(t *testing.T) {
 func TestRandFloatRangeSame(t *testing.T) {
 	if randFloatRange(5.0, 5.0) != 5.0 {
 		t.Error("You should have gotten 5.0 back")
+	}
+}
+
+func TestCatagories(t *testing.T) {
+	var got, expected []string
+	for k := range Catagories() {
+		got = append(got, k)
+	}
+	for k := range data.Data {
+		expected = append(expected, k)
+	}
+	sort.Strings(got)
+	sort.Strings(expected)
+	if !reflect.DeepEqual(got, expected) {
+		t.Error("Type arrays are not the same.\nExpected: ", expected, "\nGot: ", got)
 	}
 }
