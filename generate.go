@@ -13,6 +13,9 @@ import (
 // Ex: ### - 481 - random numbers
 //
 // Ex: ??? - fda - random letters
+//
+// Apart from a random number and letter, various types of data is supported,
+// for a complete list of Catagories, use Catagories()
 func Generate(dataVal string) string {
 	// Identify items between brackets: {name.first}
 	for strings.Count(dataVal, "{") > 0 && strings.Count(dataVal, "}") > 0 {

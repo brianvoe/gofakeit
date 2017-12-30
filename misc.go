@@ -96,3 +96,18 @@ func randFloatRange(min, max float64) float64 {
 	}
 	return rand.Float64()*(max-min) + min
 }
+
+// Catagories available to generate random data using a custom template
+// Returned map keys are catagories and sub-catagories for a particular
+// catagory are the values in the []string
+func Catagories() map[string][]string {
+	types := make(map[string][]string)
+	for catagory, subCatagoriesMap := range data.Data {
+		subCatagories := make([]string, 0)
+		for subType := range subCatagoriesMap {
+			subCatagories = append(subCatagories, subType)
+		}
+		types[catagory] = subCatagories
+	}
+	return types
+}
