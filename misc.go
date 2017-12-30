@@ -48,6 +48,9 @@ func getRandIntValue(dataVal []string) int {
 
 // Replace # with numbers
 func replaceWithNumbers(str string) string {
+	if str == "" {
+		return str
+	}
 	bytestr := []byte(str)
 	hashtag := []byte("#")[0]
 	numbers := []byte("0123456789")
@@ -65,6 +68,9 @@ func replaceWithNumbers(str string) string {
 
 // Replace ? with letters
 func replaceWithLetters(str string) string {
+	if str == "" {
+		return str
+	}
 	bytestr := []byte(str)
 	question := []byte("?")[0]
 	letters := []byte("abcdefghijklmnopqrstuvwxyz")

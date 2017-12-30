@@ -32,6 +32,18 @@ func TestRandFloatRangeSame(t *testing.T) {
 	}
 }
 
+func TestReplaceWithNumbers(t *testing.T) {
+	if "" != replaceWithNumbers("") {
+		t.Error("You should have gotten an empty string")
+	}
+}
+
+func TestReplaceWithLetters(t *testing.T) {
+	if "" != replaceWithLetters("") {
+		t.Error("You should have gotten an empty string")
+	}
+}
+
 func TestCatagories(t *testing.T) {
 	var got, expected []string
 	for k := range Catagories() {
