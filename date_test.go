@@ -36,6 +36,12 @@ func ExampleMonth() {
 	// Output: January
 }
 
+func ExampleWeekDay() {
+	Seed(11)
+	fmt.Println(WeekDay())
+	// Output: Friday
+}
+
 func BenchmarkMonth(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		Month()
@@ -51,6 +57,12 @@ func ExampleDay() {
 func BenchmarkDay(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		Day()
+	}
+}
+
+func BenchmarkWeekDay(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		WeekDay()
 	}
 }
 

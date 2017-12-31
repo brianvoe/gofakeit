@@ -22,6 +22,11 @@ func Day() int {
 	return Number(1, 31)
 }
 
+// WeekDay will generate a random weekday string (Monday-Sunday)
+func WeekDay() string {
+	return time.Weekday(Number(0, 6)).String()
+}
+
 // Year will generate a random year between 1900 - current year
 func Year() int {
 	return Number(1900, time.Now().Year())
