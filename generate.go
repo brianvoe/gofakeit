@@ -6,9 +6,9 @@ import (
 
 // Generate fake information from given string. String should contain {category.subcategory}
 //
-// Ex: {name.first} - random firstname
+// Ex: {person.first} - random firstname
 //
-// Ex: {name.first}###{name.last}@{name.last}.{internet.domain_suffix} - billy834smith@smith.com
+// Ex: {person.first}###{person.last}@{person.last}.{internet.domain_suffix} - billy834smith@smith.com
 //
 // Ex: ### - 481 - random numbers
 //
@@ -16,7 +16,7 @@ import (
 //
 // For a complete list possible categories use the Catagories() function.
 func Generate(dataVal string) string {
-	// Identify items between brackets: {name.first}
+	// Identify items between brackets: {person.first}
 	for strings.Count(dataVal, "{") > 0 && strings.Count(dataVal, "}") > 0 {
 		catValue := ""
 		startIndex := strings.Index(dataVal, "{")
