@@ -1,6 +1,7 @@
 package gofakeit
 
 import (
+	"errors"
 	"strings"
 )
 
@@ -15,7 +16,7 @@ import (
 // Ex: ??? - fda - random letters
 //
 // For a complete list possible categories use the Catagories() function.
-func Generate(dataVal string) string {
+func Generate(dataVal string) (string, error) {
 	// Identify items between brackets: {name.first}
 	for strings.Count(dataVal, "{") > 0 && strings.Count(dataVal, "}") > 0 {
 		catValue := ""
@@ -26,6 +27,8 @@ func Generate(dataVal string) string {
 
 		if len(categories) >= 2 && dataCheck([]string{categories[0], categories[1]}) {
 			catValue = getRandValue([]string{categories[0], categories[1]})
+		} else {
+			return "", errors.New("not a valid {catagory.subcatagory} :" + replace)
 		}
 
 		dataVal = strings.Replace(dataVal, "{"+replace+"}", catValue, 1)
@@ -37,5 +40,5 @@ func Generate(dataVal string) string {
 	// Replace ? with letters
 	dataVal = replaceWithLetters(dataVal)
 
-	return dataVal
+	return dataVal, nil
 }
