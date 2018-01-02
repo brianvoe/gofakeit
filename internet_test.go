@@ -20,7 +20,7 @@ func BenchmarkDomainName(b *testing.B) {
 func ExampleDomainSuffix() {
 	Seed(11)
 	fmt.Println(DomainSuffix())
-	// Output: com
+	// Output: org
 }
 
 func BenchmarkDomainSuffix(b *testing.B) {
