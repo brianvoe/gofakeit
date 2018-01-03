@@ -38,7 +38,7 @@ func BenchmarkChromeUserAgent(b *testing.B) {
 func ExampleFirefoxUserAgent() {
 	Seed(11)
 	fmt.Println(FirefoxUserAgent())
-	// Output: Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_8_3 rv:7.0) Gecko/1978-07-01 Firefox/37.0
+	// Output: Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_8_3 rv:7.0) Gecko/1989-07-01 Firefox/37.0
 }
 
 func BenchmarkFirefoxUserAgent(b *testing.B) {
