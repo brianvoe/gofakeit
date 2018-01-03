@@ -8,7 +8,7 @@ import (
 func ExampleDomainName() {
 	Seed(11)
 	fmt.Println(DomainName())
-	// Output: centraltarget.org
+	// Output: centraltarget.biz
 }
 
 func BenchmarkDomainName(b *testing.B) {
@@ -20,7 +20,7 @@ func BenchmarkDomainName(b *testing.B) {
 func ExampleDomainSuffix() {
 	Seed(11)
 	fmt.Println(DomainSuffix())
-	// Output: com
+	// Output: org
 }
 
 func BenchmarkDomainSuffix(b *testing.B) {
