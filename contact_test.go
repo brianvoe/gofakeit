@@ -11,7 +11,7 @@ func ExampleContact() {
 	fmt.Println(contact.Phone)
 	fmt.Println(contact.Email)
 	// Output: 287-271-5702
-	// carolecarroll@bosco.net
+	// carolecarroll@bosco.com
 }
 
 func BenchmarkContact(b *testing.B) {
