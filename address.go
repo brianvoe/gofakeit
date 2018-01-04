@@ -1,6 +1,7 @@
 package gofakeit
 
 import (
+	"errors"
 	"math/rand"
 	"strings"
 )
@@ -105,5 +106,21 @@ func Country() string {
 // Latitude will generate a random latitude float64
 func Latitude() float64 { return (rand.Float64() * 180) - 90 }
 
+// LatitudeInRange will generate a random latitude within the input range
+func LatitudeInRange(min, max float64) (float64, error) {
+	if min > max || min < -90 || min > 90 || max < -90 || max > 90 {
+		return 0, errors.New("input range is invalid")
+	}
+	return randFloatRange(min, max), nil
+}
+
 // Longitude will generate a random longitude float64
 func Longitude() float64 { return (rand.Float64() * 360) - 180 }
+
+// LongitudeInRange will generate a random longitude within the input range
+func LongitudeInRange(min, max float64) (float64, error) {
+	if min > max || min < -180 || min > 180 || max < -180 || max > 180 {
+		return 0, errors.New("input range is invalid")
+	}
+	return randFloatRange(min, max), nil
+}

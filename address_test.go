@@ -181,3 +181,73 @@ func BenchmarkLongitude(b *testing.B) {
 		Longitude()
 	}
 }
+
+func TestLatitudeInRange(t *testing.T) {
+	Seed(11)
+	lat, err := LatitudeInRange(21, 42)
+	if err != nil {
+		t.Error("error should be nil")
+	}
+
+	if lat == 0 {
+		t.Error("lat should be not be zero")
+	}
+
+	_, err = LatitudeInRange(50, 42)
+	if err == nil {
+		t.Error("error should be not be nil")
+	}
+
+	_, err = LatitudeInRange(-100, 42)
+	if err == nil {
+		t.Error("error should be not be nil")
+	}
+}
+
+func ExampleLatitudeInRange() {
+	Seed(11)
+	lat, _ := LatitudeInRange(21, 42)
+	fmt.Println(lat)
+	// Output: 22.921026765022624
+}
+
+func BenchmarkLatitudeInRange(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		LatitudeInRange(-90, 90)
+	}
+}
+
+func TestLongitudeInRange(t *testing.T) {
+	Seed(11)
+	long, err := LongitudeInRange(21, 42)
+	if err != nil {
+		t.Error("error should be nil")
+	}
+
+	if long == 0 {
+		t.Error("long should be not be zero")
+	}
+
+	_, err = LongitudeInRange(-32, -42)
+	if err == nil {
+		t.Error("error should be not be nil")
+	}
+
+	_, err = LongitudeInRange(190, 192)
+	if err == nil {
+		t.Error("error should be not be nil")
+	}
+}
+
+func ExampleLongitudeInRange() {
+	Seed(11)
+	long, _ := LongitudeInRange(-10, 10)
+	fmt.Println(long)
+	// Output: -8.170450699978453
+}
+
+func BenchmarkLongitudeInRange(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		LongitudeInRange(-180, 180)
+	}
+}
