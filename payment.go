@@ -1,6 +1,9 @@
 package gofakeit
 
 import "strconv"
+import "time"
+
+var currentYear = time.Now().Year() - 2000
 
 // CreditCardInfo is a struct containing credit variables
 type CreditCardInfo struct {
@@ -37,7 +40,7 @@ func CreditCardExp() string {
 	if len(month) == 1 {
 		month = "0" + month
 	}
-	return month + "/" + strconv.Itoa(randIntRange(15, 20))
+	return month + "/" + strconv.Itoa(randIntRange(currentYear, currentYear+5))
 }
 
 // CreditCardCvv will generate a random CVV number - Its a string because you could have 017 as an exp date
