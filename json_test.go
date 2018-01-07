@@ -3,9 +3,35 @@ package gofakeit
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"reflect"
 	"testing"
 )
+
+func ExampleJSONString() {
+	Seed(42)
+	jsonMap, err := JSONString(`{"Name":"{person.first}"}`)
+	if err != nil {
+		//handle err
+	}
+	jsonString, err := json.Marshal(jsonMap)
+	fmt.Printf("%s", jsonString)
+	// Output: {"Name":"Jeromy"}
+}
+
+func ExampleJSON() {
+	Seed(42)
+	m := make(map[string]interface{})
+	// generate random keys as well
+	m["{person.first}"] = "{person.last}"
+	jsonMap, err := JSON(m)
+	if err != nil {
+		//handle err
+	}
+	jsonString, err := json.Marshal(jsonMap)
+	fmt.Printf("%s", jsonString)
+	// Output: {"Jeromy":"Schmeler"}
+}
 
 func TestJSONString(t *testing.T) {
 	type args struct {
@@ -46,6 +72,16 @@ func TestJSONString(t *testing.T) {
 			},
 			wantErr: false,
 		},
+		{
+			name: "FaultyJSON1",
+			args: args{
+				template: `{  
+					"Hello":"World",
+					`,
+			},
+			want:    nil,
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -55,6 +91,10 @@ func TestJSONString(t *testing.T) {
 			got, err := JSONString(buf.String())
 			if (err != nil) != tt.wantErr {
 				t.Errorf("JSON() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			// err returned, should get nil
+			if tt.wantErr && got == nil {
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
