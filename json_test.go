@@ -1,11 +1,13 @@
 package gofakeit
 
 import (
+	"bytes"
+	"encoding/json"
 	"reflect"
 	"testing"
 )
 
-func TestJSON(t *testing.T) {
+func TestJSONString(t *testing.T) {
 	type args struct {
 		template string
 	}
@@ -16,61 +18,47 @@ func TestJSON(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "initial",
+			name: "PlainJSON",
 			args: args{
-				template: `{"Hello" :"World{internet.browser}","Hel" : {	"Hel" : "W"	}}`,
+				template: `{  
+					"Hello":"World",
+					"Bob":{  
+					   "The":"Builder"
+					},
+					"Tools":[  
+					   "Truck",
+					   "Trolley"
+					],
+					"Bool":true,
+					"Nil":null
+				 }`,
 			},
 			want: map[string]interface{}{
-				"Hello": "Worldchrome",
-				"Hel":   map[string]interface{}{"Hel": "W"},
+				"Hello": "World",
+				"Bob": map[string]interface{}{
+					"The": "Builder",
+				},
+				"Tools": []interface{}{
+					"Truck", "Trolley",
+				},
+				"Bool": true,
+				"Nil":  nil,
 			},
 			wantErr: false,
 		},
-		// {
-		// 	name: "array",
-		// 	args: args{
-		// 		template: `{"Hello" : [ "A","B","C" ]}`,
-		// 	},
-		// 	want:    map[string]interface{}{"Hello": []string{"A", "B", "C"}},
-		// 	wantErr: false,
-		// },
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := JSON(tt.args.template)
+			var buf bytes.Buffer
+			json.Compact(&buf, []byte(tt.args.template))
+			got, err := JSONString(buf.String())
 			if (err != nil) != tt.wantErr {
 				t.Errorf("JSON() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("JSON() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func Test_randJSON(t *testing.T) {
-	type args struct {
-		m map[string]interface{}
-	}
-	tests := []struct {
-		name    string
-		args    args
-		want    map[string]interface{}
-		wantErr bool
-	}{
-	// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got, err := randJSON(tt.args.m)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("randJSON() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("randJSON() = %v, want %v", got, tt.want)
 			}
 		})
 	}
