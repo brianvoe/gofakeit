@@ -5,6 +5,7 @@ Random data generator written in go
 - Every function has an example and a benchmark,
 [see benchmarks](https://github.com/brianvoe/gofakeit/blob/master/BENCHMARKS.md)
 - Zero dependencies
+- Randomizes user defined structs
 - Numerous functions for regular use
 - Extensible
 
@@ -32,4 +33,20 @@ gofakeit.JobTitle() // Director
 gofakeit.Password(true, true, true, true, true, 32) // WV10MzLxq2DX79w1omH97_0ga59j8!kj
 gofakeit.CurrencyShort() // USD
 // 80+ more!!!
+
+type Foo struct {
+	Bar     string
+	Baz     string
+	Int     int
+	Pointer *int
+	Skip    *string `fake:"skip"`
+}
+var f Foo
+Seed(42)
+Struct(&f)
+fmt.Printf("f.Bar:%s\n", f.Bar) // f.Bar:hrukpttuezptneuvunh
+fmt.Printf("f.Baz:%s\n", f.Baz) // f.Baz:uksqvgzadxlgghejkmv
+fmt.Printf("f.Int:%d\n", f.Int) // f.Int:-7825289004089916589
+fmt.Printf("f.Pointer:%d\n", *f.Pointer) // f.Pointer:-343806609094473732
+fmt.Printf("f.Skip:%v\n", f.Skip) // f.Skip:<nil>
 ```
