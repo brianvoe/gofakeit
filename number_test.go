@@ -56,7 +56,7 @@ func BenchmarkUint32(b *testing.B) {
 func ExampleUint64() {
 	Seed(11)
 	fmt.Println(Uint64())
-	// Output: 10067102729548074073
+	// Output: 843730692693298265
 }
 
 func BenchmarkUint64(b *testing.B) {

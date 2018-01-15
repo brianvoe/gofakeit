@@ -27,7 +27,7 @@ func Uint32() uint32 {
 
 // Uint64 will generate a random uint64 value
 func Uint64() uint64 {
-	return rand.Uint64()
+	return uint64(rand.Int63n(math.MaxInt64))
 }
 
 // Int8 will generate a random Int8 value
