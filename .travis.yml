@@ -4,7 +4,10 @@ go:
   - 1.7.*
   - 1.8.*
   - 1.9.*
-  - master
+  - release
+
+install:
+  - go get -t -v ./...
 
 script:
   - go test -race -coverprofile=coverage.txt -covermode=atomic
