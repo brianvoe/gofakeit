@@ -44,9 +44,9 @@ func TestReplaceWithLetters(t *testing.T) {
 	}
 }
 
-func TestCatagories(t *testing.T) {
+func TestCategories(t *testing.T) {
 	var got, expected []string
-	for k := range Catagories() {
+	for k := range Categories() {
 		got = append(got, k)
 	}
 	for k := range data.Data {

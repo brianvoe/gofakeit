@@ -14,7 +14,7 @@ import (
 //
 // Ex: ??? - fda - random letters
 //
-// For a complete list possible categories use the Catagories() function.
+// For a complete list possible categories use the Categories() function.
 func Generate(dataVal string) string {
 	// Identify items between brackets: {person.first}
 	for strings.Count(dataVal, "{") > 0 && strings.Count(dataVal, "}") > 0 {

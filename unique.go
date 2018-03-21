@@ -10,9 +10,7 @@ import (
 func UUID() string {
 	version := byte(4)
 	uuid := make([]byte, 16)
-	if _, err := rand.Read(uuid); err != nil {
-		panic(err)
-	}
+	rand.Read(uuid)
 
 	// Set version
 	uuid[6] = (uuid[6] & 0x0f) | (version << 4)
