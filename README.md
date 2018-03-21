@@ -1,8 +1,13 @@
 # gofakeit [![Go Report Card](https://goreportcard.com/badge/github.com/brianvoe/gofakeit)](https://goreportcard.com/report/github.com/brianvoe/gofakeit) [![Build Status](https://travis-ci.org/brianvoe/gofakeit.svg?branch=master)](https://travis-ci.org/brianvoe/gofakeit) [![codecov.io](https://codecov.io/github/brianvoe/gofakeit/branch/master/graph/badge.svg)](https://codecov.io/github/brianvoe/gofakeit) [![GoDoc](https://godoc.org/github.com/brianvoe/gofakeit?status.svg)](https://godoc.org/github.com/brianvoe/gofakeit) [![license](http://img.shields.io/badge/license-MIT-red.svg?style=flat)](https://raw.githubusercontent.com/icrowley/fake/master/LICENSE)
 Random data generator written in go
 
-Every function has an example and a benchmark. 
-[See Benchmarks](https://raw.githubusercontent.com/brianvoe/gofakeit/master/BENCHMARKS.md)
+### Features
+- Every function has an example and a benchmark,
+[see benchmarks](https://github.com/brianvoe/gofakeit/blob/master/BENCHMARKS.md)
+- Zero dependencies
+- Randomizes user defined structs
+- Numerous functions for regular use
+- Extensible
 
 ### 80+ Functions!!!
 If there is something that is generic enough missing from this package [add an issue](https://github.com/brianvoe/gofakeit/issues) and let me know what you need.
@@ -28,4 +33,20 @@ gofakeit.JobTitle() // Director
 gofakeit.Password(true, true, true, true, true, 32) // WV10MzLxq2DX79w1omH97_0ga59j8!kj
 gofakeit.CurrencyShort() // USD
 // 80+ more!!!
+
+type Foo struct {
+	Bar     string
+	Baz     string
+	Int     int
+	Pointer *int
+	Skip    *string `fake:"skip"`
+}
+var f Foo
+Seed(42)
+Struct(&f)
+fmt.Printf("f.Bar:%s\n", f.Bar) // f.Bar:hrukpttuezptneuvunh
+fmt.Printf("f.Baz:%s\n", f.Baz) // f.Baz:uksqvgzadxlgghejkmv
+fmt.Printf("f.Int:%d\n", f.Int) // f.Int:-7825289004089916589
+fmt.Printf("f.Pointer:%d\n", *f.Pointer) // f.Pointer:-343806609094473732
+fmt.Printf("f.Skip:%v\n", f.Skip) // f.Skip:<nil>
 ```
