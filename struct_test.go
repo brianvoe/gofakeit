@@ -2,10 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
-	"strconv"
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
 
 type Basic struct {
@@ -21,8 +18,12 @@ type Nested struct {
 
 type BuiltIn struct {
 	Int     *int
+	Int8    *int8
+	Int16   *int16
+	Int32   *int32
+	Int64   *int64
 	Float32 *float32
-	Float64 *float32
+	Float64 *float64
 	Bool    *bool
 }
 
@@ -32,42 +33,71 @@ type Template struct {
 }
 
 func TestStructBasic(t *testing.T) {
-	t.Parallel()
 	var basic Basic
 	Struct(&basic)
-	assert.Empty(t, basic.s, "unexported field is not populated")
-	assert.NotEmpty(t, basic.S, "exported field is populated")
+	if basic.s != "" {
+		t.Error("unexported field is not populated")
+	}
+	if basic.S == "" {
+		t.Error("exported field is populated")
+	}
 }
 
 func TestStructNested(t *testing.T) {
-	t.Parallel()
 	var nested Nested
 	Struct(&nested)
-	assert.NotEmpty(t, nested.A, "exported string field is populated")
-	assert.NotNil(t, nested.B, "exported struct field is populated")
-	assert.NotNil(t, nested.B.S, "nested struct fields are populated")
-	assert.Nil(t, nested.bar, "unexported nested struct is not populated")
+	if nested.A == "" {
+		t.Error("exported string field is populated")
+	}
+	if nested.B == nil {
+		t.Error("exported struct field is populated")
+	}
+	if nested.B.S == "" {
+		t.Error("nested struct string field is not populated")
+	}
+	if nested.bar != nil {
+		t.Error("nested struct bar should be be populated due to unexported variable")
+	}
 }
 
 func TestStructBuiltInTypes(t *testing.T) {
-	t.Parallel()
 	var builtIn BuiltIn
 	Struct(&builtIn)
-	assert.NotNil(t, builtIn.Int, "populated basic int type via pointer")
-	assert.NotNil(t, builtIn.Float32, "populated basic float32 type via pointer")
-	assert.NotNil(t, builtIn.Float64, "populated basic float64 type via pointer")
-	assert.NotNil(t, builtIn.Bool, "populated basic bool type via pointer")
+	if builtIn.Int == nil {
+		t.Error("builtIn int was not set")
+	}
+	if builtIn.Int8 == nil {
+		t.Error("builtIn int8 was not set")
+	}
+	if builtIn.Int16 == nil {
+		t.Error("builtIn int16 was not set")
+	}
+	if builtIn.Int32 == nil {
+		t.Error("builtIn int32 was not set")
+	}
+	if builtIn.Int64 == nil {
+		t.Error("builtIn int64 was not set")
+	}
+	if builtIn.Float32 == nil {
+		t.Error("builtIn float32 was not set")
+	}
+	if builtIn.Float64 == nil {
+		t.Error("builtIn float64 was not set")
+	}
+	if builtIn.Bool == nil {
+		t.Error("builtIn bool was not set")
+	}
 }
 
 func TestStructWithTemplate(t *testing.T) {
-	t.Parallel()
 	var template Template
 	Struct(&template)
-	assert.NotNil(t, template.Number, "populated Number based on template")
-	assert.NotNil(t, template.Name, "populated Name based on template")
-	assert.NotEmpty(t, template.Name, "populated Name based on template")
-	_, err := strconv.ParseInt(*template.Number, 10, 64)
-	assert.Nil(t, err, "number is populated")
+	if *template.Number == "" {
+		t.Error("template number should set to number value")
+	}
+	if *template.Name == "" {
+		t.Error("template number should set to number value")
+	}
 }
 
 func ExampleStruct() {
@@ -80,16 +110,15 @@ func ExampleStruct() {
 		Skip    *string `fake:"skip"`
 	}
 	var f Foo
-	Seed(42)
 	Struct(&f)
-	fmt.Printf("f.Bar:%s\n", f.Bar)
-	fmt.Printf("f.Baz:%s\n", f.Baz)
-	fmt.Printf("f.Int:%d\n", f.Int)
-	fmt.Printf("f.Pointer:%d\n", *f.Pointer)
-	fmt.Printf("f.Skip:%v\n", f.Skip)
-	// Output: f.Bar:hrukpttuezptneuvunh
-	// f.Baz:uksqvgzadxlgghejkmv
-	// f.Int:-7825289004089916589
-	// f.Pointer:-3438066090944737321
-	// f.Skip:<nil>
+	fmt.Printf("%s\n", f.Bar)
+	fmt.Printf("%s\n", f.Baz)
+	fmt.Printf("%d\n", f.Int)
+	fmt.Printf("%d\n", *f.Pointer)
+	fmt.Printf("%v\n", f.Skip)
+	// Output: gbrmarxhkijbptapwyj
+	// dnsmkgtlxwnqhqclayk
+	// -5858358572185296359
+	// -8038678955577270446
+	// <nil>
 }

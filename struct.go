@@ -62,15 +62,5 @@ func r(t reflect.Type, v reflect.Value, template string) {
 		v.SetFloat(float64(Float32()))
 	case reflect.Bool:
 		v.SetBool(Bool())
-	case reflect.Chan, reflect.Func,
-		reflect.UnsafePointer:
-	default:
 	}
-}
-
-// RandFor fills in elements of a struct with random data
-// based on the options map. Use this method only if
-// the struct is defined in an outside go package
-func RandFor(v interface{}, opt map[string]string) {
-	panic("not implemented")
 }
