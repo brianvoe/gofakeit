@@ -103,15 +103,15 @@ func randFloatRange(min, max float64) float64 {
 	return rand.Float64()*(max-min) + min
 }
 
-// Catagories will return a map string array of available data catgories and sub categories
-func Catagories() map[string][]string {
+// Categories will return a map string array of available data catgories and sub categories
+func Categories() map[string][]string {
 	types := make(map[string][]string)
-	for catagory, subCatagoriesMap := range data.Data {
-		subCatagories := make([]string, 0)
-		for subType := range subCatagoriesMap {
-			subCatagories = append(subCatagories, subType)
+	for catagory, subCategoriesMap := range data.Data {
+		subCategories := make([]string, 0)
+		for subType := range subCategoriesMap {
+			subCategories = append(subCategories, subType)
 		}
-		types[catagory] = subCatagories
+		types[catagory] = subCategories
 	}
 	return types
 }
