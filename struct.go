@@ -6,7 +6,7 @@ import (
 
 // Struct fills in exported elements of a struct with random data
 // based on the value of `fake` tag of exported elements.
-// Use `fake:"skip"` to explictly skip an element.
+// Use `fake:"skip"` to explicitly skip an element.
 // All built-in types are supported, with templating support
 // for string types.
 func Struct(v interface{}) {

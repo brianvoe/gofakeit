@@ -106,12 +106,12 @@ func randFloatRange(min, max float64) float64 {
 // Categories will return a map string array of available data catgories and sub categories
 func Categories() map[string][]string {
 	types := make(map[string][]string)
-	for catagory, subCategoriesMap := range data.Data {
+	for category, subCategoriesMap := range data.Data {
 		subCategories := make([]string, 0)
 		for subType := range subCategoriesMap {
 			subCategories = append(subCategories, subType)
 		}
-		types[catagory] = subCategories
+		types[category] = subCategories
 	}
 	return types
 }
