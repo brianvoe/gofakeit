@@ -2,22 +2,22 @@ package data
 
 // Data consists of the main set of fake information
 var Data = map[string]map[string][]string{
-	"person":   Person,
-	"contact":  Contact,
-	"address":  Address,
-	"company":  Company,
-	"job":      Job,
-	"lorem":    Lorem,
-	"internet": Internet,
-	"file":     Files,
-	"color":    Colors,
-	"computer": Computer,
-	"payment":  Payment,
-	"hipster":  Hipster,
-	"beer":     Beer,
-	"hacker":   Hacker,
-	"currency": Currency,
-	"severity": Severities,
+	"person":    Person,
+	"contact":   Contact,
+	"address":   Address,
+	"company":   Company,
+	"job":       Job,
+	"lorem":     Lorem,
+	"internet":  Internet,
+	"file":      Files,
+	"color":     Colors,
+	"computer":  Computer,
+	"payment":   Payment,
+	"hipster":   Hipster,
+	"beer":      Beer,
+	"hacker":    Hacker,
+	"currency":  Currency,
+	"log_level": LogLevel,
 }
 
 // IntData consists of the main set of fake information (integer only)
