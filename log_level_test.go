@@ -5,26 +5,18 @@ import (
 	"testing"
 )
 
-func ExampleSysLogLevel() {
+func ExampleLogLevel() {
 	Seed(11)
-	fmt.Println(SysLogLevel())
-	// Output: EMERG
+	fmt.Println(LogLevel("")) // This will also use general
+	fmt.Println(LogLevel("syslog"))
+	fmt.Println(LogLevel("apache"))
+	// Output: error
+	// debug
+	// trace1-8
 }
 
-func BenchmarkSysLogLevel(b *testing.B) {
+func BenchmarkLogLevel(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		SysLogLevel()
-	}
-}
-
-func ExampleApacheLogLevel() {
-	Seed(11)
-	fmt.Println(ApacheLogLevel())
-	// Output: ERROR
-}
-
-func BenchmarkApacheLogLevel(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		ApacheLogLevel()
+		LogLevel("general")
 	}
 }

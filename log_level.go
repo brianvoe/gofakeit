@@ -1,11 +1,15 @@
 package gofakeit
 
-// SysLogLevel will generate a random log level for syslog
-func SysLogLevel() string {
-	return getRandValue([]string{"log_level", "syslog"})
-}
+import (
+	"github.com/brianvoe/gofakeit/data"
+)
 
-// ApacheLogLevel will generate a random log level for apache log
-func ApacheLogLevel() string {
-	return getRandValue([]string{"log_level", "apache"})
+// LogLevel will generate a random log level
+// See data/LogLevels for list of available levels
+func LogLevel(logType string) string {
+	if _, ok := data.LogLevels[logType]; ok {
+		return getRandValue([]string{"log_level", logType})
+	}
+
+	return getRandValue([]string{"log_level", "general"})
 }
