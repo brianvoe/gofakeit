@@ -158,6 +158,18 @@ func BenchmarkCountry(b *testing.B) {
 	}
 }
 
+func ExampleCountryAbr() {
+	Seed(11)
+	fmt.Println(CountryAbr())
+	// Output: FI
+}
+
+func BenchmarkCountryAbr(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		CountryAbr()
+	}
+}
+
 func ExampleLatitude() {
 	Seed(11)
 	fmt.Println(Latitude())

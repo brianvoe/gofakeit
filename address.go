@@ -103,6 +103,11 @@ func Country() string {
 	return getRandValue([]string{"address", "country"})
 }
 
+// CountryAbr will generate a random abbreviated country string
+func CountryAbr() string {
+	return getRandValue([]string{"address", "country_abr"})
+}
+
 // Latitude will generate a random latitude float64
 func Latitude() float64 { return (rand.Float64() * 180) - 90 }
 
