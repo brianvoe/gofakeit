@@ -24,17 +24,17 @@ func Example() {
 	// Output:
 	// Name: Markus Moen
 	// Email: alaynawuckert@kozey.biz
-	// Phone: (570)245-7485
-	// Address: 75776 Lake Viewland, Sterlingstad, New Hampshire 82250-2868
-	// BS: bleeding-edge
-	// Beer Name: Founders Kentucky Breakfast
-	// Color: Orchid
-	// Company: Hintz, Crooks and McKenzie
-	// Credit Card: 4071613324482755
-	// Hacker Phrase: If we calculate the capacitor, we can get to the THX port through the back-end SSL matrix!
-	// Job Title: Manager
-	// Password: E1&U_#fm&89QExx$X%83qC-$9Z2qPA2t
-	// Currency: INR - India Rupee
+	// Phone: 1570245748
+	// Address: 67577 South Roadshaven, Hilllville, Montana 58225
+	// BS: sexy
+	// Beer Name: Hennepin
+	// Color: PaleGoldenRod
+	// Company: Tromp Group
+	// Credit Card: 4615440716133244
+	// Hacker Phrase: If we calculate the protocol, we can get to the JSON pixel through the open-source JSON capacitor!
+	// Job Title: Assistant
+	// Password: Ec_ YE1&U_#fm&89QExx$X%83qC-$9Z2
+	// Currency: ZMW - Zambia Kwacha
 }
 
 func TestSeed(t *testing.T) {

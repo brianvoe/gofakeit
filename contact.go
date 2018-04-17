@@ -20,6 +20,11 @@ func Contact() *ContactInfo {
 
 // Phone will generate a random phone number string
 func Phone() string {
+	return replaceWithNumbers("##########")
+}
+
+// PhoneFormatted will generate a random phone number string
+func PhoneFormatted() string {
 	return replaceWithNumbers(getRandValue([]string{"contact", "phone"}))
 }
 

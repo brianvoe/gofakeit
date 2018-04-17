@@ -10,8 +10,8 @@ func ExampleContact() {
 	contact := Contact()
 	fmt.Println(contact.Phone)
 	fmt.Println(contact.Email)
-	// Output: 287-271-5702
-	// carolecarroll@bosco.com
+	// Output: 3287271570
+	// santinostanton@carroll.biz
 }
 
 func BenchmarkContact(b *testing.B) {
@@ -23,12 +23,24 @@ func BenchmarkContact(b *testing.B) {
 func ExamplePhone() {
 	Seed(11)
 	fmt.Println(Phone())
-	// Output: 287-271-5702
+	// Output: 3287271570
 }
 
 func BenchmarkPhone(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		Phone()
+	}
+}
+
+func ExamplePhoneFormatted() {
+	Seed(11)
+	fmt.Println(PhoneFormatted())
+	// Output: 287-271-5702
+}
+
+func BenchmarkPhoneFormatted(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		PhoneFormatted()
 	}
 }
 
