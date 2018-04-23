@@ -41,3 +41,15 @@ func BenchmarkCurrencyLong(b *testing.B) {
 		CurrencyLong()
 	}
 }
+
+func ExamplePrice() {
+	Seed(11)
+	fmt.Printf("%.2f", Price(0.8618, 1000))
+	// Output: 92.26
+}
+
+func BenchmarkPrice(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Price(0, 1000)
+	}
+}

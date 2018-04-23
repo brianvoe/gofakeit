@@ -1,6 +1,7 @@
 package gofakeit
 
 import (
+	"math"
 	"math/rand"
 
 	"github.com/brianvoe/gofakeit/data"
@@ -29,4 +30,10 @@ func CurrencyShort() string {
 // CurrencyLong will generate a random long currency name
 func CurrencyLong() string {
 	return getRandValue([]string{"currency", "long"})
+}
+
+// Price will take in a min and max value and return a formatted price
+func Price(min, max float64) float64 {
+	randFloat := rand.Float64()*(max-min) + min
+	return math.Round(randFloat*100) / 100
 }
