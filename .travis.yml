@@ -1,7 +1,6 @@
 language: go
 
 go:
-  - "1.0.x"
   - master
 
 install:
