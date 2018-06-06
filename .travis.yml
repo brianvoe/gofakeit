@@ -1,8 +1,8 @@
 language: go
 
 go:
-  - 1.0.*
-  - release
+  - "1.0.x"
+  - master
 
 install:
   - go get -t -v ./...
