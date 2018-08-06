@@ -16,14 +16,14 @@ func ExampleAddress() {
 	fmt.Println(address.Country)
 	fmt.Println(address.Latitude)
 	fmt.Println(address.Longitude)
-	// Output: 872 East Rapidsborough, Rutherfordstad, New Jersey 74853-6757
+	// 872 East Rapidsborough, Rutherfordstad, New Jersey 74853
 	// 872 East Rapidsborough
 	// Rutherfordstad
 	// New Jersey
-	// 74853-6757
-	// Tajikistan
-	// -37.581128692020386
-	// -68.9641386085956
+	// 74853
+	// South Africa
+	// 23.05875828427908
+	// 89.02259415693374
 }
 
 func BenchmarkAddress(b *testing.B) {
