@@ -103,7 +103,7 @@ pkg: github.com/brianvoe/gofakeit
 |BenchmarkCreditCardNumber-8     	| 2000000|	       610 ns/op|	      16 B/op|	       1 allocs/op|
 |BenchmarkCreditCardExp-8        	|10000000|	       147 ns/op|	       5 B/op|	       1 allocs/op|
 |BenchmarkCreditCardCvv-8        	|10000000|	       149 ns/op|	       3 B/op|	       1 allocs/op|
-|BenchmarkSSN-8                  	| 5000000|	       382 ns/op|	      16 B/op|	       1 allocs/op|
+|BenchmarkSSN-8   	                |10000000|	       124 ns/op|	      16 B/op|	       1 allocs/op|
 |BenchmarkGender-8               	|30000000|	        40.8 ns/op|	       0 B/op|	       0 allocs/op|
 |BenchmarkPerson-8               	|  200000|	      6834 ns/op|	     820 B/op|	      26 allocs/op|
 |BenchmarkSimpleStatusCode-8     	|20000000|	        84.6 ns/op|	       0 B/op|	       0 allocs/op|

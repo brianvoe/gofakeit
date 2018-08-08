@@ -8,7 +8,7 @@ import (
 func ExampleSSN() {
 	Seed(11)
 	fmt.Println(SSN())
-	// Output: 328-727-1570
+	// Output: 296446360
 }
 
 func BenchmarkSSN(b *testing.B) {
@@ -68,26 +68,26 @@ func ExamplePerson() {
 	// Output: Markus
 	// Moen
 	// male
-	// 727-157-0245
+	// 420776036
 	// http://lorempixel.com/300/300/people
-	// Jacobi-Kuhic
-	// Director
-	// Forward
-	// Accounts
-	// 776 Roadshaven, Hilllville, Montana 58225
-	// 776 Roadshaven
-	// Hilllville
-	// Montana
-	// 58225
-	// Rwanda
-	// -24.329611640922778
-	// -133.75991475181377
-	// 8748033615
-	// pinkschaden@bernier.name
-	// Discover
-	// 2720991332448275
-	// 03/22
-	// 246
+	// Lockman and Sons
+	// Developer
+	// Global
+	// Brand
+	// 5748 Streamville, Rossieview, Hawaii 60370
+	// 5748 Streamville
+	// Rossieview
+	// Hawaii
+	// 60370
+	// Burkina Faso
+	// -6.662594491850811
+	// 23.921575244414612
+	// 5822502868
+	// hassanheaney@tromp.net
+	// MasterCard
+	// 2720991544071613
+	// 07/23
+	// 448
 }
 
 func BenchmarkPerson(b *testing.B) {

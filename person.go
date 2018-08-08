@@ -1,8 +1,10 @@
 package gofakeit
 
+import "strconv"
+
 // SSN will generate a random Social Security Number
 func SSN() string {
-	return Numerify("###-###-####")
+	return strconv.Itoa(randIntRange(100000000, 999999999))
 }
 
 // Gender will generate a random gender string
