@@ -23,24 +23,20 @@ func TestPassword(t *testing.T) {
 
 func ExamplePassword() {
 	Seed(11)
+	fmt.Println(Password(true, false, false, false, false, 32))
+	fmt.Println(Password(false, true, false, false, false, 32))
+	fmt.Println(Password(false, false, true, false, false, 32))
+	fmt.Println(Password(false, false, false, true, false, 32))
 	fmt.Println(Password(true, true, true, true, true, 32))
-	// Output: WV10MzLxq2DX79w1omH97_0ga59j8 kj
+	// Output: vodnqxzsuptgehrzylximvylxzoywexw
+	// ZSRQWJFJWCSTVGXKYKWMLIAFGFELFJRG
+	// 61718615932495608398906260648432
+	// @=-%%#$=-%+++&-#?*&?%&=%?+#@@-&?
+	// EEP+wwpk 4lU-eHNXlJZ4n K9%v&TZ9e
 }
 
 func BenchmarkPassword(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Password(true, true, true, true, true, 32)
-	}
-}
-
-func ExamplePasswordBulider() {
-	Seed(11)
-	fmt.Println(PasswordBulider(20))
-	// Output: fsdafas
-}
-
-func BenchmarkPasswordBulider(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		PasswordBulider(32)
+		Password(true, true, true, true, true, 8)
 	}
 }

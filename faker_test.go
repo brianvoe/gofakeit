@@ -33,8 +33,8 @@ func Example() {
 	// Credit Card: 4615440716133244
 	// Hacker Phrase: If we calculate the protocol, we can get to the JSON pixel through the open-source JSON capacitor!
 	// Job Title: Assistant
-	// Password: Ec_ YE1&U_#fm&89QExx$X%83qC-$9Z2
-	// Currency: ZMW - Zambia Kwacha
+	// Password: shn9a?bqXF +vvSc Nogwa$ L*zQ?F 7
+	// Currency: BGN - Bulgaria Lev
 }
 
 func TestSeed(t *testing.T) {
