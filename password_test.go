@@ -28,11 +28,13 @@ func ExamplePassword() {
 	fmt.Println(Password(false, false, true, false, false, 32))
 	fmt.Println(Password(false, false, false, true, false, 32))
 	fmt.Println(Password(true, true, true, true, true, 32))
+	fmt.Println(Password(true, true, true, true, true, 4))
 	// Output: vodnqxzsuptgehrzylximvylxzoywexw
 	// ZSRQWJFJWCSTVGXKYKWMLIAFGFELFJRG
 	// 61718615932495608398906260648432
 	// @=-%%#$=-%+++&-#?*&?%&=%?+#@@-&?
 	// EEP+wwpk 4lU-eHNXlJZ4n K9%v&TZ9e
+	// j ?9X
 }
 
 func BenchmarkPassword(b *testing.B) {
