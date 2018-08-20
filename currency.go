@@ -35,5 +35,5 @@ func CurrencyLong() string {
 // Price will take in a min and max value and return a formatted price
 func Price(min, max float64) float64 {
 	randFloat := rand.Float64()*(max-min) + min
-	return math.Round(randFloat*100) / 100
+	return math.Floor(randFloat*100) / 100
 }
