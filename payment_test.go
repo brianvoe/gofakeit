@@ -14,7 +14,7 @@ func ExampleCreditCard() {
 	fmt.Println(ccInfo.Cvv)
 	// Output: Visa
 	// 6587271570245748
-	// 03/18
+	// 03/25
 	// 675
 }
 
@@ -51,7 +51,7 @@ func BenchmarkCreditCardNumber(b *testing.B) {
 func ExampleCreditCardExp() {
 	Seed(11)
 	fmt.Println(CreditCardExp())
-	// Output: 01/23
+	// Output: 01/20
 }
 
 func BenchmarkCreditCardExp(b *testing.B) {

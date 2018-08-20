@@ -35,12 +35,13 @@ func CreditCardNumber() int {
 }
 
 // CreditCardExp will generate a random credit card expiration date string
+// Exp date will always be a future date
 func CreditCardExp() string {
 	month := strconv.Itoa(randIntRange(1, 12))
 	if len(month) == 1 {
 		month = "0" + month
 	}
-	return month + "/" + strconv.Itoa(randIntRange(currentYear, currentYear+5))
+	return month + "/" + strconv.Itoa(randIntRange(currentYear+1, currentYear+10))
 }
 
 // CreditCardCvv will generate a random CVV number - Its a string because you could have 017 as an exp date
