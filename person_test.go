@@ -86,7 +86,7 @@ func ExamplePerson() {
 	// hassanheaney@tromp.net
 	// MasterCard
 	// 2720991544071613
-	// 07/23
+	// 07/26
 	// 448
 }
 
