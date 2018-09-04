@@ -125,3 +125,51 @@ func BenchmarkNanoSecond(b *testing.B) {
 		NanoSecond()
 	}
 }
+
+func ExampleTimeZone() {
+	Seed(11)
+	fmt.Println(TimeZone())
+	// Output: Kaliningrad Standard Time
+}
+
+func BenchmarkTimeZone(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		TimeZone()
+	}
+}
+
+func ExampleTimeZoneFull() {
+	Seed(11)
+	fmt.Println(TimeZoneFull())
+	// Output: (UTC+03:00) Kaliningrad, Minsk
+}
+
+func BenchmarkTimeZoneFull(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		TimeZoneFull()
+	}
+}
+
+func ExampleTimeZoneAbv() {
+	Seed(11)
+	fmt.Println(TimeZoneAbv())
+	// Output: KST
+}
+
+func BenchmarkTimeZoneAbv(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		TimeZoneAbv()
+	}
+}
+
+func ExampleTimeZoneOffset() {
+	Seed(11)
+	fmt.Println(TimeZoneOffset())
+	// Output: 3
+}
+
+func BenchmarkTimeZoneOffset(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		TimeZoneOffset()
+	}
+}

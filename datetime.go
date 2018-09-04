@@ -1,6 +1,9 @@
 package gofakeit
 
-import "time"
+import (
+	"strconv"
+	"time"
+)
 
 // Date will generate a random time.Time struct
 func Date() time.Time {
@@ -50,4 +53,25 @@ func Second() int {
 // NanoSecond will generate a random nano second
 func NanoSecond() int {
 	return Number(0, 999999999)
+}
+
+// TimeZone will select a random timezone string
+func TimeZone() string {
+	return getRandValue([]string{"timezone", "text"})
+}
+
+// TimeZoneFull will select a random full timezone string
+func TimeZoneFull() string {
+	return getRandValue([]string{"timezone", "full"})
+}
+
+// TimeZoneAbv will select a random timezone abbreviation string
+func TimeZoneAbv() string {
+	return getRandValue([]string{"timezone", "abr"})
+}
+
+// TimeZoneOffset will select a random timezone offset
+func TimeZoneOffset() float32 {
+	value, _ := strconv.ParseFloat(getRandValue([]string{"timezone", "offset"}), 32)
+	return float32(value)
 }
