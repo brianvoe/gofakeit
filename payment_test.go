@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	"strconv"
 	"testing"
 )
 
@@ -45,6 +46,35 @@ func ExampleCreditCardNumber() {
 func BenchmarkCreditCardNumber(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		CreditCardNumber()
+	}
+}
+
+func ExampleCreditCardNumberLuhn() {
+	Seed(11)
+	fmt.Println(CreditCardNumberLuhn())
+	// Output: 4007208855354357
+}
+
+func BenchmarkCreditCardNumberLuhn(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		CreditCardNumberLuhn()
+	}
+}
+
+func TestCreditCardNumberLuhn(t *testing.T) {
+	Seed(0)
+	for i := 0; i < 100; i++ {
+		cc := strconv.Itoa(CreditCardNumberLuhn())
+		if !luhn(cc) {
+			t.Errorf("not luhn valid: %s", cc)
+		}
+	}
+}
+
+func TestLuhn(t *testing.T) {
+	// Lets make sure this card is invalid
+	if luhn("867gfsd5309") {
+		t.Error("card should have failed")
 	}
 }
 
