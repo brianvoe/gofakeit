@@ -22,7 +22,7 @@ func Uint16() uint16 {
 
 // Uint32 will generate a random uint32 value
 func Uint32() uint32 {
-	return uint32(randIntRange(0, math.MaxUint32))
+	return uint32(randIntRange(0, math.MaxInt32))
 }
 
 // Uint64 will generate a random uint64 value
