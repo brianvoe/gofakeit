@@ -116,7 +116,7 @@ func LatitudeInRange(min, max float64) (float64, error) {
 	if min > max || min < -90 || min > 90 || max < -90 || max > 90 {
 		return 0, errors.New("input range is invalid")
 	}
-	return randFloatRange(min, max), nil
+	return randFloat64Range(min, max), nil
 }
 
 // Longitude will generate a random longitude float64
@@ -127,5 +127,5 @@ func LongitudeInRange(min, max float64) (float64, error) {
 	if min > max || min < -180 || min > 180 || max < -180 || max > 180 {
 		return 0, errors.New("input range is invalid")
 	}
-	return randFloatRange(min, max), nil
+	return randFloat64Range(min, max), nil
 }

@@ -52,12 +52,22 @@ func Int64() int64 {
 
 // Float32 will generate a random float32 value
 func Float32() float32 {
-	return float32(randFloatRange(math.SmallestNonzeroFloat32, math.MaxFloat32))
+	return randFloat32Range(math.SmallestNonzeroFloat32, math.MaxFloat32)
+}
+
+// Float32Range will generate a random float32 value between min and max
+func Float32Range(min, max float32) float32 {
+	return randFloat32Range(min, max)
 }
 
 // Float64 will generate a random float64 value
 func Float64() float64 {
-	return randFloatRange(math.SmallestNonzeroFloat64, math.MaxFloat64)
+	return randFloat64Range(math.SmallestNonzeroFloat64, math.MaxFloat64)
+}
+
+// Float64Range will generate a random float64 value between min and max
+func Float64Range(min, max float64) float64 {
+	return randFloat64Range(min, max)
 }
 
 // Numerify will replace # with random numerical values
