@@ -125,6 +125,18 @@ func BenchmarkFloat32(b *testing.B) {
 	}
 }
 
+func ExampleFloat32Range() {
+	Seed(11)
+	fmt.Println(Float32Range(0, 9999999))
+	// Output: 914774.6
+}
+
+func BenchmarkFloat32Range(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Float32Range(0, 9999999)
+	}
+}
+
 func ExampleFloat64() {
 	Seed(11)
 	fmt.Println(Float64())
@@ -134,6 +146,18 @@ func ExampleFloat64() {
 func BenchmarkFloat64(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		Float64()
+	}
+}
+
+func ExampleFloat64Range() {
+	Seed(11)
+	fmt.Println(Float64Range(0, 9999999))
+	// Output: 914774.5585333086
+}
+
+func BenchmarkFloat64Range(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Float64Range(0, 9999999)
 	}
 }
 

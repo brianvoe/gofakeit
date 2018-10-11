@@ -96,7 +96,14 @@ func randIntRange(min, max int) int {
 	return rand.Intn((max+1)-min) + min
 }
 
-func randFloatRange(min, max float64) float64 {
+func randFloat32Range(min, max float32) float32 {
+	if min == max {
+		return min
+	}
+	return rand.Float32()*(max-min) + min
+}
+
+func randFloat64Range(min, max float64) float64 {
 	if min == max {
 		return min
 	}

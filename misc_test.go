@@ -26,8 +26,14 @@ func TestGetRandIntValueFail(t *testing.T) {
 	}
 }
 
-func TestRandFloatRangeSame(t *testing.T) {
-	if randFloatRange(5.0, 5.0) != 5.0 {
+func TestRandFloat32RangeSame(t *testing.T) {
+	if randFloat32Range(5.0, 5.0) != 5.0 {
+		t.Error("You should have gotten 5.0 back")
+	}
+}
+
+func TestRandFloat64RangeSame(t *testing.T) {
+	if randFloat64Range(5.0, 5.0) != 5.0 {
 		t.Error("You should have gotten 5.0 back")
 	}
 }
