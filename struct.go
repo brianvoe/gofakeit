@@ -16,36 +16,11 @@ func Struct(v interface{}) {
 func r(t reflect.Type, v reflect.Value, template string) {
 	switch t.Kind() {
 	case reflect.Ptr:
-		elemT := t.Elem()
-		if v.IsNil() {
-			nv := reflect.New(elemT)
-			r(elemT, nv.Elem(), template)
-			v.Set(nv)
-		} else {
-			r(elemT, v.Elem(), template)
-		}
+		rPointer(t, v, template)
 	case reflect.Struct:
-		n := t.NumField()
-		for i := 0; i < n; i++ {
-			elementT := t.Field(i)
-			elementV := v.Field(i)
-			fake := true
-			t, ok := elementT.Tag.Lookup("fake")
-			if ok && t == "skip" {
-				fake = false
-			}
-			if fake && elementV.CanSet() {
-				r(elementT.Type, elementV, t)
-			}
-		}
+		rStruct(t, v)
 	case reflect.String:
-		if template != "" {
-			r := Generate(template)
-			v.SetString(r)
-		} else {
-			v.SetString(Generate("???????????????????"))
-			// we don't have a String(len int) string function!!
-		}
+		rString(template, v)
 	case reflect.Uint8:
 		v.SetUint(uint64(Uint8()))
 	case reflect.Uint16:
@@ -71,5 +46,42 @@ func r(t reflect.Type, v reflect.Value, template string) {
 		v.SetFloat(float64(Float32()))
 	case reflect.Bool:
 		v.SetBool(Bool())
+	}
+}
+
+func rString(template string, v reflect.Value) {
+	if template != "" {
+		r := Generate(template)
+		v.SetString(r)
+	} else {
+		v.SetString(Generate("???????????????????"))
+		// we don't have a String(len int) string function!!
+	}
+}
+
+func rStruct(t reflect.Type, v reflect.Value) {
+	n := t.NumField()
+	for i := 0; i < n; i++ {
+		elementT := t.Field(i)
+		elementV := v.Field(i)
+		fake := true
+		t, ok := elementT.Tag.Lookup("fake")
+		if ok && t == "skip" {
+			fake = false
+		}
+		if fake && elementV.CanSet() {
+			r(elementT.Type, elementV, t)
+		}
+	}
+}
+
+func rPointer(t reflect.Type, v reflect.Value, template string) {
+	elemT := t.Elem()
+	if v.IsNil() {
+		nv := reflect.New(elemT)
+		r(elemT, nv.Elem(), template)
+		v.Set(nv)
+	} else {
+		r(elemT, v.Elem(), template)
 	}
 }
