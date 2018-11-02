@@ -6,13 +6,18 @@ import (
 	"github.com/brianvoe/gofakeit/data"
 )
 
+const HASHTAG = '#'
+const QUESTIONMARK = '?'
+
 // Check if in lib
 func dataCheck(dataVal []string) bool {
 	var checkOk bool
 
-	_, checkOk = data.Data[dataVal[0]]
-	if len(dataVal) == 2 && checkOk {
-		_, checkOk = data.Data[dataVal[0]][dataVal[1]]
+	if len(dataVal) == 2 {
+		_, checkOk = data.Data[dataVal[0]]
+		if checkOk {
+			_, checkOk = data.Data[dataVal[0]][dataVal[1]]
+		}
 	}
 
 	return checkOk
@@ -22,9 +27,11 @@ func dataCheck(dataVal []string) bool {
 func intDataCheck(dataVal []string) bool {
 	var checkOk bool
 
-	_, checkOk = data.IntData[dataVal[0]]
-	if len(dataVal) == 2 && checkOk {
-		_, checkOk = data.IntData[dataVal[0]][dataVal[1]]
+	if len(dataVal) == 2 {
+		_, checkOk = data.IntData[dataVal[0]]
+		if checkOk {
+			_, checkOk = data.IntData[dataVal[0]][dataVal[1]]
+		}
 	}
 
 	return checkOk
@@ -52,40 +59,41 @@ func replaceWithNumbers(str string) string {
 		return str
 	}
 	bytestr := []byte(str)
-	hashtag := []byte("#")[0]
-	numbers := []byte("0123456789")
 	for i := 0; i < len(bytestr); i++ {
-		if bytestr[i] == hashtag {
-			bytestr[i] = numbers[rand.Intn(9)]
+		if bytestr[i] == HASHTAG {
+			bytestr[i] = byte(randDigit())
 		}
 	}
-	if bytestr[0] == []byte("0")[0] {
-		bytestr[0] = numbers[rand.Intn(8)+1]
+	if bytestr[0] == '0' {
+		bytestr[0] = byte(rand.Intn(8)+1) + '0'
 	}
 
 	return string(bytestr)
 }
 
-// Replace ? with letters
+// Replace ? with ASCII lowercase letters
 func replaceWithLetters(str string) string {
 	if str == "" {
 		return str
 	}
 	bytestr := []byte(str)
-	question := []byte("?")[0]
-	letters := []byte("abcdefghijklmnopqrstuvwxyz")
 	for i := 0; i < len(bytestr); i++ {
-		if bytestr[i] == question {
-			bytestr[i] = letters[rand.Intn(26)]
+		if bytestr[i] == QUESTIONMARK {
+			bytestr[i] = byte(randLetter())
 		}
 	}
 
 	return string(bytestr)
 }
 
-// Generate random letter
-func randLetter() string {
-	return string([]byte("abcdefghijklmnopqrstuvwxyz")[rand.Intn(26)])
+// Generate random lowercase ASCII letter
+func randLetter() rune {
+	return rune(byte(rand.Intn(26)) + 'a')
+}
+
+// Generate random ASCII digit
+func randDigit() rune {
+	return rune(byte(rand.Intn(9)) + '0')
 }
 
 // Generate random integer between min and max
@@ -110,7 +118,7 @@ func randFloat64Range(min, max float64) float64 {
 	return rand.Float64()*(max-min) + min
 }
 
-// Categories will return a map string array of available data catgories and sub categories
+// Categories will return a map string array of available data categories and sub categories
 func Categories() map[string][]string {
 	types := make(map[string][]string)
 	for category, subCategoriesMap := range data.Data {

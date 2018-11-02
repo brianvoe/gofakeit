@@ -44,6 +44,22 @@ func TestReplaceWithNumbers(t *testing.T) {
 	}
 }
 
+func TestReplaceWithNumbersUnicode(t *testing.T) {
+	for _, test := range []struct{ in, should string }{
+		{"#界#世#", "8界8世5"},
+		{"☺#☻☹#", "☺8☻☹8"},
+		{"\x80#¼#語", "\x808¼8語"},
+	} {
+		Seed(42)
+		got := replaceWithNumbers(test.in)
+		if got == test.should {
+			continue
+		}
+		t.Errorf("for '%s' got '%s' should '%s'",
+			test.in, got, test.should)
+	}
+}
+
 func TestReplaceWithLetters(t *testing.T) {
 	if "" != replaceWithLetters("") {
 		t.Error("You should have gotten an empty string")
@@ -62,5 +78,16 @@ func TestCategories(t *testing.T) {
 	sort.Strings(expected)
 	if !reflect.DeepEqual(got, expected) {
 		t.Error("Type arrays are not the same.\nExpected: ", expected, "\nGot: ", got)
+	}
+}
+
+func BenchmarkReplaceWithNumbers(b *testing.B) {
+	b.StopTimer()
+	for i := 0; i < b.N; i++ {
+		Seed(42)
+
+		b.StartTimer()
+		replaceWithNumbers("###☺#☻##☹##")
+		b.StopTimer()
 	}
 }
