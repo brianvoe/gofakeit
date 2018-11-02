@@ -17,6 +17,10 @@ type Nested struct {
 }
 
 type BuiltIn struct {
+	Uint8   *uint8
+	Uint16  *uint16
+	Uint32  *uint32
+	Uint64  *uint64
 	Int     *int
 	Int8    *int8
 	Int16   *int16
@@ -63,6 +67,18 @@ func TestStructNested(t *testing.T) {
 func TestStructBuiltInTypes(t *testing.T) {
 	var builtIn BuiltIn
 	Struct(&builtIn)
+	if builtIn.Uint8 == nil {
+		t.Error("builtIn Uint8 was not set")
+	}
+	if builtIn.Uint16 == nil {
+		t.Error("builtIn Uint16 was not set")
+	}
+	if builtIn.Uint32 == nil {
+		t.Error("builtIn Uint32 was not set")
+	}
+	if builtIn.Uint64 == nil {
+		t.Error("builtIn Uint64 was not set")
+	}
 	if builtIn.Int == nil {
 		t.Error("builtIn int was not set")
 	}
