@@ -15,14 +15,18 @@ func TestRandIntRange(t *testing.T) {
 }
 
 func TestGetRandValueFail(t *testing.T) {
-	if getRandValue([]string{"not", "found"}) != "" {
-		t.Error("You should have gotten no value back")
+	for _, test := range [][]string{nil, {}, {"not", "found"}, {"person", "notfound"}} {
+		if getRandValue(test) != "" {
+			t.Error("You should have gotten no value back")
+		}
 	}
 }
 
 func TestGetRandIntValueFail(t *testing.T) {
-	if getRandIntValue([]string{"not", "found"}) != 0 {
-		t.Error("You should have gotten no value back")
+	for _, test := range [][]string{nil, {}, {"not", "found"}, {"status_code", "notfound"}} {
+		if getRandIntValue(test) != 0 {
+			t.Error("You should have gotten no value back")
+		}
 	}
 }
 

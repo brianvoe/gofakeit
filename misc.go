@@ -25,13 +25,13 @@ func dataCheck(dataVal []string) bool {
 
 // Check if in lib
 func intDataCheck(dataVal []string) bool {
-	var checkOk bool
+	if len(dataVal) != 2 {
+		return false
+	}
 
-	if len(dataVal) == 2 {
-		_, checkOk = data.IntData[dataVal[0]]
-		if checkOk {
-			_, checkOk = data.IntData[dataVal[0]][dataVal[1]]
-		}
+	_, checkOk := data.IntData[dataVal[0]]
+	if checkOk {
+		_, checkOk = data.IntData[dataVal[0]][dataVal[1]]
 	}
 
 	return checkOk
