@@ -46,6 +46,15 @@ func r(t reflect.Type, v reflect.Value, template string) {
 			v.SetString(Generate("???????????????????"))
 			// we don't have a String(len int) string function!!
 		}
+	case reflect.Uint8:
+		v.SetUint(uint64(Uint8()))
+	case reflect.Uint16:
+		v.SetUint(uint64(Uint16()))
+	case reflect.Uint32:
+		v.SetUint(uint64(Uint32()))
+	case reflect.Uint64:
+		//capped at [0, math.MaxInt64)
+		v.SetUint(uint64(Uint64()))
 	case reflect.Int:
 		v.SetInt(int64(Int64()))
 	case reflect.Int8:
