@@ -19,9 +19,24 @@ func Lexify(str string) string {
 
 // ShuffleStrings will randomize a slice of strings
 func ShuffleStrings(a []string) {
-	rand.Shuffle(len(a), func(i, j int) {
+	swap := func(i, j int) {
 		a[i], a[j] = a[j], a[i]
-	})
+	}
+	//to avoid upgrading to 1.10 I copied the algorithm
+	n := len(a)
+	if n <= 1 {
+		return
+	}
+
+	i := n - 1
+	for ; i > 1<<31-1-1; i-- {
+		j := int(rand.Int63n(int64(i + 1)))
+		swap(i, j)
+	}
+	for ; i > 0; i-- {
+		j := int(rand.Int31n(int32(i + 1)))
+		swap(i, j)
+	}
 }
 
 // RandString will take in a slice of string and return a randomly selected value
