@@ -48,7 +48,7 @@ func ExampleShuffleStrings() {
 	strings := []string{"happy", "times", "for", "everyone", "have", "a", "good", "day"}
 	ShuffleStrings(strings)
 	fmt.Println(strings)
-	// Output: [everyone times day good for have a happy]
+	// Output: [good everyone have for times a day happy]
 }
 
 func BenchmarkShuffleStrings(b *testing.B) {
