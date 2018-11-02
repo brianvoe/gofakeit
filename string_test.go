@@ -77,3 +77,33 @@ func TestRandString(t *testing.T) {
 			test.in, test.should, got)
 	}
 }
+
+func TestShuffleStrings(t *testing.T) {
+	//test for panics
+	ShuffleStrings([]string{"a"})
+	ShuffleStrings(nil)
+
+	a := []string{"a", "b", "c", "d", "e", "f", "g", "h"}
+	b := make([]string, len(a))
+	copy(b, a)
+	ShuffleStrings(a)
+	if equalSliceString(a, b) {
+		t.Errorf("shuffle resulted in the same permutation, the odds are slim")
+	}
+}
+
+func equalSliceString(a, b []string) bool {
+	sizeA, sizeB := len(a), len(b)
+	if sizeA != sizeB {
+		return false
+	}
+
+	for i, va := range a {
+		vb := b[i]
+
+		if va != vb {
+			return false
+		}
+	}
+	return true
+}

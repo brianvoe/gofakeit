@@ -1,6 +1,8 @@
 package gofakeit
 
-import "math/rand"
+import (
+	"math/rand"
+)
 
 // Letter will generate a single random lower case ASCII letter
 func Letter() string {
@@ -28,11 +30,8 @@ func ShuffleStrings(a []string) {
 		return
 	}
 
+	//if size is > int32 probably it will never finish, or ran out of entropy
 	i := n - 1
-	for ; i > 1<<31-1-1; i-- {
-		j := int(rand.Int63n(int64(i + 1)))
-		swap(i, j)
-	}
 	for ; i > 0; i-- {
 		j := int(rand.Int31n(int32(i + 1)))
 		swap(i, j)
