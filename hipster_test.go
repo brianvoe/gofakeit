@@ -24,6 +24,7 @@ func ExampleHipsterSentence() {
 }
 
 func BenchmarkHipsterSentence(b *testing.B) {
+	Seed(42)
 	for i := 0; i < b.N; i++ {
 		HipsterSentence(10)
 	}
@@ -38,6 +39,7 @@ func ExampleHipsterParagraph() {
 }
 
 func BenchmarkHipsterParagraph(b *testing.B) {
+	Seed(42)
 	for i := 0; i < b.N; i++ {
 		HipsterParagraph(3, 5, 12, "\n")
 	}

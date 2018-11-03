@@ -42,3 +42,26 @@ func BenchmarkParagraph(b *testing.B) {
 		Paragraph(3, 5, 12, "\n")
 	}
 }
+
+func TestSentence(t *testing.T) {
+	for _, count := range []int{-100, -1, 0} {
+		if Sentence(count) != "" {
+			t.Errorf("result should be blank for %d words", count)
+		}
+	}
+}
+func TestParagraph(t *testing.T) {
+	for _, count := range []struct{ parag, sent, words int }{
+		{1, 1, 0},
+		{1, 0, 1},
+		{0, 1, 1},
+		{1, 1, -100},
+		{1, -100, 1},
+		{-100, 1, 1},
+		{0, 0, 0},
+	} {
+		if Paragraph(count.parag, count.sent, count.words, " ") != "" {
+			t.Errorf("result should be blank for %v input", count)
+		}
+	}
+}
