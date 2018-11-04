@@ -31,3 +31,22 @@ func ExampleVehicleType() {
 	fmt.Println(VehicleType())
 	// Output: Passenger car mini
 }
+
+
+func ExampleVehicle() {
+	Seed(11)
+	vehicle := Vehicle()
+	fmt.Println(vehicle.Brand)
+	fmt.Println(vehicle.Fuel)
+	fmt.Println(vehicle.Model)
+	fmt.Println(vehicle.TransmissionGear)
+	fmt.Println(vehicle.VehicleType)
+	fmt.Println(vehicle.Year)
+	
+	// Output: Fiat
+	// Gasoline
+	// PHANTOM
+	// Automatic
+	// Passenger car mini
+	// 1943
+}
