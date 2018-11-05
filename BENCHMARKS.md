@@ -2,121 +2,133 @@ go test -bench=. -benchmem
 goos: darwin  
 goarch: amd64  
 pkg: github.com/brianvoe/gofakeit  
+Table generated with tablesgenerator.com/markdown_tables 
 
-||||||
-|-|-|-|-|-|
-|BenchmarkAddress-8              	|  500000|	      2433 ns/op|	     255 B/op|	       7 allocs/op|
-|BenchmarkStreet-8               	| 2000000|	       882 ns/op|	      62 B/op|	       3 allocs/op|
-|BenchmarkStreetNumber-8         	| 5000000|	       378 ns/op|	      36 B/op|	       2 allocs/op|
-|BenchmarkStreetPrefix-8         	|10000000|	       126 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkStreetName-8           	|10000000|	       127 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkStreetSuffix-8         	|10000000|	       129 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkCity-8                 	| 5000000|	       366 ns/op|	      15 B/op|	       1 allocs/op|
-|BenchmarkState-8                	|10000000|	       134 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkStateAbr-8             	|10000000|	       131 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkZip-8                  	| 3000000|	       426 ns/op|	       9 B/op|	       1 allocs/op|
-|BenchmarkCountry-8              	|10000000|	       153 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkCountryAbr-8           	|10000000|	       145 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkLatitude-8             	|50000000|	        25.1 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkLongitude-8            	|50000000|	        25.1 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkLatitudeInRange-8      	|50000000|	        29.5 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkLongitudeInRange-8     	|50000000|	        30.7 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkBeerName-8             	|20000000|	       110 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkBeerStyle-8            	|10000000|	       130 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkBeerHop-8              	|20000000|	       111 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkBeerYeast-8            	|20000000|	       111 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkBeerMalt-8             	|10000000|	       121 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkBeerIbu-8              	|20000000|	        77.0 ns/op|	       8 B/op|	       1 allocs/op|
-|BenchmarkBeerAlcohol-8          	| 5000000|	       357 ns/op|	      40 B/op|	       3 allocs/op|
-|BenchmarkBeerBlg-8              	| 5000000|	       362 ns/op|	      48 B/op|	       3 allocs/op|
-|BenchmarkBool-8                 	|50000000|	        36.4 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkColor-8                	|20000000|	       116 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkSafeColor-8            	|20000000|	       105 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkHexColor-8             	| 3000000|	       539 ns/op|	      24 B/op|	       3 allocs/op|
-|BenchmarkRGBColor-8             	|20000000|	       107 ns/op|	      32 B/op|	       1 allocs/op|
-|BenchmarkCompany-8              	| 5000000|	       371 ns/op|	      22 B/op|	       1 allocs/op|
-|BenchmarkCompanySuffix-8        	|20000000|	        99.9 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkBuzzWord-8             	|20000000|	       107 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkBS-8                   	|20000000|	       108 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkContact-8              	| 1000000|	      1268 ns/op|	     178 B/op|	       7 allocs/op|
-|BenchmarkPhone-8                	| 3000000|	       473 ns/op|	      16 B/op|	       1 allocs/op|
-|BenchmarkEmail-8                	| 2000000|	       753 ns/op|	     130 B/op|	       5 allocs/op|
-|BenchmarkCurrency-8             	|10000000|	       126 ns/op|	      32 B/op|	       1 allocs/op|
-|BenchmarkCurrencyShort-8        	|20000000|	       112 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkCurrencyLong-8         	|20000000|	       117 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkDate-8                 	| 5000000|	       365 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkDateRange-8            	|10000000|	       172 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkMonth-8                	|30000000|	        48.4 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkDay-8                  	|30000000|	        44.1 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkWeekDay-8              	|30000000|	        45.7 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkYear-8                 	|20000000|	        81.9 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkHour-8                 	|30000000|	        42.9 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkMinute-8               	|30000000|	        43.9 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkSecond-8               	|30000000|	        43.9 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkNanoSecond-8           	|30000000|	        45.1 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkMimeType-8             	|20000000|	       111 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkExtension-8            	|10000000|	       122 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkGenerate-8             	| 1000000|	      1756 ns/op|	     414 B/op|	      11 allocs/op|
-|BenchmarkHackerPhrase-8         	|  300000|	      4890 ns/op|	    2296 B/op|	      26 allocs/op|
-|BenchmarkHackerAbbreviation-8   	|20000000|	       107 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkHackerAdjective-8      	|20000000|	       109 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkHackerNoun-8           	|20000000|	       111 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkHackerVerb-8           	|10000000|	       121 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkHackerIngverb-8        	|20000000|	       104 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkHipsterWord-8          	|20000000|	       112 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkHipsterSentence-8      	| 1000000|	      2114 ns/op|	     782 B/op|	       9 allocs/op|
-|BenchmarkHipsterParagraph-8     	|   50000|	     39502 ns/op|	   18499 B/op|	     170 allocs/op|
-|BenchmarkImageURL-8             	|10000000|	       124 ns/op|	      38 B/op|	       3 allocs/op|
-|BenchmarkDomainName-8           	| 3000000|	       571 ns/op|	      76 B/op|	       3 allocs/op|
-|BenchmarkDomainSuffix-8         	|20000000|	       111 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkURL-8                  	| 1000000|	      1316 ns/op|	     278 B/op|	       8 allocs/op|
-|BenchmarkHTTPMethod-8           	|20000000|	       110 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkIPv4Address-8          	| 3000000|	       442 ns/op|	      48 B/op|	       5 allocs/op|
-|BenchmarkIPv6Address-8          	| 3000000|	       595 ns/op|	      96 B/op|	       7 allocs/op|
-|BenchmarkUsername-8             	| 5000000|	       351 ns/op|	      16 B/op|	       2 allocs/op|
-|BenchmarkPassword-8             	| 1000000|	      1355 ns/op|	     432 B/op|	       7 allocs/op|
-|BenchmarkJob-8                  	| 2000000|	       793 ns/op|	      86 B/op|	       2 allocs/op|
-|BenchmarkJobTitle-8             	|20000000|	       106 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkJobDescriptor-8        	|20000000|	       109 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkJobLevel-8             	|10000000|	       126 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkLogLevel-8             	|10000000|	       135 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkName-8                 	| 5000000|	       338 ns/op|	      17 B/op|	       1 allocs/op|
-|BenchmarkFirstName-8            	|10000000|	       118 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkLastName-8             	|20000000|	       115 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkNamePrefix-8           	|20000000|	       112 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkNameSuffix-8           	|10000000|	       121 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkNumber-8               	|50000000|	        37.6 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkUint8-8                	|50000000|	        31.4 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkUint16-8               	|50000000|	        31.3 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkUint32-8               	|50000000|	        29.3 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkUint64-8               	|50000000|	        37.5 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkInt8-8                 	|50000000|	        31.5 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkInt16-8                	|50000000|	        31.5 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkInt32-8                	|50000000|	        29.6 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkInt64-8                	|50000000|	        38.8 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkFloat32-8              	|50000000|	        27.9 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkFloat64-8              	|50000000|	        28.5 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkNumerify-8             	| 3000000|	       384 ns/op|	      16 B/op|	       1 allocs/op|
-|BenchmarkShuffleInts-8          	| 5000000|	       253 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkCreditCard-8           	| 1000000|	      1091 ns/op|	      88 B/op|	       4 allocs/op|
-|BenchmarkCreditCardType-8       	|20000000|	       100 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkCreditCardNumber-8     	| 2000000|	       610 ns/op|	      16 B/op|	       1 allocs/op|
-|BenchmarkCreditCardExp-8        	|10000000|	       147 ns/op|	       5 B/op|	       1 allocs/op|
-|BenchmarkCreditCardCvv-8        	|10000000|	       149 ns/op|	       3 B/op|	       1 allocs/op|
-|BenchmarkSSN-8   	                |10000000|	       124 ns/op|	      16 B/op|	       1 allocs/op|
-|BenchmarkGender-8               	|30000000|	        40.8 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkPerson-8               	|  200000|	      6834 ns/op|	     820 B/op|	      26 allocs/op|
-|BenchmarkSimpleStatusCode-8     	|20000000|	        84.6 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkStatusCode-8           	|20000000|	        83.0 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkLetter-8               	|20000000|	        65.8 ns/op|	       4 B/op|	       1 allocs/op|
-|BenchmarkLexify-8               	| 5000000|	       243 ns/op|	       8 B/op|	       1 allocs/op|
-|BenchmarkShuffleStrings-8       	| 5000000|	       259 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkUUID-8                 	|20000000|	       116 ns/op|	      48 B/op|	       1 allocs/op|
-|BenchmarkUserAgent-8            	| 1000000|	      1319 ns/op|	     305 B/op|	       5 allocs/op|
-|BenchmarkChromeUserAgent-8      	| 2000000|	       988 ns/op|	     188 B/op|	       5 allocs/op|
-|BenchmarkFirefoxUserAgent-8     	| 1000000|	      1715 ns/op|	     386 B/op|	       7 allocs/op|
-|BenchmarkSafariUserAgent-8      	| 1000000|	      1513 ns/op|	     551 B/op|	       7 allocs/op|
-|BenchmarkOperaUserAgent-8       	| 1000000|	      1038 ns/op|	     216 B/op|	       5 allocs/op|
-|BenchmarkWord-8                 	|20000000|	       106 ns/op|	       0 B/op|	       0 allocs/op|
-|BenchmarkSentence-8             	| 1000000|	      2081 ns/op|	     721 B/op|	      10 allocs/op|
-|BenchmarkParagraph-8            	|   50000|	     37894 ns/op|	   16105 B/op|	     172 allocs/op|
+| Benchmark              | Ops   | CPU  | MEM   | MEM alloc  |
+|---------------------------------|-----------|-------------|------------|--------------|
+| BenchmarkAddress-4              | 1000000   | 1998 ns/op  | 248 B/op   | 7 allocs/op  |
+| BenchmarkStreet-4               | 1000000   | 1278 ns/op  | 62 B/op    | 3 allocs/op  |
+| BenchmarkStreetNumber-4         | 5000000   | 344 ns/op   | 36 B/op    | 2 allocs/op  |
+| BenchmarkStreetPrefix-4         | 10000000  | 121 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkStreetName-4           | 10000000  | 122 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkStreetSuffix-4         | 10000000  | 122 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkCity-4                 | 5000000   | 326 ns/op   | 15 B/op    | 1 allocs/op  |
+| BenchmarkState-4                | 10000000  | 120 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkStateAbr-4             | 10000000  | 122 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkZip-4                  | 5000000   | 315 ns/op   | 5 B/op     | 1 allocs/op  |
+| BenchmarkCountry-4              | 10000000  | 126 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkCountryAbr-4           | 10000000  | 123 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkLatitude-4             | 100000000 | 23.6 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkLongitude-4            | 100000000 | 23.6 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkLatitudeInRange-4      | 50000000  | 27.7 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkLongitudeInRange-4     | 50000000  | 27.8 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkBeerName-4             | 20000000  | 104 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkBeerStyle-4            | 10000000  | 119 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkBeerHop-4              | 20000000  | 105 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkBeerYeast-4            | 20000000  | 106 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkBeerMalt-4             | 20000000  | 114 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkBeerIbu-4              | 20000000  | 71.0 ns/op  | 8 B/op     | 1 allocs/op  |
+| BenchmarkBeerAlcohol-4          | 5000000   | 335 ns/op   | 40 B/op    | 3 allocs/op  |
+| BenchmarkBeerBlg-4              | 5000000   | 338 ns/op   | 48 B/op    | 3 allocs/op  |
+| BenchmarkBool-4                 | 50000000  | 34.2 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkColor-4                | 20000000  | 112 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkSafeColor-4            | 20000000  | 102 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkHexColor-4             | 3000000   | 491 ns/op   | 24 B/op    | 3 allocs/op  |
+| BenchmarkRGBColor-4             | 20000000  | 103 ns/op   | 32 B/op    | 1 allocs/op  |
+| BenchmarkCompany-4              | 5000000   | 353 ns/op   | 22 B/op    | 1 allocs/op  |
+| BenchmarkCompanySuffix-4        | 20000000  | 89.6 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkBuzzWord-4             | 20000000  | 99.0 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkBS-4                   | 20000000  | 100 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkContact-4              | 1000000   | 1121 ns/op  | 178 B/op   | 7 allocs/op  |
+| BenchmarkPhone-4                | 5000000   | 346 ns/op   | 16 B/op    | 1 allocs/op  |
+| BenchmarkPhoneFormatted-4       | 3000000   | 456 ns/op   | 16 B/op    | 1 allocs/op  |
+| BenchmarkEmail-4                | 2000000   | 715 ns/op   | 130 B/op   | 5 allocs/op  |
+| BenchmarkCurrency-4             | 10000000  | 125 ns/op   | 32 B/op    | 1 allocs/op  |
+| BenchmarkCurrencyShort-4        | 20000000  | 104 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkCurrencyLong-4         | 20000000  | 105 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkPrice-4                | 50000000  | 27.2 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkDate-4                 | 5000000   | 371 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkDateRange-4            | 10000000  | 238 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkMonth-4                | 30000000  | 44.6 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkDay-4                  | 50000000  | 39.2 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkWeekDay-4              | 30000000  | 44.7 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkYear-4                 | 20000000  | 115 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkHour-4                 | 30000000  | 39.9 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkMinute-4               | 50000000  | 40.4 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkSecond-4               | 30000000  | 40.6 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkNanoSecond-4           | 30000000  | 42.2 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkTimeZone-4             | 20000000  | 105 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkTimeZoneFull-4         | 20000000  | 118 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkTimeZoneAbv-4          | 20000000  | 105 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkTimeZoneOffset-4       | 10000000  | 147 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkMimeType-4             | 20000000  | 99.9 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkExtension-4            | 20000000  | 109 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkGenerate-4             | 1000000   | 1588 ns/op  | 414 B/op   | 11 allocs/op |
+| BenchmarkHackerPhrase-4         | 300000    | 4576 ns/op  | 2295 B/op  | 26 allocs/op |
+| BenchmarkHackerAbbreviation-4   | 20000000  | 101 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkHackerAdjective-4      | 20000000  | 101 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkHackerNoun-4           | 20000000  | 104 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkHackerVerb-4           | 20000000  | 113 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkHackerIngverb-4        | 20000000  | 98.6 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkHipsterWord-4          | 20000000  | 100 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkHipsterSentence-4      | 1000000   | 1636 ns/op  | 353 B/op   | 3 allocs/op  |
+| BenchmarkHipsterParagraph-4     | 50000     | 31677 ns/op | 12351 B/op | 64 allocs/op |
+| BenchmarkImageURL-4             | 20000000  | 108 ns/op   | 38 B/op    | 3 allocs/op  |
+| BenchmarkDomainName-4           | 3000000   | 491 ns/op   | 76 B/op    | 3 allocs/op  |
+| BenchmarkDomainSuffix-4         | 20000000  | 99.4 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkURL-4                  | 1000000   | 1201 ns/op  | 278 B/op   | 8 allocs/op  |
+| BenchmarkHTTPMethod-4           | 20000000  | 100 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkIPv4Address-4          | 3000000   | 407 ns/op   | 48 B/op    | 5 allocs/op  |
+| BenchmarkIPv6Address-4          | 3000000   | 552 ns/op   | 96 B/op    | 7 allocs/op  |
+| BenchmarkUsername-4             | 5000000   | 307 ns/op   | 16 B/op    | 2 allocs/op  |
+| BenchmarkJob-4                  | 2000000   | 726 ns/op   | 86 B/op    | 2 allocs/op  |
+| BenchmarkJobTitle-4             | 20000000  | 98.7 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkJobDescriptor-4        | 20000000  | 98.9 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkJobLevel-4             | 20000000  | 110 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkLogLevel-4             | 20000000  | 107 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkReplaceWithNumbers-4   | 3000000   | 570 ns/op   | 32 B/op    | 1 allocs/op  |
+| BenchmarkName-4                 | 5000000   | 285 ns/op   | 17 B/op    | 1 allocs/op  |
+| BenchmarkFirstName-4            | 20000000  | 102 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkLastName-4             | 20000000  | 100 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkNamePrefix-4           | 20000000  | 98.0 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkNameSuffix-4           | 20000000  | 109 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkNumber-4               | 50000000  | 34.5 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkUint8-4                | 50000000  | 28.5 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkUint16-4               | 50000000  | 28.5 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkUint32-4               | 50000000  | 27.0 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkUint64-4               | 50000000  | 34.6 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkInt8-4                 | 50000000  | 28.5 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkInt16-4                | 50000000  | 28.4 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkInt32-4                | 50000000  | 27.0 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkInt64-4                | 50000000  | 34.9 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkFloat32-4              | 50000000  | 27.7 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkFloat32Range-4         | 50000000  | 27.9 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkFloat64-4              | 50000000  | 25.9 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkFloat64Range-4         | 50000000  | 26.5 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkNumerify-4             | 5000000   | 354 ns/op   | 16 B/op    | 1 allocs/op  |
+| BenchmarkShuffleInts-4          | 10000000  | 226 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkPassword-4             | 2000000   | 655 ns/op   | 304 B/op   | 6 allocs/op  |
+| BenchmarkCreditCard-4           | 2000000   | 997 ns/op   | 88 B/op    | 4 allocs/op  |
+| BenchmarkCreditCardType-4       | 20000000  | 92.7 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkCreditCardNumber-4     | 3000000   | 572 ns/op   | 16 B/op    | 1 allocs/op  |
+| BenchmarkCreditCardNumberLuhn-4 | 300000    | 5815 ns/op  | 159 B/op   | 9 allocs/op  |
+| BenchmarkCreditCardExp-4        | 10000000  | 129 ns/op   | 5 B/op     | 1 allocs/op  |
+| BenchmarkCreditCardCvv-4        | 10000000  | 128 ns/op   | 3 B/op     | 1 allocs/op  |
+| BenchmarkSSN-4                  | 20000000  | 84.2 ns/op  | 16 B/op    | 1 allocs/op  |
+| BenchmarkGender-4               | 50000000  | 38.0 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkPerson-4               | 300000    | 5563 ns/op  | 805 B/op   | 26 allocs/op |
+| BenchmarkSimpleStatusCode-4     | 20000000  | 72.9 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkStatusCode-4           | 20000000  | 75.8 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkLetter-4               | 50000000  | 38.4 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkDigit-4                | 50000000  | 38.2 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkLexify-4               | 10000000  | 222 ns/op   | 8 B/op     | 1 allocs/op  |
+| BenchmarkShuffleStrings-4       | 10000000  | 197 ns/op   | 0 B/op     | 0 allocs/op  |
+| BenchmarkUUID-4                 | 20000000  | 106 ns/op   | 48 B/op    | 1 allocs/op  |
+| BenchmarkUserAgent-4            | 1000000   | 1236 ns/op  | 305 B/op   | 5 allocs/op  |
+| BenchmarkChromeUserAgent-4      | 2000000   | 881 ns/op   | 188 B/op   | 5 allocs/op  |
+| BenchmarkFirefoxUserAgent-4     | 1000000   | 1595 ns/op  | 386 B/op   | 7 allocs/op  |
+| BenchmarkSafariUserAgent-4      | 1000000   | 1396 ns/op  | 551 B/op   | 7 allocs/op  |
+| BenchmarkOperaUserAgent-4       | 2000000   | 950 ns/op   | 216 B/op   | 5 allocs/op  |
+| BenchmarkWord-4                 | 20000000  | 99.1 ns/op  | 0 B/op     | 0 allocs/op  |
+| BenchmarkSentence-4             | 1000000   | 1540 ns/op  | 277 B/op   | 2 allocs/op  |
+| BenchmarkParagraph-4            | 50000     | 30978 ns/op | 11006 B/op | 61 allocs/op | 
