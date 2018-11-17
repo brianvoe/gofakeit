@@ -15,6 +15,6 @@ var Hacker = map[string][]string{
 		"Use the {hacker.adjective} {hacker.abbreviation} {hacker.noun}, then you can {hacker.verb} the {hacker.adjective} {hacker.noun}!",
 		"The {hacker.abbreviation} {hacker.noun} is down, {hacker.verb} the {hacker.adjective} {hacker.noun} so we can {hacker.verb} the {hacker.abbreviation} {hacker.noun}!",
 		"{hacker.ingverb} the {hacker.noun} won't do anything, we need to {hacker.verb} the {hacker.adjective} {hacker.abbreviation} {hacker.noun}!",
-		"I'll {hacker.verb} the {hacker.adjective} {hacker.abbreviation} {hacker.noun}, that should {hacker.noun} the {hacker.abbreviation} {hacker.noun}!",
+		"I'll {hacker.verb} the {hacker.adjective} {hacker.abbreviation} {hacker.noun}, that should {hacker.verb} the {hacker.abbreviation} {hacker.noun}!",
 	},
 }
