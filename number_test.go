@@ -164,7 +164,7 @@ func BenchmarkFloat64Range(b *testing.B) {
 func ExampleNumerify() {
 	Seed(11)
 	fmt.Println(Numerify("###-###-####"))
-	// Output: 328-727-1570
+	// Output: 613-645-9948
 }
 
 func BenchmarkNumerify(b *testing.B) {

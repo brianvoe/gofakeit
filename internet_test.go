@@ -80,7 +80,7 @@ func BenchmarkIPv6Address(b *testing.B) {
 func ExampleUsername() {
 	Seed(11)
 	fmt.Println(Username())
-	// Output: Daniel2872
+	// Output: Daniel1364
 }
 
 func BenchmarkUsername(b *testing.B) {

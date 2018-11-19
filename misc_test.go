@@ -50,9 +50,9 @@ func TestReplaceWithNumbers(t *testing.T) {
 
 func TestReplaceWithNumbersUnicode(t *testing.T) {
 	for _, test := range []struct{ in, should string }{
-		{"#界#世#", "8界8世5"},
-		{"☺#☻☹#", "☺8☻☹8"},
-		{"\x80#¼#語", "\x808¼8語"},
+		{"#界#世#", "5界7世8"},
+		{"☺#☻☹#", "☺5☻☹7"},
+		{"\x80#¼#語", "\x805¼7語"},
 	} {
 		Seed(42)
 		got := replaceWithNumbers(test.in)
