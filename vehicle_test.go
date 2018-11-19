@@ -5,7 +5,7 @@ import "fmt"
 func ExampleCarModel() {
 	Seed(11)
 	fmt.Println(CarModel())
-	// Output: XK8 CONVERTIBLE
+	// Output: Aveo
 }
 
 func ExampleCarMaker() {
@@ -45,7 +45,7 @@ func ExampleVehicle() {
 	
 	// Output: Fiat
 	// Gasoline
-	// PHANTOM
+	// Freestyle Fwd
 	// Automatic
 	// Passenger car mini
 	// 1943
