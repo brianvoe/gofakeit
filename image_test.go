@@ -8,7 +8,7 @@ import (
 func ExampleImageURL() {
 	Seed(11)
 	fmt.Println(ImageURL(640, 480))
-	// Output: http://lorempixel.com/640/480
+	// Output: https://picsum.photos/640/480
 }
 
 func BenchmarkImageURL(b *testing.B) {

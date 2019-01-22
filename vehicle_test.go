@@ -32,7 +32,6 @@ func ExampleVehicleType() {
 	// Output: Passenger car mini
 }
 
-
 func ExampleVehicle() {
 	Seed(11)
 	vehicle := Vehicle()
@@ -42,11 +41,11 @@ func ExampleVehicle() {
 	fmt.Println(vehicle.TransmissionGear)
 	fmt.Println(vehicle.VehicleType)
 	fmt.Println(vehicle.Year)
-	
+
 	// Output: Fiat
 	// Gasoline
 	// Freestyle Fwd
 	// Automatic
 	// Passenger car mini
-	// 1943
+	// 1925
 }

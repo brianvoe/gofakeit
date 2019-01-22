@@ -11,11 +11,210 @@ Random data generator written in go
 - Zero dependencies
 - Randomizes user defined structs
 - Numerous functions for regular use
-- Extensible
 
-### 80+ Functions!!!
+### 120+ Functions!!!
 If there is something that is generic enough missing from this package [add an issue](https://github.com/brianvoe/gofakeit/issues) and let me know what you need.
 Most of the time i'll add it!
+
+## Person
+```go
+Person()
+Name()
+NamePrefix()
+NameSuffix()
+FirstName()
+LastName()
+Gender()
+SSN()
+Contact()
+Email()
+Phone()
+PhoneFormatted()
+Username()
+Password()
+```
+
+## Address
+```go
+Address()
+City()
+Country()
+CountryAbr()
+State()
+StateAbr()
+StatusCode()
+Street()
+StreetName()
+StreetNumber()
+StreetPrefix()
+StreetSuffix()
+Zip()
+Latitude()
+LatitudeInRange()
+Longitude()
+LongitudeInRange()
+```
+
+## Beer
+```go
+BeerAlcohol()
+BeerBlg()
+BeerHop()
+BeerIbu()
+BeerMalt()
+BeerName()
+BeerStyle()
+BeerYeast()
+```
+
+## Cars
+```go
+CarMaker()
+CarModel()
+Vehicle()
+VehicleType()
+FuelType()
+TransmissionGearType()
+```
+
+## Lorem
+```go
+Word()
+Sentence()
+Paragraph()
+```
+
+## Shuffle
+```go
+ShuffleInts()
+ShuffleStrings()
+```
+
+## Misc
+```go
+Struct()
+Generate()
+Letter()
+Lexify()
+Bool()
+BS()
+BuzzWord()
+UUID()
+```
+
+## Colors
+```go
+Color()
+HexColor()
+RGBColor()
+SafeColor()
+```
+
+## Internet
+```go
+URL()
+ImageURL()
+DomainName()
+DomainSuffix()
+IPv4Address()
+IPv6Address()
+SimpleStatusCode()
+LogLevel()
+HTTPMethod()
+UserAgent()
+ChromeUserAgent()
+FirefoxUserAgent()
+OperaUserAgent()
+SafariUserAgent()
+```
+
+## Date/Time
+```go
+Date()
+DateRange()
+NanoSecond()
+Second()
+Minute()
+Hour()
+Month()
+Day()
+WeekDay()
+Year()
+TimeZone()
+TimeZoneAbv()
+TimeZoneFull()
+TimeZoneOffset()
+```
+
+## Payment
+```go
+Price()
+CreditCard()
+CreditCardCvv()
+CreditCardExp()
+CreditCardNumber()
+CreditCardNumberLuhn()
+CreditCardType()
+Currency()
+CurrencyLong()
+CurrencyShort()
+```
+
+## Company
+```go
+Company()
+CompanySuffix()
+Job()
+JobDescriptor()
+JobLevel()
+JobTitle()
+```
+
+## Hacker
+```go
+HackerAbbreviation()
+HackerAdjective()
+HackerIngverb()
+HackerNoun()
+HackerPhrase()
+HackerVerb()
+```
+
+## Hipster
+```go
+HipsterParagraph()
+HipsterSentence()
+HipsterWord()
+```
+
+## File
+```go
+Extension()
+MimeType()
+```
+
+## Numbers
+```go
+Number()
+Numerify()
+Int8()
+Int16()
+Int32()
+Int64()
+Uint8()
+Uint16()
+Uint32()
+Uint64()
+Float32()
+Float32Range()
+Float64()
+Float64Range()
+```
+
+## String
+```go
+Digit()
+```
 
 ## Documentation
 [![GoDoc](https://godoc.org/github.com/brianvoe/gofakeit?status.svg)](https://godoc.org/github.com/brianvoe/gofakeit)
@@ -36,7 +235,7 @@ gofakeit.HackerPhrase() // Connecting the array won't do anything, we need to ge
 gofakeit.JobTitle() // Director
 gofakeit.Password(true, true, true, true, true, 32) // WV10MzLxq2DX79w1omH97_0ga59j8!kj
 gofakeit.CurrencyShort() // USD
-// 80+ more!!!
+// 120+ more!!!
 
 // Create structs with random injected data
 type Foo struct {

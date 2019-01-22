@@ -66,28 +66,28 @@ func ExamplePerson() {
 	fmt.Println(creditCard.Cvv)
 
 	// Output: Markus
-	//Moen
-	//male
-	//420776036
-	//http://lorempixel.com/300/300/people
-	//Lockman and Sons
-	//Developer
-	//Global
-	//Brand
-	//5369 Streamville, Rossieview, Hawaii 42591
-	//5369 Streamville
-	//Rossieview
-	//Hawaii
-	//42591
-	//Burkina Faso
-	//-6.662594491850811
-	//23.921575244414612
-	//3023202027
-	//lamarkoelpin@heaney.biz
-	//Discover
-	//4148008899822720
-	//09/28
-	//932
+	// Moen
+	// male
+	// 420776036
+	// https://picsum.photos/300/300/people
+	// Lockman and Sons
+	// Developer
+	// Global
+	// Brand
+	// 5369 Streamville, Rossieview, Hawaii 42591
+	// 5369 Streamville
+	// Rossieview
+	// Hawaii
+	// 42591
+	// Burkina Faso
+	// -6.662594491850811
+	// 23.921575244414612
+	// 3023202027
+	// lamarkoelpin@heaney.biz
+	// Discover
+	// 4148008899822720
+	// 09/29
+	// 932
 }
 
 func BenchmarkPerson(b *testing.B) {
