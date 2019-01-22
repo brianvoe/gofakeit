@@ -35,7 +35,7 @@ func BenchmarkAddress(b *testing.B) {
 func ExampleStreet() {
 	Seed(11)
 	fmt.Println(Street())
-	// Output: 872 East Rapidsborough
+	// Output: 364 East Rapidsborough
 }
 
 func BenchmarkStreet(b *testing.B) {
@@ -47,7 +47,7 @@ func BenchmarkStreet(b *testing.B) {
 func ExampleStreetNumber() {
 	Seed(11)
 	fmt.Println(StreetNumber())
-	// Output: 28727
+	// Output: 13645
 }
 
 func BenchmarkStreetNumber(b *testing.B) {
@@ -137,7 +137,7 @@ func BenchmarkStateAbr(b *testing.B) {
 func ExampleZip() {
 	Seed(11)
 	fmt.Println(Zip())
-	// Output: 28727
+	// Output: 13645
 }
 
 func BenchmarkZip(b *testing.B) {

@@ -23,18 +23,18 @@ func Example() {
 	fmt.Printf("Currency: %s - %s", currency.Short, currency.Long)
 	// Output:
 	// Name: Markus Moen
-	// Email: alaynawuckert@kozey.biz
-	// Phone: 1570245748
-	// Address: 67577 South Roadshaven, Hilllville, Montana 58225
-	// BS: sexy
-	// Beer Name: Hennepin
-	// Color: PaleGoldenRod
-	// Company: Tromp Group
-	// Credit Card: 4615440716133244
-	// Hacker Phrase: If we calculate the protocol, we can get to the JSON pixel through the open-source JSON capacitor!
-	// Job Title: Assistant
-	// Password: shn9a?bqXF +vvSc Nogwa$ L*zQ?F 7
-	// Currency: BGN - Bulgaria Lev
+	//Email: alaynawuckert@kozey.biz
+	//Phone: 9948995369
+	//Address: 35300 South Roadshaven, Hilllville, Montana 30232
+	//BS: e-enable
+	//Beer Name: Weihenstephaner Hefeweissbier
+	//Color: MidnightBlue
+	//Company: Heaney-Tromp
+	//Credit Card: 2720997148008899
+	//Hacker Phrase: Use the wireless SQL sensor, then you can compress the open-source array!
+	//Job Title: Producer
+	//Password: Hozsav7LgAa -Q$qSu  L*2 ?Jivzjn2
+	//Currency: DJF - Djibouti Franc
 }
 
 func TestSeed(t *testing.T) {

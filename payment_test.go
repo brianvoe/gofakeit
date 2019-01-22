@@ -14,9 +14,9 @@ func ExampleCreditCard() {
 	fmt.Println(ccInfo.Exp)
 	fmt.Println(ccInfo.Cvv)
 	// Output: Visa
-	// 6587271570245748
-	// 03/25
-	// 675
+	// 6536459948995369
+	// 03/26
+	// 353
 }
 
 func BenchmarkCreditCard(b *testing.B) {
@@ -40,7 +40,7 @@ func BenchmarkCreditCardType(b *testing.B) {
 func ExampleCreditCardNumber() {
 	Seed(11)
 	fmt.Println(CreditCardNumber())
-	// Output: 4287271570245748
+	// Output: 4136459948995369
 }
 
 func BenchmarkCreditCardNumber(b *testing.B) {
@@ -52,7 +52,7 @@ func BenchmarkCreditCardNumber(b *testing.B) {
 func ExampleCreditCardNumberLuhn() {
 	Seed(11)
 	fmt.Println(CreditCardNumberLuhn())
-	// Output: 4007208855354357
+	// Output: 2720996615546177
 }
 
 func BenchmarkCreditCardNumberLuhn(b *testing.B) {
@@ -81,7 +81,7 @@ func TestLuhn(t *testing.T) {
 func ExampleCreditCardExp() {
 	Seed(11)
 	fmt.Println(CreditCardExp())
-	// Output: 01/20
+	// Output: 01/21
 }
 
 func BenchmarkCreditCardExp(b *testing.B) {
@@ -93,7 +93,7 @@ func BenchmarkCreditCardExp(b *testing.B) {
 func ExampleCreditCardCvv() {
 	Seed(11)
 	fmt.Println(CreditCardCvv())
-	// Output: 328
+	// Output: 513
 }
 
 func BenchmarkCreditCardCvv(b *testing.B) {

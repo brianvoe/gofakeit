@@ -93,7 +93,7 @@ func randLetter() rune {
 
 // Generate random ASCII digit
 func randDigit() rune {
-	return rune(byte(rand.Intn(9)) + '0')
+	return rune(byte(rand.Intn(10)) + '0')
 }
 
 // Generate random integer between min and max
