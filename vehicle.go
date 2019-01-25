@@ -1,5 +1,6 @@
 package gofakeit
 
+// VehicleInfo is a struct dataset of all vehicle information
 type VehicleInfo struct {
 	// Vehicle type
 	VehicleType string
@@ -33,18 +34,22 @@ func VehicleType() string {
 	return getRandValue([]string{"vehicle", "vehicle_type"})
 }
 
+// FuelType will return a random fuel type
 func FuelType() string {
 	return getRandValue([]string{"vehicle", "fuel_type"})
 }
 
+// TransmissionGearType will return a random transmission gear type
 func TransmissionGearType() string {
 	return getRandValue([]string{"vehicle", "transmission_type"})
 }
 
+// CarMaker will return a random car maker
 func CarMaker() string {
 	return getRandValue([]string{"vehicle", "maker"})
 }
 
+// CarModel will return a random car model
 func CarModel() string {
 	return getRandValue([]string{"vehicle", "model"})
 }
