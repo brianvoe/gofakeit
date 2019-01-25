@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"bytes"
+	"strings"
 	"unicode"
 )
 
@@ -33,9 +34,7 @@ func Sentence(wordCount int) string {
 // Set Word Count
 // Set Paragraph Separator
 func Paragraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return paragraphGenerator(
-		paragrapOptions{paragraphCount, sentenceCount, wordCount, separator},
-		Sentence)
+	return paragraphGenerator(paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, Sentence)
 }
 
 func sentence(wordCount int, word wordGenerator) string {
@@ -88,4 +87,14 @@ func paragraphGenerator(opts paragrapOptions, sentecer sentenceGenerator) string
 	}
 
 	return paragraphs.String()
+}
+
+// Question will return a random question
+func Question() string {
+	return strings.Replace(HipsterSentence(Number(3, 10)), ".", "?", 1)
+}
+
+// Quote will return a random quote from a random person
+func Quote() string {
+	return `"` + HipsterSentence(Number(3, 10)) + `" - ` + FirstName() + " " + LastName()
 }
