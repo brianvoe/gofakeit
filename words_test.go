@@ -23,6 +23,14 @@ func ExampleSentence() {
 	// Output: Quia quae repellat consequatur quidem.
 }
 
+func TestSentence(t *testing.T) {
+	for _, count := range []int{-100, -1, 0} {
+		if Sentence(count) != "" {
+			t.Errorf("result should be blank for %d words", count)
+		}
+	}
+}
+
 func BenchmarkSentence(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		Sentence(10)
@@ -37,19 +45,6 @@ func ExampleParagraph() {
 	// Explicabo incidunt reprehenderit non quia dignissimos recusandae vitae soluta quia et quia. Aut veniam voluptas consequatur placeat sapiente non eveniet voluptatibus magni velit eum. Nobis vel repellendus sed est qui autem laudantium quidem quam ullam consequatur. Aut iusto ut commodi similique quae voluptatem atque qui fugiat eum aut. Quis distinctio consequatur voluptatem vel aliquid aut laborum facere officiis iure tempora.
 }
 
-func BenchmarkParagraph(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		Paragraph(3, 5, 12, "\n")
-	}
-}
-
-func TestSentence(t *testing.T) {
-	for _, count := range []int{-100, -1, 0} {
-		if Sentence(count) != "" {
-			t.Errorf("result should be blank for %d words", count)
-		}
-	}
-}
 func TestParagraph(t *testing.T) {
 	for _, count := range []struct{ parag, sent, words int }{
 		{1, 1, 0},
@@ -63,5 +58,35 @@ func TestParagraph(t *testing.T) {
 		if Paragraph(count.parag, count.sent, count.words, " ") != "" {
 			t.Errorf("result should be blank for %v input", count)
 		}
+	}
+}
+
+func BenchmarkParagraph(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Paragraph(3, 5, 12, "\n")
+	}
+}
+
+func ExampleQuestion() {
+	Seed(11)
+	fmt.Println(Question())
+	// Output: Roof chia echo?
+}
+
+func BenchmarkQuestion(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Question()
+	}
+}
+
+func ExampleQuote() {
+	Seed(11)
+	fmt.Println(Quote())
+	// Output: "Roof chia echo." - Lura Lockman
+}
+
+func BenchmarkQuote(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Quote()
 	}
 }

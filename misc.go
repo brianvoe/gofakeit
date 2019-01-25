@@ -6,8 +6,8 @@ import (
 	"github.com/brianvoe/gofakeit/data"
 )
 
-const HASHTAG = '#'
-const QUESTIONMARK = '?'
+const hashtag = '#'
+const questionmark = '?'
 
 // Check if in lib
 func dataCheck(dataVal []string) bool {
@@ -60,7 +60,7 @@ func replaceWithNumbers(str string) string {
 	}
 	bytestr := []byte(str)
 	for i := 0; i < len(bytestr); i++ {
-		if bytestr[i] == HASHTAG {
+		if bytestr[i] == hashtag {
 			bytestr[i] = byte(randDigit())
 		}
 	}
@@ -78,7 +78,7 @@ func replaceWithLetters(str string) string {
 	}
 	bytestr := []byte(str)
 	for i := 0; i < len(bytestr); i++ {
-		if bytestr[i] == QUESTIONMARK {
+		if bytestr[i] == questionmark {
 			bytestr[i] = byte(randLetter())
 		}
 	}

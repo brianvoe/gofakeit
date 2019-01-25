@@ -16,7 +16,5 @@ func HipsterSentence(wordCount int) string {
 // Set Word Count
 // Set Paragraph Separator
 func HipsterParagraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return paragraphGenerator(
-		paragrapOptions{paragraphCount, sentenceCount, wordCount, separator},
-		HipsterSentence)
+	return paragraphGenerator(paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, HipsterSentence)
 }
