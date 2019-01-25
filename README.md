@@ -18,202 +18,201 @@ Most of the time i'll add it!
 
 ## Person
 ```go
-Person()
-Name()
-NamePrefix()
-NameSuffix()
-FirstName()
-LastName()
-Gender()
-SSN()
-Contact()
-Email()
-Phone()
-PhoneFormatted()
-Username()
-Password()
+Person() *PersonInfo
+Name() string
+NamePrefix() string
+NameSuffix() string
+FirstName() string
+LastName() string
+Gender() string
+SSN() string
+Contact() *ContactInfo
+Email() string
+Phone() string
+PhoneFormatted() string
+Username() string
+Password(lower bool, upper bool, numeric bool, special bool, space bool, num int) string
 ```
 
 ## Address
 ```go
-Address()
-City()
-Country()
-CountryAbr()
-State()
-StateAbr()
-StatusCode()
-Street()
-StreetName()
-StreetNumber()
-StreetPrefix()
-StreetSuffix()
-Zip()
-Latitude()
-LatitudeInRange()
-Longitude()
-LongitudeInRange()
+Address() *AddressInfo
+City() string
+Country() string
+CountryAbr() string
+State() string
+StateAbr() string
+StatusCode() string
+Street() string
+StreetName() string
+StreetNumber() string
+StreetPrefix() string
+StreetSuffix() string
+Zip() string
+Latitude() float64
+LatitudeInRange() (float64, error)
+Longitude() float64
+LongitudeInRange() (float64, error)
 ```
 
 ## Beer
 ```go
-BeerAlcohol()
-BeerBlg()
-BeerHop()
-BeerIbu()
-BeerMalt()
-BeerName()
-BeerStyle()
-BeerYeast()
+BeerAlcohol() string
+BeerBlg() string
+BeerHop() string
+BeerIbu() string
+BeerMalt() string
+BeerName() string
+BeerStyle() string
+BeerYeast() string
 ```
 
 ## Cars
 ```go
-CarMaker()
-CarModel()
-Vehicle()
-VehicleType()
-FuelType()
-TransmissionGearType()
+Vehicle() *VehicleInfo
+CarMaker() string
+CarModel() string
+VehicleType() string
+FuelType() string
+TransmissionGearType() string
 ```
 
-## Lorem
+## Words
 ```go
-Word()
-Sentence()
-Paragraph()
-```
-
-## Shuffle
-```go
-ShuffleInts()
-ShuffleStrings()
+Word() string
+Sentence(wordCount int) string
+Paragraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string
+Question() string
+Quote() string
 ```
 
 ## Misc
 ```go
-Struct()
-Generate()
-Letter()
-Lexify()
-Bool()
-BS()
-BuzzWord()
-UUID()
+Struct(v interface{})
+Generate() string
+Bool() bool
+UUID() string
 ```
 
 ## Colors
 ```go
-Color()
-HexColor()
-RGBColor()
-SafeColor()
+Color() string
+HexColor() string
+RGBColor() string
+SafeColor() string
 ```
 
 ## Internet
 ```go
-URL()
-ImageURL()
-DomainName()
-DomainSuffix()
-IPv4Address()
-IPv6Address()
-SimpleStatusCode()
-LogLevel()
-HTTPMethod()
-UserAgent()
-ChromeUserAgent()
-FirefoxUserAgent()
-OperaUserAgent()
-SafariUserAgent()
+URL() string
+ImageURL(width int, height int) string
+DomainName() string
+DomainSuffix() string
+IPv4Address() string
+IPv6Address() string
+SimpleStatusCode() int
+LogLevel(logType string) string
+HTTPMethod() string
+UserAgent() string
+ChromeUserAgent() string
+FirefoxUserAgent() string
+OperaUserAgent() string
+SafariUserAgent() string
 ```
 
 ## Date/Time
 ```go
-Date()
-DateRange()
-NanoSecond()
-Second()
-Minute()
-Hour()
-Month()
-Day()
-WeekDay()
-Year()
-TimeZone()
-TimeZoneAbv()
-TimeZoneFull()
-TimeZoneOffset()
+Date() time.Time
+DateRange(start, end time.Time) time.Time
+NanoSecond() int
+Second() int
+Minute() int
+Hour() int
+Month() string
+Day() int
+WeekDay() string
+Year() int
+TimeZone() string
+TimeZoneAbv() string
+TimeZoneFull() string
+TimeZoneOffset() float32
 ```
 
 ## Payment
 ```go
-Price()
-CreditCard()
-CreditCardCvv()
-CreditCardExp()
-CreditCardNumber()
-CreditCardNumberLuhn()
-CreditCardType()
-Currency()
-CurrencyLong()
-CurrencyShort()
+Price(min, max float64) float64
+CreditCard() *CreditCardInfo
+CreditCardCvv() string
+CreditCardExp() string
+CreditCardNumber() int
+CreditCardNumberLuhn() int
+CreditCardType() string
+Currency() *CurrencyInfo
+CurrencyLong() string
+CurrencyShort() string
 ```
 
 ## Company
 ```go
-Company()
-CompanySuffix()
-Job()
-JobDescriptor()
-JobLevel()
-JobTitle()
+BS() string
+BuzzWord() string
+Company() string
+CompanySuffix() string
+Job() *JobInfo
+JobDescriptor() string
+JobLevel() string
+JobTitle() string
 ```
 
 ## Hacker
 ```go
-HackerAbbreviation()
-HackerAdjective()
-HackerIngverb()
-HackerNoun()
-HackerPhrase()
-HackerVerb()
+HackerAbbreviation() string
+HackerAdjective() string
+HackerIngverb() string
+HackerNoun() string
+HackerPhrase() string
+HackerVerb() string
 ```
 
 ## Hipster
 ```go
-HipsterParagraph()
-HipsterSentence()
-HipsterWord()
+HipsterWord() string
+HipsterSentence(wordCount int) string
+HipsterParagraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string
 ```
 
 ## File
 ```go
-Extension()
-MimeType()
+Extension() string
+MimeType() string
 ```
 
 ## Numbers
 ```go
-Number()
-Numerify()
-Int8()
-Int16()
-Int32()
-Int64()
-Uint8()
-Uint16()
-Uint32()
-Uint64()
-Float32()
-Float32Range()
-Float64()
-Float64Range()
+Number(min int, max int) int
+Numerify(str string) string
+Int8() int8
+Int16() int16
+Int32() int32
+Int64() int64
+Uint8() uint8
+Uint16() uint16
+Uint32() uint32
+Uint64() uint64
+Float32() float32
+Float32Range(min, max float32) float32
+Float64() float64
+Float64Range(min, max float64) float64
+ShuffleInts(a []int)
 ```
 
 ## String
 ```go
-Digit()
+Digit() string
+Letter() string
+Lexify(str string) string
+RandString(a []string) string
+ShuffleStrings(a []string)
 ```
 
 ## Documentation
