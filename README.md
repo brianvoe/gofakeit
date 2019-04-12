@@ -16,6 +16,12 @@ Random data generator written in go
 If there is something that is generic enough missing from this package [add an issue](https://github.com/brianvoe/gofakeit/issues) and let me know what you need.
 Most of the time i'll add it!
 
+### Seed
+If you would like to ensure randomization on initial use be sure to seed it first
+```go
+gofakeit.Seed(time.Now().UnixNano()) // or gofakeit.Seed(0)
+```
+
 ## Person
 ```go
 Person() *PersonInfo
@@ -222,6 +228,7 @@ ShuffleStrings(a []string)
 ```go
 import "github.com/brianvoe/gofakeit"
 
+gofakeit.Seed(0)
 gofakeit.Name() // Markus Moen
 gofakeit.Email() // alaynawuckert@kozey.biz
 gofakeit.Phone() // (570)245-7485
