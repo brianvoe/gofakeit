@@ -77,6 +77,18 @@ func BenchmarkIPv6Address(b *testing.B) {
 	}
 }
 
+func ExampleMacAddress() {
+	Seed(11)
+	fmt.Println(MacAddress())
+	// Output: e1:74:cb:01:77:91
+}
+
+func BenchmarkMacAddress(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		MacAddress()
+	}
+}
+
 func ExampleUsername() {
 	Seed(11)
 	fmt.Println(Username())

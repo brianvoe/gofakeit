@@ -49,6 +49,12 @@ func IPv6Address() string {
 	return fmt.Sprintf("2001:cafe:%x:%x:%x:%x:%x:%x", rand.Intn(num), rand.Intn(num), rand.Intn(num), rand.Intn(num), rand.Intn(num), rand.Intn(num))
 }
 
+// MacAddress will generate a random mac address
+func MacAddress() string {
+	num := 255
+	return fmt.Sprintf("%02x:%02x:%02x:%02x:%02x:%02x", rand.Intn(num), rand.Intn(num), rand.Intn(num), rand.Intn(num), rand.Intn(num), rand.Intn(num))
+}
+
 // Username will genrate a random username based upon picking a random lastname and random numbers at the end
 func Username() string {
 	return getRandValue([]string{"person", "last"}) + replaceWithNumbers("####")
