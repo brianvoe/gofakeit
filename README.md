@@ -22,6 +22,51 @@ If you would like to ensure randomization on initial use be sure to seed it firs
 gofakeit.Seed(time.Now().UnixNano()) // or gofakeit.Seed(0)
 ```
 
+## Example
+```go
+import "github.com/brianvoe/gofakeit"
+
+gofakeit.Seed(0)
+
+gofakeit.Name() // Markus Moen
+gofakeit.Email() // alaynawuckert@kozey.biz
+gofakeit.Phone() // (570)245-7485
+gofakeit.BS() // front-end
+gofakeit.BeerName() // Duvel
+gofakeit.Color() // MediumOrchid
+gofakeit.Company() // Moen, Pagac and Wuckert
+gofakeit.CreditCardNumber() // 4287271570245748
+gofakeit.HackerPhrase() // Connecting the array won't do anything, we need to generate the haptic COM driver!
+gofakeit.JobTitle() // Director
+gofakeit.Password(true, true, true, true, true, 32) // WV10MzLxq2DX79w1omH97_0ga59j8!kj
+gofakeit.CurrencyShort() // USD
+// See full list below
+```
+
+## Example Struct
+```go
+import "github.com/brianvoe/gofakeit"
+
+// Create structs with random injected data
+type Foo struct {
+	Bar     string
+	Int     int
+	Pointer *int
+	Name    string  `fake:"{person.first}"`
+	Skip    *string `fake:"skip"` // Set to "skip" to not generate data for
+}
+
+// Pass your struct as a pointer
+var f Foo
+gofakeit.Struct(&f)
+
+fmt.Printf("f.Bar:%s\n", f.Bar) // f.Bar:hrukpttuezptneuvunh
+fmt.Printf("f.Int:%d\n", f.Int) // f.Int:-7825289004089916589
+fmt.Printf("f.Pointer:%d\n", *f.Pointer) // f.Pointer:-343806609094473732
+fmt.Printf("f.Name:%v\n", f.Name) // f.Skip:fred
+fmt.Printf("f.Skip:%v\n", f.Skip) // f.Skip:<nil>
+```
+
 ## Person
 ```go
 Person() *PersonInfo
@@ -219,43 +264,4 @@ Letter() string
 Lexify(str string) string
 RandString(a []string) string
 ShuffleStrings(a []string)
-```
-
-## Documentation
-[![GoDoc](https://godoc.org/github.com/brianvoe/gofakeit?status.svg)](https://godoc.org/github.com/brianvoe/gofakeit)
-
-## Example
-```go
-import "github.com/brianvoe/gofakeit"
-
-gofakeit.Seed(0)
-gofakeit.Name() // Markus Moen
-gofakeit.Email() // alaynawuckert@kozey.biz
-gofakeit.Phone() // (570)245-7485
-gofakeit.BS() // front-end
-gofakeit.BeerName() // Duvel
-gofakeit.Color() // MediumOrchid
-gofakeit.Company() // Moen, Pagac and Wuckert
-gofakeit.CreditCardNumber() // 4287271570245748
-gofakeit.HackerPhrase() // Connecting the array won't do anything, we need to generate the haptic COM driver!
-gofakeit.JobTitle() // Director
-gofakeit.Password(true, true, true, true, true, 32) // WV10MzLxq2DX79w1omH97_0ga59j8!kj
-gofakeit.CurrencyShort() // USD
-// 120+ more!!!
-
-// Create structs with random injected data
-type Foo struct {
-	Bar     string
-	Baz     string
-	Int     int
-	Pointer *int
-	Skip    *string `fake:"skip"` // Set to "skip" to not generate data for
-}
-var f Foo
-gofakeit.Struct(&f)
-fmt.Printf("f.Bar:%s\n", f.Bar) // f.Bar:hrukpttuezptneuvunh
-fmt.Printf("f.Baz:%s\n", f.Baz) // f.Baz:uksqvgzadxlgghejkmv
-fmt.Printf("f.Int:%d\n", f.Int) // f.Int:-7825289004089916589
-fmt.Printf("f.Pointer:%d\n", *f.Pointer) // f.Pointer:-343806609094473732
-fmt.Printf("f.Skip:%v\n", f.Skip) // f.Skip:<nil>
 ```

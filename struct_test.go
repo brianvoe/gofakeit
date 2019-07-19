@@ -116,25 +116,29 @@ func TestStructWithTemplate(t *testing.T) {
 	}
 }
 
-func ExampleStruct() {
+func Example_struct() {
 	Seed(11)
+
 	type Foo struct {
 		Bar     string
-		Baz     string
 		Int     int
 		Pointer *int
+		Name    string  `fake:"{person.first}"`
 		Skip    *string `fake:"skip"`
 	}
+
 	var f Foo
 	Struct(&f)
+
 	fmt.Printf("%s\n", f.Bar)
-	fmt.Printf("%s\n", f.Baz)
 	fmt.Printf("%d\n", f.Int)
 	fmt.Printf("%d\n", *f.Pointer)
+	fmt.Printf("%v\n", f.Name)
 	fmt.Printf("%v\n", f.Skip)
+
 	// Output: gbrmarxhkijbptapwyj
-	// dnsmkgtlxwnqhqclayk
-	// -5858358572185296359
-	// -8038678955577270446
+	// -3430133205295092491
+	// -2330884613995904932
+	// Fred
 	// <nil>
 }
