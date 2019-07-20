@@ -20,7 +20,7 @@ func HexColor() string {
 		color[i] = hashQuestion[rand.Intn(2)]
 	}
 
-	return "#" + replaceWithLetters(replaceWithNumbers(string(color)))
+	return "#" + replaceWithHexLetters(replaceWithNumbers(string(color)))
 }
 
 // RGBColor will generate a random int slice color
