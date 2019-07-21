@@ -232,6 +232,13 @@ HipsterSentence(wordCount int) string
 HipsterParagraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string
 ```
 
+## Languages
+```go
+Language() string
+LanguageAbbreviation() string
+ProgrammingLanguage() string
+```
+
 ## File
 ```go
 Extension() string
