@@ -70,6 +70,12 @@ func TestReplaceWithLetters(t *testing.T) {
 	}
 }
 
+func TestReplaceWithHexLetters(t *testing.T) {
+	if "" != replaceWithHexLetters("") {
+		t.Error("You should have gotten an empty string")
+	}
+}
+
 func TestCategories(t *testing.T) {
 	var got, expected []string
 	for k := range Categories() {
