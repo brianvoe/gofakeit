@@ -8,6 +8,7 @@ var Data = map[string]map[string][]string{
 	"company":   Company,
 	"job":       Job,
 	"lorem":     Lorem,
+	"language":  Languages,
 	"internet":  Internet,
 	"file":      Files,
 	"color":     Colors,

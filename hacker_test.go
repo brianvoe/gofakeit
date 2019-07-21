@@ -6,9 +6,9 @@ import (
 )
 
 func ExampleHackerPhrase() {
-	Seed(20)
+	Seed(11)
 	fmt.Println(HackerPhrase())
-	// Output: Connecting the array won't do anything, we need to generate the haptic COM driver!
+	// Output: If we calculate the program, we can get to the AI pixel through the redundant XSS matrix!
 }
 
 func BenchmarkHackerPhrase(b *testing.B) {
@@ -18,9 +18,9 @@ func BenchmarkHackerPhrase(b *testing.B) {
 }
 
 func ExampleHackerAbbreviation() {
-	Seed(20)
+	Seed(11)
 	fmt.Println(HackerAbbreviation())
-	// Output: AGP
+	// Output: ADP
 }
 
 func BenchmarkHackerAbbreviation(b *testing.B) {
@@ -30,9 +30,9 @@ func BenchmarkHackerAbbreviation(b *testing.B) {
 }
 
 func ExampleHackerAdjective() {
-	Seed(20)
+	Seed(11)
 	fmt.Println(HackerAdjective())
-	// Output: online
+	// Output: wireless
 }
 
 func BenchmarkHackerAdjective(b *testing.B) {
@@ -42,9 +42,9 @@ func BenchmarkHackerAdjective(b *testing.B) {
 }
 
 func ExampleHackerNoun() {
-	Seed(20)
+	Seed(11)
 	fmt.Println(HackerNoun())
-	// Output: pixel
+	// Output: driver
 }
 
 func BenchmarkHackerNoun(b *testing.B) {
@@ -54,9 +54,9 @@ func BenchmarkHackerNoun(b *testing.B) {
 }
 
 func ExampleHackerVerb() {
-	Seed(20)
+	Seed(11)
 	fmt.Println(HackerVerb())
-	// Output: connect
+	// Output: synthesize
 }
 
 func BenchmarkHackerVerb(b *testing.B) {
@@ -66,9 +66,9 @@ func BenchmarkHackerVerb(b *testing.B) {
 }
 
 func ExampleHackerIngverb() {
-	Seed(20)
+	Seed(11)
 	fmt.Println(HackerIngverb())
-	// Output: navigating
+	// Output: connecting
 }
 
 func BenchmarkHackerIngverb(b *testing.B) {
