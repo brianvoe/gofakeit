@@ -29,9 +29,9 @@ func r(t reflect.Type, v reflect.Value, template string) {
 		v.SetUint(uint64(Uint32()))
 	case reflect.Uint64:
 		//capped at [0, math.MaxInt64)
-		v.SetUint(uint64(Uint64()))
+		v.SetUint(Uint64())
 	case reflect.Int:
-		v.SetInt(int64(Int64()))
+		v.SetInt(Int64())
 	case reflect.Int8:
 		v.SetInt(int64(Int8()))
 	case reflect.Int16:
@@ -39,7 +39,7 @@ func r(t reflect.Type, v reflect.Value, template string) {
 	case reflect.Int32:
 		v.SetInt(int64(Int32()))
 	case reflect.Int64:
-		v.SetInt(int64(Int64()))
+		v.SetInt(Int64())
 	case reflect.Float64:
 		v.SetFloat(Float64())
 	case reflect.Float32:

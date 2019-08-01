@@ -30,9 +30,7 @@ func PhoneFormatted() string {
 
 // Email will generate a random email string
 func Email() string {
-	var email string
-
-	email = getRandValue([]string{"person", "first"}) + getRandValue([]string{"person", "last"})
+	email := getRandValue([]string{"person", "first"}) + getRandValue([]string{"person", "last"})
 	email += "@"
 	email += getRandValue([]string{"person", "last"}) + "." + getRandValue([]string{"internet", "domain_suffix"})
 

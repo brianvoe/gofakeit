@@ -9,7 +9,7 @@ func SSN() string {
 
 // Gender will generate a random gender string
 func Gender() string {
-	if Bool() == true {
+	if Bool() {
 		return "male"
 	}
 

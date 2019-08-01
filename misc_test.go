@@ -43,7 +43,7 @@ func TestRandFloat64RangeSame(t *testing.T) {
 }
 
 func TestReplaceWithNumbers(t *testing.T) {
-	if "" != replaceWithNumbers("") {
+	if replaceWithNumbers("") != "" {
 		t.Error("You should have gotten an empty string")
 	}
 }
@@ -65,7 +65,7 @@ func TestReplaceWithNumbersUnicode(t *testing.T) {
 }
 
 func TestReplaceWithLetters(t *testing.T) {
-	if "" != replaceWithLetters("") {
+	if replaceWithLetters("") != "" {
 		t.Error("You should have gotten an empty string")
 	}
 }
