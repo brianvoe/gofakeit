@@ -8,7 +8,7 @@ import (
 
 // DomainName will generate a random url domain name
 func DomainName() string {
-	return strings.ToLower(JobDescriptor()+BS()) + "." + DomainSuffix()
+	return strings.Replace(strings.ToLower(JobDescriptor()+BS()), " ", "", -1) + "." + DomainSuffix()
 }
 
 // DomainSuffix will generate a random domain suffix
