@@ -18,16 +18,13 @@ func DomainSuffix() string {
 
 // URL will generate a random url string
 func URL() string {
-	url := "http" + RandString([]string{"s", ""}) + "://www."
-	url += DomainName()
-
 	// Slugs
 	num := Number(1, 4)
 	slug := make([]string, num)
 	for i := 0; i < num; i++ {
 		slug[i] = BS()
 	}
-	url += "/" + strings.ToLower(strings.Join(slug, "/"))
+	url := "http" + RandString([]string{"s", ""}) + "://www." + DomainName() + "/" + strings.ToLower(strings.Join(slug, "/"))
 
 	return url
 }

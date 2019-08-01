@@ -1,8 +1,8 @@
 package gofakeit
 
 import (
-	"crypto/rand"
 	"encoding/hex"
+	"math/rand"
 )
 
 // UUID (version 4) will generate a random unique identifier based upon random nunbers
