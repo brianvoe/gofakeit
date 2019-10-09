@@ -3,7 +3,7 @@ package gofakeit
 import (
 	"math/rand"
 
-	"github.com/brianvoe/gofakeit/v3/data"
+	"github.com/brianvoe/gofakeit/v4/data"
 )
 
 const hashtag = '#'
