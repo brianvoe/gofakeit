@@ -22,9 +22,14 @@ If you would like to ensure randomization on initial use be sure to seed it firs
 gofakeit.Seed(time.Now().UnixNano()) // or gofakeit.Seed(0)
 ```
 
+### Installation
+```go
+go get github.com/brianvoe/gofakeit/v4
+```
+
 ## Example
 ```go
-import "github.com/brianvoe/gofakeit"
+import "github.com/brianvoe/gofakeit/v4"
 
 gofakeit.Seed(0)
 
@@ -45,7 +50,7 @@ gofakeit.CurrencyShort() // USD
 
 ## Example Struct
 ```go
-import "github.com/brianvoe/gofakeit"
+import "github.com/brianvoe/gofakeit/v4"
 
 // Create structs with random injected data
 type Foo struct {
