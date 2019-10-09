@@ -7,8 +7,6 @@ func Map() map[string]interface{} {
 	randString := func() string {
 		s := RandString([]string{"lorem", "bs", "job", "name", "address"})
 		switch s {
-		case "lorem":
-			return Word()
 		case "bs":
 			return BS()
 		case "job":
@@ -18,7 +16,7 @@ func Map() map[string]interface{} {
 		case "address":
 			return Street() + ", " + City() + ", " + State() + " " + Zip()
 		}
-		return ""
+		return Word()
 	}
 
 	randSlice := func() []string {
@@ -42,7 +40,8 @@ func Map() map[string]interface{} {
 			m[Word()] = randSlice()
 		case "map":
 			mm := map[string]interface{}{}
-			switch t {
+			tt := RandString([]string{"string", "int", "float", "slice"})
+			switch tt {
 			case "string":
 				mm[Word()] = randString()
 			case "int":
