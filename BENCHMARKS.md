@@ -131,4 +131,5 @@ Table generated with tablesgenerator.com/markdown_tables
 | BenchmarkOperaUserAgent-4       | 2000000   | 950 ns/op   | 216 B/op   | 5 allocs/op  |
 | BenchmarkWord-4                 | 20000000  | 99.1 ns/op  | 0 B/op     | 0 allocs/op  |
 | BenchmarkSentence-4             | 1000000   | 1540 ns/op  | 277 B/op   | 2 allocs/op  |
-| BenchmarkParagraph-4            | 50000     | 30978 ns/op | 11006 B/op | 61 allocs/op | 
+| BenchmarkParagraph-4            | 50000     | 30978 ns/op | 11006 B/op | 61 allocs/op |
+| BenchmarkMap-8   	              | 312259	  | 3203 ns/op	| 702 B/op	 | 12 allocs/op |
