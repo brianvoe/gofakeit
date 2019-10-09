@@ -1,7 +1,7 @@
 package gofakeit
 
 import (
-	"github.com/brianvoe/gofakeit/v2/data"
+	"github.com/brianvoe/gofakeit/v3/data"
 )
 
 // LogLevel will generate a random log level
