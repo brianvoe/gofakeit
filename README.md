@@ -140,6 +140,7 @@ Quote() string
 ## Misc
 ```go
 Struct(v interface{})
+Map() map[string]interface{}
 Generate() string
 Bool() bool
 UUID() string
