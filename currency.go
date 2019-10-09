@@ -4,7 +4,7 @@ import (
 	"math"
 	"math/rand"
 
-	"github.com/brianvoe/gofakeit/data"
+	"github.com/brianvoe/gofakeit/v2/data"
 )
 
 // CurrencyInfo is a struct of currency information
