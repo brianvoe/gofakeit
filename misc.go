@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"math/rand"
+	"time"
 
 	"github.com/brianvoe/gofakeit/v4/data"
 )
@@ -121,6 +122,7 @@ func randIntRange(min, max int) int {
 	if min == max {
 		return min
 	}
+	rand.Seed(time.Now().UnixNano())
 	return rand.Intn((max+1)-min) + min
 }
 
