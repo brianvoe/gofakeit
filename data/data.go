@@ -17,6 +17,7 @@ var Data = map[string]map[string][]string{
 	"hipster":   Hipster,
 	"beer":      Beer,
 	"hacker":    Hacker,
+	"animal":    Animal,
 	"currency":  Currency,
 	"log_level": LogLevels,
 	"timezone":  TimeZone,

@@ -2,8 +2,6 @@ package gofakeit
 
 import "strconv"
 
-// Faker::Beer.blg #=> "18.5°Blg"
-
 // BeerName will return a random beer name
 func BeerName() string {
 	return getRandValue([]string{"beer", "name"})
