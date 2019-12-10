@@ -14,3 +14,8 @@ func LanguageAbbreviation() string {
 func ProgrammingLanguage() string {
 	return getRandValue([]string{"language", "programming"})
 }
+
+// ProgrammingLanguageBest will return a random programming language
+func ProgrammingLanguageBest() string {
+	return "Go"
+}
