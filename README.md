@@ -241,6 +241,11 @@ HipsterParagraph(paragraphCount int, sentenceCount int, wordCount int, separator
 ## Animal
 ```go
 PetName() string
+Animal() string
+AnimalType() string
+FarmAnimal() string
+Cat() string
+Dog() string
 ```
 
 ## Languages
