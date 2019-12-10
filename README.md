@@ -68,7 +68,7 @@ gofakeit.Struct(&f)
 fmt.Printf("f.Bar:%s\n", f.Bar) // f.Bar:hrukpttuezptneuvunh
 fmt.Printf("f.Int:%d\n", f.Int) // f.Int:-7825289004089916589
 fmt.Printf("f.Pointer:%d\n", *f.Pointer) // f.Pointer:-343806609094473732
-fmt.Printf("f.Name:%v\n", f.Name) // f.Skip:fred
+fmt.Printf("f.Name:%v\n", f.Name) // f.Name:fred
 fmt.Printf("f.Skip:%v\n", f.Skip) // f.Skip:<nil>
 ```
 
