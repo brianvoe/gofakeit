@@ -248,6 +248,7 @@ PetName() string
 Language() string
 LanguageAbbreviation() string
 ProgrammingLanguage() string
+ProgrammingLanguageBest() string
 ```
 
 ## File

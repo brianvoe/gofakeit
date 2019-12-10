@@ -40,3 +40,15 @@ func BenchmarkProgrammingLanguage(b *testing.B) {
 		ProgrammingLanguage()
 	}
 }
+
+func ExampleProgrammingLanguageBest() {
+	Seed(11)
+	fmt.Println(ProgrammingLanguageBest())
+	// Output: Go
+}
+
+func BenchmarkProgrammingLanguageBest(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		ProgrammingLanguageBest()
+	}
+}
