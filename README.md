@@ -86,6 +86,10 @@ Contact() *ContactInfo
 Email() string
 Phone() string
 PhoneFormatted() string
+```
+
+## Auth
+```go
 Username() string
 Password(lower bool, upper bool, numeric bool, special bool, space bool, num int) string
 ```
