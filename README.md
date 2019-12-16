@@ -102,7 +102,6 @@ Country() string
 CountryAbr() string
 State() string
 StateAbr() string
-StatusCode() string
 Street() string
 StreetName() string
 StreetNumber() string
@@ -171,6 +170,7 @@ DomainName() string
 DomainSuffix() string
 IPv4Address() string
 IPv6Address() string
+StatusCode() string
 SimpleStatusCode() int
 LogLevel(logType string) string
 HTTPMethod() string
