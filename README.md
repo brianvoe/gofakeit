@@ -109,9 +109,9 @@ StreetPrefix() string
 StreetSuffix() string
 Zip() string
 Latitude() float64
-LatitudeInRange() (float64, error)
+LatitudeInRange(min, max float64) (float64, error)
 Longitude() float64
-LongitudeInRange() (float64, error)
+LongitudeInRange(min, max float64) (float64, error)
 ```
 
 ## Beer
