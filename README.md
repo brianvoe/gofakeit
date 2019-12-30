@@ -68,7 +68,7 @@ gofakeit.Struct(&f)
 fmt.Printf("f.Bar:%s\n", f.Bar) // f.Bar:hrukpttuezptneuvunh
 fmt.Printf("f.Int:%d\n", f.Int) // f.Int:-7825289004089916589
 fmt.Printf("f.Pointer:%d\n", *f.Pointer) // f.Pointer:-343806609094473732
-fmt.Printf("f.Name:%v\n", f.Name) // f.Skip:fred
+fmt.Printf("f.Name:%v\n", f.Name) // f.Name:fred
 fmt.Printf("f.Skip:%v\n", f.Skip) // f.Skip:<nil>
 ```
 
@@ -86,6 +86,10 @@ Contact() *ContactInfo
 Email() string
 Phone() string
 PhoneFormatted() string
+```
+
+## Auth
+```go
 Username() string
 Password(lower bool, upper bool, numeric bool, special bool, space bool, num int) string
 ```
@@ -98,7 +102,6 @@ Country() string
 CountryAbr() string
 State() string
 StateAbr() string
-StatusCode() string
 Street() string
 StreetName() string
 StreetNumber() string
@@ -106,9 +109,9 @@ StreetPrefix() string
 StreetSuffix() string
 Zip() string
 Latitude() float64
-LatitudeInRange() (float64, error)
+LatitudeInRange(min, max float64) (float64, error)
 Longitude() float64
-LongitudeInRange() (float64, error)
+LongitudeInRange(min, max float64) (float64, error)
 ```
 
 ## Beer
@@ -167,6 +170,7 @@ DomainName() string
 DomainSuffix() string
 IPv4Address() string
 IPv6Address() string
+StatusCode() string
 SimpleStatusCode() int
 LogLevel(logType string) string
 HTTPMethod() string
