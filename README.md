@@ -29,7 +29,7 @@ go get github.com/brianvoe/gofakeit/v4
 
 ## Example
 ```go
-import "github.com/brianvoe/gofakeit/v4"
+import "github.com/brianvoe/gofakeit"
 
 gofakeit.Seed(0)
 
