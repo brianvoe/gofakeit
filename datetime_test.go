@@ -9,7 +9,7 @@ import (
 func ExampleDate() {
 	Seed(11)
 	fmt.Println(Date())
-	// Output: 1900-01-07 04:14:25.685339029 +0000 UTC
+	// Output: 1977-01-07 04:14:25.685339029 +0000 UTC
 }
 
 func BenchmarkDate(b *testing.B) {
@@ -69,7 +69,7 @@ func BenchmarkWeekDay(b *testing.B) {
 func ExampleYear() {
 	Seed(11)
 	fmt.Println(Year())
-	// Output: 1900
+	// Output: 1977
 }
 
 func BenchmarkYear(b *testing.B) {
