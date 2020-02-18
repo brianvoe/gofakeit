@@ -149,7 +149,7 @@ Quote() string
 ```go
 Struct(v interface{})
 Map() map[string]interface{}
-Generate() string
+Generate(value string) string
 Bool() bool
 UUID() string
 ```
@@ -158,7 +158,7 @@ UUID() string
 ```go
 Color() string
 HexColor() string
-RGBColor() string
+RGBColor() []int
 SafeColor() string
 ```
 
