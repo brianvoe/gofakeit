@@ -47,5 +47,5 @@ func ExampleVehicle() {
 	// Freestyle Fwd
 	// Automatic
 	// Passenger car mini
-	// 1925
+	// 1972
 }
