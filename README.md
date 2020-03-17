@@ -252,6 +252,15 @@ Cat() string
 Dog() string
 ```
 
+## Emoji
+```go
+Emoji() string // 🤣
+EmojiDescription() string // winking face
+EmojiCategory() string // Smileys & Emotion
+EmojiAlias() string // smiley
+EmojiTag() string // happy
+```
+
 ## Languages
 ```go
 Language() string
