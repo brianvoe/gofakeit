@@ -22,6 +22,7 @@ var Data = map[string]map[string][]string{
 	"log_level": LogLevels,
 	"timezone":  TimeZone,
 	"vehicle":   Vehicle,
+	"emoji":     Emoji,
 }
 
 // IntData consists of the main set of fake information (integer only)
