@@ -25,7 +25,7 @@ func URL() string {
 		slug[i] = BS()
 	}
 	url := "http" + RandString([]string{"s", ""}) + "://www." + DomainName() + "/" + strings.ToLower(strings.Join(slug, "/"))
-	url = strings.ReplaceAll(url, " ", "")
+	url = strings.Replace(url, " ", "", -1)
 
 	return url
 }
