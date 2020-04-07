@@ -33,3 +33,45 @@ func HackerVerb() string {
 func HackerIngverb() string {
 	return getRandValue([]string{"hacker", "ingverb"})
 }
+
+func addHackerLookup() {
+	AddLookupData("hacker.abr", Info{
+		Description: "Random hacker abbreviation",
+		Example:     "ADP",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return HackerAbbreviation(), nil
+		},
+	})
+
+	AddLookupData("hacker.adj", Info{
+		Description: "Random hacker adjective",
+		Example:     "wireless",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return HackerAdjective(), nil
+		},
+	})
+
+	AddLookupData("hacker.verb", Info{
+		Description: "Random hacker verb",
+		Example:     "synthesize",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return HackerVerb(), nil
+		},
+	})
+
+	AddLookupData("hacker.noun", Info{
+		Description: "Random hacker noun",
+		Example:     "driver",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return HackerNoun(), nil
+		},
+	})
+
+	AddLookupData("hacker.phrase", Info{
+		Description: "Random hacker phrase",
+		Example:     "If we calculate the program, we can get to the AI pixel through the redundant XSS matrix!",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return HackerPhrase(), nil
+		},
+	})
+}

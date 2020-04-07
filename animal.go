@@ -29,3 +29,53 @@ func Cat() string {
 func Dog() string {
 	return getRandValue([]string{"animal", "dog"})
 }
+
+func addAnimalLookup() {
+	AddLookupData("animal", Info{
+		Description: "Random animal",
+		Example:     "elk",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return Animal(), nil
+		},
+	})
+
+	AddLookupData("animal.type", Info{
+		Description: "Random animal type",
+		Example:     "amphibians",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return AnimalType(), nil
+		},
+	})
+
+	AddLookupData("animal.farm", Info{
+		Description: "Random farm animal",
+		Example:     "Chicken",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return FarmAnimal(), nil
+		},
+	})
+
+	AddLookupData("animal.petname", Info{
+		Description: "Random pet name",
+		Example:     "Ozzy Pawsborne",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return PetName(), nil
+		},
+	})
+
+	AddLookupData("animal.cat", Info{
+		Description: "Random cat type",
+		Example:     "Chausie",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return Cat(), nil
+		},
+	})
+
+	AddLookupData("animal.dog", Info{
+		Description: "Random dog type",
+		Example:     "Norwich Terrier",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return Dog(), nil
+		},
+	})
+}

@@ -75,3 +75,103 @@ func TimeZoneOffset() float32 {
 	value, _ := strconv.ParseFloat(getRandValue([]string{"timezone", "offset"}), 32)
 	return float32(value)
 }
+
+func addDateTimeLookup() {
+	// TODO: add random datetime output with various options
+	// AddLookupData("datetime", Info{
+	// 	Description: "Random datetime",
+	// 	Example:     "",
+	// 	Call: func(m *map[string]string, info *Info) (interface{}, error) {
+	// 		return NanoSecond(), nil
+	// 	},
+	// })
+
+	AddLookupData("datetime.nanosecond", Info{
+		Description: "Random nanosecond",
+		Example:     "196446360",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return NanoSecond(), nil
+		},
+	})
+
+	AddLookupData("datetime.second", Info{
+		Description: "Random second",
+		Example:     "43",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return Second(), nil
+		},
+	})
+
+	AddLookupData("datetime.minute", Info{
+		Description: "Random minute",
+		Example:     "34",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return Second(), nil
+		},
+	})
+
+	AddLookupData("datetime.hour", Info{
+		Description: "Random hour",
+		Example:     "8",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return Second(), nil
+		},
+	})
+
+	AddLookupData("datetime.day", Info{
+		Description: "Random day",
+		Example:     "12",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return Day(), nil
+		},
+	})
+
+	AddLookupData("datetime.weekday", Info{
+		Description: "Random week day",
+		Example:     "Friday",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return WeekDay(), nil
+		},
+	})
+
+	AddLookupData("datetime.year", Info{
+		Description: "Random year",
+		Example:     "1900",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return Year(), nil
+		},
+	})
+
+	AddLookupData("datetime.timezone", Info{
+		Description: "Random timezone",
+		Example:     "Kaliningrad Standard Time",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return TimeZone(), nil
+		},
+	})
+
+	AddLookupData("datetime.timezone.abv", Info{
+		Description: "Random abreviated timezone",
+		Example:     "KST",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return TimeZoneAbv(), nil
+		},
+	})
+
+	AddLookupData("datetime.timezone.full", Info{
+		Description: "Random full timezone",
+		Example:     "(UTC+03:00) Kaliningrad, Minsk",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return TimeZoneFull(), nil
+		},
+	})
+
+	AddLookupData("datetime.timezone.offset", Info{
+		Description: "Random timezone offset",
+		Example:     "3",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return TimeZoneOffset(), nil
+		},
+	})
+
+}

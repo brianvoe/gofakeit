@@ -1,16 +1,50 @@
 package gofakeit
 
-import "strconv"
-import "time"
+import (
+	"math"
+	"math/rand"
+	"strconv"
+	"time"
 
-var currentYear = time.Now().Year() - 2000
+	"github.com/brianvoe/gofakeit/v4/data"
+)
+
+// CurrencyInfo is a struct of currency information
+type CurrencyInfo struct {
+	Short string `json:"short"`
+	Long  string `json:"long"`
+}
+
+// Currency will generate a struct with random currency information
+func Currency() *CurrencyInfo {
+	index := rand.Intn(len(data.Data["currency"]["short"]))
+	return &CurrencyInfo{
+		Short: data.Data["currency"]["short"][index],
+		Long:  data.Data["currency"]["long"][index],
+	}
+}
+
+// CurrencyShort will generate a random short currency value
+func CurrencyShort() string {
+	return getRandValue([]string{"currency", "short"})
+}
+
+// CurrencyLong will generate a random long currency name
+func CurrencyLong() string {
+	return getRandValue([]string{"currency", "long"})
+}
+
+// Price will take in a min and max value and return a formatted price
+func Price(min, max float64) float64 {
+	return math.Floor(randFloat64Range(min, max)*100) / 100
+}
 
 // CreditCardInfo is a struct containing credit variables
 type CreditCardInfo struct {
-	Type   string
-	Number int
-	Exp    string
-	Cvv    string
+	Type   string `json:"type"`
+	Number int    `json:"number"`
+	Exp    string `json:"exp"`
+	Cvv    string `json:"cvv"`
 }
 
 // CreditCard will generate a struct full of credit card information
@@ -54,6 +88,8 @@ func CreditCardExp() string {
 	if len(month) == 1 {
 		month = "0" + month
 	}
+
+	var currentYear = time.Now().Year() - 2000
 	return month + "/" + strconv.Itoa(randIntRange(currentYear+1, currentYear+10))
 }
 
@@ -78,4 +114,84 @@ func luhn(s string) bool {
 		}
 	}
 	return sum%10 == 0
+}
+
+func addPaymentLookup() {
+	AddLookupData("currency.short", Info{
+		Description: "Random currency abreviated",
+		Example:     "USD",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return CurrencyShort(), nil
+		},
+	})
+
+	AddLookupData("currency.long", Info{
+		Description: "Random currency",
+		Example:     "United States Dollar",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return CurrencyLong(), nil
+		},
+	})
+
+	AddLookupData("payment.price", Info{
+		Description: "Random credit card number",
+		Example:     "92.26",
+		Params: []Param{
+			{Field: "min", Required: false, Type: "float", Default: "-1000", Description: "Minumum price value"},
+			{Field: "max", Required: false, Type: "float", Default: "1000", Description: "Maximum price value"},
+		},
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			min, err := info.GetFloat(m, "min")
+			if err != nil {
+				return nil, err
+			}
+
+			max, err := info.GetFloat(m, "max")
+			if err != nil {
+				return nil, err
+			}
+
+			return Price(min, max), nil
+		},
+	})
+
+	AddLookupData("payment.creditcard.type", Info{
+		Description: "Random credit card type",
+		Example:     "Visa",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return CreditCardType(), nil
+		},
+	})
+
+	AddLookupData("payment.creditcard.number", Info{
+		Description: "Random credit card number",
+		Example:     "4136459948995369",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return CreditCardNumber(), nil
+		},
+	})
+
+	AddLookupData("payment.creditcard.number.luhn", Info{
+		Description: "Random credit card number that passes luhn test",
+		Example:     "2720996615546177",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return CreditCardNumberLuhn(), nil
+		},
+	})
+
+	AddLookupData("payment.creditcard.exp", Info{
+		Description: "Random credit card expiraction date",
+		Example:     "01/21",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return CreditCardExp(), nil
+		},
+	})
+
+	AddLookupData("payment.creditcard.cvv", Info{
+		Description: "Random credit card number",
+		Example:     "513",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return CreditCardCvv(), nil
+		},
+	})
 }

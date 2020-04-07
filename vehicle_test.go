@@ -38,8 +38,8 @@ func ExampleVehicle() {
 	fmt.Println(vehicle.Brand)
 	fmt.Println(vehicle.Fuel)
 	fmt.Println(vehicle.Model)
-	fmt.Println(vehicle.TransmissionGear)
-	fmt.Println(vehicle.VehicleType)
+	fmt.Println(vehicle.Transmission)
+	fmt.Println(vehicle.Type)
 	fmt.Println(vehicle.Year)
 
 	// Output: Fiat

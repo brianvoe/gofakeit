@@ -2,29 +2,23 @@ package gofakeit
 
 // VehicleInfo is a struct dataset of all vehicle information
 type VehicleInfo struct {
-	// Vehicle type
-	VehicleType string
-	// Fuel type
-	Fuel string
-	// Transmission type
-	TransmissionGear string
-	// Brand name
-	Brand string
-	// Vehicle model
-	Model string
-	// Vehicle model year
-	Year int
+	Type         string `json:"type"`
+	Fuel         string `json:"fuel"`
+	Transmission string `json:"transmission"`
+	Brand        string `json:"brand"`
+	Model        string `json:"model"`
+	Year         int    `json:"year"`
 }
 
 // Vehicle will generate a struct with vehicle information
 func Vehicle() *VehicleInfo {
 	return &VehicleInfo{
-		VehicleType:      VehicleType(),
-		Fuel:             FuelType(),
-		TransmissionGear: TransmissionGearType(),
-		Brand:            CarMaker(),
-		Model:            CarModel(),
-		Year:             Year(),
+		Type:         VehicleType(),
+		Fuel:         FuelType(),
+		Transmission: TransmissionGearType(),
+		Brand:        CarMaker(),
+		Model:        CarModel(),
+		Year:         Year(),
 	}
 
 }
@@ -52,4 +46,54 @@ func CarMaker() string {
 // CarModel will return a random car model
 func CarModel() string {
 	return getRandValue([]string{"vehicle", "model"})
+}
+
+func addVehicleLookup() {
+	AddLookupData("vehicle", Info{
+		Description: "Random vehicle set of data",
+		Example:     `{type: "Passenger car mini", fuel: "Gasoline", transmission: "Automatic", brand: "Fiat", model: "Freestyle Fwd", year: "1972"}`,
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return CarMaker(), nil
+		},
+	})
+
+	AddLookupData("vehicle.maker", Info{
+		Description: "Random vehicle maker",
+		Example:     "Nissan",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return CarMaker(), nil
+		},
+	})
+
+	AddLookupData("vehicle.model", Info{
+		Description: "Random vehicle model",
+		Example:     "Aveo",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return CarModel(), nil
+		},
+	})
+
+	AddLookupData("vehicle.type", Info{
+		Description: "Random vehicle type",
+		Example:     "Passenger car mini",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return VehicleType(), nil
+		},
+	})
+
+	AddLookupData("vehicle.fuel", Info{
+		Description: "Random vehicle fuel type",
+		Example:     "CNG",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return FuelType(), nil
+		},
+	})
+
+	AddLookupData("vehicle.transmission", Info{
+		Description: "Random vehicle transmission type",
+		Example:     "Manual",
+		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+			return TransmissionGearType(), nil
+		},
+	})
 }

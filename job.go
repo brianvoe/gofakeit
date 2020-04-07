@@ -2,10 +2,10 @@ package gofakeit
 
 // JobInfo is a struct of job information
 type JobInfo struct {
-	Company    string
-	Title      string
-	Descriptor string
-	Level      string
+	Company    string `json:"company"`
+	Title      string `json:"title"`
+	Descriptor string `json:"descriptor"`
+	Level      string `json:"level"`
 }
 
 // Job will generate a struct with random job information
