@@ -1,8 +1,8 @@
 package data
 
-// Vehicle Beer consists of various beer information
-var Vehicle = map[string][]string{
-	"vehicle_type":      {"Passenger car mini", "Passenger car light", "Passenger car compact", "Passenger car medium", "Passenger car heavy", "Sport utility vehicle", "Pickup truck", "Van"},
+// Car Beer consists of various beer information
+var Car = map[string][]string{
+	"type":              {"Passenger car mini", "Passenger car light", "Passenger car compact", "Passenger car medium", "Passenger car heavy", "Sport utility vehicle", "Pickup truck", "Van"},
 	"fuel_type":         {"Gasoline", "Methanol", "Ethanol", "Diesel", "LPG", "CNG", "Electric"},
 	"transmission_type": {"Manual", "Automatic"},
 	"maker":             {"Alfa Romeo", "Aston Martin", "Audi", "Bentley", "Benz", "BMW", "Bugatti", "Cadillac", "Chevrolet", "Chrysler", "Citroen", "Corvette", "DAF", "Dacia", "Daewoo", "Daihatsu", "Datsun", "De Lorean", "Dino", "Dodge", "Farboud", "Ferrari", "Fiat", "Ford", "Honda", "Hummer", "Hyundai", "Jaguar", "Jeep", "KIA", "Koenigsegg", "Lada", "Lamborghini", "Lancia", "Land Rover", "Lexus", "Ligier", "Lincoln", "Lotus", "Martini", "Maserati", "Maybach", "Mazda", "McLaren", "Mercedes", "Mercedes-Benz", "Mini", "Mitsubishi", "Nissan", "Noble", "Opel", "Peugeot", "Pontiac", "Porsche", "Renault", "Rolls-Royce", "Rover", "Saab", "Seat", "Skoda", "Smart", "Spyker", "Subaru", "Suzuki", "Toyota", "Tesla", "Vauxhall", "Volkswagen", "Volvo"},
