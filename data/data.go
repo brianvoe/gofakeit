@@ -21,7 +21,7 @@ var Data = map[string]map[string][]string{
 	"currency":  Currency,
 	"log_level": LogLevels,
 	"timezone":  TimeZone,
-	"vehicle":   Vehicle,
+	"car":       Car,
 	"emoji":     Emoji,
 }
 

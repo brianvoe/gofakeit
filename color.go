@@ -32,34 +32,38 @@ func RGBColor() []int {
 
 func addColorLookup() {
 	AddLookupData("color", Info{
+		Category:    "color",
 		Description: "Random color",
 		Example:     "MediumOrchid",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Color(), nil
 		},
 	})
 
-	AddLookupData("color.hex", Info{
+	AddLookupData("safecolor", Info{
+		Category:    "color",
+		Description: "Random safe color",
+		Example:     "black",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return SafeColor(), nil
+		},
+	})
+
+	AddLookupData("hexcolor", Info{
+		Category:    "color",
 		Description: "Random hex color",
 		Example:     "#a99fb4",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return HexColor(), nil
 		},
 	})
 
-	AddLookupData("color.rgb", Info{
+	AddLookupData("rgbcolor", Info{
+		Category:    "color",
 		Description: "Random rgb color",
 		Example:     "[152 23 53]",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return RGBColor(), nil
-		},
-	})
-
-	AddLookupData("color.safe", Info{
-		Description: "Random safe color",
-		Example:     "black",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
-			return SafeColor(), nil
 		},
 	})
 }

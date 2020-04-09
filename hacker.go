@@ -35,42 +35,47 @@ func HackerIngverb() string {
 }
 
 func addHackerLookup() {
-	AddLookupData("hacker.abr", Info{
+	AddLookupData("hackerabr", Info{
+		Category:    "hacker",
 		Description: "Random hacker abbreviation",
 		Example:     "ADP",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return HackerAbbreviation(), nil
 		},
 	})
 
-	AddLookupData("hacker.adj", Info{
+	AddLookupData("hackeradj", Info{
+		Category:    "hacker",
 		Description: "Random hacker adjective",
 		Example:     "wireless",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return HackerAdjective(), nil
 		},
 	})
 
-	AddLookupData("hacker.verb", Info{
+	AddLookupData("hackerverb", Info{
+		Category:    "hacker",
 		Description: "Random hacker verb",
 		Example:     "synthesize",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return HackerVerb(), nil
 		},
 	})
 
-	AddLookupData("hacker.noun", Info{
+	AddLookupData("hackernoun", Info{
+		Category:    "hacker",
 		Description: "Random hacker noun",
 		Example:     "driver",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return HackerNoun(), nil
 		},
 	})
 
-	AddLookupData("hacker.phrase", Info{
+	AddLookupData("hackerphrase", Info{
+		Category:    "hacker",
 		Description: "Random hacker phrase",
 		Example:     "If we calculate the program, we can get to the AI pixel through the redundant XSS matrix!",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return HackerPhrase(), nil
 		},
 	})

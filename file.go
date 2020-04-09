@@ -1,29 +1,31 @@
 package gofakeit
 
-// MimeType will generate a random mime file type
-func MimeType() string {
-	return getRandValue([]string{"file", "mime_type"})
-}
-
-// Extension will generate a random file extension
-func Extension() string {
+// FileExtension will generate a random file extension
+func FileExtension() string {
 	return getRandValue([]string{"file", "extension"})
 }
 
+// FileMimeType will generate a random mime file type
+func FileMimeType() string {
+	return getRandValue([]string{"file", "mime_type"})
+}
+
 func addFileLookup() {
-	AddLookupData("file.extension", Info{
+	AddLookupData("fileextension", Info{
+		Category:    "file",
 		Description: "Random file extension",
 		Example:     "nes",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
-			return Extension(), nil
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return FileExtension(), nil
 		},
 	})
 
-	AddLookupData("file.mimetype", Info{
+	AddLookupData("filemimetype", Info{
+		Category:    "file",
 		Description: "Random file mime type",
 		Example:     "application/json",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
-			return MimeType(), nil
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return FileMimeType(), nil
 		},
 	})
 }

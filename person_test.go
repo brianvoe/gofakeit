@@ -140,8 +140,8 @@ func ExamplePerson() {
 	// Hawaii
 	// 42591
 	// Burkina Faso
-	// -6.662594491850811
-	// 23.921575244414612
+	// -6.662595
+	// 23.921575
 	// 3023202027
 	// lamarkoelpin@heaney.biz
 	// Discover

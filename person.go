@@ -107,6 +107,7 @@ func Email() string {
 
 func addPersonLookup() {
 	AddLookupData("person", Info{
+		Category:    "person",
 		Description: "Random set of person info",
 		Example: `{
 			first_name: "Markus",
@@ -141,87 +142,97 @@ func addPersonLookup() {
 				cvv: "353"
 			}
 		}`,
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Person(), nil
 		},
 	})
 
-	AddLookupData("person.name", Info{
+	AddLookupData("name", Info{
+		Category:    "person",
 		Description: "Random name",
 		Example:     "Markus Moen",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Name(), nil
 		},
 	})
 
-	AddLookupData("person.name.prefix", Info{
+	AddLookupData("nameprefix", Info{
+		Category:    "person",
 		Description: "Random name prefix",
 		Example:     "Mr.",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return NamePrefix(), nil
 		},
 	})
 
-	AddLookupData("person.name.suffix", Info{
+	AddLookupData("namesuffix", Info{
+		Category:    "person",
 		Description: "Random name suffix",
 		Example:     "Jr.",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return NameSuffix(), nil
 		},
 	})
 
-	AddLookupData("person.name.first", Info{
+	AddLookupData("firstname", Info{
+		Category:    "person",
 		Description: "Random first name",
 		Example:     "Markus",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return FirstName(), nil
 		},
 	})
 
-	AddLookupData("person.name.last", Info{
+	AddLookupData("lastname", Info{
+		Category:    "person",
 		Description: "Random last name",
 		Example:     "Daniel",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return LastName(), nil
 		},
 	})
 
-	AddLookupData("person.gender", Info{
+	AddLookupData("gender", Info{
+		Category:    "person",
 		Description: "Random gender",
 		Example:     "male",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Gender(), nil
 		},
 	})
 
-	AddLookupData("person.ssn", Info{
+	AddLookupData("ssn", Info{
+		Category:    "person",
 		Description: "Random social security number",
 		Example:     "296446360",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return SSN(), nil
 		},
 	})
 
-	AddLookupData("person.email", Info{
+	AddLookupData("email", Info{
+		Category:    "person",
 		Description: "Random email",
 		Example:     "markusmoen@pagac.net",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Email(), nil
 		},
 	})
 
-	AddLookupData("person.phone", Info{
+	AddLookupData("phone", Info{
+		Category:    "person",
 		Description: "Random phone number",
 		Example:     "6136459948",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Phone(), nil
 		},
 	})
 
-	AddLookupData("person.phone.formatted", Info{
+	AddLookupData("phoneformatted", Info{
+		Category:    "person",
 		Description: "Random formatted phone number",
 		Example:     "136-459-9489",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return PhoneFormatted(), nil
 		},
 	})

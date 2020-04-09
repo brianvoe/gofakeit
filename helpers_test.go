@@ -71,3 +71,16 @@ func TestReplaceWithHexLetters(t *testing.T) {
 		t.Error("You should have gotten an empty string")
 	}
 }
+
+func TestToFixed(t *testing.T) {
+	floats := [][]float64{
+		{123.1234567489, 123.123456},
+		{987.987654321, 987.987654},
+	}
+
+	for _, f := range floats {
+		if toFixed(f[0], 6) != f[1] {
+			t.Fatalf("%g did not equal %g. Got: %g", f[0], f[1], toFixed(f[0], 6))
+		}
+	}
+}

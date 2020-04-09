@@ -161,18 +161,6 @@ func BenchmarkFloat64Range(b *testing.B) {
 	}
 }
 
-func ExampleNumerify() {
-	Seed(11)
-	fmt.Println(Numerify("###-###-####"))
-	// Output: 613-645-9948
-}
-
-func BenchmarkNumerify(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		Numerify("###-###-####")
-	}
-}
-
 func ExampleShuffleInts() {
 	Seed(11)
 

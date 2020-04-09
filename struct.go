@@ -28,7 +28,6 @@ func r(t reflect.Type, v reflect.Value, template string) {
 	case reflect.Uint32:
 		v.SetUint(uint64(Uint32()))
 	case reflect.Uint64:
-		//capped at [0, math.MaxInt64)
 		v.SetUint(Uint64())
 	case reflect.Int:
 		v.SetInt(Int64())
@@ -54,8 +53,12 @@ func rString(template string, v reflect.Value) {
 		r := Generate(template)
 		v.SetString(r)
 	} else {
-		v.SetString(Generate("???????????????????"))
-		// we don't have a String(len int) string function!!
+		num := Number(4, 10)
+		str := ""
+		for i := 0; i < num; i++ {
+			str = str + "?"
+		}
+		v.SetString(Generate(str))
 	}
 }
 

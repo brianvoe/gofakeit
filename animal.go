@@ -31,50 +31,56 @@ func Dog() string {
 }
 
 func addAnimalLookup() {
-	AddLookupData("animal", Info{
-		Description: "Random animal",
-		Example:     "elk",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
-			return Animal(), nil
-		},
-	})
-
-	AddLookupData("animal.type", Info{
-		Description: "Random animal type",
-		Example:     "amphibians",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
-			return AnimalType(), nil
-		},
-	})
-
-	AddLookupData("animal.farm", Info{
-		Description: "Random farm animal",
-		Example:     "Chicken",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
-			return FarmAnimal(), nil
-		},
-	})
-
-	AddLookupData("animal.petname", Info{
+	AddLookupData("petname", Info{
+		Category:    "animal",
 		Description: "Random pet name",
 		Example:     "Ozzy Pawsborne",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return PetName(), nil
 		},
 	})
 
-	AddLookupData("animal.cat", Info{
+	AddLookupData("animal", Info{
+		Category:    "animal",
+		Description: "Random animal",
+		Example:     "elk",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return Animal(), nil
+		},
+	})
+
+	AddLookupData("animaltype", Info{
+		Category:    "animal",
+		Description: "Random animal type",
+		Example:     "amphibians",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return AnimalType(), nil
+		},
+	})
+
+	AddLookupData("farmanimal", Info{
+		Category:    "animal",
+		Description: "Random farm animal",
+		Example:     "Chicken",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return FarmAnimal(), nil
+		},
+	})
+
+	AddLookupData("cat", Info{
+		Category:    "animal",
 		Description: "Random cat type",
 		Example:     "Chausie",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Cat(), nil
 		},
 	})
 
-	AddLookupData("animal.dog", Info{
+	AddLookupData("dog", Info{
+		Category:    "animal",
 		Description: "Random dog type",
 		Example:     "Norwich Terrier",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Dog(), nil
 		},
 	})

@@ -22,25 +22,28 @@ func ProgrammingLanguageBest() string {
 
 func addLanguagesLookup() {
 	AddLookupData("language", Info{
+		Category:    "language",
 		Description: "Random language",
 		Example:     "Kazakh",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Language(), nil
 		},
 	})
 
-	AddLookupData("language.abv", Info{
+	AddLookupData("languageabbreviation", Info{
+		Category:    "language",
 		Description: "Random abbreviated language",
 		Example:     "kk",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return LanguageAbbreviation(), nil
 		},
 	})
 
-	AddLookupData("language.programming", Info{
+	AddLookupData("programminglanguage", Info{
+		Category:    "language",
 		Description: "Random programming language",
 		Example:     "Go",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return ProgrammingLanguage(), nil
 		},
 	})

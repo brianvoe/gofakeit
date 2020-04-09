@@ -117,36 +117,48 @@ func luhn(s string) bool {
 }
 
 func addPaymentLookup() {
-	AddLookupData("currency.short", Info{
-		Description: "Random currency abreviated",
-		Example:     "USD",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+	AddLookupData("currency", Info{
+		Category:    "payment",
+		Description: "Random currency data set",
+		Example:     `{short: "USD", long: "United States Dollar"}`,
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CurrencyShort(), nil
 		},
 	})
 
-	AddLookupData("currency.long", Info{
+	AddLookupData("currencyshort", Info{
+		Category:    "payment",
+		Description: "Random currency abreviated",
+		Example:     "USD",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return CurrencyShort(), nil
+		},
+	})
+
+	AddLookupData("currencylong", Info{
+		Category:    "payment",
 		Description: "Random currency",
 		Example:     "United States Dollar",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CurrencyLong(), nil
 		},
 	})
 
-	AddLookupData("payment.price", Info{
-		Description: "Random credit card number",
+	AddLookupData("price", Info{
+		Category:    "payment",
+		Description: "Random monitary price",
 		Example:     "92.26",
 		Params: []Param{
-			{Field: "min", Required: false, Type: "float", Default: "-1000", Description: "Minumum price value"},
+			{Field: "min", Required: false, Type: "float", Default: "0", Description: "Minumum price value"},
 			{Field: "max", Required: false, Type: "float", Default: "1000", Description: "Maximum price value"},
 		},
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
-			min, err := info.GetFloat(m, "min")
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			min, err := info.GetFloat64(m, "min")
 			if err != nil {
 				return nil, err
 			}
 
-			max, err := info.GetFloat(m, "max")
+			max, err := info.GetFloat64(m, "max")
 			if err != nil {
 				return nil, err
 			}
@@ -155,42 +167,56 @@ func addPaymentLookup() {
 		},
 	})
 
-	AddLookupData("payment.creditcard.type", Info{
+	AddLookupData("creditcard", Info{
+		Category:    "payment",
+		Description: "Random credit card data set",
+		Example:     `{type: "Visa", number: "4136459948995369", exp: "01/21", cvv: "513"}`,
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return CreditCard(), nil
+		},
+	})
+
+	AddLookupData("creditcardtype", Info{
+		Category:    "payment",
 		Description: "Random credit card type",
 		Example:     "Visa",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CreditCardType(), nil
 		},
 	})
 
-	AddLookupData("payment.creditcard.number", Info{
+	AddLookupData("creditcardnumber", Info{
+		Category:    "payment",
 		Description: "Random credit card number",
 		Example:     "4136459948995369",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CreditCardNumber(), nil
 		},
 	})
 
-	AddLookupData("payment.creditcard.number.luhn", Info{
+	AddLookupData("creditcardnumberluhn", Info{
+		Category:    "payment",
 		Description: "Random credit card number that passes luhn test",
 		Example:     "2720996615546177",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CreditCardNumberLuhn(), nil
 		},
 	})
 
-	AddLookupData("payment.creditcard.exp", Info{
+	AddLookupData("creditcardexp", Info{
+		Category:    "payment",
 		Description: "Random credit card expiraction date",
 		Example:     "01/21",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CreditCardExp(), nil
 		},
 	})
 
-	AddLookupData("payment.creditcard.cvv", Info{
+	AddLookupData("creditcardcvv", Info{
+		Category:    "payment",
 		Description: "Random credit card number",
 		Example:     "513",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CreditCardCvv(), nil
 		},
 	})

@@ -109,180 +109,195 @@ func CountryAbr() string {
 }
 
 // Latitude will generate a random latitude float64
-func Latitude() float64 { return (rand.Float64() * 180) - 90 }
+func Latitude() float64 { return toFixed((rand.Float64()*180)-90, 6) }
 
 // LatitudeInRange will generate a random latitude within the input range
 func LatitudeInRange(min, max float64) (float64, error) {
 	if min > max || min < -90 || min > 90 || max < -90 || max > 90 {
-		return 0, errors.New("input range is invalid")
+		return 0, errors.New("Invalid min or max range, must be valid floats and between -90 and 90")
 	}
-	return randFloat64Range(min, max), nil
+	return toFixed(randFloat64Range(min, max), 6), nil
 }
 
 // Longitude will generate a random longitude float64
-func Longitude() float64 { return (rand.Float64() * 360) - 180 }
+func Longitude() float64 { return toFixed((rand.Float64()*360)-180, 6) }
 
 // LongitudeInRange will generate a random longitude within the input range
 func LongitudeInRange(min, max float64) (float64, error) {
 	if min > max || min < -180 || min > 180 || max < -180 || max > 180 {
-		return 0, errors.New("input range is invalid")
+		return 0, errors.New("Invalid min or max range, must be valid floats and between -180 and 180")
 	}
-	return randFloat64Range(min, max), nil
+	return toFixed(randFloat64Range(min, max), 6), nil
 }
 
 func addAddressLookup() {
-	AddLookupData("address.city", Info{
+	AddLookupData("city", Info{
+		Category:    "address",
 		Description: "Random city",
 		Example:     "Marcelside",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return City(), nil
 		},
 	})
 
-	AddLookupData("address.country", Info{
+	AddLookupData("country", Info{
+		Category:    "address",
 		Description: "Random country",
 		Example:     "United States of America",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Country(), nil
 		},
 	})
 
-	AddLookupData("address.country.abr", Info{
+	AddLookupData("countryabr", Info{
+		Category:    "address",
 		Description: "Random 2 digit country abbreviation",
 		Example:     "US",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CountryAbr(), nil
 		},
 	})
 
-	AddLookupData("address.state", Info{
+	AddLookupData("state", Info{
+		Category:    "address",
 		Description: "Random state",
 		Example:     "Illinois",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return State(), nil
 		},
 	})
 
-	AddLookupData("address.state.abr", Info{
+	AddLookupData("stateabr", Info{
+		Category:    "address",
 		Description: "Random 2 digit state abbreviation",
 		Example:     "IL",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return StateAbr(), nil
 		},
 	})
 
-	AddLookupData("address.street", Info{
+	AddLookupData("street", Info{
+		Category:    "address",
 		Description: "Random full street",
 		Example:     "364 East Rapidsborough",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Street(), nil
 		},
 	})
 
-	AddLookupData("address.street.name", Info{
+	AddLookupData("streetname", Info{
+		Category:    "address",
 		Description: "Random street name",
 		Example:     "View",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return StreetName(), nil
 		},
 	})
 
-	AddLookupData("address.street.number", Info{
+	AddLookupData("streetnumber", Info{
+		Category:    "address",
 		Description: "Random street number",
 		Example:     "13645",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return StreetNumber(), nil
 		},
 	})
 
-	AddLookupData("address.street.prefix", Info{
+	AddLookupData("streetprefix", Info{
+		Category:    "address",
 		Description: "Random street prefix",
 		Example:     "Lake",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return StreetPrefix(), nil
 		},
 	})
 
-	AddLookupData("address.street.suffix", Info{
+	AddLookupData("streetsuffix", Info{
+		Category:    "address",
 		Description: "Random street suffix",
 		Example:     "land",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return StreetSuffix(), nil
 		},
 	})
 
-	AddLookupData("address.zip", Info{
+	AddLookupData("zip", Info{
+		Category:    "address",
 		Description: "Random street zip",
 		Example:     "13645",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Zip(), nil
 		},
 	})
 
-	AddLookupData("address.latitude", Info{
+	AddLookupData("latitude", Info{
+		Category:    "address",
 		Description: "Random latitude",
-		Example:     "-73.53405629980608",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Example:     "-73.534056",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Latitude(), nil
 		},
 	})
 
-	AddLookupData("address.latitude.range", Info{
+	AddLookupData("latituderange", Info{
+		Category:    "address",
 		Description: "Random latitude between given range",
-		Example:     "22.921026765022624",
+		Example:     "22.921026",
 		Params: []Param{
-			{Field: "min", Required: true, Type: "float", Description: "Minimum range"},
-			{Field: "max", Required: true, Type: "float", Description: "Maximum range"},
+			{Field: "min", Required: true, Type: "float", Default: "0", Description: "Minimum range"},
+			{Field: "max", Required: true, Type: "float", Default: "90", Description: "Maximum range"},
 		},
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
-			min, err := info.GetFloat(m, "min")
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			min, err := info.GetFloat64(m, "min")
 			if err != nil {
 				return nil, err
 			}
 
-			max, err := info.GetFloat(m, "max")
+			max, err := info.GetFloat64(m, "max")
 			if err != nil {
 				return nil, err
 			}
 
 			rangeOut, err := LatitudeInRange(min, max)
 			if err != nil {
-				return nil, errors.New("Invalid min or max range, must be valid floats and between -90 and 90")
+				return nil, err
 			}
 
 			return rangeOut, nil
 		},
 	})
 
-	AddLookupData("address.longitude", Info{
+	AddLookupData("longitude", Info{
+		Category:    "address",
 		Description: "Random longitude",
-		Example:     "-147.06811259961216",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Example:     "-147.068112",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Longitude(), nil
 		},
 	})
 
-	AddLookupData("address.longitude.range", Info{
+	AddLookupData("longituderange", Info{
+		Category:    "address",
 		Description: "Random longitude between given range",
-		Example:     "-8.170450699978453",
+		Example:     "-8.170450",
 		Params: []Param{
-			{Field: "min", Required: true, Type: "float", Description: "Minimum range"},
-			{Field: "max", Required: true, Type: "float", Description: "Maximum range"},
+			{Field: "min", Required: true, Type: "float", Default: "0", Description: "Minimum range"},
+			{Field: "max", Required: true, Type: "float", Default: "180", Description: "Maximum range"},
 		},
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
-			min, err := info.GetFloat(m, "min")
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			min, err := info.GetFloat64(m, "min")
 			if err != nil {
 				return nil, err
 			}
 
-			max, err := info.GetFloat(m, "max")
+			max, err := info.GetFloat64(m, "max")
 			if err != nil {
 				return nil, err
 			}
 
 			rangeOut, err := LongitudeInRange(min, max)
 			if err != nil {
-				return nil, errors.New("Invalid min or max range, must be valid floats and between -90 and 90")
+				return nil, err
 			}
 
 			return rangeOut, nil

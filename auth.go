@@ -67,15 +67,17 @@ func Password(lower bool, upper bool, numeric bool, special bool, space bool, nu
 }
 
 func addAuthLookup() {
-	AddLookupData("auth.username", Info{
+	AddLookupData("username", Info{
+		Category:    "auth",
 		Description: "Generates a random username",
 		Example:     "Daniel1364",
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Username(), nil
 		},
 	})
 
-	AddLookupData("auth.password", Info{
+	AddLookupData("password", Info{
+		Category:    "auth",
 		Description: "Generates a random password",
 		Example:     "EEP+wwpk 4lU-eHNXlJZ4n K9%v&TZ9e",
 		Params: []Param{
@@ -86,7 +88,7 @@ func addAuthLookup() {
 			{Field: "space", Required: false, Type: "bool", Default: "true", Description: "Whether or not to add spaces"},
 			{Field: "length", Required: false, Type: "int", Default: "12", Description: "Number of characters in password"},
 		},
-		Call: func(m *map[string]string, info *Info) (interface{}, error) {
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			lower, err := info.GetBool(m, "lower")
 			if err != nil {
 				return nil, err

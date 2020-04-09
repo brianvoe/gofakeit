@@ -278,7 +278,6 @@ MimeType() string
 ## Numbers
 ```go
 Number(min int, max int) int
-Numerify(str string) string
 Int8() int8
 Int16() int16
 Int32() int32
@@ -299,6 +298,7 @@ ShuffleInts(a []int)
 Digit() string
 Letter() string
 Lexify(str string) string
+Numerify(str string) string
 RandString(a []string) string
 ShuffleStrings(a []string)
 ```

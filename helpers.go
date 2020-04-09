@@ -1,6 +1,7 @@
 package gofakeit
 
 import (
+	"math"
 	"math/rand"
 
 	"github.com/brianvoe/gofakeit/v4/data"
@@ -141,4 +142,9 @@ func randFloat64Range(min, max float64) float64 {
 		return min
 	}
 	return rand.Float64()*(max-min) + min
+}
+
+func toFixed(num float64, precision int) float64 {
+	output := math.Pow(10, float64(precision))
+	return float64(math.Floor(num*output)) / output
 }

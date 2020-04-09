@@ -1,6 +1,7 @@
 package gofakeit
 
 import (
+	"errors"
 	"math"
 	"math/rand"
 )
@@ -70,15 +71,194 @@ func Float64Range(min, max float64) float64 {
 	return randFloat64Range(min, max)
 }
 
-// Numerify will replace # with random numerical values
-func Numerify(str string) string {
-	return replaceWithNumbers(str)
-}
-
 // ShuffleInts will randomize a slice of ints
 func ShuffleInts(a []int) {
 	for i := range a {
 		j := rand.Intn(i + 1)
 		a[i], a[j] = a[j], a[i]
 	}
+}
+
+func addNumberLookup() {
+	AddLookupData("number", Info{
+		Category:    "number",
+		Description: "Random number between given range",
+		Example:     "14866",
+		Params: []Param{
+			{Field: "min", Required: true, Type: "int", Default: "-2147483648", Description: "Minimum integer value"},
+			{Field: "max", Required: true, Type: "int", Default: "2147483647", Description: "Maximum integer value"},
+		},
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			min, err := info.GetInt(m, "min")
+			if err != nil {
+				return nil, err
+			}
+
+			max, err := info.GetInt(m, "max")
+			if err != nil {
+				return nil, err
+			}
+
+			if min > max {
+				return nil, errors.New("Max integer must be larger than Min")
+			}
+
+			return Number(min, max), nil
+		},
+	})
+
+	AddLookupData("uint8", Info{
+		Category:    "number",
+		Description: "Random uint8 value",
+		Example:     "152",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return Uint8(), nil
+		},
+	})
+
+	AddLookupData("uint16", Info{
+		Category:    "number",
+		Description: "Random uint16 value",
+		Example:     "34968",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return Uint16(), nil
+		},
+	})
+
+	AddLookupData("uint32", Info{
+		Category:    "number",
+		Description: "Random uint32 value",
+		Example:     "1075055705",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return Uint32(), nil
+		},
+	})
+
+	AddLookupData("uint64", Info{
+		Category:    "number",
+		Description: "Random uint64 value",
+		Example:     "843730692693298265",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return Uint64(), nil
+		},
+	})
+
+	AddLookupData("int8", Info{
+		Category:    "number",
+		Description: "Random int8 value",
+		Example:     "24",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return Int8(), nil
+		},
+	})
+
+	AddLookupData("int16", Info{
+		Category:    "number",
+		Description: "Random int16 value",
+		Example:     "2200",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return Int16(), nil
+		},
+	})
+
+	AddLookupData("int32", Info{
+		Category:    "number",
+		Description: "Random int32 value",
+		Example:     "-1072427943",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return Int32(), nil
+		},
+	})
+
+	AddLookupData("int64", Info{
+		Category:    "number",
+		Description: "Random int64 value",
+		Example:     "-8379641344161477543",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return Int64(), nil
+		},
+	})
+
+	AddLookupData("float32", Info{
+		Category:    "number",
+		Description: "Random float32 value",
+		Example:     "3.1128167e+37",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return Float32(), nil
+		},
+	})
+
+	AddLookupData("float32range", Info{
+		Category:    "number",
+		Description: "Random float32 between given range",
+		Example:     "914774.6",
+		Params: []Param{
+			{Field: "min", Required: true, Type: "int", Description: "Minimum float32 value"},
+			{Field: "max", Required: true, Type: "int", Description: "Maximum float32 value"},
+		},
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			min, err := info.GetFloat32(m, "min")
+			if err != nil {
+				return nil, err
+			}
+
+			max, err := info.GetFloat32(m, "max")
+			if err != nil {
+				return nil, err
+			}
+
+			return Float32Range(min, max), nil
+		},
+	})
+
+	AddLookupData("float64", Info{
+		Category:    "number",
+		Description: "Random float64 value",
+		Example:     "1.644484108270445e+307",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return Float64(), nil
+		},
+	})
+
+	AddLookupData("float64range", Info{
+		Category:    "number",
+		Description: "Random float64 between given range",
+		Example:     "914774.5585333086",
+		Params: []Param{
+			{Field: "min", Required: true, Type: "int", Description: "Minimum float64 value"},
+			{Field: "max", Required: true, Type: "int", Description: "Maximum float64 value"},
+		},
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			min, err := info.GetFloat64(m, "min")
+			if err != nil {
+				return nil, err
+			}
+
+			max, err := info.GetFloat64(m, "max")
+			if err != nil {
+				return nil, err
+			}
+
+			return Float64Range(min, max), nil
+		},
+	})
+
+	AddLookupData("shuffleints", Info{
+		Category:    "number",
+		Description: "Shuffle an array of ints",
+		Example:     "1,2,3,4 => 3,1,4,2",
+		Params: []Param{
+			{Field: "ints", Required: true, Type: "intarray", Description: "Delimited seperated ints"},
+		},
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			ints, err := info.GetIntArray(m, "ints")
+			if err != nil {
+				return nil, err
+			}
+
+			ShuffleInts(ints)
+
+			return ints, nil
+		},
+	})
 }
