@@ -222,9 +222,9 @@ func (i *Info) GetIntArray(m *map[string][]string, field string) ([]int, error) 
 
 	var ints []int
 	for i := 0; i < len(value); i++ {
-		valueInt, err := strconv.ParseInt(value[0], 10, 64)
+		valueInt, err := strconv.ParseInt(value[i], 10, 64)
 		if err != nil {
-			return nil, fmt.Errorf("%s field could not parse to int value", value[i])
+			return nil, fmt.Errorf("%s value could not parse to int", value[i])
 		}
 		ints = append(ints, int(valueInt))
 	}
