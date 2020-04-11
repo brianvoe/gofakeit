@@ -85,8 +85,8 @@ func addNumberLookup() {
 		Description: "Random number between given range",
 		Example:     "14866",
 		Params: []Param{
-			{Field: "min", Required: true, Type: "int", Default: "-2147483648", Description: "Minimum integer value"},
-			{Field: "max", Required: true, Type: "int", Default: "2147483647", Description: "Maximum integer value"},
+			{Field: "min", Type: "int", Default: "-2147483648", Description: "Minimum integer value"},
+			{Field: "max", Type: "int", Default: "2147483647", Description: "Maximum integer value"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			min, err := info.GetInt(m, "min")
@@ -193,8 +193,8 @@ func addNumberLookup() {
 		Description: "Random float32 between given range",
 		Example:     "914774.6",
 		Params: []Param{
-			{Field: "min", Required: true, Type: "int", Description: "Minimum float32 value"},
-			{Field: "max", Required: true, Type: "int", Description: "Maximum float32 value"},
+			{Field: "min", Type: "int", Description: "Minimum float32 value"},
+			{Field: "max", Type: "int", Description: "Maximum float32 value"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			min, err := info.GetFloat32(m, "min")
@@ -225,8 +225,8 @@ func addNumberLookup() {
 		Description: "Random float64 between given range",
 		Example:     "914774.5585333086",
 		Params: []Param{
-			{Field: "min", Required: true, Type: "int", Description: "Minimum float64 value"},
-			{Field: "max", Required: true, Type: "int", Description: "Maximum float64 value"},
+			{Field: "min", Type: "int", Description: "Minimum float64 value"},
+			{Field: "max", Type: "int", Description: "Maximum float64 value"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			min, err := info.GetFloat64(m, "min")
@@ -248,7 +248,7 @@ func addNumberLookup() {
 		Description: "Shuffle an array of ints",
 		Example:     "1,2,3,4 => 3,1,4,2",
 		Params: []Param{
-			{Field: "ints", Required: true, Type: "intarray", Description: "Delimited seperated ints"},
+			{Field: "ints", Type: "intarray", Description: "Delimited seperated ints"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			ints, err := info.GetIntArray(m, "ints")

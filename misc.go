@@ -174,7 +174,7 @@ func addMiscLookup() {
 		Description: "Random string generated from string value based upon available data sets",
 		Example:     "{person.first} {person.last} {person.email} - Markus Moen markusmoen@pagac.net",
 		Params: []Param{
-			{Field: "value", Required: true, Type: "string", Description: "String value to generate from"},
+			{Field: "value", Type: "string", Description: "String value to generate from"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			value, err := info.GetString(m, "value")

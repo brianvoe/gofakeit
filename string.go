@@ -76,7 +76,7 @@ func addStringLookup() {
 		Description: "Replace # with random numerical values",
 		Example:     "(###)###-#### => (555)867-5309",
 		Params: []Param{
-			{Field: "str", Required: true, Type: "string", Description: "String value to replace #'s"},
+			{Field: "str", Type: "string", Description: "String value to replace #'s"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			str, err := info.GetString(m, "str")
@@ -93,7 +93,7 @@ func addStringLookup() {
 		Description: "Replace ? will random generated letters",
 		Example:     "?????@??????.com => billy@mister.com",
 		Params: []Param{
-			{Field: "str", Required: true, Type: "string", Description: "String value to replace #'s"},
+			{Field: "str", Type: "string", Description: "String value to replace #'s"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			str, err := info.GetString(m, "str")
@@ -110,7 +110,7 @@ func addStringLookup() {
 		Description: "Shuffle an array of strings",
 		Example:     "hello,world,whats,up => whats,world,hello,up",
 		Params: []Param{
-			{Field: "strs", Required: true, Type: "stringarray", Description: "Delimited seperated strings"},
+			{Field: "strs", Type: "stringarray", Description: "Delimited seperated strings"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			strs, err := info.GetStringArray(m, "strs")

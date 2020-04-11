@@ -198,8 +198,8 @@ func addInternetLookup() {
 		Description: "Random image url",
 		Example:     "https://picsum.photos/640/480",
 		Params: []Param{
-			{Field: "width", Required: true, Type: "uint", Description: "Image width"},
-			{Field: "height", Required: true, Type: "uint", Description: "Image height"},
+			{Field: "width", Type: "uint", Description: "Image width"},
+			{Field: "height", Type: "uint", Description: "Image height"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			width, err := info.GetUint(m, "width")

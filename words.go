@@ -115,7 +115,7 @@ func addWordLookup() {
 		Description: "Random sentence",
 		Example:     "Quia quae repellat consequatur quidem.",
 		Params: []Param{
-			{Field: "wordcount", Required: false, Type: "int", Default: "5", Description: "Number of words in a sentence"},
+			{Field: "wordcount", Type: "int", Default: "5", Description: "Number of words in a sentence"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			wordCount, err := info.GetInt(m, "wordcount")
@@ -135,10 +135,10 @@ func addWordLookup() {
 		Description: "Random paragraph",
 		Example:     "Quia quae repellat consequatur quidem nisi quo qui voluptatum accusantium quisquam amet. Quas et ut non dolorem ipsam aut enim assumenda mollitia harum ut. Dicta similique veniam nulla voluptas at excepturi non ad maxime at non. Eaque hic repellat praesentium voluptatem qui consequuntur dolor iusto autem velit aut. Fugit tempore exercitationem harum consequatur voluptatum modi minima aut eaque et et.<br />Aut ea voluptatem dignissimos expedita odit tempore quod aut beatae ipsam iste. Minus voluptatibus dolorem maiores eius sed nihil vel enim odio voluptatem accusamus. Natus quibusdam temporibus tenetur cumque sint necessitatibus dolorem ex ducimus iusto ex. Voluptatem neque dicta explicabo officiis et ducimus sit ut ut praesentium pariatur. Illum molestias nisi at dolore ut voluptatem accusantium et fugiat et ut.<br />Explicabo incidunt reprehenderit non quia dignissimos recusandae vitae soluta quia et quia. Aut veniam voluptas consequatur placeat sapiente non eveniet voluptatibus magni velit eum. Nobis vel repellendus sed est qui autem laudantium quidem quam ullam consequatur. Aut iusto ut commodi similique quae voluptatem atque qui fugiat eum aut. Quis distinctio consequatur voluptatem vel aliquid aut laborum facere officiis iure tempora.",
 		Params: []Param{
-			{Field: "paragraphcount", Required: false, Type: "int", Default: "20", Description: "Number of paragraphs"},
-			{Field: "sentencecount", Required: false, Type: "int", Default: "20", Description: "Number of sentences in a paragraph"},
-			{Field: "wordcount", Required: false, Type: "int", Default: "50", Description: "Number of words in a sentence"},
-			{Field: "paragraphseperator", Required: false, Type: "string", Default: "<br />", Description: "String value to add between paragraphs"},
+			{Field: "paragraphcount", Type: "int", Default: "2", Description: "Number of paragraphs"},
+			{Field: "sentencecount", Type: "int", Default: "2", Description: "Number of sentences in a paragraph"},
+			{Field: "wordcount", Type: "int", Default: "5", Description: "Number of words in a sentence"},
+			{Field: "paragraphseperator", Type: "string", Default: "<br />", Description: "String value to add between paragraphs"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			paragraphCount, err := info.GetInt(m, "paragraphcount")

@@ -27,7 +27,6 @@ type Info struct {
 // Param is a breakdown of param requirements and type definition
 type Param struct {
 	Field       string `json:"field"`
-	Required    bool   `json:"required"`
 	Type        string `json:"type"`
 	Default     string `json:"default"`
 	Description string `json:"description"`
@@ -93,25 +92,25 @@ func (i *Info) GetField(m *map[string][]string, field string) (*Param, []string,
 		return nil, nil, fmt.Errorf("Could not find param field %s", field)
 	}
 
-	// If looking for a field and map is nil
-	if m == nil {
-		return nil, nil, fmt.Errorf("Could not find field: %s", field)
-	}
+	// Get value from map
+	if m != nil {
+		value, ok := (*m)[field]
+		if !ok {
+			if p.Default != "" {
+				// If default isnt empty use default
+				return p, []string{p.Default}, nil
+			}
 
-	// Get value from
-	value, ok := (*m)[field]
-	if !ok {
-		return nil, nil, fmt.Errorf("Could not find field: %s", field)
-	}
+			return nil, nil, fmt.Errorf("Could not find field: %s", field)
+		}
 
-	// Check requirement
-	if p.Required && (len(value) == 0 || value[0] == "") {
-		return nil, nil, fmt.Errorf("%s field is required", p.Field)
-	} else if len(value) == 0 || value[0] == "" {
+		return p, value, nil
+	} else if m == nil && p.Default != "" {
+		// If default isnt empty use default
 		return p, []string{p.Default}, nil
 	}
 
-	return p, value, nil
+	return nil, nil, fmt.Errorf("Could not find field: %s", field)
 }
 
 // GetBool will retrieve boolean field from data

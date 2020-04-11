@@ -244,8 +244,8 @@ func addAddressLookup() {
 		Description: "Random latitude between given range",
 		Example:     "22.921026",
 		Params: []Param{
-			{Field: "min", Required: true, Type: "float", Default: "0", Description: "Minimum range"},
-			{Field: "max", Required: true, Type: "float", Default: "90", Description: "Maximum range"},
+			{Field: "min", Type: "float", Default: "0", Description: "Minimum range"},
+			{Field: "max", Type: "float", Default: "90", Description: "Maximum range"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			min, err := info.GetFloat64(m, "min")
@@ -281,8 +281,8 @@ func addAddressLookup() {
 		Description: "Random longitude between given range",
 		Example:     "-8.170450",
 		Params: []Param{
-			{Field: "min", Required: true, Type: "float", Default: "0", Description: "Minimum range"},
-			{Field: "max", Required: true, Type: "float", Default: "180", Description: "Maximum range"},
+			{Field: "min", Type: "float", Default: "0", Description: "Minimum range"},
+			{Field: "max", Type: "float", Default: "180", Description: "Maximum range"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			min, err := info.GetFloat64(m, "min")

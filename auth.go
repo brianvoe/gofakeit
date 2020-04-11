@@ -81,12 +81,12 @@ func addAuthLookup() {
 		Description: "Generates a random password",
 		Example:     "EEP+wwpk 4lU-eHNXlJZ4n K9%v&TZ9e",
 		Params: []Param{
-			{Field: "lower", Required: false, Type: "bool", Default: "true", Description: "Whether or not to add lower case characters"},
-			{Field: "upper", Required: false, Type: "bool", Default: "true", Description: "Whether or not to add upper case characters"},
-			{Field: "numeric", Required: false, Type: "bool", Default: "true", Description: "Whether or not to add numeric characters"},
-			{Field: "special", Required: false, Type: "bool", Default: "true", Description: "Whether or not to add special characters"},
-			{Field: "space", Required: false, Type: "bool", Default: "true", Description: "Whether or not to add spaces"},
-			{Field: "length", Required: false, Type: "int", Default: "12", Description: "Number of characters in password"},
+			{Field: "lower", Type: "bool", Default: "true", Description: "Whether or not to add lower case characters"},
+			{Field: "upper", Type: "bool", Default: "true", Description: "Whether or not to add upper case characters"},
+			{Field: "numeric", Type: "bool", Default: "true", Description: "Whether or not to add numeric characters"},
+			{Field: "special", Type: "bool", Default: "true", Description: "Whether or not to add special characters"},
+			{Field: "space", Type: "bool", Default: "true", Description: "Whether or not to add spaces"},
+			{Field: "length", Type: "int", Default: "12", Description: "Number of characters in password"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			lower, err := info.GetBool(m, "lower")

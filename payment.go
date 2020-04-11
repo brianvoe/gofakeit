@@ -149,8 +149,8 @@ func addPaymentLookup() {
 		Description: "Random monitary price",
 		Example:     "92.26",
 		Params: []Param{
-			{Field: "min", Required: false, Type: "float", Default: "0", Description: "Minumum price value"},
-			{Field: "max", Required: false, Type: "float", Default: "1000", Description: "Maximum price value"},
+			{Field: "min", Type: "float", Default: "0", Description: "Minumum price value"},
+			{Field: "max", Type: "float", Default: "1000", Description: "Maximum price value"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			min, err := info.GetFloat64(m, "min")
