@@ -85,7 +85,7 @@ func addAuthLookup() {
 			{Field: "upper", Type: "bool", Default: "true", Description: "Whether or not to add upper case characters"},
 			{Field: "numeric", Type: "bool", Default: "true", Description: "Whether or not to add numeric characters"},
 			{Field: "special", Type: "bool", Default: "true", Description: "Whether or not to add special characters"},
-			{Field: "space", Type: "bool", Default: "true", Description: "Whether or not to add spaces"},
+			{Field: "space", Type: "bool", Default: "false", Description: "Whether or not to add spaces"},
 			{Field: "length", Type: "int", Default: "12", Description: "Number of characters in password"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
