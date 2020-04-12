@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"reflect"
 	"strings"
 	"testing"
@@ -34,7 +35,7 @@ type testRequestStruct struct {
 	Method      string
 	Path        string
 	ContentType string
-	QueryParams map[string]string
+	QueryParams url.Values
 	Headers     map[string]string
 	Body        interface{}
 
@@ -97,11 +98,7 @@ func testRequest(tr *testRequestStruct) {
 
 	// Add query parameters
 	if tr.QueryParams != nil {
-		q := req.URL.Query()
-		for key, value := range tr.QueryParams {
-			q.Add(key, value)
-		}
-		req.URL.RawQuery = q.Encode()
+		req.URL.RawQuery = tr.QueryParams.Encode()
 	}
 
 	// Make request
@@ -110,6 +107,7 @@ func testRequest(tr *testRequestStruct) {
 		tr.Testing.Fatal(err)
 	}
 	defer resp.Body.Close()
+	contentType := resp.Header.Get("Content-Type")
 
 	// Read body
 	respBody, err := ioutil.ReadAll(resp.Body)
@@ -124,12 +122,18 @@ func testRequest(tr *testRequestStruct) {
 
 	// Unmarshal to response
 	if tr.Response != nil {
-		if err := json.Unmarshal(respBody, tr.Response); err != nil {
-			if ute, ok := err.(*json.UnmarshalTypeError); ok {
-				tr.Testing.Fatalf("UnmarshalTypeError %v: %v - %v - %v\n", ute.Field, ute.Value, ute.Type, ute.Offset)
-			} else {
-				tr.Testing.Fatal("Unmarshal error: ", err)
+		// Check content type
+		switch contentType {
+		case "application/json; charset=utf-8":
+			if err := json.Unmarshal(respBody, tr.Response); err != nil {
+				if ute, ok := err.(*json.UnmarshalTypeError); ok {
+					tr.Testing.Fatalf("UnmarshalTypeError %v: %v - %v - %v\n", ute.Field, ute.Value, ute.Type, ute.Offset)
+				} else {
+					tr.Testing.Fatal("Unmarshal error: ", err)
+				}
 			}
+		case "text/plain; charset=utf-8":
+			*tr.Response.(*string) = string(respBody)
 		}
 	}
 }

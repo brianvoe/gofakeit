@@ -180,19 +180,47 @@ func encodeResponse(v interface{}) []byte {
 }
 
 func ok(w http.ResponseWriter, data interface{}) {
-	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	var resp []byte
+	d := reflect.ValueOf(data)
+	switch d.Kind() {
+	case reflect.Bool:
+		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+		resp = []byte(fmt.Sprintf("%v", data))
+	case reflect.Int, reflect.Int8, reflect.Int32, reflect.Int64:
+		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+		resp = []byte(fmt.Sprintf("%v", data))
+	case reflect.Uint, reflect.Uint8, reflect.Uint32, reflect.Uint64:
+		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+		resp = []byte(fmt.Sprintf("%v", data))
+	case reflect.Float32, reflect.Float64:
+		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+		resp = []byte(fmt.Sprintf("%v", data))
+	case reflect.String:
+		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+		resp = []byte((data).(string))
+	case reflect.Map:
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		resp = encodeResponse(data)
+	case reflect.Slice:
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		resp = encodeResponse(data)
+	default:
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		resp = encodeResponse(data)
+	}
+
 	w.WriteHeader(http.StatusOK)
-	w.Write(encodeResponse(data))
+	w.Write(resp)
 }
 
 func badrequest(w http.ResponseWriter, msg string) {
-	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	w.WriteHeader(http.StatusBadRequest)
 	w.Write([]byte(msg))
 }
 
 func notfound(w http.ResponseWriter) {
-	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	w.WriteHeader(http.StatusNotFound)
 	w.Write([]byte("404 not found"))
 }

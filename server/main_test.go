@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"net/url"
 	"strings"
 	"testing"
 
@@ -24,6 +26,64 @@ func TestList(t *testing.T) {
 
 	if len(response.Map) == 0 {
 		t.Fatalf("Was expecting list length to be more than 0 got %d", len(response.Map))
+	}
+}
+
+func TestGetAllRequests(t *testing.T) {
+	for field, info := range gofakeit.MapLookups.Map {
+		mapData := url.Values{}
+		if info.Params != nil && len(info.Params) != 0 {
+			// Loop through params and add fields to mapdata
+			for _, p := range info.Params {
+				if p.Default != "" {
+					mapData.Add(p.Field, p.Default)
+					continue
+				}
+
+				switch p.Type {
+				case "bool":
+					mapData.Add(p.Field, fmt.Sprintf("%v", gofakeit.Bool()))
+					break
+				case "string":
+					mapData.Add(p.Field, gofakeit.Letter())
+					break
+				case "uint":
+					mapData.Add(p.Field, fmt.Sprintf("%v", gofakeit.Uint16()))
+				case "int":
+					mapData.Add(p.Field, fmt.Sprintf("%v", gofakeit.Int16()))
+				case "float":
+					mapData.Add(p.Field, fmt.Sprintf("%v", gofakeit.Float32()))
+					break
+				case "stringarray":
+					mapData.Add(p.Field, gofakeit.Letter())
+					mapData.Add(p.Field, gofakeit.Letter())
+					mapData.Add(p.Field, gofakeit.Letter())
+					mapData.Add(p.Field, gofakeit.Letter())
+					break
+				case "intarray":
+					mapData.Add(p.Field, fmt.Sprintf("%d", gofakeit.Int8()))
+					mapData.Add(p.Field, fmt.Sprintf("%d", gofakeit.Int8()))
+					mapData.Add(p.Field, fmt.Sprintf("%d", gofakeit.Int8()))
+					mapData.Add(p.Field, fmt.Sprintf("%d", gofakeit.Int8()))
+					break
+				default:
+					t.Fatalf("Looking for %s but switch case doesnt have it", p.Type)
+				}
+			}
+		}
+
+		var statusCode int
+		testRequest(&testRequestStruct{
+			Testing:     t,
+			Method:      "GET",
+			Path:        "/" + field,
+			QueryParams: mapData,
+			StatusCode:  &statusCode,
+		})
+
+		if statusCode != 200 {
+			t.Fatalf("Was expecting 200 got %d", statusCode)
+		}
 	}
 }
 
@@ -54,8 +114,8 @@ func TestGetLookupWithParams(t *testing.T) {
 		Testing: t,
 		Method:  "GET",
 		Path:    "/password",
-		QueryParams: map[string]string{
-			"length": "5",
+		QueryParams: url.Values{
+			"length": []string{"5"},
 		},
 		Response:   &response,
 		StatusCode: &statusCode,
@@ -71,6 +131,63 @@ func TestGetLookupWithParams(t *testing.T) {
 
 	if len(response) != 5 {
 		t.Fatalf("Was expecting a string length of 5 got %d", len(response))
+	}
+}
+
+func TestPostAllRequests(t *testing.T) {
+	for field, info := range gofakeit.MapLookups.Map {
+		var mapData map[string][]string
+		if info.Params != nil && len(info.Params) != 0 {
+			// Make sure mapdata is set
+			if mapData == nil {
+				mapData = make(map[string][]string)
+			}
+
+			// Loop through params and add fields to mapdata
+			for _, p := range info.Params {
+				if p.Default != "" {
+					mapData[p.Field] = []string{p.Default}
+					continue
+				}
+
+				switch p.Type {
+				case "bool":
+					mapData[p.Field] = []string{fmt.Sprintf("%v", gofakeit.Bool())}
+					break
+				case "string":
+					mapData[p.Field] = []string{gofakeit.Letter()}
+					break
+				case "uint":
+					mapData[p.Field] = []string{fmt.Sprintf("%v", gofakeit.Uint16())}
+				case "int":
+					mapData[p.Field] = []string{fmt.Sprintf("%v", gofakeit.Int16())}
+				case "float":
+					mapData[p.Field] = []string{fmt.Sprintf("%v", gofakeit.Float32())}
+					break
+				case "stringarray":
+					mapData[p.Field] = []string{gofakeit.Letter(), gofakeit.Letter(), gofakeit.Letter(), gofakeit.Letter()}
+					break
+				case "intarray":
+					mapData[p.Field] = []string{fmt.Sprintf("%d", gofakeit.Int8()), fmt.Sprintf("%d", gofakeit.Int8()), fmt.Sprintf("%d", gofakeit.Int8()), fmt.Sprintf("%d", gofakeit.Int8())}
+					break
+				default:
+					t.Fatalf("Looking for %s but switch case doesnt have it", p.Type)
+				}
+			}
+		}
+
+		var statusCode int
+		testRequest(&testRequestStruct{
+			Testing:    t,
+			Method:     "POST",
+			Path:       "/" + field,
+			Body:       mapData,
+			StatusCode: &statusCode,
+		})
+
+		if statusCode != 200 {
+			t.Fatalf("Was expecting 200 got %d", statusCode)
+		}
 	}
 }
 
