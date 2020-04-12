@@ -122,7 +122,7 @@ func addWordLookup() {
 			if err != nil {
 				return nil, err
 			}
-			if wordCount <= 0 || wordCount >= 50 {
+			if wordCount <= 0 || wordCount > 50 {
 				return nil, errors.New("Invalid word count, must be greater than 0, less than 50")
 			}
 
