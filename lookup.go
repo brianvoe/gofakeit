@@ -32,8 +32,8 @@ type Param struct {
 	Description string `json:"description"`
 }
 
-// SetLookups will add all the functions to MapLookups
-func SetLookups() {
+// init will add all the functions to MapLookups
+func init() {
 	addAuthLookup()
 	addAddressLookup()
 	addBeerLookup()

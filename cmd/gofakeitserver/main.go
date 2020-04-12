@@ -22,9 +22,6 @@ func init() {
 func main() {
 	gofakeit.Seed(0)
 
-	// Set lookups
-	gofakeit.SetLookups()
-
 	// Set router
 	mux := http.NewServeMux()
 	routes(mux)

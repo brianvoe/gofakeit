@@ -23,9 +23,6 @@ func main() {
 		return
 	}
 
-	// Set lookups into map
-	gofakeit.SetLookups()
-
 	// Get function name
 	function := args[0]
 

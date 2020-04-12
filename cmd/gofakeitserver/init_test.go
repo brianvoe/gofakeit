@@ -21,9 +21,6 @@ func init() {
 	// Set random seed for app
 	gofakeit.Seed(0)
 
-	// Set lookups
-	gofakeit.SetLookups()
-
 	// Set up test server
 	mux := http.NewServeMux()
 	routes(mux)

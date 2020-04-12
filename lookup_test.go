@@ -6,10 +6,6 @@ import (
 	"time"
 )
 
-func init() {
-	SetLookups()
-}
-
 func TestLookupChecking(t *testing.T) {
 	Seed(time.Now().UnixNano())
 
