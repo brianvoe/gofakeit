@@ -18,23 +18,23 @@ func Example() {
 	fmt.Println("Credit Card:", CreditCardNumber())
 	fmt.Println("Hacker Phrase:", HackerPhrase())
 	fmt.Println("Job Title:", JobTitle())
-	fmt.Println("Password:", Password(true, true, true, true, true, 32))
+	fmt.Println("Password:", Password(true, true, true, true, false, 32))
 	currency := Currency()
 	fmt.Printf("Currency: %s - %s", currency.Short, currency.Long)
 	// Output:
 	// Name: Markus Moen
-	//Email: alaynawuckert@kozey.biz
-	//Phone: 9948995369
-	//Address: 35300 South Roadshaven, Hilllville, Montana 30232
-	//BS: e-enable
-	//Beer Name: Weihenstephaner Hefeweissbier
-	//Color: MidnightBlue
-	//Company: Heaney-Tromp
-	//Credit Card: 2720997148008899
-	//Hacker Phrase: Use the wireless SQL sensor, then you can compress the open-source array!
-	//Job Title: Producer
-	//Password: Hozsav7LgAa -Q$qSu  L*2 ?Jivzjn2
-	//Currency: DJF - Djibouti Franc
+	// Email: alaynawuckert@kozey.biz
+	// Phone: 9948995369
+	// Address: 35300 South Roadshaven, Hilllville, Montana 30232
+	// BS: e-enable
+	// Beer Name: Weihenstephaner Hefeweissbier
+	// Color: MidnightBlue
+	// Company: Heaney-Tromp
+	// Credit Card: 2720997148008899
+	// Hacker Phrase: Use the wireless SQL sensor, then you can compress the open-source array!
+	// Job Title: Producer
+	// Password: 9zXFmEKpy%r?-nMCdgdJLSD7WYcysjg2
+	// Currency: DJF - Djibouti Franc
 }
 
 func TestSeed(t *testing.T) {

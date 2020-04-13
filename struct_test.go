@@ -33,7 +33,7 @@ type BuiltIn struct {
 
 type Template struct {
 	Number *string `fake:"#"`
-	Name   *string `fake:"{person.first}"`
+	Name   *string `fake:"{firstname}"`
 }
 
 func TestStructBasic(t *testing.T) {
@@ -123,7 +123,7 @@ func Example_struct() {
 		Bar     string
 		Int     int
 		Pointer *int
-		Name    string  `fake:"{person.first}"`
+		Name    string  `fake:"{firstname}"`
 		Skip    *string `fake:"skip"`
 	}
 
@@ -136,9 +136,9 @@ func Example_struct() {
 	fmt.Printf("%v\n", f.Name)
 	fmt.Printf("%v\n", f.Skip)
 
-	// Output: gbrmarxhkijbptapwyj
-	// -3430133205295092491
-	// -2330884613995904932
-	// Fred
+	// Output: brmarxhki
+	// -8576773003117070818
+	// -7054675846543980602
+	// Enrique
 	// <nil>
 }
