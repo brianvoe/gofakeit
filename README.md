@@ -65,7 +65,7 @@ type Foo struct {
 	Bar     string
 	Int     int
 	Pointer *int
-	Name    string  `fake:"{person.first}"`
+	Name    string  `fake:"{firstname}"`
 	Skip    *string `fake:"skip"` // Set to "skip" to not generate data for
 }
 
