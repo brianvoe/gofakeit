@@ -26,6 +26,8 @@ func main() {
 	mux := http.NewServeMux()
 	routes(mux)
 
+	fmt.Println("Running on port " + port)
+
 	http.ListenAndServe(":"+port, mux)
 }
 
