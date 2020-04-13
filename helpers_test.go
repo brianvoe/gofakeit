@@ -44,6 +44,17 @@ func TestReplaceWithNumbers(t *testing.T) {
 	}
 }
 
+func BenchmarkReplaceWithNumbers(b *testing.B) {
+	b.StopTimer()
+	for i := 0; i < b.N; i++ {
+		Seed(42)
+
+		b.StartTimer()
+		replaceWithNumbers("###☺#☻##☹##")
+		b.StopTimer()
+	}
+}
+
 func TestReplaceWithNumbersUnicode(t *testing.T) {
 	for _, test := range []struct{ in, should string }{
 		{"#界#世#", "5界7世8"},

@@ -41,6 +41,7 @@ func init() {
 	addCarLookup()
 	addPersonLookup()
 	addWordLookup()
+	addGenerateLookup()
 	addMiscLookup()
 	addColorLookup()
 	addInternetLookup()

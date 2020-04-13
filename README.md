@@ -96,6 +96,13 @@ Phone() string
 PhoneFormatted() string
 ```
 
+## Generate
+```go
+Struct(v interface{})
+Map() map[string]interface{}
+Generate(value string) string
+```
+
 ## Auth
 ```go
 Username() string
@@ -155,9 +162,6 @@ Quote() string
 
 ## Misc
 ```go
-Struct(v interface{})
-Map() map[string]interface{}
-Generate(value string) string
 Bool() bool
 UUID() string
 ```
