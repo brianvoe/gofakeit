@@ -90,7 +90,7 @@ func listOutput(selectedCategory string) {
 
 	// Get list of categories
 	categories := []string{}
-	for _, l := range gofakeit.MapLookups.Map {
+	for _, l := range gofakeit.FuncLookups {
 		// If selected category is set only grab of that category
 		if selectedCategory != "" && selectedCategory != l.Category {
 			continue
@@ -110,7 +110,7 @@ func listOutput(selectedCategory string) {
 		funcNames := []string{}
 
 		// Get all in category
-		for fName, l := range gofakeit.MapLookups.Map {
+		for fName, l := range gofakeit.FuncLookups {
 			if categories[i] == l.Category && !stringInSlice(fName, funcNames) {
 				funcNames = append(funcNames, fName)
 			}

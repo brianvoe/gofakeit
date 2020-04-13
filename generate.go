@@ -1,7 +1,6 @@
 package gofakeit
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"strings"
@@ -31,8 +30,8 @@ func Generate(dataVal string) string {
 		fName := dataVal[(startIndex + 1):endIndex]
 
 		// Check to see if its a replacable lookup function
-		if info, ok := MapLookups.Map[fName]; ok {
-			fValue, err := info.Call(nil, &info)
+		if info := GetLookupData(fName); info != nil {
+			fValue, err := info.Call(nil, info)
 			if err != nil {
 				// If we came across an error just dont replace value
 				continue
@@ -111,7 +110,7 @@ func addGenerateLookup() {
 	AddLookupData("generate", Info{
 		Category:    "misc",
 		Description: "Random string generated from string value based upon available data sets",
-		Example:     "{person.first} {person.last} {person.email} - Markus Moen markusmoen@pagac.net",
+		Example:     "{firstname} {lastname} {email} - Markus Moen markusmoen@pagac.net",
 		Output:      "string",
 		Params: []Param{
 			{Field: "value", Type: "string", Description: "String value to generate from"},
@@ -131,14 +130,13 @@ func addGenerateLookup() {
 		},
 	})
 
-	AddLookupData("json", Info{
+	AddLookupData("map", Info{
 		Category:    "misc",
-		Description: "Random json data",
+		Description: "Random map data",
 		Example:     `{"aut":{"iste":"qui"},"est":["velit","architecto","doloribus","fugiat"],"id":620384.06,"maiores":"Bertha Weber","quisquam":715240.3,"tempore":7415722}`,
-		Output:      "string",
+		Output:      "map[string]interface",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			d, _ := json.Marshal(Map())
-			return string(d), nil
+			return Map(), nil
 		},
 	})
 }

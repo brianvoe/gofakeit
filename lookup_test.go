@@ -9,7 +9,7 @@ import (
 func TestLookupChecking(t *testing.T) {
 	Seed(time.Now().UnixNano())
 
-	for field, info := range MapLookups.Map {
+	for field, info := range FuncLookups {
 		var mapData map[string][]string
 		if info.Params != nil && len(info.Params) != 0 {
 			// Make sure mapdata is set
@@ -59,7 +59,7 @@ func TestLookupChecking(t *testing.T) {
 
 // Make sure all lookups have specific fields
 func TestLookupCheckFields(t *testing.T) {
-	for field, info := range MapLookups.Map {
+	for field, info := range FuncLookups {
 		if info.Category == "" {
 			t.Fatalf("%s is missing a category", field)
 		}

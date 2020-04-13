@@ -6,14 +6,9 @@ import (
 	"sync"
 )
 
-// MapLookups is the primary map array with mapping to all available data
-var MapLookups Lookup
-
-// Lookup is a primary struct used to organize information with mutex locks
-type Lookup struct {
-	Map  map[string]Info
-	lock sync.Mutex
-}
+// FuncLookups is the primary map array with mapping to all available data
+var FuncLookups map[string]Info
+var lockFuncLookups sync.Mutex
 
 // Info structures fields to better break down what each one generates
 type Info struct {
@@ -61,18 +56,18 @@ func init() {
 
 // AddLookupData takes a field and adds it to map
 func AddLookupData(field string, info Info) {
-	if MapLookups.Map == nil {
-		MapLookups.Map = make(map[string]Info)
+	if FuncLookups == nil {
+		FuncLookups = make(map[string]Info)
 	}
 
-	MapLookups.lock.Lock()
-	MapLookups.Map[field] = info
-	MapLookups.lock.Unlock()
+	lockFuncLookups.Lock()
+	FuncLookups[field] = info
+	lockFuncLookups.Unlock()
 }
 
 // GetLookupData will lookup
 func GetLookupData(field string) *Info {
-	info, ok := MapLookups.Map[field]
+	info, ok := FuncLookups[field]
 	if !ok {
 		return nil
 	}

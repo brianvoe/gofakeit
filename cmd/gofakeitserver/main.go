@@ -44,7 +44,7 @@ func favicon(w http.ResponseWriter, r *http.Request) {
 }
 
 func list(w http.ResponseWriter, r *http.Request) {
-	ok(w, gofakeit.MapLookups.Map)
+	ok(w, gofakeit.FuncLookups)
 }
 
 func lookup(w http.ResponseWriter, r *http.Request) {

@@ -10,13 +10,13 @@ import (
 )
 
 func TestList(t *testing.T) {
-	var response gofakeit.Lookup
+	var response map[string]gofakeit.Info
 	var statusCode int
 	testRequest(&testRequestStruct{
 		Testing:    t,
 		Method:     "GET",
 		Path:       "/list",
-		Response:   &response.Map,
+		Response:   &response,
 		StatusCode: &statusCode,
 	})
 
@@ -24,13 +24,13 @@ func TestList(t *testing.T) {
 		t.Fatalf("Was expecting 200 got %d", statusCode)
 	}
 
-	if len(response.Map) == 0 {
-		t.Fatalf("Was expecting list length to be more than 0 got %d", len(response.Map))
+	if len(response) == 0 {
+		t.Fatalf("Was expecting list length to be more than 0 got %d", len(response))
 	}
 }
 
 func TestGetAllRequests(t *testing.T) {
-	for field, info := range gofakeit.MapLookups.Map {
+	for field, info := range gofakeit.FuncLookups {
 		mapData := url.Values{}
 		if info.Params != nil && len(info.Params) != 0 {
 			// Loop through params and add fields to mapdata
@@ -135,7 +135,7 @@ func TestGetLookupWithParams(t *testing.T) {
 }
 
 func TestPostAllRequests(t *testing.T) {
-	for field, info := range gofakeit.MapLookups.Map {
+	for field, info := range gofakeit.FuncLookups {
 		var mapData map[string][]string
 		if info.Params != nil && len(info.Params) != 0 {
 			// Make sure mapdata is set
