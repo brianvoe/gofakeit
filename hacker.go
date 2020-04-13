@@ -35,7 +35,7 @@ func HackerIngverb() string {
 }
 
 func addHackerLookup() {
-	AddLookupData("hackerabr", Info{
+	AddLookupData("hackerabbreviation", Info{
 		Category:    "hacker",
 		Description: "Random hacker abbreviation",
 		Example:     "ADP",
@@ -45,7 +45,7 @@ func addHackerLookup() {
 		},
 	})
 
-	AddLookupData("hackeradj", Info{
+	AddLookupData("hackeradjective", Info{
 		Category:    "hacker",
 		Description: "Random hacker adjective",
 		Example:     "wireless",
