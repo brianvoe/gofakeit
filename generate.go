@@ -3,41 +3,48 @@ package gofakeit
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"strings"
 )
 
-// Generate fake information from given string. String should contain {category.subcategory}
+// Generate fake information from given string.
+// Replaceable values should be within {}
 //
-// Ex: {person.first} - random firstname
+// Functions
+// Ex: {firstname} - billy
+// Ex: {uuid} - 590c1440-9888-45b0-bd51-a817ee07c3f2
 //
-// Ex: {person.first}###{person.last}@{person.last}.{internet.domain_suffix} - billy834smith@smith.com
-//
+// Letters/Numbers
 // Ex: ### - 481 - random numbers
-//
 // Ex: ??? - fda - random letters
 //
-// For a complete list possible categories use the Categories() function.
+// For a complete list of runnable functions use FuncsLookup
 func Generate(dataVal string) string {
+	// Replace # with numbers and ? with letters
+	dataVal = replaceWithNumbers(dataVal)
+	dataVal = replaceWithLetters(dataVal)
+
 	// Identify items between brackets: {person.first}
 	for strings.Count(dataVal, "{") > 0 && strings.Count(dataVal, "}") > 0 {
-		catValue := ""
 		startIndex := strings.Index(dataVal, "{")
 		endIndex := strings.Index(dataVal, "}")
-		replace := dataVal[(startIndex + 1):endIndex]
-		categories := strings.Split(replace, ".")
+		fName := dataVal[(startIndex + 1):endIndex]
 
-		if len(categories) >= 2 && dataCheck([]string{categories[0], categories[1]}) {
-			catValue = getRandValue([]string{categories[0], categories[1]})
+		// Check to see if its a replacable lookup function
+		if info, ok := MapLookups.Map[fName]; ok {
+			fValue, err := info.Call(nil, &info)
+			if err != nil {
+				// If we came across an error just dont replace value
+				continue
+			}
+			dataVal = strings.Replace(dataVal, "{"+fName+"}", fmt.Sprintf("%v", fValue), 1)
+			continue
 		}
 
-		dataVal = strings.Replace(dataVal, "{"+replace+"}", catValue, 1)
+		// Couldnt find anything - set to n/a
+		dataVal = strings.Replace(dataVal, "{"+fName+"}", "n/a", 1)
+		continue
 	}
-
-	// Replace # with numbers
-	dataVal = replaceWithNumbers(dataVal)
-
-	// Replace ? with letters
-	dataVal = replaceWithLetters(dataVal)
 
 	return dataVal
 }
