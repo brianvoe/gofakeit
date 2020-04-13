@@ -66,12 +66,10 @@ func rStruct(t reflect.Type, v reflect.Value) {
 	for i := 0; i < n; i++ {
 		elementT := t.Field(i)
 		elementV := v.Field(i)
-		fake := true
 		t, ok := elementT.Tag.Lookup("fake")
 		if ok && t == "skip" {
-			fake = false
-		}
-		if fake && elementV.CanSet() {
+			// Do nothing, skip it
+		} else if elementV.CanSet() {
 			r(elementT.Type, elementV, t)
 		}
 	}

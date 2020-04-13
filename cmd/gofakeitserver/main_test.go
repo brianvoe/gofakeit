@@ -54,7 +54,7 @@ func TestGetAllRequests(t *testing.T) {
 				case "float":
 					mapData.Add(p.Field, fmt.Sprintf("%v", gofakeit.Float32()))
 					break
-				case "stringarray":
+				case "[]string":
 					mapData.Add(p.Field, gofakeit.Letter())
 					mapData.Add(p.Field, gofakeit.Letter())
 					mapData.Add(p.Field, gofakeit.Letter())
