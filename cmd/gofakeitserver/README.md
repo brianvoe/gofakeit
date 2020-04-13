@@ -4,3 +4,5 @@
 ```go
 go get github.com/brianvoe/gofakeit/v4
 ```
+
+### Example
