@@ -111,7 +111,7 @@ func lookupPost(w http.ResponseWriter, r *http.Request) {
 		mapInterface := map[string]interface{}{}
 		err = json.NewDecoder(r.Body).Decode(&mapInterface)
 		if err != nil {
-			badrequest(w, "Could not parse post body. Expects key(string) - value or valuearray")
+			badrequest(w, "Could not parse post body. Expects key(string) - value or []value")
 			return
 		}
 		defer r.Body.Close()

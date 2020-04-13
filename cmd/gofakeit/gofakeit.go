@@ -60,7 +60,7 @@ func main() {
 			// Map argument to param field
 			if paramsLen >= i {
 				p := info.Params[i-1]
-				if strings.Contains(p.Type, "array") {
+				if strings.Contains(p.Type, "[]") {
 					params[p.Field] = strings.Split(args[i], ",")
 				} else {
 					params[p.Field] = []string{args[i]}
