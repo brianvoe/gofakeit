@@ -33,7 +33,7 @@ type BuiltIn struct {
 
 type Template struct {
 	Number *string `fake:"#"`
-	Name   *string `fake:"{person.first}"`
+	Name   *string `fake:"{firstname}"`
 }
 
 func TestStructBasic(t *testing.T) {
@@ -123,7 +123,7 @@ func Example_struct() {
 		Bar     string
 		Int     int
 		Pointer *int
-		Name    string  `fake:"{person.first}"`
+		Name    string  `fake:"{firstname}"`
 		Skip    *string `fake:"skip"`
 	}
 
