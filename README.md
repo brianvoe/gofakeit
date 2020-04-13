@@ -11,8 +11,8 @@ Random data generator written in go
 - Zero dependencies
 - Randomizes user defined structs
 - Numerous functions for regular use
-- Run server
-- Run via command line
+- Run [server](https://github.com/brianvoe/gofakeit/tree/master/cmd/gofakeitserver)
+- Run via [command line](https://github.com/brianvoe/gofakeit/tree/master/cmd/gofakeit)
 
 ### 120+ Functions!!!
 If there is something that is generic enough missing from this package [add an issue](https://github.com/brianvoe/gofakeit/issues) and let me know what you need.
