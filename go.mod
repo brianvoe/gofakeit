@@ -1,3 +1,3 @@
-module github.com/brianvoe/gofakeit/v4
+module github.com/brianvoe/gofakeit/v5
 
 go 1.14

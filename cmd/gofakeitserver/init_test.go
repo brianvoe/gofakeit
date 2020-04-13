@@ -12,7 +12,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/brianvoe/gofakeit/v4"
+	"github.com/brianvoe/gofakeit/v5"
 )
 
 var ts *httptest.Server

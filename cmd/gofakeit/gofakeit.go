@@ -6,7 +6,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/brianvoe/gofakeit/v4"
+	"github.com/brianvoe/gofakeit/v5"
 )
 
 var noFuncRunMsg = "Could not find function to run\nCall list for available functions"

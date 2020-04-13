@@ -32,12 +32,12 @@ gofakeit.Seed(time.Now().UnixNano()) // or gofakeit.Seed(0)
 
 ### Installation
 ```go
-go get github.com/brianvoe/gofakeit/v4
+go get github.com/brianvoe/gofakeit/v5
 ```
 
 ## Example
 ```go
-import "github.com/brianvoe/gofakeit/v4"
+import "github.com/brianvoe/gofakeit/v5"
 
 gofakeit.Seed(0)
 
@@ -58,7 +58,7 @@ gofakeit.CurrencyShort() // USD
 
 ## Example Struct
 ```go
-import "github.com/brianvoe/gofakeit/v4"
+import "github.com/brianvoe/gofakeit/v5"
 
 // Create structs with random injected data
 type Foo struct {

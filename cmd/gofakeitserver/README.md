@@ -4,7 +4,7 @@ All functions are available to run in lowercase as first path and if they take i
 
 ### Installation
 ```go
-go get github.com/brianvoe/gofakeit/v4
+go get github.com/brianvoe/gofakeit/v5
 ```
 
 ### Example
