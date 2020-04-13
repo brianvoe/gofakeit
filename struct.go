@@ -50,8 +50,7 @@ func r(t reflect.Type, v reflect.Value, template string) {
 
 func rString(template string, v reflect.Value) {
 	if template != "" {
-		r := Generate(template)
-		v.SetString(r)
+		v.SetString(Generate(template))
 	} else {
 		num := Number(4, 10)
 		str := ""
