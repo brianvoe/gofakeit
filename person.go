@@ -93,7 +93,7 @@ func Phone() string {
 
 // PhoneFormatted will generate a random phone number string
 func PhoneFormatted() string {
-	return replaceWithNumbers(getRandValue([]string{"contact", "phone"}))
+	return replaceWithNumbers(getRandValue([]string{"person", "phone"}))
 }
 
 // Email will generate a random email string
