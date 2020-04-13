@@ -57,6 +57,7 @@ func addStringLookup() {
 		Category:    "string",
 		Description: "Generate a single random lower case ASCII letter",
 		Example:     "g",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Letter(), nil
 		},
@@ -66,6 +67,7 @@ func addStringLookup() {
 		Category:    "string",
 		Description: "Generate a single random lower case ASCII letter",
 		Example:     "g",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Letter(), nil
 		},
@@ -75,6 +77,7 @@ func addStringLookup() {
 		Category:    "string",
 		Description: "Replace # with random numerical values",
 		Example:     "(###)###-#### => (555)867-5309",
+		Output:      "string",
 		Params: []Param{
 			{Field: "str", Type: "string", Description: "String value to replace #'s"},
 		},
@@ -92,6 +95,7 @@ func addStringLookup() {
 		Category:    "string",
 		Description: "Replace ? will random generated letters",
 		Example:     "?????@??????.com => billy@mister.com",
+		Output:      "string",
 		Params: []Param{
 			{Field: "str", Type: "string", Description: "String value to replace #'s"},
 		},
@@ -109,8 +113,9 @@ func addStringLookup() {
 		Category:    "string",
 		Description: "Shuffle an array of strings",
 		Example:     "hello,world,whats,up => whats,world,hello,up",
+		Output:      "[]string",
 		Params: []Param{
-			{Field: "strs", Type: "stringarray", Description: "Delimited seperated strings"},
+			{Field: "strs", Type: "[]string", Description: "Delimited seperated strings"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			strs, err := info.GetStringArray(m, "strs")

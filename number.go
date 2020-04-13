@@ -84,6 +84,7 @@ func addNumberLookup() {
 		Category:    "number",
 		Description: "Random number between given range",
 		Example:     "14866",
+		Output:      "int",
 		Params: []Param{
 			{Field: "min", Type: "int", Default: "-2147483648", Description: "Minimum integer value"},
 			{Field: "max", Type: "int", Default: "2147483647", Description: "Maximum integer value"},
@@ -111,6 +112,7 @@ func addNumberLookup() {
 		Category:    "number",
 		Description: "Random uint8 value",
 		Example:     "152",
+		Output:      "uint8",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Uint8(), nil
 		},
@@ -120,6 +122,7 @@ func addNumberLookup() {
 		Category:    "number",
 		Description: "Random uint16 value",
 		Example:     "34968",
+		Output:      "uint16",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Uint16(), nil
 		},
@@ -129,6 +132,7 @@ func addNumberLookup() {
 		Category:    "number",
 		Description: "Random uint32 value",
 		Example:     "1075055705",
+		Output:      "uint32",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Uint32(), nil
 		},
@@ -138,6 +142,7 @@ func addNumberLookup() {
 		Category:    "number",
 		Description: "Random uint64 value",
 		Example:     "843730692693298265",
+		Output:      "uint64",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Uint64(), nil
 		},
@@ -147,6 +152,7 @@ func addNumberLookup() {
 		Category:    "number",
 		Description: "Random int8 value",
 		Example:     "24",
+		Output:      "int8",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Int8(), nil
 		},
@@ -156,6 +162,7 @@ func addNumberLookup() {
 		Category:    "number",
 		Description: "Random int16 value",
 		Example:     "2200",
+		Output:      "int16",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Int16(), nil
 		},
@@ -165,6 +172,7 @@ func addNumberLookup() {
 		Category:    "number",
 		Description: "Random int32 value",
 		Example:     "-1072427943",
+		Output:      "int32",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Int32(), nil
 		},
@@ -174,6 +182,7 @@ func addNumberLookup() {
 		Category:    "number",
 		Description: "Random int64 value",
 		Example:     "-8379641344161477543",
+		Output:      "int64",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Int64(), nil
 		},
@@ -183,6 +192,7 @@ func addNumberLookup() {
 		Category:    "number",
 		Description: "Random float32 value",
 		Example:     "3.1128167e+37",
+		Output:      "float32",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Float32(), nil
 		},
@@ -192,6 +202,7 @@ func addNumberLookup() {
 		Category:    "number",
 		Description: "Random float32 between given range",
 		Example:     "914774.6",
+		Output:      "float32",
 		Params: []Param{
 			{Field: "min", Type: "int", Description: "Minimum float32 value"},
 			{Field: "max", Type: "int", Description: "Maximum float32 value"},
@@ -215,6 +226,7 @@ func addNumberLookup() {
 		Category:    "number",
 		Description: "Random float64 value",
 		Example:     "1.644484108270445e+307",
+		Output:      "float64",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Float64(), nil
 		},
@@ -224,6 +236,7 @@ func addNumberLookup() {
 		Category:    "number",
 		Description: "Random float64 between given range",
 		Example:     "914774.5585333086",
+		Output:      "float64",
 		Params: []Param{
 			{Field: "min", Type: "int", Description: "Minimum float64 value"},
 			{Field: "max", Type: "int", Description: "Maximum float64 value"},
@@ -247,8 +260,9 @@ func addNumberLookup() {
 		Category:    "number",
 		Description: "Shuffle an array of ints",
 		Example:     "1,2,3,4 => 3,1,4,2",
+		Output:      "[]int",
 		Params: []Param{
-			{Field: "ints", Type: "intarray", Description: "Delimited seperated ints"},
+			{Field: "ints", Type: "[]int", Description: "Delimited seperated ints"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			ints, err := info.GetIntArray(m, "ints")

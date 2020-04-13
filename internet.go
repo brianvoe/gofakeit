@@ -170,6 +170,7 @@ func addInternetLookup() {
 		Category:    "internet",
 		Description: "Random url",
 		Example:     "http://www.principalproductize.biz/target",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return URL(), nil
 		},
@@ -179,6 +180,7 @@ func addInternetLookup() {
 		Category:    "internet",
 		Description: "Random domain name",
 		Example:     "centraltarget.biz",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return DomainName(), nil
 		},
@@ -188,6 +190,7 @@ func addInternetLookup() {
 		Category:    "internet",
 		Description: "Random domain suffix",
 		Example:     "org",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return DomainSuffix(), nil
 		},
@@ -197,6 +200,7 @@ func addInternetLookup() {
 		Category:    "internet",
 		Description: "Random image url",
 		Example:     "https://picsum.photos/640/480",
+		Output:      "string",
 		Params: []Param{
 			{Field: "width", Type: "uint", Description: "Image width"},
 			{Field: "height", Type: "uint", Description: "Image height"},
@@ -220,6 +224,7 @@ func addInternetLookup() {
 		Category:    "internet",
 		Description: "Random ip address v4",
 		Example:     "222.83.191.222",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return IPv4Address(), nil
 		},
@@ -229,6 +234,7 @@ func addInternetLookup() {
 		Category:    "internet",
 		Description: "Random ip address v6",
 		Example:     "2001:cafe:8898:ee17:bc35:9064:5866:d019",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return IPv6Address(), nil
 		},
@@ -238,6 +244,7 @@ func addInternetLookup() {
 		Category:    "internet",
 		Description: "Random http method",
 		Example:     "HEAD",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return HTTPMethod(), nil
 		},
@@ -247,6 +254,7 @@ func addInternetLookup() {
 		Category:    "internet",
 		Description: "Random log level",
 		Example:     "error",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return LogLevel(""), nil
 		},
@@ -256,6 +264,7 @@ func addInternetLookup() {
 		Category:    "internet",
 		Description: "Random browser user agent",
 		Example:     "Mozilla/5.0 (Windows NT 5.0) AppleWebKit/5362 (KHTML, like Gecko) Chrome/37.0.834.0 Mobile Safari/5362",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return UserAgent(), nil
 		},
@@ -265,6 +274,7 @@ func addInternetLookup() {
 		Category:    "internet",
 		Description: "Random chrome user agent",
 		Example:     "Mozilla/5.0 (X11; Linux i686) AppleWebKit/5312 (KHTML, like Gecko) Chrome/39.0.836.0 Mobile Safari/5312",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return ChromeUserAgent(), nil
 		},
@@ -274,6 +284,7 @@ func addInternetLookup() {
 		Category:    "internet",
 		Description: "Random browser user agent",
 		Example:     "Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_8_3 rv:7.0) Gecko/1900-07-01 Firefox/37.0",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return FirefoxUserAgent(), nil
 		},
@@ -283,6 +294,7 @@ func addInternetLookup() {
 		Category:    "internet",
 		Description: "Random browser user agent",
 		Example:     "Opera/8.39 (Macintosh; U; PPC Mac OS X 10_8_7; en-US) Presto/2.9.335 Version/10.00",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return OperaUserAgent(), nil
 		},
@@ -292,6 +304,7 @@ func addInternetLookup() {
 		Category:    "internet",
 		Description: "Random safari user agent",
 		Example:     "Mozilla/5.0 (iPad; CPU OS 8_3_2 like Mac OS X; en-US) AppleWebKit/531.15.6 (KHTML, like Gecko) Version/4.0.5 Mobile/8B120 Safari/6531.15.6",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return SafariUserAgent(), nil
 		},
@@ -301,6 +314,7 @@ func addInternetLookup() {
 		Category:    "internet",
 		Description: "Random http status code",
 		Example:     "200",
+		Output:      "int",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return HTTPStatusCode(), nil
 		},
@@ -310,6 +324,7 @@ func addInternetLookup() {
 		Category:    "internet",
 		Description: "Random http status code within more general usage codes",
 		Example:     "404",
+		Output:      "int",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return HTTPStatusCodeSimple(), nil
 		},

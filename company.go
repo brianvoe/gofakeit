@@ -67,6 +67,7 @@ func addCompanyLookup() {
 		Category:    "company",
 		Description: "Random company name",
 		Example:     "Moen, Pagac and Wuckert",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Company(), nil
 		},
@@ -76,6 +77,7 @@ func addCompanyLookup() {
 		Category:    "company",
 		Description: "Random company name suffix",
 		Example:     "Inc",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CompanySuffix(), nil
 		},
@@ -85,6 +87,7 @@ func addCompanyLookup() {
 		Category:    "company",
 		Description: "Random bs company word",
 		Example:     "front-end",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return BS(), nil
 		},
@@ -94,6 +97,7 @@ func addCompanyLookup() {
 		Category:    "company",
 		Description: "Random company buzzwords",
 		Example:     "disintermediate",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return BuzzWord(), nil
 		},
@@ -103,6 +107,7 @@ func addCompanyLookup() {
 		Category:    "company",
 		Description: "Random job data set",
 		Example:     `{company: "Moen, Pagac and Wuckert", title: "Director", descriptor: "Central", level: "Assurance"}`,
+		Output:      "map[string]string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Job(), nil
 		},
@@ -112,6 +117,7 @@ func addCompanyLookup() {
 		Category:    "company",
 		Description: "Random job title",
 		Example:     "Director",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return JobTitle(), nil
 		},
@@ -121,6 +127,7 @@ func addCompanyLookup() {
 		Category:    "company",
 		Description: "Random job descriptor",
 		Example:     "Central",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return JobDescriptor(), nil
 		},
@@ -130,6 +137,7 @@ func addCompanyLookup() {
 		Category:    "company",
 		Description: "Random job level",
 		Example:     "Assurance",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return JobLevel(), nil
 		},

@@ -30,6 +30,7 @@ func addEmojiLookup() {
 		Category:    "emoji",
 		Description: "Random emoji",
 		Example:     "🤣",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Emoji(), nil
 		},
@@ -39,6 +40,7 @@ func addEmojiLookup() {
 		Category:    "emoji",
 		Description: "Random emoji description",
 		Example:     "face vomiting",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return EmojiDescription(), nil
 		},
@@ -48,6 +50,7 @@ func addEmojiLookup() {
 		Category:    "emoji",
 		Description: "Random emoji category",
 		Example:     "Smileys & Emotion",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return EmojiCategory(), nil
 		},
@@ -57,6 +60,7 @@ func addEmojiLookup() {
 		Category:    "emoji",
 		Description: "Random emoji alias",
 		Example:     "smile",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return EmojiAlias(), nil
 		},
@@ -66,6 +70,7 @@ func addEmojiLookup() {
 		Category:    "emoji",
 		Description: "Random emoji tag",
 		Example:     "happy",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return EmojiTag(), nil
 		},

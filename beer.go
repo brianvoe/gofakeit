@@ -47,6 +47,7 @@ func addBeerLookup() {
 		Category:    "beer",
 		Description: "Random beer name",
 		Example:     "Duvel",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return BeerName(), nil
 		},
@@ -56,6 +57,7 @@ func addBeerLookup() {
 		Category:    "beer",
 		Description: "Random beer style",
 		Example:     "European Amber Lager",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return BeerStyle(), nil
 		},
@@ -65,6 +67,7 @@ func addBeerLookup() {
 		Category:    "beer",
 		Description: "Random beer hop type",
 		Example:     "Glacier",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return BeerHop(), nil
 		},
@@ -74,6 +77,7 @@ func addBeerLookup() {
 		Category:    "beer",
 		Description: "Random beer yeast value",
 		Example:     "1388 - Belgian Strong Ale",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return BeerYeast(), nil
 		},
@@ -83,6 +87,7 @@ func addBeerLookup() {
 		Category:    "beer",
 		Description: "Random beer malt",
 		Example:     "Munich",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return BeerMalt(), nil
 		},
@@ -92,6 +97,7 @@ func addBeerLookup() {
 		Category:    "beer",
 		Description: "Random alcohol percentage",
 		Example:     "2.7%",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return BeerAlcohol(), nil
 		},
@@ -101,6 +107,7 @@ func addBeerLookup() {
 		Category:    "beer",
 		Description: "Random beer ibu",
 		Example:     "29 IBU",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return BeerIbu(), nil
 		},
@@ -110,6 +117,7 @@ func addBeerLookup() {
 		Category:    "beer",
 		Description: "Random beer blg",
 		Example:     "6.4°Blg",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return BeerBlg(), nil
 		},

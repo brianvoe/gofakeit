@@ -142,6 +142,7 @@ func addPersonLookup() {
 				cvv: "353"
 			}
 		}`,
+		Output: "map[string]interface",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Person(), nil
 		},
@@ -151,6 +152,7 @@ func addPersonLookup() {
 		Category:    "person",
 		Description: "Random name",
 		Example:     "Markus Moen",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Name(), nil
 		},
@@ -160,6 +162,7 @@ func addPersonLookup() {
 		Category:    "person",
 		Description: "Random name prefix",
 		Example:     "Mr.",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return NamePrefix(), nil
 		},
@@ -169,6 +172,7 @@ func addPersonLookup() {
 		Category:    "person",
 		Description: "Random name suffix",
 		Example:     "Jr.",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return NameSuffix(), nil
 		},
@@ -178,6 +182,7 @@ func addPersonLookup() {
 		Category:    "person",
 		Description: "Random first name",
 		Example:     "Markus",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return FirstName(), nil
 		},
@@ -187,6 +192,7 @@ func addPersonLookup() {
 		Category:    "person",
 		Description: "Random last name",
 		Example:     "Daniel",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return LastName(), nil
 		},
@@ -196,6 +202,7 @@ func addPersonLookup() {
 		Category:    "person",
 		Description: "Random gender",
 		Example:     "male",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Gender(), nil
 		},
@@ -205,6 +212,7 @@ func addPersonLookup() {
 		Category:    "person",
 		Description: "Random social security number",
 		Example:     "296446360",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return SSN(), nil
 		},
@@ -214,6 +222,7 @@ func addPersonLookup() {
 		Category:    "person",
 		Description: "Random email",
 		Example:     "markusmoen@pagac.net",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Email(), nil
 		},
@@ -223,6 +232,7 @@ func addPersonLookup() {
 		Category:    "person",
 		Description: "Random phone number",
 		Example:     "6136459948",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Phone(), nil
 		},
@@ -232,6 +242,7 @@ func addPersonLookup() {
 		Category:    "person",
 		Description: "Random formatted phone number",
 		Example:     "136-459-9489",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return PhoneFormatted(), nil
 		},

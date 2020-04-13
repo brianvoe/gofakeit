@@ -35,6 +35,7 @@ func addColorLookup() {
 		Category:    "color",
 		Description: "Random color",
 		Example:     "MediumOrchid",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Color(), nil
 		},
@@ -44,6 +45,7 @@ func addColorLookup() {
 		Category:    "color",
 		Description: "Random safe color",
 		Example:     "black",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return SafeColor(), nil
 		},
@@ -53,6 +55,7 @@ func addColorLookup() {
 		Category:    "color",
 		Description: "Random hex color",
 		Example:     "#a99fb4",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return HexColor(), nil
 		},
@@ -62,6 +65,7 @@ func addColorLookup() {
 		Category:    "color",
 		Description: "Random rgb color",
 		Example:     "[152 23 53]",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return RGBColor(), nil
 		},

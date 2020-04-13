@@ -38,10 +38,10 @@ func TestLookupChecking(t *testing.T) {
 				case "float":
 					mapData[p.Field] = []string{fmt.Sprintf("%v", Float32())}
 					break
-				case "stringarray":
+				case "[]string":
 					mapData[p.Field] = []string{Letter(), Letter(), Letter(), Letter()}
 					break
-				case "intarray":
+				case "[]int":
 					mapData[p.Field] = []string{fmt.Sprintf("%d", Int8()), fmt.Sprintf("%d", Int8()), fmt.Sprintf("%d", Int8()), fmt.Sprintf("%d", Int8())}
 					break
 				default:
@@ -57,11 +57,14 @@ func TestLookupChecking(t *testing.T) {
 	}
 }
 
-// Make sure all lookups have a category
-func TestLookupCategories(t *testing.T) {
+// Make sure all lookups have specific fields
+func TestLookupCheckFields(t *testing.T) {
 	for field, info := range MapLookups.Map {
 		if info.Category == "" {
 			t.Fatalf("%s is missing a category", field)
+		}
+		if info.Output == "" {
+			t.Fatalf("%s is misssing output", field)
 		}
 	}
 }

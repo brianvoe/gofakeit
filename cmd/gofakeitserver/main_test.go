@@ -60,7 +60,7 @@ func TestGetAllRequests(t *testing.T) {
 					mapData.Add(p.Field, gofakeit.Letter())
 					mapData.Add(p.Field, gofakeit.Letter())
 					break
-				case "intarray":
+				case "[]int":
 					mapData.Add(p.Field, fmt.Sprintf("%d", gofakeit.Int8()))
 					mapData.Add(p.Field, fmt.Sprintf("%d", gofakeit.Int8()))
 					mapData.Add(p.Field, fmt.Sprintf("%d", gofakeit.Int8()))
@@ -164,10 +164,10 @@ func TestPostAllRequests(t *testing.T) {
 				case "float":
 					mapData[p.Field] = []string{fmt.Sprintf("%v", gofakeit.Float32())}
 					break
-				case "stringarray":
+				case "[]string":
 					mapData[p.Field] = []string{gofakeit.Letter(), gofakeit.Letter(), gofakeit.Letter(), gofakeit.Letter()}
 					break
-				case "intarray":
+				case "[]int":
 					mapData[p.Field] = []string{fmt.Sprintf("%d", gofakeit.Int8()), fmt.Sprintf("%d", gofakeit.Int8()), fmt.Sprintf("%d", gofakeit.Int8()), fmt.Sprintf("%d", gofakeit.Int8())}
 					break
 				default:

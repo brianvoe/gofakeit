@@ -20,6 +20,7 @@ type Info struct {
 	Category    string                                                        `json:"category"`
 	Description string                                                        `json:"description"`
 	Example     string                                                        `json:"example"`
+	Output      string                                                        `json:"output"`
 	Params      []Param                                                       `json:"params"`
 	Call        func(m *map[string][]string, info *Info) (interface{}, error) `json:"-"`
 }
@@ -203,7 +204,7 @@ func (i *Info) GetString(m *map[string][]string, field string) (string, error) {
 	return value[0], nil
 }
 
-// GetStringArray will retrieve string field from data
+// GetStringArray will retrieve []string field from data
 func (i *Info) GetStringArray(m *map[string][]string, field string) ([]string, error) {
 	_, values, err := i.GetField(m, field)
 	if err != nil {
@@ -213,7 +214,7 @@ func (i *Info) GetStringArray(m *map[string][]string, field string) ([]string, e
 	return values, nil
 }
 
-// GetIntArray will retrieve string field from data
+// GetIntArray will retrieve []int field from data
 func (i *Info) GetIntArray(m *map[string][]string, field string) ([]int, error) {
 	_, value, err := i.GetField(m, field)
 	if err != nil {

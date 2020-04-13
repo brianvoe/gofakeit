@@ -52,6 +52,7 @@ func addCarLookup() {
 	AddLookupData("car", Info{
 		Category:    "car",
 		Description: "Random car set of data",
+		Output:      "map[string]interface",
 		Example:     `{type: "Passenger car mini", fuel: "Gasoline", transmission: "Automatic", brand: "Fiat", model: "Freestyle Fwd", year: "1972"}`,
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Car(), nil
@@ -62,6 +63,7 @@ func addCarLookup() {
 		Category:    "car",
 		Description: "Random car type",
 		Example:     "Passenger car mini",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CarType(), nil
 		},
@@ -71,6 +73,7 @@ func addCarLookup() {
 		Category:    "car",
 		Description: "Random car fuel type",
 		Example:     "CNG",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CarFuelType(), nil
 		},
@@ -80,6 +83,7 @@ func addCarLookup() {
 		Category:    "car",
 		Description: "Random car transmission type",
 		Example:     "Manual",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CarTransmissionType(), nil
 		},
@@ -89,6 +93,7 @@ func addCarLookup() {
 		Category:    "car",
 		Description: "Random car maker",
 		Example:     "Nissan",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CarMaker(), nil
 		},
@@ -98,6 +103,7 @@ func addCarLookup() {
 		Category:    "car",
 		Description: "Random car model",
 		Example:     "Aveo",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CarModel(), nil
 		},

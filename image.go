@@ -51,6 +51,7 @@ func addImageLookup() {
 		Category:    "image",
 		Description: "Random image url",
 		Example:     "https://picsum.photos/500/500",
+		Output:      "string",
 		Params: []Param{
 			{Field: "width", Type: "int", Default: "500", Description: "Image width"},
 			{Field: "height", Type: "int", Default: "500", Description: "Image height"},
@@ -80,6 +81,7 @@ func addImageLookup() {
 		Category:    "image",
 		Description: "Random jpeg image",
 		Example:     "file.jpeg - bytes",
+		Output:      "[]byte",
 		Params: []Param{
 			{Field: "width", Type: "int", Default: "500", Description: "Image width"},
 			{Field: "height", Type: "int", Default: "500", Description: "Image height"},
@@ -109,6 +111,7 @@ func addImageLookup() {
 		Category:    "image",
 		Description: "Random png image",
 		Example:     "file.png - bytes",
+		Output:      "[]byte",
 		Params: []Param{
 			{Field: "width", Type: "int", Default: "500", Description: "Image width"},
 			{Field: "height", Type: "int", Default: "500", Description: "Image height"},

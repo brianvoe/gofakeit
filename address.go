@@ -135,6 +135,7 @@ func addAddressLookup() {
 		Category:    "address",
 		Description: "Random city",
 		Example:     "Marcelside",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return City(), nil
 		},
@@ -144,6 +145,7 @@ func addAddressLookup() {
 		Category:    "address",
 		Description: "Random country",
 		Example:     "United States of America",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Country(), nil
 		},
@@ -153,6 +155,7 @@ func addAddressLookup() {
 		Category:    "address",
 		Description: "Random 2 digit country abbreviation",
 		Example:     "US",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CountryAbr(), nil
 		},
@@ -162,6 +165,7 @@ func addAddressLookup() {
 		Category:    "address",
 		Description: "Random state",
 		Example:     "Illinois",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return State(), nil
 		},
@@ -171,6 +175,7 @@ func addAddressLookup() {
 		Category:    "address",
 		Description: "Random 2 digit state abbreviation",
 		Example:     "IL",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return StateAbr(), nil
 		},
@@ -180,6 +185,7 @@ func addAddressLookup() {
 		Category:    "address",
 		Description: "Random full street",
 		Example:     "364 East Rapidsborough",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Street(), nil
 		},
@@ -189,6 +195,7 @@ func addAddressLookup() {
 		Category:    "address",
 		Description: "Random street name",
 		Example:     "View",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return StreetName(), nil
 		},
@@ -198,6 +205,7 @@ func addAddressLookup() {
 		Category:    "address",
 		Description: "Random street number",
 		Example:     "13645",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return StreetNumber(), nil
 		},
@@ -207,6 +215,7 @@ func addAddressLookup() {
 		Category:    "address",
 		Description: "Random street prefix",
 		Example:     "Lake",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return StreetPrefix(), nil
 		},
@@ -216,6 +225,7 @@ func addAddressLookup() {
 		Category:    "address",
 		Description: "Random street suffix",
 		Example:     "land",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return StreetSuffix(), nil
 		},
@@ -225,6 +235,7 @@ func addAddressLookup() {
 		Category:    "address",
 		Description: "Random street zip",
 		Example:     "13645",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Zip(), nil
 		},
@@ -234,6 +245,7 @@ func addAddressLookup() {
 		Category:    "address",
 		Description: "Random latitude",
 		Example:     "-73.534056",
+		Output:      "float",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Latitude(), nil
 		},
@@ -243,6 +255,7 @@ func addAddressLookup() {
 		Category:    "address",
 		Description: "Random latitude between given range",
 		Example:     "22.921026",
+		Output:      "float",
 		Params: []Param{
 			{Field: "min", Type: "float", Default: "0", Description: "Minimum range"},
 			{Field: "max", Type: "float", Default: "90", Description: "Maximum range"},
@@ -271,6 +284,7 @@ func addAddressLookup() {
 		Category:    "address",
 		Description: "Random longitude",
 		Example:     "-147.068112",
+		Output:      "float",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Longitude(), nil
 		},
@@ -280,6 +294,7 @@ func addAddressLookup() {
 		Category:    "address",
 		Description: "Random longitude between given range",
 		Example:     "-8.170450",
+		Output:      "float",
 		Params: []Param{
 			{Field: "min", Type: "float", Default: "0", Description: "Minimum range"},
 			{Field: "max", Type: "float", Default: "180", Description: "Maximum range"},

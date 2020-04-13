@@ -39,6 +39,7 @@ func addHackerLookup() {
 		Category:    "hacker",
 		Description: "Random hacker abbreviation",
 		Example:     "ADP",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return HackerAbbreviation(), nil
 		},
@@ -48,6 +49,7 @@ func addHackerLookup() {
 		Category:    "hacker",
 		Description: "Random hacker adjective",
 		Example:     "wireless",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return HackerAdjective(), nil
 		},
@@ -57,6 +59,7 @@ func addHackerLookup() {
 		Category:    "hacker",
 		Description: "Random hacker verb",
 		Example:     "synthesize",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return HackerVerb(), nil
 		},
@@ -66,6 +69,7 @@ func addHackerLookup() {
 		Category:    "hacker",
 		Description: "Random hacker noun",
 		Example:     "driver",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return HackerNoun(), nil
 		},
@@ -75,6 +79,7 @@ func addHackerLookup() {
 		Category:    "hacker",
 		Description: "Random hacker phrase",
 		Example:     "If we calculate the program, we can get to the AI pixel through the redundant XSS matrix!",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return HackerPhrase(), nil
 		},

@@ -121,6 +121,7 @@ func addPaymentLookup() {
 		Category:    "payment",
 		Description: "Random currency data set",
 		Example:     `{short: "USD", long: "United States Dollar"}`,
+		Output:      "map[string]string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CurrencyShort(), nil
 		},
@@ -130,6 +131,7 @@ func addPaymentLookup() {
 		Category:    "payment",
 		Description: "Random currency abreviated",
 		Example:     "USD",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CurrencyShort(), nil
 		},
@@ -139,6 +141,7 @@ func addPaymentLookup() {
 		Category:    "payment",
 		Description: "Random currency",
 		Example:     "United States Dollar",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CurrencyLong(), nil
 		},
@@ -148,6 +151,7 @@ func addPaymentLookup() {
 		Category:    "payment",
 		Description: "Random monitary price",
 		Example:     "92.26",
+		Output:      "float64",
 		Params: []Param{
 			{Field: "min", Type: "float", Default: "0", Description: "Minumum price value"},
 			{Field: "max", Type: "float", Default: "1000", Description: "Maximum price value"},
@@ -171,6 +175,7 @@ func addPaymentLookup() {
 		Category:    "payment",
 		Description: "Random credit card data set",
 		Example:     `{type: "Visa", number: "4136459948995369", exp: "01/21", cvv: "513"}`,
+		Output:      "map[string]interface",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CreditCard(), nil
 		},
@@ -180,6 +185,7 @@ func addPaymentLookup() {
 		Category:    "payment",
 		Description: "Random credit card type",
 		Example:     "Visa",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CreditCardType(), nil
 		},
@@ -189,6 +195,7 @@ func addPaymentLookup() {
 		Category:    "payment",
 		Description: "Random credit card number",
 		Example:     "4136459948995369",
+		Output:      "int",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CreditCardNumber(), nil
 		},
@@ -198,6 +205,7 @@ func addPaymentLookup() {
 		Category:    "payment",
 		Description: "Random credit card number that passes luhn test",
 		Example:     "2720996615546177",
+		Output:      "int",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CreditCardNumberLuhn(), nil
 		},
@@ -207,6 +215,7 @@ func addPaymentLookup() {
 		Category:    "payment",
 		Description: "Random credit card expiraction date",
 		Example:     "01/21",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CreditCardExp(), nil
 		},
@@ -216,6 +225,7 @@ func addPaymentLookup() {
 		Category:    "payment",
 		Description: "Random credit card number",
 		Example:     "513",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CreditCardCvv(), nil
 		},

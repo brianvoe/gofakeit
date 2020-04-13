@@ -71,6 +71,7 @@ func addAuthLookup() {
 		Category:    "auth",
 		Description: "Generates a random username",
 		Example:     "Daniel1364",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Username(), nil
 		},
@@ -80,6 +81,7 @@ func addAuthLookup() {
 		Category:    "auth",
 		Description: "Generates a random password",
 		Example:     "EEP+wwpk 4lU-eHNXlJZ4n K9%v&TZ9e",
+		Output:      "string",
 		Params: []Param{
 			{Field: "lower", Type: "bool", Default: "true", Description: "Whether or not to add lower case characters"},
 			{Field: "upper", Type: "bool", Default: "true", Description: "Whether or not to add upper case characters"},

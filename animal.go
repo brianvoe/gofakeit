@@ -35,6 +35,7 @@ func addAnimalLookup() {
 		Category:    "animal",
 		Description: "Random pet name",
 		Example:     "Ozzy Pawsborne",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return PetName(), nil
 		},
@@ -44,6 +45,7 @@ func addAnimalLookup() {
 		Category:    "animal",
 		Description: "Random animal",
 		Example:     "elk",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Animal(), nil
 		},
@@ -53,6 +55,7 @@ func addAnimalLookup() {
 		Category:    "animal",
 		Description: "Random animal type",
 		Example:     "amphibians",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return AnimalType(), nil
 		},
@@ -62,6 +65,7 @@ func addAnimalLookup() {
 		Category:    "animal",
 		Description: "Random farm animal",
 		Example:     "Chicken",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return FarmAnimal(), nil
 		},
@@ -71,6 +75,7 @@ func addAnimalLookup() {
 		Category:    "animal",
 		Description: "Random cat type",
 		Example:     "Chausie",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Cat(), nil
 		},
@@ -80,6 +85,7 @@ func addAnimalLookup() {
 		Category:    "animal",
 		Description: "Random dog type",
 		Example:     "Norwich Terrier",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Dog(), nil
 		},

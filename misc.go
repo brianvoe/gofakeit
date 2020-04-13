@@ -155,6 +155,7 @@ func addMiscLookup() {
 		Category:    "misc",
 		Description: "Random uuid",
 		Example:     "590c1440-9888-45b0-bd51-a817ee07c3f2",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return UUID(), nil
 		},
@@ -164,6 +165,7 @@ func addMiscLookup() {
 		Category:    "misc",
 		Description: "Random boolean",
 		Example:     "true",
+		Output:      "bool",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Bool(), nil
 		},
@@ -173,6 +175,7 @@ func addMiscLookup() {
 		Category:    "misc",
 		Description: "Random string generated from string value based upon available data sets",
 		Example:     "{person.first} {person.last} {person.email} - Markus Moen markusmoen@pagac.net",
+		Output:      "string",
 		Params: []Param{
 			{Field: "value", Type: "string", Description: "String value to generate from"},
 		},
@@ -195,6 +198,7 @@ func addMiscLookup() {
 		Category:    "misc",
 		Description: "Random json data",
 		Example:     `{"aut":{"iste":"qui"},"est":["velit","architecto","doloribus","fugiat"],"id":620384.06,"maiores":"Bertha Weber","quisquam":715240.3,"tempore":7415722}`,
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			d, _ := json.Marshal(Map())
 			return string(d), nil

@@ -83,6 +83,7 @@ func addDateTimeLookup() {
 		Category:    "time",
 		Description: "Random nanosecond",
 		Example:     "196446360",
+		Output:      "int",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return NanoSecond(), nil
 		},
@@ -92,6 +93,7 @@ func addDateTimeLookup() {
 		Category:    "time",
 		Description: "Random second",
 		Example:     "43",
+		Output:      "int",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Second(), nil
 		},
@@ -101,6 +103,7 @@ func addDateTimeLookup() {
 		Category:    "time",
 		Description: "Random minute",
 		Example:     "34",
+		Output:      "int",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Second(), nil
 		},
@@ -110,6 +113,7 @@ func addDateTimeLookup() {
 		Category:    "time",
 		Description: "Random hour",
 		Example:     "8",
+		Output:      "int",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Second(), nil
 		},
@@ -119,6 +123,7 @@ func addDateTimeLookup() {
 		Category:    "time",
 		Description: "Random day",
 		Example:     "12",
+		Output:      "int",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Day(), nil
 		},
@@ -128,6 +133,7 @@ func addDateTimeLookup() {
 		Category:    "time",
 		Description: "Random week day",
 		Example:     "Friday",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return WeekDay(), nil
 		},
@@ -137,6 +143,7 @@ func addDateTimeLookup() {
 		Category:    "time",
 		Description: "Random year",
 		Example:     "1900",
+		Output:      "int",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return Year(), nil
 		},
@@ -146,6 +153,7 @@ func addDateTimeLookup() {
 		Category:    "time",
 		Description: "Random timezone",
 		Example:     "Kaliningrad Standard Time",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return TimeZone(), nil
 		},
@@ -155,6 +163,7 @@ func addDateTimeLookup() {
 		Category:    "time",
 		Description: "Random abreviated timezone",
 		Example:     "KST",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return TimeZoneAbv(), nil
 		},
@@ -164,6 +173,7 @@ func addDateTimeLookup() {
 		Category:    "time",
 		Description: "Random full timezone",
 		Example:     "(UTC+03:00) Kaliningrad, Minsk",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return TimeZoneFull(), nil
 		},
@@ -173,6 +183,7 @@ func addDateTimeLookup() {
 		Category:    "time",
 		Description: "Random timezone offset",
 		Example:     "3",
+		Output:      "float32",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return TimeZoneOffset(), nil
 		},

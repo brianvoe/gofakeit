@@ -15,6 +15,7 @@ func addFileLookup() {
 		Category:    "file",
 		Description: "Random file extension",
 		Example:     "nes",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return FileExtension(), nil
 		},
@@ -24,6 +25,7 @@ func addFileLookup() {
 		Category:    "file",
 		Description: "Random file mime type",
 		Example:     "application/json",
+		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return FileMimeType(), nil
 		},
