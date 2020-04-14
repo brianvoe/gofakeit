@@ -153,11 +153,20 @@ TransmissionGearType() string
 
 ## Words
 ```go
+Noun() string
+Verb() string
+Adverb() string
+Preposition() string
+Adjective() string
 Word() string
 Sentence(wordCount int) string
 Paragraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string
+LoremIpsumWord() string
+LoremIpsumSentence(wordCount int) string
+LoremIpsumParagraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string
 Question() string
 Quote() string
+Phrase() string
 ```
 
 ## Misc

@@ -27,7 +27,7 @@ func BenchmarkGenerate(b *testing.B) {
 func ExampleMap() {
 	Seed(11)
 	fmt.Println(Map())
-	// Output: map[eaque:784604.3 excepturi:Christy Ratke quo:99536 North Streamville, Rossieview, Hawaii 42591 repellat:776037 voluptatem:57704.402]
+	// Output: map[approach:map[mind:[arrival should resolve outcome hurt]] arrive:Coordinator consult:respond context:9285735 water:5081652]
 }
 
 func TestMap(t *testing.T) {

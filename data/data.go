@@ -22,6 +22,7 @@ var Data = map[string]map[string][]string{
 	"timezone":  TimeZone,
 	"car":       Car,
 	"emoji":     Emoji,
+	"word":      Word,
 }
 
 // IntData consists of the main set of fake information (integer only)
