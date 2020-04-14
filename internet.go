@@ -9,6 +9,11 @@ import (
 	"github.com/brianvoe/gofakeit/v5/data"
 )
 
+// Gamertag will generate a random video game username
+func Gamertag() string {
+	return getRandValue([]string{"word", "noun"}) + getRandValue([]string{"word", "verb"}) + fmt.Sprintf("%d", Number(10, 999))
+}
+
 // DomainName will generate a random url domain name
 func DomainName() string {
 	return strings.Replace(strings.ToLower(JobDescriptor()+BS()), " ", "", -1) + "." + DomainSuffix()
@@ -166,6 +171,16 @@ func randomPlatform() string {
 }
 
 func addInternetLookup() {
+	AddLookupData("gamertag", Info{
+		Category:    "internet",
+		Description: "Random gamertag",
+		Example:     "footinterpret63",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return Gamertag(), nil
+		},
+	})
+
 	AddLookupData("url", Info{
 		Category:    "internet",
 		Description: "Random url",
