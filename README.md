@@ -65,7 +65,7 @@ type Foo struct {
 	Bar     string
 	Int     int
 	Pointer *int
-	Name    string  `fake:"{person.first}"`
+	Name    string  `fake:"{firstname}"`
 	Skip    *string `fake:"skip"` // Set to "skip" to not generate data for
 }
 
@@ -153,11 +153,20 @@ TransmissionGearType() string
 
 ## Words
 ```go
+Noun() string
+Verb() string
+Adverb() string
+Preposition() string
+Adjective() string
 Word() string
 Sentence(wordCount int) string
 Paragraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string
+LoremIpsumWord() string
+LoremIpsumSentence(wordCount int) string
+LoremIpsumParagraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string
 Question() string
 Quote() string
+Phrase() string
 ```
 
 ## Misc

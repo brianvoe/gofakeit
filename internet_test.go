@@ -5,6 +5,18 @@ import (
 	"testing"
 )
 
+func ExampleGamertag() {
+	Seed(11)
+	fmt.Println(Gamertag())
+	// Output: footinterpret63
+}
+
+func BenchmarkGamertag(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Gamertag()
+	}
+}
+
 func ExampleDomainName() {
 	Seed(11)
 	fmt.Println(DomainName())
