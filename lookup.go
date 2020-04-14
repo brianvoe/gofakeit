@@ -53,6 +53,7 @@ func init() {
 	addStringLookup()
 	addAnimalLookup()
 	addGameLookup()
+	addFoodLookup()
 }
 
 // AddLookupData takes a field and adds it to map
