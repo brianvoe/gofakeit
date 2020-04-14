@@ -174,6 +174,17 @@ Quote() string
 Phrase() string
 ```
 
+## Foods
+```go
+Fruit() string
+Vegetable() string
+Breakfast() string
+Lunch() string
+Dinner() string
+Snack() string
+Dessert() string
+```
+
 ## Misc
 ```go
 Bool() bool
