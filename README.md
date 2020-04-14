@@ -129,6 +129,11 @@ Longitude() float64
 LongitudeInRange(min, max float64) (float64, error)
 ```
 
+## Game
+```go
+Gamertag() string
+```
+
 ## Beer
 ```go
 BeerAlcohol() string
