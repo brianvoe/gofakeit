@@ -29,12 +29,12 @@ func Example() {
 	// BS: e-enable
 	// Beer Name: Weihenstephaner Hefeweissbier
 	// Color: MidnightBlue
-	// Company: Heaney-Tromp
-	// Credit Card: 2720997148008899
-	// Hacker Phrase: Use the wireless SQL sensor, then you can compress the open-source array!
+	// Company: Epsilon
+	// Credit Card: 6521714800889982
+	// Hacker Phrase: N/A the sensor won't do anything, we need to compress the open-source EXE program!
 	// Job Title: Producer
-	// Password: 9zXFmEKpy%r?-nMCdgdJLSD7WYcysjg2
-	// Currency: DJF - Djibouti Franc
+	// Password: gzDGWlrJgsM?npd7*Yyd9FmCcE%SKX7y
+	// Currency: MYR - Malaysia Ringgit
 }
 
 func TestSeed(t *testing.T) {

@@ -8,7 +8,7 @@ import (
 func ExampleCompany() {
 	Seed(11)
 	fmt.Println(Company())
-	// Output: Moen, Pagac and Wuckert
+	// Output: ClearHealthCosts
 }
 
 func BenchmarkCompany(b *testing.B) {
@@ -66,10 +66,10 @@ func ExampleJob() {
 	fmt.Println(jobInfo.Title)
 	fmt.Println(jobInfo.Descriptor)
 	fmt.Println(jobInfo.Level)
-	// Output: Moen, Pagac and Wuckert
-	// Developer
-	// National
-	// Integration
+	// Output: ClearHealthCosts
+	// Agent
+	// Future
+	// Tactics
 }
 
 func BenchmarkJob(b *testing.B) {
