@@ -20,6 +20,8 @@ func init() {
 }
 
 func main() {
+	flag.Parse()
+
 	gofakeit.Seed(0)
 
 	// Set router
