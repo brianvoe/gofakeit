@@ -43,7 +43,7 @@ func Dessert() string {
 }
 
 func addFoodLookup() {
-	AddLookupData("fruit", Info{
+	AddFuncLookup("fruit", Info{
 		Category:    "food",
 		Description: "Random fruit",
 		Example:     "Dates",
@@ -53,7 +53,7 @@ func addFoodLookup() {
 		},
 	})
 
-	AddLookupData("vegetable", Info{
+	AddFuncLookup("vegetable", Info{
 		Category:    "food",
 		Description: "Random vegetable",
 		Example:     "Amaranth Leaves",
@@ -63,7 +63,7 @@ func addFoodLookup() {
 		},
 	})
 
-	AddLookupData("breakfast", Info{
+	AddFuncLookup("breakfast", Info{
 		Category:    "food",
 		Description: "Random breakfast",
 		Example:     "Blueberry banana happy face pancakes",
@@ -73,7 +73,7 @@ func addFoodLookup() {
 		},
 	})
 
-	AddLookupData("lunch", Info{
+	AddFuncLookup("lunch", Info{
 		Category:    "food",
 		Description: "Random lunch",
 		Example:     "No bake hersheys bar pie",
@@ -83,7 +83,7 @@ func addFoodLookup() {
 		},
 	})
 
-	AddLookupData("dinner", Info{
+	AddFuncLookup("dinner", Info{
 		Category:    "food",
 		Description: "Random dinner",
 		Example:     "Wild addicting dip",
@@ -93,7 +93,7 @@ func addFoodLookup() {
 		},
 	})
 
-	AddLookupData("snack", Info{
+	AddFuncLookup("snack", Info{
 		Category:    "food",
 		Description: "Random snack",
 		Example:     "Hoisin marinated wing pieces",
@@ -103,7 +103,7 @@ func addFoodLookup() {
 		},
 	})
 
-	AddLookupData("dessert", Info{
+	AddFuncLookup("dessert", Info{
 		Category:    "food",
 		Description: "Random dessert",
 		Example:     "French napoleons",

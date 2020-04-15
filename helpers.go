@@ -3,6 +3,7 @@ package gofakeit
 import (
 	"math"
 	"math/rand"
+	"strings"
 
 	"github.com/brianvoe/gofakeit/v5/data"
 )
@@ -147,4 +148,51 @@ func randFloat64Range(min, max float64) float64 {
 func toFixed(num float64, precision int) float64 {
 	output := math.Pow(10, float64(precision))
 	return float64(math.Floor(num*output)) / output
+}
+
+func equalSliceString(a, b []string) bool {
+	sizeA, sizeB := len(a), len(b)
+	if sizeA != sizeB {
+		return false
+	}
+
+	for i, va := range a {
+		vb := b[i]
+
+		if va != vb {
+			return false
+		}
+	}
+	return true
+}
+
+func funcLookupSplit(str string) []string {
+	out := []string{}
+	for str != "" {
+		if strings.HasPrefix(str, "[") {
+			startIndex := strings.Index(str, "[")
+			endIndex := strings.Index(str, "]")
+			val := str[(startIndex) : endIndex+1]
+			out = append(out, strings.TrimSpace(val))
+			str = strings.Replace(str, val, "", 1)
+
+			// Trim off comma if it has it
+			if strings.HasPrefix(str, ",") {
+				str = strings.Replace(str, ",", "", 1)
+			}
+		} else {
+			strSplit := strings.SplitN(str, ",", 2)
+			strSplitLen := len(strSplit)
+			if strSplitLen >= 1 {
+				out = append(out, strings.TrimSpace(strSplit[0]))
+			}
+			if strSplitLen >= 2 {
+				str = strSplit[1]
+			} else {
+				str = ""
+			}
+		}
+	}
+
+	return out
 }

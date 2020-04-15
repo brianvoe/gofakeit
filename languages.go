@@ -21,7 +21,7 @@ func ProgrammingLanguageBest() string {
 }
 
 func addLanguagesLookup() {
-	AddLookupData("language", Info{
+	AddFuncLookup("language", Info{
 		Category:    "language",
 		Description: "Random language",
 		Example:     "Kazakh",
@@ -31,7 +31,7 @@ func addLanguagesLookup() {
 		},
 	})
 
-	AddLookupData("languageabbreviation", Info{
+	AddFuncLookup("languageabbreviation", Info{
 		Category:    "language",
 		Description: "Random abbreviated language",
 		Example:     "kk",
@@ -41,7 +41,7 @@ func addLanguagesLookup() {
 		},
 	})
 
-	AddLookupData("programminglanguage", Info{
+	AddFuncLookup("programminglanguage", Info{
 		Category:    "language",
 		Description: "Random programming language",
 		Example:     "Go",

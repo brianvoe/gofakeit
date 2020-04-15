@@ -8,7 +8,7 @@ func Gamertag() string {
 }
 
 func addGameLookup() {
-	AddLookupData("gamertag", Info{
+	AddFuncLookup("gamertag", Info{
 		Category:    "game",
 		Description: "Random gamertag",
 		Example:     "footinterpret63",

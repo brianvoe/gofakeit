@@ -56,20 +56,20 @@ func init() {
 	addFoodLookup()
 }
 
-// AddLookupData takes a field and adds it to map
-func AddLookupData(field string, info Info) {
+// AddFuncLookup takes a field and adds it to map
+func AddFuncLookup(functionName string, info Info) {
 	if FuncLookups == nil {
 		FuncLookups = make(map[string]Info)
 	}
 
 	lockFuncLookups.Lock()
-	FuncLookups[field] = info
+	FuncLookups[functionName] = info
 	lockFuncLookups.Unlock()
 }
 
-// GetLookupData will lookup
-func GetLookupData(field string) *Info {
-	info, ok := FuncLookups[field]
+// GetFuncLookup will lookup
+func GetFuncLookup(functionName string) *Info {
+	info, ok := FuncLookups[functionName]
 	if !ok {
 		return nil
 	}

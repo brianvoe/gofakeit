@@ -14,8 +14,15 @@ func TestGenerate(t *testing.T) {
 
 func ExampleGenerate() {
 	Seed(11)
+
 	fmt.Println(Generate("{firstname} {lastname} ssn is {ssn} and lives at {street}"))
+	fmt.Println(Generate("{sentence:3}"))
+	fmt.Println(Generate("{shuffleints:[1,2,3]}"))
+	fmt.Println(Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}"))
 	// Output: Markus Moen ssn is 952284213 and lives at 599 New Cliffsstad
+	// Arrival tour security.
+	// [1 3 2]
+	// [1:2 key:value int:string a:b]
 }
 
 func BenchmarkGenerate(b *testing.B) {
@@ -26,6 +33,7 @@ func BenchmarkGenerate(b *testing.B) {
 
 func ExampleMap() {
 	Seed(11)
+
 	fmt.Println(Map())
 	// Output: map[approach:map[mind:[arrival should resolve outcome hurt]] arrive:Coordinator consult:respond context:9285735 water:5081652]
 }

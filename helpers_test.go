@@ -95,3 +95,27 @@ func TestToFixed(t *testing.T) {
 		}
 	}
 }
+
+func TestFuncLookupSplit(t *testing.T) {
+	tests := map[string][]string{
+		"":                  {},
+		"a":                 {"a"},
+		"a,b,c":             {"a", "b", "c"},
+		"a, b, c":           {"a", "b", "c"},
+		"[a,b,c]":           {"[a,b,c]"},
+		"a,[1,2,3],b":       {"a", "[1,2,3]", "b"},
+		"[1,2,3],a,[1,2,3]": {"[1,2,3]", "a", "[1,2,3]"},
+	}
+
+	for input, expected := range tests {
+		values := funcLookupSplit(input)
+		if len(values) != len(expected) {
+			t.Fatalf("%s was not %s", values, expected)
+		}
+		for i := 0; i < len(values); i++ {
+			if values[i] != expected[i] {
+				t.Fatalf("expected %s got %s", expected[i], values[i])
+			}
+		}
+	}
+}

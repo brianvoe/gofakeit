@@ -31,7 +31,7 @@ func RGBColor() []int {
 }
 
 func addColorLookup() {
-	AddLookupData("color", Info{
+	AddFuncLookup("color", Info{
 		Category:    "color",
 		Description: "Random color",
 		Example:     "MediumOrchid",
@@ -41,7 +41,7 @@ func addColorLookup() {
 		},
 	})
 
-	AddLookupData("safecolor", Info{
+	AddFuncLookup("safecolor", Info{
 		Category:    "color",
 		Description: "Random safe color",
 		Example:     "black",
@@ -51,7 +51,7 @@ func addColorLookup() {
 		},
 	})
 
-	AddLookupData("hexcolor", Info{
+	AddFuncLookup("hexcolor", Info{
 		Category:    "color",
 		Description: "Random hex color",
 		Example:     "#a99fb4",
@@ -61,7 +61,7 @@ func addColorLookup() {
 		},
 	})
 
-	AddLookupData("rgbcolor", Info{
+	AddFuncLookup("rgbcolor", Info{
 		Category:    "color",
 		Description: "Random rgb color",
 		Example:     "[152 23 53]",

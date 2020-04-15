@@ -163,7 +163,7 @@ func getInfoFromPath(r *http.Request) (*gofakeit.Info, error) {
 	}
 
 	// Lookup fake data method
-	info := gofakeit.GetLookupData(paths[0])
+	info := gofakeit.GetFuncLookup(paths[0])
 	if info == nil {
 		return nil, errors.New("No function was called, please pass func parameter")
 	}

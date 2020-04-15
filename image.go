@@ -47,7 +47,7 @@ func ImagePng(width int, height int) []byte {
 }
 
 func addImageLookup() {
-	AddLookupData("imageurl", Info{
+	AddFuncLookup("imageurl", Info{
 		Category:    "image",
 		Description: "Random image url",
 		Example:     "https://picsum.photos/500/500",
@@ -77,7 +77,7 @@ func addImageLookup() {
 		},
 	})
 
-	AddLookupData("imagejpeg", Info{
+	AddFuncLookup("imagejpeg", Info{
 		Category:    "image",
 		Description: "Random jpeg image",
 		Example:     "file.jpeg - bytes",
@@ -107,7 +107,7 @@ func addImageLookup() {
 		},
 	})
 
-	AddLookupData("imagepng", Info{
+	AddFuncLookup("imagepng", Info{
 		Category:    "image",
 		Description: "Random png image",
 		Example:     "file.png - bytes",

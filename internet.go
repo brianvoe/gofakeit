@@ -27,7 +27,7 @@ func URL() string {
 	for i := 0; i < num; i++ {
 		slug[i] = BS()
 	}
-	url := "http" + RandString([]string{"s", ""}) + "://www." + DomainName() + "/" + strings.ToLower(strings.Join(slug, "/"))
+	url := "http" + RandomString([]string{"s", ""}) + "://www." + DomainName() + "/" + strings.ToLower(strings.Join(slug, "/"))
 	url = strings.Replace(url, " ", "", -1)
 
 	return url
@@ -110,7 +110,7 @@ func FirefoxUserAgent() string {
 		"(" + macPlatformToken() + " rv:" + strconv.Itoa(randIntRange(2, 7)) + ".0) " + ver,
 	}
 
-	return "Mozilla/5.0 " + RandString(platforms)
+	return "Mozilla/5.0 " + RandomString(platforms)
 }
 
 // SafariUserAgent will generate a random safari browser user agent string
@@ -126,10 +126,10 @@ func SafariUserAgent() string {
 	platforms := []string{
 		"(Windows; U; " + windowsPlatformToken() + ") AppleWebKit/" + randNum + " (KHTML, like Gecko) Version/" + ver + " Safari/" + randNum,
 		"(" + macPlatformToken() + " rv:" + strconv.Itoa(randIntRange(4, 7)) + ".0; en-US) AppleWebKit/" + randNum + " (KHTML, like Gecko) Version/" + ver + " Safari/" + randNum,
-		"(" + RandString(mobileDevices) + " " + strconv.Itoa(randIntRange(7, 9)) + "_" + strconv.Itoa(randIntRange(0, 3)) + "_" + strconv.Itoa(randIntRange(1, 3)) + " like Mac OS X; " + "en-US" + ") AppleWebKit/" + randNum + " (KHTML, like Gecko) Version/" + strconv.Itoa(randIntRange(3, 5)) + ".0.5 Mobile/8B" + strconv.Itoa(randIntRange(111, 120)) + " Safari/6" + randNum,
+		"(" + RandomString(mobileDevices) + " " + strconv.Itoa(randIntRange(7, 9)) + "_" + strconv.Itoa(randIntRange(0, 3)) + "_" + strconv.Itoa(randIntRange(1, 3)) + " like Mac OS X; " + "en-US" + ") AppleWebKit/" + randNum + " (KHTML, like Gecko) Version/" + strconv.Itoa(randIntRange(3, 5)) + ".0.5 Mobile/8B" + strconv.Itoa(randIntRange(111, 120)) + " Safari/6" + randNum,
 	}
 
-	return "Mozilla/5.0 " + RandString(platforms)
+	return "Mozilla/5.0 " + RandomString(platforms)
 }
 
 // OperaUserAgent will generate a random opera browser user agent string
@@ -162,11 +162,11 @@ func randomPlatform() string {
 		windowsPlatformToken(),
 	}
 
-	return RandString(platforms)
+	return RandomString(platforms)
 }
 
 func addInternetLookup() {
-	AddLookupData("url", Info{
+	AddFuncLookup("url", Info{
 		Category:    "internet",
 		Description: "Random url",
 		Example:     "http://www.principalproductize.biz/target",
@@ -176,7 +176,7 @@ func addInternetLookup() {
 		},
 	})
 
-	AddLookupData("domain", Info{
+	AddFuncLookup("domain", Info{
 		Category:    "internet",
 		Description: "Random domain name",
 		Example:     "centraltarget.biz",
@@ -186,7 +186,7 @@ func addInternetLookup() {
 		},
 	})
 
-	AddLookupData("domainsuffix", Info{
+	AddFuncLookup("domainsuffix", Info{
 		Category:    "internet",
 		Description: "Random domain suffix",
 		Example:     "org",
@@ -196,7 +196,7 @@ func addInternetLookup() {
 		},
 	})
 
-	AddLookupData("imageurl", Info{
+	AddFuncLookup("imageurl", Info{
 		Category:    "internet",
 		Description: "Random image url",
 		Example:     "https://picsum.photos/640/480",
@@ -220,7 +220,7 @@ func addInternetLookup() {
 		},
 	})
 
-	AddLookupData("ipv4address", Info{
+	AddFuncLookup("ipv4address", Info{
 		Category:    "internet",
 		Description: "Random ip address v4",
 		Example:     "222.83.191.222",
@@ -230,7 +230,7 @@ func addInternetLookup() {
 		},
 	})
 
-	AddLookupData("ipv6address", Info{
+	AddFuncLookup("ipv6address", Info{
 		Category:    "internet",
 		Description: "Random ip address v6",
 		Example:     "2001:cafe:8898:ee17:bc35:9064:5866:d019",
@@ -240,7 +240,7 @@ func addInternetLookup() {
 		},
 	})
 
-	AddLookupData("httpmethod", Info{
+	AddFuncLookup("httpmethod", Info{
 		Category:    "internet",
 		Description: "Random http method",
 		Example:     "HEAD",
@@ -250,7 +250,7 @@ func addInternetLookup() {
 		},
 	})
 
-	AddLookupData("loglevel", Info{
+	AddFuncLookup("loglevel", Info{
 		Category:    "internet",
 		Description: "Random log level",
 		Example:     "error",
@@ -260,7 +260,7 @@ func addInternetLookup() {
 		},
 	})
 
-	AddLookupData("useragent", Info{
+	AddFuncLookup("useragent", Info{
 		Category:    "internet",
 		Description: "Random browser user agent",
 		Example:     "Mozilla/5.0 (Windows NT 5.0) AppleWebKit/5362 (KHTML, like Gecko) Chrome/37.0.834.0 Mobile Safari/5362",
@@ -270,7 +270,7 @@ func addInternetLookup() {
 		},
 	})
 
-	AddLookupData("chromeuseragent", Info{
+	AddFuncLookup("chromeuseragent", Info{
 		Category:    "internet",
 		Description: "Random chrome user agent",
 		Example:     "Mozilla/5.0 (X11; Linux i686) AppleWebKit/5312 (KHTML, like Gecko) Chrome/39.0.836.0 Mobile Safari/5312",
@@ -280,7 +280,7 @@ func addInternetLookup() {
 		},
 	})
 
-	AddLookupData("firefoxuseragent", Info{
+	AddFuncLookup("firefoxuseragent", Info{
 		Category:    "internet",
 		Description: "Random browser user agent",
 		Example:     "Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_8_3 rv:7.0) Gecko/1900-07-01 Firefox/37.0",
@@ -290,7 +290,7 @@ func addInternetLookup() {
 		},
 	})
 
-	AddLookupData("operauseragent", Info{
+	AddFuncLookup("operauseragent", Info{
 		Category:    "internet",
 		Description: "Random browser user agent",
 		Example:     "Opera/8.39 (Macintosh; U; PPC Mac OS X 10_8_7; en-US) Presto/2.9.335 Version/10.00",
@@ -300,7 +300,7 @@ func addInternetLookup() {
 		},
 	})
 
-	AddLookupData("safariuseragent", Info{
+	AddFuncLookup("safariuseragent", Info{
 		Category:    "internet",
 		Description: "Random safari user agent",
 		Example:     "Mozilla/5.0 (iPad; CPU OS 8_3_2 like Mac OS X; en-US) AppleWebKit/531.15.6 (KHTML, like Gecko) Version/4.0.5 Mobile/8B120 Safari/6531.15.6",
@@ -310,7 +310,7 @@ func addInternetLookup() {
 		},
 	})
 
-	AddLookupData("httpstatuscode", Info{
+	AddFuncLookup("httpstatuscode", Info{
 		Category:    "internet",
 		Description: "Random http status code",
 		Example:     "200",
@@ -320,7 +320,7 @@ func addInternetLookup() {
 		},
 	})
 
-	AddLookupData("httpstatuscodesimple", Info{
+	AddFuncLookup("httpstatuscodesimple", Info{
 		Category:    "internet",
 		Description: "Random http status code within more general usage codes",
 		Example:     "404",

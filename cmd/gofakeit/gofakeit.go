@@ -37,7 +37,7 @@ func main() {
 	}
 
 	// Lookup fake data method
-	info := gofakeit.GetLookupData(function)
+	info := gofakeit.GetFuncLookup(function)
 	if info == nil {
 		fmt.Println(noFuncRunMsg)
 		return
@@ -121,7 +121,7 @@ func listOutput(selectedCategory string) {
 
 		// Output func info
 		for _, fName := range funcNames {
-			info := gofakeit.GetLookupData(fName)
+			info := gofakeit.GetFuncLookup(fName)
 			fmt.Println("    " + fName + " - " + info.Description)
 			for _, p := range info.Params {
 				fmt.Println("        Field Name: " + p.Field + " Type: " + p.Type + " Default: " + p.Default + " - " + p.Description)

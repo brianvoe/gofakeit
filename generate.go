@@ -11,6 +11,7 @@ import (
 //
 // Functions
 // Ex: {firstname} - billy
+// Ex: {sentence:3} - Record river mind.
 // Ex: {uuid} - 590c1440-9888-45b0-bd51-a817ee07c3f2
 //
 // Letters/Numbers
@@ -25,23 +26,53 @@ func Generate(dataVal string) string {
 
 	// Identify items between brackets: {person.first}
 	for strings.Count(dataVal, "{") > 0 && strings.Count(dataVal, "}") > 0 {
-		startIndex := strings.Index(dataVal, "{")
-		endIndex := strings.Index(dataVal, "}")
-		fName := dataVal[(startIndex + 1):endIndex]
+		fParts := dataVal[(strings.Index(dataVal, "{") + 1):strings.Index(dataVal, "}")]
+
+		// Check if has params seperated by :
+		fNameSplit := strings.SplitN(fParts, ":", 2)
+		fName := ""
+		fParams := ""
+		if len(fNameSplit) >= 1 {
+			fName = fNameSplit[0]
+		}
+		if len(fNameSplit) >= 2 {
+			fParams = fNameSplit[1]
+		}
 
 		// Check to see if its a replacable lookup function
-		if info := GetLookupData(fName); info != nil {
-			fValue, err := info.Call(nil, info)
+		if info := GetFuncLookup(fName); info != nil {
+			// Get parameters, make sure params and the split both have values
+			var mapParams map[string][]string
+			paramsLen := len(info.Params)
+			if paramsLen > 0 && fParams != "" {
+				splitVals := funcLookupSplit(fParams)
+				for i := 0; i < len(splitVals); i++ {
+					if paramsLen-1 >= i {
+						if mapParams == nil {
+							mapParams = make(map[string][]string)
+						}
+						if strings.HasPrefix(splitVals[i], "[") {
+							mapParams[info.Params[i].Field] = funcLookupSplit(strings.TrimRight(strings.TrimLeft(splitVals[i], "["), "]"))
+						} else {
+							mapParams[info.Params[i].Field] = []string{splitVals[i]}
+						}
+					}
+				}
+			}
+
+			// Call function
+			fValue, err := info.Call(&mapParams, info)
 			if err != nil {
 				// If we came across an error just dont replace value
+				dataVal = strings.Replace(dataVal, "{"+fParts+"}", err.Error(), 1)
 				continue
 			}
-			dataVal = strings.Replace(dataVal, "{"+fName+"}", fmt.Sprintf("%v", fValue), 1)
+			dataVal = strings.Replace(dataVal, "{"+fParts+"}", fmt.Sprintf("%v", fValue), 1)
 			continue
 		}
 
 		// Couldnt find anything - set to n/a
-		dataVal = strings.Replace(dataVal, "{"+fName+"}", "n/a", 1)
+		dataVal = strings.Replace(dataVal, "{"+fParts+"}", "n/a", 1)
 		continue
 	}
 
@@ -52,8 +83,8 @@ func Generate(dataVal string) string {
 func Map() map[string]interface{} {
 	m := map[string]interface{}{}
 
-	randString := func() string {
-		s := RandString([]string{"lorem", "bs", "job", "name", "address"})
+	randWordType := func() string {
+		s := RandomString([]string{"lorem", "bs", "job", "name", "address"})
 		switch s {
 		case "bs":
 			return BS()
@@ -76,10 +107,10 @@ func Map() map[string]interface{} {
 	}
 
 	for i := 0; i < Number(3, 10); i++ {
-		t := RandString([]string{"string", "int", "float", "slice", "map"})
+		t := RandomString([]string{"string", "int", "float", "slice", "map"})
 		switch t {
 		case "string":
-			m[Word()] = randString()
+			m[Word()] = randWordType()
 		case "int":
 			m[Word()] = Number(1, 10000000)
 		case "float":
@@ -88,10 +119,10 @@ func Map() map[string]interface{} {
 			m[Word()] = randSlice()
 		case "map":
 			mm := map[string]interface{}{}
-			tt := RandString([]string{"string", "int", "float", "slice"})
+			tt := RandomString([]string{"string", "int", "float", "slice"})
 			switch tt {
 			case "string":
-				mm[Word()] = randString()
+				mm[Word()] = randWordType()
 			case "int":
 				mm[Word()] = Number(1, 10000000)
 			case "float":
@@ -107,7 +138,7 @@ func Map() map[string]interface{} {
 }
 
 func addGenerateLookup() {
-	AddLookupData("generate", Info{
+	AddFuncLookup("generate", Info{
 		Category:    "misc",
 		Description: "Random string generated from string value based upon available data sets",
 		Example:     "{firstname} {lastname} {email} - Markus Moen markusmoen@pagac.net",
@@ -130,7 +161,7 @@ func addGenerateLookup() {
 		},
 	})
 
-	AddLookupData("map", Info{
+	AddFuncLookup("map", Info{
 		Category:    "misc",
 		Description: "Random map data",
 		Example:     `{"aut":{"iste":"qui"},"est":["velit","architecto","doloribus","fugiat"],"id":620384.06,"maiores":"Bertha Weber","quisquam":715240.3,"tempore":7415722}`,
