@@ -43,8 +43,8 @@ func ShuffleStrings(a []string) {
 	}
 }
 
-// RandString will take in a slice of string and return a randomly selected value
-func RandString(a []string) string {
+// RandomString will take in a slice of string and return a randomly selected value
+func RandomString(a []string) string {
 	size := len(a)
 	if size == 0 {
 		return ""
@@ -53,7 +53,7 @@ func RandString(a []string) string {
 }
 
 func addStringLookup() {
-	AddLookupData("letter", Info{
+	AddFuncLookup("letter", Info{
 		Category:    "string",
 		Description: "Generate a single random lower case ASCII letter",
 		Example:     "g",
@@ -63,7 +63,7 @@ func addStringLookup() {
 		},
 	})
 
-	AddLookupData("digit", Info{
+	AddFuncLookup("digit", Info{
 		Category:    "string",
 		Description: "Generate a single random lower case ASCII letter",
 		Example:     "g",
@@ -73,7 +73,7 @@ func addStringLookup() {
 		},
 	})
 
-	AddLookupData("numerify", Info{
+	AddFuncLookup("numerify", Info{
 		Category:    "string",
 		Description: "Replace # with random numerical values",
 		Example:     "(###)###-#### => (555)867-5309",
@@ -91,7 +91,7 @@ func addStringLookup() {
 		},
 	})
 
-	AddLookupData("lexify", Info{
+	AddFuncLookup("lexify", Info{
 		Category:    "string",
 		Description: "Replace ? will random generated letters",
 		Example:     "?????@??????.com => billy@mister.com",
@@ -109,7 +109,7 @@ func addStringLookup() {
 		},
 	})
 
-	AddLookupData("shufflestrings", Info{
+	AddFuncLookup("shufflestrings", Info{
 		Category:    "string",
 		Description: "Shuffle an array of strings",
 		Example:     "hello,world,whats,up => whats,world,hello,up",
@@ -126,6 +126,24 @@ func addStringLookup() {
 			ShuffleStrings(strs)
 
 			return strs, nil
+		},
+	})
+
+	AddFuncLookup("randomstring", Info{
+		Category:    "string",
+		Description: "Randomly grab one string from array",
+		Example:     "hello,world,whats,up => world",
+		Output:      "[]string",
+		Params: []Param{
+			{Field: "strs", Type: "[]string", Description: "Delimited seperated strings"},
+		},
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			strs, err := info.GetStringArray(m, "strs")
+			if err != nil {
+				return nil, err
+			}
+
+			return RandomString(strs), nil
 		},
 	})
 }
