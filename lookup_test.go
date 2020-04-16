@@ -2,9 +2,68 @@ package gofakeit
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 	"time"
 )
+
+func Example_custom() {
+	Seed(11)
+
+	AddFuncLookup("friendname", Info{
+		Category:    "custom",
+		Description: "Random friend name",
+		Example:     "bill",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return RandomString([]string{"bill", "bob", "sally"}), nil
+		},
+	})
+
+	type Foo struct {
+		FriendName string `fake:"{friendname}"`
+	}
+
+	var f Foo
+	Struct(&f)
+
+	fmt.Printf("%s", f.FriendName)
+	// Output: bill
+}
+
+func Example_custom_with_params() {
+	Seed(11)
+
+	AddFuncLookup("jumbleword", Info{
+		Category:    "jumbleword",
+		Description: "Take a word and jumple it up",
+		Example:     "loredlowlh",
+		Output:      "string",
+		Params: []Param{
+			{Field: "word", Type: "int", Description: "Word you want to jumble"},
+		},
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			word, err := info.GetString(m, "word")
+			if err != nil {
+				return nil, err
+			}
+
+			split := strings.Split(word, "")
+			ShuffleStrings(split)
+			return strings.Join(split, ""), nil
+		},
+	})
+
+	type Foo struct {
+		JumbleWord string `fake:"{jumbleword:helloworld}"`
+	}
+
+	var f Foo
+	Struct(&f)
+
+	fmt.Printf("%s", f.JumbleWord)
+	// Output: loredlowlh
+}
 
 func TestLookupChecking(t *testing.T) {
 	Seed(time.Now().UnixNano())

@@ -146,7 +146,7 @@ func Phrase() string {
 }
 
 func addWordLookup() {
-	AddLookupData("noun", Info{
+	AddFuncLookup("noun", Info{
 		Category:    "word",
 		Description: "Random noun",
 		Example:     "foot",
@@ -156,7 +156,7 @@ func addWordLookup() {
 		},
 	})
 
-	AddLookupData("verb", Info{
+	AddFuncLookup("verb", Info{
 		Category:    "word",
 		Description: "Random verb",
 		Example:     "release",
@@ -166,7 +166,7 @@ func addWordLookup() {
 		},
 	})
 
-	AddLookupData("adverb", Info{
+	AddFuncLookup("adverb", Info{
 		Category:    "word",
 		Description: "Random adverb",
 		Example:     "smoothly",
@@ -176,7 +176,7 @@ func addWordLookup() {
 		},
 	})
 
-	AddLookupData("preposition", Info{
+	AddFuncLookup("preposition", Info{
 		Category:    "word",
 		Description: "Random preposition",
 		Example:     "down",
@@ -186,7 +186,7 @@ func addWordLookup() {
 		},
 	})
 
-	AddLookupData("adjective", Info{
+	AddFuncLookup("adjective", Info{
 		Category:    "word",
 		Description: "Random adjective",
 		Example:     "genuine",
@@ -196,7 +196,7 @@ func addWordLookup() {
 		},
 	})
 
-	AddLookupData("word", Info{
+	AddFuncLookup("word", Info{
 		Category:    "word",
 		Description: "Random word",
 		Example:     "man",
@@ -206,7 +206,7 @@ func addWordLookup() {
 		},
 	})
 
-	AddLookupData("sentence", Info{
+	AddFuncLookup("sentence", Info{
 		Category:    "word",
 		Description: "Random sentence",
 		Example:     "Interpret context record river mind.",
@@ -227,7 +227,7 @@ func addWordLookup() {
 		},
 	})
 
-	AddLookupData("paragraph", Info{
+	AddFuncLookup("paragraph", Info{
 		Category:    "word",
 		Description: "Random paragraph",
 		Example:     "Interpret context record river mind press self should compare property outcome divide. Combine approach sustain consult discover explanation direct address church husband seek army. Begin own act welfare replace press suspect stay link place manchester specialist. Arrive price satisfy sign force application hair train provide basis right pay. Close mark teacher strengthen information attempt head touch aim iron tv take. Handle wait begin look speech trust cancer visit capacity disease chancellor clean. Race aim function gain couple push faith enjoy admit ring attitude develop. Edge game prevent cast mill favour father star live search aim guess. West heart item adopt compete equipment miss output report communicate model cabinet. Seek worker variety step argue air improve give succeed relief artist suffer. Hide finish insist knowledge thatcher make research chance structure proportion husband implement. Town crown restaurant cost material compete lady climb football region discussion order. Place lee market ice like display mind stress compete weather station raise. Democracy college major recall struggle use cut intention accept period generation strike. Benefit defend recommend conclude justify result depend succeed address owner fill interpret.",
@@ -272,7 +272,7 @@ func addWordLookup() {
 		},
 	})
 
-	AddLookupData("loremipsumword", Info{
+	AddFuncLookup("loremipsumword", Info{
 		Category:    "word",
 		Description: "Random lorem ipsum word",
 		Example:     "quia",
@@ -282,7 +282,7 @@ func addWordLookup() {
 		},
 	})
 
-	AddLookupData("loremipsumsentence", Info{
+	AddFuncLookup("loremipsumsentence", Info{
 		Category:    "word",
 		Description: "Random lorem ipsum sentence",
 		Example:     "Quia quae repellat consequatur quidem.",
@@ -303,7 +303,7 @@ func addWordLookup() {
 		},
 	})
 
-	AddLookupData("loremipsumparagraph", Info{
+	AddFuncLookup("loremipsumparagraph", Info{
 		Category:    "word",
 		Description: "Random lorem ipsum paragraph",
 		Example:     "Quia quae repellat consequatur quidem nisi quo qui voluptatum accusantium quisquam amet. Quas et ut non dolorem ipsam aut enim assumenda mollitia harum ut. Dicta similique veniam nulla voluptas at excepturi non ad maxime at non. Eaque hic repellat praesentium voluptatem qui consequuntur dolor iusto autem velit aut. Fugit tempore exercitationem harum consequatur voluptatum modi minima aut eaque et et.<br />Aut ea voluptatem dignissimos expedita odit tempore quod aut beatae ipsam iste. Minus voluptatibus dolorem maiores eius sed nihil vel enim odio voluptatem accusamus. Natus quibusdam temporibus tenetur cumque sint necessitatibus dolorem ex ducimus iusto ex. Voluptatem neque dicta explicabo officiis et ducimus sit ut ut praesentium pariatur. Illum molestias nisi at dolore ut voluptatem accusantium et fugiat et ut.<br />Explicabo incidunt reprehenderit non quia dignissimos recusandae vitae soluta quia et quia. Aut veniam voluptas consequatur placeat sapiente non eveniet voluptatibus magni velit eum. Nobis vel repellendus sed est qui autem laudantium quidem quam ullam consequatur. Aut iusto ut commodi similique quae voluptatem atque qui fugiat eum aut. Quis distinctio consequatur voluptatem vel aliquid aut laborum facere officiis iure tempora.",
@@ -348,7 +348,7 @@ func addWordLookup() {
 		},
 	})
 
-	AddLookupData("question", Info{
+	AddFuncLookup("question", Info{
 		Category:    "word",
 		Description: "Random question",
 		Example:     "Roof chia echo?",
@@ -358,7 +358,7 @@ func addWordLookup() {
 		},
 	})
 
-	AddLookupData("quote", Info{
+	AddFuncLookup("quote", Info{
 		Category:    "word",
 		Description: "Random quote",
 		Example:     `"Roof chia echo." - Lura Lockman`,
@@ -368,7 +368,7 @@ func addWordLookup() {
 		},
 	})
 
-	AddLookupData("phrase", Info{
+	AddFuncLookup("phrase", Info{
 		Category:    "word",
 		Description: "Random phrase",
 		Example:     "time will tell",

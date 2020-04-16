@@ -80,7 +80,7 @@ func ShuffleInts(a []int) {
 }
 
 func addNumberLookup() {
-	AddLookupData("number", Info{
+	AddFuncLookup("number", Info{
 		Category:    "number",
 		Description: "Random number between given range",
 		Example:     "14866",
@@ -108,7 +108,7 @@ func addNumberLookup() {
 		},
 	})
 
-	AddLookupData("uint8", Info{
+	AddFuncLookup("uint8", Info{
 		Category:    "number",
 		Description: "Random uint8 value",
 		Example:     "152",
@@ -118,7 +118,7 @@ func addNumberLookup() {
 		},
 	})
 
-	AddLookupData("uint16", Info{
+	AddFuncLookup("uint16", Info{
 		Category:    "number",
 		Description: "Random uint16 value",
 		Example:     "34968",
@@ -128,7 +128,7 @@ func addNumberLookup() {
 		},
 	})
 
-	AddLookupData("uint32", Info{
+	AddFuncLookup("uint32", Info{
 		Category:    "number",
 		Description: "Random uint32 value",
 		Example:     "1075055705",
@@ -138,7 +138,7 @@ func addNumberLookup() {
 		},
 	})
 
-	AddLookupData("uint64", Info{
+	AddFuncLookup("uint64", Info{
 		Category:    "number",
 		Description: "Random uint64 value",
 		Example:     "843730692693298265",
@@ -148,7 +148,7 @@ func addNumberLookup() {
 		},
 	})
 
-	AddLookupData("int8", Info{
+	AddFuncLookup("int8", Info{
 		Category:    "number",
 		Description: "Random int8 value",
 		Example:     "24",
@@ -158,7 +158,7 @@ func addNumberLookup() {
 		},
 	})
 
-	AddLookupData("int16", Info{
+	AddFuncLookup("int16", Info{
 		Category:    "number",
 		Description: "Random int16 value",
 		Example:     "2200",
@@ -168,7 +168,7 @@ func addNumberLookup() {
 		},
 	})
 
-	AddLookupData("int32", Info{
+	AddFuncLookup("int32", Info{
 		Category:    "number",
 		Description: "Random int32 value",
 		Example:     "-1072427943",
@@ -178,7 +178,7 @@ func addNumberLookup() {
 		},
 	})
 
-	AddLookupData("int64", Info{
+	AddFuncLookup("int64", Info{
 		Category:    "number",
 		Description: "Random int64 value",
 		Example:     "-8379641344161477543",
@@ -188,7 +188,7 @@ func addNumberLookup() {
 		},
 	})
 
-	AddLookupData("float32", Info{
+	AddFuncLookup("float32", Info{
 		Category:    "number",
 		Description: "Random float32 value",
 		Example:     "3.1128167e+37",
@@ -198,7 +198,7 @@ func addNumberLookup() {
 		},
 	})
 
-	AddLookupData("float32range", Info{
+	AddFuncLookup("float32range", Info{
 		Category:    "number",
 		Description: "Random float32 between given range",
 		Example:     "914774.6",
@@ -222,7 +222,7 @@ func addNumberLookup() {
 		},
 	})
 
-	AddLookupData("float64", Info{
+	AddFuncLookup("float64", Info{
 		Category:    "number",
 		Description: "Random float64 value",
 		Example:     "1.644484108270445e+307",
@@ -232,7 +232,7 @@ func addNumberLookup() {
 		},
 	})
 
-	AddLookupData("float64range", Info{
+	AddFuncLookup("float64range", Info{
 		Category:    "number",
 		Description: "Random float64 between given range",
 		Example:     "914774.5585333086",
@@ -256,7 +256,7 @@ func addNumberLookup() {
 		},
 	})
 
-	AddLookupData("shuffleints", Info{
+	AddFuncLookup("shuffleints", Info{
 		Category:    "number",
 		Description: "Shuffle an array of ints",
 		Example:     "1,2,3,4 => 3,1,4,2",

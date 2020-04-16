@@ -67,7 +67,7 @@ func Password(lower bool, upper bool, numeric bool, special bool, space bool, nu
 }
 
 func addAuthLookup() {
-	AddLookupData("username", Info{
+	AddFuncLookup("username", Info{
 		Category:    "auth",
 		Description: "Generates a random username",
 		Example:     "Daniel1364",
@@ -77,7 +77,7 @@ func addAuthLookup() {
 		},
 	})
 
-	AddLookupData("password", Info{
+	AddFuncLookup("password", Info{
 		Category:    "auth",
 		Description: "Generates a random password",
 		Example:     "EEP+wwpk 4lU-eHNXlJZ4n K9%v&TZ9e",
