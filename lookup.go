@@ -16,6 +16,7 @@ type Info struct {
 	Description string                                                        `json:"description"`
 	Example     string                                                        `json:"example"`
 	Output      string                                                        `json:"output"`
+	Data        map[string]string                                             `json:"-"`
 	Params      []Param                                                       `json:"params"`
 	Call        func(m *map[string][]string, info *Info) (interface{}, error) `json:"-"`
 }
