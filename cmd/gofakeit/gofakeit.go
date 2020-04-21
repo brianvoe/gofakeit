@@ -9,7 +9,7 @@ import (
 	"github.com/brianvoe/gofakeit/v5"
 )
 
-var noFuncRunMsg = "Could not find function to run\nCall list for available functions"
+var noFuncRunMsg = "Could not find function to run\nRun gofakeit help or gofakeit list for available functions"
 
 func main() {
 	gofakeit.Seed(0)
@@ -25,6 +25,20 @@ func main() {
 
 	// Get function name
 	function := args[0]
+
+	// If function is help, give some information
+	if function == "help" {
+		fmt.Println("NAME")
+		fmt.Println("    gofakeit -- command line random data generator")
+		fmt.Println()
+		fmt.Println("SYNOPSIS")
+		fmt.Println("    gofakeit list")
+		fmt.Println("    gofakeit [function] [parameters...]")
+		fmt.Println()
+		fmt.Println("DESCRIPTION")
+		fmt.Println("    gofakeit is a set of functions that allow you to generate random data.")
+		return
+	}
 
 	// If function is list output list
 	if function == "list" {
