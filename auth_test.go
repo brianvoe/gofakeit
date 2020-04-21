@@ -5,6 +5,18 @@ import (
 	"testing"
 )
 
+func ExampleUsername() {
+	Seed(11)
+	fmt.Println(Username())
+	// Output: Daniel1364
+}
+
+func BenchmarkUsername(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Username()
+	}
+}
+
 func TestPassword(t *testing.T) {
 	length := 10
 

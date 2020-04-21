@@ -31,6 +31,18 @@ func BenchmarkDigit(b *testing.B) {
 	}
 }
 
+func ExampleNumerify() {
+	Seed(11)
+	fmt.Println(Numerify("###-###-####"))
+	// Output: 613-645-9948
+}
+
+func BenchmarkNumerify(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Numerify("###-###-####")
+	}
+}
+
 func ExampleLexify() {
 	Seed(11)
 	fmt.Println(Lexify("?????"))
@@ -51,35 +63,7 @@ func ExampleShuffleStrings() {
 	// Output: [good everyone have for times a day happy]
 }
 
-func BenchmarkShuffleStrings(b *testing.B) {
-	Seed(11)
-	for i := 0; i < b.N; i++ {
-		ShuffleStrings([]string{"happy", "times", "for", "everyone", "have", "a", "good", "day"})
-	}
-}
-
-func TestRandString(t *testing.T) {
-	for _, test := range []struct {
-		in     []string
-		should string
-	}{
-		{[]string{}, ""},
-		{nil, ""},
-		{[]string{"a"}, "a"},
-		{[]string{"a", "b", "c", "d", "e", "f"}, "f"},
-	} {
-		Seed(44)
-		got := RandString(test.in)
-		if got == test.should {
-			continue
-		}
-		t.Errorf("for '%v' should '%s' got '%s'",
-			test.in, test.should, got)
-	}
-}
-
 func TestShuffleStrings(t *testing.T) {
-	//test for panics
 	ShuffleStrings([]string{"a"})
 	ShuffleStrings(nil)
 
@@ -92,18 +76,41 @@ func TestShuffleStrings(t *testing.T) {
 	}
 }
 
-func equalSliceString(a, b []string) bool {
-	sizeA, sizeB := len(a), len(b)
-	if sizeA != sizeB {
-		return false
+func BenchmarkShuffleStrings(b *testing.B) {
+	Seed(11)
+	for i := 0; i < b.N; i++ {
+		ShuffleStrings([]string{"happy", "times", "for", "everyone", "have", "a", "good", "day"})
 	}
+}
 
-	for i, va := range a {
-		vb := b[i]
+func ExampleRandomString() {
+	Seed(11)
+	fmt.Println(RandomString([]string{"hello", "world"}))
+	// Output: hello
+}
 
-		if va != vb {
-			return false
+func TestRandomString(t *testing.T) {
+	for _, test := range []struct {
+		in     []string
+		should string
+	}{
+		{[]string{}, ""},
+		{nil, ""},
+		{[]string{"a"}, "a"},
+		{[]string{"a", "b", "c", "d", "e", "f"}, "f"},
+	} {
+		Seed(44)
+		got := RandomString(test.in)
+		if got == test.should {
+			continue
 		}
+		t.Errorf("for '%v' should '%s' got '%s'",
+			test.in, test.should, got)
 	}
-	return true
+}
+
+func BenchmarkRandomString(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		RandomString([]string{"hello", "world"})
+	}
 }

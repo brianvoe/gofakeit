@@ -19,3 +19,35 @@ func ProgrammingLanguage() string {
 func ProgrammingLanguageBest() string {
 	return "Go"
 }
+
+func addLanguagesLookup() {
+	AddFuncLookup("language", Info{
+		Category:    "language",
+		Description: "Random language",
+		Example:     "Kazakh",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return Language(), nil
+		},
+	})
+
+	AddFuncLookup("languageabbreviation", Info{
+		Category:    "language",
+		Description: "Random abbreviated language",
+		Example:     "kk",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return LanguageAbbreviation(), nil
+		},
+	})
+
+	AddFuncLookup("programminglanguage", Info{
+		Category:    "language",
+		Description: "Random programming language",
+		Example:     "Go",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return ProgrammingLanguage(), nil
+		},
+	})
+}

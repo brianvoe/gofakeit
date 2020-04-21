@@ -14,6 +14,11 @@ func Digit() string {
 	return string(randDigit())
 }
 
+// Numerify will replace # with random numerical values
+func Numerify(str string) string {
+	return replaceWithNumbers(str)
+}
+
 // Lexify will replace ? will random generated letters
 func Lexify(str string) string {
 	return replaceWithLetters(str)
@@ -38,11 +43,107 @@ func ShuffleStrings(a []string) {
 	}
 }
 
-// RandString will take in a slice of string and return a randomly selected value
-func RandString(a []string) string {
+// RandomString will take in a slice of string and return a randomly selected value
+func RandomString(a []string) string {
 	size := len(a)
 	if size == 0 {
 		return ""
 	}
 	return a[rand.Intn(size)]
+}
+
+func addStringLookup() {
+	AddFuncLookup("letter", Info{
+		Category:    "string",
+		Description: "Generate a single random lower case ASCII letter",
+		Example:     "g",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return Letter(), nil
+		},
+	})
+
+	AddFuncLookup("digit", Info{
+		Category:    "string",
+		Description: "Generate a single random lower case ASCII letter",
+		Example:     "g",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return Letter(), nil
+		},
+	})
+
+	AddFuncLookup("numerify", Info{
+		Category:    "string",
+		Description: "Replace # with random numerical values",
+		Example:     "(###)###-#### => (555)867-5309",
+		Output:      "string",
+		Params: []Param{
+			{Field: "str", Type: "string", Description: "String value to replace #'s"},
+		},
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			str, err := info.GetString(m, "str")
+			if err != nil {
+				return nil, err
+			}
+
+			return Numerify(str), nil
+		},
+	})
+
+	AddFuncLookup("lexify", Info{
+		Category:    "string",
+		Description: "Replace ? will random generated letters",
+		Example:     "?????@??????.com => billy@mister.com",
+		Output:      "string",
+		Params: []Param{
+			{Field: "str", Type: "string", Description: "String value to replace #'s"},
+		},
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			str, err := info.GetString(m, "str")
+			if err != nil {
+				return nil, err
+			}
+
+			return Lexify(str), nil
+		},
+	})
+
+	AddFuncLookup("shufflestrings", Info{
+		Category:    "string",
+		Description: "Shuffle an array of strings",
+		Example:     "hello,world,whats,up => whats,world,hello,up",
+		Output:      "[]string",
+		Params: []Param{
+			{Field: "strs", Type: "[]string", Description: "Delimited seperated strings"},
+		},
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			strs, err := info.GetStringArray(m, "strs")
+			if err != nil {
+				return nil, err
+			}
+
+			ShuffleStrings(strs)
+
+			return strs, nil
+		},
+	})
+
+	AddFuncLookup("randomstring", Info{
+		Category:    "string",
+		Description: "Randomly grab one string from array",
+		Example:     "hello,world,whats,up => world",
+		Output:      "[]string",
+		Params: []Param{
+			{Field: "strs", Type: "[]string", Description: "Delimited seperated strings"},
+		},
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			strs, err := info.GetStringArray(m, "strs")
+			if err != nil {
+				return nil, err
+			}
+
+			return RandomString(strs), nil
+		},
+	})
 }

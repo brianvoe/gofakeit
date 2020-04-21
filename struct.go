@@ -28,7 +28,6 @@ func r(t reflect.Type, v reflect.Value, template string) {
 	case reflect.Uint32:
 		v.SetUint(uint64(Uint32()))
 	case reflect.Uint64:
-		//capped at [0, math.MaxInt64)
 		v.SetUint(Uint64())
 	case reflect.Int:
 		v.SetInt(Int64())
@@ -51,11 +50,14 @@ func r(t reflect.Type, v reflect.Value, template string) {
 
 func rString(template string, v reflect.Value) {
 	if template != "" {
-		r := Generate(template)
-		v.SetString(r)
+		v.SetString(Generate(template))
 	} else {
-		v.SetString(Generate("???????????????????"))
-		// we don't have a String(len int) string function!!
+		num := Number(4, 10)
+		str := ""
+		for i := 0; i < num; i++ {
+			str = str + "?"
+		}
+		v.SetString(Generate(str))
 	}
 }
 
@@ -64,12 +66,10 @@ func rStruct(t reflect.Type, v reflect.Value) {
 	for i := 0; i < n; i++ {
 		elementT := t.Field(i)
 		elementV := v.Field(i)
-		fake := true
 		t, ok := elementT.Tag.Lookup("fake")
 		if ok && t == "skip" {
-			fake = false
-		}
-		if fake && elementV.CanSet() {
+			// Do nothing, skip it
+		} else if elementV.CanSet() {
 			r(elementT.Type, elementV, t)
 		}
 	}

@@ -5,26 +5,26 @@ import (
 	"testing"
 )
 
-func ExampleMimeType() {
+func ExampleFileMimeType() {
 	Seed(11)
-	fmt.Println(MimeType())
+	fmt.Println(FileMimeType())
 	// Output: application/dsptype
 }
 
-func BenchmarkMimeType(b *testing.B) {
+func BenchmarkFileMimeType(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		MimeType()
+		FileMimeType()
 	}
 }
 
-func ExampleExtension() {
+func ExampleFileExtension() {
 	Seed(11)
-	fmt.Println(Extension())
+	fmt.Println(FileExtension())
 	// Output: nes
 }
 
-func BenchmarkExtension(b *testing.B) {
+func BenchmarkFileExtension(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Extension()
+		FileExtension()
 	}
 }

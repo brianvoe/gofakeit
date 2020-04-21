@@ -1,141 +1,43 @@
 package gofakeit
 
 import (
+	"encoding/hex"
 	"math/rand"
 
-	"github.com/brianvoe/gofakeit/v4/data"
+	"github.com/brianvoe/gofakeit/v5/data"
 )
 
-const hashtag = '#'
-const questionmark = '?'
-
-// Check if in lib
-func dataCheck(dataVal []string) bool {
-	var checkOk bool
-
-	if len(dataVal) == 2 {
-		_, checkOk = data.Data[dataVal[0]]
-		if checkOk {
-			_, checkOk = data.Data[dataVal[0]][dataVal[1]]
-		}
-	}
-
-	return checkOk
+// Bool will generate a random boolean value
+func Bool() bool {
+	return randIntRange(0, 1) == 1
 }
 
-// Check if in lib
-func intDataCheck(dataVal []string) bool {
-	if len(dataVal) != 2 {
-		return false
-	}
+// UUID (version 4) will generate a random unique identifier based upon random nunbers
+// Format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+func UUID() string {
+	version := byte(4)
+	uuid := make([]byte, 16)
+	rand.Read(uuid)
 
-	_, checkOk := data.IntData[dataVal[0]]
-	if checkOk {
-		_, checkOk = data.IntData[dataVal[0]][dataVal[1]]
-	}
+	// Set version
+	uuid[6] = (uuid[6] & 0x0f) | (version << 4)
 
-	return checkOk
-}
+	// Set variant
+	uuid[8] = (uuid[8] & 0xbf) | 0x80
 
-// Get Random Value
-func getRandValue(dataVal []string) string {
-	if !dataCheck(dataVal) {
-		return ""
-	}
-	return data.Data[dataVal[0]][dataVal[1]][rand.Intn(len(data.Data[dataVal[0]][dataVal[1]]))]
-}
+	buf := make([]byte, 36)
+	var dash byte = '-'
+	hex.Encode(buf[0:8], uuid[0:4])
+	buf[8] = dash
+	hex.Encode(buf[9:13], uuid[4:6])
+	buf[13] = dash
+	hex.Encode(buf[14:18], uuid[6:8])
+	buf[18] = dash
+	hex.Encode(buf[19:23], uuid[8:10])
+	buf[23] = dash
+	hex.Encode(buf[24:], uuid[10:])
 
-// Get Random Integer Value
-func getRandIntValue(dataVal []string) int {
-	if !intDataCheck(dataVal) {
-		return 0
-	}
-	return data.IntData[dataVal[0]][dataVal[1]][rand.Intn(len(data.IntData[dataVal[0]][dataVal[1]]))]
-}
-
-// Replace # with numbers
-func replaceWithNumbers(str string) string {
-	if str == "" {
-		return str
-	}
-	bytestr := []byte(str)
-	for i := 0; i < len(bytestr); i++ {
-		if bytestr[i] == hashtag {
-			bytestr[i] = byte(randDigit())
-		}
-	}
-	if bytestr[0] == '0' {
-		bytestr[0] = byte(rand.Intn(8)+1) + '0'
-	}
-
-	return string(bytestr)
-}
-
-// Replace ? with ASCII lowercase letters
-func replaceWithLetters(str string) string {
-	if str == "" {
-		return str
-	}
-	bytestr := []byte(str)
-	for i := 0; i < len(bytestr); i++ {
-		if bytestr[i] == questionmark {
-			bytestr[i] = byte(randLetter())
-		}
-	}
-
-	return string(bytestr)
-}
-
-// Replace ? with ASCII lowercase letters between a and f
-func replaceWithHexLetters(str string) string {
-	if str == "" {
-		return str
-	}
-	bytestr := []byte(str)
-	for i := 0; i < len(bytestr); i++ {
-		if bytestr[i] == questionmark {
-			bytestr[i] = byte(randHexLetter())
-		}
-	}
-
-	return string(bytestr)
-}
-
-// Generate random lowercase ASCII letter
-func randLetter() rune {
-	return rune(byte(rand.Intn(26)) + 'a')
-}
-
-// Generate random lowercase ASCII letter between a and f
-func randHexLetter() rune {
-	return rune(byte(rand.Intn(6)) + 'a')
-}
-
-// Generate random ASCII digit
-func randDigit() rune {
-	return rune(byte(rand.Intn(10)) + '0')
-}
-
-// Generate random integer between min and max
-func randIntRange(min, max int) int {
-	if min == max {
-		return min
-	}
-	return rand.Intn((max+1)-min) + min
-}
-
-func randFloat32Range(min, max float32) float32 {
-	if min == max {
-		return min
-	}
-	return rand.Float32()*(max-min) + min
-}
-
-func randFloat64Range(min, max float64) float64 {
-	if min == max {
-		return min
-	}
-	return rand.Float64()*(max-min) + min
+	return string(buf)
 }
 
 // Categories will return a map string array of available data categories and sub categories
@@ -149,4 +51,27 @@ func Categories() map[string][]string {
 		types[category] = subCategories
 	}
 	return types
+}
+
+func addMiscLookup() {
+	AddFuncLookup("uuid", Info{
+		Category:    "misc",
+		Description: "Random uuid",
+		Example:     "590c1440-9888-45b0-bd51-a817ee07c3f2",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return UUID(), nil
+		},
+	})
+
+	AddFuncLookup("bool", Info{
+		Category:    "misc",
+		Description: "Random boolean",
+		Example:     "true",
+		Output:      "bool",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return Bool(), nil
+		},
+	})
+
 }

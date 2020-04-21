@@ -29,3 +29,65 @@ func Cat() string {
 func Dog() string {
 	return getRandValue([]string{"animal", "dog"})
 }
+
+func addAnimalLookup() {
+	AddFuncLookup("petname", Info{
+		Category:    "animal",
+		Description: "Random pet name",
+		Example:     "Ozzy Pawsborne",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return PetName(), nil
+		},
+	})
+
+	AddFuncLookup("animal", Info{
+		Category:    "animal",
+		Description: "Random animal",
+		Example:     "elk",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return Animal(), nil
+		},
+	})
+
+	AddFuncLookup("animaltype", Info{
+		Category:    "animal",
+		Description: "Random animal type",
+		Example:     "amphibians",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return AnimalType(), nil
+		},
+	})
+
+	AddFuncLookup("farmanimal", Info{
+		Category:    "animal",
+		Description: "Random farm animal",
+		Example:     "Chicken",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return FarmAnimal(), nil
+		},
+	})
+
+	AddFuncLookup("cat", Info{
+		Category:    "animal",
+		Description: "Random cat type",
+		Example:     "Chausie",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return Cat(), nil
+		},
+	})
+
+	AddFuncLookup("dog", Info{
+		Category:    "animal",
+		Description: "Random dog type",
+		Example:     "Norwich Terrier",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return Dog(), nil
+		},
+	})
+}

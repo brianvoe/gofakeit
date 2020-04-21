@@ -173,7 +173,7 @@ func BenchmarkCountryAbr(b *testing.B) {
 func ExampleLatitude() {
 	Seed(11)
 	fmt.Println(Latitude())
-	// Output: -73.53405629980608
+	// Output: -73.534057
 }
 
 func BenchmarkLatitude(b *testing.B) {
@@ -185,7 +185,7 @@ func BenchmarkLatitude(b *testing.B) {
 func ExampleLongitude() {
 	Seed(11)
 	fmt.Println(Longitude())
-	// Output: -147.06811259961216
+	// Output: -147.068113
 }
 
 func BenchmarkLongitude(b *testing.B) {
@@ -220,7 +220,7 @@ func ExampleLatitudeInRange() {
 	Seed(11)
 	lat, _ := LatitudeInRange(21, 42)
 	fmt.Println(lat)
-	// Output: 22.921026765022624
+	// Output: 22.921026
 }
 
 func BenchmarkLatitudeInRange(b *testing.B) {
@@ -255,7 +255,7 @@ func ExampleLongitudeInRange() {
 	Seed(11)
 	long, _ := LongitudeInRange(-10, 10)
 	fmt.Println(long)
-	// Output: -8.170450699978453
+	// Output: -8.170451
 }
 
 func BenchmarkLongitudeInRange(b *testing.B) {
