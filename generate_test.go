@@ -49,3 +49,43 @@ func BenchmarkMap(b *testing.B) {
 		Map()
 	}
 }
+
+func ExampleJSON() {
+	Seed(11)
+
+	fmt.Println(JSON(false))
+	fmt.Println(JSON(true))
+	// Output:
+	// 	{"approach":{"mind":["arrival","should","resolve","outcome","hurt"]},"arrive":"Coordinator","consult":"respond","context":9285735,"water":5081652}
+	// {
+	//     "document": {
+	//         "heat": "empower"
+	//     },
+	//     "hair": {
+	//         "arrange": 191860.03
+	//     },
+	//     "intelligence": 628419.75,
+	//     "manchester": {
+	//         "agreement": 1303185
+	//     },
+	//     "provide": [
+	//         "tom",
+	//         "pay",
+	//         "mark",
+	//         "teacher",
+	//         "slip"
+	//     ],
+	//     "rugby": {
+	//         "own": "Macie Cartwright"
+	//     },
+	//     "satisfy": {
+	//         "predict": 162934
+	//     }
+	// }
+}
+
+func BenchmarkJSON(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		JSON(Bool())
+	}
+}
