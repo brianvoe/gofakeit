@@ -1,6 +1,7 @@
 package gofakeit
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"strings"
@@ -137,9 +138,21 @@ func Map() map[string]interface{} {
 	return m
 }
 
+// JSON will generate a random json string based upon the
+func JSON(pretty bool) string {
+	j := []byte{}
+	if pretty {
+		j, _ = json.MarshalIndent(Map(), "", "    ")
+	} else {
+		j, _ = json.Marshal(Map())
+	}
+	return string(j)
+}
+
 func addGenerateLookup() {
 	AddFuncLookup("generate", Info{
-		Category:    "misc",
+		Display:     "Generate",
+		Category:    "generate",
 		Description: "Random string generated from string value based upon available data sets",
 		Example:     "{firstname} {lastname} {email} - Markus Moen markusmoen@pagac.net",
 		Output:      "string",
@@ -161,13 +174,32 @@ func addGenerateLookup() {
 		},
 	})
 
-	AddFuncLookup("map", Info{
-		Category:    "misc",
-		Description: "Random map data",
-		Example:     `{"aut":{"iste":"qui"},"est":["velit","architecto","doloribus","fugiat"],"id":620384.06,"maiores":"Bertha Weber","quisquam":715240.3,"tempore":7415722}`,
-		Output:      "map[string]interface",
+	AddFuncLookup("json", Info{
+		Display:     "JSON",
+		Category:    "generate",
+		Description: "Random json data",
+		Example: `{
+			"hair": {
+				"arrange": 191860.03
+			},
+			"intelligence": 628419.75,
+			"provide": [
+				"tom",
+				"pay",
+				"mark"
+			]
+		}`,
+		Output: "string",
+		Params: []Param{
+			{Field: "pretty", Type: "bool", Default: "true", Description: "Boolean on whether or not to output pretty format"},
+		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Map(), nil
+			p, err := info.GetBool(m, "pretty")
+			if err != nil {
+				return nil, err
+			}
+
+			return JSON(p), nil
 		},
 	})
 }

@@ -119,6 +119,9 @@ func TestLookupChecking(t *testing.T) {
 // Make sure all lookups have specific fields
 func TestLookupCheckFields(t *testing.T) {
 	for field, info := range FuncLookups {
+		if info.Display == "" {
+			t.Fatalf("%s is missing a display", field)
+		}
 		if info.Category == "" {
 			t.Fatalf("%s is missing a category", field)
 		}

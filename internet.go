@@ -167,6 +167,7 @@ func randomPlatform() string {
 
 func addInternetLookup() {
 	AddFuncLookup("url", Info{
+		Display:     "URL",
 		Category:    "internet",
 		Description: "Random url",
 		Example:     "http://www.principalproductize.biz/target",
@@ -177,6 +178,7 @@ func addInternetLookup() {
 	})
 
 	AddFuncLookup("domain", Info{
+		Display:     "Domain",
 		Category:    "internet",
 		Description: "Random domain name",
 		Example:     "centraltarget.biz",
@@ -187,6 +189,7 @@ func addInternetLookup() {
 	})
 
 	AddFuncLookup("domainsuffix", Info{
+		Display:     "Domain Suffix",
 		Category:    "internet",
 		Description: "Random domain suffix",
 		Example:     "org",
@@ -196,31 +199,8 @@ func addInternetLookup() {
 		},
 	})
 
-	AddFuncLookup("imageurl", Info{
-		Category:    "internet",
-		Description: "Random image url",
-		Example:     "https://picsum.photos/640/480",
-		Output:      "string",
-		Params: []Param{
-			{Field: "width", Type: "uint", Description: "Image width"},
-			{Field: "height", Type: "uint", Description: "Image height"},
-		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			width, err := info.GetUint(m, "width")
-			if err != nil {
-				return nil, err
-			}
-
-			height, err := info.GetUint(m, "height")
-			if err != nil {
-				return nil, err
-			}
-
-			return ImageURL(int(width), int(height)), nil
-		},
-	})
-
 	AddFuncLookup("ipv4address", Info{
+		Display:     "IPv4 Address",
 		Category:    "internet",
 		Description: "Random ip address v4",
 		Example:     "222.83.191.222",
@@ -231,6 +211,7 @@ func addInternetLookup() {
 	})
 
 	AddFuncLookup("ipv6address", Info{
+		Display:     "IPv6 Address",
 		Category:    "internet",
 		Description: "Random ip address v6",
 		Example:     "2001:cafe:8898:ee17:bc35:9064:5866:d019",
@@ -241,6 +222,7 @@ func addInternetLookup() {
 	})
 
 	AddFuncLookup("httpmethod", Info{
+		Display:     "HTTP Method",
 		Category:    "internet",
 		Description: "Random http method",
 		Example:     "HEAD",
@@ -251,6 +233,7 @@ func addInternetLookup() {
 	})
 
 	AddFuncLookup("loglevel", Info{
+		Display:     "Log Level",
 		Category:    "internet",
 		Description: "Random log level",
 		Example:     "error",
@@ -261,6 +244,7 @@ func addInternetLookup() {
 	})
 
 	AddFuncLookup("useragent", Info{
+		Display:     "User Agent",
 		Category:    "internet",
 		Description: "Random browser user agent",
 		Example:     "Mozilla/5.0 (Windows NT 5.0) AppleWebKit/5362 (KHTML, like Gecko) Chrome/37.0.834.0 Mobile Safari/5362",
@@ -271,6 +255,7 @@ func addInternetLookup() {
 	})
 
 	AddFuncLookup("chromeuseragent", Info{
+		Display:     "Chrome User Agent",
 		Category:    "internet",
 		Description: "Random chrome user agent",
 		Example:     "Mozilla/5.0 (X11; Linux i686) AppleWebKit/5312 (KHTML, like Gecko) Chrome/39.0.836.0 Mobile Safari/5312",
@@ -281,6 +266,7 @@ func addInternetLookup() {
 	})
 
 	AddFuncLookup("firefoxuseragent", Info{
+		Display:     "Firefox User Agent",
 		Category:    "internet",
 		Description: "Random browser user agent",
 		Example:     "Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_8_3 rv:7.0) Gecko/1900-07-01 Firefox/37.0",
@@ -291,6 +277,7 @@ func addInternetLookup() {
 	})
 
 	AddFuncLookup("operauseragent", Info{
+		Display:     "Opera User Agent",
 		Category:    "internet",
 		Description: "Random browser user agent",
 		Example:     "Opera/8.39 (Macintosh; U; PPC Mac OS X 10_8_7; en-US) Presto/2.9.335 Version/10.00",
@@ -301,6 +288,7 @@ func addInternetLookup() {
 	})
 
 	AddFuncLookup("safariuseragent", Info{
+		Display:     "Safari User Agent",
 		Category:    "internet",
 		Description: "Random safari user agent",
 		Example:     "Mozilla/5.0 (iPad; CPU OS 8_3_2 like Mac OS X; en-US) AppleWebKit/531.15.6 (KHTML, like Gecko) Version/4.0.5 Mobile/8B120 Safari/6531.15.6",
@@ -311,6 +299,7 @@ func addInternetLookup() {
 	})
 
 	AddFuncLookup("httpstatuscode", Info{
+		Display:     "HTTP Status Code",
 		Category:    "internet",
 		Description: "Random http status code",
 		Example:     "200",
@@ -321,6 +310,7 @@ func addInternetLookup() {
 	})
 
 	AddFuncLookup("httpstatuscodesimple", Info{
+		Display:     "HTTP Status Code Simple",
 		Category:    "internet",
 		Description: "Random http status code within more general usage codes",
 		Example:     "404",

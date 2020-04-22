@@ -44,6 +44,7 @@ func Dessert() string {
 
 func addFoodLookup() {
 	AddFuncLookup("fruit", Info{
+		Display:     "Fruit",
 		Category:    "food",
 		Description: "Random fruit",
 		Example:     "Dates",
@@ -54,6 +55,7 @@ func addFoodLookup() {
 	})
 
 	AddFuncLookup("vegetable", Info{
+		Display:     "Vegetable",
 		Category:    "food",
 		Description: "Random vegetable",
 		Example:     "Amaranth Leaves",
@@ -64,6 +66,7 @@ func addFoodLookup() {
 	})
 
 	AddFuncLookup("breakfast", Info{
+		Display:     "Breakfast",
 		Category:    "food",
 		Description: "Random breakfast",
 		Example:     "Blueberry banana happy face pancakes",
@@ -74,6 +77,7 @@ func addFoodLookup() {
 	})
 
 	AddFuncLookup("lunch", Info{
+		Display:     "Lunch",
 		Category:    "food",
 		Description: "Random lunch",
 		Example:     "No bake hersheys bar pie",
@@ -84,6 +88,7 @@ func addFoodLookup() {
 	})
 
 	AddFuncLookup("dinner", Info{
+		Display:     "Dinner",
 		Category:    "food",
 		Description: "Random dinner",
 		Example:     "Wild addicting dip",
@@ -94,6 +99,7 @@ func addFoodLookup() {
 	})
 
 	AddFuncLookup("snack", Info{
+		Display:     "Snack",
 		Category:    "food",
 		Description: "Random snack",
 		Example:     "Hoisin marinated wing pieces",
@@ -104,6 +110,7 @@ func addFoodLookup() {
 	})
 
 	AddFuncLookup("dessert", Info{
+		Display:     "Dessert",
 		Category:    "food",
 		Description: "Random dessert",
 		Example:     "French napoleons",

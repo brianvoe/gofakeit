@@ -12,10 +12,12 @@ var lockFuncLookups sync.Mutex
 
 // Info structures fields to better break down what each one generates
 type Info struct {
+	Display     string                                                        `json:"display"`
 	Category    string                                                        `json:"category"`
 	Description string                                                        `json:"description"`
 	Example     string                                                        `json:"example"`
 	Output      string                                                        `json:"output"`
+	Data        map[string]string                                             `json:"-"`
 	Params      []Param                                                       `json:"params"`
 	Call        func(m *map[string][]string, info *Info) (interface{}, error) `json:"-"`
 }

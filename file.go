@@ -12,6 +12,7 @@ func FileMimeType() string {
 
 func addFileLookup() {
 	AddFuncLookup("fileextension", Info{
+		Display:     "File Extension",
 		Category:    "file",
 		Description: "Random file extension",
 		Example:     "nes",
@@ -22,6 +23,7 @@ func addFileLookup() {
 	})
 
 	AddFuncLookup("filemimetype", Info{
+		Display:     "File Mime Type",
 		Category:    "file",
 		Description: "Random file mime type",
 		Example:     "application/json",
