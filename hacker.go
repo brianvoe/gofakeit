@@ -36,6 +36,7 @@ func HackerIngverb() string {
 
 func addHackerLookup() {
 	AddFuncLookup("hackerabbreviation", Info{
+		Display:     "Hacker Abbreviation",
 		Category:    "hacker",
 		Description: "Random hacker abbreviation",
 		Example:     "ADP",
@@ -46,6 +47,7 @@ func addHackerLookup() {
 	})
 
 	AddFuncLookup("hackeradjective", Info{
+		Display:     "Hacker Adjective",
 		Category:    "hacker",
 		Description: "Random hacker adjective",
 		Example:     "wireless",
@@ -56,6 +58,7 @@ func addHackerLookup() {
 	})
 
 	AddFuncLookup("hackerverb", Info{
+		Display:     "Hacker Verb",
 		Category:    "hacker",
 		Description: "Random hacker verb",
 		Example:     "synthesize",
@@ -66,6 +69,7 @@ func addHackerLookup() {
 	})
 
 	AddFuncLookup("hackernoun", Info{
+		Display:     "Hacker Noun",
 		Category:    "hacker",
 		Description: "Random hacker noun",
 		Example:     "driver",
@@ -76,6 +80,7 @@ func addHackerLookup() {
 	})
 
 	AddFuncLookup("hackerphrase", Info{
+		Display:     "Hacker Phrase",
 		Category:    "hacker",
 		Description: "Random hacker phrase",
 		Example:     "If we calculate the program, we can get to the AI pixel through the redundant XSS matrix!",

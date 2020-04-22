@@ -50,6 +50,7 @@ func CarModel() string {
 
 func addCarLookup() {
 	AddFuncLookup("car", Info{
+		Display:     "Car",
 		Category:    "car",
 		Description: "Random car set of data",
 		Output:      "map[string]interface",
@@ -60,6 +61,7 @@ func addCarLookup() {
 	})
 
 	AddFuncLookup("cartype", Info{
+		Display:     "Car Type",
 		Category:    "car",
 		Description: "Random car type",
 		Example:     "Passenger car mini",
@@ -70,6 +72,7 @@ func addCarLookup() {
 	})
 
 	AddFuncLookup("carfueltype", Info{
+		Display:     "Car Fuel Type",
 		Category:    "car",
 		Description: "Random car fuel type",
 		Example:     "CNG",
@@ -80,6 +83,7 @@ func addCarLookup() {
 	})
 
 	AddFuncLookup("cartransmissiontype", Info{
+		Display:     "Car Transmission Type",
 		Category:    "car",
 		Description: "Random car transmission type",
 		Example:     "Manual",
@@ -90,6 +94,7 @@ func addCarLookup() {
 	})
 
 	AddFuncLookup("carmaker", Info{
+		Display:     "Car Maker",
 		Category:    "car",
 		Description: "Random car maker",
 		Example:     "Nissan",
@@ -100,6 +105,7 @@ func addCarLookup() {
 	})
 
 	AddFuncLookup("carmodel", Info{
+		Display:     "Car Model",
 		Category:    "car",
 		Description: "Random car model",
 		Example:     "Aveo",

@@ -118,6 +118,7 @@ func luhn(s string) bool {
 
 func addPaymentLookup() {
 	AddFuncLookup("currency", Info{
+		Display:     "Currency",
 		Category:    "payment",
 		Description: "Random currency data set",
 		Example:     `{short: "USD", long: "United States Dollar"}`,
@@ -128,6 +129,7 @@ func addPaymentLookup() {
 	})
 
 	AddFuncLookup("currencyshort", Info{
+		Display:     "Currency Short",
 		Category:    "payment",
 		Description: "Random currency abreviated",
 		Example:     "USD",
@@ -138,6 +140,7 @@ func addPaymentLookup() {
 	})
 
 	AddFuncLookup("currencylong", Info{
+		Display:     "Currency Long",
 		Category:    "payment",
 		Description: "Random currency",
 		Example:     "United States Dollar",
@@ -148,6 +151,7 @@ func addPaymentLookup() {
 	})
 
 	AddFuncLookup("price", Info{
+		Display:     "Price",
 		Category:    "payment",
 		Description: "Random monitary price",
 		Example:     "92.26",
@@ -172,6 +176,7 @@ func addPaymentLookup() {
 	})
 
 	AddFuncLookup("creditcard", Info{
+		Display:     "Credit Card",
 		Category:    "payment",
 		Description: "Random credit card data set",
 		Example:     `{type: "Visa", number: "4136459948995369", exp: "01/21", cvv: "513"}`,
@@ -182,6 +187,7 @@ func addPaymentLookup() {
 	})
 
 	AddFuncLookup("creditcardtype", Info{
+		Display:     "Credit Card Type",
 		Category:    "payment",
 		Description: "Random credit card type",
 		Example:     "Visa",
@@ -192,6 +198,7 @@ func addPaymentLookup() {
 	})
 
 	AddFuncLookup("creditcardnumber", Info{
+		Display:     "Credit Card Number",
 		Category:    "payment",
 		Description: "Random credit card number",
 		Example:     "4136459948995369",
@@ -202,6 +209,7 @@ func addPaymentLookup() {
 	})
 
 	AddFuncLookup("creditcardnumberluhn", Info{
+		Display:     "Credit Card Number Luhn",
 		Category:    "payment",
 		Description: "Random credit card number that passes luhn test",
 		Example:     "2720996615546177",
@@ -212,6 +220,7 @@ func addPaymentLookup() {
 	})
 
 	AddFuncLookup("creditcardexp", Info{
+		Display:     "Credit Card Exp",
 		Category:    "payment",
 		Description: "Random credit card expiraction date",
 		Example:     "01/21",
@@ -222,6 +231,7 @@ func addPaymentLookup() {
 	})
 
 	AddFuncLookup("creditcardcvv", Info{
+		Display:     "Credit Card CVV",
 		Category:    "payment",
 		Description: "Random credit card number",
 		Example:     "513",

@@ -44,6 +44,7 @@ func BeerBlg() string {
 
 func addBeerLookup() {
 	AddFuncLookup("beername", Info{
+		Display:     "Beer Name",
 		Category:    "beer",
 		Description: "Random beer name",
 		Example:     "Duvel",
@@ -54,6 +55,7 @@ func addBeerLookup() {
 	})
 
 	AddFuncLookup("beerstyle", Info{
+		Display:     "Beer Style",
 		Category:    "beer",
 		Description: "Random beer style",
 		Example:     "European Amber Lager",
@@ -64,6 +66,7 @@ func addBeerLookup() {
 	})
 
 	AddFuncLookup("beerhop", Info{
+		Display:     "Beer Hop",
 		Category:    "beer",
 		Description: "Random beer hop type",
 		Example:     "Glacier",
@@ -74,6 +77,7 @@ func addBeerLookup() {
 	})
 
 	AddFuncLookup("beeryeast", Info{
+		Display:     "Beer Yeast",
 		Category:    "beer",
 		Description: "Random beer yeast value",
 		Example:     "1388 - Belgian Strong Ale",
@@ -84,6 +88,7 @@ func addBeerLookup() {
 	})
 
 	AddFuncLookup("beermalt", Info{
+		Display:     "Beer Malt",
 		Category:    "beer",
 		Description: "Random beer malt",
 		Example:     "Munich",
@@ -94,6 +99,7 @@ func addBeerLookup() {
 	})
 
 	AddFuncLookup("beeralcohol", Info{
+		Display:     "Beer Alcohol",
 		Category:    "beer",
 		Description: "Random alcohol percentage",
 		Example:     "2.7%",
@@ -104,6 +110,7 @@ func addBeerLookup() {
 	})
 
 	AddFuncLookup("beeribu", Info{
+		Display:     "Beer IBU",
 		Category:    "beer",
 		Description: "Random beer ibu",
 		Example:     "29 IBU",
@@ -114,6 +121,7 @@ func addBeerLookup() {
 	})
 
 	AddFuncLookup("beerblg", Info{
+		Display:     "Beer BLG",
 		Category:    "beer",
 		Description: "Random beer blg",
 		Example:     "6.4°Blg",

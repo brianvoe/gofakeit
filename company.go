@@ -55,6 +55,7 @@ func JobLevel() string {
 
 func addCompanyLookup() {
 	AddFuncLookup("company", Info{
+		Display:     "Company",
 		Category:    "company",
 		Description: "Random company name",
 		Example:     "Moen, Pagac and Wuckert",
@@ -65,6 +66,7 @@ func addCompanyLookup() {
 	})
 
 	AddFuncLookup("companysuffix", Info{
+		Display:     "Company Suffix",
 		Category:    "company",
 		Description: "Random company name suffix",
 		Example:     "Inc",
@@ -75,6 +77,7 @@ func addCompanyLookup() {
 	})
 
 	AddFuncLookup("bs", Info{
+		Display:     "BS",
 		Category:    "company",
 		Description: "Random bs company word",
 		Example:     "front-end",
@@ -85,6 +88,7 @@ func addCompanyLookup() {
 	})
 
 	AddFuncLookup("buzzword", Info{
+		Display:     "Buzzword",
 		Category:    "company",
 		Description: "Random company buzzwords",
 		Example:     "disintermediate",
@@ -95,6 +99,7 @@ func addCompanyLookup() {
 	})
 
 	AddFuncLookup("job", Info{
+		Display:     "Job",
 		Category:    "company",
 		Description: "Random job data set",
 		Example:     `{company: "Moen, Pagac and Wuckert", title: "Director", descriptor: "Central", level: "Assurance"}`,
@@ -105,6 +110,7 @@ func addCompanyLookup() {
 	})
 
 	AddFuncLookup("jobtitle", Info{
+		Display:     "Job Title",
 		Category:    "company",
 		Description: "Random job title",
 		Example:     "Director",
@@ -115,6 +121,7 @@ func addCompanyLookup() {
 	})
 
 	AddFuncLookup("jobdescriptor", Info{
+		Display:     "Job Descriptor",
 		Category:    "company",
 		Description: "Random job descriptor",
 		Example:     "Central",
@@ -125,6 +132,7 @@ func addCompanyLookup() {
 	})
 
 	AddFuncLookup("joblevel", Info{
+		Display:     "Job Level",
 		Category:    "company",
 		Description: "Random job level",
 		Example:     "Assurance",

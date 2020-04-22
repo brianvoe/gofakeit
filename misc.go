@@ -55,6 +55,7 @@ func Categories() map[string][]string {
 
 func addMiscLookup() {
 	AddFuncLookup("uuid", Info{
+		Display:     "UUID",
 		Category:    "misc",
 		Description: "Random uuid",
 		Example:     "590c1440-9888-45b0-bd51-a817ee07c3f2",
@@ -65,6 +66,7 @@ func addMiscLookup() {
 	})
 
 	AddFuncLookup("bool", Info{
+		Display:     "Boolean",
 		Category:    "misc",
 		Description: "Random boolean",
 		Example:     "true",

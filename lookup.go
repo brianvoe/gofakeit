@@ -12,6 +12,7 @@ var lockFuncLookups sync.Mutex
 
 // Info structures fields to better break down what each one generates
 type Info struct {
+	Display     string                                                        `json:"display"`
 	Category    string                                                        `json:"category"`
 	Description string                                                        `json:"description"`
 	Example     string                                                        `json:"example"`

@@ -107,6 +107,7 @@ func Email() string {
 
 func addPersonLookup() {
 	AddFuncLookup("person", Info{
+		Display:     "Person",
 		Category:    "person",
 		Description: "Random set of person info",
 		Example: `{
@@ -149,6 +150,7 @@ func addPersonLookup() {
 	})
 
 	AddFuncLookup("name", Info{
+		Display:     "Name",
 		Category:    "person",
 		Description: "Random name",
 		Example:     "Markus Moen",
@@ -159,6 +161,7 @@ func addPersonLookup() {
 	})
 
 	AddFuncLookup("nameprefix", Info{
+		Display:     "Name Prefix",
 		Category:    "person",
 		Description: "Random name prefix",
 		Example:     "Mr.",
@@ -169,6 +172,7 @@ func addPersonLookup() {
 	})
 
 	AddFuncLookup("namesuffix", Info{
+		Display:     "Name Suffix",
 		Category:    "person",
 		Description: "Random name suffix",
 		Example:     "Jr.",
@@ -179,6 +183,7 @@ func addPersonLookup() {
 	})
 
 	AddFuncLookup("firstname", Info{
+		Display:     "First Name",
 		Category:    "person",
 		Description: "Random first name",
 		Example:     "Markus",
@@ -189,6 +194,7 @@ func addPersonLookup() {
 	})
 
 	AddFuncLookup("lastname", Info{
+		Display:     "Last Name",
 		Category:    "person",
 		Description: "Random last name",
 		Example:     "Daniel",
@@ -199,6 +205,7 @@ func addPersonLookup() {
 	})
 
 	AddFuncLookup("gender", Info{
+		Display:     "Gender",
 		Category:    "person",
 		Description: "Random gender",
 		Example:     "male",
@@ -209,6 +216,7 @@ func addPersonLookup() {
 	})
 
 	AddFuncLookup("ssn", Info{
+		Display:     "SSN",
 		Category:    "person",
 		Description: "Random social security number",
 		Example:     "296446360",
@@ -219,6 +227,7 @@ func addPersonLookup() {
 	})
 
 	AddFuncLookup("email", Info{
+		Display:     "Email",
 		Category:    "person",
 		Description: "Random email",
 		Example:     "markusmoen@pagac.net",
@@ -229,6 +238,7 @@ func addPersonLookup() {
 	})
 
 	AddFuncLookup("phone", Info{
+		Display:     "Phone",
 		Category:    "person",
 		Description: "Random phone number",
 		Example:     "6136459948",
@@ -239,6 +249,7 @@ func addPersonLookup() {
 	})
 
 	AddFuncLookup("phoneformatted", Info{
+		Display:     "Phone Formatted",
 		Category:    "person",
 		Description: "Random formatted phone number",
 		Example:     "136-459-9489",
