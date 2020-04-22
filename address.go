@@ -132,6 +132,7 @@ func LongitudeInRange(min, max float64) (float64, error) {
 
 func addAddressLookup() {
 	AddFuncLookup("city", Info{
+		Display:     "City",
 		Category:    "address",
 		Description: "Random city",
 		Example:     "Marcelside",
@@ -142,6 +143,7 @@ func addAddressLookup() {
 	})
 
 	AddFuncLookup("country", Info{
+		Display:     "Country",
 		Category:    "address",
 		Description: "Random country",
 		Example:     "United States of America",
@@ -152,6 +154,7 @@ func addAddressLookup() {
 	})
 
 	AddFuncLookup("countryabr", Info{
+		Display:     "Country Abbreviation",
 		Category:    "address",
 		Description: "Random 2 digit country abbreviation",
 		Example:     "US",
@@ -162,6 +165,7 @@ func addAddressLookup() {
 	})
 
 	AddFuncLookup("state", Info{
+		Display:     "State",
 		Category:    "address",
 		Description: "Random state",
 		Example:     "Illinois",
@@ -172,6 +176,7 @@ func addAddressLookup() {
 	})
 
 	AddFuncLookup("stateabr", Info{
+		Display:     "State Abbreviation",
 		Category:    "address",
 		Description: "Random 2 digit state abbreviation",
 		Example:     "IL",
@@ -182,6 +187,7 @@ func addAddressLookup() {
 	})
 
 	AddFuncLookup("street", Info{
+		Display:     "Street",
 		Category:    "address",
 		Description: "Random full street",
 		Example:     "364 East Rapidsborough",
@@ -192,6 +198,7 @@ func addAddressLookup() {
 	})
 
 	AddFuncLookup("streetname", Info{
+		Display:     "Street Name",
 		Category:    "address",
 		Description: "Random street name",
 		Example:     "View",
@@ -202,6 +209,7 @@ func addAddressLookup() {
 	})
 
 	AddFuncLookup("streetnumber", Info{
+		Display:     "Street Number",
 		Category:    "address",
 		Description: "Random street number",
 		Example:     "13645",
@@ -212,6 +220,7 @@ func addAddressLookup() {
 	})
 
 	AddFuncLookup("streetprefix", Info{
+		Display:     "Street Prefix",
 		Category:    "address",
 		Description: "Random street prefix",
 		Example:     "Lake",
@@ -222,6 +231,7 @@ func addAddressLookup() {
 	})
 
 	AddFuncLookup("streetsuffix", Info{
+		Display:     "Street Suffix",
 		Category:    "address",
 		Description: "Random street suffix",
 		Example:     "land",
@@ -232,6 +242,7 @@ func addAddressLookup() {
 	})
 
 	AddFuncLookup("zip", Info{
+		Display:     "Zip",
 		Category:    "address",
 		Description: "Random street zip",
 		Example:     "13645",
@@ -242,6 +253,7 @@ func addAddressLookup() {
 	})
 
 	AddFuncLookup("latitude", Info{
+		Display:     "Latitude",
 		Category:    "address",
 		Description: "Random latitude",
 		Example:     "-73.534056",
@@ -252,6 +264,7 @@ func addAddressLookup() {
 	})
 
 	AddFuncLookup("latituderange", Info{
+		Display:     "Latitude Range",
 		Category:    "address",
 		Description: "Random latitude between given range",
 		Example:     "22.921026",
@@ -281,6 +294,7 @@ func addAddressLookup() {
 	})
 
 	AddFuncLookup("longitude", Info{
+		Display:     "Longitude",
 		Category:    "address",
 		Description: "Random longitude",
 		Example:     "-147.068112",
@@ -291,6 +305,7 @@ func addAddressLookup() {
 	})
 
 	AddFuncLookup("longituderange", Info{
+		Display:     "Longitude Range",
 		Category:    "address",
 		Description: "Random longitude between given range",
 		Example:     "-8.170450",

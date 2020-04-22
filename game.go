@@ -9,6 +9,7 @@ func Gamertag() string {
 
 func addGameLookup() {
 	AddFuncLookup("gamertag", Info{
+		Display:     "Gamertag",
 		Category:    "game",
 		Description: "Random gamertag",
 		Example:     "footinterpret63",

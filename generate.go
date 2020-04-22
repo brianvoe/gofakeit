@@ -151,6 +151,7 @@ func JSON(pretty bool) string {
 
 func addGenerateLookup() {
 	AddFuncLookup("generate", Info{
+		Display:     "Generate",
 		Category:    "generate",
 		Description: "Random string generated from string value based upon available data sets",
 		Example:     "{firstname} {lastname} {email} - Markus Moen markusmoen@pagac.net",
@@ -174,6 +175,7 @@ func addGenerateLookup() {
 	})
 
 	AddFuncLookup("json", Info{
+		Display:     "JSON",
 		Category:    "generate",
 		Description: "Random json data",
 		Example: `{

@@ -54,6 +54,7 @@ func RandomString(a []string) string {
 
 func addStringLookup() {
 	AddFuncLookup("letter", Info{
+		Display:     "Letter",
 		Category:    "string",
 		Description: "Generate a single random lower case ASCII letter",
 		Example:     "g",
@@ -64,6 +65,7 @@ func addStringLookup() {
 	})
 
 	AddFuncLookup("digit", Info{
+		Display:     "Digit",
 		Category:    "string",
 		Description: "Generate a single random lower case ASCII letter",
 		Example:     "g",
@@ -74,6 +76,7 @@ func addStringLookup() {
 	})
 
 	AddFuncLookup("numerify", Info{
+		Display:     "Numerify",
 		Category:    "string",
 		Description: "Replace # with random numerical values",
 		Example:     "(###)###-#### => (555)867-5309",
@@ -92,6 +95,7 @@ func addStringLookup() {
 	})
 
 	AddFuncLookup("lexify", Info{
+		Display:     "Lexify",
 		Category:    "string",
 		Description: "Replace ? will random generated letters",
 		Example:     "?????@??????.com => billy@mister.com",
@@ -110,6 +114,7 @@ func addStringLookup() {
 	})
 
 	AddFuncLookup("shufflestrings", Info{
+		Display:     "Shuffle Strings",
 		Category:    "string",
 		Description: "Shuffle an array of strings",
 		Example:     "hello,world,whats,up => whats,world,hello,up",
@@ -130,6 +135,7 @@ func addStringLookup() {
 	})
 
 	AddFuncLookup("randomstring", Info{
+		Display:     "Random String",
 		Category:    "string",
 		Description: "Randomly grab one string from array",
 		Example:     "hello,world,whats,up => world",

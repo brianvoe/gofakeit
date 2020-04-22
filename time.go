@@ -80,6 +80,7 @@ func addDateTimeLookup() {
 	// TODO: add random datetime output with various format options
 
 	AddFuncLookup("nanosecond", Info{
+		Display:     "Nanosecond",
 		Category:    "time",
 		Description: "Random nanosecond",
 		Example:     "196446360",
@@ -90,6 +91,7 @@ func addDateTimeLookup() {
 	})
 
 	AddFuncLookup("second", Info{
+		Display:     "Second",
 		Category:    "time",
 		Description: "Random second",
 		Example:     "43",
@@ -100,6 +102,7 @@ func addDateTimeLookup() {
 	})
 
 	AddFuncLookup("minute", Info{
+		Display:     "Minute",
 		Category:    "time",
 		Description: "Random minute",
 		Example:     "34",
@@ -110,6 +113,7 @@ func addDateTimeLookup() {
 	})
 
 	AddFuncLookup("hour", Info{
+		Display:     "Hour",
 		Category:    "time",
 		Description: "Random hour",
 		Example:     "8",
@@ -120,6 +124,7 @@ func addDateTimeLookup() {
 	})
 
 	AddFuncLookup("day", Info{
+		Display:     "Day",
 		Category:    "time",
 		Description: "Random day",
 		Example:     "12",
@@ -130,6 +135,7 @@ func addDateTimeLookup() {
 	})
 
 	AddFuncLookup("weekday", Info{
+		Display:     "Weekday",
 		Category:    "time",
 		Description: "Random week day",
 		Example:     "Friday",
@@ -140,6 +146,7 @@ func addDateTimeLookup() {
 	})
 
 	AddFuncLookup("year", Info{
+		Display:     "Year",
 		Category:    "time",
 		Description: "Random year",
 		Example:     "1900",
@@ -150,6 +157,7 @@ func addDateTimeLookup() {
 	})
 
 	AddFuncLookup("timezone", Info{
+		Display:     "Timezone",
 		Category:    "time",
 		Description: "Random timezone",
 		Example:     "Kaliningrad Standard Time",
@@ -160,6 +168,7 @@ func addDateTimeLookup() {
 	})
 
 	AddFuncLookup("timezoneabv", Info{
+		Display:     "Timezone Abbreviation",
 		Category:    "time",
 		Description: "Random abreviated timezone",
 		Example:     "KST",
@@ -170,6 +179,7 @@ func addDateTimeLookup() {
 	})
 
 	AddFuncLookup("timezonefull", Info{
+		Display:     "Timezone Full",
 		Category:    "time",
 		Description: "Random full timezone",
 		Example:     "(UTC+03:00) Kaliningrad, Minsk",
@@ -180,6 +190,7 @@ func addDateTimeLookup() {
 	})
 
 	AddFuncLookup("timezoneoffset", Info{
+		Display:     "Timezone Offset",
 		Category:    "time",
 		Description: "Random timezone offset",
 		Example:     "3",
