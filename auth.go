@@ -85,12 +85,12 @@ func addAuthLookup() {
 		Example:     "EEP+wwpk 4lU-eHNXlJZ4n K9%v&TZ9e",
 		Output:      "string",
 		Params: []Param{
-			{Field: "lower", Type: "bool", Default: "true", Description: "Whether or not to add lower case characters"},
-			{Field: "upper", Type: "bool", Default: "true", Description: "Whether or not to add upper case characters"},
-			{Field: "numeric", Type: "bool", Default: "true", Description: "Whether or not to add numeric characters"},
-			{Field: "special", Type: "bool", Default: "true", Description: "Whether or not to add special characters"},
-			{Field: "space", Type: "bool", Default: "false", Description: "Whether or not to add spaces"},
-			{Field: "length", Type: "int", Default: "12", Description: "Number of characters in password"},
+			{Field: "lower", Display: "Lower", Type: "bool", Default: "true", Description: "Whether or not to add lower case characters"},
+			{Field: "upper", Display: "Upper", Type: "bool", Default: "true", Description: "Whether or not to add upper case characters"},
+			{Field: "numeric", Display: "Numeric", Type: "bool", Default: "true", Description: "Whether or not to add numeric characters"},
+			{Field: "special", Display: "Special", Type: "bool", Default: "true", Description: "Whether or not to add special characters"},
+			{Field: "space", Display: "Space", Type: "bool", Default: "false", Description: "Whether or not to add spaces"},
+			{Field: "length", Display: "Length", Type: "int", Default: "12", Description: "Number of characters in password"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			lower, err := info.GetBool(m, "lower")

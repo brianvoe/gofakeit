@@ -25,6 +25,7 @@ type Info struct {
 // Param is a breakdown of param requirements and type definition
 type Param struct {
 	Field       string `json:"field"`
+	Display     string `json:"display"`
 	Type        string `json:"type"`
 	Default     string `json:"default"`
 	Description string `json:"description"`
