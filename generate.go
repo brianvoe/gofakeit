@@ -157,20 +157,20 @@ func addGenerateLookup() {
 		Example:     "{firstname} {lastname} {email} - Markus Moen markusmoen@pagac.net",
 		Output:      "string",
 		Params: []Param{
-			{Field: "value", Type: "string", Description: "String value to generate from"},
+			{Field: "str", Display: "String", Type: "string", Description: "String value to generate from"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			value, err := info.GetString(m, "value")
+			str, err := info.GetString(m, "str")
 			if err != nil {
 				return nil, err
 			}
 
 			// Limit the length of the string passed
-			if len(value) >= 1000 {
-				return nil, errors.New("Value length is too large. Limit to 1000 characters")
+			if len(str) > 1000 {
+				return nil, errors.New("String length is too large. Limit to 1000 characters")
 			}
 
-			return Generate(value), nil
+			return Generate(str), nil
 		},
 	})
 
@@ -191,7 +191,7 @@ func addGenerateLookup() {
 		}`,
 		Output: "string",
 		Params: []Param{
-			{Field: "pretty", Type: "bool", Default: "true", Description: "Boolean on whether or not to output pretty format"},
+			{Field: "pretty", Display: "Pretty", Type: "bool", Default: "true", Description: "Boolean on whether or not to output pretty format"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			p, err := info.GetBool(m, "pretty")

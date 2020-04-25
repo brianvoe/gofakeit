@@ -128,5 +128,23 @@ func TestLookupCheckFields(t *testing.T) {
 		if info.Output == "" {
 			t.Fatalf("%s is misssing output", field)
 		}
+
+		// Check params
+		if info.Params != nil {
+			for _, p := range info.Params {
+				if p.Field == "" {
+					t.Fatalf("Field %s param %s is missing a field", field, p.Field)
+				}
+				if p.Display == "" {
+					t.Fatalf("Field %s param %s is missing a display", field, p.Field)
+				}
+				if p.Type == "" {
+					t.Fatalf("Field %s param %s is missing a type", field, p.Field)
+				}
+				if p.Description == "" {
+					t.Fatalf("Field %s param %s is missing a description", field, p.Field)
+				}
+			}
+		}
 	}
 }

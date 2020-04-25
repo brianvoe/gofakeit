@@ -270,8 +270,8 @@ func addAddressLookup() {
 		Example:     "22.921026",
 		Output:      "float",
 		Params: []Param{
-			{Field: "min", Type: "float", Default: "0", Description: "Minimum range"},
-			{Field: "max", Type: "float", Default: "90", Description: "Maximum range"},
+			{Field: "min", Display: "Min", Type: "float", Default: "0", Description: "Minimum range"},
+			{Field: "max", Display: "Max", Type: "float", Default: "90", Description: "Maximum range"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			min, err := info.GetFloat64(m, "min")
@@ -311,8 +311,8 @@ func addAddressLookup() {
 		Example:     "-8.170450",
 		Output:      "float",
 		Params: []Param{
-			{Field: "min", Type: "float", Default: "0", Description: "Minimum range"},
-			{Field: "max", Type: "float", Default: "180", Description: "Maximum range"},
+			{Field: "min", Display: "Min", Type: "float", Default: "0", Description: "Minimum range"},
+			{Field: "max", Display: "Max", Type: "float", Default: "180", Description: "Maximum range"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			min, err := info.GetFloat64(m, "min")
