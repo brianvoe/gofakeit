@@ -8,7 +8,7 @@ import (
 func ExampleEmoji() {
 	Seed(11)
 	fmt.Println(Emoji())
-	// Output: 🎊
+	// Output: 🧛
 }
 
 func BenchmarkEmoji(b *testing.B) {
