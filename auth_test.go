@@ -44,9 +44,9 @@ func ExamplePassword() {
 	// Output: vodnqxzsuptgehrzylximvylxzoywexw
 	// ZSRQWJFJWCSTVGXKYKWMLIAFGFELFJRG
 	// 61718615932495608398906260648432
-	// @=-%%#$=-%+++&-#?*&?%&=%?+#@@-&?
-	// EEP+wwpk 4lU-eHNXlJZ4n K9%v&TZ9e
-	// j ?9X
+	// @$,@#:,(,).{?:%?)>*..<=};#$(:{==
+	// CkF{wwb:?Kb},w?vdz{Zox C&>Prt99:
+	// j ;9X
 }
 
 func BenchmarkPassword(b *testing.B) {
