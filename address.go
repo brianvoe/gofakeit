@@ -132,9 +132,9 @@ func LongitudeInRange(min, max float64) (float64, error) {
 
 func addAddressLookup() {
 	AddFuncLookup("address", Info{
-		Display:     "Person",
+		Display:     "Address",
 		Category:    "address",
-		Description: "Random set of person info",
+		Description: "Random set of address info",
 		Example: `{
 			address: "364 East Rapidsborough, Rutherfordstad, New Jersey 36906",
 			street: "364 East Rapidsborough",
@@ -147,7 +147,7 @@ func addAddressLookup() {
 		}`,
 		Output: "map[string]interface",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Person(), nil
+			return Address(), nil
 		},
 	})
 
