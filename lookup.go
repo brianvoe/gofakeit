@@ -50,6 +50,7 @@ func init() {
 	addHipsterLookup()
 	addLanguagesLookup()
 	addFileLookup()
+	addFileJSONLookup()
 	addEmojiLookup()
 	addImageLookup()
 	addNumberLookup()
