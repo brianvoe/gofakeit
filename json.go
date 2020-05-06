@@ -5,19 +5,15 @@ import (
 	"errors"
 )
 
+// JSONOptions defines values needed for json generation
 type JSONOptions struct {
-	Type       string  `json:"type"` // array or object
-	RowCount   int     `json:"row_count"`
-	Fields     []Field `json:"fields"`
-	Whitespace bool    `json:"whitespace"`
+	Type     string  `json:"type"` // array or object
+	RowCount int     `json:"row_count"`
+	Fields   []Field `json:"fields"`
+	Indent   bool    `json:"indent"`
 }
 
-type Field struct {
-	Name     string              `json:"name"`
-	Function string              `json:"function"`
-	Params   map[string][]string `json:"params"`
-}
-
+// JSON generates an object or an array of objects in json format
 func JSON(jo *JSONOptions) ([]byte, error) {
 	// Check to make sure they passed in a type
 	if jo.Type != "array" && jo.Type != "object" {
@@ -49,7 +45,7 @@ func JSON(jo *JSONOptions) ([]byte, error) {
 
 		// Marshal into bytes
 		j := []byte{}
-		if jo.Whitespace {
+		if jo.Indent {
 			j, _ = json.MarshalIndent(v, "", "    ")
 		} else {
 			j, _ = json.Marshal(v)
@@ -94,7 +90,7 @@ func JSON(jo *JSONOptions) ([]byte, error) {
 
 		// Marshal into bytes
 		j := []byte{}
-		if jo.Whitespace {
+		if jo.Indent {
 			j, _ = json.MarshalIndent(v, "", "    ")
 		} else {
 			j, _ = json.Marshal(v)
@@ -109,14 +105,18 @@ func addFileJSONLookup() {
 	AddFuncLookup("json", Info{
 		Display:     "JSON",
 		Category:    "file",
-		Description: "Random latitude between given range",
-		Example:     "22.921026",
-		Output:      "float",
+		Description: "Generates an object or an array of objects in json format",
+		Example: `[
+			{ "id": 1, "first_name": "Markus", "last_name": "Moen" },
+			{ "id": 2, "first_name": "Alayna", "last_name": "Wuckert" },
+			{ "id": 3, "first_name": "Lura", "last_name": "Lockman" }
+		]`,
+		Output: "[]byte",
 		Params: []Param{
 			{Field: "type", Display: "Type", Type: "string", Default: "object", Description: "Type of JSON, object or array"},
 			{Field: "rowcount", Display: "Row Count", Type: "int", Default: "100", Description: "Number of rows in JSON array"},
-			{Field: "fields", Display: "Fields", Type: "map[string]string", Description: "Fields containing key name and function to run"},
-			{Field: "whitespace", Display: "Whitespace", Type: "bool", Default: "false", Description: "Whether or not to add whitespace and newlines"},
+			{Field: "fields", Display: "Fields", Type: "[]string", Description: "Fields containing key name and function to run in json format"},
+			{Field: "indent", Display: "Indent", Type: "bool", Default: "false", Description: "Whether or not to add indents and newlines"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			jo := JSONOptions{}
@@ -133,17 +133,30 @@ func addFileJSONLookup() {
 			}
 			jo.RowCount = rowcount
 
-			// fields, err := info.GetInt(m, "fields")
-			// if err != nil {
-			// 	return nil, err
-			// }
-			// jo.Fields = fields
-
-			whitespace, err := info.GetBool(m, "whitespace")
+			fieldsStr, err := info.GetStringArray(m, "fields")
 			if err != nil {
 				return nil, err
 			}
-			jo.Whitespace = whitespace
+
+			// Check to make sure fields has length
+			if len(fieldsStr) > 0 {
+				jo.Fields = make([]Field, len(fieldsStr))
+
+				for i, f := range fieldsStr {
+					// Unmarshal fields string into fields array
+					err = json.Unmarshal([]byte(f), &jo.Fields[i])
+					if err != nil {
+						panic(err)
+						return nil, errors.New("Unable to decode json string")
+					}
+				}
+			}
+
+			indent, err := info.GetBool(m, "indent")
+			if err != nil {
+				return nil, err
+			}
+			jo.Indent = indent
 
 			rangeOut, err := JSON(&jo)
 			if err != nil {

@@ -31,8 +31,8 @@ type Param struct {
 	Description string `json:"description"`
 }
 
-// FileField is used for defining what name and function you to generate for file outuputs
-type FileField struct {
+// Field is used for defining what name and function you to generate for file outuputs
+type Field struct {
 	Name     string              `json:"name"`
 	Function string              `json:"function"`
 	Params   map[string][]string `json:"params"`

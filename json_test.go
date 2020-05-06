@@ -1,6 +1,9 @@
 package gofakeit
 
-import "fmt"
+import (
+	"fmt"
+	"testing"
+)
 
 func ExampleJSON_object() {
 	Seed(11)
@@ -12,7 +15,7 @@ func ExampleJSON_object() {
 			{Name: "last_name", Function: "lastname"},
 			{Name: "address", Function: "address"},
 		},
-		Whitespace: true,
+		Indent: true,
 	})
 	if err != nil {
 		fmt.Println(err)
@@ -46,8 +49,8 @@ func ExampleJSON_array() {
 			{Name: "first_name", Function: "firstname"},
 			{Name: "last_name", Function: "lastname"},
 		},
-		RowCount:   3,
-		Whitespace: true,
+		RowCount: 3,
+		Indent:   true,
 	})
 	if err != nil {
 		fmt.Println(err)
@@ -72,4 +75,23 @@ func ExampleJSON_array() {
 	//         "last_name": "Lockman"
 	//     }
 	// ]
+}
+
+func TestJSONLookup(t *testing.T) {
+	info := GetFuncLookup("json")
+
+	m := map[string][]string{
+		"type":     {"array"},
+		"rowcount": {"10"},
+		"fields":   {
+			`{"name":"id","function":"autoincrement"}`,
+			`{"name":"first_name","function":"firstname"}`
+		},
+	}
+	value, err := info.Call(&m, info)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+
+	t.Fatal(fmt.Sprintf("%s", value.([]byte)))
 }
