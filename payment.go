@@ -157,7 +157,7 @@ func addPaymentLookup() {
 		Example:     "92.26",
 		Output:      "float64",
 		Params: []Param{
-			{Field: "min", Display: "Min", Type: "float", Default: "0", Description: "Minumum price value"},
+			{Field: "min", Display: "Min", Type: "float", Default: "0", Description: "Minimum price value"},
 			{Field: "max", Display: "Max", Type: "float", Default: "1000", Description: "Maximum price value"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
