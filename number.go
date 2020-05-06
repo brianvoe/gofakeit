@@ -276,7 +276,7 @@ func addNumberLookup() {
 		Example:     "1,2,3,4 => 3,1,4,2",
 		Output:      "[]int",
 		Params: []Param{
-			{Field: "ints", Display: "Integers", Type: "[]int", Description: "Delimited seperated integers"},
+			{Field: "ints", Display: "Integers", Type: "[]int", Description: "Delimited separated integers"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			ints, err := info.GetIntArray(m, "ints")

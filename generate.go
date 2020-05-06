@@ -31,7 +31,7 @@ func Generate(dataVal string) string {
 	for strings.Count(dataVal, "{") > 0 && strings.Count(dataVal, "}") > 0 {
 		fParts := dataVal[(strings.Index(dataVal, "{") + 1):strings.Index(dataVal, "}")]
 
-		// Check if has params seperated by :
+		// Check if has params separated by :
 		fNameSplit := strings.SplitN(fParts, ":", 2)
 		fName := ""
 		fParams := ""
