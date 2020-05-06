@@ -170,7 +170,7 @@ func addDateTimeLookup() {
 	AddFuncLookup("timezoneabv", Info{
 		Display:     "Timezone Abbreviation",
 		Category:    "time",
-		Description: "Random abreviated timezone",
+		Description: "Random abbreviated timezone",
 		Example:     "KST",
 		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {

@@ -131,7 +131,7 @@ func addPaymentLookup() {
 	AddFuncLookup("currencyshort", Info{
 		Display:     "Currency Short",
 		Category:    "payment",
-		Description: "Random currency abreviated",
+		Description: "Random currency abbreviated",
 		Example:     "USD",
 		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
