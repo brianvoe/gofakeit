@@ -1,6 +1,7 @@
 package gofakeit
 
 import (
+	"errors"
 	"strconv"
 	"time"
 )
@@ -77,7 +78,47 @@ func TimeZoneOffset() float32 {
 }
 
 func addDateTimeLookup() {
-	// TODO: add random datetime output with various format options
+	AddFuncLookup("date", Info{
+		Display:     "Date",
+		Category:    "time",
+		Description: "Random date",
+		Example:     "2006-01-02T15:04:05Z07:00",
+		Output:      "string",
+		Params: []Param{
+			{Field: "format", Display: "Format", Type: "string", Default: "RFC3339", Description: "Date time string format output"},
+		},
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			format, err := info.GetString(m, "format")
+			if err != nil {
+				return nil, err
+			}
+
+			switch format {
+			case "ANSIC":
+				return Date().Format(time.ANSIC), nil
+			case "UnixDate":
+				return Date().Format(time.UnixDate), nil
+			case "RubyDate":
+				return Date().Format(time.RubyDate), nil
+			case "RFC822":
+				return Date().Format(time.RFC822), nil
+			case "RFC822Z":
+				return Date().Format(time.RFC822Z), nil
+			case "RFC850":
+				return Date().Format(time.RFC850), nil
+			case "RFC1123":
+				return Date().Format(time.RFC1123), nil
+			case "RFC1123Z":
+				return Date().Format(time.RFC1123Z), nil
+			case "RFC3339":
+				return Date().Format(time.RFC3339), nil
+			case "RFC3339Nano":
+				return Date().Format(time.RFC3339Nano), nil
+			}
+
+			return "", errors.New("Invalid format")
+		},
+	})
 
 	AddFuncLookup("nanosecond", Info{
 		Display:     "Nanosecond",
