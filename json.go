@@ -32,7 +32,7 @@ func JSON(jo *JSONOptions) ([]byte, error) {
 			// Get function info
 			funcInfo := GetFuncLookup(field.Function)
 			if funcInfo == nil {
-				return nil, errors.New("Invalid function, does not exist")
+				return nil, errors.New("Invalid function, " + field.Function + " does not exist")
 			}
 
 			value, err := funcInfo.Call(&field.Params, funcInfo)
@@ -74,7 +74,7 @@ func JSON(jo *JSONOptions) ([]byte, error) {
 				// Get function info
 				funcInfo := GetFuncLookup(field.Function)
 				if funcInfo == nil {
-					return nil, errors.New("Invalid function, does not exist")
+					return nil, errors.New("Invalid function, " + field.Function + " does not exist")
 				}
 
 				value, err := funcInfo.Call(&field.Params, funcInfo)
@@ -146,7 +146,6 @@ func addFileJSONLookup() {
 					// Unmarshal fields string into fields array
 					err = json.Unmarshal([]byte(f), &jo.Fields[i])
 					if err != nil {
-						panic(err)
 						return nil, errors.New("Unable to decode json string")
 					}
 				}

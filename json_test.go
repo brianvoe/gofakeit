@@ -14,6 +14,7 @@ func ExampleJSON_object() {
 			{Name: "first_name", Function: "firstname"},
 			{Name: "last_name", Function: "lastname"},
 			{Name: "address", Function: "address"},
+			{Name: "password", Function: "password", Params: map[string][]string{"special": {"false"}}},
 		},
 		Indent: true,
 	})
@@ -25,17 +26,18 @@ func ExampleJSON_object() {
 
 	// Output: {
 	//     "address": {
-	//         "address": "185 Villetown, Aleenside, Illinois 84157",
-	//         "street": "185 Villetown",
-	//         "city": "Aleenside",
-	//         "state": "Illinois",
-	//         "zip": "84157",
-	//         "country": "Solomon Islands",
-	//         "latitude": -53.426363,
-	//         "longitude": -50.08629
+	//         "address": "4599 Daleton, Lake Carroll, Mississippi 90635",
+	//         "street": "4599 Daleton",
+	//         "city": "Lake Carroll",
+	//         "state": "Mississippi",
+	//         "zip": "90635",
+	//         "country": "Saint Pierre and Miquelon",
+	//         "latitude": 22.008873,
+	//         "longitude": 158.531956
 	//     },
-	//     "first_name": "Bart",
-	//     "last_name": "Beatty"
+	//     "first_name": "Markus",
+	//     "last_name": "Moen",
+	//     "password": "YjJbXclnVN0H"
 	// }
 }
 
@@ -48,6 +50,7 @@ func ExampleJSON_array() {
 			{Name: "id", Function: "autoincrement"},
 			{Name: "first_name", Function: "firstname"},
 			{Name: "last_name", Function: "lastname"},
+			{Name: "password", Function: "password", Params: map[string][]string{"special": {"false"}}},
 		},
 		RowCount: 3,
 		Indent:   true,
@@ -62,17 +65,20 @@ func ExampleJSON_array() {
 	//     {
 	//         "first_name": "Markus",
 	//         "id": 1,
-	//         "last_name": "Moen"
+	//         "last_name": "Moen",
+	//         "password": "Dc0VYXjkWABx"
 	//     },
 	//     {
-	//         "first_name": "Alayna",
+	//         "first_name": "Osborne",
 	//         "id": 2,
-	//         "last_name": "Wuckert"
+	//         "last_name": "Hilll",
+	//         "password": "XPJ9OVNbs5lm"
 	//     },
 	//     {
-	//         "first_name": "Lura",
+	//         "first_name": "Mertie",
 	//         "id": 3,
-	//         "last_name": "Lockman"
+	//         "last_name": "Halvorson",
+	//         "password": "eyl3bhwfV8wA"
 	//     }
 	// ]
 }
@@ -83,15 +89,104 @@ func TestJSONLookup(t *testing.T) {
 	m := map[string][]string{
 		"type":     {"array"},
 		"rowcount": {"10"},
-		"fields":   {
+		"fields": {
 			`{"name":"id","function":"autoincrement"}`,
-			`{"name":"first_name","function":"firstname"}`
+			`{"name":"first_name","function":"firstname"}`,
+			`{"name":"password","function":"password","params":{"special":["false"],"length":["20"]}}`,
 		},
 	}
-	value, err := info.Call(&m, info)
+	_, err := info.Call(&m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
 
-	t.Fatal(fmt.Sprintf("%s", value.([]byte)))
+	// t.Fatal(fmt.Sprintf("%s", value.([]byte)))
+}
+
+func BenchmarkJSONLookup100(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		info := GetFuncLookup("json")
+		m := map[string][]string{
+			"type":     {"array"},
+			"rowcount": {"100"},
+			"fields": {
+				`{"name":"id","function":"autoincrement"}`,
+				`{"name":"first_name","function":"firstname"}`,
+				`{"name":"last_name","function":"lastname"}`,
+				`{"name":"password","function":"password"}`,
+				`{"name":"description","function":"paragraph"}`,
+				`{"name":"created_at","function":"date"}`,
+			},
+		}
+		_, err := info.Call(&m, info)
+		if err != nil {
+			b.Fatal(err.Error())
+		}
+	}
+}
+
+func BenchmarkJSONLookup1000(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		info := GetFuncLookup("json")
+		m := map[string][]string{
+			"type":     {"array"},
+			"rowcount": {"1000"},
+			"fields": {
+				`{"name":"id","function":"autoincrement"}`,
+				`{"name":"first_name","function":"firstname"}`,
+				`{"name":"last_name","function":"lastname"}`,
+				`{"name":"password","function":"password"}`,
+				`{"name":"description","function":"paragraph"}`,
+				`{"name":"created_at","function":"date"}`,
+			},
+		}
+		_, err := info.Call(&m, info)
+		if err != nil {
+			b.Fatal(err.Error())
+		}
+	}
+}
+
+func BenchmarkJSONLookup10000(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		info := GetFuncLookup("json")
+		m := map[string][]string{
+			"type":     {"array"},
+			"rowcount": {"10000"},
+			"fields": {
+				`{"name":"id","function":"autoincrement"}`,
+				`{"name":"first_name","function":"firstname"}`,
+				`{"name":"last_name","function":"lastname"}`,
+				`{"name":"password","function":"password"}`,
+				`{"name":"description","function":"paragraph"}`,
+				`{"name":"created_at","function":"date"}`,
+			},
+		}
+		_, err := info.Call(&m, info)
+		if err != nil {
+			b.Fatal(err.Error())
+		}
+	}
+}
+
+func BenchmarkJSONLookup100000(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		info := GetFuncLookup("json")
+		m := map[string][]string{
+			"type":     {"array"},
+			"rowcount": {"100000"},
+			"fields": {
+				`{"name":"id","function":"autoincrement"}`,
+				`{"name":"first_name","function":"firstname"}`,
+				`{"name":"last_name","function":"lastname"}`,
+				`{"name":"password","function":"password"}`,
+				`{"name":"description","function":"paragraph"}`,
+				`{"name":"created_at","function":"date"}`,
+			},
+		}
+		_, err := info.Call(&m, info)
+		if err != nil {
+			b.Fatal(err.Error())
+		}
+	}
 }
