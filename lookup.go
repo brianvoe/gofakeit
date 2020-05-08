@@ -58,6 +58,7 @@ func init() {
 	addLanguagesLookup()
 	addFileLookup()
 	addFileJSONLookup()
+	addFileCSVLookup()
 	addEmojiLookup()
 	addImageLookup()
 	addNumberLookup()
