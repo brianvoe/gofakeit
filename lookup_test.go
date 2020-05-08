@@ -98,16 +98,13 @@ func TestLookupChecking(t *testing.T) {
 					mapData[p.Field] = []string{fmt.Sprintf("%v", Float32())}
 					break
 				case "[]string":
-					// Check specifically for json
-					if field == "json" && p.Field == "fields" {
-						mapData["fields"] = []string{`{"name":"first_name","function":"firstname"}`}
-						break
-					}
-
 					mapData[p.Field] = []string{Letter(), Letter(), Letter(), Letter()}
 					break
 				case "[]int":
 					mapData[p.Field] = []string{fmt.Sprintf("%d", Int8()), fmt.Sprintf("%d", Int8()), fmt.Sprintf("%d", Int8()), fmt.Sprintf("%d", Int8())}
+					break
+				case "[]Field":
+					mapData[p.Field] = []string{`{"name":"first_name","function":"firstname"}`}
 					break
 				default:
 					t.Fatalf("Looking for %s but switch case doesnt have it", p.Type)

@@ -55,12 +55,6 @@ func TestGetAllRequests(t *testing.T) {
 					mapData.Add(p.Field, fmt.Sprintf("%v", gofakeit.Float32()))
 					break
 				case "[]string":
-					// Check specifically for json
-					if field == "json" && p.Field == "fields" {
-						mapData.Add("fields", `{"name":"first_name","function":"firstname"}`)
-						break
-					}
-
 					mapData.Add(p.Field, gofakeit.Letter())
 					mapData.Add(p.Field, gofakeit.Letter())
 					mapData.Add(p.Field, gofakeit.Letter())
@@ -71,6 +65,9 @@ func TestGetAllRequests(t *testing.T) {
 					mapData.Add(p.Field, fmt.Sprintf("%d", gofakeit.Int8()))
 					mapData.Add(p.Field, fmt.Sprintf("%d", gofakeit.Int8()))
 					mapData.Add(p.Field, fmt.Sprintf("%d", gofakeit.Int8()))
+					break
+				case "[]Field":
+					mapData.Add(p.Field, `{"name":"first_name","function":"firstname"}`)
 					break
 				default:
 					t.Fatalf("Looking for %s but switch case doesnt have it", p.Type)
@@ -171,16 +168,13 @@ func TestPostAllRequests(t *testing.T) {
 					mapData[p.Field] = []string{fmt.Sprintf("%v", gofakeit.Float32())}
 					break
 				case "[]string":
-					// Check specifically for json
-					if field == "json" && p.Field == "fields" {
-						mapData["fields"] = []string{`{"name":"first_name","function":"firstname"}`}
-						break
-					}
-
 					mapData[p.Field] = []string{gofakeit.Letter(), gofakeit.Letter(), gofakeit.Letter(), gofakeit.Letter()}
 					break
 				case "[]int":
 					mapData[p.Field] = []string{fmt.Sprintf("%d", gofakeit.Int8()), fmt.Sprintf("%d", gofakeit.Int8()), fmt.Sprintf("%d", gofakeit.Int8()), fmt.Sprintf("%d", gofakeit.Int8())}
+					break
+				case "[]Field":
+					mapData[p.Field] = []string{`{"name":"first_name","function":"firstname"}`}
 					break
 				default:
 					t.Fatalf("Looking for %s but switch case doesnt have it", p.Type)
