@@ -157,12 +157,12 @@ func addFileJSONLookup() {
 			}
 			jo.Indent = indent
 
-			rangeOut, err := JSON(&jo)
+			jsonOut, err := JSON(&jo)
 			if err != nil {
 				return nil, err
 			}
 
-			return rangeOut, nil
+			return jsonOut, nil
 		},
 	})
 }
