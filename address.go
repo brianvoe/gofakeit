@@ -8,14 +8,14 @@ import (
 
 // AddressInfo is a struct full of address information
 type AddressInfo struct {
-	Address   string  `json:"address"`
-	Street    string  `json:"street"`
-	City      string  `json:"city"`
-	State     string  `json:"state"`
-	Zip       string  `json:"zip"`
-	Country   string  `json:"country"`
-	Latitude  float64 `json:"latitude"`
-	Longitude float64 `json:"longitude"`
+	Address   string  `json:"address" xml:"address"`
+	Street    string  `json:"street" xml:"street"`
+	City      string  `json:"city" xml:"city"`
+	State     string  `json:"state" xml:"state"`
+	Zip       string  `json:"zip" xml:"zip"`
+	Country   string  `json:"country" xml:"country"`
+	Latitude  float64 `json:"latitude" xml:"latitude"`
+	Longitude float64 `json:"longitude" xml:"longitude"`
 }
 
 // Address will generate a struct of address information

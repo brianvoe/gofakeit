@@ -11,9 +11,9 @@ import (
 
 // CSVOptions defines values needed for csv generation
 type CSVOptions struct {
-	Delimiter string  `json:"delimiter"`
-	RowCount  int     `json:"row_count"`
-	Fields    []Field `json:"fields"`
+	Delimiter string  `json:"delimiter" xml:"delimiter"`
+	RowCount  int     `json:"row_count" xml:"row_count"`
+	Fields    []Field `json:"fields" xml:"fields"`
 }
 
 // CSV generates an object or an array of objects in json format

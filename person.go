@@ -7,15 +7,15 @@ import (
 
 // PersonInfo is a struct of person information
 type PersonInfo struct {
-	FirstName  string          `json:"first_name"`
-	LastName   string          `json:"last_name"`
-	Gender     string          `json:"gender"`
-	SSN        string          `json:"ssn"`
-	Image      string          `json:"image"`
-	Job        *JobInfo        `json:"job"`
-	Address    *AddressInfo    `json:"address"`
-	Contact    *ContactInfo    `json:"contact"`
-	CreditCard *CreditCardInfo `json:"credit_card"`
+	FirstName  string          `json:"first_name" xml:"first_name"`
+	LastName   string          `json:"last_name" xml:"last_name"`
+	Gender     string          `json:"gender" xml:"gender"`
+	SSN        string          `json:"ssn" xml:"ssn"`
+	Image      string          `json:"image" xml:"image"`
+	Job        *JobInfo        `json:"job" xml:"job"`
+	Address    *AddressInfo    `json:"address" xml:"address"`
+	Contact    *ContactInfo    `json:"contact" xml:"contact"`
+	CreditCard *CreditCardInfo `json:"credit_card" xml:"credit_card"`
 }
 
 // Person will generate a struct with person information
@@ -74,8 +74,8 @@ func Gender() string {
 
 // ContactInfo struct full of contact info
 type ContactInfo struct {
-	Phone string `json:"phone"`
-	Email string `json:"email"`
+	Phone string `json:"phone" xml:"phone"`
+	Email string `json:"email" xml:"email"`
 }
 
 // Contact will generate a struct with information randomly populated contact information

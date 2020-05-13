@@ -2,12 +2,12 @@ package gofakeit
 
 // CarInfo is a struct dataset of all car information
 type CarInfo struct {
-	Type         string `json:"type"`
-	Fuel         string `json:"fuel"`
-	Transmission string `json:"transmission"`
-	Brand        string `json:"brand"`
-	Model        string `json:"model"`
-	Year         int    `json:"year"`
+	Type         string `json:"type" xml:"type"`
+	Fuel         string `json:"fuel" xml:"fuel"`
+	Transmission string `json:"transmission" xml:"transmission"`
+	Brand        string `json:"brand" xml:"brand"`
+	Model        string `json:"model" xml:"model"`
+	Year         int    `json:"year" xml:"year"`
 }
 
 // Car will generate a struct with car information

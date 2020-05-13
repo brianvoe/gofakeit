@@ -22,10 +22,10 @@ func BS() string {
 
 // JobInfo is a struct of job information
 type JobInfo struct {
-	Company    string `json:"company"`
-	Title      string `json:"title"`
-	Descriptor string `json:"descriptor"`
-	Level      string `json:"level"`
+	Company    string `json:"company" xml:"company"`
+	Title      string `json:"title" xml:"title"`
+	Descriptor string `json:"descriptor" xml:"descriptor"`
+	Level      string `json:"level" xml:"level"`
 }
 
 // Job will generate a struct with random job information

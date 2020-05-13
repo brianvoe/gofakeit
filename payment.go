@@ -11,8 +11,8 @@ import (
 
 // CurrencyInfo is a struct of currency information
 type CurrencyInfo struct {
-	Short string `json:"short"`
-	Long  string `json:"long"`
+	Short string `json:"short" xml:"short"`
+	Long  string `json:"long" xml:"long"`
 }
 
 // Currency will generate a struct with random currency information
@@ -41,10 +41,10 @@ func Price(min, max float64) float64 {
 
 // CreditCardInfo is a struct containing credit variables
 type CreditCardInfo struct {
-	Type   string `json:"type"`
-	Number int    `json:"number"`
-	Exp    string `json:"exp"`
-	Cvv    string `json:"cvv"`
+	Type   string `json:"type" xml:"type"`
+	Number int    `json:"number" xml:"number"`
+	Exp    string `json:"exp" xml:"exp"`
+	Cvv    string `json:"cvv" xml:"cvv"`
 }
 
 // CreditCard will generate a struct full of credit card information

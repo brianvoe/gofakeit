@@ -7,10 +7,10 @@ import (
 
 // JSONOptions defines values needed for json generation
 type JSONOptions struct {
-	Type     string  `json:"type"` // array or object
-	RowCount int     `json:"row_count"`
-	Fields   []Field `json:"fields"`
-	Indent   bool    `json:"indent"`
+	Type     string  `json:"type" xml:"type"` // array or object
+	RowCount int     `json:"row_count" xml:"row_count"`
+	Fields   []Field `json:"fields" xml:"fields"`
+	Indent   bool    `json:"indent" xml:"indent"`
 }
 
 // JSON generates an object or an array of objects in json format
