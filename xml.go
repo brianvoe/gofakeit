@@ -57,6 +57,12 @@ func xmlMapLoop(e *xml.Encoder, m *xmlMap) error {
 	var err error
 	for key, value := range m.Map {
 		v := reflect.ValueOf(value)
+
+		// Always get underlyning Value of value
+		if v.Kind() == reflect.Ptr {
+			v = reflect.Indirect(v)
+		}
+
 		switch v.Kind() {
 		case reflect.Bool,
 			reflect.String,
@@ -80,6 +86,20 @@ func xmlMapLoop(e *xml.Encoder, m *xmlMap) error {
 			err = e.Encode(xmlMap{
 				XMLName: xml.Name{Local: key},
 				Map:     value.(map[string]interface{}),
+			})
+			if err != nil {
+				return err
+			}
+		case reflect.Struct:
+			// Convert struct to map[string]interface{}
+			// So we can rewrap element
+			var inInterface map[string]interface{}
+			inrec, _ := json.Marshal(value)
+			json.Unmarshal(inrec, &inInterface)
+
+			err = e.Encode(xmlMap{
+				XMLName: xml.Name{Local: key},
+				Map:     inInterface,
 			})
 			if err != nil {
 				return err
