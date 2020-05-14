@@ -58,6 +58,7 @@ func init() {
 	addLanguagesLookup()
 	addFileLookup()
 	addFileJSONLookup()
+	addFileXMLLookup()
 	addFileCSVLookup()
 	addEmojiLookup()
 	addImageLookup()
@@ -87,6 +88,18 @@ func GetFuncLookup(functionName string) *Info {
 	}
 
 	return &info
+}
+
+// RemoveFuncLookup will remove a function from lookup
+func RemoveFuncLookup(functionName string) {
+	_, ok := FuncLookups[functionName]
+	if !ok {
+		return
+	}
+
+	lockFuncLookups.Lock()
+	delete(FuncLookups, functionName)
+	lockFuncLookups.Unlock()
 }
 
 // GetField will retrieve field from data

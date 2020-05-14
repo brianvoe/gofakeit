@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"bytes"
+	"encoding/json"
 	"encoding/xml"
 	"errors"
 	"reflect"
@@ -205,4 +206,88 @@ func XML(xo *XMLOptions) ([]byte, error) {
 	}
 
 	return nil, errors.New("Invalid type, must be array or object")
+}
+
+func addFileXMLLookup() {
+	AddFuncLookup("xml", Info{
+		Display:     "XML",
+		Category:    "file",
+		Description: "Generates an single or an array of elements in xml format",
+		Example: `
+			<xml>
+				<record>
+					<first_name>Markus</first_name>
+					<last_name>Moen</last_name>
+					<password>Dc0VYXjkWABx</password>
+				</record>
+				<record>
+					<first_name>Osborne</first_name>
+					<last_name>Hilll</last_name>
+					<password>XPJ9OVNbs5lm</password>
+				</record>
+			</xml>
+		`,
+		Output: "[]byte",
+		Params: []Param{
+			{Field: "type", Display: "Type", Type: "string", Default: "single", Description: "Type of XML, single or array"},
+			{Field: "rootelement", Display: "Root Element", Type: "string", Default: "xml", Description: "Root element wrapper name"},
+			{Field: "recordelement", Display: "Record Element", Type: "string", Default: "record", Description: "Record element for each record row"},
+			{Field: "rowcount", Display: "Row Count", Type: "int", Default: "100", Description: "Number of rows in JSON array"},
+			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function to run in json format"},
+			{Field: "indent", Display: "Indent", Type: "bool", Default: "false", Description: "Whether or not to add indents and newlines"},
+		},
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			xo := XMLOptions{}
+
+			typ, err := info.GetString(m, "type")
+			if err != nil {
+				return nil, err
+			}
+			xo.Type = typ
+
+			rootElement, err := info.GetString(m, "rootelement")
+			if err != nil {
+				return nil, err
+			}
+			xo.RootElement = rootElement
+
+			recordElement, err := info.GetString(m, "recordelement")
+			if err != nil {
+				return nil, err
+			}
+			xo.RecordElement = recordElement
+
+			rowcount, err := info.GetInt(m, "rowcount")
+			if err != nil {
+				return nil, err
+			}
+			xo.RowCount = rowcount
+
+			fieldsStr, err := info.GetStringArray(m, "fields")
+			if err != nil {
+				return nil, err
+			}
+
+			// Check to make sure fields has length
+			if len(fieldsStr) > 0 {
+				xo.Fields = make([]Field, len(fieldsStr))
+
+				for i, f := range fieldsStr {
+					// Unmarshal fields string into fields array
+					err = json.Unmarshal([]byte(f), &xo.Fields[i])
+					if err != nil {
+						return nil, errors.New("Unable to decode json string")
+					}
+				}
+			}
+
+			indent, err := info.GetBool(m, "indent")
+			if err != nil {
+				return nil, err
+			}
+			xo.Indent = indent
+
+			return XML(&xo)
+		},
+	})
 }

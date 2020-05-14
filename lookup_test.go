@@ -151,3 +151,29 @@ func TestLookupCheckFields(t *testing.T) {
 		}
 	}
 }
+
+func TestLookupRemove(t *testing.T) {
+	funcName := "friendname"
+
+	AddFuncLookup(funcName, Info{
+		Category:    "custom",
+		Description: "Random friend name",
+		Example:     "bill",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return RandomString([]string{"bill", "bob", "sally"}), nil
+		},
+	})
+
+	info := GetFuncLookup(funcName)
+	if info == nil {
+		t.Fatal("Could not find lookup")
+	}
+
+	RemoveFuncLookup(funcName)
+
+	info = GetFuncLookup(funcName)
+	if info != nil {
+		t.Fatal("Got info when I shouldn't have")
+	}
+}
