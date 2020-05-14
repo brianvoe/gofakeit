@@ -25,9 +25,17 @@ type Info struct {
 // Param is a breakdown of param requirements and type definition
 type Param struct {
 	Field       string `json:"field"`
+	Display     string `json:"display"`
 	Type        string `json:"type"`
 	Default     string `json:"default"`
 	Description string `json:"description"`
+}
+
+// Field is used for defining what name and function you to generate for file outuputs
+type Field struct {
+	Name     string              `json:"name"`
+	Function string              `json:"function"`
+	Params   map[string][]string `json:"params"`
 }
 
 // init will add all the functions to MapLookups
@@ -49,6 +57,9 @@ func init() {
 	addHipsterLookup()
 	addLanguagesLookup()
 	addFileLookup()
+	addFileJSONLookup()
+	addFileXMLLookup()
+	addFileCSVLookup()
 	addEmojiLookup()
 	addImageLookup()
 	addNumberLookup()
@@ -77,6 +88,18 @@ func GetFuncLookup(functionName string) *Info {
 	}
 
 	return &info
+}
+
+// RemoveFuncLookup will remove a function from lookup
+func RemoveFuncLookup(functionName string) {
+	_, ok := FuncLookups[functionName]
+	if !ok {
+		return
+	}
+
+	lockFuncLookups.Lock()
+	delete(FuncLookups, functionName)
+	lockFuncLookups.Unlock()
 }
 
 // GetField will retrieve field from data

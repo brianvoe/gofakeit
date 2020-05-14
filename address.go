@@ -8,14 +8,14 @@ import (
 
 // AddressInfo is a struct full of address information
 type AddressInfo struct {
-	Address   string  `json:"address"`
-	Street    string  `json:"street"`
-	City      string  `json:"city"`
-	State     string  `json:"state"`
-	Zip       string  `json:"zip"`
-	Country   string  `json:"country"`
-	Latitude  float64 `json:"latitude"`
-	Longitude float64 `json:"longitude"`
+	Address   string  `json:"address" xml:"address"`
+	Street    string  `json:"street" xml:"street"`
+	City      string  `json:"city" xml:"city"`
+	State     string  `json:"state" xml:"state"`
+	Zip       string  `json:"zip" xml:"zip"`
+	Country   string  `json:"country" xml:"country"`
+	Latitude  float64 `json:"latitude" xml:"latitude"`
+	Longitude float64 `json:"longitude" xml:"longitude"`
 }
 
 // Address will generate a struct of address information
@@ -131,6 +131,26 @@ func LongitudeInRange(min, max float64) (float64, error) {
 }
 
 func addAddressLookup() {
+	AddFuncLookup("address", Info{
+		Display:     "Address",
+		Category:    "address",
+		Description: "Random set of address info",
+		Example: `{
+			address: "364 East Rapidsborough, Rutherfordstad, New Jersey 36906",
+			street: "364 East Rapidsborough",
+			city: "Rutherfordstad",
+			state: "New Jersey",
+			zip: "36906",
+			country: "South Africa",
+			latitude: "23.058758",
+			longitude: "89.022594"
+		}`,
+		Output: "map[string]interface",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return Address(), nil
+		},
+	})
+
 	AddFuncLookup("city", Info{
 		Display:     "City",
 		Category:    "address",
@@ -270,8 +290,8 @@ func addAddressLookup() {
 		Example:     "22.921026",
 		Output:      "float",
 		Params: []Param{
-			{Field: "min", Type: "float", Default: "0", Description: "Minimum range"},
-			{Field: "max", Type: "float", Default: "90", Description: "Maximum range"},
+			{Field: "min", Display: "Min", Type: "float", Default: "0", Description: "Minimum range"},
+			{Field: "max", Display: "Max", Type: "float", Default: "90", Description: "Maximum range"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			min, err := info.GetFloat64(m, "min")
@@ -311,8 +331,8 @@ func addAddressLookup() {
 		Example:     "-8.170450",
 		Output:      "float",
 		Params: []Param{
-			{Field: "min", Type: "float", Default: "0", Description: "Minimum range"},
-			{Field: "max", Type: "float", Default: "180", Description: "Maximum range"},
+			{Field: "min", Display: "Min", Type: "float", Default: "0", Description: "Minimum range"},
+			{Field: "max", Display: "Max", Type: "float", Default: "180", Description: "Maximum range"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			min, err := info.GetFloat64(m, "min")

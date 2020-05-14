@@ -40,7 +40,7 @@ func addHipsterLookup() {
 		Example:     "Microdosing roof chia echo pickled.",
 		Output:      "string",
 		Params: []Param{
-			{Field: "wordcount", Type: "int", Default: "5", Description: "Number of words in a sentence"},
+			{Field: "wordcount", Display: "Word Count", Type: "int", Default: "5", Description: "Number of words in a sentence"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			wordCount, err := info.GetInt(m, "wordcount")
@@ -62,10 +62,10 @@ func addHipsterLookup() {
 		Example:     "Microdosing roof chia echo pickled meditation cold-pressed raw denim fingerstache normcore sriracha pork belly. Wolf try-hard pop-up blog tilde hashtag health butcher waistcoat paleo portland vinegar. Microdosing sartorial blue bottle slow-carb freegan five dollar toast you probably haven't heard of them asymmetrical chia farm-to-table narwhal banjo. Gluten-free blog authentic literally synth vinyl meh ethical health fixie banh mi Yuccie. Try-hard drinking squid seitan cray VHS echo chillwave hammock kombucha food truck sustainable.<br />Pug bushwick hella tote bag cliche direct trade waistcoat yr waistcoat knausgaard pour-over master. Pitchfork jean shorts franzen flexitarian distillery hella meggings austin knausgaard crucifix wolf heirloom. Crucifix food truck you probably haven't heard of them trust fund fixie gentrify pitchfork stumptown mlkshk umami chambray blue bottle. 3 wolf moon swag +1 biodiesel knausgaard semiotics taxidermy meh artisan hoodie +1 blue bottle. Fashion axe forage mixtape Thundercats pork belly whatever 90's beard selfies chambray cred mlkshk.<br />Shabby chic typewriter VHS readymade lo-fi bitters PBR&B gentrify lomo raw denim freegan put a bird on it. Raw denim cliche dreamcatcher pug fixie park trust fund migas fingerstache sriracha +1 mustache. Tilde shoreditch kickstarter franzen dreamcatcher green juice mustache neutra polaroid stumptown organic schlitz. Flexitarian ramps chicharrones kogi lo-fi mustache tilde forage street church-key williamsburg taxidermy. Chia mustache plaid mumblecore squid slow-carb disrupt Thundercats goth shoreditch master direct trade.",
 		Output:      "string",
 		Params: []Param{
-			{Field: "paragraphcount", Type: "int", Default: "2", Description: "Number of paragraphs"},
-			{Field: "sentencecount", Type: "int", Default: "2", Description: "Number of sentences in a paragraph"},
-			{Field: "wordcount", Type: "int", Default: "5", Description: "Number of words in a sentence"},
-			{Field: "paragraphseperator", Type: "string", Default: "<br />", Description: "String value to add between paragraphs"},
+			{Field: "paragraphcount", Display: "Paragraph Count", Type: "int", Default: "2", Description: "Number of paragraphs"},
+			{Field: "sentencecount", Display: "Sentence Count", Type: "int", Default: "2", Description: "Number of sentences in a paragraph"},
+			{Field: "wordcount", Display: "Word Count", Type: "int", Default: "5", Description: "Number of words in a sentence"},
+			{Field: "paragraphseparator", Display: "Paragraph Separator", Type: "string", Default: "<br />", Description: "String value to add between paragraphs"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			paragraphCount, err := info.GetInt(m, "paragraphcount")
@@ -92,12 +92,12 @@ func addHipsterLookup() {
 				return nil, errors.New("Invalid word count, must be greater than 0, less than 50")
 			}
 
-			paragraphSeperator, err := info.GetString(m, "paragraphseperator")
+			paragraphSeparator, err := info.GetString(m, "paragraphseparator")
 			if err != nil {
 				return nil, err
 			}
 
-			return HipsterParagraph(paragraphCount, sentenceCount, wordCount, paragraphSeperator), nil
+			return HipsterParagraph(paragraphCount, sentenceCount, wordCount, paragraphSeparator), nil
 		},
 	})
 }

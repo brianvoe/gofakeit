@@ -1,9 +1,11 @@
 package gofakeit
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
+	"math"
+	"math/rand"
+	"regexp/syntax"
 	"strings"
 )
 
@@ -29,7 +31,7 @@ func Generate(dataVal string) string {
 	for strings.Count(dataVal, "{") > 0 && strings.Count(dataVal, "}") > 0 {
 		fParts := dataVal[(strings.Index(dataVal, "{") + 1):strings.Index(dataVal, "}")]
 
-		// Check if has params seperated by :
+		// Check if has params separated by :
 		fNameSplit := strings.SplitN(fParts, ":", 2)
 		fName := ""
 		fParams := ""
@@ -78,6 +80,132 @@ func Generate(dataVal string) string {
 	}
 
 	return dataVal
+}
+
+// Regex will generate a string based upon a RE2 syntax
+func Regex(regexStr string) string {
+	re, err := syntax.Parse(regexStr, syntax.Perl)
+	if err != nil {
+		return "Could not parse regex string"
+	}
+
+	return regexGenerate(re)
+}
+
+func regexGenerate(re *syntax.Regexp) string {
+	op := re.Op
+	switch op {
+	case syntax.OpNoMatch: // matches no strings
+		// Do Nothing
+	case syntax.OpEmptyMatch: // matches empty string
+		return ""
+	case syntax.OpLiteral: // matches Runes sequence
+		var b strings.Builder
+		for _, r := range re.Rune {
+			b.WriteRune(r)
+		}
+		return b.String()
+	case syntax.OpCharClass: // matches Runes interpreted as range pair list
+		// number of possible chars
+		sum := 0
+		for i := 0; i < len(re.Rune); i += 2 {
+			sum += int(re.Rune[i+1]-re.Rune[i]) + 1
+			if re.Rune[i+1] == 0x10ffff { // rune range end
+				sum = -1
+				break
+			}
+		}
+
+		// pick random char in range (inverse match group)
+		if sum == -1 {
+			chars := []uint8{}
+			for j := 0; j < len(allStr); j++ {
+				c := allStr[j]
+
+				// Check c in range
+				for i := 0; i < len(re.Rune); i += 2 {
+					if rune(c) >= re.Rune[i] && rune(c) <= re.Rune[i+1] {
+						chars = append(chars, c)
+						break
+					}
+				}
+			}
+			if len(chars) > 0 {
+				return string([]byte{chars[rand.Intn(len(chars))]})
+			}
+		}
+
+		r := rand.Intn(int(sum))
+		var ru rune
+		sum = 0
+		for i := 0; i < len(re.Rune); i += 2 {
+			gap := int(re.Rune[i+1]-re.Rune[i]) + 1
+			if sum+gap > r {
+				ru = re.Rune[i] + rune(r-sum)
+				break
+			}
+			sum += gap
+		}
+
+		return string(ru)
+	case syntax.OpAnyCharNotNL, syntax.OpAnyChar: // matches any character(and except newline)
+		return randCharacter(allStr)
+	case syntax.OpBeginLine: // matches empty string at beginning of line
+	case syntax.OpEndLine: // matches empty string at end of line
+	case syntax.OpBeginText: // matches empty string at beginning of text
+	case syntax.OpEndText: // matches empty string at end of text
+	case syntax.OpWordBoundary: // matches word boundary `\b`
+	case syntax.OpNoWordBoundary: // matches word non-boundary `\B`
+	case syntax.OpCapture: // capturing subexpression with index Cap, optional name Name
+		return regexGenerate(re.Sub0[0])
+	case syntax.OpStar: // matches Sub[0] zero or more times
+		var b strings.Builder
+		for i := 0; i < Number(0, 10); i++ {
+			for _, r := range re.Sub {
+				b.WriteString(regexGenerate(r))
+			}
+		}
+		return b.String()
+	case syntax.OpPlus: // matches Sub[0] one or more times
+		var b strings.Builder
+		for i := 0; i < Number(1, 10); i++ {
+			for _, r := range re.Sub {
+				b.WriteString(regexGenerate(r))
+			}
+		}
+		return b.String()
+	case syntax.OpQuest: // matches Sub[0] zero or one times
+		var b strings.Builder
+		for i := 0; i < Number(0, 1); i++ {
+			for _, r := range re.Sub {
+				b.WriteString(regexGenerate(r))
+			}
+		}
+		return b.String()
+	case syntax.OpRepeat: // matches Sub[0] at least Min times, at most Max (Max == -1 is no limit)
+		var b strings.Builder
+		count := 0
+		re.Max = int(math.Min(float64(re.Max), float64(10)))
+		if re.Max > re.Min {
+			count = rand.Intn(re.Max - re.Min + 1)
+		}
+		for i := 0; i < re.Min || i < (re.Min+count); i++ {
+			for _, r := range re.Sub {
+				b.WriteString(regexGenerate(r))
+			}
+		}
+		return b.String()
+	case syntax.OpConcat: // matches concatenation of Subs
+		var b strings.Builder
+		for _, r := range re.Sub {
+			b.WriteString(regexGenerate(r))
+		}
+		return b.String()
+	case syntax.OpAlternate: // matches alternation of Subs
+		return regexGenerate(re.Sub[Number(0, len(re.Sub)-1)])
+	}
+
+	return ""
 }
 
 // Map will generate a random set of map data
@@ -138,17 +266,6 @@ func Map() map[string]interface{} {
 	return m
 }
 
-// JSON will generate a random json string based upon the
-func JSON(pretty bool) string {
-	j := []byte{}
-	if pretty {
-		j, _ = json.MarshalIndent(Map(), "", "    ")
-	} else {
-		j, _ = json.Marshal(Map())
-	}
-	return string(j)
-}
-
 func addGenerateLookup() {
 	AddFuncLookup("generate", Info{
 		Display:     "Generate",
@@ -157,49 +274,44 @@ func addGenerateLookup() {
 		Example:     "{firstname} {lastname} {email} - Markus Moen markusmoen@pagac.net",
 		Output:      "string",
 		Params: []Param{
-			{Field: "value", Type: "string", Description: "String value to generate from"},
+			{Field: "str", Display: "String", Type: "string", Description: "String value to generate from"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			value, err := info.GetString(m, "value")
+			str, err := info.GetString(m, "str")
 			if err != nil {
 				return nil, err
 			}
 
 			// Limit the length of the string passed
-			if len(value) >= 1000 {
-				return nil, errors.New("Value length is too large. Limit to 1000 characters")
+			if len(str) > 1000 {
+				return nil, errors.New("String length is too large. Limit to 1000 characters")
 			}
 
-			return Generate(value), nil
+			return Generate(str), nil
 		},
 	})
 
-	AddFuncLookup("json", Info{
-		Display:     "JSON",
+	AddFuncLookup("regex", Info{
+		Display:     "Regex",
 		Category:    "generate",
-		Description: "Random json data",
-		Example: `{
-			"hair": {
-				"arrange": 191860.03
-			},
-			"intelligence": 628419.75,
-			"provide": [
-				"tom",
-				"pay",
-				"mark"
-			]
-		}`,
-		Output: "string",
+		Description: "Random string generated from regex RE2 syntax string",
+		Example:     "[abcdef]{5} - affec",
+		Output:      "string",
 		Params: []Param{
-			{Field: "pretty", Type: "bool", Default: "true", Description: "Boolean on whether or not to output pretty format"},
+			{Field: "str", Display: "String", Type: "string", Description: "Regex RE2 syntax string"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			p, err := info.GetBool(m, "pretty")
+			str, err := info.GetString(m, "str")
 			if err != nil {
 				return nil, err
 			}
 
-			return JSON(p), nil
+			// Limit the length of the string passed
+			if len(str) > 500 {
+				return nil, errors.New("String length is too large. Limit to 500 characters")
+			}
+
+			return Regex(str), nil
 		},
 	})
 }

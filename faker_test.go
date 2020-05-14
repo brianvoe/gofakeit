@@ -31,10 +31,10 @@ func Example() {
 	// Color: MidnightBlue
 	// Company: Epsilon
 	// Credit Card: 6521714800889982
-	// Hacker Phrase: N/A the sensor won't do anything, we need to compress the open-source EXE program!
-	// Job Title: Producer
-	// Password: gzDGWlrJgsM?npd7*Yyd9FmCcE%SKX7y
-	// Currency: MYR - Malaysia Ringgit
+	// Hacker Phrase: Overriding the capacitor won't do anything, we need to compress the online SMTP protocol!
+	// Job Title: Supervisor
+	// Password: a8TyS<2l(pRLB4QU7V,O9nKUYcMD0(*g
+	// Currency: ALL - Albania Lek
 }
 
 func TestSeed(t *testing.T) {

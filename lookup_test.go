@@ -103,6 +103,9 @@ func TestLookupChecking(t *testing.T) {
 				case "[]int":
 					mapData[p.Field] = []string{fmt.Sprintf("%d", Int8()), fmt.Sprintf("%d", Int8()), fmt.Sprintf("%d", Int8()), fmt.Sprintf("%d", Int8())}
 					break
+				case "[]Field":
+					mapData[p.Field] = []string{`{"name":"first_name","function":"firstname"}`}
+					break
 				default:
 					t.Fatalf("Looking for %s but switch case doesnt have it", p.Type)
 				}
@@ -128,5 +131,49 @@ func TestLookupCheckFields(t *testing.T) {
 		if info.Output == "" {
 			t.Fatalf("%s is misssing output", field)
 		}
+
+		// Check params
+		if info.Params != nil {
+			for _, p := range info.Params {
+				if p.Field == "" {
+					t.Fatalf("Field %s param %s is missing a field", field, p.Field)
+				}
+				if p.Display == "" {
+					t.Fatalf("Field %s param %s is missing a display", field, p.Field)
+				}
+				if p.Type == "" {
+					t.Fatalf("Field %s param %s is missing a type", field, p.Field)
+				}
+				if p.Description == "" {
+					t.Fatalf("Field %s param %s is missing a description", field, p.Field)
+				}
+			}
+		}
+	}
+}
+
+func TestLookupRemove(t *testing.T) {
+	funcName := "friendname"
+
+	AddFuncLookup(funcName, Info{
+		Category:    "custom",
+		Description: "Random friend name",
+		Example:     "bill",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return RandomString([]string{"bill", "bob", "sally"}), nil
+		},
+	})
+
+	info := GetFuncLookup(funcName)
+	if info == nil {
+		t.Fatal("Could not find lookup")
+	}
+
+	RemoveFuncLookup(funcName)
+
+	info = GetFuncLookup(funcName)
+	if info != nil {
+		t.Fatal("Got info when I shouldn't have")
 	}
 }

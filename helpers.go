@@ -11,8 +11,9 @@ import (
 const lowerStr = "abcdefghijklmnopqrstuvwxyz"
 const upperStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 const numericStr = "0123456789"
-const specialStr = "!@#$%&*+-=?"
-const spaceStr = "   "
+const specialStr = "!@#$%&*+-_=?:;,.|(){}<>"
+const spaceStr = " "
+const allStr = lowerStr + upperStr + numericStr + specialStr + spaceStr
 const hashtag = '#'
 const questionmark = '?'
 
@@ -111,6 +112,10 @@ func replaceWithHexLetters(str string) string {
 // Generate random lowercase ASCII letter
 func randLetter() rune {
 	return rune(byte(rand.Intn(26)) + 'a')
+}
+
+func randCharacter(s string) string {
+	return string(s[rand.Int63()%int64(len(s))])
 }
 
 // Generate random lowercase ASCII letter between a and f

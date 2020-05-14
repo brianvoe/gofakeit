@@ -82,7 +82,7 @@ func addStringLookup() {
 		Example:     "(###)###-#### => (555)867-5309",
 		Output:      "string",
 		Params: []Param{
-			{Field: "str", Type: "string", Description: "String value to replace #'s"},
+			{Field: "str", Display: "String", Type: "string", Description: "String value to replace #'s"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			str, err := info.GetString(m, "str")
@@ -101,7 +101,7 @@ func addStringLookup() {
 		Example:     "?????@??????.com => billy@mister.com",
 		Output:      "string",
 		Params: []Param{
-			{Field: "str", Type: "string", Description: "String value to replace #'s"},
+			{Field: "str", Display: "String", Type: "string", Description: "String value to replace #'s"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			str, err := info.GetString(m, "str")
@@ -120,7 +120,7 @@ func addStringLookup() {
 		Example:     "hello,world,whats,up => whats,world,hello,up",
 		Output:      "[]string",
 		Params: []Param{
-			{Field: "strs", Type: "[]string", Description: "Delimited seperated strings"},
+			{Field: "strs", Display: "Strings", Type: "[]string", Description: "Delimited separated strings"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			strs, err := info.GetStringArray(m, "strs")
@@ -141,7 +141,7 @@ func addStringLookup() {
 		Example:     "hello,world,whats,up => world",
 		Output:      "[]string",
 		Params: []Param{
-			{Field: "strs", Type: "[]string", Description: "Delimited seperated strings"},
+			{Field: "strs", Display: "Strings", Type: "[]string", Description: "Delimited separated strings"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			strs, err := info.GetStringArray(m, "strs")

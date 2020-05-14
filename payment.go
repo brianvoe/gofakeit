@@ -11,8 +11,8 @@ import (
 
 // CurrencyInfo is a struct of currency information
 type CurrencyInfo struct {
-	Short string `json:"short"`
-	Long  string `json:"long"`
+	Short string `json:"short" xml:"short"`
+	Long  string `json:"long" xml:"long"`
 }
 
 // Currency will generate a struct with random currency information
@@ -41,10 +41,10 @@ func Price(min, max float64) float64 {
 
 // CreditCardInfo is a struct containing credit variables
 type CreditCardInfo struct {
-	Type   string `json:"type"`
-	Number int    `json:"number"`
-	Exp    string `json:"exp"`
-	Cvv    string `json:"cvv"`
+	Type   string `json:"type" xml:"type"`
+	Number int    `json:"number" xml:"number"`
+	Exp    string `json:"exp" xml:"exp"`
+	Cvv    string `json:"cvv" xml:"cvv"`
 }
 
 // CreditCard will generate a struct full of credit card information
@@ -131,7 +131,7 @@ func addPaymentLookup() {
 	AddFuncLookup("currencyshort", Info{
 		Display:     "Currency Short",
 		Category:    "payment",
-		Description: "Random currency abreviated",
+		Description: "Random currency abbreviated",
 		Example:     "USD",
 		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
@@ -157,8 +157,8 @@ func addPaymentLookup() {
 		Example:     "92.26",
 		Output:      "float64",
 		Params: []Param{
-			{Field: "min", Type: "float", Default: "0", Description: "Minumum price value"},
-			{Field: "max", Type: "float", Default: "1000", Description: "Maximum price value"},
+			{Field: "min", Display: "Min", Type: "float", Default: "0", Description: "Minimum price value"},
+			{Field: "max", Display: "Max", Type: "float", Default: "1000", Description: "Maximum price value"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			min, err := info.GetFloat64(m, "min")

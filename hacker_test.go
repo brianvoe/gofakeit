@@ -65,14 +65,14 @@ func BenchmarkHackerVerb(b *testing.B) {
 	}
 }
 
-func ExampleHackerIngverb() {
+func ExampleHackeringVerb() {
 	Seed(11)
-	fmt.Println(HackerIngverb())
+	fmt.Println(HackeringVerb())
 	// Output: connecting
 }
 
-func BenchmarkHackerIngverb(b *testing.B) {
+func BenchmarkHackeringVerb(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		HackerIngverb()
+		HackeringVerb()
 	}
 }

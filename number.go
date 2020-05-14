@@ -87,8 +87,8 @@ func addNumberLookup() {
 		Example:     "14866",
 		Output:      "int",
 		Params: []Param{
-			{Field: "min", Type: "int", Default: "-2147483648", Description: "Minimum integer value"},
-			{Field: "max", Type: "int", Default: "2147483647", Description: "Maximum integer value"},
+			{Field: "min", Display: "Min", Type: "int", Default: "-2147483648", Description: "Minimum integer value"},
+			{Field: "max", Display: "Max", Type: "int", Default: "2147483647", Description: "Maximum integer value"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			min, err := info.GetInt(m, "min")
@@ -215,8 +215,8 @@ func addNumberLookup() {
 		Example:     "914774.6",
 		Output:      "float32",
 		Params: []Param{
-			{Field: "min", Type: "int", Description: "Minimum float32 value"},
-			{Field: "max", Type: "int", Description: "Maximum float32 value"},
+			{Field: "min", Display: "Min", Type: "int", Description: "Minimum float32 value"},
+			{Field: "max", Display: "Max", Type: "int", Description: "Maximum float32 value"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			min, err := info.GetFloat32(m, "min")
@@ -251,8 +251,8 @@ func addNumberLookup() {
 		Example:     "914774.5585333086",
 		Output:      "float64",
 		Params: []Param{
-			{Field: "min", Type: "int", Description: "Minimum float64 value"},
-			{Field: "max", Type: "int", Description: "Maximum float64 value"},
+			{Field: "min", Display: "Min", Type: "int", Description: "Minimum float64 value"},
+			{Field: "max", Display: "Max", Type: "int", Description: "Maximum float64 value"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			min, err := info.GetFloat64(m, "min")
@@ -276,7 +276,7 @@ func addNumberLookup() {
 		Example:     "1,2,3,4 => 3,1,4,2",
 		Output:      "[]int",
 		Params: []Param{
-			{Field: "ints", Type: "[]int", Description: "Delimited seperated ints"},
+			{Field: "ints", Display: "Integers", Type: "[]int", Description: "Delimited separated integers"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			ints, err := info.GetIntArray(m, "ints")
