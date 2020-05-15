@@ -85,7 +85,14 @@ func addDateTimeLookup() {
 		Example:     "2006-01-02T15:04:05Z07:00",
 		Output:      "string",
 		Params: []Param{
-			{Field: "format", Display: "Format", Type: "string", Default: "RFC3339", Description: "Date time string format output"},
+			{
+				Field: "format", 
+				Display: "Format", 
+				Type: "string", 
+				Default: "RFC3339",
+				Options: []string{"ANSIC", "UnixDate", "RubyDate", "RFC822", "RFC822Z", "RFC850", "RFC1123", "RFC1123Z", "RFC3339", "RFC3339Nano"},
+				Description: "Date time string format output"
+			},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			format, err := info.GetString(m, "format")

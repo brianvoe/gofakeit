@@ -249,7 +249,7 @@ func addFileXMLLookup() {
 		`,
 		Output: "[]byte",
 		Params: []Param{
-			{Field: "type", Display: "Type", Type: "string", Default: "single", Description: "Type of XML, single or array"},
+			{Field: "type", Display: "Type", Type: "string", Default: "single", Options: []string{"single", "array"}, Description: "Type of XML, single or array"},
 			{Field: "rootelement", Display: "Root Element", Type: "string", Default: "xml", Description: "Root element wrapper name"},
 			{Field: "recordelement", Display: "Record Element", Type: "string", Default: "record", Description: "Record element for each record row"},
 			{Field: "rowcount", Display: "Row Count", Type: "int", Default: "100", Description: "Number of rows in JSON array"},

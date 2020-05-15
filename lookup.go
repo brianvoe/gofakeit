@@ -24,11 +24,12 @@ type Info struct {
 
 // Param is a breakdown of param requirements and type definition
 type Param struct {
-	Field       string `json:"field"`
-	Display     string `json:"display"`
-	Type        string `json:"type"`
-	Default     string `json:"default"`
-	Description string `json:"description"`
+	Field       string   `json:"field"`
+	Display     string   `json:"display"`
+	Type        string   `json:"type"`
+	Default     string   `json:"default"`
+	Options     []string `json:"options"`
+	Description string   `json:"description"`
 }
 
 // Field is used for defining what name and function you to generate for file outuputs
