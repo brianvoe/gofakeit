@@ -114,15 +114,15 @@ func TestCreditCardNumberLuhn(t *testing.T) {
 	Seed(0)
 	for i := 0; i < 100; i++ {
 		cc := strconv.Itoa(CreditCardNumberLuhn())
-		if !luhn(cc) {
+		if !isLuhn(cc) {
 			t.Errorf("not luhn valid: %s", cc)
 		}
 	}
 }
 
-func TestLuhn(t *testing.T) {
+func TestIsLuhn(t *testing.T) {
 	// Lets make sure this card is invalid
-	if luhn("867gfsd5309") {
+	if isLuhn("867gfsd5309") {
 		t.Error("card should have failed")
 	}
 }

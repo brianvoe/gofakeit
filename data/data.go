@@ -12,7 +12,6 @@ var Data = map[string]map[string][]string{
 	"file":      Files,
 	"color":     Colors,
 	"computer":  Computer,
-	"payment":   Payment,
 	"hipster":   Hipster,
 	"beer":      Beer,
 	"hacker":    Hacker,

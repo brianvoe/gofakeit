@@ -49,9 +49,10 @@ type CreditCardInfo struct {
 
 // CreditCard will generate a struct full of credit card information
 func CreditCard() *CreditCardInfo {
+	ccType := CreditCardType()
 	return &CreditCardInfo{
-		Type:   CreditCardType(),
-		Number: CreditCardNumber(),
+		Type:   ccType,
+		Number: CreditCardNumber(&CreditCardOptions{Types: []string{ccType}}),
 		Exp:    CreditCardExp(),
 		Cvv:    CreditCardCvv(),
 	}
@@ -62,8 +63,18 @@ func CreditCardType() string {
 	return getRandValue([]string{"payment", "card_type"})
 }
 
+// CreditCardOptions is the options for credit card number
+type CreditCardOptions struct {
+	Types []string
+	Gaps  []uint
+	Luhn  bool
+}
+
 // CreditCardNumber will generate a random credit card number int
-func CreditCardNumber() int {
+func CreditCardNumber(cco *CreditCardOptions) string {
+	if cco.Types == nil {
+		cco.Types = data.Payment["card_type"]
+	}
 	integer, _ := strconv.Atoi(replaceWithNumbers(getRandValue([]string{"payment", "number"})))
 	return integer
 }
@@ -73,7 +84,7 @@ func CreditCardNumberLuhn() int {
 	cc := ""
 	for i := 0; i < 100000; i++ {
 		cc = replaceWithNumbers(getRandValue([]string{"payment", "number"}))
-		if luhn(cc) {
+		if isLuhn(cc) {
 			break
 		}
 	}
@@ -98,8 +109,8 @@ func CreditCardCvv() string {
 	return Numerify("###")
 }
 
-// luhn check is used for checking if credit card is valid
-func luhn(s string) bool {
+// isLuhn check is used for checking if credit card is valid
+func isLuhn(s string) bool {
 	var t = [...]int{0, 2, 4, 6, 8, 1, 3, 5, 7, 9}
 	odd := len(s) & 1
 	var sum int
