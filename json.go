@@ -1,6 +1,7 @@
 package gofakeit
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 )
@@ -11,6 +12,45 @@ type JSONOptions struct {
 	RowCount int     `json:"row_count" xml:"row_count"`
 	Fields   []Field `json:"fields" xml:"fields"`
 	Indent   bool    `json:"indent" xml:"indent"`
+}
+
+type jsonKeyVal struct {
+	Key   string
+	Value interface{}
+}
+
+type jsonOrderedKeyVal []*jsonKeyVal
+
+func (okv jsonOrderedKeyVal) MarshalJSON() ([]byte, error) {
+	var buf bytes.Buffer
+
+	buf.WriteString("{")
+	for i, kv := range okv {
+		// Add comma to all except last one
+		if i != 0 {
+			buf.WriteString(",")
+		}
+
+		// Marshal key and write
+		key, err := json.Marshal(kv.Key)
+		if err != nil {
+			return nil, err
+		}
+		buf.Write(key)
+
+		// Write colon separator
+		buf.WriteString(":")
+
+		// Marshal value and write
+		val, err := json.Marshal(kv.Value)
+		if err != nil {
+			return nil, err
+		}
+		buf.Write(val)
+	}
+	buf.WriteString("}")
+
+	return buf.Bytes(), nil
 }
 
 // JSON generates an object or an array of objects in json format
@@ -25,22 +65,30 @@ func JSON(jo *JSONOptions) ([]byte, error) {
 	}
 
 	if jo.Type == "object" {
-		v := map[string]interface{}{}
+		v := make(jsonOrderedKeyVal, len(jo.Fields))
 
 		// Loop through fields and add to them to map[string]interface{}
-		for _, field := range jo.Fields {
+		for i, field := range jo.Fields {
+			if field.Function == "autoincrement" {
+				// Object only has one
+				v[i] = &jsonKeyVal{Key: field.Name, Value: 1}
+				continue
+			}
+
 			// Get function info
 			funcInfo := GetFuncLookup(field.Function)
 			if funcInfo == nil {
 				return nil, errors.New("Invalid function, " + field.Function + " does not exist")
 			}
 
+			// Call function value
 			value, err := funcInfo.Call(&field.Params, funcInfo)
 			if err != nil {
 				return nil, err
 			}
 
-			v[field.Name] = value
+			v[i] = &jsonKeyVal{Key: field.Name, Value: value}
+
 		}
 
 		// Marshal into bytes
@@ -59,15 +107,15 @@ func JSON(jo *JSONOptions) ([]byte, error) {
 			return nil, errors.New("Must have row count")
 		}
 
-		v := []map[string]interface{}{}
+		v := make([]jsonOrderedKeyVal, jo.RowCount)
 
-		for i := 1; i <= int(jo.RowCount); i++ {
-			vr := map[string]interface{}{}
+		for i := 0; i < int(jo.RowCount); i++ {
+			vr := make(jsonOrderedKeyVal, len(jo.Fields))
 
 			// Loop through fields and add to them to map[string]interface{}
-			for _, field := range jo.Fields {
+			for ii, field := range jo.Fields {
 				if field.Function == "autoincrement" {
-					vr[field.Name] = i
+					vr[ii] = &jsonKeyVal{Key: field.Name, Value: i + 1} // +1 because index starts with 0
 					continue
 				}
 
@@ -77,15 +125,16 @@ func JSON(jo *JSONOptions) ([]byte, error) {
 					return nil, errors.New("Invalid function, " + field.Function + " does not exist")
 				}
 
+				// Call function value
 				value, err := funcInfo.Call(&field.Params, funcInfo)
 				if err != nil {
 					return nil, err
 				}
 
-				vr[field.Name] = value
+				vr[ii] = &jsonKeyVal{Key: field.Name, Value: value}
 			}
 
-			v = append(v, vr)
+			v[i] = vr
 		}
 
 		// Marshal into bytes

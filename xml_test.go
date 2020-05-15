@@ -5,20 +5,20 @@ import (
 	"testing"
 )
 
-func ExampleXML() {
+func ExampleXML_single() {
 	Seed(11)
 
 	value, err := XML(&XMLOptions{
-		Type:          "array",
+		Type:          "single",
 		RootElement:   "xml",
 		RecordElement: "record",
 		RowCount:      2,
+		Indent:        true,
 		Fields: []Field{
 			{Name: "first_name", Function: "firstname"},
 			{Name: "last_name", Function: "lastname"},
 			{Name: "password", Function: "password", Params: map[string][]string{"special": {"false"}}},
 		},
-		Indent: true,
 	})
 	if err != nil {
 		fmt.Println(err)
@@ -26,6 +26,36 @@ func ExampleXML() {
 
 	fmt.Println(string(value))
 
+	// Output:
+	// <xml>
+	//     <first_name>Markus</first_name>
+	//     <last_name>Moen</last_name>
+	//     <password>Dc0VYXjkWABx</password>
+	// </xml>
+}
+
+func ExampleXML_array() {
+	Seed(11)
+
+	value, err := XML(&XMLOptions{
+		Type:          "array",
+		RootElement:   "xml",
+		RecordElement: "record",
+		RowCount:      2,
+		Indent:        true,
+		Fields: []Field{
+			{Name: "first_name", Function: "firstname"},
+			{Name: "last_name", Function: "lastname"},
+			{Name: "password", Function: "password", Params: map[string][]string{"special": {"false"}}},
+		},
+	})
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(string(value))
+
+	// Output:
 	// <xml>
 	//     <record>
 	//         <first_name>Markus</first_name>

@@ -25,6 +25,8 @@ func ExampleJSON_object() {
 	fmt.Println(string(value))
 
 	// Output: {
+	//     "first_name": "Markus",
+	//     "last_name": "Moen",
 	//     "address": {
 	//         "address": "4599 Daleton, Lake Carroll, Mississippi 90635",
 	//         "street": "4599 Daleton",
@@ -35,8 +37,6 @@ func ExampleJSON_object() {
 	//         "latitude": 22.008873,
 	//         "longitude": 158.531956
 	//     },
-	//     "first_name": "Markus",
-	//     "last_name": "Moen",
 	//     "password": "YjJbXclnVN0H"
 	// }
 }
@@ -63,20 +63,20 @@ func ExampleJSON_array() {
 
 	// Output: [
 	//     {
-	//         "first_name": "Markus",
 	//         "id": 1,
+	//         "first_name": "Markus",
 	//         "last_name": "Moen",
 	//         "password": "Dc0VYXjkWABx"
 	//     },
 	//     {
-	//         "first_name": "Osborne",
 	//         "id": 2,
+	//         "first_name": "Osborne",
 	//         "last_name": "Hilll",
 	//         "password": "XPJ9OVNbs5lm"
 	//     },
 	//     {
-	//         "first_name": "Mertie",
 	//         "id": 3,
+	//         "first_name": "Mertie",
 	//         "last_name": "Halvorson",
 	//         "password": "eyl3bhwfV8wA"
 	//     }
