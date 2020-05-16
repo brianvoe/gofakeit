@@ -79,6 +79,30 @@ func ShuffleInts(a []int) {
 	}
 }
 
+// RandomInt will take in a slice of int and return a randomly selected value
+func RandomInt(i []int) int {
+	size := len(i)
+	if size == 0 {
+		return 0
+	}
+	if size == 1 {
+		return i[0]
+	}
+	return i[rand.Intn(size)]
+}
+
+// RandomUint will take in a slice of uint and return a randomly selected value
+func RandomUint(i []uint) uint {
+	size := len(i)
+	if size == 0 {
+		return 0
+	}
+	if size == 1 {
+		return i[0]
+	}
+	return i[rand.Intn(size)]
+}
+
 func addNumberLookup() {
 	AddFuncLookup("number", Info{
 		Display:     "Number",

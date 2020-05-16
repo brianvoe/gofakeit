@@ -175,3 +175,33 @@ func BenchmarkShuffleInts(b *testing.B) {
 		ShuffleInts([]int{52, 854, 941, 74125, 8413, 777, 89416, 841657})
 	}
 }
+
+func ExampleRandomInt() {
+	Seed(11)
+
+	ints := []int{52, 854, 941, 74125, 8413, 777, 89416, 841657}
+	RandomInt(ints)
+	fmt.Println(RandomInt(ints))
+	// Output: 52
+}
+
+func BenchmarkRandomInt(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		RandomInt([]int{52, 854, 941, 74125, 8413, 777, 89416, 841657})
+	}
+}
+
+func ExampleRandomUint() {
+	Seed(11)
+
+	ints := []uint{52, 854, 941, 74125, 8413, 777, 89416, 841657}
+	RandomUint(ints)
+	fmt.Println(RandomUint(ints))
+	// Output: 52
+}
+
+func BenchmarkRandomUint(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		RandomUint([]uint{52, 854, 941, 74125, 8413, 777, 89416, 841657})
+	}
+}
