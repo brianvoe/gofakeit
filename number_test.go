@@ -182,7 +182,7 @@ func ExampleRandomInt() {
 	ints := []int{52, 854, 941, 74125, 8413, 777, 89416, 841657}
 	RandomInt(ints)
 	fmt.Println(RandomInt(ints))
-	// Output: 52
+	// Output: 841657
 }
 
 func BenchmarkRandomInt(b *testing.B) {
@@ -197,7 +197,7 @@ func ExampleRandomUint() {
 	ints := []uint{52, 854, 941, 74125, 8413, 777, 89416, 841657}
 	RandomUint(ints)
 	fmt.Println(RandomUint(ints))
-	// Output: 52
+	// Output: 841657
 }
 
 func BenchmarkRandomUint(b *testing.B) {
