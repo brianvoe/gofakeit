@@ -2,7 +2,6 @@ package gofakeit
 
 import (
 	"fmt"
-	"strconv"
 	"testing"
 )
 
@@ -62,10 +61,11 @@ func ExampleCreditCard() {
 	fmt.Println(ccInfo.Number)
 	fmt.Println(ccInfo.Exp)
 	fmt.Println(ccInfo.Cvv)
-	// Output: Visa
-	// 6536459948995369
-	// 03/27
-	// 353
+	// Output:
+	// UnionPay
+	// 4645994899536906358
+	// 11/21
+	// 259
 }
 
 func BenchmarkCreditCard(b *testing.B) {
@@ -88,42 +88,38 @@ func BenchmarkCreditCardType(b *testing.B) {
 
 func ExampleCreditCardNumber() {
 	Seed(11)
-	fmt.Println(CreditCardNumber())
-	// Output: 4136459948995369
+	fmt.Println(CreditCardNumber(nil))
+	fmt.Println(CreditCardNumber(&CreditCardOptions{Types: []string{"visa", "discover"}}))
+	fmt.Println(CreditCardNumber(&CreditCardOptions{Gaps: true}))
+	// Output:
+	// 4364599489953690649
+	// 6011425914583029
+	// 5520 2761 3217 1485
+}
+
+func TestCreditCardNumber(t *testing.T) {
+	for i := 0; i < 100000; i++ {
+		if !isLuhn(CreditCardNumber(nil)) {
+			t.Error("Number was not luhn")
+		}
+	}
 }
 
 func BenchmarkCreditCardNumber(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		CreditCardNumber()
-	}
-}
-
-func ExampleCreditCardNumberLuhn() {
-	Seed(11)
-	fmt.Println(CreditCardNumberLuhn())
-	// Output: 2720996615546177
-}
-
-func BenchmarkCreditCardNumberLuhn(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		CreditCardNumberLuhn()
-	}
-}
-
-func TestCreditCardNumberLuhn(t *testing.T) {
-	Seed(0)
-	for i := 0; i < 100; i++ {
-		cc := strconv.Itoa(CreditCardNumberLuhn())
-		if !isLuhn(cc) {
-			t.Errorf("not luhn valid: %s", cc)
-		}
+		CreditCardNumber(nil)
 	}
 }
 
 func TestIsLuhn(t *testing.T) {
 	// Lets make sure this card is invalid
 	if isLuhn("867gfsd5309") {
-		t.Error("card should have failed")
+		t.Error("Card should have failed")
+	}
+
+	// Lets make sure this card is valid
+	if !isLuhn("4716685826369360") {
+		t.Error("Card should not have failed")
 	}
 }
 

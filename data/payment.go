@@ -1,34 +1,37 @@
 package data
 
-// PaymentInfo contains credit card info
-type PaymentInfo struct {
+// CreditCardInfo contains credit card info
+type CreditCardInfo struct {
 	Display  string
 	Patterns []uint
 	Gaps     []uint
 	Lengths  []uint
-	Code     PaymentCode
+	Code     CreditCardCode
 }
 
-// PaymentCode contains code type and size
-type PaymentCode struct {
+// CreditCardCode contains code type and size
+type CreditCardCode struct {
 	Name string
 	Size uint
 }
 
-// Payment contains payment information
-var Payment = map[string]PaymentInfo{
+// CreditCardTypes is an array of credit card types
+var CreditCardTypes = []string{"visa", "masterCreditcard", "american-express", "diners-club", "discover", "jcb", "unionpay", "maestro", "elo", "hiper", "hiperCreditcard"}
+
+// CreditCards contains payment information
+var CreditCards = map[string]CreditCardInfo{
 	"visa": {
 		Display:  "Visa",
 		Patterns: []uint{4},
 		Gaps:     []uint{4, 8, 12},
 		Lengths:  []uint{16, 18, 19},
-		Code: PaymentCode{
+		Code: CreditCardCode{
 			Name: "CVV",
 			Size: 3,
 		},
 	},
-	"mastercard": {
-		Display: "Mastercard",
+	"masterCreditcard": {
+		Display: "MasterCreditcard",
 		Patterns: []uint{
 			51, 55,
 			2221, 2229,
@@ -39,7 +42,7 @@ var Payment = map[string]PaymentInfo{
 		},
 		Gaps:    []uint{4, 8, 12},
 		Lengths: []uint{16},
-		Code: PaymentCode{
+		Code: CreditCardCode{
 			Name: "CVC",
 			Size: 3,
 		},
@@ -49,7 +52,7 @@ var Payment = map[string]PaymentInfo{
 		Patterns: []uint{34, 37},
 		Gaps:     []uint{4, 10},
 		Lengths:  []uint{15},
-		Code: PaymentCode{
+		Code: CreditCardCode{
 			Name: "CID",
 			Size: 4,
 		},
@@ -62,7 +65,7 @@ var Payment = map[string]PaymentInfo{
 		},
 		Gaps:    []uint{4, 10},
 		Lengths: []uint{14, 16, 19},
-		Code: PaymentCode{
+		Code: CreditCardCode{
 			Name: "CVV",
 			Size: 3,
 		},
@@ -74,7 +77,7 @@ var Payment = map[string]PaymentInfo{
 		},
 		Gaps:    []uint{4, 8, 12},
 		Lengths: []uint{16, 19},
-		Code: PaymentCode{
+		Code: CreditCardCode{
 			Name: "CID",
 			Size: 3,
 		},
@@ -86,7 +89,7 @@ var Payment = map[string]PaymentInfo{
 		},
 		Gaps:    []uint{4, 8, 12},
 		Lengths: []uint{16, 17, 18, 19},
-		Code: PaymentCode{
+		Code: CreditCardCode{
 			Name: "CVV",
 			Size: 3,
 		},
@@ -118,7 +121,7 @@ var Payment = map[string]PaymentInfo{
 		},
 		Gaps:    []uint{4, 8, 12},
 		Lengths: []uint{14, 15, 16, 17, 18, 19},
-		Code: PaymentCode{
+		Code: CreditCardCode{
 			Name: "CVN",
 			Size: 3,
 		},
@@ -134,7 +137,7 @@ var Payment = map[string]PaymentInfo{
 		},
 		Gaps:    []uint{4, 8, 12},
 		Lengths: []uint{12, 13, 14, 15, 16, 17, 18, 19},
-		Code: PaymentCode{
+		Code: CreditCardCode{
 			Name: "CVC",
 			Size: 3,
 		},
@@ -164,7 +167,7 @@ var Payment = map[string]PaymentInfo{
 		},
 		Gaps:    []uint{4, 8, 12},
 		Lengths: []uint{16},
-		Code: PaymentCode{
+		Code: CreditCardCode{
 			Name: "CVE",
 			Size: 3,
 		},
@@ -174,7 +177,7 @@ var Payment = map[string]PaymentInfo{
 		Patterns: []uint{2200, 2204},
 		Gaps:     []uint{4, 8, 12},
 		Lengths:  []uint{16, 17, 18, 19},
-		Code: PaymentCode{
+		Code: CreditCardCode{
 			Name: "CVP2",
 			Size: 3,
 		},
@@ -190,17 +193,17 @@ var Payment = map[string]PaymentInfo{
 		},
 		Gaps:    []uint{4, 8, 12},
 		Lengths: []uint{16},
-		Code: PaymentCode{
+		Code: CreditCardCode{
 			Name: "CVC",
 			Size: 3,
 		},
 	},
-	"hipercard": {
-		Display:  "Hipercard",
+	"hiperCreditcard": {
+		Display:  "HiperCreditcard",
 		Patterns: []uint{606282},
 		Gaps:     []uint{4, 8, 12},
 		Lengths:  []uint{16},
-		Code: PaymentCode{
+		Code: CreditCardCode{
 			Name: "CVC",
 			Size: 3,
 		},

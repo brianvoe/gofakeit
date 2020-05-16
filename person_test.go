@@ -125,7 +125,8 @@ func ExamplePerson() {
 	fmt.Println(creditCard.Exp)
 	fmt.Println(creditCard.Cvv)
 
-	// Output: Markus
+	// Output:
+	// Markus
 	// Moen
 	// male
 	// 420776036
@@ -144,9 +145,9 @@ func ExamplePerson() {
 	// 23.921575
 	// 3023202027
 	// lamarkoelpin@heaney.biz
-	// Discover
-	// 4148008899822720
-	// 09/30
+	// Maestro
+	// 39800889982276
+	// 05/29
 	// 932
 }
 

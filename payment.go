@@ -4,6 +4,7 @@ import (
 	"math"
 	"math/rand"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/brianvoe/gofakeit/v5/data"
@@ -42,54 +43,77 @@ func Price(min, max float64) float64 {
 // CreditCardInfo is a struct containing credit variables
 type CreditCardInfo struct {
 	Type   string `json:"type" xml:"type"`
-	Number int    `json:"number" xml:"number"`
+	Number string `json:"number" xml:"number"`
 	Exp    string `json:"exp" xml:"exp"`
 	Cvv    string `json:"cvv" xml:"cvv"`
 }
 
 // CreditCard will generate a struct full of credit card information
 func CreditCard() *CreditCardInfo {
-	ccType := CreditCardType()
+	ccType := RandomString(data.CreditCardTypes)
 	return &CreditCardInfo{
-		Type:   ccType,
+		Type:   data.CreditCards[RandomString(data.CreditCardTypes)].Display,
 		Number: CreditCardNumber(&CreditCardOptions{Types: []string{ccType}}),
 		Exp:    CreditCardExp(),
-		Cvv:    CreditCardCvv(),
+		Cvv:    Generate(strings.Repeat("#", int(data.CreditCards[RandomString(data.CreditCardTypes)].Code.Size))),
 	}
 }
 
 // CreditCardType will generate a random credit card type string
 func CreditCardType() string {
-	return getRandValue([]string{"payment", "card_type"})
+	return data.CreditCards[RandomString(data.CreditCardTypes)].Display
 }
 
 // CreditCardOptions is the options for credit card number
 type CreditCardOptions struct {
 	Types []string
-	Gaps  []uint
-	Luhn  bool
+	Gaps  bool
 }
 
 // CreditCardNumber will generate a random credit card number int
 func CreditCardNumber(cco *CreditCardOptions) string {
-	if cco.Types == nil {
-		cco.Types = data.Payment["card_type"]
+	if cco == nil {
+		cco = &CreditCardOptions{}
 	}
-	integer, _ := strconv.Atoi(replaceWithNumbers(getRandValue([]string{"payment", "number"})))
-	return integer
-}
+	if cco.Types == nil {
+		cco.Types = data.CreditCardTypes
+	}
+	ccType := RandomString(cco.Types)
 
-// CreditCardNumberLuhn will generate a random credit card number int that passes luhn test
-func CreditCardNumberLuhn() int {
-	cc := ""
-	for i := 0; i < 100000; i++ {
-		cc = replaceWithNumbers(getRandValue([]string{"payment", "number"}))
-		if isLuhn(cc) {
+	// Get Card info
+	var cardInfo data.CreditCardInfo
+	if info, ok := data.CreditCards[ccType]; ok {
+		cardInfo = info
+	} else {
+		ccType = RandomString(data.CreditCardTypes)
+		cardInfo = data.CreditCards[ccType]
+	}
+
+	// Get length and pattern
+	length := RandomUint(cardInfo.Lengths)
+	numStr := strconv.FormatUint(uint64(RandomUint(cardInfo.Patterns)), 10)
+	numStr += strings.Repeat("#", int(length)-len(numStr))
+	numStr = Numerify(numStr)
+	ui, _ := strconv.ParseUint(numStr, 10, 64)
+
+	// Loop through until its a valid luhn
+	for {
+		valid := isLuhn(strconv.FormatUint(ui, 10))
+		if valid {
 			break
 		}
+		ui++
 	}
-	integer, _ := strconv.Atoi(cc)
-	return integer
+	numStr = strconv.FormatUint(ui, 10)
+
+	// Add gaps to number
+	if cco.Gaps {
+		for i, spot := range cardInfo.Gaps {
+			numStr = numStr[:(int(spot)+i)] + " " + numStr[(int(spot)+i):]
+		}
+	}
+
+	return numStr
 }
 
 // CreditCardExp will generate a random credit card expiration date string
@@ -104,12 +128,13 @@ func CreditCardExp() string {
 	return month + "/" + strconv.Itoa(randIntRange(currentYear+1, currentYear+10))
 }
 
-// CreditCardCvv will generate a random CVV number - Its a string because you could have 017 as an exp date
+// CreditCardCvv will generate a random CVV number
+// Its a string because you could have 017 as an exp date
 func CreditCardCvv() string {
 	return Numerify("###")
 }
 
-// isLuhn check is used for checking if credit card is valid
+// isLuhn check is used for checking if credit card is a valid luhn card
 func isLuhn(s string) bool {
 	var t = [...]int{0, 2, 4, 6, 8, 1, 3, 5, 7, 9}
 	odd := len(s) & 1
@@ -215,18 +240,7 @@ func addPaymentLookup() {
 		Example:     "4136459948995369",
 		Output:      "int",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return CreditCardNumber(), nil
-		},
-	})
-
-	AddFuncLookup("creditcardnumberluhn", Info{
-		Display:     "Credit Card Number Luhn",
-		Category:    "payment",
-		Description: "Random credit card number that passes luhn test",
-		Example:     "2720996615546177",
-		Output:      "int",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return CreditCardNumberLuhn(), nil
+			return CreditCardNumber(nil), nil
 		},
 	})
 
