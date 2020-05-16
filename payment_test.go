@@ -105,6 +105,20 @@ func TestCreditCardNumber(t *testing.T) {
 	}
 }
 
+func TestCreditCardNumberLookup(t *testing.T) {
+	info := GetFuncLookup("creditcardnumber")
+
+	m := map[string][]string{
+		"gaps": {"true"},
+	}
+	_, err := info.Call(&m, info)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+
+	// t.Fatal(fmt.Sprintf("%s", value.(string)))
+}
+
 func BenchmarkCreditCardNumber(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		CreditCardNumber(nil)

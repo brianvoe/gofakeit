@@ -75,7 +75,7 @@ func CreditCardNumber(cco *CreditCardOptions) string {
 	if cco == nil {
 		cco = &CreditCardOptions{}
 	}
-	if cco.Types == nil {
+	if cco.Types == nil || len(cco.Types) == 0 {
 		cco.Types = data.CreditCardTypes
 	}
 	ccType := RandomString(cco.Types)
@@ -239,8 +239,33 @@ func addPaymentLookup() {
 		Description: "Random credit card number",
 		Example:     "4136459948995369",
 		Output:      "int",
+		Params: []Param{
+			{
+				Field: "types", Display: "Types", Type: "[]string", Default: "all",
+				Options:     []string{"visa", "masterCreditcard", "american-express", "diners-club", "discover", "jcb", "unionpay", "maestro", "elo", "hiper", "hiperCreditcard"},
+				Description: "Minimum price value",
+			},
+			{Field: "gaps", Display: "Gaps", Type: "bool", Default: "false", Description: "Maximum price value"},
+		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return CreditCardNumber(nil), nil
+			types, err := info.GetStringArray(m, "types")
+			if err != nil {
+				return nil, err
+			}
+			if len(types) == 1 && types[0] == "all" {
+				types = []string{}
+			}
+
+			gaps, err := info.GetBool(m, "gaps")
+			if err != nil {
+				return nil, err
+			}
+
+			options := CreditCardOptions{
+				Types: types,
+				Gaps:  gaps,
+			}
+			return CreditCardNumber(&options), nil
 		},
 	})
 
