@@ -49,6 +49,9 @@ func RandomString(a []string) string {
 	if size == 0 {
 		return ""
 	}
+	if size == 1 {
+		return a[0]
+	}
 	return a[rand.Intn(size)]
 }
 

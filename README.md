@@ -114,6 +114,14 @@ fmt.Printf("%s", f.JumbleWord) // loredlowlh
 ```
 
 ## Functions
+### File
+```go
+JSON(jo *JSONOptions) []byte
+XML(xo *XMLOptions) []byte
+Extension() string
+MimeType() string
+```
+
 ### Person
 ```go
 Person() *PersonInfo
@@ -276,8 +284,7 @@ Price(min, max float64) float64
 CreditCard() *CreditCardInfo
 CreditCardCvv() string
 CreditCardExp() string
-CreditCardNumber() int
-CreditCardNumberLuhn() int
+CreditCardNumber(*CreditCardOptions) string
 CreditCardType() string
 Currency() *CurrencyInfo
 CurrencyLong() string
@@ -340,12 +347,6 @@ ProgrammingLanguage() string
 ProgrammingLanguageBest() string
 ```
 
-### File
-```go
-Extension() string
-MimeType() string
-```
-
 ### Numbers
 ```go
 Number(min int, max int) int
@@ -362,6 +363,7 @@ Float32Range(min, max float32) float32
 Float64() float64
 Float64Range(min, max float64) float64
 ShuffleInts(a []int)
+RandomInt(i []int) int
 ```
 
 ### String
@@ -370,6 +372,6 @@ Digit() string
 Letter() string
 Lexify(str string) string
 Numerify(str string) string
-RandomString(a []string) string
 ShuffleStrings(a []string)
+RandomString(a []string) string
 ```

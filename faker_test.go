@@ -15,7 +15,7 @@ func Example() {
 	fmt.Println("Beer Name:", BeerName())
 	fmt.Println("Color:", Color())
 	fmt.Println("Company:", Company())
-	fmt.Println("Credit Card:", CreditCardNumber())
+	fmt.Println("Credit Card:", CreditCardNumber(nil))
 	fmt.Println("Hacker Phrase:", HackerPhrase())
 	fmt.Println("Job Title:", JobTitle())
 	fmt.Println("Password:", Password(true, true, true, true, false, 32))
@@ -30,11 +30,11 @@ func Example() {
 	// Beer Name: Weihenstephaner Hefeweissbier
 	// Color: MidnightBlue
 	// Company: Epsilon
-	// Credit Card: 6521714800889982
-	// Hacker Phrase: Overriding the capacitor won't do anything, we need to compress the online SMTP protocol!
-	// Job Title: Supervisor
-	// Password: a8TyS<2l(pRLB4QU7V,O9nKUYcMD0(*g
-	// Currency: ALL - Albania Lek
+	// Credit Card: 6375991714800889
+	// Hacker Phrase: You can't quantify the application without navigating the bluetooth SMS microchip!
+	// Job Title: Architect
+	// Password: SHylpDU2nf9(,U*RaJKM1cOL47VY.BQw
+	// Currency: KES - Kenya Shilling
 }
 
 func TestSeed(t *testing.T) {

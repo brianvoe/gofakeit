@@ -24,8 +24,9 @@ type xmlArray struct {
 }
 
 type xmlMap struct {
-	XMLName xml.Name
-	Map     map[string]interface{} `xml:",chardata"`
+	XMLName  xml.Name
+	KeyOrder []string
+	Map      map[string]interface{} `xml:",chardata"`
 }
 
 type xmlEntry struct {
@@ -55,8 +56,18 @@ func (m xmlMap) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 
 func xmlMapLoop(e *xml.Encoder, m *xmlMap) error {
 	var err error
-	for key, value := range m.Map {
-		v := reflect.ValueOf(value)
+
+	// Check if xmlmap has key order if not create it
+	// Get key order by order of fields array
+	if m.KeyOrder == nil {
+		m.KeyOrder = make([]string, len(m.Map))
+		for k := range m.Map {
+			m.KeyOrder = append(m.KeyOrder, k)
+		}
+	}
+
+	for _, key := range m.KeyOrder {
+		v := reflect.ValueOf(m.Map[key])
 
 		// Always get underlyning Value of value
 		if v.Kind() == reflect.Ptr {
@@ -69,7 +80,7 @@ func xmlMapLoop(e *xml.Encoder, m *xmlMap) error {
 			reflect.Int, reflect.Int8, reflect.Int32, reflect.Int64,
 			reflect.Uint, reflect.Uint8, reflect.Uint32, reflect.Uint64,
 			reflect.Float32, reflect.Float64:
-			err = e.Encode(xmlEntry{XMLName: xml.Name{Local: key}, Value: value})
+			err = e.Encode(xmlEntry{XMLName: xml.Name{Local: key}, Value: m.Map[key]})
 			if err != nil {
 				return err
 			}
@@ -85,7 +96,7 @@ func xmlMapLoop(e *xml.Encoder, m *xmlMap) error {
 		case reflect.Map:
 			err = e.Encode(xmlMap{
 				XMLName: xml.Name{Local: key},
-				Map:     value.(map[string]interface{}),
+				Map:     m.Map[key].(map[string]interface{}),
 			})
 			if err != nil {
 				return err
@@ -94,7 +105,7 @@ func xmlMapLoop(e *xml.Encoder, m *xmlMap) error {
 			// Convert struct to map[string]interface{}
 			// So we can rewrap element
 			var inInterface map[string]interface{}
-			inrec, _ := json.Marshal(value)
+			inrec, _ := json.Marshal(m.Map[key])
 			json.Unmarshal(inrec, &inInterface)
 
 			err = e.Encode(xmlMap{
@@ -105,7 +116,7 @@ func xmlMapLoop(e *xml.Encoder, m *xmlMap) error {
 				return err
 			}
 		default:
-			err = e.Encode(value)
+			err = e.Encode(m.Map[key])
 			if err != nil {
 				return err
 			}
@@ -122,22 +133,32 @@ func XML(xo *XMLOptions) ([]byte, error) {
 		return nil, errors.New("Invalid type, must be array or object")
 	}
 
+	// Check fields length
 	if xo.Fields == nil || len(xo.Fields) <= 0 {
 		return nil, errors.New("Must pass fields in order to build json object(s)")
 	}
 
+	// Check root element string
 	if xo.RootElement == "" {
 		xo.RecordElement = "xml"
 	}
 
+	// Check record element string
 	if xo.RecordElement == "" {
 		xo.RecordElement = "record"
 	}
 
+	// Get key order by order of fields array
+	keyOrder := make([]string, len(xo.Fields))
+	for _, f := range xo.Fields {
+		keyOrder = append(keyOrder, f.Name)
+	}
+
 	if xo.Type == "single" {
 		v := xmlMap{
-			XMLName: xml.Name{Local: xo.RootElement},
-			Map:     make(map[string]interface{}),
+			XMLName:  xml.Name{Local: xo.RootElement},
+			KeyOrder: keyOrder,
+			Map:      make(map[string]interface{}),
 		}
 
 		// Loop through fields and add to them to map[string]interface{}
@@ -183,8 +204,9 @@ func XML(xo *XMLOptions) ([]byte, error) {
 
 		for i := 1; i <= int(xo.RowCount); i++ {
 			v := xmlMap{
-				XMLName: xml.Name{Local: xo.RecordElement},
-				Map:     make(map[string]interface{}),
+				XMLName:  xml.Name{Local: xo.RecordElement},
+				KeyOrder: keyOrder,
+				Map:      make(map[string]interface{}),
 			}
 
 			// Loop through fields and add to them to map[string]interface{}
@@ -249,7 +271,7 @@ func addFileXMLLookup() {
 		`,
 		Output: "[]byte",
 		Params: []Param{
-			{Field: "type", Display: "Type", Type: "string", Default: "single", Description: "Type of XML, single or array"},
+			{Field: "type", Display: "Type", Type: "string", Default: "single", Options: []string{"single", "array"}, Description: "Type of XML, single or array"},
 			{Field: "rootelement", Display: "Root Element", Type: "string", Default: "xml", Description: "Root element wrapper name"},
 			{Field: "recordelement", Display: "Record Element", Type: "string", Default: "record", Description: "Record element for each record row"},
 			{Field: "rowcount", Display: "Row Count", Type: "int", Default: "100", Description: "Number of rows in JSON array"},
