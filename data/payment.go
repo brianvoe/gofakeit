@@ -16,7 +16,7 @@ type CreditCardCode struct {
 }
 
 // CreditCardTypes is an array of credit card types
-var CreditCardTypes = []string{"visa", "masterCreditcard", "american-express", "diners-club", "discover", "jcb", "unionpay", "maestro", "elo", "hiper", "hiperCreditcard"}
+var CreditCardTypes = []string{"visa", "mastercard", "american-express", "diners-club", "discover", "jcb", "unionpay", "maestro", "elo", "hiper", "hipercard"}
 
 // CreditCards contains payment information
 var CreditCards = map[string]CreditCardInfo{
@@ -30,8 +30,8 @@ var CreditCards = map[string]CreditCardInfo{
 			Size: 3,
 		},
 	},
-	"masterCreditcard": {
-		Display: "MasterCreditcard",
+	"mastercard": {
+		Display: "Mastercard",
 		Patterns: []uint{
 			51, 55,
 			2221, 2229,
@@ -198,8 +198,8 @@ var CreditCards = map[string]CreditCardInfo{
 			Size: 3,
 		},
 	},
-	"hiperCreditcard": {
-		Display:  "HiperCreditcard",
+	"hipercard": {
+		Display:  "Hipercard",
 		Patterns: []uint{606282},
 		Gaps:     []uint{4, 8, 12},
 		Lengths:  []uint{16},
