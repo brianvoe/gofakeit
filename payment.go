@@ -70,7 +70,7 @@ type CreditCardOptions struct {
 	Gaps  bool
 }
 
-// CreditCardNumber will generate a random credit card number int
+// CreditCardNumber will generate a random luhn credit card number
 func CreditCardNumber(cco *CreditCardOptions) string {
 	if cco == nil {
 		cco = &CreditCardOptions{}
@@ -242,7 +242,7 @@ func addPaymentLookup() {
 		Params: []Param{
 			{
 				Field: "types", Display: "Types", Type: "[]string", Default: "all",
-				Options:     []string{"visa", "masterCreditcard", "american-express", "diners-club", "discover", "jcb", "unionpay", "maestro", "elo", "hiper", "hiperCreditcard"},
+				Options:     []string{"visa", "mastercard", "american-express", "diners-club", "discover", "jcb", "unionpay", "maestro", "elo", "hiper", "hipercard"},
 				Description: "Minimum price value",
 			},
 			{Field: "gaps", Display: "Gaps", Type: "bool", Default: "false", Description: "Maximum price value"},
