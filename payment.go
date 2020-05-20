@@ -243,9 +243,9 @@ func addPaymentLookup() {
 			{
 				Field: "types", Display: "Types", Type: "[]string", Default: "all",
 				Options:     []string{"visa", "mastercard", "american-express", "diners-club", "discover", "jcb", "unionpay", "maestro", "elo", "hiper", "hipercard"},
-				Description: "Minimum price value",
+				Description: "A select number of types you want to use when generating a credit card number",
 			},
-			{Field: "gaps", Display: "Gaps", Type: "bool", Default: "false", Description: "Maximum price value"},
+			{Field: "gaps", Display: "Gaps", Type: "bool", Default: "false", Description: "Whether or not to have gaps in number"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			types, err := info.GetStringArray(m, "types")
