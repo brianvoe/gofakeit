@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"reflect"
+	"strings"
 )
 
 // Struct fills in exported elements of a struct with random data
@@ -48,19 +49,6 @@ func r(t reflect.Type, v reflect.Value, template string) {
 	}
 }
 
-func rString(template string, v reflect.Value) {
-	if template != "" {
-		v.SetString(Generate(template))
-	} else {
-		num := Number(4, 10)
-		str := ""
-		for i := 0; i < num; i++ {
-			str = str + "?"
-		}
-		v.SetString(Generate(str))
-	}
-}
-
 func rStruct(t reflect.Type, v reflect.Value) {
 	n := t.NumField()
 	for i := 0; i < n; i++ {
@@ -83,5 +71,13 @@ func rPointer(t reflect.Type, v reflect.Value, template string) {
 		v.Set(nv)
 	} else {
 		r(elemT, v.Elem(), template)
+	}
+}
+
+func rString(template string, v reflect.Value) {
+	if template != "" {
+		v.SetString(Generate(template))
+	} else {
+		v.SetString(Generate(strings.Repeat("?", Number(4, 10))))
 	}
 }

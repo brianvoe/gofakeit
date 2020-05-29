@@ -19,11 +19,13 @@ func ExampleGenerate() {
 	fmt.Println(Generate("{firstname} {lastname} ssn is {ssn} and lives at {street}"))
 	fmt.Println(Generate("{sentence:3}"))
 	fmt.Println(Generate("{shuffleints:[1,2,3]}"))
+	fmt.Println(Generate("{number:1,50}"))
 	fmt.Println(Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}"))
 	// Output: Markus Moen ssn is 952284213 and lives at 599 New Cliffsstad
 	// Arrival tour security.
 	// [1 3 2]
-	// [1:2 key:value int:string a:b]
+	// 34
+	// [a:b key:value int:string 1:2]
 }
 
 func BenchmarkGenerate(b *testing.B) {

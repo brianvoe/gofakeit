@@ -49,10 +49,11 @@ type Foo struct {
 	Bar      string
 	Int      int
 	Pointer  *int
-	Name     string  `fake:"{firstname}"`  // Any available function all lowercase
-	Sentence string  `fake:"{sentence:3}"` // Can call with parameters
-	RandStr  string  `fake:"{randomstring:[hello,world]}"`  
-	Skip     *string `fake:"skip"`         // Set to "skip" to not generate data for
+	Name     string  `fake:"{firstname}"`   // Any available function all lowercase
+	Sentence string  `fake:"{sentence:3}"`  // Can call with parameters
+	RandStr  string  `fake:"{randomstring:[hello,world]}"`
+	Number   string  `fake:"{number:1,10}"` // Comma separated for multiple values
+	Skip     *string `fake:"skip"`          // Set to "skip" to not generate data for
 }
 
 // Pass your struct as a pointer
@@ -65,6 +66,7 @@ fmt.Println(*f.Pointer) // -343806609094473732
 fmt.Println(f.Name)     // fred
 fmt.Println(f.Sentence) // Record river mind.
 fmt.Println(f.RandStr)  // world
+fmt.Println(f.Number)   // 4
 fmt.Println(f.Skip)     // <nil>
 ```
 

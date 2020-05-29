@@ -15,6 +15,7 @@ import (
 // Functions
 // Ex: {firstname} - billy
 // Ex: {sentence:3} - Record river mind.
+// Ex: {number:1,10} - 4
 // Ex: {uuid} - 590c1440-9888-45b0-bd51-a817ee07c3f2
 //
 // Letters/Numbers
