@@ -111,7 +111,8 @@ func replaceWithHexLetters(str string) string {
 
 // Generate random lowercase ASCII letter
 func randLetter() rune {
-	return rune(byte(rand.Intn(26)) + 'a')
+	allLetters := upperStr + lowerStr
+	return rune(allLetters[rand.Intn(len(allLetters))])
 }
 
 func randCharacter(s string) string {
