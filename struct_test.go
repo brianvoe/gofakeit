@@ -138,7 +138,7 @@ func Example_struct() {
 	fmt.Printf("%v\n", f.Number)
 	fmt.Printf("%v\n", f.Skip)
 
-	// Output: brmarxhki
+	// Output: bRMaRxHki
 	// -8576773003117070818
 	// -7054675846543980602
 	// Enrique
