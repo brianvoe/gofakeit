@@ -3,6 +3,7 @@ package gofakeit
 import (
 	"fmt"
 	"testing"
+	"unicode/utf8"
 )
 
 func ExampleLetter() {
@@ -89,6 +90,17 @@ func ExampleRandomString() {
 	// Output: hello
 }
 
+func ExampleRandomChars() {
+	Seed(1)
+	fmt.Println(RandomChars(5, &LangENG))
+	fmt.Println(RandomChars(5, &LangCHI))
+	fmt.Println(RandomChars(5, &LangRUS))
+	// Output:
+	// FbpXH
+	// 鷣頦苷峑榫
+	// зРЃвЉ
+}
+
 func TestRandomString(t *testing.T) {
 	for _, test := range []struct {
 		in     []string
@@ -109,8 +121,38 @@ func TestRandomString(t *testing.T) {
 	}
 }
 
+func TestRandomChars(t *testing.T) {
+	var err error
+	var engStr = RandomChars(5, &LangENG)
+	var chiStr = RandomChars(5, &LangCHI)
+	var rusStr = RandomChars(5, &LangRUS)
+	err = isStringLangCorrect(engStr, LangENG)
+	if err != nil {
+		t.Error(err.Error())
+	}
+	err = isStringLangCorrect(chiStr, LangCHI)
+	if err != nil {
+		t.Error(err.Error())
+	}
+	err = isStringLangCorrect(rusStr, LangRUS)
+	if err != nil {
+		t.Error(err.Error())
+	}
+}
+
 func BenchmarkRandomString(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		RandomString([]string{"hello", "world"})
 	}
+}
+
+func isStringLangCorrect(value string, lang langRuneBoundary) error {
+	for i := 0; i < len(value); {
+		r, size := utf8.DecodeLastRuneInString(value[i:])
+		if r < lang.start || r > lang.end {
+			return fmt.Errorf("Symbol is not in selected alphabet: start: %d, end: %d", lang.start, lang.end)
+		}
+		i += size
+	}
+	return nil
 }

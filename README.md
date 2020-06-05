@@ -376,4 +376,5 @@ Lexify(str string) string
 Numerify(str string) string
 ShuffleStrings(a []string)
 RandomString(a []string) string
+RandomChars(len int, *langRuneBoundary)
 ```

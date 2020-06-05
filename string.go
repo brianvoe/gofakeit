@@ -4,6 +4,22 @@ import (
 	"math/rand"
 )
 
+// Stores language UTF-8 bondary limits
+type langRuneBoundary struct {
+	start rune
+	end   rune
+}
+
+// Language rune boundaries here
+var (
+	// LangENG is for english language
+	LangENG = langRuneBoundary{65, 122}
+	// LangCHI is for chinese language
+	LangCHI = langRuneBoundary{19968, 40869}
+	// LangRUS is for russian language
+	LangRUS = langRuneBoundary{1025, 1105}
+)
+
 // Letter will generate a single random lower case ASCII letter
 func Letter() string {
 	return string(randLetter())
@@ -53,6 +69,17 @@ func RandomString(a []string) string {
 		return a[0]
 	}
 	return a[rand.Intn(size)]
+}
+
+// RandomChars generate random sequence of chars of selected length and language (LangENG, LangCHI, LangRUS)
+func RandomChars(len int, lang *langRuneBoundary) string {
+	b := make([]rune, 0)
+	for i := 0; i < len; {
+		randRune := rune(rand.Intn(int(lang.end-lang.start)) + int(lang.start))
+		b = append(b, randRune)
+		i++
+	}
+	return string(b)
 }
 
 func addStringLookup() {
