@@ -66,7 +66,7 @@ func TimeZoneFull() string {
 	return getRandValue([]string{"timezone", "full"})
 }
 
-// TimeZoneRegion will select a random full timezone string
+// TimeZoneRegion will select a random region style timezone string, e.g. "America/Chicago"
 func TimeZoneRegion() string {
 	return getRandValue([]string{"timezone", "region"})
 }
