@@ -36,6 +36,18 @@ type Template struct {
 	Name   *string `fake:"{firstname}"`
 }
 
+type StructArray struct {
+	Bars   []*Basic
+	Builds []BuiltIn
+	Skips  []*Basic    `fake:"skip"`
+	Empty  []*Basic    `fake:"0"`
+	Multy  []*Template `fake:"3"`
+}
+
+type NestedArray struct {
+	NA []StructArray `fake:"2"`
+}
+
 func TestStructBasic(t *testing.T) {
 	var basic Basic
 	Struct(&basic)
@@ -116,6 +128,48 @@ func TestStructWithTemplate(t *testing.T) {
 	}
 }
 
+func TestStructArray(t *testing.T) {
+	var sa StructArray
+	Struct(&sa)
+	if len(sa.Bars) != 1 {
+		t.Error("sa slice Bars is not populated")
+	}
+	if len(sa.Builds) != 1 {
+		t.Error("sa slice Builds is not populated")
+	}
+	if len(sa.Empty) != 0 {
+		t.Error("sa slice Empty is populated")
+	}
+	if len(sa.Skips) != 0 {
+		t.Error("sa slice Empty is populated")
+	}
+	if len(sa.Multy) != 3 {
+		t.Error("sa slice Multy is not fully populated")
+	}
+}
+
+func TestStructNestedArray(t *testing.T) {
+	var na NestedArray
+	Struct(&na)
+	if len(na.NA) != 2 {
+		t.Error("na slice NA is not populated")
+	}
+	for _, elem := range na.NA {
+		if len(elem.Builds) == 0 {
+			t.Error("a slice Builds is not populated")
+		}
+		if len(elem.Empty) != 0 {
+			t.Error("a slice Empty is populated")
+		}
+		if len(elem.Skips) != 0 {
+			t.Error("a slice Empty is populated")
+		}
+		if len(elem.Multy) != 3 {
+			t.Error("a slice Multy is not fully populated")
+		}
+	}
+}
+
 func Example_struct() {
 	Seed(11)
 
@@ -143,5 +197,47 @@ func Example_struct() {
 	// -7054675846543980602
 	// Enrique
 	// 4
+	// <nil>
+}
+
+func Example_array() {
+	Seed(11)
+
+	type Foo struct {
+		Bar     string
+		Int     int
+		Pointer *int
+		Name    string  `fake:"{firstname}"`
+		Number  string  `fake:"{number:1,10}"`
+		Skip    *string `fake:"skip"`
+	}
+
+	type FooMany struct {
+		Foos []Foo `fake:"2"`
+	}
+
+	var fm FooMany
+	Struct(&fm)
+
+	for _, f := range fm.Foos {
+		fmt.Printf("%s\n", f.Bar)
+		fmt.Printf("%d\n", f.Int)
+		fmt.Printf("%d\n", *f.Pointer)
+		fmt.Printf("%v\n", f.Name)
+		fmt.Printf("%v\n", f.Number)
+		fmt.Printf("%v\n", f.Skip)
+	}
+
+	// Output: brmarxhki
+	// -8576773003117070818
+	// -7054675846543980602
+	// Enrique
+	// 4
+	// <nil>
+	// pwyj
+	// -3430133205295092491
+	// -2330884613995904932
+	// Fred
+	// 1
 	// <nil>
 }

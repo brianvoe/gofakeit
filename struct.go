@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"reflect"
+	"strconv"
 	"strings"
 )
 
@@ -46,6 +47,8 @@ func r(t reflect.Type, v reflect.Value, template string) {
 		v.SetFloat(float64(Float32()))
 	case reflect.Bool:
 		v.SetBool(Bool())
+	case reflect.Array, reflect.Slice:
+		rSlice(t, v, template)
 	}
 }
 
@@ -71,6 +74,24 @@ func rPointer(t reflect.Type, v reflect.Value, template string) {
 		v.Set(nv)
 	} else {
 		r(elemT, v.Elem(), template)
+	}
+}
+
+func rSlice(t reflect.Type, v reflect.Value, template string) {
+	elemT := t.Elem()
+	if template == "skip" {
+		return
+	}
+	size := 1
+	if s, err := strconv.Atoi(template); err == nil {
+		size = s
+	}
+	if v.CanSet() {
+		for i := 0; i < size; i++ {
+			nv := reflect.New(elemT)
+			r(elemT, nv.Elem(), template)
+			v.Set(reflect.Append(reflect.Indirect(v), reflect.Indirect(nv)))
+		}
 	}
 }
 
