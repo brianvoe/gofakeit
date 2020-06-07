@@ -56,6 +56,12 @@ type Foo struct {
 	Skip     *string `fake:"skip"`          // Set to "skip" to not generate data for
 }
 
+type FooBar struct {
+	Bars   []string `fake:"{name}"`   // Array of size 1 with fake function applied
+	Foos   []Foo    `fake:"3"`        // Array of size specified with faked struct
+
+}
+
 // Pass your struct as a pointer
 var f Foo
 gofakeit.Struct(&f)
@@ -68,6 +74,13 @@ fmt.Println(f.Sentence) // Record river mind.
 fmt.Println(f.RandStr)  // world
 fmt.Println(f.Number)   // 4
 fmt.Println(f.Skip)     // <nil>
+
+var fb FooBar
+gofakeit.Struct(&fb)
+
+fmt.Println(fb.Bars)      // [Charlie Senger]
+fmt.Println(fb.Foos)      // [{blmfxy -2585154718894894116 0xc000317bc0 Emmy Attitude demand addition. hello 3 <nil>} {cplbf -1722374676852125164 0xc000317cb0 Viva Addition option link. hello 7 <nil>}]
+
 ```
 
 ## Example Custom Functions
