@@ -54,7 +54,6 @@ type Foo struct {
 	RandStr  string  `fake:"{randomstring:[hello,world]}"`
 	Number   string  `fake:"{number:1,10}"` // Comma separated for multiple values
 	Skip     *string `fake:"skip"`          // Set to "skip" to not generate data for
-	Const    string  `fake:"ABC"`           // Set to constant value "ABC"
 }
 
 type FooBar struct {
