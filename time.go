@@ -66,6 +66,11 @@ func TimeZoneFull() string {
 	return getRandValue([]string{"timezone", "full"})
 }
 
+// TimeZoneRegion will select a random region style timezone string, e.g. "America/Chicago"
+func TimeZoneRegion() string {
+	return getRandValue([]string{"timezone", "region"})
+}
+
 // TimeZoneAbv will select a random timezone abbreviation string
 func TimeZoneAbv() string {
 	return getRandValue([]string{"timezone", "abr"})
@@ -245,6 +250,17 @@ func addDateTimeLookup() {
 		Output:      "float32",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return TimeZoneOffset(), nil
+		},
+	})
+
+	AddFuncLookup("timezoneregion", Info{
+		Display:     "Timezone Region",
+		Category:    "time",
+		Description: "Random region timezone",
+		Example:     "America/Alaska",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return TimeZoneRegion(), nil
 		},
 	})
 

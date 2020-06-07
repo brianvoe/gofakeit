@@ -278,6 +278,7 @@ TimeZone() string
 TimeZoneAbv() string
 TimeZoneFull() string
 TimeZoneOffset() float32
+TimeZoneRegion() string
 ```
 
 ### Payment
