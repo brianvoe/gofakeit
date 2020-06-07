@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"reflect"
+	"regexp"
 	"strconv"
 	"strings"
 )
@@ -79,17 +80,13 @@ func rPointer(t reflect.Type, v reflect.Value, template string) {
 
 func rSlice(t reflect.Type, v reflect.Value, template string) {
 	elemT := t.Elem()
-	if template == "skip" {
-		return
-	}
-	size := 1
-	if s, err := strconv.Atoi(template); err == nil {
-		size = s
-	}
+
+	params := parseTemplate(template)
+
 	if v.CanSet() {
-		for i := 0; i < size; i++ {
+		for i := 0; i < params.size; i++ {
 			nv := reflect.New(elemT)
-			r(elemT, nv.Elem(), template)
+			r(elemT, nv.Elem(), params.template)
 			v.Set(reflect.Append(reflect.Indirect(v), reflect.Indirect(nv)))
 		}
 	}
@@ -101,4 +98,30 @@ func rString(template string, v reflect.Value) {
 	} else {
 		v.SetString(Generate(strings.Repeat("?", Number(4, 10))))
 	}
+}
+
+type parameters struct {
+	size     int
+	template string
+}
+
+var sizeRE = regexp.MustCompile(`size=(\d+)`)
+var functionRE = regexp.MustCompile(`(\{[a-z]+\})`)
+
+func parseTemplate(template string) parameters {
+	p := parameters{
+		size: randIntRange(1, 10),
+	}
+
+	if sizeRE.MatchString(template) {
+		if s, err := strconv.Atoi(sizeRE.FindStringSubmatch(template)[1]); err == nil {
+			p.size = s
+		}
+	}
+
+	if functionRE.MatchString(template) {
+		p.template = functionRE.FindStringSubmatch(template)[1]
+	}
+
+	return p
 }

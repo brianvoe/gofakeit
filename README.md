@@ -54,12 +54,13 @@ type Foo struct {
 	RandStr  string  `fake:"{randomstring:[hello,world]}"`
 	Number   string  `fake:"{number:1,10}"` // Comma separated for multiple values
 	Skip     *string `fake:"skip"`          // Set to "skip" to not generate data for
+	Const    string  `fake:"ABC"`           // Set to constant value "ABC"
 }
 
 type FooBar struct {
-	Bars   []string `fake:"{name}"`   // Array of size 1 with fake function applied
-	Foos   []Foo    `fake:"3"`        // Array of size specified with faked struct
-
+	Bars    []string `fake:"{name}"`          // Array of random size (1-10) with fake function applied
+	Foos    []Foo    `fake:"size=3"`          // Array of size specified with faked struct
+	FooBars []Foo    `fake:"size=3,{name}"`   // Array of size 3 with fake function applied
 }
 
 // Pass your struct as a pointer

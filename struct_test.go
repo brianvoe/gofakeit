@@ -34,18 +34,19 @@ type BuiltIn struct {
 type Template struct {
 	Number *string `fake:"#"`
 	Name   *string `fake:"{firstname}"`
+	Const  *string `fake:"ABC"`
 }
 
 type StructArray struct {
 	Bars   []*Basic
 	Builds []BuiltIn
-	Skips  []*Basic    `fake:"skip"`
-	Empty  []*Basic    `fake:"0"`
-	Multy  []*Template `fake:"3"`
+	Skips  []string    `fake:"skip"`
+	Empty  []*Basic    `fake:"size=0"`
+	Multy  []*Template `fake:"size=3"`
 }
 
 type NestedArray struct {
-	NA []StructArray `fake:"2"`
+	NA []StructArray `fake:"size=2"`
 }
 
 func TestStructBasic(t *testing.T) {
@@ -132,7 +133,10 @@ func TestStructWithTemplate(t *testing.T) {
 		t.Error("template number should set to number value")
 	}
 	if *template.Name == "" {
-		t.Error("template number should set to number value")
+		t.Error("template name should set to name value")
+	}
+	if *template.Const != "ABC" {
+		t.Error("template const should set to fixed value")
 	}
 }
 
@@ -144,7 +148,7 @@ func TestStructArray(t *testing.T) {
 	if len(sa.Bars) != 1 {
 		t.Error("sa slice Bars is not populated")
 	}
-	if len(sa.Builds) != 1 {
+	if len(sa.Builds) != 10 {
 		t.Error("sa slice Builds is not populated")
 	}
 	if len(sa.Empty) != 0 {
@@ -225,7 +229,8 @@ func Example_array() {
 	}
 
 	type FooMany struct {
-		Foos []Foo `fake:"2"`
+		Foos  []Foo    `fake:"size=2"`
+		Names []string `fake:"size=3:{firstname}"`
 	}
 
 	var fm FooMany
@@ -239,17 +244,19 @@ func Example_array() {
 		fmt.Printf("%v\n", f.Number)
 		fmt.Printf("%v\n", f.Skip)
 	}
+	fmt.Printf("%v\n", fm.Names)
 
-	// Output: bRMaRxHki
-	// -8576773003117070818
-	// -7054675846543980602
-	// Enrique
+	// Output: RMaR
+	// -1984896023034037729
+	// -748872596427141310
+	// Paolo
+	// 9
+	// <nil>
+	// BPta
+	// -8071446736367176719
+	// -61868737515613618
+	// Zachary
 	// 4
 	// <nil>
-	// pWYJ
-	// -3430133205295092491
-	// -2330884613995904932
-	// Fred
-	// 1
-	// <nil>
+	// [Ceasar Fred Ladarius]
 }
