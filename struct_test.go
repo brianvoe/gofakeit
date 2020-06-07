@@ -49,6 +49,8 @@ type NestedArray struct {
 }
 
 func TestStructBasic(t *testing.T) {
+	Seed(11)
+
 	var basic Basic
 	Struct(&basic)
 	if basic.s != "" {
@@ -60,6 +62,8 @@ func TestStructBasic(t *testing.T) {
 }
 
 func TestStructNested(t *testing.T) {
+	Seed(11)
+
 	var nested Nested
 	Struct(&nested)
 	if nested.A == "" {
@@ -77,6 +81,8 @@ func TestStructNested(t *testing.T) {
 }
 
 func TestStructBuiltInTypes(t *testing.T) {
+	Seed(11)
+
 	var builtIn BuiltIn
 	Struct(&builtIn)
 	if builtIn.Uint8 == nil {
@@ -118,6 +124,8 @@ func TestStructBuiltInTypes(t *testing.T) {
 }
 
 func TestStructWithTemplate(t *testing.T) {
+	Seed(11)
+
 	var template Template
 	Struct(&template)
 	if *template.Number == "" {
@@ -129,6 +137,8 @@ func TestStructWithTemplate(t *testing.T) {
 }
 
 func TestStructArray(t *testing.T) {
+	Seed(11)
+
 	var sa StructArray
 	Struct(&sa)
 	if len(sa.Bars) != 1 {
@@ -149,6 +159,8 @@ func TestStructArray(t *testing.T) {
 }
 
 func TestStructNestedArray(t *testing.T) {
+	Seed(11)
+
 	var na NestedArray
 	Struct(&na)
 	if len(na.NA) != 2 {
@@ -228,13 +240,13 @@ func Example_array() {
 		fmt.Printf("%v\n", f.Skip)
 	}
 
-	// Output: brmarxhki
+	// Output: bRMaRxHki
 	// -8576773003117070818
 	// -7054675846543980602
 	// Enrique
 	// 4
 	// <nil>
-	// pwyj
+	// pWYJ
 	// -3430133205295092491
 	// -2330884613995904932
 	// Fred
