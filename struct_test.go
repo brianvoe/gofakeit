@@ -46,7 +46,7 @@ type StructArray struct {
 }
 
 type NestedArray struct {
-	NA []StructArray `fake:"size=2"`
+	NA []StructArray `fakesize:"2"`
 }
 
 func TestStructBasic(t *testing.T) {
@@ -148,7 +148,7 @@ func TestStructArray(t *testing.T) {
 	if len(sa.Bars) != 1 {
 		t.Error("sa slice Bars is not populated")
 	}
-	if len(sa.Builds) != 10 {
+	if len(sa.Builds) == 0 {
 		t.Error("sa slice Builds is not populated")
 	}
 	if len(sa.Empty) != 0 {
@@ -208,10 +208,10 @@ func Example_struct() {
 	fmt.Printf("%v\n", f.Number)
 	fmt.Printf("%v\n", f.Skip)
 
-	// Output: bRMaRxHki
-	// -8576773003117070818
-	// -7054675846543980602
-	// Enrique
+	// Output: RMaR
+	// -748872596427141310
+	// -6396943744266753635
+	// Carole
 	// 4
 	// <nil>
 }
@@ -239,6 +239,6 @@ func Example_array() {
 	fmt.Printf("%v\n", fm.Names)
 
 	// Output:
-	// [{MaRxH -6396943744266753635 0xc000016320 Dawn 10 <nil>}]
-	// [Bertha Brannon Zackary]
+	// [{MaRxH -6396943744266753635 Carole 4 <nil>}]
+	// [Amie Alice Zachary]
 }
