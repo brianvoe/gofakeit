@@ -46,7 +46,7 @@ func BenchmarkNumerify(b *testing.B) {
 func ExampleLexify() {
 	Seed(11)
 	fmt.Println(Lexify("?????"))
-	// Output: gbrma
+	// Output: gbRMa
 }
 
 func BenchmarkLexify(b *testing.B) {

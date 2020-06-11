@@ -173,3 +173,15 @@ func BenchmarkTimeZoneOffset(b *testing.B) {
 		TimeZoneOffset()
 	}
 }
+
+func ExampleTimeZoneRegion() {
+	Seed(11)
+	fmt.Println(TimeZoneRegion())
+	// Output: America/Vancouver
+}
+
+func BenchmarkTimeZoneRegion(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		TimeZoneRegion()
+	}
+}

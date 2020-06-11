@@ -34,9 +34,24 @@ type BuiltIn struct {
 type Template struct {
 	Number *string `fake:"#"`
 	Name   *string `fake:"{firstname}"`
+	Const  *string `fake:"ABC"`
+}
+
+type StructArray struct {
+	Bars   []*Basic
+	Builds []BuiltIn
+	Skips  []string    `fake:"skip"`
+	Empty  []*Basic    `fakesize:"0"`
+	Multy  []*Template `fakesize:"3"`
+}
+
+type NestedArray struct {
+	NA []StructArray `fakesize:"2"`
 }
 
 func TestStructBasic(t *testing.T) {
+	Seed(11)
+
 	var basic Basic
 	Struct(&basic)
 	if basic.s != "" {
@@ -48,6 +63,8 @@ func TestStructBasic(t *testing.T) {
 }
 
 func TestStructNested(t *testing.T) {
+	Seed(11)
+
 	var nested Nested
 	Struct(&nested)
 	if nested.A == "" {
@@ -65,6 +82,8 @@ func TestStructNested(t *testing.T) {
 }
 
 func TestStructBuiltInTypes(t *testing.T) {
+	Seed(11)
+
 	var builtIn BuiltIn
 	Struct(&builtIn)
 	if builtIn.Uint8 == nil {
@@ -106,13 +125,64 @@ func TestStructBuiltInTypes(t *testing.T) {
 }
 
 func TestStructWithTemplate(t *testing.T) {
+	Seed(11)
+
 	var template Template
 	Struct(&template)
 	if *template.Number == "" {
 		t.Error("template number should set to number value")
 	}
 	if *template.Name == "" {
-		t.Error("template number should set to number value")
+		t.Error("template name should set to name value")
+	}
+	if *template.Const != "ABC" {
+		t.Error("template const should set to fixed value")
+	}
+}
+
+func TestStructArray(t *testing.T) {
+	Seed(11)
+
+	var sa StructArray
+	Struct(&sa)
+	if len(sa.Bars) != 1 {
+		t.Error("sa slice Bars is not populated")
+	}
+	if len(sa.Builds) == 0 {
+		t.Error("sa slice Builds is not populated")
+	}
+	if len(sa.Empty) != 0 {
+		t.Error("sa slice Empty is populated")
+	}
+	if len(sa.Skips) != 0 {
+		t.Error("sa slice Empty is populated")
+	}
+	if len(sa.Multy) != 3 {
+		t.Error("sa slice Multy is not fully populated")
+	}
+}
+
+func TestStructNestedArray(t *testing.T) {
+	Seed(11)
+
+	var na NestedArray
+	Struct(&na)
+	if len(na.NA) != 2 {
+		t.Error("na slice NA is not populated")
+	}
+	for _, elem := range na.NA {
+		if len(elem.Builds) == 0 {
+			t.Error("a slice Builds is not populated")
+		}
+		if len(elem.Empty) != 0 {
+			t.Error("a slice Empty is populated")
+		}
+		if len(elem.Skips) != 0 {
+			t.Error("a slice Empty is populated")
+		}
+		if len(elem.Multy) != 3 {
+			t.Error("a slice Multy is not fully populated")
+		}
 	}
 }
 
@@ -138,10 +208,37 @@ func Example_struct() {
 	fmt.Printf("%v\n", f.Number)
 	fmt.Printf("%v\n", f.Skip)
 
-	// Output: brmarxhki
-	// -8576773003117070818
-	// -7054675846543980602
-	// Enrique
+	// Output: RMaR
+	// -748872596427141310
+	// -6396943744266753635
+	// Carole
 	// 4
 	// <nil>
+}
+
+func Example_array() {
+	Seed(11)
+
+	type Foo struct {
+		Bar    string
+		Int    int
+		Name   string  `fake:"{firstname}"`
+		Number string  `fake:"{number:1,10}"`
+		Skip   *string `fake:"skip"`
+	}
+
+	type FooMany struct {
+		Foos  []Foo    `fakesize:"1"`
+		Names []string `fake:"{firstname}" fakesize:"3"`
+	}
+
+	var fm FooMany
+	Struct(&fm)
+
+	fmt.Printf("%v\n", fm.Foos)
+	fmt.Printf("%v\n", fm.Names)
+
+	// Output:
+	// [{MaRxH -6396943744266753635 Carole 4 <nil>}]
+	// [Amie Alice Zachary]
 }

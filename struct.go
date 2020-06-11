@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"reflect"
+	"strconv"
 	"strings"
 )
 
@@ -11,10 +12,10 @@ import (
 // All built-in types are supported, with templating support
 // for string types.
 func Struct(v interface{}) {
-	r(reflect.TypeOf(v), reflect.ValueOf(v), "")
+	r(reflect.TypeOf(v), reflect.ValueOf(v), "", 0)
 }
 
-func r(t reflect.Type, v reflect.Value, template string) {
+func r(t reflect.Type, v reflect.Value, template string, size int) {
 	switch t.Kind() {
 	case reflect.Ptr:
 		rPointer(t, v, template)
@@ -46,6 +47,8 @@ func r(t reflect.Type, v reflect.Value, template string) {
 		v.SetFloat(float64(Float32()))
 	case reflect.Bool:
 		v.SetBool(Bool())
+	case reflect.Array, reflect.Slice:
+		rSlice(t, v, template, size)
 	}
 }
 
@@ -58,7 +61,17 @@ func rStruct(t reflect.Type, v reflect.Value) {
 		if ok && t == "skip" {
 			// Do nothing, skip it
 		} else if elementV.CanSet() {
-			r(elementT.Type, elementV, t)
+			// Check if fakesize is set
+			size := Number(1, 10)
+			fs, ok := elementT.Tag.Lookup("fakesize")
+			if ok {
+				var err error
+				size, err = strconv.Atoi(fs)
+				if err != nil {
+					size = Number(1, 10)
+				}
+			}
+			r(elementT.Type, elementV, t, size)
 		}
 	}
 }
@@ -67,10 +80,22 @@ func rPointer(t reflect.Type, v reflect.Value, template string) {
 	elemT := t.Elem()
 	if v.IsNil() {
 		nv := reflect.New(elemT)
-		r(elemT, nv.Elem(), template)
+		r(elemT, nv.Elem(), template, 0)
 		v.Set(nv)
 	} else {
-		r(elemT, v.Elem(), template)
+		r(elemT, v.Elem(), template, 0)
+	}
+}
+
+func rSlice(t reflect.Type, v reflect.Value, template string, size int) {
+	elemT := t.Elem()
+
+	if v.CanSet() {
+		for i := 0; i < size; i++ {
+			nv := reflect.New(elemT)
+			r(elemT, nv.Elem(), template, size)
+			v.Set(reflect.Append(reflect.Indirect(v), reflect.Indirect(nv)))
+		}
 	}
 }
 
