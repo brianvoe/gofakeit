@@ -57,15 +57,14 @@ type Foo struct {
 }
 
 type FooBar struct {
-	Bars    []string `fake:"{name}"`          // Array of random size (1-10) with fake function applied
-	Foos    []Foo    `fake:"size=3"`          // Array of size specified with faked struct
-	FooBars []Foo    `fake:"size=3,{name}"`   // Array of size 3 with fake function applied
+	Bars    []string `fake:"{name}"`              // Array of random size (1-10) with fake function applied
+	Foos    []Foo    `fakesize:"3"`               // Array of size specified with faked struct
+	FooBars []Foo    `fake:"{name}" fakesize:"3"` // Array of size 3 with fake function applied
 }
 
 // Pass your struct as a pointer
 var f Foo
 gofakeit.Struct(&f)
-
 fmt.Println(f.Bar)      // hrukpttuezptneuvunh
 fmt.Println(f.Int)      // -7825289004089916589
 fmt.Println(*f.Pointer) // -343806609094473732
@@ -77,7 +76,6 @@ fmt.Println(f.Skip)     // <nil>
 
 var fb FooBar
 gofakeit.Struct(&fb)
-
 fmt.Println(fb.Bars)      // [Charlie Senger]
 fmt.Println(fb.Foos)      // [{blmfxy -2585154718894894116 0xc000317bc0 Emmy Attitude demand addition. hello 3 <nil>} {cplbf -1722374676852125164 0xc000317cb0 Viva Addition option link. hello 7 <nil>}]
 

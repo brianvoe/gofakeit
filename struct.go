@@ -2,7 +2,6 @@ package gofakeit
 
 import (
 	"reflect"
-	"regexp"
 	"strconv"
 	"strings"
 )
@@ -13,10 +12,10 @@ import (
 // All built-in types are supported, with templating support
 // for string types.
 func Struct(v interface{}) {
-	r(reflect.TypeOf(v), reflect.ValueOf(v), "")
+	r(reflect.TypeOf(v), reflect.ValueOf(v), "", 0)
 }
 
-func r(t reflect.Type, v reflect.Value, template string) {
+func r(t reflect.Type, v reflect.Value, template string, size int) {
 	switch t.Kind() {
 	case reflect.Ptr:
 		rPointer(t, v, template)
@@ -49,7 +48,7 @@ func r(t reflect.Type, v reflect.Value, template string) {
 	case reflect.Bool:
 		v.SetBool(Bool())
 	case reflect.Array, reflect.Slice:
-		rSlice(t, v, template)
+		rSlice(t, v, template, size)
 	}
 }
 
@@ -62,7 +61,17 @@ func rStruct(t reflect.Type, v reflect.Value) {
 		if ok && t == "skip" {
 			// Do nothing, skip it
 		} else if elementV.CanSet() {
-			r(elementT.Type, elementV, t)
+			// Check if fakesize is set
+			size := Number(1, 10)
+			fs, ok := elementT.Tag.Lookup("fakesize")
+			if ok {
+				var err error
+				size, err = strconv.Atoi(fs)
+				if err != nil {
+					size = Number(1, 10)
+				}
+			}
+			r(elementT.Type, elementV, t, size)
 		}
 	}
 }
@@ -71,22 +80,20 @@ func rPointer(t reflect.Type, v reflect.Value, template string) {
 	elemT := t.Elem()
 	if v.IsNil() {
 		nv := reflect.New(elemT)
-		r(elemT, nv.Elem(), template)
+		r(elemT, nv.Elem(), template, 0)
 		v.Set(nv)
 	} else {
-		r(elemT, v.Elem(), template)
+		r(elemT, v.Elem(), template, 0)
 	}
 }
 
-func rSlice(t reflect.Type, v reflect.Value, template string) {
+func rSlice(t reflect.Type, v reflect.Value, template string, size int) {
 	elemT := t.Elem()
 
-	params := parseTemplate(template)
-
 	if v.CanSet() {
-		for i := 0; i < params.size; i++ {
+		for i := 0; i < size; i++ {
 			nv := reflect.New(elemT)
-			r(elemT, nv.Elem(), params.template)
+			r(elemT, nv.Elem(), template, size)
 			v.Set(reflect.Append(reflect.Indirect(v), reflect.Indirect(nv)))
 		}
 	}
@@ -98,30 +105,4 @@ func rString(template string, v reflect.Value) {
 	} else {
 		v.SetString(Generate(strings.Repeat("?", Number(4, 10))))
 	}
-}
-
-type parameters struct {
-	size     int
-	template string
-}
-
-var sizeRE = regexp.MustCompile(`size=(\d+)`)
-var functionRE = regexp.MustCompile(`(\{[a-z]+\})`)
-
-func parseTemplate(template string) parameters {
-	p := parameters{
-		size: randIntRange(1, 10),
-	}
-
-	if sizeRE.MatchString(template) {
-		if s, err := strconv.Atoi(sizeRE.FindStringSubmatch(template)[1]); err == nil {
-			p.size = s
-		}
-	}
-
-	if functionRE.MatchString(template) {
-		p.template = functionRE.FindStringSubmatch(template)[1]
-	}
-
-	return p
 }

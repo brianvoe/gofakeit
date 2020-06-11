@@ -41,8 +41,8 @@ type StructArray struct {
 	Bars   []*Basic
 	Builds []BuiltIn
 	Skips  []string    `fake:"skip"`
-	Empty  []*Basic    `fake:"size=0"`
-	Multy  []*Template `fake:"size=3"`
+	Empty  []*Basic    `fakesize:"0"`
+	Multy  []*Template `fakesize:"3"`
 }
 
 type NestedArray struct {
@@ -220,43 +220,25 @@ func Example_array() {
 	Seed(11)
 
 	type Foo struct {
-		Bar     string
-		Int     int
-		Pointer *int
-		Name    string  `fake:"{firstname}"`
-		Number  string  `fake:"{number:1,10}"`
-		Skip    *string `fake:"skip"`
+		Bar    string
+		Int    int
+		Name   string  `fake:"{firstname}"`
+		Number string  `fake:"{number:1,10}"`
+		Skip   *string `fake:"skip"`
 	}
 
 	type FooMany struct {
-		Foos  []Foo    `fake:"size=2"`
-		Names []string `fake:"size=3:{firstname}"`
+		Foos  []Foo    `fakesize:"1"`
+		Names []string `fake:"{firstname}" fakesize:"3"`
 	}
 
 	var fm FooMany
 	Struct(&fm)
 
-	for _, f := range fm.Foos {
-		fmt.Printf("%s\n", f.Bar)
-		fmt.Printf("%d\n", f.Int)
-		fmt.Printf("%d\n", *f.Pointer)
-		fmt.Printf("%v\n", f.Name)
-		fmt.Printf("%v\n", f.Number)
-		fmt.Printf("%v\n", f.Skip)
-	}
+	fmt.Printf("%v\n", fm.Foos)
 	fmt.Printf("%v\n", fm.Names)
 
-	// Output: RMaR
-	// -1984896023034037729
-	// -748872596427141310
-	// Paolo
-	// 9
-	// <nil>
-	// BPta
-	// -8071446736367176719
-	// -61868737515613618
-	// Zachary
-	// 4
-	// <nil>
-	// [Ceasar Fred Ladarius]
+	// Output:
+	// [{MaRxH -6396943744266753635 0xc000016320 Dawn 10 <nil>}]
+	// [Bertha Brannon Zackary]
 }
