@@ -135,8 +135,8 @@ func ExamplePerson() {
 	// Associate
 	// Human
 	// Usability
-	// 99536 North Streamville, Rossieview, Hawaii 42591
-	// 99536 North Streamville
+	// 99536 North Stream ville, Rossieview, Hawaii 42591
+	// 99536 North Stream ville
 	// Rossieview
 	// Hawaii
 	// 42591
