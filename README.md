@@ -6,7 +6,7 @@ Random data generator written in go
 <a href="https://www.buymeacoffee.com/brianvoe" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 
 ## Features
-- [120+ Functions!!!](#functions)
+- [160+ Functions!!!](#functions)
 - [Struct Generator](#example-struct)
 - [Custom Functions](#example-custom-functions)
 - [Http Server](https://github.com/brianvoe/gofakeit/tree/master/cmd/gofakeitserver)
