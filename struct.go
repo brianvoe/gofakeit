@@ -22,7 +22,7 @@ func r(t reflect.Type, v reflect.Value, template string, size int) {
 	case reflect.Struct:
 		rStruct(t, v)
 	case reflect.String:
-		rString(template, v)
+		rString(t, v, template)
 	case reflect.Uint8:
 		v.SetUint(uint64(Uint8()))
 	case reflect.Uint16:
@@ -99,10 +99,14 @@ func rSlice(t reflect.Type, v reflect.Value, template string, size int) {
 	}
 }
 
-func rString(template string, v reflect.Value) {
+func rString(t reflect.Type, v reflect.Value, template string) {
 	if template != "" {
 		v.SetString(Generate(template))
 	} else {
 		v.SetString(Generate(strings.Repeat("?", Number(4, 10))))
 	}
+}
+
+func rInt() {
+
 }
