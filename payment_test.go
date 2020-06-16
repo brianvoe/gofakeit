@@ -160,3 +160,27 @@ func BenchmarkCreditCardCvv(b *testing.B) {
 		CreditCardCvv()
 	}
 }
+
+func ExampleAchRouting() {
+	Seed(11)
+	fmt.Println(AchRouting())
+	// Output: 713645994
+}
+
+func BenchmarkAchRouting(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		AchRouting()
+	}
+}
+
+func ExampleAchAccount() {
+	Seed(11)
+	fmt.Println(AchAccount())
+	// Output: 413645994899
+}
+
+func BenchmarkAchAccount(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		AchAccount()
+	}
+}

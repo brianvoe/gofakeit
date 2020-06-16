@@ -152,6 +152,16 @@ func isLuhn(s string) bool {
 	return sum%10 == 0
 }
 
+// AchRouting will generate a 9 digit routing number
+func AchRouting() string {
+	return Numerify("#########")
+}
+
+// AchAccount will generate a 12 digit account number
+func AchAccount() string {
+	return Numerify("############")
+}
+
 func addPaymentLookup() {
 	AddFuncLookup("currency", Info{
 		Display:     "Currency",
@@ -288,6 +298,28 @@ func addPaymentLookup() {
 		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CreditCardCvv(), nil
+		},
+	})
+
+	AddFuncLookup("achrouting", Info{
+		Display:     "ACH Routing Number",
+		Category:    "payment",
+		Description: "Random 9 digit ach routing number",
+		Example:     "513715684",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return AchRouting(), nil
+		},
+	})
+
+	AddFuncLookup("achaccount", Info{
+		Display:     "ACH Account Number",
+		Category:    "payment",
+		Description: "Random 12 digit ach account number",
+		Example:     "491527954328",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return AchAccount(), nil
 		},
 	})
 }
