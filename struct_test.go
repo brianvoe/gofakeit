@@ -166,7 +166,7 @@ func TestStructArray(t *testing.T) {
 		t.Error("sa slice Empty is populated")
 	}
 	if len(sa.Skips) != 0 {
-		t.Error("sa slice Empty is populated")
+		t.Error("sa slice Skips is populated")
 	}
 	if len(sa.Multy) != 3 {
 		t.Error("sa slice Multy is not fully populated")
