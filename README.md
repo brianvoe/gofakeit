@@ -336,6 +336,13 @@ HipsterSentence(wordCount int) string
 HipsterParagraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string
 ```
 
+### App
+```go
+AppName() string
+AppVersion() string
+AppAuthor() string
+```
+
 ### Animal
 ```go
 PetName() string

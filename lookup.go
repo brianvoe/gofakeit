@@ -68,6 +68,7 @@ func init() {
 	addAnimalLookup()
 	addGameLookup()
 	addFoodLookup()
+	addAppLookup()
 }
 
 // AddFuncLookup takes a field and adds it to map
