@@ -38,11 +38,12 @@ type Template struct {
 }
 
 type StructArray struct {
-	Bars   []*Basic
-	Builds []BuiltIn
-	Skips  []string    `fake:"skip"`
-	Empty  []*Basic    `fakesize:"0"`
-	Multy  []*Template `fakesize:"3"`
+	Bars    []*Basic
+	Builds  []BuiltIn
+	Skips   []string    `fake:"skip"`
+	Strings []string    `fake:"{firstname}" fakesize:"3"`
+	Empty   []*Basic    `fakesize:"0"`
+	Multy   []*Template `fakesize:"3"`
 }
 
 type NestedArray struct {
@@ -151,6 +152,16 @@ func TestStructArray(t *testing.T) {
 	if len(sa.Builds) == 0 {
 		t.Error("sa slice Builds is not populated")
 	}
+	if len(sa.Strings) != 3 {
+		t.Error("sa strings should have a length of 3")
+	}
+	if len(sa.Strings) == 3 {
+		for i, s := range sa.Strings {
+			if s == "" {
+				t.Errorf("sa strings index %d was empty", i)
+			}
+		}
+	}
 	if len(sa.Empty) != 0 {
 		t.Error("sa slice Empty is populated")
 	}
@@ -183,6 +194,86 @@ func TestStructNestedArray(t *testing.T) {
 		if len(elem.Multy) != 3 {
 			t.Error("a slice Multy is not fully populated")
 		}
+	}
+}
+
+func TestStructToInt(t *testing.T) {
+	Seed(11)
+
+	var si struct {
+		Int         int
+		IntConst    int8  `fake:"-123"`
+		IntGenerate int64 `fake:"{number:1,10}"`
+	}
+	Struct(&si)
+	if si.Int == 0 {
+		t.Error("Int should be an actual number greater than 0")
+	}
+	if si.IntConst != -123 {
+		t.Errorf("IntConst should be -123 and instead got %d", si.IntConst)
+	}
+	if si.IntGenerate == 0 || si.IntGenerate > 10 {
+		t.Errorf("IntGenerate should be between 1-10 but got %d", si.IntGenerate)
+	}
+}
+
+func TestStructToUint(t *testing.T) {
+	Seed(11)
+
+	var su struct {
+		Uint         uint
+		UintConst    uint8  `fake:"123"`
+		UintGenerate uint64 `fake:"{number:1,10}"`
+	}
+	Struct(&su)
+	if su.Uint == 0 {
+		t.Error("Uint should be an actual number greater than 0")
+	}
+	if su.UintConst != 123 {
+		t.Errorf("UintConst should be 123 and instead got %d", su.UintConst)
+	}
+	if su.UintGenerate == 0 || su.UintGenerate > 10 {
+		t.Errorf("UintGenerate should be between 1-10 but got %d", su.UintGenerate)
+	}
+}
+
+func TestStructToFloat(t *testing.T) {
+	Seed(11)
+
+	var sf struct {
+		Float         float32
+		FloatConst    float64 `fake:"123.456789"`
+		FloatGenerate float32 `fake:"{latitude}"`
+	}
+	Struct(&sf)
+	if sf.Float == 0 {
+		t.Error("Float should be an actual number greater than 0")
+	}
+	if sf.FloatConst != 123.456789 {
+		t.Errorf("FloatConst should be 123.456.789 and instead got %e", sf.FloatConst)
+	}
+	if sf.FloatGenerate != 31.477726 {
+		t.Errorf("FloatGenerate should be 31.477726 but got %e", sf.FloatGenerate)
+	}
+}
+
+func TestStructToBool(t *testing.T) {
+	Seed(11)
+
+	var sf struct {
+		Bool         bool
+		BoolConst    bool `fake:"true"`
+		BoolGenerate bool `fake:"{bool}"`
+	}
+	Struct(&sf)
+	if sf.Bool == false {
+		t.Error("Bool should be false got true")
+	}
+	if sf.BoolConst != true {
+		t.Errorf("BoolConst should be true got false")
+	}
+	if sf.BoolGenerate != false {
+		t.Errorf("BoolGenerate should be false got true")
 	}
 }
 

@@ -23,30 +23,14 @@ func r(t reflect.Type, v reflect.Value, template string, size int) {
 		rStruct(t, v)
 	case reflect.String:
 		rString(t, v, template)
-	case reflect.Uint8:
-		v.SetUint(uint64(Uint8()))
-	case reflect.Uint16:
-		v.SetUint(uint64(Uint16()))
-	case reflect.Uint32:
-		v.SetUint(uint64(Uint32()))
-	case reflect.Uint64:
-		v.SetUint(Uint64())
-	case reflect.Int:
-		v.SetInt(Int64())
-	case reflect.Int8:
-		v.SetInt(int64(Int8()))
-	case reflect.Int16:
-		v.SetInt(int64(Int16()))
-	case reflect.Int32:
-		v.SetInt(int64(Int32()))
-	case reflect.Int64:
-		v.SetInt(Int64())
-	case reflect.Float64:
-		v.SetFloat(Float64())
-	case reflect.Float32:
-		v.SetFloat(float64(Float32()))
+	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
+		rUint(t, v, template)
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		rInt(t, v, template)
+	case reflect.Float32, reflect.Float64:
+		rFloat(t, v, template)
 	case reflect.Bool:
-		v.SetBool(Bool())
+		rBool(t, v, template)
 	case reflect.Array, reflect.Slice:
 		rSlice(t, v, template, size)
 	}
@@ -107,6 +91,81 @@ func rString(t reflect.Type, v reflect.Value, template string) {
 	}
 }
 
-func rInt() {
+func rInt(t reflect.Type, v reflect.Value, template string) {
+	if template != "" {
+		i, err := strconv.ParseInt(Generate(template), 10, 64)
+		if err == nil {
+			v.SetInt(i)
+			return
+		}
+	}
 
+	// If no template or error converting to int, set with random value
+	switch t.Kind() {
+	case reflect.Int:
+		v.SetInt(Int64())
+	case reflect.Int8:
+		v.SetInt(int64(Int8()))
+	case reflect.Int16:
+		v.SetInt(int64(Int16()))
+	case reflect.Int32:
+		v.SetInt(int64(Int32()))
+	case reflect.Int64:
+		v.SetInt(Int64())
+	}
+}
+
+func rUint(t reflect.Type, v reflect.Value, template string) {
+	if template != "" {
+		u, err := strconv.ParseUint(Generate(template), 10, 64)
+		if err == nil {
+			v.SetUint(u)
+			return
+		}
+	}
+
+	// If no template or error converting to uint, set with random value
+	switch t.Kind() {
+	case reflect.Uint:
+		v.SetUint(Uint64())
+	case reflect.Uint8:
+		v.SetUint(uint64(Uint8()))
+	case reflect.Uint16:
+		v.SetUint(uint64(Uint16()))
+	case reflect.Uint32:
+		v.SetUint(uint64(Uint32()))
+	case reflect.Uint64:
+		v.SetUint(Uint64())
+	}
+}
+
+func rFloat(t reflect.Type, v reflect.Value, template string) {
+	if template != "" {
+		f, err := strconv.ParseFloat(Generate(template), 64)
+		if err == nil {
+			v.SetFloat(f)
+			return
+		}
+	}
+
+	// If no template or error converting to float, set with random value
+	switch t.Kind() {
+	case reflect.Float64:
+		v.SetFloat(Float64())
+	case reflect.Float32:
+		v.SetFloat(float64(Float32()))
+	}
+}
+
+func rBool(t reflect.Type, v reflect.Value, template string) {
+	if template != "" {
+		b, err := strconv.ParseBool(Generate(template))
+		if err == nil {
+			v.SetBool(b)
+			return
+		}
+	}
+
+	// If no template or error converting to boolean, set with random value
+	v.SetBool(Bool())
 }
