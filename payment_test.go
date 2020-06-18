@@ -184,3 +184,27 @@ func BenchmarkAchAccount(b *testing.B) {
 		AchAccount()
 	}
 }
+
+func ExampleBitcoinAddress() {
+	Seed(11)
+	fmt.Println(BitcoinAddress())
+	// Output: 1lWLbxojXq6BqWX7X60VkcDIvYA
+}
+
+func BenchmarkBitcoinAddress(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		BitcoinAddress()
+	}
+}
+
+func ExampleBitcoinPrivateKey() {
+	Seed(11)
+	fmt.Println(BitcoinPrivateKey())
+	// Output: 5vrbXTADWJ6sQBSYd6lLkG97jljNc0X9VPBvbVqsIH9lWOLcoqg
+}
+
+func BenchmarkBitcoinPrivateKey(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		BitcoinPrivateKey()
+	}
+}

@@ -301,11 +301,13 @@ CreditCardCvv() string
 CreditCardExp() string
 CreditCardNumber(*CreditCardOptions) string
 CreditCardType() string
-AchRouting() string
-AchAccount() string
 Currency() *CurrencyInfo
 CurrencyLong() string
 CurrencyShort() string
+AchRouting() string
+AchAccount() string
+BitcoinAddress() string
+BitcoinPrivateKey() string
 ```
 
 ### Company
