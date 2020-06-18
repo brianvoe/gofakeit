@@ -135,8 +135,8 @@ func ExamplePerson() {
 	// Associate
 	// Human
 	// Usability
-	// 99536 North Streamville, Rossieview, Hawaii 42591
-	// 99536 North Streamville
+	// 99536 North Stream ville, Rossieview, Hawaii 42591
+	// 99536 North Stream ville
 	// Rossieview
 	// Hawaii
 	// 42591
@@ -205,5 +205,23 @@ func ExampleEmail() {
 func BenchmarkEmail(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		Email()
+	}
+}
+
+func ExampleTeams() {
+	Seed(11)
+	fmt.Println(Teams(
+		[]string{"Billy", "Sharon", "Jeff", "Connor", "Steve", "Justin", "Fabian", "Robert"},
+		[]string{"Team 1", "Team 2", "Team 3"},
+	))
+	// Output: map[Team 1:[Fabian Connor Steve] Team 2:[Jeff Sharon Justin] Team 3:[Robert Billy]]
+}
+
+func BenchmarkTeams(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Teams(
+			[]string{"Billy", "Sharon", "Jeff", "Connor", "Steve", "Justin", "Fabian", "Robert"},
+			[]string{"Team 1", "Team 2", "Team 3"},
+		)
 	}
 }

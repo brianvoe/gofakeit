@@ -21,7 +21,7 @@ func ExampleGenerate() {
 	fmt.Println(Generate("{shuffleints:[1,2,3]}"))
 	fmt.Println(Generate("{number:1,50}"))
 	fmt.Println(Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}"))
-	// Output: Markus Moen ssn is 952284213 and lives at 599 New Cliffsstad
+	// Output: Markus Moen ssn is 952284213 and lives at 599 New Cliffs stad
 	// Arrival tour security.
 	// [1 3 2]
 	// 34

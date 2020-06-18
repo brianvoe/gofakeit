@@ -1,6 +1,7 @@
 package gofakeit
 
 import (
+	"math"
 	"strconv"
 	"strings"
 )
@@ -103,6 +104,30 @@ func Email() string {
 	email += getRandValue([]string{"person", "last"}) + "." + getRandValue([]string{"internet", "domain_suffix"})
 
 	return strings.ToLower(email)
+}
+
+// Teams takes in an array of people and team names and randomly places the people into teams as evenly as possible
+func Teams(people []string, teams []string) map[string][]string {
+
+	// Shuffle the people if more than 1
+	if len(people) > 1 {
+		ShuffleStrings(people)
+	}
+
+	peopleIndex := 0
+	teamsOutput := make(map[string][]string)
+	numPer := math.Ceil(float64(len(people)) / float64(len(teams)))
+	for _, team := range teams {
+		teamsOutput[team] = []string{}
+		for i := 0.00; i < numPer; i++ {
+			if peopleIndex < len(people) {
+				teamsOutput[team] = append(teamsOutput[team], people[peopleIndex])
+				peopleIndex++
+			}
+		}
+	}
+
+	return teamsOutput
 }
 
 func addPersonLookup() {
@@ -256,6 +281,31 @@ func addPersonLookup() {
 		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return PhoneFormatted(), nil
+		},
+	})
+
+	AddFuncLookup("teams", Info{
+		Display:     "Teams",
+		Category:    "person",
+		Description: "Randomly split people into teams",
+		Example:     `{"Team 1": ["Sharon","Jeff"], "Team 2": ["Billy","Connor"]}`,
+		Output:      "map[string][]string",
+		Params: []Param{
+			{Field: "people", Display: "Strings", Type: "[]string", Description: "Array of people"},
+			{Field: "teams", Display: "Strings", Type: "[]string", Description: "Array of teams"},
+		},
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			people, err := info.GetStringArray(m, "people")
+			if err != nil {
+				return nil, err
+			}
+
+			teams, err := info.GetStringArray(m, "teams")
+			if err != nil {
+				return nil, err
+			}
+
+			return Teams(people, teams), nil
 		},
 	})
 }

@@ -152,6 +152,26 @@ func isLuhn(s string) bool {
 	return sum%10 == 0
 }
 
+// AchRouting will generate a 9 digit routing number
+func AchRouting() string {
+	return Numerify("#########")
+}
+
+// AchAccount will generate a 12 digit account number
+func AchAccount() string {
+	return Numerify("############")
+}
+
+// BitcoinAddress will generate a random bitcoin address consisting of numbers, upper and lower characters
+func BitcoinAddress() string {
+	return RandomString([]string{"1", "3"}) + Password(true, true, true, false, false, Number(25, 34))
+}
+
+// BitcoinPrivateKey will generate a random bitcoin private key consisting of numbers, upper and lower characters
+func BitcoinPrivateKey() string {
+	return "5" + Password(true, true, true, false, false, 50)
+}
+
 func addPaymentLookup() {
 	AddFuncLookup("currency", Info{
 		Display:     "Currency",
@@ -288,6 +308,50 @@ func addPaymentLookup() {
 		Output:      "string",
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
 			return CreditCardCvv(), nil
+		},
+	})
+
+	AddFuncLookup("achrouting", Info{
+		Display:     "ACH Routing Number",
+		Category:    "payment",
+		Description: "Random 9 digit ach routing number",
+		Example:     "513715684",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return AchRouting(), nil
+		},
+	})
+
+	AddFuncLookup("achaccount", Info{
+		Display:     "ACH Account Number",
+		Category:    "payment",
+		Description: "Random 12 digit ach account number",
+		Example:     "491527954328",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return AchAccount(), nil
+		},
+	})
+
+	AddFuncLookup("bitcoinaddress", Info{
+		Display:     "Bitcoin Address",
+		Category:    "payment",
+		Description: "Random 26-35 characters representing a bitcoin address",
+		Example:     "1lWLbxojXq6BqWX7X60VkcDIvYA",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return BitcoinAddress(), nil
+		},
+	})
+
+	AddFuncLookup("bitcoinprivatekey", Info{
+		Display:     "Bitcoin Private Key",
+		Category:    "payment",
+		Description: "Random 51 characters representing a bitcoin private key",
+		Example:     "5vrbXTADWJ6sQBSYd6lLkG97jljNc0X9VPBvbVqsIH9lWOLcoqg",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return BitcoinPrivateKey(), nil
 		},
 	})
 }

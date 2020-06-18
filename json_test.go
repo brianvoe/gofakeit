@@ -28,8 +28,8 @@ func ExampleJSON_object() {
 	//     "first_name": "Markus",
 	//     "last_name": "Moen",
 	//     "address": {
-	//         "address": "4599 Daleton, Lake Carroll, Mississippi 90635",
-	//         "street": "4599 Daleton",
+	//         "address": "4599 Dale ton, Lake Carroll, Mississippi 90635",
+	//         "street": "4599 Dale ton",
 	//         "city": "Lake Carroll",
 	//         "state": "Mississippi",
 	//         "zip": "90635",
