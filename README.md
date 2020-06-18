@@ -149,6 +149,7 @@ Contact() *ContactInfo
 Email() string
 Phone() string
 PhoneFormatted() string
+Teams(people []string, teams []string) map[string][]string
 ```
 
 ### Generate
