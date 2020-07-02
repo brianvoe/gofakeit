@@ -90,11 +90,13 @@ func ExampleCreditCardNumber() {
 	Seed(11)
 	fmt.Println(CreditCardNumber(nil))
 	fmt.Println(CreditCardNumber(&CreditCardOptions{Types: []string{"visa", "discover"}}))
+	fmt.Println(CreditCardNumber(&CreditCardOptions{Bins: []string{"4111"}}))
 	fmt.Println(CreditCardNumber(&CreditCardOptions{Gaps: true}))
 	// Output:
 	// 4364599489953690649
 	// 6011425914583029
-	// 5520 2761 3217 1485
+	// 4111020276132178
+	// 2131 0889 9822 7212
 }
 
 func TestCreditCardNumber(t *testing.T) {

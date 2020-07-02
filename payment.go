@@ -66,8 +66,9 @@ func CreditCardType() string {
 
 // CreditCardOptions is the options for credit card number
 type CreditCardOptions struct {
-	Types []string
-	Gaps  bool
+	Types []string `json:"types"`
+	Bins  []string `json:"bins"` // optional parameter of prepended numbers
+	Gaps  bool     `json:"gaps"`
 }
 
 // CreditCardNumber will generate a random luhn credit card number
@@ -91,7 +92,12 @@ func CreditCardNumber(cco *CreditCardOptions) string {
 
 	// Get length and pattern
 	length := RandomUint(cardInfo.Lengths)
-	numStr := strconv.FormatUint(uint64(RandomUint(cardInfo.Patterns)), 10)
+	numStr := ""
+	if len(cco.Bins) >= 1 {
+		numStr = RandomString(cco.Bins)
+	} else {
+		numStr = strconv.FormatUint(uint64(RandomUint(cardInfo.Patterns)), 10)
+	}
 	numStr += strings.Repeat("#", int(length)-len(numStr))
 	numStr = Numerify(numStr)
 	ui, _ := strconv.ParseUint(numStr, 10, 64)
@@ -265,6 +271,7 @@ func addPaymentLookup() {
 				Options:     []string{"visa", "mastercard", "american-express", "diners-club", "discover", "jcb", "unionpay", "maestro", "elo", "hiper", "hipercard"},
 				Description: "A select number of types you want to use when generating a credit card number",
 			},
+			{Field: "bins", Display: "Bins", Type: "[]string", Description: "Optional list of prepended bin numbers to pick from"},
 			{Field: "gaps", Display: "Gaps", Type: "bool", Default: "false", Description: "Whether or not to have gaps in number"},
 		},
 		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
@@ -276,6 +283,8 @@ func addPaymentLookup() {
 				types = []string{}
 			}
 
+			bins, _ := info.GetStringArray(m, "bins")
+
 			gaps, err := info.GetBool(m, "gaps")
 			if err != nil {
 				return nil, err
@@ -285,6 +294,11 @@ func addPaymentLookup() {
 				Types: types,
 				Gaps:  gaps,
 			}
+
+			if len(bins) >= 1 {
+				options.Bins = bins
+			}
+
 			return CreditCardNumber(&options), nil
 		},
 	})
