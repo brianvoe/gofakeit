@@ -15,24 +15,24 @@ func Struct(v interface{}) {
 	r(reflect.TypeOf(v), reflect.ValueOf(v), "", 0)
 }
 
-func r(t reflect.Type, v reflect.Value, template string, size int) {
+func r(t reflect.Type, v reflect.Value, function string, size int) {
 	switch t.Kind() {
 	case reflect.Ptr:
-		rPointer(t, v, template)
+		rPointer(t, v, function)
 	case reflect.Struct:
 		rStruct(t, v)
 	case reflect.String:
-		rString(t, v, template)
+		rString(t, v, function)
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
-		rUint(t, v, template)
+		rUint(t, v, function)
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-		rInt(t, v, template)
+		rInt(t, v, function)
 	case reflect.Float32, reflect.Float64:
-		rFloat(t, v, template)
+		rFloat(t, v, function)
 	case reflect.Bool:
-		rBool(t, v, template)
+		rBool(t, v, function)
 	case reflect.Array, reflect.Slice:
-		rSlice(t, v, template, size)
+		rSlice(t, v, function, size)
 	}
 }
 
@@ -46,7 +46,7 @@ func rStruct(t reflect.Type, v reflect.Value) {
 			// Do nothing, skip it
 		} else if elementV.CanSet() {
 			// Check if fakesize is set
-			size := Number(1, 10)
+			size := -1 // Set to -1 to indicate fakesize was not set
 			fs, ok := elementT.Tag.Lookup("fakesize")
 			if ok {
 				var err error
@@ -60,47 +60,74 @@ func rStruct(t reflect.Type, v reflect.Value) {
 	}
 }
 
-func rPointer(t reflect.Type, v reflect.Value, template string) {
+func rPointer(t reflect.Type, v reflect.Value, function string) {
 	elemT := t.Elem()
 	if v.IsNil() {
 		nv := reflect.New(elemT)
-		r(elemT, nv.Elem(), template, 0)
+		r(elemT, nv.Elem(), function, 0)
 		v.Set(nv)
 	} else {
-		r(elemT, v.Elem(), template, 0)
+		r(elemT, v.Elem(), function, 0)
 	}
 }
 
-func rSlice(t reflect.Type, v reflect.Value, template string, size int) {
+func rSlice(t reflect.Type, v reflect.Value, function string, size int) {
+	// If you cant even set it dont even try
+	if !v.CanSet() {
+		return
+	}
+
+	// Grab original size to use if needed for sub arrays
+	ogSize := size
+
+	// If the value has a cap and is less than the size
+	// use that instead of the requested size
+	elemCap := v.Cap()
+	if elemCap == 0 && size == -1 {
+		size = Number(1, 10)
+	} else if elemCap != 0 && (size == -1 || elemCap < size) {
+		size = elemCap
+	}
+
+	// Get the element type
 	elemT := t.Elem()
 
-	if v.CanSet() {
+	// If values are already set fill them up, otherwise append
+	if v.Len() != 0 {
+		// Loop through the elements length and set based upon the index
 		for i := 0; i < size; i++ {
 			nv := reflect.New(elemT)
-			r(elemT, nv.Elem(), template, size)
+			r(elemT, nv.Elem(), function, ogSize)
+			v.Index(i).Set(reflect.Indirect(nv))
+		}
+	} else {
+		// Loop through the size and append and set
+		for i := 0; i < size; i++ {
+			nv := reflect.New(elemT)
+			r(elemT, nv.Elem(), function, ogSize)
 			v.Set(reflect.Append(reflect.Indirect(v), reflect.Indirect(nv)))
 		}
 	}
 }
 
-func rString(t reflect.Type, v reflect.Value, template string) {
-	if template != "" {
-		v.SetString(Generate(template))
+func rString(t reflect.Type, v reflect.Value, function string) {
+	if function != "" {
+		v.SetString(Generate(function))
 	} else {
 		v.SetString(Generate(strings.Repeat("?", Number(4, 10))))
 	}
 }
 
-func rInt(t reflect.Type, v reflect.Value, template string) {
-	if template != "" {
-		i, err := strconv.ParseInt(Generate(template), 10, 64)
+func rInt(t reflect.Type, v reflect.Value, function string) {
+	if function != "" {
+		i, err := strconv.ParseInt(Generate(function), 10, 64)
 		if err == nil {
 			v.SetInt(i)
 			return
 		}
 	}
 
-	// If no template or error converting to int, set with random value
+	// If no function or error converting to int, set with random value
 	switch t.Kind() {
 	case reflect.Int:
 		v.SetInt(Int64())
@@ -115,16 +142,16 @@ func rInt(t reflect.Type, v reflect.Value, template string) {
 	}
 }
 
-func rUint(t reflect.Type, v reflect.Value, template string) {
-	if template != "" {
-		u, err := strconv.ParseUint(Generate(template), 10, 64)
+func rUint(t reflect.Type, v reflect.Value, function string) {
+	if function != "" {
+		u, err := strconv.ParseUint(Generate(function), 10, 64)
 		if err == nil {
 			v.SetUint(u)
 			return
 		}
 	}
 
-	// If no template or error converting to uint, set with random value
+	// If no function or error converting to uint, set with random value
 	switch t.Kind() {
 	case reflect.Uint:
 		v.SetUint(Uint64())
@@ -139,16 +166,16 @@ func rUint(t reflect.Type, v reflect.Value, template string) {
 	}
 }
 
-func rFloat(t reflect.Type, v reflect.Value, template string) {
-	if template != "" {
-		f, err := strconv.ParseFloat(Generate(template), 64)
+func rFloat(t reflect.Type, v reflect.Value, function string) {
+	if function != "" {
+		f, err := strconv.ParseFloat(Generate(function), 64)
 		if err == nil {
 			v.SetFloat(f)
 			return
 		}
 	}
 
-	// If no template or error converting to float, set with random value
+	// If no function or error converting to float, set with random value
 	switch t.Kind() {
 	case reflect.Float64:
 		v.SetFloat(Float64())
@@ -157,15 +184,15 @@ func rFloat(t reflect.Type, v reflect.Value, template string) {
 	}
 }
 
-func rBool(t reflect.Type, v reflect.Value, template string) {
-	if template != "" {
-		b, err := strconv.ParseBool(Generate(template))
+func rBool(t reflect.Type, v reflect.Value, function string) {
+	if function != "" {
+		b, err := strconv.ParseBool(Generate(function))
 		if err == nil {
 			v.SetBool(b)
 			return
 		}
 	}
 
-	// If no template or error converting to boolean, set with random value
+	// If no function or error converting to boolean, set with random value
 	v.SetBool(Bool())
 }

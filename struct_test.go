@@ -31,20 +31,22 @@ type BuiltIn struct {
 	Bool    *bool
 }
 
-type Template struct {
+type Function struct {
 	Number *string `fake:"#"`
 	Name   *string `fake:"{firstname}"`
 	Const  *string `fake:"ABC"`
 }
 
 type StructArray struct {
-	Bars    []*Basic
-	Builds  []BuiltIn
-	Skips   []string    `fake:"skip"`
-	Strings []string    `fake:"{firstname}" fakesize:"3"`
-	MaxLen  [5]string   `fake:"{firstname}"`
-	Empty   []*Basic    `fakesize:"0"`
-	Multy   []*Template `fakesize:"3"`
+	Bars      []*Basic
+	Builds    []BuiltIn
+	Skips     []string  `fake:"skip"`
+	Strings   []string  `fake:"{firstname}" fakesize:"3"`
+	SetLen    [5]string `fake:"{firstname}"`
+	SubStr    [][]string
+	SubStrLen [][2]string
+	Empty     []*Basic    `fakesize:"0"`
+	Multy     []*Function `fakesize:"3"`
 }
 
 type NestedArray struct {
@@ -126,19 +128,19 @@ func TestStructBuiltInTypes(t *testing.T) {
 	}
 }
 
-func TestStructWithTemplate(t *testing.T) {
+func TestStructWithFunction(t *testing.T) {
 	Seed(11)
 
-	var template Template
-	Struct(&template)
-	if *template.Number == "" {
-		t.Error("template number should set to number value")
+	var function Function
+	Struct(&function)
+	if *function.Number == "" {
+		t.Error("function number should set to number value")
 	}
-	if *template.Name == "" {
-		t.Error("template name should set to name value")
+	if *function.Name == "" {
+		t.Error("function name should set to name value")
 	}
-	if *template.Const != "ABC" {
-		t.Error("template const should set to fixed value")
+	if *function.Const != "ABC" {
+		t.Error("function const should set to fixed value")
 	}
 }
 
@@ -147,7 +149,7 @@ func TestStructArray(t *testing.T) {
 
 	var sa StructArray
 	Struct(&sa)
-	if len(sa.Bars) != 1 {
+	if len(sa.Bars) == 0 {
 		t.Error("sa slice Bars is not populated")
 	}
 	if len(sa.Builds) == 0 {
@@ -163,10 +165,28 @@ func TestStructArray(t *testing.T) {
 			}
 		}
 	}
-	if len(sa.MaxLen) != 5 {
-		for i, s := range sa.MaxLen {
+	if len(sa.SetLen) != 5 {
+		for i, s := range sa.SetLen {
 			if s == "" {
-				t.Errorf("sa MaxLen index %d was empty", i)
+				t.Errorf("sa SetLen index %d was empty", i)
+			}
+		}
+	}
+	if len(sa.SubStr) == 0 {
+		for i, s := range sa.SubStr {
+			for ii, ss := range s {
+				if ss == "" {
+					t.Errorf("sa SubStr index %d index %d was empty", i, ii)
+				}
+			}
+		}
+	}
+	if len(sa.SubStrLen) == 0 {
+		for _, s := range sa.SubStrLen {
+			for _, ss := range s {
+				if len(ss) != 2 {
+					t.Errorf("sa SubStrLen sub length should have been 2")
+				}
 			}
 		}
 	}
@@ -258,10 +278,10 @@ func TestStructToFloat(t *testing.T) {
 		t.Error("Float should be an actual number greater than 0")
 	}
 	if sf.FloatConst != 123.456789 {
-		t.Errorf("FloatConst should be 123.456.789 and instead got %e", sf.FloatConst)
+		t.Errorf("FloatConst should be 123.456.789 and instead got %f", sf.FloatConst)
 	}
-	if sf.FloatGenerate != 31.477726 {
-		t.Errorf("FloatGenerate should be 31.477726 but got %e", sf.FloatGenerate)
+	if sf.FloatGenerate != 54.887310 {
+		t.Errorf("FloatGenerate should be 31.477726 but got %f", sf.FloatGenerate)
 	}
 }
 
@@ -274,14 +294,14 @@ func TestStructToBool(t *testing.T) {
 		BoolGenerate bool `fake:"{bool}"`
 	}
 	Struct(&sf)
-	if sf.Bool == false {
-		t.Error("Bool should be false got true")
+	if sf.Bool == true {
+		t.Error("Bool should be true got false")
 	}
 	if sf.BoolConst != true {
 		t.Errorf("BoolConst should be true got false")
 	}
-	if sf.BoolGenerate != false {
-		t.Errorf("BoolGenerate should be false got true")
+	if sf.BoolGenerate != true {
+		t.Errorf("BoolGenerate should be true got false")
 	}
 }
 
@@ -307,10 +327,10 @@ func Example_struct() {
 	fmt.Printf("%v\n", f.Number)
 	fmt.Printf("%v\n", f.Skip)
 
-	// Output: RMaR
-	// -748872596427141310
-	// -6396943744266753635
-	// Carole
+	// Output: bRMaRxHki
+	// -8576773003117070818
+	// -7054675846543980602
+	// Enrique
 	// 4
 	// <nil>
 }
@@ -338,6 +358,6 @@ func Example_array() {
 	fmt.Printf("%v\n", fm.Names)
 
 	// Output:
-	// [{MaRxH -6396943744266753635 Carole 4 <nil>}]
-	// [Amie Alice Zachary]
+	// [{bRMaRxHki -8576773003117070818 Carole 6 <nil>}]
+	// [Dawn Zachery Amie]
 }
