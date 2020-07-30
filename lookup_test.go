@@ -28,7 +28,7 @@ func Example_custom() {
 	Struct(&f)
 
 	fmt.Printf("%s", f.FriendName)
-	// Output: sally
+	// Output: bill
 }
 
 func Example_custom_with_params() {
@@ -62,7 +62,7 @@ func Example_custom_with_params() {
 	Struct(&f)
 
 	fmt.Printf("%s", f.JumbleWord)
-	// Output: lhwlrodole
+	// Output: loredlowlh
 }
 
 func TestLookupChecking(t *testing.T) {
