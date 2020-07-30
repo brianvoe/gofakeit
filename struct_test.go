@@ -42,6 +42,7 @@ type StructArray struct {
 	Builds  []BuiltIn
 	Skips   []string    `fake:"skip"`
 	Strings []string    `fake:"{firstname}" fakesize:"3"`
+	MaxLen  [5]string   `fake:"{firstname}"`
 	Empty   []*Basic    `fakesize:"0"`
 	Multy   []*Template `fakesize:"3"`
 }
@@ -158,7 +159,14 @@ func TestStructArray(t *testing.T) {
 	if len(sa.Strings) == 3 {
 		for i, s := range sa.Strings {
 			if s == "" {
-				t.Errorf("sa strings index %d was empty", i)
+				t.Errorf("sa Strings index %d was empty", i)
+			}
+		}
+	}
+	if len(sa.MaxLen) != 5 {
+		for i, s := range sa.MaxLen {
+			if s == "" {
+				t.Errorf("sa MaxLen index %d was empty", i)
 			}
 		}
 	}
