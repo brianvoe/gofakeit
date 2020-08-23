@@ -1,7 +1,7 @@
 package data
 
 // Car Beer consists of various beer information
-var Car = map[string][]string{
+var Car = StringDataType{
 	"type":              {"Passenger car mini", "Passenger car light", "Passenger car compact", "Passenger car medium", "Passenger car heavy", "Sport utility vehicle", "Pickup truck", "Van"},
 	"fuel_type":         {"Gasoline", "Methanol", "Ethanol", "Diesel", "LPG", "CNG", "Electric"},
 	"transmission_type": {"Manual", "Automatic"},

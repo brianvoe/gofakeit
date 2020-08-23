@@ -1,7 +1,13 @@
 package data
 
+// StringDataType is the type of value in Data
+type StringDataType map[string][]string
+
+// IntStringDataType is the type of value in IntData
+type IntStringDataType map[string][]int
+
 // Data consists of the main set of fake information
-var Data = map[string]map[string][]string{
+var Data = map[string]StringDataType{
 	"person":    Person,
 	"address":   Address,
 	"company":   Company,
@@ -26,6 +32,6 @@ var Data = map[string]map[string][]string{
 }
 
 // IntData consists of the main set of fake information (integer only)
-var IntData = map[string]map[string][]int{
+var IntData = map[string]IntStringDataType{
 	"status_code": StatusCodes,
 }

@@ -3,7 +3,7 @@ package data
 // Data is pull from https://raw.githubusercontent.com/github/gemoji/master/db/emoji.json
 
 // Emoji consists of emoji information
-var Emoji = map[string][]string{
+var Emoji = StringDataType{
 	"emoji": {
 		"😀",
 		"😃",
