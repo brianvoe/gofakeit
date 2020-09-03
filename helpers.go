@@ -16,6 +16,7 @@ const spaceStr = " "
 const allStr = lowerStr + upperStr + numericStr + specialStr + spaceStr
 const hashtag = '#'
 const questionmark = '?'
+const base58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 
 // Check if in lib
 func dataCheck(dataVal []string) bool {
