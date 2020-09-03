@@ -56,7 +56,7 @@ func BenchmarkFarmAnimal(b *testing.B) {
 func ExampleCat() {
 	Seed(11)
 	fmt.Println(Cat())
-	// Output: Chausie
+	// Output: Sokoke
 }
 
 func BenchmarkCat(b *testing.B) {
