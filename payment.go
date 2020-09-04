@@ -176,10 +176,10 @@ func BitcoinAddress() string {
 // BitcoinPrivateKey will generate a random bitcoin private key base58 consisting of numbers, upper and lower characters
 func BitcoinPrivateKey() string {
 	var b strings.Builder
-	for i := 0; i < 50; i++ {
+	for i := 0; i < 49; i++ {
 		b.WriteString(randCharacter(base58))
 	}
-	return "5" + b.String()
+	return "5" + RandomString([]string{"H", "J", "K"}) + b.String()
 }
 
 func addPaymentLookup() {

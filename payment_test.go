@@ -202,7 +202,7 @@ func BenchmarkBitcoinAddress(b *testing.B) {
 func ExampleBitcoinPrivateKey() {
 	Seed(11)
 	fmt.Println(BitcoinPrivateKey())
-	// Output: 5WjEJ7SnBNJyDjdPUjLuYByYzM9rG1trax8c2NTSBtv7YtR57vz
+	// Output: 5KWjEJ7SnBNJyDjdPUjLuYByYzM9rG1trax8c2NTSBtv7YtR57v
 }
 
 func BenchmarkBitcoinPrivateKey(b *testing.B) {
