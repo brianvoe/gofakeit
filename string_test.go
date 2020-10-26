@@ -3,6 +3,7 @@ package gofakeit
 import (
 	"fmt"
 	"testing"
+	"unicode"
 )
 
 func ExampleLetter() {
@@ -18,6 +19,19 @@ func BenchmarkLetter(b *testing.B) {
 	}
 }
 
+func TestLetterN(t *testing.T) {
+	dataSize := 10
+	data := LetterN(dataSize)
+	if len(data) != dataSize {
+		t.Errorf("expected length %d but got %d", dataSize, len(data))
+	}
+	for i := 0; i < len(data); i++ {
+		if data[i] > unicode.MaxASCII {
+			t.Errorf("non ascii char %s found at index %d",  string(data[i]), i)
+		}
+	}
+}
+
 func ExampleDigit() {
 	Seed(11)
 	fmt.Println(Digit())
@@ -28,6 +42,20 @@ func BenchmarkDigit(b *testing.B) {
 	Seed(11)
 	for i := 0; i < b.N; i++ {
 		Digit()
+	}
+}
+
+func TestDigitN(t *testing.T) {
+	dataSize := 10
+	data := DigitN(dataSize)
+	if len(data) != dataSize {
+		t.Errorf("expected length %d but got %d", dataSize, len(data))
+	}
+	for i := 0; i < len(data); i++ {
+		val := int(data[i] - '0')
+		if val < 0 || 9 < val {
+			t.Errorf("non digit %s found at index %d",  string(data[i]), i)
+		}
 	}
 }
 
