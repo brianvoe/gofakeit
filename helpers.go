@@ -173,6 +173,22 @@ func equalSliceString(a, b []string) bool {
 	return true
 }
 
+func equalSliceInts(a, b []int) bool {
+	sizeA, sizeB := len(a), len(b)
+	if sizeA != sizeB {
+		return false
+	}
+
+	for i, va := range a {
+		vb := b[i]
+
+		if va != vb {
+			return false
+		}
+	}
+	return true
+}
+
 func funcLookupSplit(str string) []string {
 	out := []string{}
 	for str != "" {
