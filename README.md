@@ -396,6 +396,8 @@ RandomInt(i []int) int
 ```go
 Digit() string
 Letter() string
+DigitN() string
+LetterN() string
 Lexify(str string) string
 Numerify(str string) string
 ShuffleStrings(a []string)

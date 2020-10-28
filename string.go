@@ -9,9 +9,27 @@ func Letter() string {
 	return string(randLetter())
 }
 
+// LetterN will generate a random ASCII string with length N
+func LetterN(n int) string {
+	out := make([]rune, n)
+	for i := 0; i < n; i++ {
+		out[i] = randLetter()
+	}
+	return string(out)
+}
+
 // Digit will generate a single ASCII digit
 func Digit() string {
 	return string(randDigit())
+}
+
+// DigitN will generate a random string of length N consists of ASCII digit (note it can start with 0).
+func DigitN(n int) string {
+	out := make([]rune, n)
+	for i := 0; i < n; i++ {
+		out[i] = randDigit()
+	}
+	return string(out)
 }
 
 // Numerify will replace # with random numerical values
