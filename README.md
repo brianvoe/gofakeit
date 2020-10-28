@@ -395,7 +395,9 @@ RandomInt(i []int) int
 ### String
 ```go
 Digit() string
+DigitN(n int) string
 Letter() string
+LetterN(n int) string
 Lexify(str string) string
 Numerify(str string) string
 ShuffleStrings(a []string)

@@ -3,6 +3,7 @@ package gofakeit
 import (
 	"fmt"
 	"testing"
+	"unicode"
 )
 
 func ExampleLetter() {
@@ -18,6 +19,36 @@ func BenchmarkLetter(b *testing.B) {
 	}
 }
 
+func TestLetterN(t *testing.T) {
+	if len(LetterN(0)) != 1 {
+		t.Errorf("expected length %d but did not get that number", 1)
+	}
+
+	var dataSize uint = 10
+	data := LetterN(dataSize)
+	if len(data) != int(dataSize) {
+		t.Errorf("expected length %d but got %d", dataSize, len(data))
+	}
+	for i := 0; i < len(data); i++ {
+		if data[i] > unicode.MaxASCII {
+			t.Errorf("non ascii char %s found at index %d", string(data[i]), i)
+		}
+	}
+}
+
+func ExampleLetterN() {
+	Seed(11)
+	fmt.Println(LetterN(10))
+	// Output: gbRMaRxHki
+}
+
+func BenchmarkLetterN(b *testing.B) {
+	Seed(11)
+	for i := 0; i < b.N; i++ {
+		LetterN(10)
+	}
+}
+
 func ExampleDigit() {
 	Seed(11)
 	fmt.Println(Digit())
@@ -28,6 +59,37 @@ func BenchmarkDigit(b *testing.B) {
 	Seed(11)
 	for i := 0; i < b.N; i++ {
 		Digit()
+	}
+}
+
+func TestDigitN(t *testing.T) {
+	if len(DigitN(0)) != 1 {
+		t.Errorf("expected length %d but did not get that number", 1)
+	}
+
+	var dataSize uint = 10
+	data := DigitN(dataSize)
+	if len(data) != int(dataSize) {
+		t.Errorf("expected length %d but got %d", dataSize, len(data))
+	}
+	for i := 0; i < len(data); i++ {
+		val := int(data[i] - '0')
+		if val < 0 || 9 < val {
+			t.Errorf("non digit %s found at index %d", string(data[i]), i)
+		}
+	}
+}
+
+func ExampleDigitN() {
+	Seed(11)
+	fmt.Println(DigitN(10))
+	// Output: 0136459948
+}
+
+func BenchmarkDigitN(b *testing.B) {
+	Seed(11)
+	for i := 0; i < b.N; i++ {
+		DigitN(10)
 	}
 }
 

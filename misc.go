@@ -3,6 +3,7 @@ package gofakeit
 import (
 	"encoding/hex"
 	"math/rand"
+	"reflect"
 
 	"github.com/brianvoe/gofakeit/v5/data"
 )
@@ -38,6 +39,38 @@ func UUID() string {
 	hex.Encode(buf[24:], uuid[10:])
 
 	return string(buf)
+}
+
+func ShuffleAnySlice(v interface{}) {
+	if v == nil {
+		return
+	}
+
+	// Check type of passed in value, if not a slice return with no action taken
+	typ := reflect.TypeOf(v)
+	if typ.Kind() != reflect.Slice {
+		return
+	}
+
+	s := reflect.ValueOf(v)
+	n := s.Len()
+
+	if n <= 1 {
+		return
+	}
+
+	swap := func(i, j int) {
+		tmp := reflect.ValueOf(s.Index(i).Interface())
+		s.Index(i).Set(s.Index(j))
+		s.Index(j).Set(tmp)
+	}
+
+	//if size is > int32 probably it will never finish, or ran out of entropy
+	i := n - 1
+	for ; i > 0; i-- {
+		j := int(rand.Int31n(int32(i + 1)))
+		swap(i, j)
+	}
 }
 
 // Categories will return a map string array of available data categories and sub categories
