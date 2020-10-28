@@ -20,6 +20,10 @@ func BenchmarkLetter(b *testing.B) {
 }
 
 func TestLetterN(t *testing.T) {
+	if len(LetterN(0)) != 1 {
+		t.Errorf("expected length %d but did not get that number", 1)
+	}
+
 	var dataSize uint = 10
 	data := LetterN(dataSize)
 	if len(data) != int(dataSize) {
@@ -59,6 +63,10 @@ func BenchmarkDigit(b *testing.B) {
 }
 
 func TestDigitN(t *testing.T) {
+	if len(DigitN(0)) != 1 {
+		t.Errorf("expected length %d but did not get that number", 1)
+	}
+
 	var dataSize uint = 10
 	data := DigitN(dataSize)
 	if len(data) != int(dataSize) {

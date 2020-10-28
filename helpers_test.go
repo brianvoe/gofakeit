@@ -96,6 +96,41 @@ func TestToFixed(t *testing.T) {
 	}
 }
 
+func TestEqualSlice(t *testing.T) {
+	// String Array
+	if equalSliceString([]string{"a", "b"}, []string{"a"}) {
+		t.Fatalf("Should have returned false because the string array are not the same")
+	}
+	if equalSliceString([]string{"a", "b"}, []string{"c", "d"}) {
+		t.Fatalf("Should have returned false because the string array are not the same")
+	}
+	if !equalSliceString([]string{"a", "b"}, []string{"a", "b"}) {
+		t.Fatalf("Should have returned true because the string array are the same")
+	}
+
+	// Int Array
+	if equalSliceInt([]int{1, 2}, []int{1}) {
+		t.Fatalf("Should have returned false because the int array are not the same")
+	}
+	if equalSliceInt([]int{1, 2}, []int{3, 4}) {
+		t.Fatalf("Should have returned false because the int array are not the same")
+	}
+	if !equalSliceInt([]int{1, 2}, []int{1, 2}) {
+		t.Fatalf("Should have returned true because the int array are the same")
+	}
+
+	// Interface Array
+	if equalSliceInterface([]interface{}{1, "b"}, []interface{}{1}) {
+		t.Fatalf("Should have returned false because the interface array are not the same")
+	}
+	if equalSliceInterface([]interface{}{1, "b"}, []interface{}{3, "d"}) {
+		t.Fatalf("Should have returned false because the interface array are not the same")
+	}
+	if !equalSliceInterface([]interface{}{1, "b", []int{1, 2}, []string{"a", "b"}}, []interface{}{1, "b", []int{1, 2}, []string{"a", "b"}}) {
+		t.Fatalf("Should have returned true because the ints array are the same")
+	}
+}
+
 func TestFuncLookupSplit(t *testing.T) {
 	tests := map[string][]string{
 		"":                  {},

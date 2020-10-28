@@ -305,27 +305,6 @@ func TestStructToBool(t *testing.T) {
 	}
 }
 
-func TestShuffleAnySlice(t *testing.T) {
-	ShuffleAnySlice([]string{"a"})
-	ShuffleAnySlice(nil)
-
-	a := []string{"a", "b", "c", "d", "e", "f", "g", "h"}
-	b := make([]string, len(a))
-	copy(b, a)
-	ShuffleAnySlice(a)
-	if equalSliceString(a, b) {
-		t.Errorf("shuffle strings resulted in the same permutation, the odds are slim")
-	}
-
-	n := []int{1,2,3,4,5,6,7,8,9,0}
-	m := make([]int, len(n))
-	copy(m, n)
-	ShuffleAnySlice(n)
-	if equalSliceInts(n, m) {
-		t.Errorf("shuffle ints resulted in the same permutation, the odds are slim")
-	}
-}
-
 func Example_struct() {
 	Seed(11)
 
@@ -381,19 +360,4 @@ func Example_array() {
 	// Output:
 	// [{bRMaRxHki -8576773003117070818 Carole 6 <nil>}]
 	// [Dawn Zachery Amie]
-}
-
-func Example_ShuffleAnySlice() {
-	Seed(11)
-
-	strings := []string{"happy", "times", "for", "everyone", "have", "a", "good", "day"}
-	ShuffleAnySlice(strings)
-	fmt.Println(strings)
-
-	ints := []int{52, 854, 941, 74125, 8413, 777, 89416, 841657}
-	ShuffleAnySlice(ints)
-	fmt.Println(ints)
-	// Output:
-	// [good everyone have for times a day happy]
-	// [777 74125 941 854 89416 52 8413 841657]
 }

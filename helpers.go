@@ -3,6 +3,7 @@ package gofakeit
 import (
 	"math"
 	"math/rand"
+	"reflect"
 	"strings"
 
 	"github.com/brianvoe/gofakeit/v5/data"
@@ -173,7 +174,7 @@ func equalSliceString(a, b []string) bool {
 	return true
 }
 
-func equalSliceInts(a, b []int) bool {
+func equalSliceInt(a, b []int) bool {
 	sizeA, sizeB := len(a), len(b)
 	if sizeA != sizeB {
 		return false
@@ -183,6 +184,20 @@ func equalSliceInts(a, b []int) bool {
 		vb := b[i]
 
 		if va != vb {
+			return false
+		}
+	}
+	return true
+}
+
+func equalSliceInterface(a, b []interface{}) bool {
+	sizeA, sizeB := len(a), len(b)
+	if sizeA != sizeB {
+		return false
+	}
+
+	for i, va := range a {
+		if !reflect.DeepEqual(va, b[i]) {
 			return false
 		}
 	}

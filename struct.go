@@ -1,7 +1,6 @@
 package gofakeit
 
 import (
-	"math/rand"
 	"reflect"
 	"strconv"
 	"strings"
@@ -196,35 +195,4 @@ func rBool(t reflect.Type, v reflect.Value, function string) {
 
 	// If no function or error converting to boolean, set with random value
 	v.SetBool(Bool())
-}
-
-func ShuffleAnySlice(v interface{}) {
-	if v == nil {
-		return
-	}
-
-	typ :=reflect.TypeOf(v)
-	if typ.Kind() != reflect.Slice {
-		panic("input must be a slice")
-	}
-
-	s := reflect.ValueOf(v)
-	n := s.Len()
-
-	swap := func(i, j int) {
-		tmp := reflect.ValueOf(s.Index(i).Interface())
-		s.Index(i).Set(s.Index(j))
-		s.Index(j).Set(tmp)
-	}
-
-	if n <= 1 {
-		return
-	}
-
-	//if size is > int32 probably it will never finish, or ran out of entropy
-	i := n - 1
-	for ; i > 0; i-- {
-		j := int(rand.Int31n(int32(i + 1)))
-		swap(i, j)
-	}
 }
