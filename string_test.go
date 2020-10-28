@@ -32,6 +32,19 @@ func TestLetterN(t *testing.T) {
 	}
 }
 
+func ExampleLetterN() {
+	Seed(11)
+	fmt.Println(LetterN(10))
+	// Output: gbRMaRxHki
+}
+
+func BenchmarkLetterN(b *testing.B) {
+	Seed(11)
+	for i := 0; i < b.N; i++ {
+		LetterN(10)
+	}
+}
+
 func ExampleDigit() {
 	Seed(11)
 	fmt.Println(Digit())
@@ -56,6 +69,19 @@ func TestDigitN(t *testing.T) {
 		if val < 0 || 9 < val {
 			t.Errorf("non digit %s found at index %d",  string(data[i]), i)
 		}
+	}
+}
+
+func ExampleDigitN() {
+	Seed(11)
+	fmt.Println(DigitN(10))
+	// Output: 0136459948
+}
+
+func BenchmarkDigitN(b *testing.B) {
+	Seed(11)
+	for i := 0; i < b.N; i++ {
+		DigitN(10)
 	}
 }
 
