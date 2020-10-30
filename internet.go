@@ -177,8 +177,8 @@ func addInternetLookup() {
 		},
 	})
 
-	AddFuncLookup("domain", Info{
-		Display:     "Domain",
+	AddFuncLookup("domainname", Info{
+		Display:     "Domain Name",
 		Category:    "internet",
 		Description: "Random domain name",
 		Example:     "centraltarget.biz",
