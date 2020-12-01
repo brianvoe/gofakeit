@@ -73,6 +73,15 @@ func ShuffleAnySlice(v interface{}) {
 	}
 }
 
+// FlipACoin will return a random value of Heads or Tails
+func FlipACoin() string {
+	if Bool() {
+		return "Heads"
+	}
+
+	return "Tails"
+}
+
 // Categories will return a map string array of available data categories and sub categories
 func Categories() map[string][]string {
 	types := make(map[string][]string)
@@ -109,4 +118,14 @@ func addMiscLookup() {
 		},
 	})
 
+	AddFuncLookup("flipacoin", Info{
+		Display:     "Flip A Coin",
+		Category:    "misc",
+		Description: "Random Heads or Tails outcome",
+		Example:     "Tails",
+		Output:      "string",
+		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+			return FlipACoin(), nil
+		},
+	})
 }

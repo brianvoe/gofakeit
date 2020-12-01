@@ -93,6 +93,18 @@ func BenchmarkShuffleAnySlice(b *testing.B) {
 	}
 }
 
+func ExampleFlipACoin() {
+	Seed(11)
+	fmt.Println(FlipACoin())
+	// Output: Tails
+}
+
+func BenchmarkFlipACoin(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		FlipACoin()
+	}
+}
+
 func TestCategories(t *testing.T) {
 	var got, expected []string
 	for k := range Categories() {
