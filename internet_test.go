@@ -56,7 +56,7 @@ func BenchmarkHTTPMethod(b *testing.B) {
 func ExampleIPv4Address() {
 	Seed(11)
 	fmt.Println(IPv4Address())
-	// Output: 222.83.191.222
+	// Output: 152.23.53.100
 }
 
 func BenchmarkIPv4Address(b *testing.B) {
@@ -68,7 +68,7 @@ func BenchmarkIPv4Address(b *testing.B) {
 func ExampleIPv6Address() {
 	Seed(11)
 	fmt.Println(IPv6Address())
-	// Output: 2001:cafe:8898:ee17:bc35:9064:5866:d019
+	// Output: 8898:ee17:bc35:9064:5866:d019:3b95:7857
 }
 
 func BenchmarkIPv6Address(b *testing.B) {

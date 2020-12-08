@@ -40,14 +40,14 @@ func HTTPMethod() string {
 
 // IPv4Address will generate a random version 4 ip address
 func IPv4Address() string {
-	num := func() int { return 2 + rand.Intn(254) }
+	num := func() int { return rand.Intn(256) }
 	return fmt.Sprintf("%d.%d.%d.%d", num(), num(), num(), num())
 }
 
 // IPv6Address will generate a random version 6 ip address
 func IPv6Address() string {
-	num := 65536
-	return fmt.Sprintf("2001:cafe:%x:%x:%x:%x:%x:%x", rand.Intn(num), rand.Intn(num), rand.Intn(num), rand.Intn(num), rand.Intn(num), rand.Intn(num))
+	num := func() int { return rand.Intn(65536) }
+	return fmt.Sprintf("%x:%x:%x:%x:%x:%x:%x:%x", num(), num(), num(), num(), num(), num(), num(), num())
 }
 
 // MacAddress will generate a random mac address
