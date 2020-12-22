@@ -13,3 +13,21 @@ func Seed(seed int64) {
 		rand.Seed(seed)
 	}
 }
+
+type Faker struct {
+	Rand *rand.Rand
+}
+
+func New(seed ...int64) *Faker {
+	var s rand.Source
+
+	if len(seed) > 0 {
+		s = rand.NewSource(seed[0])
+	} else {
+		s = rand.NewSource(time.Now().UTC().UnixNano())
+	}
+
+	return &Faker{
+		rand.New(s),
+	}
+}

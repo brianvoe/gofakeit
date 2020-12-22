@@ -41,6 +41,30 @@ func BenchmarkUUID(b *testing.B) {
 	}
 }
 
+func TestUUIDF(t *testing.T) {
+	f := New()
+
+	id := f.UUID()
+
+	if len(id) != 36 {
+		t.Errorf("unique length does not equal requested length")
+	}
+}
+
+func ExampleUUIDF() {
+	f := New(11)
+	fmt.Println(f.UUID())
+	// Output: 590c1440-9888-45b0-bd51-a817ee07c3f2
+}
+
+func BenchmarkUUIDF(b *testing.B) {
+	f := New()
+
+	for i := 0; i < b.N; i++ {
+		f.UUID()
+	}
+}
+
 func TestShuffleAnySlice(t *testing.T) {
 	ShuffleAnySlice(nil)           // Should do nothing
 	ShuffleAnySlice("b")           // Should do nothing
