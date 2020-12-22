@@ -25,10 +25,10 @@ func (f Faker) UUID() string {
 	return uuid(f.Rand.Read)
 }
 
-func uuid(read readFunc) string {
+func uuid(r readFunc) string {
 	version := byte(4)
 	uuid := make([]byte, 16)
-	read(uuid)
+	r(uuid)
 
 	// Set version
 	uuid[6] = (uuid[6] & 0x0f) | (version << 4)
