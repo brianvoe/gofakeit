@@ -16,23 +16,19 @@ func Bool() bool {
 // UUID (version 4) will generate a random unique identifier based upon random numbers
 // Format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 func UUID() string {
-	return uuid(nil)
+	return uuid(rand.Read)
 }
 
 // UUID (version 4) will generate a random unique identifier based upon random numbers
 // Format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 func (f Faker) UUID() string {
-	return uuid(f.Rand)
+	return uuid(f.Rand.Read)
 }
 
-func uuid(r *rand.Rand) string {
+func uuid(read readFunc) string {
 	version := byte(4)
 	uuid := make([]byte, 16)
-	if r != nil {
-		r.Read(uuid)
-	} else {
-		rand.Read(uuid)
-	}
+	read(uuid)
 
 	// Set version
 	uuid[6] = (uuid[6] & 0x0f) | (version << 4)
