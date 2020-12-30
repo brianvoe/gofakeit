@@ -8,7 +8,7 @@ import (
 
 // Date will generate a random time.Time struct
 func Date() time.Time {
-	return time.Date(Year(), time.Month(Number(0, 12)), Day(), Hour(), Minute(), Second(), NanoSecond(), time.UTC)
+	return time.Date(Year(), time.Month(Number(1, 12)), Day(), Hour(), Minute(), Second(), NanoSecond(), time.UTC)
 }
 
 // DateRange will generate a random time.Time struct between a start and end date
