@@ -21,36 +21,36 @@ type wordGenerator func() string
 
 // Noun will generate a random noun
 func Noun() string {
-	return getRandValue([]string{"word", "noun"})
+	return getRandValue(globalFaker.Rand, []string{"word", "noun"})
 }
 
 // Verb will generate a random verb
 func Verb() string {
-	return getRandValue([]string{"word", "verb"})
+	return getRandValue(globalFaker.Rand, []string{"word", "verb"})
 }
 
 // Adverb will generate a random adverb
 func Adverb() string {
-	return getRandValue([]string{"word", "adverb"})
+	return getRandValue(globalFaker.Rand, []string{"word", "adverb"})
 }
 
 // Preposition will generate a random preposition
 func Preposition() string {
-	return getRandValue([]string{"word", "preposition"})
+	return getRandValue(globalFaker.Rand, []string{"word", "preposition"})
 }
 
 // Adjective will generate a random adjective
 func Adjective() string {
-	return getRandValue([]string{"word", "adjective"})
+	return getRandValue(globalFaker.Rand, []string{"word", "adjective"})
 }
 
 // Word will generate a random word
 func Word() string {
 	if Bool() {
-		return getRandValue([]string{"word", "noun"})
+		return getRandValue(globalFaker.Rand, []string{"word", "noun"})
 	}
 
-	return getRandValue([]string{"word", "verb"})
+	return getRandValue(globalFaker.Rand, []string{"word", "verb"})
 }
 
 // Sentence will generate a random sentence
@@ -65,7 +65,7 @@ func Paragraph(paragraphCount int, sentenceCount int, wordCount int, separator s
 
 // LoremIpsumWord will generate a random word
 func LoremIpsumWord() string {
-	return getRandValue([]string{"lorem", "word"})
+	return getRandValue(globalFaker.Rand, []string{"lorem", "word"})
 }
 
 // LoremIpsumSentence will generate a random sentence
@@ -142,7 +142,7 @@ func Quote() string {
 
 // Phrase will return a random dictionary phrase
 func Phrase() string {
-	return getRandValue([]string{"word", "phrase"})
+	return getRandValue(globalFaker.Rand, []string{"word", "phrase"})
 }
 
 func addWordLookup() {

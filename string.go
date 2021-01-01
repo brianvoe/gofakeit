@@ -1,12 +1,8 @@
 package gofakeit
 
-import (
-	"math/rand"
-)
-
 // Letter will generate a single random lower case ASCII letter
 func Letter() string {
-	return string(randLetter())
+	return string(randLetter(globalFaker.Rand))
 }
 
 // LetterN will generate a random ASCII string with length N
@@ -17,14 +13,14 @@ func LetterN(n uint) string {
 	}
 	out := make([]rune, n)
 	for i := 0; i < int(n); i++ {
-		out[i] = randLetter()
+		out[i] = randLetter(globalFaker.Rand)
 	}
 	return string(out)
 }
 
 // Digit will generate a single ASCII digit
 func Digit() string {
-	return string(randDigit())
+	return string(randDigit(globalFaker.Rand))
 }
 
 // DigitN will generate a random string of length N consists of ASCII digits (note it can start with 0).
@@ -35,19 +31,19 @@ func DigitN(n uint) string {
 	}
 	out := make([]rune, n)
 	for i := 0; i < int(n); i++ {
-		out[i] = randDigit()
+		out[i] = randDigit(globalFaker.Rand)
 	}
 	return string(out)
 }
 
 // Numerify will replace # with random numerical values
 func Numerify(str string) string {
-	return replaceWithNumbers(str)
+	return replaceWithNumbers(globalFaker.Rand, str)
 }
 
 // Lexify will replace ? will random generated letters
 func Lexify(str string) string {
-	return replaceWithLetters(str)
+	return replaceWithLetters(globalFaker.Rand, str)
 }
 
 // ShuffleStrings will randomize a slice of strings
@@ -64,7 +60,7 @@ func ShuffleStrings(a []string) {
 	//if size is > int32 probably it will never finish, or ran out of entropy
 	i := n - 1
 	for ; i > 0; i-- {
-		j := int(rand.Int31n(int32(i + 1)))
+		j := int(globalFaker.Rand.Int31n(int32(i + 1)))
 		swap(i, j)
 	}
 }
@@ -78,7 +74,7 @@ func RandomString(a []string) string {
 	if size == 1 {
 		return a[0]
 	}
-	return a[rand.Intn(size)]
+	return a[globalFaker.Rand.Intn(size)]
 }
 
 func addStringLookup() {

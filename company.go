@@ -2,22 +2,22 @@ package gofakeit
 
 // Company will generate a random company name string
 func Company() (company string) {
-	return getRandValue([]string{"company", "name"})
+	return getRandValue(globalFaker.Rand, []string{"company", "name"})
 }
 
 // CompanySuffix will generate a random company suffix string
 func CompanySuffix() string {
-	return getRandValue([]string{"company", "suffix"})
+	return getRandValue(globalFaker.Rand, []string{"company", "suffix"})
 }
 
 // BuzzWord will generate a random company buzz word string
 func BuzzWord() string {
-	return getRandValue([]string{"company", "buzzwords"})
+	return getRandValue(globalFaker.Rand, []string{"company", "buzzwords"})
 }
 
 // BS will generate a random company bs string
 func BS() string {
-	return getRandValue([]string{"company", "bs"})
+	return getRandValue(globalFaker.Rand, []string{"company", "bs"})
 }
 
 // JobInfo is a struct of job information
@@ -40,17 +40,17 @@ func Job() *JobInfo {
 
 // JobTitle will generate a random job title string
 func JobTitle() string {
-	return getRandValue([]string{"job", "title"})
+	return getRandValue(globalFaker.Rand, []string{"job", "title"})
 }
 
 // JobDescriptor will generate a random job descriptor string
 func JobDescriptor() string {
-	return getRandValue([]string{"job", "descriptor"})
+	return getRandValue(globalFaker.Rand, []string{"job", "descriptor"})
 }
 
 // JobLevel will generate a random job level string
 func JobLevel() string {
-	return getRandValue([]string{"job", "level"})
+	return getRandValue(globalFaker.Rand, []string{"job", "level"})
 }
 
 func addCompanyLookup() {

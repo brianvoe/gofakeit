@@ -36,27 +36,27 @@ func Person() *PersonInfo {
 
 // Name will generate a random First and Last Name
 func Name() string {
-	return getRandValue([]string{"person", "first"}) + " " + getRandValue([]string{"person", "last"})
+	return getRandValue(globalFaker.Rand, []string{"person", "first"}) + " " + getRandValue(globalFaker.Rand, []string{"person", "last"})
 }
 
 // FirstName will generate a random first name
 func FirstName() string {
-	return getRandValue([]string{"person", "first"})
+	return getRandValue(globalFaker.Rand, []string{"person", "first"})
 }
 
 // LastName will generate a random last name
 func LastName() string {
-	return getRandValue([]string{"person", "last"})
+	return getRandValue(globalFaker.Rand, []string{"person", "last"})
 }
 
 // NamePrefix will generate a random name prefix
 func NamePrefix() string {
-	return getRandValue([]string{"person", "prefix"})
+	return getRandValue(globalFaker.Rand, []string{"person", "prefix"})
 }
 
 // NameSuffix will generate a random name suffix
 func NameSuffix() string {
-	return getRandValue([]string{"person", "suffix"})
+	return getRandValue(globalFaker.Rand, []string{"person", "suffix"})
 }
 
 // SSN will generate a random Social Security Number
@@ -89,19 +89,19 @@ func Contact() *ContactInfo {
 
 // Phone will generate a random phone number string
 func Phone() string {
-	return replaceWithNumbers("##########")
+	return replaceWithNumbers(globalFaker.Rand, "##########")
 }
 
 // PhoneFormatted will generate a random phone number string
 func PhoneFormatted() string {
-	return replaceWithNumbers(getRandValue([]string{"person", "phone"}))
+	return replaceWithNumbers(globalFaker.Rand, getRandValue(globalFaker.Rand, []string{"person", "phone"}))
 }
 
 // Email will generate a random email string
 func Email() string {
-	email := getRandValue([]string{"person", "first"}) + getRandValue([]string{"person", "last"})
+	email := getRandValue(globalFaker.Rand, []string{"person", "first"}) + getRandValue(globalFaker.Rand, []string{"person", "last"})
 	email += "@"
-	email += getRandValue([]string{"person", "last"}) + "." + getRandValue([]string{"internet", "domain_suffix"})
+	email += getRandValue(globalFaker.Rand, []string{"person", "last"}) + "." + getRandValue(globalFaker.Rand, []string{"internet", "domain_suffix"})
 
 	return strings.ToLower(email)
 }

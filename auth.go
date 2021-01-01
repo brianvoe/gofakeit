@@ -1,12 +1,8 @@
 package gofakeit
 
-import (
-	"math/rand"
-)
-
 // Username will genrate a random username based upon picking a random lastname and random numbers at the end
 func Username() string {
-	return getRandValue([]string{"person", "last"}) + replaceWithNumbers("####")
+	return getRandValue(globalFaker.Rand, []string{"person", "last"}) + replaceWithNumbers(globalFaker.Rand, "####")
 }
 
 // Password will generate a random password
@@ -22,27 +18,27 @@ func Password(lower bool, upper bool, numeric bool, special bool, space bool, nu
 
 	if lower {
 		passString += lowerStr
-		b[i] = lowerStr[rand.Int63()%int64(len(lowerStr))]
+		b[i] = lowerStr[globalFaker.Rand.Int63()%int64(len(lowerStr))]
 		i++
 	}
 	if upper {
 		passString += upperStr
-		b[i] = upperStr[rand.Int63()%int64(len(upperStr))]
+		b[i] = upperStr[globalFaker.Rand.Int63()%int64(len(upperStr))]
 		i++
 	}
 	if numeric {
 		passString += numericStr
-		b[i] = numericStr[rand.Int63()%int64(len(numericStr))]
+		b[i] = numericStr[globalFaker.Rand.Int63()%int64(len(numericStr))]
 		i++
 	}
 	if special {
 		passString += specialStr
-		b[i] = specialStr[rand.Int63()%int64(len(specialStr))]
+		b[i] = specialStr[globalFaker.Rand.Int63()%int64(len(specialStr))]
 		i++
 	}
 	if space {
 		passString += spaceStr
-		b[i] = spaceStr[rand.Int63()%int64(len(spaceStr))]
+		b[i] = spaceStr[globalFaker.Rand.Int63()%int64(len(spaceStr))]
 		i++
 	}
 
@@ -53,13 +49,13 @@ func Password(lower bool, upper bool, numeric bool, special bool, space bool, nu
 
 	// Loop through and add it up
 	for i <= num-1 {
-		b[i] = passString[rand.Int63()%int64(len(passString))]
+		b[i] = passString[globalFaker.Rand.Int63()%int64(len(passString))]
 		i++
 	}
 
 	// Shuffle bytes
 	for i := range b {
-		j := rand.Intn(i + 1)
+		j := globalFaker.Rand.Intn(i + 1)
 		b[i], b[j] = b[j], b[i]
 	}
 

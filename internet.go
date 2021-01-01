@@ -2,7 +2,6 @@ package gofakeit
 
 import (
 	"fmt"
-	"math/rand"
 	"strconv"
 	"strings"
 
@@ -16,7 +15,7 @@ func DomainName() string {
 
 // DomainSuffix will generate a random domain suffix
 func DomainSuffix() string {
-	return getRandValue([]string{"internet", "domain_suffix"})
+	return getRandValue(globalFaker.Rand, []string{"internet", "domain_suffix"})
 }
 
 // URL will generate a random url string
@@ -35,45 +34,45 @@ func URL() string {
 
 // HTTPMethod will generate a random http method
 func HTTPMethod() string {
-	return getRandValue([]string{"internet", "http_method"})
+	return getRandValue(globalFaker.Rand, []string{"internet", "http_method"})
 }
 
 // IPv4Address will generate a random version 4 ip address
 func IPv4Address() string {
-	num := func() int { return rand.Intn(256) }
+	num := func() int { return globalFaker.Rand.Intn(256) }
 	return fmt.Sprintf("%d.%d.%d.%d", num(), num(), num(), num())
 }
 
 // IPv6Address will generate a random version 6 ip address
 func IPv6Address() string {
-	num := func() int { return rand.Intn(65536) }
+	num := func() int { return globalFaker.Rand.Intn(65536) }
 	return fmt.Sprintf("%x:%x:%x:%x:%x:%x:%x:%x", num(), num(), num(), num(), num(), num(), num(), num())
 }
 
 // MacAddress will generate a random mac address
 func MacAddress() string {
 	num := 255
-	return fmt.Sprintf("%02x:%02x:%02x:%02x:%02x:%02x", rand.Intn(num), rand.Intn(num), rand.Intn(num), rand.Intn(num), rand.Intn(num), rand.Intn(num))
+	return fmt.Sprintf("%02x:%02x:%02x:%02x:%02x:%02x", globalFaker.Rand.Intn(num), globalFaker.Rand.Intn(num), globalFaker.Rand.Intn(num), globalFaker.Rand.Intn(num), globalFaker.Rand.Intn(num), globalFaker.Rand.Intn(num))
 }
 
 // HTTPStatusCode will generate a random status code
 func HTTPStatusCode() int {
-	return getRandIntValue([]string{"status_code", "general"})
+	return getRandIntValue(globalFaker.Rand, []string{"status_code", "general"})
 }
 
 // HTTPStatusCodeSimple will generate a random simple status code
 func HTTPStatusCodeSimple() int {
-	return getRandIntValue([]string{"status_code", "simple"})
+	return getRandIntValue(globalFaker.Rand, []string{"status_code", "simple"})
 }
 
 // LogLevel will generate a random log level
 // See data/LogLevels for list of available levels
 func LogLevel(logType string) string {
 	if _, ok := data.LogLevels[logType]; ok {
-		return getRandValue([]string{"log_level", logType})
+		return getRandValue(globalFaker.Rand, []string{"log_level", logType})
 	}
 
-	return getRandValue([]string{"log_level", "general"})
+	return getRandValue(globalFaker.Rand, []string{"log_level", "general"})
 }
 
 // UserAgent will generate a random broswer user agent
@@ -141,17 +140,17 @@ func OperaUserAgent() string {
 
 // linuxPlatformToken will generate a random linux platform
 func linuxPlatformToken() string {
-	return "X11; Linux " + getRandValue([]string{"computer", "linux_processor"})
+	return "X11; Linux " + getRandValue(globalFaker.Rand, []string{"computer", "linux_processor"})
 }
 
 // macPlatformToken will generate a random mac platform
 func macPlatformToken() string {
-	return "Macintosh; " + getRandValue([]string{"computer", "mac_processor"}) + " Mac OS X 10_" + strconv.Itoa(randIntRange(globalFaker.Rand, 5, 9)) + "_" + strconv.Itoa(randIntRange(globalFaker.Rand, 0, 10))
+	return "Macintosh; " + getRandValue(globalFaker.Rand, []string{"computer", "mac_processor"}) + " Mac OS X 10_" + strconv.Itoa(randIntRange(globalFaker.Rand, 5, 9)) + "_" + strconv.Itoa(randIntRange(globalFaker.Rand, 0, 10))
 }
 
 // windowsPlatformToken will generate a random windows platform
 func windowsPlatformToken() string {
-	return getRandValue([]string{"computer", "windows_platform"})
+	return getRandValue(globalFaker.Rand, []string{"computer", "windows_platform"})
 }
 
 // randomPlatform will generate a random platform

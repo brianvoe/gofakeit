@@ -35,5 +35,5 @@ func Example() {
 
 func ExampleNew() {
 	fake := New(0)
-	fake.Rand.Int()
+	fake.Bool()
 }

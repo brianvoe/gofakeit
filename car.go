@@ -25,27 +25,27 @@ func Car() *CarInfo {
 
 // CarType will generate a random car type string
 func CarType() string {
-	return getRandValue([]string{"car", "type"})
+	return getRandValue(globalFaker.Rand, []string{"car", "type"})
 }
 
 // CarFuelType will return a random fuel type
 func CarFuelType() string {
-	return getRandValue([]string{"car", "fuel_type"})
+	return getRandValue(globalFaker.Rand, []string{"car", "fuel_type"})
 }
 
 // CarTransmissionType will return a random transmission type
 func CarTransmissionType() string {
-	return getRandValue([]string{"car", "transmission_type"})
+	return getRandValue(globalFaker.Rand, []string{"car", "transmission_type"})
 }
 
 // CarMaker will return a random car maker
 func CarMaker() string {
-	return getRandValue([]string{"car", "maker"})
+	return getRandValue(globalFaker.Rand, []string{"car", "maker"})
 }
 
 // CarModel will return a random car model
 func CarModel() string {
-	return getRandValue([]string{"car", "model"})
+	return getRandValue(globalFaker.Rand, []string{"car", "model"})
 }
 
 func addCarLookup() {

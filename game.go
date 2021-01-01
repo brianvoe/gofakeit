@@ -4,7 +4,7 @@ import "fmt"
 
 // Gamertag will generate a random video game username
 func Gamertag() string {
-	return getRandValue([]string{"word", "noun"}) + getRandValue([]string{"word", "verb"}) + fmt.Sprintf("%d", Number(10, 999))
+	return getRandValue(globalFaker.Rand, []string{"word", "noun"}) + getRandValue(globalFaker.Rand, []string{"word", "verb"}) + fmt.Sprintf("%d", Number(10, 999))
 }
 
 func addGameLookup() {

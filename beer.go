@@ -4,27 +4,27 @@ import "strconv"
 
 // BeerName will return a random beer name
 func BeerName() string {
-	return getRandValue([]string{"beer", "name"})
+	return getRandValue(globalFaker.Rand, []string{"beer", "name"})
 }
 
 // BeerStyle will return a random beer style
 func BeerStyle() string {
-	return getRandValue([]string{"beer", "style"})
+	return getRandValue(globalFaker.Rand, []string{"beer", "style"})
 }
 
 // BeerHop will return a random beer hop
 func BeerHop() string {
-	return getRandValue([]string{"beer", "hop"})
+	return getRandValue(globalFaker.Rand, []string{"beer", "hop"})
 }
 
 // BeerYeast will return a random beer yeast
 func BeerYeast() string {
-	return getRandValue([]string{"beer", "yeast"})
+	return getRandValue(globalFaker.Rand, []string{"beer", "yeast"})
 }
 
 // BeerMalt will return a random beer malt
 func BeerMalt() string {
-	return getRandValue([]string{"beer", "malt"})
+	return getRandValue(globalFaker.Rand, []string{"beer", "malt"})
 }
 
 // BeerAlcohol will return a random beer alcohol level between 2.0 and 10.0

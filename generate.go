@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"math"
-	"math/rand"
 	"regexp/syntax"
 	"strings"
 )
@@ -25,8 +24,8 @@ import (
 // For a complete list of runnable functions use FuncsLookup
 func Generate(dataVal string) string {
 	// Replace # with numbers and ? with letters
-	dataVal = replaceWithNumbers(dataVal)
-	dataVal = replaceWithLetters(dataVal)
+	dataVal = replaceWithNumbers(globalFaker.Rand, dataVal)
+	dataVal = replaceWithLetters(globalFaker.Rand, dataVal)
 
 	// Identify items between brackets: {person.first}
 	for strings.Count(dataVal, "{") > 0 && strings.Count(dataVal, "}") > 0 {
@@ -132,11 +131,11 @@ func regexGenerate(re *syntax.Regexp) string {
 				}
 			}
 			if len(chars) > 0 {
-				return string([]byte{chars[rand.Intn(len(chars))]})
+				return string([]byte{chars[globalFaker.Rand.Intn(len(chars))]})
 			}
 		}
 
-		r := rand.Intn(int(sum))
+		r := globalFaker.Rand.Intn(int(sum))
 		var ru rune
 		sum = 0
 		for i := 0; i < len(re.Rune); i += 2 {
@@ -150,7 +149,7 @@ func regexGenerate(re *syntax.Regexp) string {
 
 		return string(ru)
 	case syntax.OpAnyCharNotNL, syntax.OpAnyChar: // matches any character(and except newline)
-		return randCharacter(allStr)
+		return randCharacter(globalFaker.Rand, allStr)
 	case syntax.OpBeginLine: // matches empty string at beginning of line
 	case syntax.OpEndLine: // matches empty string at end of line
 	case syntax.OpBeginText: // matches empty string at beginning of text
@@ -188,7 +187,7 @@ func regexGenerate(re *syntax.Regexp) string {
 		count := 0
 		re.Max = int(math.Min(float64(re.Max), float64(10)))
 		if re.Max > re.Min {
-			count = rand.Intn(re.Max - re.Min + 1)
+			count = globalFaker.Rand.Intn(re.Max - re.Min + 1)
 		}
 		for i := 0; i < re.Min || i < (re.Min+count); i++ {
 			for _, r := range re.Sub {

@@ -58,27 +58,27 @@ func Year() int {
 
 // TimeZone will select a random timezone string
 func TimeZone() string {
-	return getRandValue([]string{"timezone", "text"})
+	return getRandValue(globalFaker.Rand, []string{"timezone", "text"})
 }
 
 // TimeZoneFull will select a random full timezone string
 func TimeZoneFull() string {
-	return getRandValue([]string{"timezone", "full"})
+	return getRandValue(globalFaker.Rand, []string{"timezone", "full"})
 }
 
 // TimeZoneRegion will select a random region style timezone string, e.g. "America/Chicago"
 func TimeZoneRegion() string {
-	return getRandValue([]string{"timezone", "region"})
+	return getRandValue(globalFaker.Rand, []string{"timezone", "region"})
 }
 
 // TimeZoneAbv will select a random timezone abbreviation string
 func TimeZoneAbv() string {
-	return getRandValue([]string{"timezone", "abr"})
+	return getRandValue(globalFaker.Rand, []string{"timezone", "abr"})
 }
 
 // TimeZoneOffset will select a random timezone offset
 func TimeZoneOffset() float32 {
-	value, _ := strconv.ParseFloat(getRandValue([]string{"timezone", "offset"}), 32)
+	value, _ := strconv.ParseFloat(getRandValue(globalFaker.Rand, []string{"timezone", "offset"}), 32)
 	return float32(value)
 }
 

@@ -2,7 +2,6 @@ package gofakeit
 
 import (
 	"errors"
-	"math/rand"
 	"strings"
 )
 
@@ -51,22 +50,22 @@ func Street() (street string) {
 
 // StreetNumber will generate a random address street number string
 func StreetNumber() string {
-	return strings.TrimLeft(replaceWithNumbers(getRandValue([]string{"address", "number"})), "0")
+	return strings.TrimLeft(replaceWithNumbers(globalFaker.Rand, getRandValue(globalFaker.Rand, []string{"address", "number"})), "0")
 }
 
 // StreetPrefix will generate a random address street prefix string
 func StreetPrefix() string {
-	return getRandValue([]string{"address", "street_prefix"})
+	return getRandValue(globalFaker.Rand, []string{"address", "street_prefix"})
 }
 
 // StreetName will generate a random address street name string
 func StreetName() string {
-	return getRandValue([]string{"address", "street_name"})
+	return getRandValue(globalFaker.Rand, []string{"address", "street_name"})
 }
 
 // StreetSuffix will generate a random address street suffix string
 func StreetSuffix() string {
-	return getRandValue([]string{"address", "street_suffix"})
+	return getRandValue(globalFaker.Rand, []string{"address", "street_suffix"})
 }
 
 // City will generate a random city string
@@ -85,31 +84,31 @@ func City() (city string) {
 
 // State will generate a random state string
 func State() string {
-	return getRandValue([]string{"address", "state"})
+	return getRandValue(globalFaker.Rand, []string{"address", "state"})
 }
 
 // StateAbr will generate a random abbreviated state string
 func StateAbr() string {
-	return getRandValue([]string{"address", "state_abr"})
+	return getRandValue(globalFaker.Rand, []string{"address", "state_abr"})
 }
 
 // Zip will generate a random Zip code string
 func Zip() string {
-	return replaceWithNumbers(getRandValue([]string{"address", "zip"}))
+	return replaceWithNumbers(globalFaker.Rand, getRandValue(globalFaker.Rand, []string{"address", "zip"}))
 }
 
 // Country will generate a random country string
 func Country() string {
-	return getRandValue([]string{"address", "country"})
+	return getRandValue(globalFaker.Rand, []string{"address", "country"})
 }
 
 // CountryAbr will generate a random abbreviated country string
 func CountryAbr() string {
-	return getRandValue([]string{"address", "country_abr"})
+	return getRandValue(globalFaker.Rand, []string{"address", "country_abr"})
 }
 
 // Latitude will generate a random latitude float64
-func Latitude() float64 { return toFixed((rand.Float64()*180)-90, 6) }
+func Latitude() float64 { return toFixed((globalFaker.Rand.Float64()*180)-90, 6) }
 
 // LatitudeInRange will generate a random latitude within the input range
 func LatitudeInRange(min, max float64) (float64, error) {
@@ -120,7 +119,7 @@ func LatitudeInRange(min, max float64) (float64, error) {
 }
 
 // Longitude will generate a random longitude float64
-func Longitude() float64 { return toFixed((rand.Float64()*360)-180, 6) }
+func Longitude() float64 { return toFixed((globalFaker.Rand.Float64()*360)-180, 6) }
 
 // LongitudeInRange will generate a random longitude within the input range
 func LongitudeInRange(min, max float64) (float64, error) {

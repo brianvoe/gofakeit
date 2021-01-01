@@ -4,41 +4,41 @@ import "strings"
 
 // Fruit will return a random fruit name
 func Fruit() string {
-	return getRandValue([]string{"food", "fruit"})
+	return getRandValue(globalFaker.Rand, []string{"food", "fruit"})
 }
 
 // Vegetable will return a random vegetable name
 func Vegetable() string {
-	return getRandValue([]string{"food", "vegetable"})
+	return getRandValue(globalFaker.Rand, []string{"food", "vegetable"})
 }
 
 // Breakfast will return a random breakfast name
 func Breakfast() string {
-	v := getRandValue([]string{"food", "breakfast"})
+	v := getRandValue(globalFaker.Rand, []string{"food", "breakfast"})
 	return strings.ToUpper(v[:1]) + v[1:]
 }
 
 // Lunch will return a random lunch name
 func Lunch() string {
-	v := getRandValue([]string{"food", "lunch"})
+	v := getRandValue(globalFaker.Rand, []string{"food", "lunch"})
 	return strings.ToUpper(v[:1]) + v[1:]
 }
 
 // Dinner will return a random dinner name
 func Dinner() string {
-	v := getRandValue([]string{"food", "dinner"})
+	v := getRandValue(globalFaker.Rand, []string{"food", "dinner"})
 	return strings.ToUpper(v[:1]) + v[1:]
 }
 
 // Snack will return a random snack name
 func Snack() string {
-	v := getRandValue([]string{"food", "snack"})
+	v := getRandValue(globalFaker.Rand, []string{"food", "snack"})
 	return strings.ToUpper(v[:1]) + v[1:]
 }
 
 // Dessert will return a random dessert name
 func Dessert() string {
-	v := getRandValue([]string{"food", "dessert"})
+	v := getRandValue(globalFaker.Rand, []string{"food", "dessert"})
 	return strings.ToUpper(v[:1]) + v[1:]
 }
 

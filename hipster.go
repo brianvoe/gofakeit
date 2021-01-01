@@ -4,7 +4,7 @@ import "errors"
 
 // HipsterWord will return a single hipster word
 func HipsterWord() string {
-	return getRandValue([]string{"hipster", "word"})
+	return getRandValue(globalFaker.Rand, []string{"hipster", "word"})
 }
 
 // HipsterSentence will generate a random sentence

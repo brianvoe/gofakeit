@@ -2,12 +2,12 @@ package gofakeit
 
 // FileExtension will generate a random file extension
 func FileExtension() string {
-	return getRandValue([]string{"file", "extension"})
+	return getRandValue(globalFaker.Rand, []string{"file", "extension"})
 }
 
 // FileMimeType will generate a random mime file type
 func FileMimeType() string {
-	return getRandValue([]string{"file", "mime_type"})
+	return getRandValue(globalFaker.Rand, []string{"file", "mime_type"})
 }
 
 func addFileLookup() {

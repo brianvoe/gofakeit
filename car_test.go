@@ -20,7 +20,7 @@ func ExampleCar() {
 	// Freestyle Fwd
 	// Automatic
 	// Passenger car mini
-	// 1972
+	// 1967
 }
 
 func BenchmarkCar(b *testing.B) {

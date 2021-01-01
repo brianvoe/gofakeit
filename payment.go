@@ -2,7 +2,6 @@ package gofakeit
 
 import (
 	"math"
-	"math/rand"
 	"strconv"
 	"strings"
 	"time"
@@ -18,7 +17,7 @@ type CurrencyInfo struct {
 
 // Currency will generate a struct with random currency information
 func Currency() *CurrencyInfo {
-	index := rand.Intn(len(data.Data["currency"]["short"]))
+	index := globalFaker.Rand.Intn(len(data.Data["currency"]["short"]))
 	return &CurrencyInfo{
 		Short: data.Data["currency"]["short"][index],
 		Long:  data.Data["currency"]["long"][index],
@@ -27,12 +26,12 @@ func Currency() *CurrencyInfo {
 
 // CurrencyShort will generate a random short currency value
 func CurrencyShort() string {
-	return getRandValue([]string{"currency", "short"})
+	return getRandValue(globalFaker.Rand, []string{"currency", "short"})
 }
 
 // CurrencyLong will generate a random long currency name
 func CurrencyLong() string {
-	return getRandValue([]string{"currency", "long"})
+	return getRandValue(globalFaker.Rand, []string{"currency", "long"})
 }
 
 // Price will take in a min and max value and return a formatted price
@@ -177,7 +176,7 @@ func BitcoinAddress() string {
 func BitcoinPrivateKey() string {
 	var b strings.Builder
 	for i := 0; i < 49; i++ {
-		b.WriteString(randCharacter(base58))
+		b.WriteString(randCharacter(globalFaker.Rand, base58))
 	}
 	return "5" + RandomString([]string{"H", "J", "K"}) + b.String()
 }

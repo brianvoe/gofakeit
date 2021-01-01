@@ -4,34 +4,34 @@ import "strings"
 
 // HackerPhrase will return a random hacker sentence
 func HackerPhrase() string {
-	words := strings.Split(Generate(getRandValue([]string{"hacker", "phrase"})), " ")
+	words := strings.Split(Generate(getRandValue(globalFaker.Rand, []string{"hacker", "phrase"})), " ")
 	words[0] = strings.Title(words[0])
 	return strings.Join(words, " ")
 }
 
 // HackerAbbreviation will return a random hacker abbreviation
 func HackerAbbreviation() string {
-	return getRandValue([]string{"hacker", "abbreviation"})
+	return getRandValue(globalFaker.Rand, []string{"hacker", "abbreviation"})
 }
 
 // HackerAdjective will return a random hacker adjective
 func HackerAdjective() string {
-	return getRandValue([]string{"hacker", "adjective"})
+	return getRandValue(globalFaker.Rand, []string{"hacker", "adjective"})
 }
 
 // HackerNoun will return a random hacker noun
 func HackerNoun() string {
-	return getRandValue([]string{"hacker", "noun"})
+	return getRandValue(globalFaker.Rand, []string{"hacker", "noun"})
 }
 
 // HackerVerb will return a random hacker verb
 func HackerVerb() string {
-	return getRandValue([]string{"hacker", "verb"})
+	return getRandValue(globalFaker.Rand, []string{"hacker", "verb"})
 }
 
 // HackeringVerb will return a random hacker ingverb
 func HackeringVerb() string {
-	return getRandValue([]string{"hacker", "ingverb"})
+	return getRandValue(globalFaker.Rand, []string{"hacker", "ingverb"})
 }
 
 func addHackerLookup() {

@@ -64,7 +64,7 @@ func ExampleCreditCard() {
 	// Output:
 	// UnionPay
 	// 4645994899536906358
-	// 11/21
+	// 11/22
 	// 259
 }
 
@@ -142,7 +142,7 @@ func TestIsLuhn(t *testing.T) {
 func ExampleCreditCardExp() {
 	Seed(11)
 	fmt.Println(CreditCardExp())
-	// Output: 01/22
+	// Output: 01/23
 }
 
 func BenchmarkCreditCardExp(b *testing.B) {
