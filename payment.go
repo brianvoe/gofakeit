@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"math"
+	rand "math/rand"
 	"strconv"
 	"strings"
 	"time"
@@ -24,9 +25,23 @@ func Currency() *CurrencyInfo {
 	}
 }
 
+// Currency will generate a struct with random currency information
+func (f *Faker) Currency() *CurrencyInfo {
+	index := f.Rand.Intn(len(data.Data["currency"]["short"]))
+	return &CurrencyInfo{
+		Short: data.Data["currency"]["short"][index],
+		Long:  data.Data["currency"]["long"][index],
+	}
+}
+
 // CurrencyShort will generate a random short currency value
 func CurrencyShort() string {
 	return getRandValue(globalFaker.Rand, []string{"currency", "short"})
+}
+
+// CurrencyShort will generate a random short currency value
+func (f *Faker) CurrencyShort() string {
+	return getRandValue(f.Rand, []string{"currency", "short"})
 }
 
 // CurrencyLong will generate a random long currency name
@@ -34,9 +49,19 @@ func CurrencyLong() string {
 	return getRandValue(globalFaker.Rand, []string{"currency", "long"})
 }
 
+// CurrencyLong will generate a random long currency name
+func (f *Faker) CurrencyLong() string {
+	return getRandValue(f.Rand, []string{"currency", "long"})
+}
+
 // Price will take in a min and max value and return a formatted price
 func Price(min, max float64) float64 {
 	return math.Floor(randFloat64Range(globalFaker.Rand, min, max)*100) / 100
+}
+
+// Price will take in a min and max value and return a formatted price
+func (f *Faker) Price(min, max float64) float64 {
+	return math.Floor(randFloat64Range(f.Rand, min, max)*100) / 100
 }
 
 // CreditCardInfo is a struct containing credit variables
@@ -58,9 +83,25 @@ func CreditCard() *CreditCardInfo {
 	}
 }
 
+// CreditCard will generate a struct full of credit card information
+func (f *Faker) CreditCard() *CreditCardInfo {
+	ccType := f.RandomString(data.CreditCardTypes)
+	return &CreditCardInfo{
+		Type:   data.CreditCards[f.RandomString(data.CreditCardTypes)].Display,
+		Number: f.CreditCardNumber(&CreditCardOptions{Types: []string{ccType}}),
+		Exp:    f.CreditCardExp(),
+		Cvv:    f.Generate(strings.Repeat("#", int(data.CreditCards[f.RandomString(data.CreditCardTypes)].Code.Size))),
+	}
+}
+
 // CreditCardType will generate a random credit card type string
 func CreditCardType() string {
 	return data.CreditCards[RandomString(data.CreditCardTypes)].Display
+}
+
+// CreditCardType will generate a random credit card type string
+func (f *Faker) CreditCardType() string {
+	return data.CreditCards[f.RandomString(data.CreditCardTypes)].Display
 }
 
 // CreditCardOptions is the options for credit card number
@@ -71,7 +112,12 @@ type CreditCardOptions struct {
 }
 
 // CreditCardNumber will generate a random luhn credit card number
-func CreditCardNumber(cco *CreditCardOptions) string {
+func CreditCardNumber(cco *CreditCardOptions) string { return creditCardNumber(globalFaker.Rand, cco) }
+
+// CreditCardNumber will generate a random luhn credit card number
+func (f *Faker) CreditCardNumber(cco *CreditCardOptions) string { return creditCardNumber(f.Rand, cco) }
+
+func creditCardNumber(r *rand.Rand, cco *CreditCardOptions) string {
 	if cco == nil {
 		cco = &CreditCardOptions{}
 	}
@@ -123,21 +169,29 @@ func CreditCardNumber(cco *CreditCardOptions) string {
 
 // CreditCardExp will generate a random credit card expiration date string
 // Exp date will always be a future date
-func CreditCardExp() string {
-	month := strconv.Itoa(randIntRange(globalFaker.Rand, 1, 12))
+func CreditCardExp() string { return creditCardExp(globalFaker.Rand) }
+
+// CreditCardExp will generate a random credit card expiration date string
+// Exp date will always be a future date
+func (f *Faker) CreditCardExp() string { return creditCardExp(f.Rand) }
+
+func creditCardExp(r *rand.Rand) string {
+	month := strconv.Itoa(randIntRange(r, 1, 12))
 	if len(month) == 1 {
 		month = "0" + month
 	}
 
 	var currentYear = time.Now().Year() - 2000
-	return month + "/" + strconv.Itoa(randIntRange(globalFaker.Rand, currentYear+1, currentYear+10))
+	return month + "/" + strconv.Itoa(randIntRange(r, currentYear+1, currentYear+10))
 }
 
 // CreditCardCvv will generate a random CVV number
 // Its a string because you could have 017 as an exp date
-func CreditCardCvv() string {
-	return Numerify("###")
-}
+func CreditCardCvv() string { return Numerify("###") }
+
+// CreditCardCvv will generate a random CVV number
+// Its a string because you could have 017 as an exp date
+func (f *Faker) CreditCardCvv() string { return f.Numerify("###") }
 
 // isLuhn check is used for checking if credit card is a valid luhn card
 func isLuhn(s string) bool {
@@ -158,27 +212,39 @@ func isLuhn(s string) bool {
 }
 
 // AchRouting will generate a 9 digit routing number
-func AchRouting() string {
-	return Numerify("#########")
-}
+func AchRouting() string { return Numerify("#########") }
+
+// AchRouting will generate a 9 digit routing number
+func (f *Faker) AchRouting() string { return f.Numerify("#########") }
 
 // AchAccount will generate a 12 digit account number
-func AchAccount() string {
-	return Numerify("############")
-}
+func AchAccount() string { return Numerify("############") }
+
+// AchAccount will generate a 12 digit account number
+func (f *Faker) AchAccount() string { return f.Numerify("############") }
 
 // BitcoinAddress will generate a random bitcoin address consisting of numbers, upper and lower characters
 func BitcoinAddress() string {
 	return RandomString([]string{"1", "3"}) + Password(true, true, true, false, false, Number(25, 34))
 }
 
+// BitcoinAddress will generate a random bitcoin address consisting of numbers, upper and lower characters
+func (f *Faker) BitcoinAddress() string {
+	return f.RandomString([]string{"1", "3"}) + f.Password(true, true, true, false, false, f.Number(25, 34))
+}
+
 // BitcoinPrivateKey will generate a random bitcoin private key base58 consisting of numbers, upper and lower characters
-func BitcoinPrivateKey() string {
+func BitcoinPrivateKey() string { return bitcoinPrivateKey(globalFaker.Rand) }
+
+// BitcoinPrivateKey will generate a random bitcoin private key base58 consisting of numbers, upper and lower characters
+func (f *Faker) BitcoinPrivateKey() string { return bitcoinPrivateKey(f.Rand) }
+
+func bitcoinPrivateKey(r *rand.Rand) string {
 	var b strings.Builder
 	for i := 0; i < 49; i++ {
-		b.WriteString(randCharacter(globalFaker.Rand, base58))
+		b.WriteString(randCharacter(r, base58))
 	}
-	return "5" + RandomString([]string{"H", "J", "K"}) + b.String()
+	return "5" + randomString(r, []string{"H", "J", "K"}) + b.String()
 }
 
 func addPaymentLookup() {

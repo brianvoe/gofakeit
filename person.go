@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"math"
+	rand "math/rand"
 	"strconv"
 	"strings"
 )
@@ -34,9 +35,29 @@ func Person() *PersonInfo {
 	}
 }
 
+// Person will generate a struct with person information
+func (f *Faker) Person() *PersonInfo {
+	return &PersonInfo{
+		FirstName:  f.FirstName(),
+		LastName:   f.LastName(),
+		Gender:     f.Gender(),
+		SSN:        f.SSN(),
+		Image:      f.ImageURL(300, 300) + "/people",
+		Job:        f.Job(),
+		Address:    f.Address(),
+		Contact:    f.Contact(),
+		CreditCard: f.CreditCard(),
+	}
+}
+
 // Name will generate a random First and Last Name
 func Name() string {
 	return getRandValue(globalFaker.Rand, []string{"person", "first"}) + " " + getRandValue(globalFaker.Rand, []string{"person", "last"})
+}
+
+// Name will generate a random First and Last Name
+func (f *Faker) Name() string {
+	return getRandValue(f.Rand, []string{"person", "first"}) + " " + getRandValue(f.Rand, []string{"person", "last"})
 }
 
 // FirstName will generate a random first name
@@ -44,9 +65,19 @@ func FirstName() string {
 	return getRandValue(globalFaker.Rand, []string{"person", "first"})
 }
 
+// FirstName will generate a random first name
+func (f *Faker) FirstName() string {
+	return getRandValue(f.Rand, []string{"person", "first"})
+}
+
 // LastName will generate a random last name
 func LastName() string {
 	return getRandValue(globalFaker.Rand, []string{"person", "last"})
+}
+
+// LastName will generate a random last name
+func (f *Faker) LastName() string {
+	return getRandValue(f.Rand, []string{"person", "last"})
 }
 
 // NamePrefix will generate a random name prefix
@@ -54,9 +85,19 @@ func NamePrefix() string {
 	return getRandValue(globalFaker.Rand, []string{"person", "prefix"})
 }
 
+// NamePrefix will generate a random name prefix
+func (f *Faker) NamePrefix() string {
+	return getRandValue(f.Rand, []string{"person", "prefix"})
+}
+
 // NameSuffix will generate a random name suffix
 func NameSuffix() string {
 	return getRandValue(globalFaker.Rand, []string{"person", "suffix"})
+}
+
+// NameSuffix will generate a random name suffix
+func (f *Faker) NameSuffix() string {
+	return getRandValue(f.Rand, []string{"person", "suffix"})
 }
 
 // SSN will generate a random Social Security Number
@@ -64,9 +105,23 @@ func SSN() string {
 	return strconv.Itoa(randIntRange(globalFaker.Rand, 100000000, 999999999))
 }
 
+// SSN will generate a random Social Security Number
+func (f *Faker) SSN() string {
+	return strconv.Itoa(randIntRange(f.Rand, 100000000, 999999999))
+}
+
 // Gender will generate a random gender string
 func Gender() string {
 	if Bool() {
+		return "male"
+	}
+
+	return "female"
+}
+
+// Gender will generate a random gender string
+func (f *Faker) Gender() string {
+	if f.Bool() {
 		return "male"
 	}
 
@@ -87,9 +142,22 @@ func Contact() *ContactInfo {
 	}
 }
 
+// Contact will generate a struct with information randomly populated contact information
+func (f *Faker) Contact() *ContactInfo {
+	return &ContactInfo{
+		Phone: f.Phone(),
+		Email: f.Email(),
+	}
+}
+
 // Phone will generate a random phone number string
 func Phone() string {
 	return replaceWithNumbers(globalFaker.Rand, "##########")
+}
+
+// Phone will generate a random phone number string
+func (f *Faker) Phone() string {
+	return replaceWithNumbers(f.Rand, "##########")
 }
 
 // PhoneFormatted will generate a random phone number string
@@ -97,21 +165,39 @@ func PhoneFormatted() string {
 	return replaceWithNumbers(globalFaker.Rand, getRandValue(globalFaker.Rand, []string{"person", "phone"}))
 }
 
+// PhoneFormatted will generate a random phone number string
+func (f *Faker) PhoneFormatted() string {
+	return replaceWithNumbers(f.Rand, getRandValue(f.Rand, []string{"person", "phone"}))
+}
+
 // Email will generate a random email string
-func Email() string {
-	email := getRandValue(globalFaker.Rand, []string{"person", "first"}) + getRandValue(globalFaker.Rand, []string{"person", "last"})
+func Email() string { return email(globalFaker.Rand) }
+
+// Email will generate a random email string
+func (f *Faker) Email() string { return email(f.Rand) }
+
+func email(r *rand.Rand) string {
+	email := getRandValue(r, []string{"person", "first"}) + getRandValue(r, []string{"person", "last"})
 	email += "@"
-	email += getRandValue(globalFaker.Rand, []string{"person", "last"}) + "." + getRandValue(globalFaker.Rand, []string{"internet", "domain_suffix"})
+	email += getRandValue(r, []string{"person", "last"}) + "." + getRandValue(r, []string{"internet", "domain_suffix"})
 
 	return strings.ToLower(email)
 }
 
 // Teams takes in an array of people and team names and randomly places the people into teams as evenly as possible
-func Teams(people []string, teams []string) map[string][]string {
+func Teams(peopleArray []string, teamsArray []string) map[string][]string {
+	return teams(globalFaker.Rand, peopleArray, teamsArray)
+}
 
+// Teams takes in an array of people and team names and randomly places the people into teams as evenly as possible
+func (f *Faker) Teams(peopleArray []string, teamsArray []string) map[string][]string {
+	return teams(f.Rand, peopleArray, teamsArray)
+}
+
+func teams(r *rand.Rand, people []string, teams []string) map[string][]string {
 	// Shuffle the people if more than 1
 	if len(people) > 1 {
-		ShuffleStrings(people)
+		shuffleStrings(r, people)
 	}
 
 	peopleIndex := 0

@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"errors"
+	rand "math/rand"
 	"strings"
 )
 
@@ -36,6 +37,25 @@ func Address() *AddressInfo {
 	}
 }
 
+// Address will generate a struct of address information
+func (f *Faker) Address() *AddressInfo {
+	street := f.Street()
+	city := f.City()
+	state := f.State()
+	zip := f.Zip()
+
+	return &AddressInfo{
+		Address:   street + ", " + city + ", " + state + " " + zip,
+		Street:    street,
+		City:      city,
+		State:     state,
+		Zip:       zip,
+		Country:   f.Country(),
+		Latitude:  f.Latitude(),
+		Longitude: f.Longitude(),
+	}
+}
+
 // Street will generate a random address street string
 func Street() (street string) {
 	switch randInt := randIntRange(globalFaker.Rand, 1, 2); randInt {
@@ -48,9 +68,26 @@ func Street() (street string) {
 	return
 }
 
+// Street will generate a random address street string
+func (f *Faker) Street() (street string) {
+	switch randInt := randIntRange(f.Rand, 1, 2); randInt {
+	case 1:
+		street = f.StreetNumber() + " " + f.StreetPrefix() + " " + f.StreetName() + " " + f.StreetSuffix()
+	case 2:
+		street = f.StreetNumber() + " " + f.StreetName() + " " + f.StreetSuffix()
+	}
+
+	return
+}
+
 // StreetNumber will generate a random address street number string
 func StreetNumber() string {
 	return strings.TrimLeft(replaceWithNumbers(globalFaker.Rand, getRandValue(globalFaker.Rand, []string{"address", "number"})), "0")
+}
+
+// StreetNumber will generate a random address street number string
+func (f *Faker) StreetNumber() string {
+	return strings.TrimLeft(replaceWithNumbers(f.Rand, getRandValue(f.Rand, []string{"address", "number"})), "0")
 }
 
 // StreetPrefix will generate a random address street prefix string
@@ -58,14 +95,29 @@ func StreetPrefix() string {
 	return getRandValue(globalFaker.Rand, []string{"address", "street_prefix"})
 }
 
+// StreetPrefix will generate a random address street prefix string
+func (f *Faker) StreetPrefix() string {
+	return getRandValue(f.Rand, []string{"address", "street_prefix"})
+}
+
 // StreetName will generate a random address street name string
 func StreetName() string {
 	return getRandValue(globalFaker.Rand, []string{"address", "street_name"})
 }
 
+// StreetName will generate a random address street name string
+func (f *Faker) StreetName() string {
+	return getRandValue(f.Rand, []string{"address", "street_name"})
+}
+
 // StreetSuffix will generate a random address street suffix string
 func StreetSuffix() string {
 	return getRandValue(globalFaker.Rand, []string{"address", "street_suffix"})
+}
+
+// StreetSuffix will generate a random address street suffix string
+func (f *Faker) StreetSuffix() string {
+	return getRandValue(f.Rand, []string{"address", "street_suffix"})
 }
 
 // City will generate a random city string
@@ -82,9 +134,28 @@ func City() (city string) {
 	return
 }
 
+// City will generate a random city string
+func (f *Faker) City() (city string) {
+	switch randInt := randIntRange(f.Rand, 1, 3); randInt {
+	case 1:
+		city = f.FirstName() + f.StreetSuffix()
+	case 2:
+		city = f.LastName() + f.StreetSuffix()
+	case 3:
+		city = f.StreetPrefix() + " " + f.LastName()
+	}
+
+	return
+}
+
 // State will generate a random state string
 func State() string {
 	return getRandValue(globalFaker.Rand, []string{"address", "state"})
+}
+
+// State will generate a random state string
+func (f *Faker) State() string {
+	return getRandValue(f.Rand, []string{"address", "state"})
 }
 
 // StateAbr will generate a random abbreviated state string
@@ -92,9 +163,19 @@ func StateAbr() string {
 	return getRandValue(globalFaker.Rand, []string{"address", "state_abr"})
 }
 
+// StateAbr will generate a random abbreviated state string
+func (f *Faker) StateAbr() string {
+	return getRandValue(f.Rand, []string{"address", "state_abr"})
+}
+
 // Zip will generate a random Zip code string
 func Zip() string {
 	return replaceWithNumbers(globalFaker.Rand, getRandValue(globalFaker.Rand, []string{"address", "zip"}))
+}
+
+// Zip will generate a random Zip code string
+func (f *Faker) Zip() string {
+	return replaceWithNumbers(f.Rand, getRandValue(f.Rand, []string{"address", "zip"}))
 }
 
 // Country will generate a random country string
@@ -102,31 +183,65 @@ func Country() string {
 	return getRandValue(globalFaker.Rand, []string{"address", "country"})
 }
 
+// Country will generate a random country string
+func (f *Faker) Country() string {
+	return getRandValue(f.Rand, []string{"address", "country"})
+}
+
 // CountryAbr will generate a random abbreviated country string
 func CountryAbr() string {
 	return getRandValue(globalFaker.Rand, []string{"address", "country_abr"})
 }
 
+// CountryAbr will generate a random abbreviated country string
+func (f *Faker) CountryAbr() string {
+	return getRandValue(f.Rand, []string{"address", "country_abr"})
+}
+
 // Latitude will generate a random latitude float64
 func Latitude() float64 { return toFixed((globalFaker.Rand.Float64()*180)-90, 6) }
 
+// Latitude will generate a random latitude float64
+func (f *Faker) Latitude() float64 { return toFixed((f.Rand.Float64()*180)-90, 6) }
+
 // LatitudeInRange will generate a random latitude within the input range
 func LatitudeInRange(min, max float64) (float64, error) {
+	return latitudeInRange(globalFaker.Rand, min, max)
+}
+
+// LatitudeInRange will generate a random latitude within the input range
+func (f *Faker) LatitudeInRange(min, max float64) (float64, error) {
+	return latitudeInRange(f.Rand, min, max)
+}
+
+func latitudeInRange(r *rand.Rand, min, max float64) (float64, error) {
 	if min > max || min < -90 || min > 90 || max < -90 || max > 90 {
 		return 0, errors.New("Invalid min or max range, must be valid floats and between -90 and 90")
 	}
-	return toFixed(randFloat64Range(globalFaker.Rand, min, max), 6), nil
+	return toFixed(randFloat64Range(r, min, max), 6), nil
 }
 
 // Longitude will generate a random longitude float64
 func Longitude() float64 { return toFixed((globalFaker.Rand.Float64()*360)-180, 6) }
 
+// Longitude will generate a random longitude float64
+func (f *Faker) Longitude() float64 { return toFixed((f.Rand.Float64()*360)-180, 6) }
+
 // LongitudeInRange will generate a random longitude within the input range
 func LongitudeInRange(min, max float64) (float64, error) {
+	return longitudeInRange(globalFaker.Rand, min, max)
+}
+
+// LongitudeInRange will generate a random longitude within the input range
+func (f *Faker) LongitudeInRange(min, max float64) (float64, error) {
+	return longitudeInRange(f.Rand, min, max)
+}
+
+func longitudeInRange(r *rand.Rand, min, max float64) (float64, error) {
 	if min > max || min < -180 || min > 180 || max < -180 || max > 180 {
 		return 0, errors.New("Invalid min or max range, must be valid floats and between -180 and 180")
 	}
-	return toFixed(randFloat64Range(globalFaker.Rand, min, max), 6), nil
+	return toFixed(randFloat64Range(r, min, max), 6), nil
 }
 
 func addAddressLookup() {

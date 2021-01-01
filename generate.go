@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	rand "math/rand"
 	"regexp/syntax"
 	"strings"
 )
@@ -22,10 +23,28 @@ import (
 // Ex: ??? - fda - random letters
 //
 // For a complete list of runnable functions use FuncsLookup
-func Generate(dataVal string) string {
+func Generate(dataVal string) string { return generate(globalFaker.Rand, dataVal) }
+
+// Generate fake information from given string.
+// Replaceable values should be within {}
+//
+// Functions
+// Ex: {firstname} - billy
+// Ex: {sentence:3} - Record river mind.
+// Ex: {number:1,10} - 4
+// Ex: {uuid} - 590c1440-9888-45b0-bd51-a817ee07c3f2
+//
+// Letters/Numbers
+// Ex: ### - 481 - random numbers
+// Ex: ??? - fda - random letters
+//
+// For a complete list of runnable functions use FuncsLookup
+func (f *Faker) Generate(dataVal string) string { return generate(f.Rand, dataVal) }
+
+func generate(r *rand.Rand, dataVal string) string {
 	// Replace # with numbers and ? with letters
-	dataVal = replaceWithNumbers(globalFaker.Rand, dataVal)
-	dataVal = replaceWithLetters(globalFaker.Rand, dataVal)
+	dataVal = replaceWithNumbers(r, dataVal)
+	dataVal = replaceWithLetters(r, dataVal)
 
 	// Identify items between brackets: {person.first}
 	for strings.Count(dataVal, "{") > 0 && strings.Count(dataVal, "}") > 0 {

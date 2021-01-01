@@ -3,16 +3,21 @@ package gofakeit
 import (
 	"errors"
 	"math"
+	"math/rand"
 )
 
 // Number will generate a random number between given min And max
 func Number(min int, max int) int {
-	return randIntRange(globalFaker.Rand, min, max)
+	return number(globalFaker.Rand, min, max)
 }
 
 // Number will generate a random number between given min And max
 func (f *Faker) Number(min int, max int) int {
-	return randIntRange(f.Rand, min, max)
+	return number(f.Rand, min, max)
+}
+
+func number(r *rand.Rand, min int, max int) int {
+	return randIntRange(r, min, max)
 }
 
 // Uint8 will generate a random uint8 value
@@ -136,35 +141,25 @@ func (f *Faker) Float64Range(min, max float64) float64 {
 }
 
 // ShuffleInts will randomize a slice of ints
-func ShuffleInts(a []int) {
-	for i := range a {
-		j := globalFaker.Rand.Intn(i + 1)
-		a[i], a[j] = a[j], a[i]
-	}
-}
+func ShuffleInts(a []int) { shuffleInts(globalFaker.Rand, a) }
 
 // ShuffleInts will randomize a slice of ints
-func (f *Faker) ShuffleInts(a []int) {
+func (f *Faker) ShuffleInts(a []int) { shuffleInts(f.Rand, a) }
+
+func shuffleInts(r *rand.Rand, a []int) {
 	for i := range a {
-		j := f.Rand.Intn(i + 1)
+		j := r.Intn(i + 1)
 		a[i], a[j] = a[j], a[i]
 	}
 }
 
 // RandomInt will take in a slice of int and return a randomly selected value
-func RandomInt(i []int) int {
-	size := len(i)
-	if size == 0 {
-		return 0
-	}
-	if size == 1 {
-		return i[0]
-	}
-	return i[globalFaker.Rand.Intn(size)]
-}
+func RandomInt(i []int) int { return randomInt(globalFaker.Rand, i) }
 
 // RandomInt will take in a slice of int and return a randomly selected value
-func (f *Faker) RandomInt(i []int) int {
+func (f *Faker) RandomInt(i []int) int { return randomInt(f.Rand, i) }
+
+func randomInt(r *rand.Rand, i []int) int {
 	size := len(i)
 	if size == 0 {
 		return 0
@@ -172,31 +167,24 @@ func (f *Faker) RandomInt(i []int) int {
 	if size == 1 {
 		return i[0]
 	}
-	return i[f.Rand.Intn(size)]
+	return i[r.Intn(size)]
 }
 
 // RandomUint will take in a slice of uint and return a randomly selected value
-func RandomUint(i []uint) uint {
-	size := len(i)
-	if size == 0 {
-		return 0
-	}
-	if size == 1 {
-		return i[0]
-	}
-	return i[globalFaker.Rand.Intn(size)]
-}
+func RandomUint(u []uint) uint { return randomUint(globalFaker.Rand, u) }
 
 // RandomUint will take in a slice of uint and return a randomly selected value
-func (f *Faker) RandomUint(i []uint) uint {
-	size := len(i)
+func (f *Faker) RandomUint(u []uint) uint { return randomUint(f.Rand, u) }
+
+func randomUint(r *rand.Rand, u []uint) uint {
+	size := len(u)
 	if size == 0 {
 		return 0
 	}
 	if size == 1 {
-		return i[0]
+		return u[0]
 	}
-	return i[f.Rand.Intn(size)]
+	return u[r.Intn(size)]
 }
 
 func addNumberLookup() {
