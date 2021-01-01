@@ -10,16 +10,12 @@ import (
 
 // Bool will generate a random boolean value
 func Bool() bool {
-	return booly(globalFaker.Rand)
+	return randIntRange(globalFaker.Rand, 0, 1) == 1
 }
 
 // Bool will generate a random boolean value
 func (f *Faker) Bool() bool {
-	return booly(f.Rand)
-}
-
-func booly(r *rand.Rand) bool {
-	return randIntRange(0, 1) == 1
+	return randIntRange(f.Rand, 0, 1) == 1
 }
 
 // UUID (version 4) will generate a random unique identifier based upon random numbers
@@ -37,7 +33,7 @@ func (f *Faker) UUID() string {
 func uuid(r *rand.Rand) string {
 	version := byte(4)
 	uuid := make([]byte, 16)
-	rand.Read(uuid)
+	r.Read(uuid)
 
 	// Set version
 	uuid[6] = (uuid[6] & 0x0f) | (version << 4)
@@ -62,6 +58,15 @@ func uuid(r *rand.Rand) string {
 
 // ShuffleAnySlice takes in a slice and outputs it in a random order
 func ShuffleAnySlice(v interface{}) {
+	shuffleAnySlice(globalFaker.Rand, v)
+}
+
+// ShuffleAnySlice takes in a slice and outputs it in a random order
+func (f *Faker) ShuffleAnySlice(v interface{}) {
+	shuffleAnySlice(f.Rand, v)
+}
+
+func shuffleAnySlice(r *rand.Rand, v interface{}) {
 	if v == nil {
 		return
 	}
@@ -88,7 +93,7 @@ func ShuffleAnySlice(v interface{}) {
 	//if size is > int32 probably it will never finish, or ran out of entropy
 	i := n - 1
 	for ; i > 0; i-- {
-		j := int(rand.Int31n(int32(i + 1)))
+		j := int(r.Int31n(int32(i + 1)))
 		swap(i, j)
 	}
 }
@@ -96,6 +101,15 @@ func ShuffleAnySlice(v interface{}) {
 // FlipACoin will return a random value of Heads or Tails
 func FlipACoin() string {
 	if Bool() {
+		return "Heads"
+	}
+
+	return "Tails"
+}
+
+// FlipACoin will return a random value of Heads or Tails
+func (f *Faker) FlipACoin() string {
+	if f.Bool() {
 		return "Heads"
 	}
 

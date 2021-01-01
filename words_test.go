@@ -8,7 +8,7 @@ import (
 func ExampleNoun() {
 	Seed(11)
 	fmt.Println(Noun())
-	// Output: foot
+	// Output: oil
 }
 
 func BenchmarkNoun(b *testing.B) {
@@ -20,7 +20,7 @@ func BenchmarkNoun(b *testing.B) {
 func ExampleVerb() {
 	Seed(11)
 	fmt.Println(Verb())
-	// Output: release
+	// Output: issue
 }
 
 func BenchmarkVerb(b *testing.B) {
@@ -32,7 +32,7 @@ func BenchmarkVerb(b *testing.B) {
 func ExampleAdverb() {
 	Seed(11)
 	fmt.Println(Adverb())
-	// Output: smoothly
+	// Output: incidentally
 }
 
 func BenchmarkAdverb(b *testing.B) {
@@ -44,7 +44,7 @@ func BenchmarkAdverb(b *testing.B) {
 func ExamplePreposition() {
 	Seed(11)
 	fmt.Println(Preposition())
-	// Output: down
+	// Output: over against
 }
 
 func BenchmarkPreposition(b *testing.B) {
@@ -56,7 +56,7 @@ func BenchmarkPreposition(b *testing.B) {
 func ExampleAdjective() {
 	Seed(11)
 	fmt.Println(Adjective())
-	// Output: genuine
+	// Output: simple
 }
 
 func BenchmarkAdjective(b *testing.B) {
@@ -68,7 +68,7 @@ func BenchmarkAdjective(b *testing.B) {
 func ExampleWord() {
 	Seed(11)
 	fmt.Println(Word())
-	// Output: interpret
+	// Output: succeed
 }
 
 func BenchmarkWord(b *testing.B) {
@@ -80,7 +80,7 @@ func BenchmarkWord(b *testing.B) {
 func ExampleSentence() {
 	Seed(11)
 	fmt.Println(Sentence(5))
-	// Output: Interpret context record river mind.
+	// Output: Enhance resistance form account operate.
 }
 
 func TestSentence(t *testing.T) {
@@ -100,9 +100,9 @@ func BenchmarkSentence(b *testing.B) {
 func ExampleParagraph() {
 	Seed(11)
 	fmt.Println(Paragraph(3, 5, 12, "\n"))
-	// Output: Interpret context record river mind press self should compare property outcome divide. Combine approach sustain consult discover explanation direct address church husband seek army. Begin own act welfare replace press suspect stay link place manchester specialist. Arrive price satisfy sign force application hair train provide basis right pay. Close mark teacher strengthen information attempt head touch aim iron tv take.
-	// Handle wait begin look speech trust cancer visit capacity disease chancellor clean. Race aim function gain couple push faith enjoy admit ring attitude develop. Edge game prevent cast mill favour father star live search aim guess. West heart item adopt compete equipment miss output report communicate model cabinet. Seek worker variety step argue air improve give succeed relief artist suffer.
-	// Hide finish insist knowledge thatcher make research chance structure proportion husband implement. Town crown restaurant cost material compete lady climb football region discussion order. Place lee market ice like display mind stress compete weather station raise. Democracy college major recall struggle use cut intention accept period generation strike. Benefit defend recommend conclude justify result depend succeed address owner fill interpret.
+	// Output: Think copy diet point hate section duty peace receive engage disease language. Rock sense complain advice ride sign west culture doctor issue in purchase. Alter picture neck director set family sit effort change research institution follow. Doubt die suit name victory lie port coal gain help aircraft answer. Lift interpret get sell establish repeat simon noise reflect assist push spirit.
+	// Behave do suffer liability award appeal paint search soil reach hotel imagine. Tend hang majority let break article flight remind acquire seem course pray. Spokesman cut request gain apply adult bottom half truth argue get intention. Mark sit content chief holiday mark speak observe project supply imagine help. Cry church investigate acid offer coffee speaker manner theory activity owe cut.
+	// Worry secretary recognise treaty cast become succeed observe address miss include spend. Development truth generate remember mike play surface direction john relief measure explanation. Sort persuade sit television performance transport perform sound iron county complete finance. Family prepare organise spot recognise charge pray specialist way victim inform burst. Resolution shop noise pull appeal close assist combination fuel press appeal consider.
 }
 
 func TestParagraph(t *testing.T) {
@@ -130,7 +130,7 @@ func BenchmarkParagraph(b *testing.B) {
 func ExampleLoremIpsumWord() {
 	Seed(11)
 	fmt.Println(LoremIpsumWord())
-	// Output: quia
+	// Output: est
 }
 
 func BenchmarkLoremIpsumWord(b *testing.B) {
@@ -142,7 +142,7 @@ func BenchmarkLoremIpsumWord(b *testing.B) {
 func ExampleLoremIpsumSentence() {
 	Seed(11)
 	fmt.Println(LoremIpsumSentence(5))
-	// Output: Quia quae repellat consequatur quidem.
+	// Output: Eum dolores fugiat consequatur odit.
 }
 
 func TestLoremIpsumSentence(t *testing.T) {
@@ -162,9 +162,9 @@ func BenchmarkLoremIpsumSentence(b *testing.B) {
 func ExampleLoremIpsumParagraph() {
 	Seed(11)
 	fmt.Println(LoremIpsumParagraph(3, 5, 12, "\n"))
-	// Output: Quia quae repellat consequatur quidem nisi quo qui voluptatum accusantium quisquam amet. Quas et ut non dolorem ipsam aut enim assumenda mollitia harum ut. Dicta similique veniam nulla voluptas at excepturi non ad maxime at non. Eaque hic repellat praesentium voluptatem qui consequuntur dolor iusto autem velit aut. Fugit tempore exercitationem harum consequatur voluptatum modi minima aut eaque et et.
-	// Aut ea voluptatem dignissimos expedita odit tempore quod aut beatae ipsam iste. Minus voluptatibus dolorem maiores eius sed nihil vel enim odio voluptatem accusamus. Natus quibusdam temporibus tenetur cumque sint necessitatibus dolorem ex ducimus iusto ex. Voluptatem neque dicta explicabo officiis et ducimus sit ut ut praesentium pariatur. Illum molestias nisi at dolore ut voluptatem accusantium et fugiat et ut.
-	// Explicabo incidunt reprehenderit non quia dignissimos recusandae vitae soluta quia et quia. Aut veniam voluptas consequatur placeat sapiente non eveniet voluptatibus magni velit eum. Nobis vel repellendus sed est qui autem laudantium quidem quam ullam consequatur. Aut iusto ut commodi similique quae voluptatem atque qui fugiat eum aut. Quis distinctio consequatur voluptatem vel aliquid aut laborum facere officiis iure tempora.
+	// Output: In aut ut omnis eius assumenda eligendi ad consectetur enim occaecati expedita. Et vel incidunt possimus iste et iure expedita illum beatae nihil et. Reprehenderit quam sed quae aliquid velit voluptates nemo in sed aut harum. Rem hic et sit itaque et quibusdam ipsam in laboriosam numquam culpa. Maxime voluptas natus facilis eius voluptatem et error amet dolor labore est.
+	// Consectetur eos veritatis optio facilis distinctio occaecati deleniti incidunt autem expedita consectetur. Voluptates magnam excepturi eveniet est nihil consequatur quibusdam incidunt est maxime est. Voluptates placeat qui voluptatem expedita quae et nemo voluptatem mollitia aliquid repudiandae. Alias veritatis odio omnis alias minima ad labore id porro explicabo ut. Ea aut dolorem voluptates eligendi quis iusto culpa non ipsum repellendus rem.
+	// Minima laborum qui ut ratione illo itaque velit voluptas perferendis fugit est. Quia fugiat sunt deserunt amet ut et voluptatem earum non ratione non. Sint aut ea autem eum vel aperiam omnis in tenetur est atque. Et est dicta molestiae libero nobis ut earum non repellendus laborum atque. Earum molestiae est sunt in ipsum consequatur est maiores ex doloribus debitis.
 }
 
 func TestLoremIpsumParagraph(t *testing.T) {
@@ -192,7 +192,7 @@ func BenchmarkLoremIpsumParagraph(b *testing.B) {
 func ExampleQuestion() {
 	Seed(11)
 	fmt.Println(Question())
-	// Output: Roof chia echo?
+	// Output: Goth bicycle rights twee?
 }
 
 func BenchmarkQuestion(b *testing.B) {
@@ -204,7 +204,7 @@ func BenchmarkQuestion(b *testing.B) {
 func ExampleQuote() {
 	Seed(11)
 	fmt.Println(Quote())
-	// Output: "Roof chia echo." - Lura Lockman
+	// Output: "Banjo next level Thundercats." - Hyman Wyman
 }
 
 func BenchmarkQuote(b *testing.B) {
@@ -216,7 +216,7 @@ func BenchmarkQuote(b *testing.B) {
 func ExamplePhrase() {
 	Seed(11)
 	fmt.Println(Phrase())
-	// Output: shut the front door
+	// Output: what's yours
 }
 
 func BenchmarkPhrase(b *testing.B) {

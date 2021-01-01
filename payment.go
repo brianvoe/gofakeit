@@ -37,7 +37,7 @@ func CurrencyLong() string {
 
 // Price will take in a min and max value and return a formatted price
 func Price(min, max float64) float64 {
-	return math.Floor(randFloat64Range(min, max)*100) / 100
+	return math.Floor(randFloat64Range(globalFaker.Rand, min, max)*100) / 100
 }
 
 // CreditCardInfo is a struct containing credit variables
@@ -125,13 +125,13 @@ func CreditCardNumber(cco *CreditCardOptions) string {
 // CreditCardExp will generate a random credit card expiration date string
 // Exp date will always be a future date
 func CreditCardExp() string {
-	month := strconv.Itoa(randIntRange(1, 12))
+	month := strconv.Itoa(randIntRange(globalFaker.Rand, 1, 12))
 	if len(month) == 1 {
 		month = "0" + month
 	}
 
 	var currentYear = time.Now().Year() - 2000
-	return month + "/" + strconv.Itoa(randIntRange(currentYear+1, currentYear+10))
+	return month + "/" + strconv.Itoa(randIntRange(globalFaker.Rand, currentYear+1, currentYear+10))
 }
 
 // CreditCardCvv will generate a random CVV number

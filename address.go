@@ -39,7 +39,7 @@ func Address() *AddressInfo {
 
 // Street will generate a random address street string
 func Street() (street string) {
-	switch randInt := randIntRange(1, 2); randInt {
+	switch randInt := randIntRange(globalFaker.Rand, 1, 2); randInt {
 	case 1:
 		street = StreetNumber() + " " + StreetPrefix() + " " + StreetName() + " " + StreetSuffix()
 	case 2:
@@ -71,7 +71,7 @@ func StreetSuffix() string {
 
 // City will generate a random city string
 func City() (city string) {
-	switch randInt := randIntRange(1, 3); randInt {
+	switch randInt := randIntRange(globalFaker.Rand, 1, 3); randInt {
 	case 1:
 		city = FirstName() + StreetSuffix()
 	case 2:
@@ -116,7 +116,7 @@ func LatitudeInRange(min, max float64) (float64, error) {
 	if min > max || min < -90 || min > 90 || max < -90 || max > 90 {
 		return 0, errors.New("Invalid min or max range, must be valid floats and between -90 and 90")
 	}
-	return toFixed(randFloat64Range(min, max), 6), nil
+	return toFixed(randFloat64Range(globalFaker.Rand, min, max), 6), nil
 }
 
 // Longitude will generate a random longitude float64
@@ -127,7 +127,7 @@ func LongitudeInRange(min, max float64) (float64, error) {
 	if min > max || min < -180 || min > 180 || max < -180 || max > 180 {
 		return 0, errors.New("Invalid min or max range, must be valid floats and between -180 and 180")
 	}
-	return toFixed(randFloat64Range(min, max), 6), nil
+	return toFixed(randFloat64Range(globalFaker.Rand, min, max), 6), nil
 }
 
 func addAddressLookup() {

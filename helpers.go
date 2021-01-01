@@ -21,7 +21,7 @@ const hashtag = '#'
 const questionmark = '?'
 const base58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 
-// Seed will set the global random value. Setting seed to 0 will use time.Now().UnixNano()
+// Seed will set the global random value. Setting seed to 0 will use crypto/rand
 func Seed(seed int64) {
 	if seed == 0 {
 		binary.Read(crand.Reader, binary.BigEndian, &seed)
@@ -144,25 +144,25 @@ func randDigit() rune {
 }
 
 // Generate random integer between min and max
-func randIntRange(min, max int) int {
+func randIntRange(r *rand.Rand, min, max int) int {
 	if min == max {
 		return min
 	}
-	return rand.Intn((max+1)-min) + min
+	return r.Intn((max+1)-min) + min
 }
 
-func randFloat32Range(min, max float32) float32 {
+func randFloat32Range(r *rand.Rand, min, max float32) float32 {
 	if min == max {
 		return min
 	}
-	return rand.Float32()*(max-min) + min
+	return r.Float32()*(max-min) + min
 }
 
-func randFloat64Range(min, max float64) float64 {
+func randFloat64Range(r *rand.Rand, min, max float64) float64 {
 	if min == max {
 		return min
 	}
-	return rand.Float64()*(max-min) + min
+	return r.Float64()*(max-min) + min
 }
 
 func toFixed(num float64, precision int) float64 {

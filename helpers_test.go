@@ -9,7 +9,7 @@ func TestSeed(t *testing.T) {
 }
 
 func TestRandIntRange(t *testing.T) {
-	if randIntRange(5, 5) != 5 {
+	if randIntRange(globalFaker.Rand, 5, 5) != 5 {
 		t.Error("You should have gotten 5 back")
 	}
 }
@@ -31,13 +31,13 @@ func TestGetRandIntValueFail(t *testing.T) {
 }
 
 func TestRandFloat32RangeSame(t *testing.T) {
-	if randFloat32Range(5.0, 5.0) != 5.0 {
+	if randFloat32Range(globalFaker.Rand, 5.0, 5.0) != 5.0 {
 		t.Error("You should have gotten 5.0 back")
 	}
 }
 
 func TestRandFloat64RangeSame(t *testing.T) {
-	if randFloat64Range(5.0, 5.0) != 5.0 {
+	if randFloat64Range(globalFaker.Rand, 5.0, 5.0) != 5.0 {
 		t.Error("You should have gotten 5.0 back")
 	}
 }

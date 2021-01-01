@@ -61,7 +61,7 @@ func NameSuffix() string {
 
 // SSN will generate a random Social Security Number
 func SSN() string {
-	return strconv.Itoa(randIntRange(100000000, 999999999))
+	return strconv.Itoa(randIntRange(globalFaker.Rand, 100000000, 999999999))
 }
 
 // Gender will generate a random gender string

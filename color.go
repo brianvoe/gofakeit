@@ -27,7 +27,7 @@ func HexColor() string {
 
 // RGBColor will generate a random int slice color
 func RGBColor() []int {
-	return []int{randIntRange(0, 255), randIntRange(0, 255), randIntRange(0, 255)}
+	return []int{randIntRange(globalFaker.Rand, 0, 255), randIntRange(globalFaker.Rand, 0, 255), randIntRange(globalFaker.Rand, 0, 255)}
 }
 
 func addColorLookup() {
