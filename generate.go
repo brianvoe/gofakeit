@@ -108,10 +108,20 @@ func Regex(regexStr string) string {
 		return "Could not parse regex string"
 	}
 
-	return regexGenerate(re)
+	return regexGenerate(globalFaker.Rand, re)
 }
 
-func regexGenerate(re *syntax.Regexp) string {
+// Regex will generate a string based upon a RE2 syntax
+func (f *Faker) Regex(regexStr string) string {
+	re, err := syntax.Parse(regexStr, syntax.Perl)
+	if err != nil {
+		return "Could not parse regex string"
+	}
+
+	return regexGenerate(f.Rand, re)
+}
+
+func regexGenerate(r *rand.Rand, re *syntax.Regexp) string {
 	op := re.Op
 	switch op {
 	case syntax.OpNoMatch: // matches no strings
@@ -150,11 +160,11 @@ func regexGenerate(re *syntax.Regexp) string {
 				}
 			}
 			if len(chars) > 0 {
-				return string([]byte{chars[globalFaker.Rand.Intn(len(chars))]})
+				return string([]byte{chars[r.Intn(len(chars))]})
 			}
 		}
 
-		r := globalFaker.Rand.Intn(int(sum))
+		r := r.Intn(int(sum))
 		var ru rune
 		sum = 0
 		for i := 0; i < len(re.Rune); i += 2 {
@@ -168,7 +178,7 @@ func regexGenerate(re *syntax.Regexp) string {
 
 		return string(ru)
 	case syntax.OpAnyCharNotNL, syntax.OpAnyChar: // matches any character(and except newline)
-		return randCharacter(globalFaker.Rand, allStr)
+		return randCharacter(r, allStr)
 	case syntax.OpBeginLine: // matches empty string at beginning of line
 	case syntax.OpEndLine: // matches empty string at end of line
 	case syntax.OpBeginText: // matches empty string at beginning of text
@@ -176,28 +186,28 @@ func regexGenerate(re *syntax.Regexp) string {
 	case syntax.OpWordBoundary: // matches word boundary `\b`
 	case syntax.OpNoWordBoundary: // matches word non-boundary `\B`
 	case syntax.OpCapture: // capturing subexpression with index Cap, optional name Name
-		return regexGenerate(re.Sub0[0])
+		return regexGenerate(r, re.Sub0[0])
 	case syntax.OpStar: // matches Sub[0] zero or more times
 		var b strings.Builder
 		for i := 0; i < Number(0, 10); i++ {
-			for _, r := range re.Sub {
-				b.WriteString(regexGenerate(r))
+			for _, rs := range re.Sub {
+				b.WriteString(regexGenerate(r, rs))
 			}
 		}
 		return b.String()
 	case syntax.OpPlus: // matches Sub[0] one or more times
 		var b strings.Builder
 		for i := 0; i < Number(1, 10); i++ {
-			for _, r := range re.Sub {
-				b.WriteString(regexGenerate(r))
+			for _, rs := range re.Sub {
+				b.WriteString(regexGenerate(r, rs))
 			}
 		}
 		return b.String()
 	case syntax.OpQuest: // matches Sub[0] zero or one times
 		var b strings.Builder
 		for i := 0; i < Number(0, 1); i++ {
-			for _, r := range re.Sub {
-				b.WriteString(regexGenerate(r))
+			for _, rs := range re.Sub {
+				b.WriteString(regexGenerate(r, rs))
 			}
 		}
 		return b.String()
@@ -206,75 +216,80 @@ func regexGenerate(re *syntax.Regexp) string {
 		count := 0
 		re.Max = int(math.Min(float64(re.Max), float64(10)))
 		if re.Max > re.Min {
-			count = globalFaker.Rand.Intn(re.Max - re.Min + 1)
+			count = r.Intn(re.Max - re.Min + 1)
 		}
 		for i := 0; i < re.Min || i < (re.Min+count); i++ {
-			for _, r := range re.Sub {
-				b.WriteString(regexGenerate(r))
+			for _, rs := range re.Sub {
+				b.WriteString(regexGenerate(r, rs))
 			}
 		}
 		return b.String()
 	case syntax.OpConcat: // matches concatenation of Subs
 		var b strings.Builder
-		for _, r := range re.Sub {
-			b.WriteString(regexGenerate(r))
+		for _, rs := range re.Sub {
+			b.WriteString(regexGenerate(r, rs))
 		}
 		return b.String()
 	case syntax.OpAlternate: // matches alternation of Subs
-		return regexGenerate(re.Sub[Number(0, len(re.Sub)-1)])
+		return regexGenerate(r, re.Sub[Number(0, len(re.Sub)-1)])
 	}
 
 	return ""
 }
 
 // Map will generate a random set of map data
-func Map() map[string]interface{} {
+func Map() map[string]interface{} { return mapFunc(globalFaker.Rand) }
+
+// Map will generate a random set of map data
+func (f *Faker) Map() map[string]interface{} { return mapFunc(f.Rand) }
+
+func mapFunc(r *rand.Rand) map[string]interface{} {
 	m := map[string]interface{}{}
 
 	randWordType := func() string {
-		s := RandomString([]string{"lorem", "bs", "job", "name", "address"})
+		s := randomString(r, []string{"lorem", "bs", "job", "name", "address"})
 		switch s {
 		case "bs":
-			return BS()
+			return bs(r)
 		case "job":
-			return JobTitle()
+			return jobTitle(r)
 		case "name":
-			return Name()
+			return name(r)
 		case "address":
-			return Street() + ", " + City() + ", " + State() + " " + Zip()
+			return street(r) + ", " + city(r) + ", " + state(r) + " " + zip(r)
 		}
 		return Word()
 	}
 
 	randSlice := func() []string {
 		var sl []string
-		for ii := 0; ii < Number(3, 10); ii++ {
-			sl = append(sl, Word())
+		for ii := 0; ii < number(r, 3, 10); ii++ {
+			sl = append(sl, word(r))
 		}
 		return sl
 	}
 
-	for i := 0; i < Number(3, 10); i++ {
-		t := RandomString([]string{"string", "int", "float", "slice", "map"})
+	for i := 0; i < number(r, 3, 10); i++ {
+		t := randomString(r, []string{"string", "int", "float", "slice", "map"})
 		switch t {
 		case "string":
 			m[Word()] = randWordType()
 		case "int":
-			m[Word()] = Number(1, 10000000)
+			m[Word()] = number(r, 1, 10000000)
 		case "float":
-			m[Word()] = Float32Range(1, 1000000)
+			m[Word()] = float32Range(r, 1, 1000000)
 		case "slice":
 			m[Word()] = randSlice()
 		case "map":
 			mm := map[string]interface{}{}
-			tt := RandomString([]string{"string", "int", "float", "slice"})
+			tt := randomString(r, []string{"string", "int", "float", "slice"})
 			switch tt {
 			case "string":
 				mm[Word()] = randWordType()
 			case "int":
-				mm[Word()] = Number(1, 10000000)
+				mm[Word()] = number(r, 1, 10000000)
 			case "float":
-				mm[Word()] = Float32Range(1, 1000000)
+				mm[Word()] = float32Range(r, 1, 1000000)
 			case "slice":
 				mm[Word()] = randSlice()
 			}

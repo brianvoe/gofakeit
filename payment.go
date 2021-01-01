@@ -17,17 +17,13 @@ type CurrencyInfo struct {
 }
 
 // Currency will generate a struct with random currency information
-func Currency() *CurrencyInfo {
-	index := globalFaker.Rand.Intn(len(data.Data["currency"]["short"]))
-	return &CurrencyInfo{
-		Short: data.Data["currency"]["short"][index],
-		Long:  data.Data["currency"]["long"][index],
-	}
-}
+func Currency() *CurrencyInfo { return currency(globalFaker.Rand) }
 
 // Currency will generate a struct with random currency information
-func (f *Faker) Currency() *CurrencyInfo {
-	index := f.Rand.Intn(len(data.Data["currency"]["short"]))
+func (f *Faker) Currency() *CurrencyInfo { return currency(f.Rand) }
+
+func currency(r *rand.Rand) *CurrencyInfo {
+	index := r.Intn(len(data.Data["currency"]["short"]))
 	return &CurrencyInfo{
 		Short: data.Data["currency"]["short"][index],
 		Long:  data.Data["currency"]["long"][index],
@@ -35,33 +31,29 @@ func (f *Faker) Currency() *CurrencyInfo {
 }
 
 // CurrencyShort will generate a random short currency value
-func CurrencyShort() string {
-	return getRandValue(globalFaker.Rand, []string{"currency", "short"})
-}
+func CurrencyShort() string { return currencyShort(globalFaker.Rand) }
 
 // CurrencyShort will generate a random short currency value
-func (f *Faker) CurrencyShort() string {
-	return getRandValue(f.Rand, []string{"currency", "short"})
-}
+func (f *Faker) CurrencyShort() string { return currencyShort(f.Rand) }
+
+func currencyShort(r *rand.Rand) string { return getRandValue(r, []string{"currency", "short"}) }
 
 // CurrencyLong will generate a random long currency name
-func CurrencyLong() string {
-	return getRandValue(globalFaker.Rand, []string{"currency", "long"})
-}
+func CurrencyLong() string { return currencyLong(globalFaker.Rand) }
 
 // CurrencyLong will generate a random long currency name
-func (f *Faker) CurrencyLong() string {
-	return getRandValue(f.Rand, []string{"currency", "long"})
-}
+func (f *Faker) CurrencyLong() string { return currencyLong(f.Rand) }
+
+func currencyLong(r *rand.Rand) string { return getRandValue(r, []string{"currency", "long"}) }
 
 // Price will take in a min and max value and return a formatted price
-func Price(min, max float64) float64 {
-	return math.Floor(randFloat64Range(globalFaker.Rand, min, max)*100) / 100
-}
+func Price(min, max float64) float64 { return price(globalFaker.Rand, min, max) }
 
 // Price will take in a min and max value and return a formatted price
-func (f *Faker) Price(min, max float64) float64 {
-	return math.Floor(randFloat64Range(f.Rand, min, max)*100) / 100
+func (f *Faker) Price(min, max float64) float64 { return price(f.Rand, min, max) }
+
+func price(r *rand.Rand, min, max float64) float64 {
+	return math.Floor(float64Range(r, min, max)*100) / 100
 }
 
 // CreditCardInfo is a struct containing credit variables
@@ -73,35 +65,29 @@ type CreditCardInfo struct {
 }
 
 // CreditCard will generate a struct full of credit card information
-func CreditCard() *CreditCardInfo {
-	ccType := RandomString(data.CreditCardTypes)
-	return &CreditCardInfo{
-		Type:   data.CreditCards[RandomString(data.CreditCardTypes)].Display,
-		Number: CreditCardNumber(&CreditCardOptions{Types: []string{ccType}}),
-		Exp:    CreditCardExp(),
-		Cvv:    Generate(strings.Repeat("#", int(data.CreditCards[RandomString(data.CreditCardTypes)].Code.Size))),
-	}
-}
+func CreditCard() *CreditCardInfo { return creditCard(globalFaker.Rand) }
 
 // CreditCard will generate a struct full of credit card information
-func (f *Faker) CreditCard() *CreditCardInfo {
-	ccType := f.RandomString(data.CreditCardTypes)
+func (f *Faker) CreditCard() *CreditCardInfo { return creditCard(f.Rand) }
+
+func creditCard(r *rand.Rand) *CreditCardInfo {
+	ccType := RandomString(data.CreditCardTypes)
 	return &CreditCardInfo{
-		Type:   data.CreditCards[f.RandomString(data.CreditCardTypes)].Display,
-		Number: f.CreditCardNumber(&CreditCardOptions{Types: []string{ccType}}),
-		Exp:    f.CreditCardExp(),
-		Cvv:    f.Generate(strings.Repeat("#", int(data.CreditCards[f.RandomString(data.CreditCardTypes)].Code.Size))),
+		Type:   data.CreditCards[randomString(r, data.CreditCardTypes)].Display,
+		Number: creditCardNumber(r, &CreditCardOptions{Types: []string{ccType}}),
+		Exp:    creditCardExp(r),
+		Cvv:    generate(r, strings.Repeat("#", int(data.CreditCards[randomString(r, data.CreditCardTypes)].Code.Size))),
 	}
 }
 
 // CreditCardType will generate a random credit card type string
-func CreditCardType() string {
-	return data.CreditCards[RandomString(data.CreditCardTypes)].Display
-}
+func CreditCardType() string { return creditCardType(globalFaker.Rand) }
 
 // CreditCardType will generate a random credit card type string
-func (f *Faker) CreditCardType() string {
-	return data.CreditCards[f.RandomString(data.CreditCardTypes)].Display
+func (f *Faker) CreditCardType() string { return creditCardType(f.Rand) }
+
+func creditCardType(r *rand.Rand) string {
+	return data.CreditCards[randomString(r, data.CreditCardTypes)].Display
 }
 
 // CreditCardOptions is the options for credit card number
@@ -187,11 +173,13 @@ func creditCardExp(r *rand.Rand) string {
 
 // CreditCardCvv will generate a random CVV number
 // Its a string because you could have 017 as an exp date
-func CreditCardCvv() string { return Numerify("###") }
+func CreditCardCvv() string { return creditCardCvv(globalFaker.Rand) }
 
 // CreditCardCvv will generate a random CVV number
 // Its a string because you could have 017 as an exp date
-func (f *Faker) CreditCardCvv() string { return f.Numerify("###") }
+func (f *Faker) CreditCardCvv() string { return creditCardCvv(f.Rand) }
+
+func creditCardCvv(r *rand.Rand) string { return numerify(r, "###") }
 
 // isLuhn check is used for checking if credit card is a valid luhn card
 func isLuhn(s string) bool {
@@ -212,25 +200,29 @@ func isLuhn(s string) bool {
 }
 
 // AchRouting will generate a 9 digit routing number
-func AchRouting() string { return Numerify("#########") }
+func AchRouting() string { return achRouting(globalFaker.Rand) }
 
 // AchRouting will generate a 9 digit routing number
-func (f *Faker) AchRouting() string { return f.Numerify("#########") }
+func (f *Faker) AchRouting() string { return achRouting(f.Rand) }
+
+func achRouting(r *rand.Rand) string { return numerify(r, "#########") }
 
 // AchAccount will generate a 12 digit account number
-func AchAccount() string { return Numerify("############") }
+func AchAccount() string { return achAccount(globalFaker.Rand) }
 
 // AchAccount will generate a 12 digit account number
-func (f *Faker) AchAccount() string { return f.Numerify("############") }
+func (f *Faker) AchAccount() string { return achAccount(f.Rand) }
+
+func achAccount(r *rand.Rand) string { return numerify(r, "############") }
 
 // BitcoinAddress will generate a random bitcoin address consisting of numbers, upper and lower characters
-func BitcoinAddress() string {
-	return RandomString([]string{"1", "3"}) + Password(true, true, true, false, false, Number(25, 34))
-}
+func BitcoinAddress() string { return bitcoinAddress(globalFaker.Rand) }
 
 // BitcoinAddress will generate a random bitcoin address consisting of numbers, upper and lower characters
-func (f *Faker) BitcoinAddress() string {
-	return f.RandomString([]string{"1", "3"}) + f.Password(true, true, true, false, false, f.Number(25, 34))
+func (f *Faker) BitcoinAddress() string { return bitcoinAddress(f.Rand) }
+
+func bitcoinAddress(r *rand.Rand) string {
+	return randomString(r, []string{"1", "3"}) + password(r, true, true, true, false, false, number(r, 25, 34))
 }
 
 // BitcoinPrivateKey will generate a random bitcoin private key base58 consisting of numbers, upper and lower characters

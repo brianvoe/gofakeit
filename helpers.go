@@ -151,20 +151,6 @@ func randIntRange(r *rand.Rand, min, max int) int {
 	return r.Intn((max+1)-min) + min
 }
 
-func randFloat32Range(r *rand.Rand, min, max float32) float32 {
-	if min == max {
-		return min
-	}
-	return r.Float32()*(max-min) + min
-}
-
-func randFloat64Range(r *rand.Rand, min, max float64) float64 {
-	if min == max {
-		return min
-	}
-	return r.Float64()*(max-min) + min
-}
-
 func toFixed(num float64, precision int) float64 {
 	output := math.Pow(10, float64(precision))
 	return float64(math.Floor(num*output)) / output

@@ -31,14 +31,12 @@ func letterN(r *rand.Rand, n uint) string {
 }
 
 // Digit will generate a single ASCII digit
-func Digit() string {
-	return string(randDigit(globalFaker.Rand))
-}
+func Digit() string { return string(randDigit(globalFaker.Rand)) }
 
 // Digit will generate a single ASCII digit
-func (f *Faker) Digit() string {
-	return string(randDigit(f.Rand))
-}
+func (f *Faker) Digit() string { return string(randDigit(f.Rand)) }
+
+func digit(r *rand.Rand) string { return string(randDigit(r)) }
 
 // DigitN will generate a random string of length N consists of ASCII digits (note it can start with 0).
 func DigitN(n uint) string { return digitN(globalFaker.Rand, n) }
@@ -59,24 +57,20 @@ func digitN(r *rand.Rand, n uint) string {
 }
 
 // Numerify will replace # with random numerical values
-func Numerify(str string) string {
-	return replaceWithNumbers(globalFaker.Rand, str)
-}
+func Numerify(str string) string { return numerify(globalFaker.Rand, str) }
 
 // Numerify will replace # with random numerical values
-func (f *Faker) Numerify(str string) string {
-	return replaceWithNumbers(f.Rand, str)
-}
+func (f *Faker) Numerify(str string) string { return numerify(f.Rand, str) }
+
+func numerify(r *rand.Rand, str string) string { return replaceWithNumbers(r, str) }
 
 // Lexify will replace ? will random generated letters
-func Lexify(str string) string {
-	return replaceWithLetters(globalFaker.Rand, str)
-}
+func Lexify(str string) string { return lexify(globalFaker.Rand, str) }
 
 // Lexify will replace ? will random generated letters
-func (f *Faker) Lexify(str string) string {
-	return replaceWithLetters(f.Rand, str)
-}
+func (f *Faker) Lexify(str string) string { return lexify(f.Rand, str) }
+
+func lexify(r *rand.Rand, str string) string { return replaceWithLetters(r, str) }
 
 // ShuffleStrings will randomize a slice of strings
 func ShuffleStrings(a []string) { shuffleStrings(globalFaker.Rand, a) }

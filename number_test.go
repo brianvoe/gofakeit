@@ -137,6 +137,12 @@ func BenchmarkFloat32Range(b *testing.B) {
 	}
 }
 
+func TestFloat32RangeSame(t *testing.T) {
+	if float32Range(globalFaker.Rand, 5.0, 5.0) != 5.0 {
+		t.Error("You should have gotten 5.0 back")
+	}
+}
+
 func ExampleFloat64() {
 	Seed(11)
 	fmt.Println(Float64())
@@ -158,6 +164,12 @@ func ExampleFloat64Range() {
 func BenchmarkFloat64Range(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		Float64Range(0, 9999999)
+	}
+}
+
+func TestRandFloat64RangeSame(t *testing.T) {
+	if float64Range(globalFaker.Rand, 5.0, 5.0) != 5.0 {
+		t.Error("You should have gotten 5.0 back")
 	}
 }
 

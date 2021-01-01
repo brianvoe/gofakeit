@@ -21,107 +21,83 @@ type PersonInfo struct {
 }
 
 // Person will generate a struct with person information
-func Person() *PersonInfo {
-	return &PersonInfo{
-		FirstName:  FirstName(),
-		LastName:   LastName(),
-		Gender:     Gender(),
-		SSN:        SSN(),
-		Image:      ImageURL(300, 300) + "/people",
-		Job:        Job(),
-		Address:    Address(),
-		Contact:    Contact(),
-		CreditCard: CreditCard(),
-	}
-}
+func Person() *PersonInfo { return person(globalFaker.Rand) }
 
 // Person will generate a struct with person information
-func (f *Faker) Person() *PersonInfo {
+func (f *Faker) Person() *PersonInfo { return person(f.Rand) }
+
+func person(r *rand.Rand) *PersonInfo {
 	return &PersonInfo{
-		FirstName:  f.FirstName(),
-		LastName:   f.LastName(),
-		Gender:     f.Gender(),
-		SSN:        f.SSN(),
-		Image:      f.ImageURL(300, 300) + "/people",
-		Job:        f.Job(),
-		Address:    f.Address(),
-		Contact:    f.Contact(),
-		CreditCard: f.CreditCard(),
+		FirstName:  firstName(r),
+		LastName:   lastName(r),
+		Gender:     gender(r),
+		SSN:        ssn(r),
+		Image:      imageURL(r, 300, 300) + "/people",
+		Job:        job(r),
+		Address:    address(r),
+		Contact:    contact(r),
+		CreditCard: creditCard(r),
 	}
 }
 
 // Name will generate a random First and Last Name
-func Name() string {
-	return getRandValue(globalFaker.Rand, []string{"person", "first"}) + " " + getRandValue(globalFaker.Rand, []string{"person", "last"})
-}
+func Name() string { return name(globalFaker.Rand) }
 
 // Name will generate a random First and Last Name
-func (f *Faker) Name() string {
-	return getRandValue(f.Rand, []string{"person", "first"}) + " " + getRandValue(f.Rand, []string{"person", "last"})
+func (f *Faker) Name() string { return name(f.Rand) }
+
+func name(r *rand.Rand) string {
+	return getRandValue(r, []string{"person", "first"}) + " " + getRandValue(r, []string{"person", "last"})
 }
 
 // FirstName will generate a random first name
-func FirstName() string {
-	return getRandValue(globalFaker.Rand, []string{"person", "first"})
-}
+func FirstName() string { return firstName(globalFaker.Rand) }
 
 // FirstName will generate a random first name
-func (f *Faker) FirstName() string {
-	return getRandValue(f.Rand, []string{"person", "first"})
-}
+func (f *Faker) FirstName() string { return firstName(f.Rand) }
+
+func firstName(r *rand.Rand) string { return getRandValue(r, []string{"person", "first"}) }
 
 // LastName will generate a random last name
-func LastName() string {
-	return getRandValue(globalFaker.Rand, []string{"person", "last"})
-}
+func LastName() string { return lastName(globalFaker.Rand) }
 
 // LastName will generate a random last name
-func (f *Faker) LastName() string {
-	return getRandValue(f.Rand, []string{"person", "last"})
-}
+func (f *Faker) LastName() string { return lastName(f.Rand) }
+
+func lastName(r *rand.Rand) string { return getRandValue(r, []string{"person", "last"}) }
 
 // NamePrefix will generate a random name prefix
-func NamePrefix() string {
-	return getRandValue(globalFaker.Rand, []string{"person", "prefix"})
-}
+func NamePrefix() string { return namePrefix(globalFaker.Rand) }
 
 // NamePrefix will generate a random name prefix
-func (f *Faker) NamePrefix() string {
-	return getRandValue(f.Rand, []string{"person", "prefix"})
-}
+func (f *Faker) NamePrefix() string { return namePrefix(f.Rand) }
+
+func namePrefix(r *rand.Rand) string { return getRandValue(r, []string{"person", "prefix"}) }
 
 // NameSuffix will generate a random name suffix
-func NameSuffix() string {
-	return getRandValue(globalFaker.Rand, []string{"person", "suffix"})
-}
+func NameSuffix() string { return nameSuffix(globalFaker.Rand) }
 
 // NameSuffix will generate a random name suffix
-func (f *Faker) NameSuffix() string {
-	return getRandValue(f.Rand, []string{"person", "suffix"})
-}
+func (f *Faker) NameSuffix() string { return nameSuffix(f.Rand) }
+
+func nameSuffix(r *rand.Rand) string { return getRandValue(r, []string{"person", "suffix"}) }
 
 // SSN will generate a random Social Security Number
-func SSN() string {
-	return strconv.Itoa(randIntRange(globalFaker.Rand, 100000000, 999999999))
-}
+func SSN() string { return ssn(globalFaker.Rand) }
 
 // SSN will generate a random Social Security Number
-func (f *Faker) SSN() string {
-	return strconv.Itoa(randIntRange(f.Rand, 100000000, 999999999))
-}
+func (f *Faker) SSN() string { return ssn(f.Rand) }
+
+func ssn(r *rand.Rand) string { return strconv.Itoa(randIntRange(r, 100000000, 999999999)) }
 
 // Gender will generate a random gender string
-func Gender() string {
-	if Bool() {
-		return "male"
-	}
-
-	return "female"
-}
+func Gender() string { return gender(globalFaker.Rand) }
 
 // Gender will generate a random gender string
-func (f *Faker) Gender() string {
-	if f.Bool() {
+func (f *Faker) Gender() string { return gender(f.Rand) }
+
+func gender(r *rand.Rand) string {
+	if booly(r) {
 		return "male"
 	}
 
@@ -135,39 +111,34 @@ type ContactInfo struct {
 }
 
 // Contact will generate a struct with information randomly populated contact information
-func Contact() *ContactInfo {
-	return &ContactInfo{
-		Phone: Phone(),
-		Email: Email(),
-	}
-}
+func Contact() *ContactInfo { return contact(globalFaker.Rand) }
 
 // Contact will generate a struct with information randomly populated contact information
-func (f *Faker) Contact() *ContactInfo {
+func (f *Faker) Contact() *ContactInfo { return contact(f.Rand) }
+
+func contact(r *rand.Rand) *ContactInfo {
 	return &ContactInfo{
-		Phone: f.Phone(),
-		Email: f.Email(),
+		Phone: phone(r),
+		Email: email(r),
 	}
 }
 
 // Phone will generate a random phone number string
-func Phone() string {
-	return replaceWithNumbers(globalFaker.Rand, "##########")
-}
+func Phone() string { return phone(globalFaker.Rand) }
 
 // Phone will generate a random phone number string
-func (f *Faker) Phone() string {
-	return replaceWithNumbers(f.Rand, "##########")
-}
+func (f *Faker) Phone() string { return phone(f.Rand) }
+
+func phone(r *rand.Rand) string { return replaceWithNumbers(r, "##########") }
 
 // PhoneFormatted will generate a random phone number string
-func PhoneFormatted() string {
-	return replaceWithNumbers(globalFaker.Rand, getRandValue(globalFaker.Rand, []string{"person", "phone"}))
-}
+func PhoneFormatted() string { return phoneFormatted(globalFaker.Rand) }
 
 // PhoneFormatted will generate a random phone number string
-func (f *Faker) PhoneFormatted() string {
-	return replaceWithNumbers(f.Rand, getRandValue(f.Rand, []string{"person", "phone"}))
+func (f *Faker) PhoneFormatted() string { return phoneFormatted(f.Rand) }
+
+func phoneFormatted(r *rand.Rand) string {
+	return replaceWithNumbers(r, getRandValue(r, []string{"person", "phone"}))
 }
 
 // Email will generate a random email string

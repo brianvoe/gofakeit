@@ -29,7 +29,7 @@ func BeerMalt() string {
 
 // BeerAlcohol will return a random beer alcohol level between 2.0 and 10.0
 func BeerAlcohol() string {
-	return strconv.FormatFloat(randFloat64Range(globalFaker.Rand, 2.0, 10.0), 'f', 1, 64) + "%"
+	return strconv.FormatFloat(float64Range(globalFaker.Rand, 2.0, 10.0), 'f', 1, 64) + "%"
 }
 
 // BeerIbu will return a random beer ibu value between 10 and 100
@@ -39,7 +39,7 @@ func BeerIbu() string {
 
 // BeerBlg will return a random beer blg between 5.0 and 20.0
 func BeerBlg() string {
-	return strconv.FormatFloat(randFloat64Range(globalFaker.Rand, 5.0, 20.0), 'f', 1, 64) + "°Blg"
+	return strconv.FormatFloat(float64Range(globalFaker.Rand, 5.0, 20.0), 'f', 1, 64) + "°Blg"
 }
 
 func addBeerLookup() {

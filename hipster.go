@@ -7,9 +7,19 @@ func HipsterWord() string {
 	return getRandValue(globalFaker.Rand, []string{"hipster", "word"})
 }
 
+// HipsterWord will return a single hipster word
+func (f *Faker) HipsterWord() string {
+	return getRandValue(f.Rand, []string{"hipster", "word"})
+}
+
 // HipsterSentence will generate a random sentence
 func HipsterSentence(wordCount int) string {
-	return sentence(wordCount, HipsterWord)
+	return sentence(globalFaker.Rand, wordCount, HipsterWord)
+}
+
+// HipsterSentence will generate a random sentence
+func (f *Faker) HipsterSentence(wordCount int) string {
+	return sentence(f.Rand, wordCount, HipsterWord)
 }
 
 // HipsterParagraph will generate a random paragraphGenerator
@@ -18,7 +28,16 @@ func HipsterSentence(wordCount int) string {
 // Set Word Count
 // Set Paragraph Separator
 func HipsterParagraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return paragraphGenerator(paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, HipsterSentence)
+	return paragraphGenerator(globalFaker.Rand, paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, HipsterSentence)
+}
+
+// HipsterParagraph will generate a random paragraphGenerator
+// Set Paragraph Count
+// Set Sentence Count
+// Set Word Count
+// Set Paragraph Separator
+func (f *Faker) HipsterParagraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
+	return paragraphGenerator(f.Rand, paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, HipsterSentence)
 }
 
 func addHipsterLookup() {

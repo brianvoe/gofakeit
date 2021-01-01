@@ -34,6 +34,53 @@ func Example() {
 }
 
 func ExampleNew() {
-	fake := New(0)
-	fake.Bool()
+	// Create new faker struct and set initial seed
+	fake := New(11)
+
+	// All global functions are also available in the structs methods
+	fmt.Println("Name:", fake.Name())
+	fmt.Println("Email:", fake.Email())
+	fmt.Println("Phone:", fake.Phone())
+	// Output:
+	// Name: Markus Moen
+	// Email: alaynawuckert@kozey.biz
+	// Phone: 9948995369
+}
+
+func ExampleNewCrypto() {
+	// Create new crypto faker struct
+	fake := NewCrypto()
+
+	// All global functions are also available in the structs methods
+	fmt.Println("Name:", fake.Name())
+	fmt.Println("Email:", fake.Email())
+	fmt.Println("Phone:", fake.Phone())
+
+	// Cannot output example as crypto/rand cant be predicted
+}
+
+type customRand struct{}
+
+func (c *customRand) Seed(seed int64) {}
+func (c *customRand) Uint64() uint64  { return 8675309 }
+func (c *customRand) Int63() int64    { return int64(c.Uint64() & ^uint64(1<<63)) }
+
+func ExampleNewCustom() {
+	// Setup stuct and methods required to meet interface needs
+	// type customRand struct {}
+	// func (c *customRand) Seed(seed int64) {}
+	// func (c *customRand) Uint64() uint64 { return 8675309 }
+	// func (c *customRand) Int63() int64 { return int64(c.Uint64() & ^uint64(1<<63)) }
+
+	// Create new custom faker struct
+	fake := NewCustom(&customRand{})
+
+	// All global functions are also available in the structs methods
+	fmt.Println("Name:", fake.Name())
+	fmt.Println("Email:", fake.Email())
+	fmt.Println("Phone:", fake.Phone())
+	// Output:
+	// Name: Aaliyah Abbott
+	// Email: aaliyahabbott@abbott.com
+	// Phone: 1000000000
 }

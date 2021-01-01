@@ -30,18 +30,6 @@ func TestGetRandIntValueFail(t *testing.T) {
 	}
 }
 
-func TestRandFloat32RangeSame(t *testing.T) {
-	if randFloat32Range(globalFaker.Rand, 5.0, 5.0) != 5.0 {
-		t.Error("You should have gotten 5.0 back")
-	}
-}
-
-func TestRandFloat64RangeSame(t *testing.T) {
-	if randFloat64Range(globalFaker.Rand, 5.0, 5.0) != 5.0 {
-		t.Error("You should have gotten 5.0 back")
-	}
-}
-
 func TestReplaceWithNumbers(t *testing.T) {
 	if replaceWithNumbers(globalFaker.Rand, "") != "" {
 		t.Error("You should have gotten an empty string")

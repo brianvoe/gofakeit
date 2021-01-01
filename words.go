@@ -3,6 +3,7 @@ package gofakeit
 import (
 	"bytes"
 	"errors"
+	rand "math/rand"
 	"strings"
 	"unicode"
 )
@@ -20,65 +21,102 @@ type sentenceGenerator func(wordCount int) string
 type wordGenerator func() string
 
 // Noun will generate a random noun
-func Noun() string {
-	return getRandValue(globalFaker.Rand, []string{"word", "noun"})
-}
+func Noun() string { return noun(globalFaker.Rand) }
+
+// Noun will generate a random noun
+func (f *Faker) Noun() string { return noun(f.Rand) }
+
+func noun(r *rand.Rand) string { return getRandValue(r, []string{"word", "noun"}) }
 
 // Verb will generate a random verb
-func Verb() string {
-	return getRandValue(globalFaker.Rand, []string{"word", "verb"})
-}
+func Verb() string { return verb(globalFaker.Rand) }
+
+// Verb will generate a random verb
+func (f *Faker) Verb() string { return verb(f.Rand) }
+
+func verb(r *rand.Rand) string { return getRandValue(r, []string{"word", "verb"}) }
 
 // Adverb will generate a random adverb
-func Adverb() string {
-	return getRandValue(globalFaker.Rand, []string{"word", "adverb"})
-}
+func Adverb() string { return adverb(globalFaker.Rand) }
+
+// Adverb will generate a random adverb
+func (f *Faker) Adverb() string { return adverb(f.Rand) }
+
+func adverb(r *rand.Rand) string { return getRandValue(r, []string{"word", "adverb"}) }
 
 // Preposition will generate a random preposition
-func Preposition() string {
-	return getRandValue(globalFaker.Rand, []string{"word", "preposition"})
-}
+func Preposition() string { return preposition(globalFaker.Rand) }
+
+// Preposition will generate a random preposition
+func (f *Faker) Preposition() string { return preposition(f.Rand) }
+
+func preposition(r *rand.Rand) string { return getRandValue(r, []string{"word", "preposition"}) }
 
 // Adjective will generate a random adjective
-func Adjective() string {
-	return getRandValue(globalFaker.Rand, []string{"word", "adjective"})
-}
+func Adjective() string { return adjective(globalFaker.Rand) }
+
+// Adjective will generate a random adjective
+func (f *Faker) Adjective() string { return adjective(f.Rand) }
+
+func adjective(r *rand.Rand) string { return getRandValue(r, []string{"word", "adjective"}) }
 
 // Word will generate a random word
-func Word() string {
+func Word() string { return word(globalFaker.Rand) }
+
+// Word will generate a random word
+func (f *Faker) Word() string { return word(f.Rand) }
+
+func word(r *rand.Rand) string {
 	if Bool() {
-		return getRandValue(globalFaker.Rand, []string{"word", "noun"})
+		return getRandValue(r, []string{"word", "noun"})
 	}
 
-	return getRandValue(globalFaker.Rand, []string{"word", "verb"})
+	return getRandValue(r, []string{"word", "verb"})
 }
 
 // Sentence will generate a random sentence
-func Sentence(wordCount int) string {
-	return sentence(wordCount, Word)
-}
+func Sentence(wordCount int) string { return sentence(globalFaker.Rand, wordCount, Word) }
+
+// Sentence will generate a random sentence
+func (f *Faker) Sentence(wordCount int) string { return sentence(globalFaker.Rand, wordCount, Word) }
 
 // Paragraph will generate a random paragraphGenerator
 func Paragraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return paragraphGenerator(paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, Sentence)
+	return paragraphGenerator(globalFaker.Rand, paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, Sentence)
+}
+
+// Paragraph will generate a random paragraphGenerator
+func (f *Faker) Paragraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
+	return paragraphGenerator(f.Rand, paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, Sentence)
 }
 
 // LoremIpsumWord will generate a random word
-func LoremIpsumWord() string {
-	return getRandValue(globalFaker.Rand, []string{"lorem", "word"})
-}
+func LoremIpsumWord() string { return getRandValue(globalFaker.Rand, []string{"lorem", "word"}) }
+
+// LoremIpsumWord will generate a random word
+func (f *Faker) LoremIpsumWord() string { return getRandValue(f.Rand, []string{"lorem", "word"}) }
 
 // LoremIpsumSentence will generate a random sentence
 func LoremIpsumSentence(wordCount int) string {
-	return sentence(wordCount, LoremIpsumWord)
+	return sentence(globalFaker.Rand, wordCount, LoremIpsumWord)
+}
+
+// LoremIpsumSentence will generate a random sentence
+func (f *Faker) LoremIpsumSentence(wordCount int) string {
+	return sentence(f.Rand, wordCount, LoremIpsumWord)
 }
 
 // LoremIpsumParagraph will generate a random paragraphGenerator
 func LoremIpsumParagraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return paragraphGenerator(paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, LoremIpsumSentence)
+	return paragraphGenerator(globalFaker.Rand, paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, LoremIpsumSentence)
 }
 
-func sentence(wordCount int, word wordGenerator) string {
+// LoremIpsumParagraph will generate a random paragraphGenerator
+func (f *Faker) LoremIpsumParagraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
+	return paragraphGenerator(f.Rand, paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, LoremIpsumSentence)
+}
+
+func sentence(r *rand.Rand, wordCount int, word wordGenerator) string {
 	if wordCount <= 0 {
 		return ""
 	}
@@ -103,7 +141,7 @@ func sentence(wordCount int, word wordGenerator) string {
 	return sentence.String()
 }
 
-func paragraphGenerator(opts paragrapOptions, sentecer sentenceGenerator) string {
+func paragraphGenerator(r *rand.Rand, opts paragrapOptions, sentecer sentenceGenerator) string {
 	if opts.paragraphCount <= 0 || opts.sentenceCount <= 0 || opts.wordCount <= 0 {
 		return ""
 	}
@@ -136,14 +174,22 @@ func Question() string {
 }
 
 // Quote will return a random quote from a random person
-func Quote() string {
-	return `"` + HipsterSentence(Number(3, 10)) + `" - ` + FirstName() + " " + LastName()
+func Quote() string { return quote(globalFaker.Rand) }
+
+// Quote will return a random quote from a random person
+func (f *Faker) Quote() string { return quote(f.Rand) }
+
+func quote(r *rand.Rand) string {
+	return `"` + HipsterSentence(number(r, 3, 10)) + `" - ` + firstName(r) + " " + lastName(r)
 }
 
 // Phrase will return a random dictionary phrase
-func Phrase() string {
-	return getRandValue(globalFaker.Rand, []string{"word", "phrase"})
-}
+func Phrase() string { return phrase(globalFaker.Rand) }
+
+// Phrase will return a random dictionary phrase
+func (f *Faker) Phrase() string { return phrase(f.Rand) }
+
+func phrase(r *rand.Rand) string { return getRandValue(r, []string{"word", "phrase"}) }
 
 func addWordLookup() {
 	AddFuncLookup("noun", Info{

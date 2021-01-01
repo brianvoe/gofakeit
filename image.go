@@ -12,12 +12,12 @@ import (
 )
 
 // ImageURL will generate a random Image Based Upon Height And Width. https://picsum.photos/
-func ImageURL(width int, height int) string {
-	return "https://picsum.photos/" + strconv.Itoa(width) + "/" + strconv.Itoa(height)
-}
+func ImageURL(width int, height int) string { return imageURL(globalFaker.Rand, width, height) }
 
 // ImageURL will generate a random Image Based Upon Height And Width. https://picsum.photos/
-func (f *Faker) ImageURL(width int, height int) string {
+func (f *Faker) ImageURL(width int, height int) string { return imageURL(f.Rand, width, height) }
+
+func imageURL(r *rand.Rand, width int, height int) string {
 	return "https://picsum.photos/" + strconv.Itoa(width) + "/" + strconv.Itoa(height)
 }
 

@@ -7,137 +7,129 @@ import (
 )
 
 // Number will generate a random number between given min And max
-func Number(min int, max int) int {
-	return number(globalFaker.Rand, min, max)
-}
+func Number(min int, max int) int { return number(globalFaker.Rand, min, max) }
 
 // Number will generate a random number between given min And max
-func (f *Faker) Number(min int, max int) int {
-	return number(f.Rand, min, max)
-}
+func (f *Faker) Number(min int, max int) int { return number(f.Rand, min, max) }
 
-func number(r *rand.Rand, min int, max int) int {
-	return randIntRange(r, min, max)
-}
+func number(r *rand.Rand, min int, max int) int { return randIntRange(r, min, max) }
 
 // Uint8 will generate a random uint8 value
-func Uint8() uint8 {
-	return uint8(randIntRange(globalFaker.Rand, 0, math.MaxUint8))
-}
+func Uint8() uint8 { return uint8y(globalFaker.Rand) }
 
 // Uint8 will generate a random uint8 value
-func (f *Faker) Uint8() uint8 {
-	return uint8(randIntRange(f.Rand, 0, math.MaxUint8))
-}
+func (f *Faker) Uint8() uint8 { return uint8y(f.Rand) }
+
+func uint8y(r *rand.Rand) uint8 { return uint8(randIntRange(r, 0, math.MaxUint8)) }
 
 // Uint16 will generate a random uint16 value
-func Uint16() uint16 {
-	return uint16(randIntRange(globalFaker.Rand, 0, math.MaxUint16))
-}
+func Uint16() uint16 { return uint16y(globalFaker.Rand) }
 
 // Uint16 will generate a random uint16 value
-func (f *Faker) Uint16() uint16 {
-	return uint16(randIntRange(f.Rand, 0, math.MaxUint16))
-}
+func (f *Faker) Uint16() uint16 { return uint16y(f.Rand) }
+
+func uint16y(r *rand.Rand) uint16 { return uint16(randIntRange(r, 0, math.MaxUint16)) }
 
 // Uint32 will generate a random uint32 value
-func Uint32() uint32 {
-	return uint32(randIntRange(globalFaker.Rand, 0, math.MaxInt32))
-}
+func Uint32() uint32 { return uint32y(globalFaker.Rand) }
 
 // Uint32 will generate a random uint32 value
-func (f *Faker) Uint32() uint32 {
-	return uint32(randIntRange(f.Rand, 0, math.MaxInt32))
-}
+func (f *Faker) Uint32() uint32 { return uint32y(f.Rand) }
+
+func uint32y(r *rand.Rand) uint32 { return uint32(randIntRange(r, 0, math.MaxInt32)) }
 
 // Uint64 will generate a random uint64 value
-func Uint64() uint64 {
-	return uint64(globalFaker.Rand.Int63n(math.MaxInt64))
-}
+func Uint64() uint64 { return uint64y(globalFaker.Rand) }
 
 // Uint64 will generate a random uint64 value
-func (f *Faker) Uint64() uint64 {
-	return uint64(f.Rand.Int63n(math.MaxInt64))
-}
+func (f *Faker) Uint64() uint64 { return uint64y(f.Rand) }
+
+func uint64y(r *rand.Rand) uint64 { return uint64(r.Int63n(math.MaxInt64)) }
 
 // Int8 will generate a random Int8 value
-func Int8() int8 {
-	return int8(randIntRange(globalFaker.Rand, math.MinInt8, math.MaxInt8))
-}
+func Int8() int8 { return int8y(globalFaker.Rand) }
 
 // Int8 will generate a random Int8 value
-func (f *Faker) Int8() int8 {
-	return int8(randIntRange(f.Rand, math.MinInt8, math.MaxInt8))
-}
+func (f *Faker) Int8() int8 { return int8y(f.Rand) }
+
+func int8y(r *rand.Rand) int8 { return int8(randIntRange(r, math.MinInt8, math.MaxInt8)) }
 
 // Int16 will generate a random int16 value
-func Int16() int16 {
-	return int16(randIntRange(globalFaker.Rand, math.MinInt16, math.MaxInt16))
-}
+func Int16() int16 { return int16y(globalFaker.Rand) }
 
 // Int16 will generate a random int16 value
-func (f *Faker) Int16() int16 {
-	return int16(randIntRange(f.Rand, math.MinInt16, math.MaxInt16))
-}
+func (f *Faker) Int16() int16 { return int16y(f.Rand) }
+
+func int16y(r *rand.Rand) int16 { return int16(randIntRange(r, math.MinInt16, math.MaxInt16)) }
 
 // Int32 will generate a random int32 value
-func Int32() int32 {
-	return int32(randIntRange(globalFaker.Rand, math.MinInt32, math.MaxInt32))
-}
+func Int32() int32 { return int32y(globalFaker.Rand) }
 
 // Int32 will generate a random int32 value
-func (f *Faker) Int32() int32 {
-	return int32(randIntRange(f.Rand, math.MinInt32, math.MaxInt32))
-}
+func (f *Faker) Int32() int32 { return int32y(f.Rand) }
+
+func int32y(r *rand.Rand) int32 { return int32(randIntRange(r, math.MinInt32, math.MaxInt32)) }
 
 // Int64 will generate a random int64 value
-func Int64() int64 {
-	return globalFaker.Rand.Int63n(math.MaxInt64) + math.MinInt64
-}
+func Int64() int64 { return int64y(globalFaker.Rand) }
 
 // Int64 will generate a random int64 value
-func (f *Faker) Int64() int64 {
-	return f.Rand.Int63n(math.MaxInt64) + math.MinInt64
-}
+func (f *Faker) Int64() int64 { return int64y(f.Rand) }
+
+func int64y(r *rand.Rand) int64 { return r.Int63n(math.MaxInt64) + math.MinInt64 }
 
 // Float32 will generate a random float32 value
-func Float32() float32 {
-	return randFloat32Range(globalFaker.Rand, math.SmallestNonzeroFloat32, math.MaxFloat32)
-}
+func Float32() float32 { return float32y(globalFaker.Rand) }
 
 // Float32 will generate a random float32 value
-func (f *Faker) Float32() float32 {
-	return randFloat32Range(f.Rand, math.SmallestNonzeroFloat32, math.MaxFloat32)
+func (f *Faker) Float32() float32 { return float32y(f.Rand) }
+
+func float32y(r *rand.Rand) float32 {
+	return float32Range(r, math.SmallestNonzeroFloat32, math.MaxFloat32)
 }
 
 // Float32Range will generate a random float32 value between min and max
 func Float32Range(min, max float32) float32 {
-	return randFloat32Range(globalFaker.Rand, min, max)
+	return float32Range(globalFaker.Rand, min, max)
 }
 
 // Float32Range will generate a random float32 value between min and max
 func (f *Faker) Float32Range(min, max float32) float32 {
-	return randFloat32Range(f.Rand, min, max)
+	return float32Range(f.Rand, min, max)
+}
+
+func float32Range(r *rand.Rand, min, max float32) float32 {
+	if min == max {
+		return min
+	}
+	return r.Float32()*(max-min) + min
 }
 
 // Float64 will generate a random float64 value
 func Float64() float64 {
-	return randFloat64Range(globalFaker.Rand, math.SmallestNonzeroFloat64, math.MaxFloat64)
+	return float64Range(globalFaker.Rand, math.SmallestNonzeroFloat64, math.MaxFloat64)
 }
 
 // Float64 will generate a random float64 value
 func (f *Faker) Float64() float64 {
-	return randFloat64Range(f.Rand, math.SmallestNonzeroFloat64, math.MaxFloat64)
+	return float64Range(f.Rand, math.SmallestNonzeroFloat64, math.MaxFloat64)
 }
 
 // Float64Range will generate a random float64 value between min and max
 func Float64Range(min, max float64) float64 {
-	return randFloat64Range(globalFaker.Rand, min, max)
+	return float64Range(globalFaker.Rand, min, max)
 }
 
 // Float64Range will generate a random float64 value between min and max
 func (f *Faker) Float64Range(min, max float64) float64 {
-	return randFloat64Range(f.Rand, min, max)
+	return float64Range(f.Rand, min, max)
+}
+
+func float64Range(r *rand.Rand, min, max float64) float64 {
+	if min == max {
+		return min
+	}
+	return r.Float64()*(max-min) + min
 }
 
 // ShuffleInts will randomize a slice of ints
