@@ -4,6 +4,10 @@ import (
 	"testing"
 )
 
+func TestSeed(t *testing.T) {
+	Seed(0)
+}
+
 func TestRandIntRange(t *testing.T) {
 	if randIntRange(5, 5) != 5 {
 		t.Error("You should have gotten 5 back")

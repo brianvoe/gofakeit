@@ -41,6 +41,12 @@ func BenchmarkUUID(b *testing.B) {
 	}
 }
 
+func BenchmarkUUIDCrypto(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		NewCrypto().UUID()
+	}
+}
+
 func TestShuffleAnySlice(t *testing.T) {
 	ShuffleAnySlice(nil)           // Should do nothing
 	ShuffleAnySlice("b")           // Should do nothing

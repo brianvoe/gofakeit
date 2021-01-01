@@ -10,12 +10,31 @@ import (
 
 // Bool will generate a random boolean value
 func Bool() bool {
+	return booly(globalFaker.Rand)
+}
+
+// Bool will generate a random boolean value
+func (f *Faker) Bool() bool {
+	return booly(f.Rand)
+}
+
+func booly(r *rand.Rand) bool {
 	return randIntRange(0, 1) == 1
 }
 
-// UUID (version 4) will generate a random unique identifier based upon random nunbers
+// UUID (version 4) will generate a random unique identifier based upon random numbers
 // Format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 func UUID() string {
+	return uuid(globalFaker.Rand)
+}
+
+// UUID (version 4) will generate a random unique identifier based upon random numbers
+// Format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+func (f *Faker) UUID() string {
+	return uuid(f.Rand)
+}
+
+func uuid(r *rand.Rand) string {
 	version := byte(4)
 	uuid := make([]byte, 16)
 	rand.Read(uuid)
@@ -41,6 +60,7 @@ func UUID() string {
 	return string(buf)
 }
 
+// ShuffleAnySlice takes in a slice and outputs it in a random order
 func ShuffleAnySlice(v interface{}) {
 	if v == nil {
 		return

@@ -1,6 +1,8 @@
 package gofakeit
 
 import (
+	crand "crypto/rand"
+	"encoding/binary"
 	"math"
 	"math/rand"
 	"reflect"
@@ -18,6 +20,16 @@ const allStr = lowerStr + upperStr + numericStr + specialStr + spaceStr
 const hashtag = '#'
 const questionmark = '?'
 const base58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+
+// Seed will set the global random value. Setting seed to 0 will use time.Now().UnixNano()
+func Seed(seed int64) {
+	if seed == 0 {
+		binary.Read(crand.Reader, binary.BigEndian, &seed)
+		globalFaker.Rand.Seed(seed)
+	} else {
+		globalFaker.Rand.Seed(seed)
+	}
+}
 
 // Check if in lib
 func dataCheck(dataVal []string) bool {

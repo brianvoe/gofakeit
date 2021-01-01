@@ -2,7 +2,6 @@ package gofakeit
 
 import (
 	"fmt"
-	"testing"
 )
 
 func Example() {
@@ -19,8 +18,6 @@ func Example() {
 	fmt.Println("Hacker Phrase:", HackerPhrase())
 	fmt.Println("Job Title:", JobTitle())
 	fmt.Println("Password:", Password(true, true, true, true, false, 32))
-	currency := Currency()
-	fmt.Printf("Currency: %s - %s", currency.Short, currency.Long)
 	// Output:
 	// Name: Markus Moen
 	// Email: alaynawuckert@kozey.biz
@@ -34,9 +31,9 @@ func Example() {
 	// Hacker Phrase: You can't quantify the application without navigating the bluetooth SMS microchip!
 	// Job Title: Architect
 	// Password: SHylpDU2nf9(,U*RaJKM1cOL47VY.BQw
-	// Currency: KES - Kenya Shilling
 }
 
-func TestSeed(t *testing.T) {
-	Seed(0)
+func ExampleNew() {
+	fake := New(0)
+	fake.Rand.Int()
 }
