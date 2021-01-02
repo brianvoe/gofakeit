@@ -53,6 +53,15 @@ func Month() string {
 
 // Year will generate a random year between 1900 - current year
 func Year() int {
+	return year()
+}
+
+// Year will generate a random year between 1900 - current year
+func (f *Faker) Year() int {
+	return year()
+}
+
+func year() int {
 	return Number(1900, time.Now().Year())
 }
 
