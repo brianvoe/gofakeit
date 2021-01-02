@@ -34,7 +34,7 @@ func Example() {
 }
 
 func ExampleNew() {
-	// Create new faker struct and set initial seed
+	// Create new pseudo random faker struct and set initial seed
 	fake := New(11)
 
 	// All global functions are also available in the structs methods

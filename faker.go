@@ -35,7 +35,7 @@ func (c *cryptoRand) Int63() int64 {
 	return int64(c.Uint64() & ^uint64(1<<63))
 }
 
-// NewCrypto will utilize crypto/rand for concurrent random usage
+// NewCrypto will utilize crypto/rand for concurrent pseudo random usage
 func NewCrypto() *Faker {
 	return &Faker{Rand: rand.New(&cryptoRand{})}
 }
