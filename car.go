@@ -20,7 +20,7 @@ func Car() *CarInfo {
 		Transmission: carTransmissionType(globalFaker.Rand),
 		Brand:        carMaker(globalFaker.Rand),
 		Model:        carModel(globalFaker.Rand),
-		Year:         year(),
+		Year:         year(globalFaker.Rand),
 	}
 }
 
@@ -32,7 +32,7 @@ func (f *Faker) Car() *CarInfo {
 		Transmission: carTransmissionType(f.Rand),
 		Brand:        carMaker(f.Rand),
 		Model:        carModel(f.Rand),
-		Year:         year(),
+		Year:         year(f.Rand),
 	}
 }
 
