@@ -7,29 +7,61 @@ func Color() string {
 	return color(globalFaker.Rand)
 }
 
+// Color will generate a random color string
+func (f *Faker) Color() string {
+	return color(f.Rand)
+}
+
 func color(r *rand.Rand) string {
 	return getRandValue(r, []string{"color", "full"})
 }
 
 // SafeColor will generate a random safe color string
 func SafeColor() string {
-	return getRandValue(globalFaker.Rand, []string{"color", "safe"})
+	return safeColor(globalFaker.Rand)
+}
+
+// SafeColor will generate a random safe color string
+func (f *Faker) SafeColor() string {
+	return safeColor(f.Rand)
+}
+
+func safeColor(r *rand.Rand) string {
+	return getRandValue(f, []string{"color", "safe"})
 }
 
 // HexColor will generate a random hexadecimal color string
 func HexColor() string {
+	return hexColor(globalFaker.Rand)
+}
+
+// HexColor will generate a random hexadecimal color string
+func (f *Faker) HexColor() string {
+	return hexColor(f.Rand)
+}
+
+func hexColor(r *rand.Rand) string {
 	color := make([]byte, 6)
 	hashQuestion := []byte("?#")
 	for i := 0; i < 6; i++ {
-		color[i] = hashQuestion[globalFaker.Rand.Intn(2)]
+		color[i] = hashQuestion[r.Intn(2)]
 	}
 
-	return "#" + replaceWithHexLetters(globalFaker.Rand, replaceWithNumbers(globalFaker.Rand, string(color)))
+	return "#" + replaceWithHexLetters(r, replaceWithNumbers(r, string(color)))
 }
 
 // RGBColor will generate a random int slice color
 func RGBColor() []int {
-	return []int{randIntRange(globalFaker.Rand, 0, 255), randIntRange(globalFaker.Rand, 0, 255), randIntRange(globalFaker.Rand, 0, 255)}
+	return rgbColor(globalFaker.Rand)
+}
+
+// RGBColor will generate a random int slice color
+func (f *Faker) RGBColor() []int {
+	return rgbColor(f.Rand)
+}
+
+func rgbColor(r *rand.Rand) []int {
+	return []int{randIntRange(r, 0, 255), randIntRange(r, 0, 255), randIntRange(r, 0, 255)}
 }
 
 func addColorLookup() {
