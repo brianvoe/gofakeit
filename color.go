@@ -1,8 +1,14 @@
 package gofakeit
 
+import "math/rand"
+
 // Color will generate a random color string
 func Color() string {
-	return getRandValue(globalFaker.Rand, []string{"color", "full"})
+	return color(globalFaker.Rand)
+}
+
+func color(r *rand.Rand) string {
+	return getRandValue(r, []string{"color", "full"})
 }
 
 // SafeColor will generate a random safe color string
