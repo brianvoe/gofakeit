@@ -27,7 +27,7 @@ func (f *Faker) SafeColor() string {
 }
 
 func safeColor(r *rand.Rand) string {
-	return getRandValue(f, []string{"color", "safe"})
+	return getRandValue(r, []string{"color", "safe"})
 }
 
 // HexColor will generate a random hexadecimal color string
