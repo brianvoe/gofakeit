@@ -7,10 +7,10 @@ import (
 	"sync"
 )
 
-// Create global variable to deal with global function call
+// Create global variable to deal with global function call.
 var globalFaker *Faker = New(0)
 
-// Faker struct is the primary struct for using localized
+// Faker struct is the primary struct for using localized.
 type Faker struct {
 	Rand *rand.Rand
 }
@@ -35,13 +35,15 @@ func (c *cryptoRand) Int63() int64 {
 	return int64(c.Uint64() & ^uint64(1<<63))
 }
 
-// NewCrypto will utilize crypto/rand for concurrent pseudo random usage
+// NewCrypto will utilize crypto/rand for concurrent pseudo random usage.
 func NewCrypto() *Faker {
-	return &Faker{Rand: rand.New(&cryptoRand{})}
+	return &Faker{Rand: rand.New(&cryptoRand{
+		buf: make([]byte, 8),
+	})}
 }
 
-// New will utilize math/rand for concurrent random usage
-// Setting seed to 0 will use crypto/rand for the initial seed number
+// New will utilize math/rand for concurrent random usage.
+// Setting seed to 0 will use crypto/rand for the initial seed number.
 func New(seed int64) *Faker {
 	// If passing 0 create crypto safe int64 for initial seed number
 	if seed == 0 {

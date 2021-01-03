@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"errors"
+	"math/rand"
 	"strconv"
 	"time"
 )
@@ -53,7 +54,16 @@ func Month() string {
 
 // Year will generate a random year between 1900 - current year
 func Year() int {
-	return Number(1900, time.Now().Year())
+	return year(globalFaker.Rand)
+}
+
+// Year will generate a random year between 1900 - current year
+func (f *Faker) Year() int {
+	return year(f.Rand)
+}
+
+func year(r *rand.Rand) int {
+	return number(r, 1900, time.Now().Year())
 }
 
 // TimeZone will select a random timezone string

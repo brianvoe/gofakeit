@@ -72,10 +72,34 @@ func ExampleYear() {
 	// Output: 1908
 }
 
+func ExampleFaker_Year() {
+	f := New(11)
+	fmt.Println(f.Year())
+	// Output: 1908
+}
+
 func BenchmarkYear(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		Year()
-	}
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			Year()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.Year()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.Year()
+		}
+	})
 }
 
 func ExampleHour() {
