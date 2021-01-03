@@ -1,10 +1,22 @@
 package gofakeit
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+)
 
 // Gamertag will generate a random video game username
 func Gamertag() string {
-	return getRandValue(globalFaker.Rand, []string{"word", "noun"}) + getRandValue(globalFaker.Rand, []string{"word", "verb"}) + fmt.Sprintf("%d", Number(10, 999))
+	return gamertag(globalFaker.Rand)
+}
+
+// Gamertag will generate a random video game username
+func (f *Faker) Gamertag() string {
+	return gamertag(f.Rand)
+}
+
+func gamertag(r *rand.Rand) string {
+	return fmt.Sprintf("%s%s%d", getRandValue(r, []string{"word", "noun"}), getRandValue(r, []string{"word", "verb"}), number(r, 10, 999))
 }
 
 func addGameLookup() {
