@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"errors"
 	img "image"
-	"image/color"
+	imgCol "image/color"
 	"image/jpeg"
 	"image/png"
 	rand "math/rand"
@@ -36,7 +36,7 @@ func image(r *rand.Rand, width int, height int) *img.RGBA {
 	// Set color for each pixel
 	for x := 0; x < width; x++ {
 		for y := 0; y < height; y++ {
-			img.Set(x, y, color.RGBA{uint8(number(r, 0, 255)), uint8(number(r, 0, 255)), uint8(number(r, 0, 255)), 0xff})
+			img.Set(x, y, imgCol.RGBA{uint8(number(r, 0, 255)), uint8(number(r, 0, 255)), uint8(number(r, 0, 255)), 0xff})
 		}
 	}
 
