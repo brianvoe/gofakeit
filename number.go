@@ -107,12 +107,16 @@ func float32Range(r *rand.Rand, min, max float32) float32 {
 
 // Float64 will generate a random float64 value
 func Float64() float64 {
-	return float64Range(globalFaker.Rand, math.SmallestNonzeroFloat64, math.MaxFloat64)
+	return float64Func(globalFaker.Rand)
 }
 
 // Float64 will generate a random float64 value
 func (f *Faker) Float64() float64 {
-	return float64Range(f.Rand, math.SmallestNonzeroFloat64, math.MaxFloat64)
+	return float64Func(f.Rand)
+}
+
+func float64Func(r *rand.Rand) float64 {
+	return float64Range(r, math.SmallestNonzeroFloat64, math.MaxFloat64)
 }
 
 // Float64Range will generate a random float64 value between min and max
