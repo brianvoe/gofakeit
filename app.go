@@ -55,7 +55,7 @@ func (f *Faker) AppAuthor() string {
 }
 
 func appAuthor(r *rand.Rand) string {
-	if booly(r) {
+	if boolFunc(r) {
 		return name(r)
 	}
 

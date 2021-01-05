@@ -9,12 +9,12 @@ import (
 )
 
 // Bool will generate a random boolean value
-func Bool() bool { return booly(globalFaker.Rand) }
+func Bool() bool { return boolFunc(globalFaker.Rand) }
 
 // Bool will generate a random boolean value
-func (f *Faker) Bool() bool { return booly(f.Rand) }
+func (f *Faker) Bool() bool { return boolFunc(f.Rand) }
 
-func booly(r *rand.Rand) bool { return randIntRange(r, 0, 1) == 1 }
+func boolFunc(r *rand.Rand) bool { return randIntRange(r, 0, 1) == 1 }
 
 // UUID (version 4) will generate a random unique identifier based upon random numbers
 // Format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
@@ -95,7 +95,7 @@ func FlipACoin() string { return flipACoin(globalFaker.Rand) }
 func (f *Faker) FlipACoin() string { return flipACoin(f.Rand) }
 
 func flipACoin(r *rand.Rand) string {
-	if booly(r) {
+	if boolFunc(r) {
 		return "Heads"
 	}
 

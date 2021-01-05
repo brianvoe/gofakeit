@@ -97,7 +97,7 @@ func Gender() string { return gender(globalFaker.Rand) }
 func (f *Faker) Gender() string { return gender(f.Rand) }
 
 func gender(r *rand.Rand) string {
-	if booly(r) {
+	if boolFunc(r) {
 		return "male"
 	}
 
