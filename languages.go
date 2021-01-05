@@ -29,13 +29,13 @@ func programmingLanguage(r *rand.Rand) string {
 }
 
 // ProgrammingLanguageBest will return a random programming language
-func ProgrammingLanguageBest() string { return programmingLanguage(globalFaker.Rand) }
+func ProgrammingLanguageBest() string { return programmingLanguageBest(globalFaker.Rand) }
 
 // ProgrammingLanguageBest will return a random programming language
-func (f *Faker) ProgrammingLanguageBest() string { return programmingLanguage(f.Rand) }
+func (f *Faker) ProgrammingLanguageBest() string { return programmingLanguageBest(f.Rand) }
 
 // ProgrammingLanguageBest will return a random programming language
-func programmingLanguageBest() string { return "Go" }
+func programmingLanguageBest(r *rand.Rand) string { return "Go" }
 
 func addLanguagesLookup() {
 	AddFuncLookup("language", Info{
