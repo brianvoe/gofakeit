@@ -1,6 +1,7 @@
 package gofakeit
 
 import (
+	rand "math/rand"
 	"reflect"
 	"strconv"
 	"strings"
@@ -11,32 +12,41 @@ import (
 // Use `fake:"skip"` to explicitly skip an element.
 // All built-in types are supported, with templating support
 // for string types.
-func Struct(v interface{}) {
-	r(reflect.TypeOf(v), reflect.ValueOf(v), "", 0)
+func Struct(v interface{}) { structFunc(globalFaker.Rand, v) }
+
+// Struct fills in exported elements of a struct with random data
+// based on the value of `fake` tag of exported elements.
+// Use `fake:"skip"` to explicitly skip an element.
+// All built-in types are supported, with templating support
+// for string types.
+func (f *Faker) Struct(v interface{}) { structFunc(f.Rand, v) }
+
+func structFunc(ra *rand.Rand, v interface{}) {
+	r(ra, reflect.TypeOf(v), reflect.ValueOf(v), "", 0)
 }
 
-func r(t reflect.Type, v reflect.Value, function string, size int) {
+func r(ra *rand.Rand, t reflect.Type, v reflect.Value, function string, size int) {
 	switch t.Kind() {
 	case reflect.Ptr:
-		rPointer(t, v, function)
+		rPointer(ra, t, v, function)
 	case reflect.Struct:
-		rStruct(t, v)
+		rStruct(ra, t, v)
 	case reflect.String:
-		rString(t, v, function)
+		rString(ra, t, v, function)
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
-		rUint(t, v, function)
+		rUint(ra, t, v, function)
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-		rInt(t, v, function)
+		rInt(ra, t, v, function)
 	case reflect.Float32, reflect.Float64:
-		rFloat(t, v, function)
+		rFloat(ra, t, v, function)
 	case reflect.Bool:
-		rBool(t, v, function)
+		rBool(ra, t, v, function)
 	case reflect.Array, reflect.Slice:
-		rSlice(t, v, function, size)
+		rSlice(ra, t, v, function, size)
 	}
 }
 
-func rStruct(t reflect.Type, v reflect.Value) {
+func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value) {
 	n := t.NumField()
 	for i := 0; i < n; i++ {
 		elementT := t.Field(i)
@@ -52,26 +62,26 @@ func rStruct(t reflect.Type, v reflect.Value) {
 				var err error
 				size, err = strconv.Atoi(fs)
 				if err != nil {
-					size = Number(1, 10)
+					size = number(ra, 1, 10)
 				}
 			}
-			r(elementT.Type, elementV, t, size)
+			r(ra, elementT.Type, elementV, t, size)
 		}
 	}
 }
 
-func rPointer(t reflect.Type, v reflect.Value, function string) {
+func rPointer(ra *rand.Rand, t reflect.Type, v reflect.Value, function string) {
 	elemT := t.Elem()
 	if v.IsNil() {
 		nv := reflect.New(elemT)
-		r(elemT, nv.Elem(), function, 0)
+		r(ra, elemT, nv.Elem(), function, 0)
 		v.Set(nv)
 	} else {
-		r(elemT, v.Elem(), function, 0)
+		r(ra, elemT, v.Elem(), function, 0)
 	}
 }
 
-func rSlice(t reflect.Type, v reflect.Value, function string, size int) {
+func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, function string, size int) {
 	// If you cant even set it dont even try
 	if !v.CanSet() {
 		return
@@ -84,7 +94,7 @@ func rSlice(t reflect.Type, v reflect.Value, function string, size int) {
 	// use that instead of the requested size
 	elemCap := v.Cap()
 	if elemCap == 0 && size == -1 {
-		size = Number(1, 10)
+		size = number(ra, 1, 10)
 	} else if elemCap != 0 && (size == -1 || elemCap < size) {
 		size = elemCap
 	}
@@ -97,30 +107,30 @@ func rSlice(t reflect.Type, v reflect.Value, function string, size int) {
 		// Loop through the elements length and set based upon the index
 		for i := 0; i < size; i++ {
 			nv := reflect.New(elemT)
-			r(elemT, nv.Elem(), function, ogSize)
+			r(ra, elemT, nv.Elem(), function, ogSize)
 			v.Index(i).Set(reflect.Indirect(nv))
 		}
 	} else {
 		// Loop through the size and append and set
 		for i := 0; i < size; i++ {
 			nv := reflect.New(elemT)
-			r(elemT, nv.Elem(), function, ogSize)
+			r(ra, elemT, nv.Elem(), function, ogSize)
 			v.Set(reflect.Append(reflect.Indirect(v), reflect.Indirect(nv)))
 		}
 	}
 }
 
-func rString(t reflect.Type, v reflect.Value, function string) {
+func rString(ra *rand.Rand, t reflect.Type, v reflect.Value, function string) {
 	if function != "" {
-		v.SetString(Generate(function))
+		v.SetString(generate(ra, function))
 	} else {
-		v.SetString(Generate(strings.Repeat("?", Number(4, 10))))
+		v.SetString(generate(ra, strings.Repeat("?", Number(4, 10))))
 	}
 }
 
-func rInt(t reflect.Type, v reflect.Value, function string) {
+func rInt(ra *rand.Rand, t reflect.Type, v reflect.Value, function string) {
 	if function != "" {
-		i, err := strconv.ParseInt(Generate(function), 10, 64)
+		i, err := strconv.ParseInt(generate(ra, function), 10, 64)
 		if err == nil {
 			v.SetInt(i)
 			return
@@ -130,21 +140,21 @@ func rInt(t reflect.Type, v reflect.Value, function string) {
 	// If no function or error converting to int, set with random value
 	switch t.Kind() {
 	case reflect.Int:
-		v.SetInt(Int64())
+		v.SetInt(int64Func(ra))
 	case reflect.Int8:
-		v.SetInt(int64(Int8()))
+		v.SetInt(int64(int8Func(ra)))
 	case reflect.Int16:
-		v.SetInt(int64(Int16()))
+		v.SetInt(int64(int16Func(ra)))
 	case reflect.Int32:
-		v.SetInt(int64(Int32()))
+		v.SetInt(int64(int32Func(ra)))
 	case reflect.Int64:
-		v.SetInt(Int64())
+		v.SetInt(int64Func(ra))
 	}
 }
 
-func rUint(t reflect.Type, v reflect.Value, function string) {
+func rUint(ra *rand.Rand, t reflect.Type, v reflect.Value, function string) {
 	if function != "" {
-		u, err := strconv.ParseUint(Generate(function), 10, 64)
+		u, err := strconv.ParseUint(generate(ra, function), 10, 64)
 		if err == nil {
 			v.SetUint(u)
 			return
@@ -154,21 +164,21 @@ func rUint(t reflect.Type, v reflect.Value, function string) {
 	// If no function or error converting to uint, set with random value
 	switch t.Kind() {
 	case reflect.Uint:
-		v.SetUint(Uint64())
+		v.SetUint(uint64Func(ra))
 	case reflect.Uint8:
-		v.SetUint(uint64(Uint8()))
+		v.SetUint(uint64(uint8Func(ra)))
 	case reflect.Uint16:
-		v.SetUint(uint64(Uint16()))
+		v.SetUint(uint64(uint16Func(ra)))
 	case reflect.Uint32:
-		v.SetUint(uint64(Uint32()))
+		v.SetUint(uint64(uint32Func(ra)))
 	case reflect.Uint64:
-		v.SetUint(Uint64())
+		v.SetUint(uint64Func(ra))
 	}
 }
 
-func rFloat(t reflect.Type, v reflect.Value, function string) {
+func rFloat(ra *rand.Rand, t reflect.Type, v reflect.Value, function string) {
 	if function != "" {
-		f, err := strconv.ParseFloat(Generate(function), 64)
+		f, err := strconv.ParseFloat(generate(ra, function), 64)
 		if err == nil {
 			v.SetFloat(f)
 			return
@@ -178,15 +188,15 @@ func rFloat(t reflect.Type, v reflect.Value, function string) {
 	// If no function or error converting to float, set with random value
 	switch t.Kind() {
 	case reflect.Float64:
-		v.SetFloat(Float64())
+		v.SetFloat(float64Func(ra))
 	case reflect.Float32:
-		v.SetFloat(float64(Float32()))
+		v.SetFloat(float64(float32Func(ra)))
 	}
 }
 
-func rBool(t reflect.Type, v reflect.Value, function string) {
+func rBool(ra *rand.Rand, t reflect.Type, v reflect.Value, function string) {
 	if function != "" {
-		b, err := strconv.ParseBool(Generate(function))
+		b, err := strconv.ParseBool(generate(ra, function))
 		if err == nil {
 			v.SetBool(b)
 			return
@@ -194,5 +204,5 @@ func rBool(t reflect.Type, v reflect.Value, function string) {
 	}
 
 	// If no function or error converting to boolean, set with random value
-	v.SetBool(Bool())
+	v.SetBool(boolFunc(ra))
 }
