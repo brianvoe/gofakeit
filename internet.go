@@ -10,14 +10,10 @@ import (
 )
 
 // DomainName will generate a random url domain name
-func DomainName() string {
-	return domainName(globalFaker.Rand)
-}
+func DomainName() string { return domainName(globalFaker.Rand) }
 
 // DomainName will generate a random url domain name
-func (f *Faker) DomainName() string {
-	return domainName(f.Rand)
-}
+func (f *Faker) DomainName() string { return domainName(f.Rand) }
 
 func domainName(r *rand.Rand) string {
 	name := strings.Replace(strings.ToLower(jobDescriptor(r)+bs(r)), " ", "", -1)
@@ -26,28 +22,20 @@ func domainName(r *rand.Rand) string {
 }
 
 // DomainSuffix will generate a random domain suffix
-func DomainSuffix() string {
-	return domainSuffix(globalFaker.Rand)
-}
+func DomainSuffix() string { return domainSuffix(globalFaker.Rand) }
 
 // DomainSuffix will generate a random domain suffix
-func (f *Faker) DomainSuffix() string {
-	return domainSuffix(f.Rand)
-}
+func (f *Faker) DomainSuffix() string { return domainSuffix(f.Rand) }
 
 func domainSuffix(r *rand.Rand) string {
 	return getRandValue(r, []string{"internet", "domain_suffix"})
 }
 
 // URL will generate a random url string
-func URL() string {
-	return url(globalFaker.Rand)
-}
+func URL() string { return url(globalFaker.Rand) }
 
 // URL will generate a random url string
-func (f *Faker) URL() string {
-	return url(f.Rand)
-}
+func (f *Faker) URL() string { return url(f.Rand) }
 
 func url(r *rand.Rand) string {
 	// Slugs
@@ -67,28 +55,20 @@ func url(r *rand.Rand) string {
 }
 
 // HTTPMethod will generate a random http method
-func HTTPMethod() string {
-	return httpMethod(globalFaker.Rand)
-}
+func HTTPMethod() string { return httpMethod(globalFaker.Rand) }
 
 // HTTPMethod will generate a random http method
-func (f *Faker) HTTPMethod() string {
-	return httpMethod(f.Rand)
-}
+func (f *Faker) HTTPMethod() string { return httpMethod(f.Rand) }
 
 func httpMethod(r *rand.Rand) string {
 	return getRandValue(r, []string{"internet", "http_method"})
 }
 
 // IPv4Address will generate a random version 4 ip address
-func IPv4Address() string {
-	return ipv4Address(globalFaker.Rand)
-}
+func IPv4Address() string { return ipv4Address(globalFaker.Rand) }
 
 // IPv4Address will generate a random version 4 ip address
-func (f *Faker) IPv4Address() string {
-	return ipv4Address(f.Rand)
-}
+func (f *Faker) IPv4Address() string { return ipv4Address(f.Rand) }
 
 func ipv4Address(r *rand.Rand) string {
 	num := func() int { return r.Intn(256) }
@@ -97,14 +77,10 @@ func ipv4Address(r *rand.Rand) string {
 }
 
 // IPv6Address will generate a random version 6 ip address
-func IPv6Address() string {
-	return ipv6Address(globalFaker.Rand)
-}
+func IPv6Address() string { return ipv6Address(globalFaker.Rand) }
 
 // IPv6Address will generate a random version 6 ip address
-func (f *Faker) IPv6Address() string {
-	return ipv6Address(f.Rand)
-}
+func (f *Faker) IPv6Address() string { return ipv6Address(f.Rand) }
 
 func ipv6Address(r *rand.Rand) string {
 	num := func() int { return r.Intn(65536) }
@@ -113,14 +89,10 @@ func ipv6Address(r *rand.Rand) string {
 }
 
 // MacAddress will generate a random mac address
-func MacAddress() string {
-	return macAddress(globalFaker.Rand)
-}
+func MacAddress() string { return macAddress(globalFaker.Rand) }
 
 // MacAddress will generate a random mac address
-func (f *Faker) MacAddress() string {
-	return macAddress(f.Rand)
-}
+func (f *Faker) MacAddress() string { return macAddress(f.Rand) }
 
 func macAddress(r *rand.Rand) string {
 	num := 255
@@ -129,28 +101,18 @@ func macAddress(r *rand.Rand) string {
 }
 
 // HTTPStatusCode will generate a random status code
-func HTTPStatusCode() int {
-	return httpStatusCode(globalFaker.Rand)
-}
+func HTTPStatusCode() int { return httpStatusCode(globalFaker.Rand) }
 
 // HTTPStatusCode will generate a random status code
-func (f *Faker) HTTPStatusCode() int {
-	return httpStatusCode(f.Rand)
-}
+func (f *Faker) HTTPStatusCode() int { return httpStatusCode(f.Rand) }
 
-func httpStatusCode(r *rand.Rand) int {
-	return getRandIntValue(r, []string{"status_code", "general"})
-}
+func httpStatusCode(r *rand.Rand) int { return getRandIntValue(r, []string{"status_code", "general"}) }
 
 // HTTPStatusCodeSimple will generate a random simple status code
-func HTTPStatusCodeSimple() int {
-	return httpStatusCodeSimple(globalFaker.Rand)
-}
+func HTTPStatusCodeSimple() int { return httpStatusCodeSimple(globalFaker.Rand) }
 
 // HTTPStatusCodeSimple will generate a random simple status code
-func (f *Faker) HTTPStatusCodeSimple() int {
-	return httpStatusCodeSimple(f.Rand)
-}
+func (f *Faker) HTTPStatusCodeSimple() int { return httpStatusCodeSimple(f.Rand) }
 
 func httpStatusCodeSimple(r *rand.Rand) int {
 	return getRandIntValue(r, []string{"status_code", "simple"})
@@ -158,15 +120,11 @@ func httpStatusCodeSimple(r *rand.Rand) int {
 
 // LogLevel will generate a random log level
 // See data/LogLevels for list of available levels
-func LogLevel(logType string) string {
-	return logLevel(globalFaker.Rand, logType)
-}
+func LogLevel(logType string) string { return logLevel(globalFaker.Rand, logType) }
 
 // LogLevel will generate a random log level
 // See data/LogLevels for list of available levels
-func (f *Faker) LogLevel(logType string) string {
-	return logLevel(f.Rand, logType)
-}
+func (f *Faker) LogLevel(logType string) string { return logLevel(f.Rand, logType) }
 
 func logLevel(r *rand.Rand, logType string) string {
 	if _, ok := data.LogLevels[logType]; ok {
@@ -177,14 +135,10 @@ func logLevel(r *rand.Rand, logType string) string {
 }
 
 // UserAgent will generate a random broswer user agent
-func UserAgent() string {
-	return userAgent(globalFaker.Rand)
-}
+func UserAgent() string { return userAgent(globalFaker.Rand) }
 
 // UserAgent will generate a random broswer user agent
-func (f *Faker) UserAgent() string {
-	return userAgent(f.Rand)
-}
+func (f *Faker) UserAgent() string { return userAgent(f.Rand) }
 
 func userAgent(r *rand.Rand) string {
 	randNum := randIntRange(r, 0, 4)
@@ -203,14 +157,10 @@ func userAgent(r *rand.Rand) string {
 }
 
 // ChromeUserAgent will generate a random chrome browser user agent string
-func ChromeUserAgent() string {
-	return chromeUserAgent(globalFaker.Rand)
-}
+func ChromeUserAgent() string { return chromeUserAgent(globalFaker.Rand) }
 
 // ChromeUserAgent will generate a random chrome browser user agent string
-func (f *Faker) ChromeUserAgent() string {
-	return chromeUserAgent(f.Rand)
-}
+func (f *Faker) ChromeUserAgent() string { return chromeUserAgent(f.Rand) }
 
 func chromeUserAgent(r *rand.Rand) string {
 	randNum1 := strconv.Itoa(randIntRange(r, 531, 536)) + strconv.Itoa(randIntRange(r, 0, 2))
@@ -220,14 +170,10 @@ func chromeUserAgent(r *rand.Rand) string {
 }
 
 // FirefoxUserAgent will generate a random firefox broswer user agent string
-func FirefoxUserAgent() string {
-	return firefoxUserAgent(globalFaker.Rand)
-}
+func FirefoxUserAgent() string { return firefoxUserAgent(globalFaker.Rand) }
 
 // FirefoxUserAgent will generate a random firefox broswer user agent string
-func (f *Faker) FirefoxUserAgent() string {
-	return firefoxUserAgent(f.Rand)
-}
+func (f *Faker) FirefoxUserAgent() string { return firefoxUserAgent(f.Rand) }
 
 func firefoxUserAgent(r *rand.Rand) string {
 	ver := "Gecko/" + date(r).Format("2006-02-01") + " Firefox/" + strconv.Itoa(randIntRange(r, 35, 37)) + ".0"
@@ -241,14 +187,10 @@ func firefoxUserAgent(r *rand.Rand) string {
 }
 
 // SafariUserAgent will generate a random safari browser user agent string
-func SafariUserAgent() string {
-	return safariUserAgent(globalFaker.Rand)
-}
+func SafariUserAgent() string { return safariUserAgent(globalFaker.Rand) }
 
 // SafariUserAgent will generate a random safari browser user agent string
-func (f *Faker) SafariUserAgent() string {
-	return safariUserAgent(f.Rand)
-}
+func (f *Faker) SafariUserAgent() string { return safariUserAgent(f.Rand) }
 
 func safariUserAgent(r *rand.Rand) string {
 	randNum := strconv.Itoa(randIntRange(r, 531, 536)) + "." + strconv.Itoa(randIntRange(r, 1, 51)) + "." + strconv.Itoa(randIntRange(r, 1, 8))
@@ -269,14 +211,10 @@ func safariUserAgent(r *rand.Rand) string {
 }
 
 // OperaUserAgent will generate a random opera browser user agent string
-func OperaUserAgent() string {
-	return operaUserAgent(globalFaker.Rand)
-}
+func OperaUserAgent() string { return operaUserAgent(globalFaker.Rand) }
 
 // OperaUserAgent will generate a random opera browser user agent string
-func (f *Faker) OperaUserAgent() string {
-	return operaUserAgent(f.Rand)
-}
+func (f *Faker) OperaUserAgent() string { return operaUserAgent(f.Rand) }
 
 func operaUserAgent(r *rand.Rand) string {
 	platform := "(" + randomPlatform(r) + "; en-US) Presto/2." + strconv.Itoa(randIntRange(r, 8, 13)) + "." + strconv.Itoa(randIntRange(r, 160, 355)) + " Version/" + strconv.Itoa(randIntRange(r, 10, 13)) + ".00"
