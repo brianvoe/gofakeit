@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	rand "math/rand"
 )
 
 // JSONOptions defines values needed for json generation
@@ -54,7 +55,13 @@ func (okv jsonOrderedKeyVal) MarshalJSON() ([]byte, error) {
 }
 
 // JSON generates an object or an array of objects in json format
-func JSON(jo *JSONOptions) ([]byte, error) {
+func JSON(jo *JSONOptions) ([]byte, error) { return jsonFunc(globalFaker.Rand, jo) }
+
+// JSON generates an object or an array of objects in json format
+func (f *Faker) JSON(jo *JSONOptions) ([]byte, error) { return jsonFunc(f.Rand, jo) }
+
+// JSON generates an object or an array of objects in json format
+func jsonFunc(r *rand.Rand, jo *JSONOptions) ([]byte, error) {
 	// Check to make sure they passed in a type
 	if jo.Type != "array" && jo.Type != "object" {
 		return nil, errors.New("Invalid type, must be array or object")
