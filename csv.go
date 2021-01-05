@@ -2,10 +2,11 @@ package gofakeit
 
 import (
 	"bytes"
-	"encoding/csv"
+	csvPackage "encoding/csv"
 	"encoding/json"
 	"errors"
 	"fmt"
+	rand "math/rand"
 	"strings"
 )
 
@@ -17,7 +18,12 @@ type CSVOptions struct {
 }
 
 // CSV generates an object or an array of objects in json format
-func CSV(co *CSVOptions) ([]byte, error) {
+func CSV(co *CSVOptions) ([]byte, error) { return csv(globalFaker.Rand, co) }
+
+// CSV generates an object or an array of objects in json format
+func (f *Faker) CSV(co *CSVOptions) ([]byte, error) { return csv(f.Rand, co) }
+
+func csv(r *rand.Rand, co *CSVOptions) ([]byte, error) {
 	// Check delimiter
 	if co.Delimiter == "" {
 		co.Delimiter = ","
@@ -40,7 +46,7 @@ func CSV(co *CSVOptions) ([]byte, error) {
 	}
 
 	b := &bytes.Buffer{}
-	w := csv.NewWriter(b)
+	w := csvPackage.NewWriter(b)
 	w.Comma = []rune(co.Delimiter)[0]
 
 	// Add header row
