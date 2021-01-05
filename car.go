@@ -37,74 +37,46 @@ func (f *Faker) Car() *CarInfo {
 }
 
 // CarType will generate a random car type string
-func CarType() string {
-	return carType(globalFaker.Rand)
-}
+func CarType() string { return carType(globalFaker.Rand) }
 
 // CarType will generate a random car type string
-func (f *Faker) CarType() string {
-	return carType(f.Rand)
-}
+func (f *Faker) CarType() string { return carType(f.Rand) }
 
-func carType(r *rand.Rand) string {
-	return getRandValue(r, []string{"car", "type"})
-}
+func carType(r *rand.Rand) string { return getRandValue(r, []string{"car", "type"}) }
 
 // CarFuelType will return a random fuel type
-func CarFuelType() string {
-	return carFuelType(globalFaker.Rand)
-}
+func CarFuelType() string { return carFuelType(globalFaker.Rand) }
 
 // CarFuelType will return a random fuel type
-func (f *Faker) CarFuelType() string {
-	return carFuelType(f.Rand)
-}
+func (f *Faker) CarFuelType() string { return carFuelType(f.Rand) }
 
-func carFuelType(r *rand.Rand) string {
-	return getRandValue(r, []string{"car", "fuel_type"})
-}
+func carFuelType(r *rand.Rand) string { return getRandValue(r, []string{"car", "fuel_type"}) }
 
 // CarTransmissionType will return a random transmission type
-func CarTransmissionType() string {
-	return carTransmissionType(globalFaker.Rand)
-}
+func CarTransmissionType() string { return carTransmissionType(globalFaker.Rand) }
 
 // CarTransmissionType will return a random transmission type
-func (f *Faker) CarTransmissionType() string {
-	return carTransmissionType(f.Rand)
-}
+func (f *Faker) CarTransmissionType() string { return carTransmissionType(f.Rand) }
 
 func carTransmissionType(r *rand.Rand) string {
 	return getRandValue(r, []string{"car", "transmission_type"})
 }
 
 // CarMaker will return a random car maker
-func CarMaker() string {
-	return carMaker(globalFaker.Rand)
-}
+func CarMaker() string { return carMaker(globalFaker.Rand) }
 
 // CarMaker will return a random car maker
-func (f *Faker) CarMaker() string {
-	return carMaker(f.Rand)
-}
+func (f *Faker) CarMaker() string { return carMaker(f.Rand) }
 
-func carMaker(r *rand.Rand) string {
-	return getRandValue(r, []string{"car", "maker"})
-}
+func carMaker(r *rand.Rand) string { return getRandValue(r, []string{"car", "maker"}) }
 
 // CarModel will return a random car model
-func CarModel() string {
-	return carModel(globalFaker.Rand)
-}
+func CarModel() string { return carModel(globalFaker.Rand) }
 
 // CarModel will return a random car model
-func (f *Faker) CarModel() string {
-	return carModel(f.Rand)
-}
+func (f *Faker) CarModel() string { return carModel(f.Rand) }
 
-func carModel(r *rand.Rand) string {
-	return getRandValue(r, []string{"car", "model"})
-}
+func carModel(r *rand.Rand) string { return getRandValue(r, []string{"car", "model"}) }
 
 func addCarLookup() {
 	AddFuncLookup("car", Info{
