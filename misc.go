@@ -18,15 +18,11 @@ func booly(r *rand.Rand) bool { return randIntRange(r, 0, 1) == 1 }
 
 // UUID (version 4) will generate a random unique identifier based upon random numbers
 // Format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-func UUID() string {
-	return uuid(globalFaker.Rand)
-}
+func UUID() string { return uuid(globalFaker.Rand) }
 
 // UUID (version 4) will generate a random unique identifier based upon random numbers
 // Format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-func (f *Faker) UUID() string {
-	return uuid(f.Rand)
-}
+func (f *Faker) UUID() string { return uuid(f.Rand) }
 
 func uuid(r *rand.Rand) string {
 	version := byte(4)
@@ -55,14 +51,10 @@ func uuid(r *rand.Rand) string {
 }
 
 // ShuffleAnySlice takes in a slice and outputs it in a random order
-func ShuffleAnySlice(v interface{}) {
-	shuffleAnySlice(globalFaker.Rand, v)
-}
+func ShuffleAnySlice(v interface{}) { shuffleAnySlice(globalFaker.Rand, v) }
 
 // ShuffleAnySlice takes in a slice and outputs it in a random order
-func (f *Faker) ShuffleAnySlice(v interface{}) {
-	shuffleAnySlice(f.Rand, v)
-}
+func (f *Faker) ShuffleAnySlice(v interface{}) { shuffleAnySlice(f.Rand, v) }
 
 func shuffleAnySlice(r *rand.Rand, v interface{}) {
 	if v == nil {
@@ -97,17 +89,13 @@ func shuffleAnySlice(r *rand.Rand, v interface{}) {
 }
 
 // FlipACoin will return a random value of Heads or Tails
-func FlipACoin() string {
-	if Bool() {
-		return "Heads"
-	}
-
-	return "Tails"
-}
+func FlipACoin() string { return flipACoin(globalFaker.Rand) }
 
 // FlipACoin will return a random value of Heads or Tails
-func (f *Faker) FlipACoin() string {
-	if f.Bool() {
+func (f *Faker) FlipACoin() string { return flipACoin(f.Rand) }
+
+func flipACoin(r *rand.Rand) string {
+	if booly(r) {
 		return "Heads"
 	}
 
