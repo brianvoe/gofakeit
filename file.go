@@ -3,32 +3,20 @@ package gofakeit
 import "math/rand"
 
 // FileExtension will generate a random file extension
-func FileExtension() string {
-	return fileExtension(globalFaker.Rand)
-}
+func FileExtension() string { return fileExtension(globalFaker.Rand) }
 
 // FileExtension will generate a random file extension
-func (f *Faker) FileExtension() string {
-	return fileExtension(f.Rand)
-}
+func (f *Faker) FileExtension() string { return fileExtension(f.Rand) }
 
-func fileExtension(r *rand.Rand) string {
-	return getRandValue(r, []string{"file", "extension"})
-}
+func fileExtension(r *rand.Rand) string { return getRandValue(r, []string{"file", "extension"}) }
 
 // FileMimeType will generate a random mime file type
-func FileMimeType() string {
-	return fileMimeType(globalFaker.Rand)
-}
+func FileMimeType() string { return fileMimeType(globalFaker.Rand) }
 
 // FileMimeType will generate a random mime file type
-func (f *Faker) FileMimeType() string {
-	return fileMimeType(f.Rand)
-}
+func (f *Faker) FileMimeType() string { return fileMimeType(f.Rand) }
 
-func fileMimeType(r *rand.Rand) string {
-	return getRandValue(r, []string{"file", "mime_type"})
-}
+func fileMimeType(r *rand.Rand) string { return getRandValue(r, []string{"file", "mime_type"}) }
 
 func addFileLookup() {
 	AddFuncLookup("fileextension", Info{
