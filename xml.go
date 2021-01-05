@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
+	rand "math/rand"
 	"reflect"
 )
 
@@ -127,7 +128,12 @@ func xmlMapLoop(e *xml.Encoder, m *xmlMap) error {
 }
 
 // XML generates an object or an array of objects in json format
-func XML(xo *XMLOptions) ([]byte, error) {
+func XML(xo *XMLOptions) ([]byte, error) { return xmlFunc(globalFaker.Rand, xo) }
+
+// XML generates an object or an array of objects in json format
+func (f *Faker) XML(xo *XMLOptions) ([]byte, error) { return xmlFunc(f.Rand, xo) }
+
+func xmlFunc(r *rand.Rand, xo *XMLOptions) ([]byte, error) {
 	// Check to make sure they passed in a type
 	if xo.Type != "single" && xo.Type != "array" {
 		return nil, errors.New("Invalid type, must be array or object")
