@@ -197,7 +197,7 @@ func regexGenerate(r *rand.Rand, re *syntax.Regexp) string {
 		return b.String()
 	case syntax.OpPlus: // matches Sub[0] one or more times
 		var b strings.Builder
-		for i := 0; i < Number(1, 10); i++ {
+		for i := 0; i < number(r, 1, 10); i++ {
 			for _, rs := range re.Sub {
 				b.WriteString(regexGenerate(r, rs))
 			}
@@ -205,7 +205,7 @@ func regexGenerate(r *rand.Rand, re *syntax.Regexp) string {
 		return b.String()
 	case syntax.OpQuest: // matches Sub[0] zero or one times
 		var b strings.Builder
-		for i := 0; i < Number(0, 1); i++ {
+		for i := 0; i < number(r, 0, 1); i++ {
 			for _, rs := range re.Sub {
 				b.WriteString(regexGenerate(r, rs))
 			}

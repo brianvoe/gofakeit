@@ -531,18 +531,16 @@ func ExampleRandomInt() {
 	Seed(11)
 
 	ints := []int{52, 854, 941, 74125, 8413, 777, 89416, 841657}
-	RandomInt(ints)
 	fmt.Println(RandomInt(ints))
-	// Output: 841657
+	// Output: 52
 }
 
 func ExampleFaker_RandomInt() {
 	f := New(11)
 
 	ints := []int{52, 854, 941, 74125, 8413, 777, 89416, 841657}
-	f.RandomInt(ints)
-	fmt.Println(RandomInt(ints))
-	// Output: 841657
+	fmt.Println(f.RandomInt(ints))
+	// Output: 52
 }
 
 func BenchmarkRandomInt(b *testing.B) {
@@ -555,18 +553,16 @@ func ExampleRandomUint() {
 	Seed(11)
 
 	ints := []uint{52, 854, 941, 74125, 8413, 777, 89416, 841657}
-	RandomUint(ints)
 	fmt.Println(RandomUint(ints))
-	// Output: 841657
+	// Output: 52
 }
 
 func ExampleFaker_RandomUint() {
 	f := New(11)
 
 	ints := []uint{52, 854, 941, 74125, 8413, 777, 89416, 841657}
-	f.RandomUint(ints)
-	fmt.Println(RandomUint(ints))
-	// Output: 841657
+	fmt.Println(f.RandomUint(ints))
+	// Output: 52
 }
 
 func BenchmarkRandomUint(b *testing.B) {
