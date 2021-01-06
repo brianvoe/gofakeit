@@ -2,30 +2,30 @@ package gofakeit
 
 import rand "math/rand"
 
-// Username will genrate a random username based upon picking a random lastname and random numbers at the end
+// Username will generate a random username based upon picking a random lastname and random numbers at the end
 func Username() string {
 	return getRandValue(globalFaker.Rand, []string{"person", "last"}) + replaceWithNumbers(globalFaker.Rand, "####")
 }
 
-// Username will genrate a random username based upon picking a random lastname and random numbers at the end
+// Username will generate a random username based upon picking a random lastname and random numbers at the end
 func (f *Faker) Username() string {
 	return getRandValue(f.Rand, []string{"person", "last"}) + replaceWithNumbers(f.Rand, "####")
 }
 
-// Password will generate a random password
-// Minimum number length of 5 if less than
+// Password will generate a random password.
+// Minimum number length of 5 if less than.
 func Password(lower bool, upper bool, numeric bool, special bool, space bool, num int) string {
 	return password(globalFaker.Rand, lower, upper, numeric, special, space, num)
 }
 
-// Password will generate a random password
-// Minimum number length of 5 if less than
+// Password will generate a random password.
+// Minimum number length of 5 if less than.
 func (f *Faker) Password(lower bool, upper bool, numeric bool, special bool, space bool, num int) string {
 	return password(f.Rand, lower, upper, numeric, special, space, num)
 }
 
 func password(r *rand.Rand, lower bool, upper bool, numeric bool, special bool, space bool, num int) string {
-	// Make sure the num minimun is at least 5
+	// Make sure the num minimum is at least 5
 	if num < 5 {
 		num = 5
 	}

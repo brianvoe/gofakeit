@@ -15,10 +15,34 @@ func ExampleBool() {
 	// Output: false
 }
 
+func ExampleFaker_Bool() {
+	f := New(11)
+	fmt.Println(f.Bool())
+	// Output: false
+}
+
 func BenchmarkBool(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		Bool()
-	}
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			Bool()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.Bool()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.Bool()
+		}
+	})
 }
 
 func TestUUID(t *testing.T) {
@@ -35,16 +59,34 @@ func ExampleUUID() {
 	// Output: 590c1440-9888-45b0-bd51-a817ee07c3f2
 }
 
-func BenchmarkUUID(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		UUID()
-	}
+func ExampleFaker_UUID() {
+	f := New(11)
+	fmt.Println(f.UUID())
+	// Output: 590c1440-9888-45b0-bd51-a817ee07c3f2
 }
 
-func BenchmarkUUIDCrypto(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		NewCrypto().UUID()
-	}
+func BenchmarkUUID(b *testing.B) {
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			UUID()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.UUID()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.UUID()
+		}
+	})
 }
 
 func TestShuffleAnySlice(t *testing.T) {
@@ -92,11 +134,46 @@ func ExampleShuffleAnySlice() {
 	// [777 74125 941 854 89416 52 8413 841657]
 }
 
+func ExampleFaker_ShuffleAnySlice() {
+	f := New(11)
+
+	strings := []string{"happy", "times", "for", "everyone", "have", "a", "good", "day"}
+	f.ShuffleAnySlice(strings)
+	fmt.Println(strings)
+
+	ints := []int{52, 854, 941, 74125, 8413, 777, 89416, 841657}
+	f.ShuffleAnySlice(ints)
+	fmt.Println(ints)
+	// Output:
+	// [good everyone have for times a day happy]
+	// [777 74125 941 854 89416 52 8413 841657]
+}
+
 func BenchmarkShuffleAnySlice(b *testing.B) {
-	a := []interface{}{"a", 1, "c", 3, []string{"a", "b", "c"}, -555, []byte{1, 5}, "h"}
-	for i := 0; i < b.N; i++ {
-		ShuffleAnySlice(a)
-	}
+	b.Run("package", func(b *testing.B) {
+		a := []interface{}{"a", 1, "c", 3, []string{"a", "b", "c"}, -555, []byte{1, 5}, "h"}
+		for i := 0; i < b.N; i++ {
+			ShuffleAnySlice(a)
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		a := []interface{}{"a", 1, "c", 3, []string{"a", "b", "c"}, -555, []byte{1, 5}, "h"}
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.ShuffleAnySlice(a)
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		a := []interface{}{"a", 1, "c", 3, []string{"a", "b", "c"}, -555, []byte{1, 5}, "h"}
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.ShuffleAnySlice(a)
+		}
+	})
 }
 
 func ExampleFlipACoin() {
@@ -105,10 +182,34 @@ func ExampleFlipACoin() {
 	// Output: Tails
 }
 
+func ExampleFaker_FlipACoin() {
+	f := New(11)
+	fmt.Println(f.FlipACoin())
+	// Output: Tails
+}
+
 func BenchmarkFlipACoin(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		FlipACoin()
-	}
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			FlipACoin()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.FlipACoin()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.FlipACoin()
+		}
+	})
 }
 
 func TestCategories(t *testing.T) {

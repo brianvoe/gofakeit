@@ -29,6 +29,30 @@ func ExampleCSV_array() {
 	// 2,Osborne,Hilll,XPJ9OVNbs5lm
 }
 
+func ExampleFaker_CSV_array() {
+	f := New(11)
+
+	value, err := f.CSV(&CSVOptions{
+		RowCount: 3,
+		Fields: []Field{
+			{Name: "id", Function: "autoincrement"},
+			{Name: "first_name", Function: "firstname"},
+			{Name: "last_name", Function: "lastname"},
+			{Name: "password", Function: "password", Params: map[string][]string{"special": {"false"}}},
+		},
+	})
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(string(value))
+
+	// Output:
+	// id,first_name,last_name,password
+	// 1,Markus,Moen,Dc0VYXjkWABx
+	// 2,Osborne,Hilll,XPJ9OVNbs5lm
+}
+
 func TestCSVLookup(t *testing.T) {
 	info := GetFuncLookup("csv")
 
