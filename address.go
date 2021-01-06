@@ -101,13 +101,13 @@ func City() string { return city(globalFaker.Rand) }
 func (f *Faker) City() string { return city(f.Rand) }
 
 func city(r *rand.Rand) string {
-	switch randInt := randIntRange(globalFaker.Rand, 1, 3); randInt {
+	switch randInt := randIntRange(r, 1, 3); randInt {
 	case 1:
-		return FirstName() + StreetSuffix()
+		return firstName(r) + streetSuffix(r)
 	case 2:
-		return LastName() + StreetSuffix()
+		return lastName(r) + streetSuffix(r)
 	case 3:
-		return StreetPrefix() + " " + LastName()
+		return streetPrefix(r) + " " + lastName(r)
 	}
 
 	return ""

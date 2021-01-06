@@ -61,7 +61,7 @@ func generate(r *rand.Rand, dataVal string) string {
 			fParams = fNameSplit[1]
 		}
 
-		// Check to see if its a replacable lookup function
+		// Check to see if its a replaceable lookup function
 		if info := GetFuncLookup(fName); info != nil {
 			// Get parameters, make sure params and the split both have values
 			var mapParams map[string][]string
@@ -258,7 +258,7 @@ func mapFunc(r *rand.Rand) map[string]interface{} {
 		case "address":
 			return street(r) + ", " + city(r) + ", " + state(r) + " " + zip(r)
 		}
-		return Word()
+		return word(r)
 	}
 
 	randSlice := func() []string {
