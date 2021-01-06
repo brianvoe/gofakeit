@@ -28,10 +28,43 @@ func ExampleGenerate() {
 	// [a:b key:value int:string 1:2]
 }
 
+func ExampleFaker_Generate() {
+	f := New(11)
+
+	fmt.Println(f.Generate("{firstname} {lastname} ssn is {ssn} and lives at {street}"))
+	fmt.Println(f.Generate("{sentence:3}"))
+	fmt.Println(f.Generate("{shuffleints:[1,2,3]}"))
+	fmt.Println(f.Generate("{number:1,50}"))
+	fmt.Println(f.Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}"))
+	// Output: Markus Moen ssn is 952284213 and lives at 599 New Cliffs stad
+	// Arrival tour security.
+	// [1 3 2]
+	// 34
+	// [a:b key:value int:string 1:2]
+}
+
 func BenchmarkGenerate(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		Generate("{firstname} {lastname} {email} #?#?#?")
-	}
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			Generate("{firstname} {lastname} {email} #?#?#?")
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.Generate("{firstname} {lastname} {email} #?#?#?")
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.Generate("{firstname} {lastname} {email} #?#?#?")
+		}
+	})
 }
 
 func ExampleRegex() {
@@ -41,6 +74,19 @@ func ExampleRegex() {
 	fmt.Println(Regex("[[:upper:]]{5}"))
 	fmt.Println(Regex("(hello|world|whats|up)"))
 	fmt.Println(Regex(`^[a-z]{5,10}@[a-z]{5,10}\.(com|net|org)$`))
+	// Output: affec
+	// RXHKI
+	// up
+	// ptapwy@dnsmkgtl.com
+}
+
+func ExampleFaker_Regex() {
+	f := New(11)
+
+	fmt.Println(f.Regex("[abcdef]{5}"))
+	fmt.Println(f.Regex("[[:upper:]]{5}"))
+	fmt.Println(f.Regex("(hello|world|whats|up)"))
+	fmt.Println(f.Regex(`^[a-z]{5,10}@[a-z]{5,10}\.(com|net|org)$`))
 	// Output: affec
 	// RXHKI
 	// up
@@ -84,21 +130,62 @@ func TestRegex(t *testing.T) {
 }
 
 func BenchmarkRegex(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		Regex(`(hello|world|whats|up)`)
-	}
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			Regex(`(hello|world|whats|up`)
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.Regex(`(hello|world|whats|up`)
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.Regex(`(hello|world|whats|up`)
+		}
+	})
 }
 
 func BenchmarkRegexEmail(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		Regex("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
-	}
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			Regex("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.Regex("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.Regex("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+		}
+	})
 }
 
 func ExampleMap() {
 	Seed(11)
-
 	fmt.Println(Map())
+	// Output: map[approach:map[mind:[arrival should resolve outcome hurt]] arrive:Coordinator consult:respond context:9285735 water:5081652]
+}
+
+func ExampleFaker_Map() {
+	f := New(11)
+	fmt.Println(f.Map())
 	// Output: map[approach:map[mind:[arrival should resolve outcome hurt]] arrive:Coordinator consult:respond context:9285735 water:5081652]
 }
 
@@ -109,7 +196,25 @@ func TestMap(t *testing.T) {
 }
 
 func BenchmarkMap(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		Map()
-	}
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			Map()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.Map()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.Map()
+		}
+	})
 }
