@@ -41,10 +41,88 @@ func ExampleJSON_object() {
 	// }
 }
 
+func ExampleFaker_JSON_object() {
+	f := New(11)
+
+	value, err := f.JSON(&JSONOptions{
+		Type: "object",
+		Fields: []Field{
+			{Name: "first_name", Function: "firstname"},
+			{Name: "last_name", Function: "lastname"},
+			{Name: "address", Function: "address"},
+			{Name: "password", Function: "password", Params: map[string][]string{"special": {"false"}}},
+		},
+		Indent: true,
+	})
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(string(value))
+
+	// Output: {
+	//     "first_name": "Markus",
+	//     "last_name": "Moen",
+	//     "address": {
+	//         "address": "4599 Dale ton, Lake Carroll, Mississippi 90635",
+	//         "street": "4599 Dale ton",
+	//         "city": "Lake Carroll",
+	//         "state": "Mississippi",
+	//         "zip": "90635",
+	//         "country": "Saint Pierre and Miquelon",
+	//         "latitude": 22.008873,
+	//         "longitude": 158.531956
+	//     },
+	//     "password": "YjJbXclnVN0H"
+	// }
+}
+
 func ExampleJSON_array() {
 	Seed(11)
 
 	value, err := JSON(&JSONOptions{
+		Type: "array",
+		Fields: []Field{
+			{Name: "id", Function: "autoincrement"},
+			{Name: "first_name", Function: "firstname"},
+			{Name: "last_name", Function: "lastname"},
+			{Name: "password", Function: "password", Params: map[string][]string{"special": {"false"}}},
+		},
+		RowCount: 3,
+		Indent:   true,
+	})
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(string(value))
+
+	// Output: [
+	//     {
+	//         "id": 1,
+	//         "first_name": "Markus",
+	//         "last_name": "Moen",
+	//         "password": "Dc0VYXjkWABx"
+	//     },
+	//     {
+	//         "id": 2,
+	//         "first_name": "Osborne",
+	//         "last_name": "Hilll",
+	//         "password": "XPJ9OVNbs5lm"
+	//     },
+	//     {
+	//         "id": 3,
+	//         "first_name": "Mertie",
+	//         "last_name": "Halvorson",
+	//         "password": "eyl3bhwfV8wA"
+	//     }
+	// ]
+}
+
+func ExampleFaker_JSON_array() {
+	f := New(11)
+
+	value, err := f.JSON(&JSONOptions{
 		Type: "array",
 		Fields: []Field{
 			{Name: "id", Function: "autoincrement"},
