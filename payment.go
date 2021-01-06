@@ -246,8 +246,8 @@ func addPaymentLookup() {
 		Description: "Random currency data set",
 		Example:     `{short: "USD", long: "United States Dollar"}`,
 		Output:      "map[string]string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return CurrencyShort(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return currencyShort(r), nil
 		},
 	})
 
@@ -257,8 +257,8 @@ func addPaymentLookup() {
 		Description: "Random currency abbreviated",
 		Example:     "USD",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return CurrencyShort(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return currencyShort(r), nil
 		},
 	})
 
@@ -268,8 +268,8 @@ func addPaymentLookup() {
 		Description: "Random currency",
 		Example:     "United States Dollar",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return CurrencyLong(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return currencyLong(r), nil
 		},
 	})
 
@@ -283,7 +283,7 @@ func addPaymentLookup() {
 			{Field: "min", Display: "Min", Type: "float", Default: "0", Description: "Minimum price value"},
 			{Field: "max", Display: "Max", Type: "float", Default: "1000", Description: "Maximum price value"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
 			min, err := info.GetFloat64(m, "min")
 			if err != nil {
 				return nil, err
@@ -294,7 +294,7 @@ func addPaymentLookup() {
 				return nil, err
 			}
 
-			return Price(min, max), nil
+			return price(r, min, max), nil
 		},
 	})
 
@@ -304,8 +304,8 @@ func addPaymentLookup() {
 		Description: "Random credit card data set",
 		Example:     `{type: "Visa", number: "4136459948995369", exp: "01/21", cvv: "513"}`,
 		Output:      "map[string]interface",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return CreditCard(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return creditCard(r), nil
 		},
 	})
 
@@ -315,8 +315,8 @@ func addPaymentLookup() {
 		Description: "Random credit card type",
 		Example:     "Visa",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return CreditCardType(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return creditCardType(r), nil
 		},
 	})
 
@@ -335,7 +335,7 @@ func addPaymentLookup() {
 			{Field: "bins", Display: "Bins", Type: "[]string", Description: "Optional list of prepended bin numbers to pick from"},
 			{Field: "gaps", Display: "Gaps", Type: "bool", Default: "false", Description: "Whether or not to have gaps in number"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
 			types, err := info.GetStringArray(m, "types")
 			if err != nil {
 				return nil, err
@@ -360,7 +360,7 @@ func addPaymentLookup() {
 				options.Bins = bins
 			}
 
-			return CreditCardNumber(&options), nil
+			return creditCardNumber(r, &options), nil
 		},
 	})
 
@@ -370,8 +370,8 @@ func addPaymentLookup() {
 		Description: "Random credit card expiraction date",
 		Example:     "01/21",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return CreditCardExp(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return creditCardExp(r), nil
 		},
 	})
 
@@ -381,8 +381,8 @@ func addPaymentLookup() {
 		Description: "Random credit card number",
 		Example:     "513",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return CreditCardCvv(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return creditCardCvv(r), nil
 		},
 	})
 
@@ -392,8 +392,8 @@ func addPaymentLookup() {
 		Description: "Random 9 digit ach routing number",
 		Example:     "513715684",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return AchRouting(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return achRouting(r), nil
 		},
 	})
 
@@ -403,8 +403,8 @@ func addPaymentLookup() {
 		Description: "Random 12 digit ach account number",
 		Example:     "491527954328",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return AchAccount(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return achAccount(r), nil
 		},
 	})
 
@@ -414,8 +414,8 @@ func addPaymentLookup() {
 		Description: "Random 26-35 characters representing a bitcoin address",
 		Example:     "1lWLbxojXq6BqWX7X60VkcDIvYA",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return BitcoinAddress(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return bitcoinAddress(r), nil
 		},
 	})
 
@@ -425,8 +425,8 @@ func addPaymentLookup() {
 		Description: "Random 51 characters representing a bitcoin private key",
 		Example:     "5vrbXTADWJ6sQBSYd6lLkG97jljNc0X9VPBvbVqsIH9lWOLcoqg",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return BitcoinPrivateKey(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return bitcoinPrivateKey(r), nil
 		},
 	})
 }

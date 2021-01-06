@@ -83,7 +83,7 @@ func generate(r *rand.Rand, dataVal string) string {
 			}
 
 			// Call function
-			fValue, err := info.Call(&mapParams, info)
+			fValue, err := info.Call(r, &mapParams, info)
 			if err != nil {
 				// If we came across an error just dont replace value
 				dataVal = strings.Replace(dataVal, "{"+fParts+"}", err.Error(), 1)
@@ -102,26 +102,21 @@ func generate(r *rand.Rand, dataVal string) string {
 }
 
 // Regex will generate a string based upon a RE2 syntax
-func Regex(regexStr string) string {
-	re, err := syntax.Parse(regexStr, syntax.Perl)
-	if err != nil {
-		return "Could not parse regex string"
-	}
-
-	return regexGenerate(globalFaker.Rand, re)
-}
+func Regex(regexStr string) string { return regex(globalFaker.Rand, regexStr) }
 
 // Regex will generate a string based upon a RE2 syntax
-func (f *Faker) Regex(regexStr string) string {
+func (f *Faker) Regex(regexStr string) string { return regex(f.Rand, regexStr) }
+
+func regex(r *rand.Rand, regexStr string) string {
 	re, err := syntax.Parse(regexStr, syntax.Perl)
 	if err != nil {
 		return "Could not parse regex string"
 	}
 
-	return regexGenerate(f.Rand, re)
+	return regexGenerate(r, re)
 }
 
-func regexGenerate(r *rand.Rand, re *syntax.Regexp) string {
+func regexGenerate(ra *rand.Rand, re *syntax.Regexp) string {
 	op := re.Op
 	switch op {
 	case syntax.OpNoMatch: // matches no strings
@@ -130,8 +125,8 @@ func regexGenerate(r *rand.Rand, re *syntax.Regexp) string {
 		return ""
 	case syntax.OpLiteral: // matches Runes sequence
 		var b strings.Builder
-		for _, r := range re.Rune {
-			b.WriteRune(r)
+		for _, ru := range re.Rune {
+			b.WriteRune(ru)
 		}
 		return b.String()
 	case syntax.OpCharClass: // matches Runes interpreted as range pair list
@@ -160,11 +155,11 @@ func regexGenerate(r *rand.Rand, re *syntax.Regexp) string {
 				}
 			}
 			if len(chars) > 0 {
-				return string([]byte{chars[r.Intn(len(chars))]})
+				return string([]byte{chars[ra.Intn(len(chars))]})
 			}
 		}
 
-		r := r.Intn(int(sum))
+		r := ra.Intn(int(sum))
 		var ru rune
 		sum = 0
 		for i := 0; i < len(re.Rune); i += 2 {
@@ -178,7 +173,7 @@ func regexGenerate(r *rand.Rand, re *syntax.Regexp) string {
 
 		return string(ru)
 	case syntax.OpAnyCharNotNL, syntax.OpAnyChar: // matches any character(and except newline)
-		return randCharacter(r, allStr)
+		return randCharacter(ra, allStr)
 	case syntax.OpBeginLine: // matches empty string at beginning of line
 	case syntax.OpEndLine: // matches empty string at end of line
 	case syntax.OpBeginText: // matches empty string at beginning of text
@@ -186,28 +181,28 @@ func regexGenerate(r *rand.Rand, re *syntax.Regexp) string {
 	case syntax.OpWordBoundary: // matches word boundary `\b`
 	case syntax.OpNoWordBoundary: // matches word non-boundary `\B`
 	case syntax.OpCapture: // capturing subexpression with index Cap, optional name Name
-		return regexGenerate(r, re.Sub0[0])
+		return regexGenerate(ra, re.Sub0[0])
 	case syntax.OpStar: // matches Sub[0] zero or more times
 		var b strings.Builder
-		for i := 0; i < Number(0, 10); i++ {
+		for i := 0; i < number(ra, 0, 10); i++ {
 			for _, rs := range re.Sub {
-				b.WriteString(regexGenerate(r, rs))
+				b.WriteString(regexGenerate(ra, rs))
 			}
 		}
 		return b.String()
 	case syntax.OpPlus: // matches Sub[0] one or more times
 		var b strings.Builder
-		for i := 0; i < number(r, 1, 10); i++ {
+		for i := 0; i < number(ra, 1, 10); i++ {
 			for _, rs := range re.Sub {
-				b.WriteString(regexGenerate(r, rs))
+				b.WriteString(regexGenerate(ra, rs))
 			}
 		}
 		return b.String()
 	case syntax.OpQuest: // matches Sub[0] zero or one times
 		var b strings.Builder
-		for i := 0; i < number(r, 0, 1); i++ {
+		for i := 0; i < number(ra, 0, 1); i++ {
 			for _, rs := range re.Sub {
-				b.WriteString(regexGenerate(r, rs))
+				b.WriteString(regexGenerate(ra, rs))
 			}
 		}
 		return b.String()
@@ -216,22 +211,22 @@ func regexGenerate(r *rand.Rand, re *syntax.Regexp) string {
 		count := 0
 		re.Max = int(math.Min(float64(re.Max), float64(10)))
 		if re.Max > re.Min {
-			count = r.Intn(re.Max - re.Min + 1)
+			count = ra.Intn(re.Max - re.Min + 1)
 		}
 		for i := 0; i < re.Min || i < (re.Min+count); i++ {
 			for _, rs := range re.Sub {
-				b.WriteString(regexGenerate(r, rs))
+				b.WriteString(regexGenerate(ra, rs))
 			}
 		}
 		return b.String()
 	case syntax.OpConcat: // matches concatenation of Subs
 		var b strings.Builder
 		for _, rs := range re.Sub {
-			b.WriteString(regexGenerate(r, rs))
+			b.WriteString(regexGenerate(ra, rs))
 		}
 		return b.String()
 	case syntax.OpAlternate: // matches alternation of Subs
-		return regexGenerate(r, re.Sub[Number(0, len(re.Sub)-1)])
+		return regexGenerate(ra, re.Sub[number(ra, 0, len(re.Sub)-1)])
 	}
 
 	return ""
@@ -273,27 +268,27 @@ func mapFunc(r *rand.Rand) map[string]interface{} {
 		t := randomString(r, []string{"string", "int", "float", "slice", "map"})
 		switch t {
 		case "string":
-			m[Word()] = randWordType()
+			m[word(r)] = randWordType()
 		case "int":
-			m[Word()] = number(r, 1, 10000000)
+			m[word(r)] = number(r, 1, 10000000)
 		case "float":
-			m[Word()] = float32Range(r, 1, 1000000)
+			m[word(r)] = float32Range(r, 1, 1000000)
 		case "slice":
-			m[Word()] = randSlice()
+			m[word(r)] = randSlice()
 		case "map":
 			mm := map[string]interface{}{}
 			tt := randomString(r, []string{"string", "int", "float", "slice"})
 			switch tt {
 			case "string":
-				mm[Word()] = randWordType()
+				mm[word(r)] = randWordType()
 			case "int":
-				mm[Word()] = number(r, 1, 10000000)
+				mm[word(r)] = number(r, 1, 10000000)
 			case "float":
-				mm[Word()] = float32Range(r, 1, 1000000)
+				mm[word(r)] = float32Range(r, 1, 1000000)
 			case "slice":
-				mm[Word()] = randSlice()
+				mm[word(r)] = randSlice()
 			}
-			m[Word()] = mm
+			m[word(r)] = mm
 		}
 	}
 
@@ -310,7 +305,7 @@ func addGenerateLookup() {
 		Params: []Param{
 			{Field: "str", Display: "String", Type: "string", Description: "String value to generate from"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
 			str, err := info.GetString(m, "str")
 			if err != nil {
 				return nil, err
@@ -321,7 +316,7 @@ func addGenerateLookup() {
 				return nil, errors.New("String length is too large. Limit to 1000 characters")
 			}
 
-			return Generate(str), nil
+			return generate(r, str), nil
 		},
 	})
 
@@ -334,7 +329,7 @@ func addGenerateLookup() {
 		Params: []Param{
 			{Field: "str", Display: "String", Type: "string", Description: "Regex RE2 syntax string"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
 			str, err := info.GetString(m, "str")
 			if err != nil {
 				return nil, err
@@ -345,7 +340,7 @@ func addGenerateLookup() {
 				return nil, errors.New("String length is too large. Limit to 500 characters")
 			}
 
-			return Regex(str), nil
+			return regex(r, str), nil
 		},
 	})
 }

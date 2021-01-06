@@ -2,9 +2,9 @@ package gofakeit
 
 import (
 	"fmt"
+	rand "math/rand"
 	"strings"
 	"testing"
-	"time"
 )
 
 func Example_custom() {
@@ -15,7 +15,7 @@ func Example_custom() {
 		Description: "Random friend name",
 		Example:     "bill",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
 			return RandomString([]string{"bill", "bob", "sally"}), nil
 		},
 	})
@@ -42,7 +42,7 @@ func Example_custom_with_params() {
 		Params: []Param{
 			{Field: "word", Type: "int", Description: "Word you want to jumble"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
 			word, err := info.GetString(m, "word")
 			if err != nil {
 				return nil, err
@@ -66,7 +66,7 @@ func Example_custom_with_params() {
 }
 
 func TestLookupChecking(t *testing.T) {
-	Seed(time.Now().UnixNano())
+	faker := New(0)
 
 	for field, info := range FuncLookups {
 		var mapData map[string][]string
@@ -112,7 +112,7 @@ func TestLookupChecking(t *testing.T) {
 			}
 		}
 
-		_, err := info.Call(&mapData, &info)
+		_, err := info.Call(faker.Rand, &mapData, &info)
 		if err != nil {
 			t.Fatalf("%s failed - Err: %s - Data: %v", field, err, mapData)
 		}
@@ -160,7 +160,7 @@ func TestLookupRemove(t *testing.T) {
 		Description: "Random friend name",
 		Example:     "bill",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
 			return RandomString([]string{"bill", "bob", "sally"}), nil
 		},
 	})

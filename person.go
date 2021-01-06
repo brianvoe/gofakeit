@@ -226,8 +226,8 @@ func addPersonLookup() {
 			}
 		}`,
 		Output: "map[string]interface",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Person(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return person(r), nil
 		},
 	})
 
@@ -237,8 +237,8 @@ func addPersonLookup() {
 		Description: "Random name",
 		Example:     "Markus Moen",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Name(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return name(r), nil
 		},
 	})
 
@@ -248,8 +248,8 @@ func addPersonLookup() {
 		Description: "Random name prefix",
 		Example:     "Mr.",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return NamePrefix(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return namePrefix(r), nil
 		},
 	})
 
@@ -259,8 +259,8 @@ func addPersonLookup() {
 		Description: "Random name suffix",
 		Example:     "Jr.",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return NameSuffix(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return nameSuffix(r), nil
 		},
 	})
 
@@ -270,8 +270,8 @@ func addPersonLookup() {
 		Description: "Random first name",
 		Example:     "Markus",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return FirstName(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return firstName(r), nil
 		},
 	})
 
@@ -281,8 +281,8 @@ func addPersonLookup() {
 		Description: "Random last name",
 		Example:     "Daniel",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return LastName(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return lastName(r), nil
 		},
 	})
 
@@ -292,8 +292,8 @@ func addPersonLookup() {
 		Description: "Random gender",
 		Example:     "male",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Gender(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return gender(r), nil
 		},
 	})
 
@@ -303,8 +303,8 @@ func addPersonLookup() {
 		Description: "Random social security number",
 		Example:     "296446360",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return SSN(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return ssn(r), nil
 		},
 	})
 
@@ -314,8 +314,8 @@ func addPersonLookup() {
 		Description: "Random email",
 		Example:     "markusmoen@pagac.net",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Email(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return email(r), nil
 		},
 	})
 
@@ -325,8 +325,8 @@ func addPersonLookup() {
 		Description: "Random phone number",
 		Example:     "6136459948",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Phone(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return phone(r), nil
 		},
 	})
 
@@ -336,8 +336,8 @@ func addPersonLookup() {
 		Description: "Random formatted phone number",
 		Example:     "136-459-9489",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return PhoneFormatted(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return phoneFormatted(r), nil
 		},
 	})
 
@@ -351,18 +351,18 @@ func addPersonLookup() {
 			{Field: "people", Display: "Strings", Type: "[]string", Description: "Array of people"},
 			{Field: "teams", Display: "Strings", Type: "[]string", Description: "Array of teams"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
 			people, err := info.GetStringArray(m, "people")
 			if err != nil {
 				return nil, err
 			}
 
-			teams, err := info.GetStringArray(m, "teams")
+			teamsArray, err := info.GetStringArray(m, "teams")
 			if err != nil {
 				return nil, err
 			}
 
-			return Teams(people, teams), nil
+			return teams(r, people, teamsArray), nil
 		},
 	})
 }

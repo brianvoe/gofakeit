@@ -108,12 +108,13 @@ func TestCreditCardNumber(t *testing.T) {
 }
 
 func TestCreditCardNumberLookup(t *testing.T) {
+	faker := New(0)
 	info := GetFuncLookup("creditcardnumber")
 
 	m := map[string][]string{
 		"gaps": {"true"},
 	}
-	_, err := info.Call(&m, info)
+	_, err := info.Call(faker.Rand, &m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}

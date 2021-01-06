@@ -83,8 +83,8 @@ func addFoodLookup() {
 		Description: "Random fruit",
 		Example:     "Dates",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Fruit(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return fruit(r), nil
 		},
 	})
 
@@ -94,8 +94,8 @@ func addFoodLookup() {
 		Description: "Random vegetable",
 		Example:     "Amaranth Leaves",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Vegetable(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return vegetable(r), nil
 		},
 	})
 
@@ -105,8 +105,8 @@ func addFoodLookup() {
 		Description: "Random breakfast",
 		Example:     "Blueberry banana happy face pancakes",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Breakfast(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return breakfast(r), nil
 		},
 	})
 
@@ -116,8 +116,8 @@ func addFoodLookup() {
 		Description: "Random lunch",
 		Example:     "No bake hersheys bar pie",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Lunch(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return lunch(r), nil
 		},
 	})
 
@@ -127,8 +127,8 @@ func addFoodLookup() {
 		Description: "Random dinner",
 		Example:     "Wild addicting dip",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Dinner(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return dinner(r), nil
 		},
 	})
 
@@ -138,8 +138,8 @@ func addFoodLookup() {
 		Description: "Random snack",
 		Example:     "Hoisin marinated wing pieces",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Snack(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return snack(r), nil
 		},
 	})
 
@@ -149,8 +149,8 @@ func addFoodLookup() {
 		Description: "Random dessert",
 		Example:     "French napoleons",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Dessert(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return dessert(r), nil
 		},
 	})
 }

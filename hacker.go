@@ -74,8 +74,8 @@ func addHackerLookup() {
 		Description: "Random hacker phrase",
 		Example:     "If we calculate the program, we can get to the AI pixel through the redundant XSS matrix!",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return HackerPhrase(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return hackerPhrase(r), nil
 		},
 	})
 
@@ -85,8 +85,8 @@ func addHackerLookup() {
 		Description: "Random hacker abbreviation",
 		Example:     "ADP",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return HackerAbbreviation(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return hackerAbbreviation(r), nil
 		},
 	})
 
@@ -96,8 +96,8 @@ func addHackerLookup() {
 		Description: "Random hacker adjective",
 		Example:     "wireless",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return HackerAdjective(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return hackerAdjective(r), nil
 		},
 	})
 
@@ -107,8 +107,8 @@ func addHackerLookup() {
 		Description: "Random hacker noun",
 		Example:     "driver",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return HackerNoun(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return hackerNoun(r), nil
 		},
 	})
 
@@ -118,8 +118,8 @@ func addHackerLookup() {
 		Description: "Random hacker verb",
 		Example:     "synthesize",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return HackerVerb(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return hackerVerb(r), nil
 		},
 	})
 
@@ -129,8 +129,8 @@ func addHackerLookup() {
 		Description: "Random hackering verb",
 		Example:     "connecting",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return HackeringVerb(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return hackeringVerb(r), nil
 		},
 	})
 }

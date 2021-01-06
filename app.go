@@ -69,8 +69,8 @@ func addAppLookup() {
 		Description: "Random app name",
 		Example:     "Parkrespond",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return AppName(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return appName(r), nil
 		},
 	})
 
@@ -80,8 +80,8 @@ func addAppLookup() {
 		Description: "Random app version",
 		Example:     "1.12.14",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return AppVersion(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return appVersion(r), nil
 		},
 	})
 
@@ -91,8 +91,8 @@ func addAppLookup() {
 		Description: "Random app author",
 		Example:     "Qado Energy, Inc.",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return AppAuthor(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return appAuthor(r), nil
 		},
 	})
 }

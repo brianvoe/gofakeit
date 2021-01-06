@@ -88,8 +88,8 @@ func addCompanyLookup() {
 		Description: "Random company name",
 		Example:     "Moen, Pagac and Wuckert",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Company(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return company(r), nil
 		},
 	})
 
@@ -99,8 +99,8 @@ func addCompanyLookup() {
 		Description: "Random company name suffix",
 		Example:     "Inc",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return CompanySuffix(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return companySuffix(r), nil
 		},
 	})
 
@@ -110,8 +110,8 @@ func addCompanyLookup() {
 		Description: "Random bs company word",
 		Example:     "front-end",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return BS(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return bs(r), nil
 		},
 	})
 
@@ -121,8 +121,8 @@ func addCompanyLookup() {
 		Description: "Random company buzzwords",
 		Example:     "disintermediate",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return BuzzWord(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return buzzWord(r), nil
 		},
 	})
 
@@ -132,8 +132,8 @@ func addCompanyLookup() {
 		Description: "Random job data set",
 		Example:     `{company: "Moen, Pagac and Wuckert", title: "Director", descriptor: "Central", level: "Assurance"}`,
 		Output:      "map[string]string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Job(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return job(r), nil
 		},
 	})
 
@@ -143,8 +143,8 @@ func addCompanyLookup() {
 		Description: "Random job title",
 		Example:     "Director",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return JobTitle(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return jobTitle(r), nil
 		},
 	})
 
@@ -154,8 +154,8 @@ func addCompanyLookup() {
 		Description: "Random job descriptor",
 		Example:     "Central",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return JobDescriptor(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return jobDescriptor(r), nil
 		},
 	})
 
@@ -165,8 +165,8 @@ func addCompanyLookup() {
 		Description: "Random job level",
 		Example:     "Assurance",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return JobLevel(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return jobLevel(r), nil
 		},
 	})
 }

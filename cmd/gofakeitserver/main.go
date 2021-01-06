@@ -14,9 +14,11 @@ import (
 )
 
 var port string
+var faker *gofakeit.Faker
 
 func init() {
 	flag.StringVar(&port, "port", "8080", "server port")
+	faker = gofakeit.New(0)
 }
 
 func main() {
@@ -81,7 +83,7 @@ func lookupGet(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Call method to generate requested data
-	data, err := info.Call(&mapString, info)
+	data, err := info.Call(faker.Rand, &mapString, info)
 	if err != nil {
 		badrequest(w, err.Error())
 		return
@@ -145,7 +147,7 @@ func lookupPost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Call method to generate requested data
-	data, err := info.Call(&mapString, info)
+	data, err := info.Call(faker.Rand, &mapString, info)
 	if err != nil {
 		badrequest(w, err.Error())
 		return

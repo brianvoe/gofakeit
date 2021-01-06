@@ -17,8 +17,8 @@ type paragrapOptions struct {
 
 const bytesPerWordEstimation = 6
 
-type sentenceGenerator func(wordCount int) string
-type wordGenerator func() string
+type sentenceGenerator func(r *rand.Rand, wordCount int) string
+type wordGenerator func(r *rand.Rand) string
 
 // Noun will generate a random noun
 func Noun() string { return noun(globalFaker.Rand) }
@@ -67,7 +67,7 @@ func Word() string { return word(globalFaker.Rand) }
 func (f *Faker) Word() string { return word(f.Rand) }
 
 func word(r *rand.Rand) string {
-	if Bool() {
+	if boolFunc(r) {
 		return getRandValue(r, []string{"word", "noun"})
 	}
 
@@ -75,48 +75,30 @@ func word(r *rand.Rand) string {
 }
 
 // Sentence will generate a random sentence
-func Sentence(wordCount int) string { return sentence(globalFaker.Rand, wordCount, Word) }
+func Sentence(wordCount int) string { return sentence(globalFaker.Rand, wordCount) }
 
 // Sentence will generate a random sentence
-func (f *Faker) Sentence(wordCount int) string { return sentence(globalFaker.Rand, wordCount, Word) }
+func (f *Faker) Sentence(wordCount int) string { return sentence(f.Rand, wordCount) }
+
+func sentence(r *rand.Rand, wordCount int) string {
+	return sentenceGen(r, wordCount, word)
+}
 
 // Paragraph will generate a random paragraphGenerator
 func Paragraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return paragraphGenerator(globalFaker.Rand, paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, Sentence)
+	return paragraph(globalFaker.Rand, paragraphCount, sentenceCount, wordCount, separator)
 }
 
 // Paragraph will generate a random paragraphGenerator
 func (f *Faker) Paragraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return paragraphGenerator(f.Rand, paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, Sentence)
+	return paragraph(f.Rand, paragraphCount, sentenceCount, wordCount, separator)
 }
 
-// LoremIpsumWord will generate a random word
-func LoremIpsumWord() string { return getRandValue(globalFaker.Rand, []string{"lorem", "word"}) }
-
-// LoremIpsumWord will generate a random word
-func (f *Faker) LoremIpsumWord() string { return getRandValue(f.Rand, []string{"lorem", "word"}) }
-
-// LoremIpsumSentence will generate a random sentence
-func LoremIpsumSentence(wordCount int) string {
-	return sentence(globalFaker.Rand, wordCount, LoremIpsumWord)
+func paragraph(r *rand.Rand, paragraphCount int, sentenceCount int, wordCount int, separator string) string {
+	return paragraphGen(r, paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, sentence)
 }
 
-// LoremIpsumSentence will generate a random sentence
-func (f *Faker) LoremIpsumSentence(wordCount int) string {
-	return sentence(f.Rand, wordCount, LoremIpsumWord)
-}
-
-// LoremIpsumParagraph will generate a random paragraphGenerator
-func LoremIpsumParagraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return paragraphGenerator(globalFaker.Rand, paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, LoremIpsumSentence)
-}
-
-// LoremIpsumParagraph will generate a random paragraphGenerator
-func (f *Faker) LoremIpsumParagraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return paragraphGenerator(f.Rand, paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, LoremIpsumSentence)
-}
-
-func sentence(r *rand.Rand, wordCount int, word wordGenerator) string {
+func sentenceGen(r *rand.Rand, wordCount int, word wordGenerator) string {
 	if wordCount <= 0 {
 		return ""
 	}
@@ -126,7 +108,7 @@ func sentence(r *rand.Rand, wordCount int, word wordGenerator) string {
 	sentence.Grow(wordCount * bytesPerWordEstimation)
 
 	for i := 0; i < wordCount; i++ {
-		word := word()
+		word := word(r)
 		if i == 0 {
 			runes := []rune(word)
 			runes[0] = unicode.ToTitle(runes[0])
@@ -141,7 +123,7 @@ func sentence(r *rand.Rand, wordCount int, word wordGenerator) string {
 	return sentence.String()
 }
 
-func paragraphGenerator(r *rand.Rand, opts paragrapOptions, sentecer sentenceGenerator) string {
+func paragraphGen(r *rand.Rand, opts paragrapOptions, sentecer sentenceGenerator) string {
 	if opts.paragraphCount <= 0 || opts.sentenceCount <= 0 || opts.wordCount <= 0 {
 		return ""
 	}
@@ -154,7 +136,7 @@ func paragraphGenerator(r *rand.Rand, opts paragrapOptions, sentecer sentenceGen
 
 	for i := 0; i < opts.paragraphCount; i++ {
 		for e := 0; e < opts.sentenceCount; e++ {
-			paragraphs.WriteString(sentecer(opts.wordCount))
+			paragraphs.WriteString(sentecer(r, opts.wordCount))
 			if e < opts.sentenceCount-1 {
 				paragraphs.WriteRune(wordSeparator)
 			}
@@ -170,6 +152,15 @@ func paragraphGenerator(r *rand.Rand, opts paragrapOptions, sentecer sentenceGen
 
 // Question will return a random question
 func Question() string {
+	return question(globalFaker.Rand)
+}
+
+// Question will return a random question
+func (f *Faker) Question() string {
+	return question(f.Rand)
+}
+
+func question(r *rand.Rand) string {
 	return strings.Replace(HipsterSentence(Number(3, 10)), ".", "?", 1)
 }
 
@@ -198,8 +189,8 @@ func addWordLookup() {
 		Description: "Random noun",
 		Example:     "foot",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Noun(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return noun(r), nil
 		},
 	})
 
@@ -209,8 +200,8 @@ func addWordLookup() {
 		Description: "Random verb",
 		Example:     "release",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Verb(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return verb(r), nil
 		},
 	})
 
@@ -220,8 +211,8 @@ func addWordLookup() {
 		Description: "Random adverb",
 		Example:     "smoothly",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Adverb(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return adverb(r), nil
 		},
 	})
 
@@ -231,8 +222,8 @@ func addWordLookup() {
 		Description: "Random preposition",
 		Example:     "down",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Preposition(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return preposition(r), nil
 		},
 	})
 
@@ -242,8 +233,8 @@ func addWordLookup() {
 		Description: "Random adjective",
 		Example:     "genuine",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Adjective(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return adjective(r), nil
 		},
 	})
 
@@ -253,8 +244,8 @@ func addWordLookup() {
 		Description: "Random word",
 		Example:     "man",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Word(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return word(r), nil
 		},
 	})
 
@@ -267,7 +258,7 @@ func addWordLookup() {
 		Params: []Param{
 			{Field: "wordcount", Display: "Word Count", Type: "int", Default: "5", Description: "Number of words in a sentence"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
 			wordCount, err := info.GetInt(m, "wordcount")
 			if err != nil {
 				return nil, err
@@ -276,7 +267,7 @@ func addWordLookup() {
 				return nil, errors.New("Invalid word count, must be greater than 0, less than 50")
 			}
 
-			return Sentence(wordCount), nil
+			return sentence(r, wordCount), nil
 		},
 	})
 
@@ -292,7 +283,7 @@ func addWordLookup() {
 			{Field: "wordcount", Display: "Word Count", Type: "int", Default: "5", Description: "Number of words in a sentence"},
 			{Field: "paragraphseparator", Display: "Paragraph Separator", Type: "string", Default: "<br />", Description: "String value to add between paragraphs"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
 			paragraphCount, err := info.GetInt(m, "paragraphcount")
 			if err != nil {
 				return nil, err
@@ -322,86 +313,7 @@ func addWordLookup() {
 				return nil, err
 			}
 
-			return Paragraph(paragraphCount, sentenceCount, wordCount, paragraphSeparator), nil
-		},
-	})
-
-	AddFuncLookup("loremipsumword", Info{
-		Display:     "Lorem Ipsum Word",
-		Category:    "word",
-		Description: "Random lorem ipsum word",
-		Example:     "quia",
-		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return LoremIpsumWord(), nil
-		},
-	})
-
-	AddFuncLookup("loremipsumsentence", Info{
-		Display:     "Lorem Ipsum Sentence",
-		Category:    "word",
-		Description: "Random lorem ipsum sentence",
-		Example:     "Quia quae repellat consequatur quidem.",
-		Output:      "string",
-		Params: []Param{
-			{Field: "wordcount", Display: "Word Count", Type: "int", Default: "5", Description: "Number of words in a sentence"},
-		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			wordCount, err := info.GetInt(m, "wordcount")
-			if err != nil {
-				return nil, err
-			}
-			if wordCount <= 0 || wordCount > 50 {
-				return nil, errors.New("Invalid word count, must be greater than 0, less than 50")
-			}
-
-			return LoremIpsumSentence(wordCount), nil
-		},
-	})
-
-	AddFuncLookup("loremipsumparagraph", Info{
-		Display:     "Lorem Ipsum Paragraph",
-		Category:    "word",
-		Description: "Random lorem ipsum paragraph",
-		Example:     "Quia quae repellat consequatur quidem nisi quo qui voluptatum accusantium quisquam amet. Quas et ut non dolorem ipsam aut enim assumenda mollitia harum ut. Dicta similique veniam nulla voluptas at excepturi non ad maxime at non. Eaque hic repellat praesentium voluptatem qui consequuntur dolor iusto autem velit aut. Fugit tempore exercitationem harum consequatur voluptatum modi minima aut eaque et et.<br />Aut ea voluptatem dignissimos expedita odit tempore quod aut beatae ipsam iste. Minus voluptatibus dolorem maiores eius sed nihil vel enim odio voluptatem accusamus. Natus quibusdam temporibus tenetur cumque sint necessitatibus dolorem ex ducimus iusto ex. Voluptatem neque dicta explicabo officiis et ducimus sit ut ut praesentium pariatur. Illum molestias nisi at dolore ut voluptatem accusantium et fugiat et ut.<br />Explicabo incidunt reprehenderit non quia dignissimos recusandae vitae soluta quia et quia. Aut veniam voluptas consequatur placeat sapiente non eveniet voluptatibus magni velit eum. Nobis vel repellendus sed est qui autem laudantium quidem quam ullam consequatur. Aut iusto ut commodi similique quae voluptatem atque qui fugiat eum aut. Quis distinctio consequatur voluptatem vel aliquid aut laborum facere officiis iure tempora.",
-		Output:      "string",
-		Params: []Param{
-			{Field: "paragraphcount", Display: "Paragraph Count", Type: "int", Default: "2", Description: "Number of paragraphs"},
-			{Field: "sentencecount", Display: "Sentence Count", Type: "int", Default: "2", Description: "Number of sentences in a paragraph"},
-			{Field: "wordcount", Display: "Word Count", Type: "int", Default: "5", Description: "Number of words in a sentence"},
-			{Field: "paragraphseparator", Display: "Paragraph Separator", Type: "string", Default: "<br />", Description: "String value to add between paragraphs"},
-		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			paragraphCount, err := info.GetInt(m, "paragraphcount")
-			if err != nil {
-				return nil, err
-			}
-			if paragraphCount <= 0 || paragraphCount > 20 {
-				return nil, errors.New("Invalid paragraph count, must be greater than 0, less than 20")
-			}
-
-			sentenceCount, err := info.GetInt(m, "sentencecount")
-			if err != nil {
-				return nil, err
-			}
-			if sentenceCount <= 0 || sentenceCount > 20 {
-				return nil, errors.New("Invalid sentence count, must be greater than 0, less than 20")
-			}
-
-			wordCount, err := info.GetInt(m, "wordcount")
-			if err != nil {
-				return nil, err
-			}
-			if wordCount <= 0 || wordCount > 50 {
-				return nil, errors.New("Invalid word count, must be greater than 0, less than 50")
-			}
-
-			paragraphSeparator, err := info.GetString(m, "paragraphseparator")
-			if err != nil {
-				return nil, err
-			}
-
-			return LoremIpsumParagraph(paragraphCount, sentenceCount, wordCount, paragraphSeparator), nil
+			return paragraph(r, paragraphCount, sentenceCount, wordCount, paragraphSeparator), nil
 		},
 	})
 
@@ -411,8 +323,8 @@ func addWordLookup() {
 		Description: "Random question",
 		Example:     "Roof chia echo?",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Question(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return question(r), nil
 		},
 	})
 
@@ -422,8 +334,8 @@ func addWordLookup() {
 		Description: "Random quote",
 		Example:     `"Roof chia echo." - Lura Lockman`,
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Quote(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return quote(r), nil
 		},
 	})
 
@@ -433,8 +345,8 @@ func addWordLookup() {
 		Description: "Random phrase",
 		Example:     "time will tell",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Phrase(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return phrase(r), nil
 		},
 	})
 }

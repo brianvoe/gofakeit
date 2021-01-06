@@ -4,12 +4,16 @@ import rand "math/rand"
 
 // Username will generate a random username based upon picking a random lastname and random numbers at the end
 func Username() string {
-	return getRandValue(globalFaker.Rand, []string{"person", "last"}) + replaceWithNumbers(globalFaker.Rand, "####")
+	return username(globalFaker.Rand)
 }
 
 // Username will generate a random username based upon picking a random lastname and random numbers at the end
 func (f *Faker) Username() string {
-	return getRandValue(f.Rand, []string{"person", "last"}) + replaceWithNumbers(f.Rand, "####")
+	return username(f.Rand)
+}
+
+func username(r *rand.Rand) string {
+	return getRandValue(r, []string{"person", "last"}) + replaceWithNumbers(r, "####")
 }
 
 // Password will generate a random password.
@@ -86,8 +90,8 @@ func addAuthLookup() {
 		Description: "Generates a random username",
 		Example:     "Daniel1364",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Username(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return username(r), nil
 		},
 	})
 
@@ -105,7 +109,7 @@ func addAuthLookup() {
 			{Field: "space", Display: "Space", Type: "bool", Default: "false", Description: "Whether or not to add spaces"},
 			{Field: "length", Display: "Length", Type: "int", Default: "12", Description: "Number of characters in password"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
 			lower, err := info.GetBool(m, "lower")
 			if err != nil {
 				return nil, err
@@ -136,7 +140,7 @@ func addAuthLookup() {
 				return nil, err
 			}
 
-			return Password(lower, upper, numeric, special, space, length), nil
+			return password(r, lower, upper, numeric, special, space, length), nil
 		},
 	})
 }

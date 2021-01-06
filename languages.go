@@ -44,8 +44,8 @@ func addLanguagesLookup() {
 		Description: "Random language",
 		Example:     "Kazakh",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Language(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return language(r), nil
 		},
 	})
 
@@ -55,8 +55,8 @@ func addLanguagesLookup() {
 		Description: "Random abbreviated language",
 		Example:     "kk",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return LanguageAbbreviation(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return languageAbbreviation(r), nil
 		},
 	})
 
@@ -66,8 +66,8 @@ func addLanguagesLookup() {
 		Description: "Random programming language",
 		Example:     "Go",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return ProgrammingLanguage(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return programmingLanguage(r), nil
 		},
 	})
 }

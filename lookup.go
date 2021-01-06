@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	rand "math/rand"
 	"strconv"
 	"sync"
 )
@@ -12,14 +13,14 @@ var lockFuncLookups sync.Mutex
 
 // Info structures fields to better break down what each one generates
 type Info struct {
-	Display     string                                                        `json:"display"`
-	Category    string                                                        `json:"category"`
-	Description string                                                        `json:"description"`
-	Example     string                                                        `json:"example"`
-	Output      string                                                        `json:"output"`
-	Data        map[string]string                                             `json:"-"`
-	Params      []Param                                                       `json:"params"`
-	Call        func(m *map[string][]string, info *Info) (interface{}, error) `json:"-"`
+	Display     string                                                                      `json:"display"`
+	Category    string                                                                      `json:"category"`
+	Description string                                                                      `json:"description"`
+	Example     string                                                                      `json:"example"`
+	Output      string                                                                      `json:"output"`
+	Data        map[string]string                                                           `json:"-"`
+	Params      []Param                                                                     `json:"params"`
+	Call        func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) `json:"-"`
 }
 
 // Param is a breakdown of param requirements and type definition
@@ -47,6 +48,7 @@ func init() {
 	addCarLookup()
 	addPersonLookup()
 	addWordLookup()
+	addLoremLookup()
 	addGenerateLookup()
 	addMiscLookup()
 	addColorLookup()

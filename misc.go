@@ -122,8 +122,8 @@ func addMiscLookup() {
 		Description: "Random uuid",
 		Example:     "590c1440-9888-45b0-bd51-a817ee07c3f2",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return UUID(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return uuid(r), nil
 		},
 	})
 
@@ -133,8 +133,8 @@ func addMiscLookup() {
 		Description: "Random boolean",
 		Example:     "true",
 		Output:      "bool",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Bool(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return boolFunc(r), nil
 		},
 	})
 
@@ -144,8 +144,8 @@ func addMiscLookup() {
 		Description: "Random Heads or Tails outcome",
 		Example:     "Tails",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return FlipACoin(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return flipACoin(r), nil
 		},
 	})
 }

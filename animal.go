@@ -93,8 +93,8 @@ func addAnimalLookup() {
 		Description: "Random pet name",
 		Example:     "Ozzy Pawsborne",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return PetName(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return petName(r), nil
 		},
 	})
 
@@ -104,8 +104,8 @@ func addAnimalLookup() {
 		Description: "Random animal",
 		Example:     "elk",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Animal(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return animal(r), nil
 		},
 	})
 
@@ -115,8 +115,8 @@ func addAnimalLookup() {
 		Description: "Random animal type",
 		Example:     "amphibians",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return AnimalType(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return animalType(r), nil
 		},
 	})
 
@@ -126,8 +126,8 @@ func addAnimalLookup() {
 		Description: "Random farm animal",
 		Example:     "Chicken",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return FarmAnimal(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return farmAnimal(r), nil
 		},
 	})
 
@@ -137,8 +137,8 @@ func addAnimalLookup() {
 		Description: "Random cat type",
 		Example:     "Chausie",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Cat(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return cat(r), nil
 		},
 	})
 
@@ -148,8 +148,8 @@ func addAnimalLookup() {
 		Description: "Random dog type",
 		Example:     "Norwich Terrier",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Dog(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return dog(r), nil
 		},
 	})
 }

@@ -162,6 +162,7 @@ func ExampleFaker_JSON_array() {
 }
 
 func TestJSONLookup(t *testing.T) {
+	faker := New(0)
 	info := GetFuncLookup("json")
 
 	m := map[string][]string{
@@ -173,7 +174,7 @@ func TestJSONLookup(t *testing.T) {
 			`{"name":"password","function":"password","params":{"special":["false"],"length":["20"]}}`,
 		},
 	}
-	_, err := info.Call(&m, info)
+	_, err := info.Call(faker.Rand, &m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -182,6 +183,8 @@ func TestJSONLookup(t *testing.T) {
 }
 
 func BenchmarkJSONLookup100(b *testing.B) {
+	faker := New(0)
+
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("json")
 		m := map[string][]string{
@@ -196,7 +199,7 @@ func BenchmarkJSONLookup100(b *testing.B) {
 				`{"name":"created_at","function":"date"}`,
 			},
 		}
-		_, err := info.Call(&m, info)
+		_, err := info.Call(faker.Rand, &m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
@@ -204,6 +207,8 @@ func BenchmarkJSONLookup100(b *testing.B) {
 }
 
 func BenchmarkJSONLookup1000(b *testing.B) {
+	faker := New(0)
+
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("json")
 		m := map[string][]string{
@@ -218,7 +223,7 @@ func BenchmarkJSONLookup1000(b *testing.B) {
 				`{"name":"created_at","function":"date"}`,
 			},
 		}
-		_, err := info.Call(&m, info)
+		_, err := info.Call(faker.Rand, &m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
@@ -226,6 +231,8 @@ func BenchmarkJSONLookup1000(b *testing.B) {
 }
 
 func BenchmarkJSONLookup10000(b *testing.B) {
+	faker := New(0)
+
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("json")
 		m := map[string][]string{
@@ -240,7 +247,7 @@ func BenchmarkJSONLookup10000(b *testing.B) {
 				`{"name":"created_at","function":"date"}`,
 			},
 		}
-		_, err := info.Call(&m, info)
+		_, err := info.Call(faker.Rand, &m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
@@ -248,6 +255,8 @@ func BenchmarkJSONLookup10000(b *testing.B) {
 }
 
 func BenchmarkJSONLookup100000(b *testing.B) {
+	faker := New(0)
+
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("json")
 		m := map[string][]string{
@@ -262,7 +271,7 @@ func BenchmarkJSONLookup100000(b *testing.B) {
 				`{"name":"created_at","function":"date"}`,
 			},
 		}
-		_, err := info.Call(&m, info)
+		_, err := info.Call(faker.Rand, &m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}

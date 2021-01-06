@@ -78,7 +78,7 @@ func addImageLookup() {
 			{Field: "width", Display: "Width", Type: "int", Default: "500", Description: "Image width in px"},
 			{Field: "height", Display: "Height", Type: "int", Default: "500", Description: "Image height in px"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
 			width, err := info.GetInt(m, "width")
 			if err != nil {
 				return nil, err
@@ -95,7 +95,7 @@ func addImageLookup() {
 				return nil, errors.New("Invalid image height, must be greater than 10, less than 1000")
 			}
 
-			return ImageURL(width, height), nil
+			return imageURL(r, width, height), nil
 		},
 	})
 
@@ -109,7 +109,7 @@ func addImageLookup() {
 			{Field: "width", Display: "Width", Type: "int", Default: "500", Description: "Image width in px"},
 			{Field: "height", Display: "Height", Type: "int", Default: "500", Description: "Image height in px"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
 			width, err := info.GetInt(m, "width")
 			if err != nil {
 				return nil, err
@@ -126,7 +126,7 @@ func addImageLookup() {
 				return nil, errors.New("Invalid image height, must be greater than 10, less than 1000")
 			}
 
-			return ImageJpeg(width, height), nil
+			return imageJpeg(r, width, height), nil
 		},
 	})
 
@@ -140,7 +140,7 @@ func addImageLookup() {
 			{Field: "width", Display: "Width", Type: "int", Default: "500", Description: "Image width in px"},
 			{Field: "height", Display: "Height", Type: "int", Default: "500", Description: "Image height in px"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
 			width, err := info.GetInt(m, "width")
 			if err != nil {
 				return nil, err
@@ -157,7 +157,7 @@ func addImageLookup() {
 				return nil, errors.New("Invalid image height, must be greater than 10, less than 1000")
 			}
 
-			return ImagePng(width, height), nil
+			return imagePng(r, width, height), nil
 		},
 	})
 }

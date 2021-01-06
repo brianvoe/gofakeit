@@ -124,8 +124,8 @@ func addBeerLookup() {
 		Description: "Random beer name",
 		Example:     "Duvel",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return BeerName(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return beerName(r), nil
 		},
 	})
 
@@ -135,8 +135,8 @@ func addBeerLookup() {
 		Description: "Random beer style",
 		Example:     "European Amber Lager",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return BeerStyle(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return beerStyle(r), nil
 		},
 	})
 
@@ -146,8 +146,8 @@ func addBeerLookup() {
 		Description: "Random beer hop type",
 		Example:     "Glacier",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return BeerHop(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return beerHop(r), nil
 		},
 	})
 
@@ -157,8 +157,8 @@ func addBeerLookup() {
 		Description: "Random beer yeast value",
 		Example:     "1388 - Belgian Strong Ale",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return BeerYeast(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return beerYeast(r), nil
 		},
 	})
 
@@ -168,8 +168,8 @@ func addBeerLookup() {
 		Description: "Random beer malt",
 		Example:     "Munich",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return BeerMalt(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return beerMalt(r), nil
 		},
 	})
 
@@ -179,8 +179,8 @@ func addBeerLookup() {
 		Description: "Random alcohol percentage",
 		Example:     "2.7%",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return BeerAlcohol(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return beerAlcohol(r), nil
 		},
 	})
 
@@ -190,8 +190,8 @@ func addBeerLookup() {
 		Description: "Random beer ibu",
 		Example:     "29 IBU",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return BeerIbu(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return beerIbu(r), nil
 		},
 	})
 
@@ -201,8 +201,8 @@ func addBeerLookup() {
 		Description: "Random beer blg",
 		Example:     "6.4°Blg",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return BeerBlg(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return beerBlg(r), nil
 		},
 	})
 }

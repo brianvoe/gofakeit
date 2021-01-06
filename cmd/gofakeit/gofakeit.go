@@ -12,7 +12,7 @@ import (
 var noFuncRunMsg = "Could not find function to run\nRun gofakeit help or gofakeit list for available functions"
 
 func main() {
-	gofakeit.Seed(0)
+	faker := gofakeit.New(0)
 
 	args := os.Args[1:]
 	argsLen := len(args)
@@ -83,7 +83,7 @@ func main() {
 		}
 	}
 
-	value, err := info.Call(&params, info)
+	value, err := info.Call(faker.Rand, &params, info)
 	if err != nil {
 		fmt.Println(err.Error())
 		return

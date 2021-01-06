@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	rand "math/rand"
 	"testing"
 )
 
@@ -79,7 +80,7 @@ func TestXMLSingle(t *testing.T) {
 		Description: "",
 		Example:     "",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
 			return map[string]interface{}{
 				"string": "string value",
 				"int":    123456789,
@@ -120,7 +121,7 @@ func TestXMLArray(t *testing.T) {
 		Description: "",
 		Example:     "",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
 			return map[string]interface{}{
 				"string": "string value",
 				"int":    123456789,
@@ -156,6 +157,7 @@ func TestXMLArray(t *testing.T) {
 }
 
 func TestXMLLookup(t *testing.T) {
+	faker := New(0)
 	info := GetFuncLookup("xml")
 
 	m := map[string][]string{
@@ -168,7 +170,7 @@ func TestXMLLookup(t *testing.T) {
 			`{"name":"password","function":"password","params":{"special":["false"],"length":["20"]}}`,
 		},
 	}
-	_, err := info.Call(&m, info)
+	_, err := info.Call(faker.Rand, &m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -177,6 +179,8 @@ func TestXMLLookup(t *testing.T) {
 }
 
 func BenchmarkXMLLookup100(b *testing.B) {
+	faker := New(0)
+
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("xml")
 		m := map[string][]string{
@@ -191,7 +195,7 @@ func BenchmarkXMLLookup100(b *testing.B) {
 				`{"name":"created_at","function":"date"}`,
 			},
 		}
-		_, err := info.Call(&m, info)
+		_, err := info.Call(faker.Rand, &m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
@@ -199,6 +203,8 @@ func BenchmarkXMLLookup100(b *testing.B) {
 }
 
 func BenchmarkXMLLookup1000(b *testing.B) {
+	faker := New(0)
+
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("xml")
 		m := map[string][]string{
@@ -213,7 +219,7 @@ func BenchmarkXMLLookup1000(b *testing.B) {
 				`{"name":"created_at","function":"date"}`,
 			},
 		}
-		_, err := info.Call(&m, info)
+		_, err := info.Call(faker.Rand, &m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
@@ -221,6 +227,8 @@ func BenchmarkXMLLookup1000(b *testing.B) {
 }
 
 func BenchmarkXMLLookup10000(b *testing.B) {
+	faker := New(0)
+
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("xml")
 		m := map[string][]string{
@@ -235,13 +243,15 @@ func BenchmarkXMLLookup10000(b *testing.B) {
 				`{"name":"created_at","function":"date"}`,
 			},
 		}
-		_, err := info.Call(&m, info)
+		_, err := info.Call(faker.Rand, &m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
 	}
 }
 func BenchmarkXMLLookup100000(b *testing.B) {
+	faker := New(0)
+
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("xml")
 		m := map[string][]string{
@@ -256,7 +266,7 @@ func BenchmarkXMLLookup100000(b *testing.B) {
 				`{"name":"created_at","function":"date"}`,
 			},
 		}
-		_, err := info.Call(&m, info)
+		_, err := info.Call(faker.Rand, &m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}

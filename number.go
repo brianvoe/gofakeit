@@ -194,7 +194,7 @@ func addNumberLookup() {
 			{Field: "min", Display: "Min", Type: "int", Default: "-2147483648", Description: "Minimum integer value"},
 			{Field: "max", Display: "Max", Type: "int", Default: "2147483647", Description: "Maximum integer value"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
 			min, err := info.GetInt(m, "min")
 			if err != nil {
 				return nil, err
@@ -209,7 +209,7 @@ func addNumberLookup() {
 				return nil, errors.New("Max integer must be larger than Min")
 			}
 
-			return Number(min, max), nil
+			return number(r, min, max), nil
 		},
 	})
 
@@ -219,8 +219,8 @@ func addNumberLookup() {
 		Description: "Random uint8 value",
 		Example:     "152",
 		Output:      "uint8",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Uint8(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return uint8Func(r), nil
 		},
 	})
 
@@ -230,8 +230,8 @@ func addNumberLookup() {
 		Description: "Random uint16 value",
 		Example:     "34968",
 		Output:      "uint16",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Uint16(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return uint16Func(r), nil
 		},
 	})
 
@@ -241,8 +241,8 @@ func addNumberLookup() {
 		Description: "Random uint32 value",
 		Example:     "1075055705",
 		Output:      "uint32",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Uint32(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return uint32Func(r), nil
 		},
 	})
 
@@ -252,8 +252,8 @@ func addNumberLookup() {
 		Description: "Random uint64 value",
 		Example:     "843730692693298265",
 		Output:      "uint64",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Uint64(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return uint64Func(r), nil
 		},
 	})
 
@@ -263,8 +263,8 @@ func addNumberLookup() {
 		Description: "Random int8 value",
 		Example:     "24",
 		Output:      "int8",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Int8(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return int8Func(r), nil
 		},
 	})
 
@@ -274,8 +274,8 @@ func addNumberLookup() {
 		Description: "Random int16 value",
 		Example:     "2200",
 		Output:      "int16",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Int16(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return int16Func(r), nil
 		},
 	})
 
@@ -285,8 +285,8 @@ func addNumberLookup() {
 		Description: "Random int32 value",
 		Example:     "-1072427943",
 		Output:      "int32",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Int32(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return int32Func(r), nil
 		},
 	})
 
@@ -296,8 +296,8 @@ func addNumberLookup() {
 		Description: "Random int64 value",
 		Example:     "-8379641344161477543",
 		Output:      "int64",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Int64(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return int64Func(r), nil
 		},
 	})
 
@@ -307,8 +307,8 @@ func addNumberLookup() {
 		Description: "Random float32 value",
 		Example:     "3.1128167e+37",
 		Output:      "float32",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Float32(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return float32Func(r), nil
 		},
 	})
 
@@ -322,7 +322,7 @@ func addNumberLookup() {
 			{Field: "min", Display: "Min", Type: "int", Description: "Minimum float32 value"},
 			{Field: "max", Display: "Max", Type: "int", Description: "Maximum float32 value"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
 			min, err := info.GetFloat32(m, "min")
 			if err != nil {
 				return nil, err
@@ -333,7 +333,7 @@ func addNumberLookup() {
 				return nil, err
 			}
 
-			return Float32Range(min, max), nil
+			return float32Range(r, min, max), nil
 		},
 	})
 
@@ -343,8 +343,8 @@ func addNumberLookup() {
 		Description: "Random float64 value",
 		Example:     "1.644484108270445e+307",
 		Output:      "float64",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Float64(), nil
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+			return float64Func(r), nil
 		},
 	})
 
@@ -358,7 +358,7 @@ func addNumberLookup() {
 			{Field: "min", Display: "Min", Type: "int", Description: "Minimum float64 value"},
 			{Field: "max", Display: "Max", Type: "int", Description: "Maximum float64 value"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
 			min, err := info.GetFloat64(m, "min")
 			if err != nil {
 				return nil, err
@@ -369,7 +369,7 @@ func addNumberLookup() {
 				return nil, err
 			}
 
-			return Float64Range(min, max), nil
+			return float64Range(r, min, max), nil
 		},
 	})
 
@@ -382,13 +382,13 @@ func addNumberLookup() {
 		Params: []Param{
 			{Field: "ints", Display: "Integers", Type: "[]int", Description: "Delimited separated integers"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
 			ints, err := info.GetIntArray(m, "ints")
 			if err != nil {
 				return nil, err
 			}
 
-			ShuffleInts(ints)
+			shuffleInts(r, ints)
 
 			return ints, nil
 		},
