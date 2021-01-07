@@ -178,7 +178,7 @@ func TestLookupRemove(t *testing.T) {
 	}
 }
 
-func TestGetAllRequests(t *testing.T) {
+func TestLookupCalls(t *testing.T) {
 	faker := New(0)
 
 	for _, info := range FuncLookups {
@@ -228,7 +228,106 @@ func TestGetAllRequests(t *testing.T) {
 			}
 		}
 
-		info.Call(faker.Rand, &mapData, &info)
+		_, err := info.Call(faker.Rand, &mapData, &info)
+		if err != nil {
+			t.Fatal(err)
+		}
 
 	}
+}
+
+func TestLookupCallsErrorParams(t *testing.T) {
+	// Look through lookups and empty defaults values to help with tests
+	for funcName, info := range FuncLookups {
+		if info.Params != nil || len(info.Params) != 0 {
+			params := []Param{}
+			for _, p := range info.Params {
+				p.Default = ""
+				params = append(params, p)
+			}
+			info.Params = params
+			AddFuncLookup(funcName, info)
+		}
+	}
+
+	// Initiate new faker
+	faker := New(0)
+
+	for funcName, info := range FuncLookups {
+		// If parameters are not required skip it. We are only testing params
+		if info.Params == nil || len(info.Params) == 0 {
+			continue
+		}
+
+		// Loop through each param and mark each one fail
+		for i := 0; i < len(info.Params); i++ {
+			mapData := NewMapParams()
+			skip := false
+			currentEmptyParam := ""
+
+			// Loop through params and add fields to mapdata
+			for ii, p := range info.Params {
+				// If the length is equal to the param loop
+				// purposly not add that field to trigger an error
+				if i == ii {
+					currentEmptyParam = p.Field
+
+					// If param is optional skip it
+					if p.Optional {
+						skip = true
+					}
+
+					continue
+				}
+
+				if p.Default != "" {
+					mapData.Add(p.Field, p.Default)
+					continue
+				}
+
+				switch p.Type {
+				case "bool":
+					mapData.Add(p.Field, fmt.Sprintf("%v", Bool()))
+					break
+				case "string":
+					mapData.Add(p.Field, Letter())
+					break
+				case "uint":
+					mapData.Add(p.Field, fmt.Sprintf("%v", Uint16()))
+				case "int":
+					mapData.Add(p.Field, fmt.Sprintf("%v", Int16()))
+				case "float":
+					mapData.Add(p.Field, fmt.Sprintf("%v", Float32()))
+					break
+				case "[]string":
+					mapData.Add(p.Field, Letter())
+					mapData.Add(p.Field, Letter())
+					mapData.Add(p.Field, Letter())
+					mapData.Add(p.Field, Letter())
+					break
+				case "[]int":
+					mapData.Add(p.Field, fmt.Sprintf("%d", Int8()))
+					mapData.Add(p.Field, fmt.Sprintf("%d", Int8()))
+					mapData.Add(p.Field, fmt.Sprintf("%d", Int8()))
+					mapData.Add(p.Field, fmt.Sprintf("%d", Int8()))
+					break
+				case "[]Field":
+					mapData.Add(p.Field, `{"name":"first_name","function":"firstname"}`)
+					break
+				default:
+					t.Fatalf("Looking for %s but switch case doesnt have it", p.Type)
+				}
+			}
+
+			if !skip {
+				_, err := info.Call(faker.Rand, mapData, &info)
+				if err == nil {
+					t.Error(funcName+" should have failed on param", currentEmptyParam)
+				}
+			}
+		}
+	}
+
+	// Reset lookup functions back
+	initLookup()
 }

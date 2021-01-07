@@ -31,6 +31,7 @@ type Param struct {
 	Field       string   `json:"field"`
 	Display     string   `json:"display"`
 	Type        string   `json:"type"`
+	Optional    bool     `json:"optional"`
 	Default     string   `json:"default"`
 	Options     []string `json:"options"`
 	Description string   `json:"description"`
@@ -43,8 +44,10 @@ type Field struct {
 	Params   MapParams `json:"params"`
 }
 
+func init() { initLookup() }
+
 // init will add all the functions to MapLookups
-func init() {
+func initLookup() {
 	addAuthLookup()
 	addAddressLookup()
 	addBeerLookup()

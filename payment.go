@@ -332,7 +332,7 @@ func addPaymentLookup() {
 				Options:     []string{"visa", "mastercard", "american-express", "diners-club", "discover", "jcb", "unionpay", "maestro", "elo", "hiper", "hipercard"},
 				Description: "A select number of types you want to use when generating a credit card number",
 			},
-			{Field: "bins", Display: "Bins", Type: "[]string", Description: "Optional list of prepended bin numbers to pick from"},
+			{Field: "bins", Display: "Bins", Type: "[]string", Optional: true, Description: "Optional list of prepended bin numbers to pick from"},
 			{Field: "gaps", Display: "Gaps", Type: "bool", Default: "false", Description: "Whether or not to have gaps in number"},
 		},
 		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
