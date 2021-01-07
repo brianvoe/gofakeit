@@ -109,7 +109,7 @@ func addFileCSVLookup() {
 			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function to run in json format"},
 			{Field: "delimiter", Display: "Delimiter", Type: "string", Default: ",", Description: "Separator in between row values"},
 		},
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			co := CSVOptions{}
 
 			rowcount, err := info.GetInt(m, "rowcount")

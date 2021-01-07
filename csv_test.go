@@ -58,7 +58,7 @@ func TestCSVLookup(t *testing.T) {
 
 	info := GetFuncLookup("csv")
 
-	m := map[string][]string{
+	m := MapParams{
 		"rowcount": {"10"},
 		"fields": {
 			`{"name":"id","function":"autoincrement"}`,
@@ -79,7 +79,7 @@ func BenchmarkCSVLookup100(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("csv")
-		m := map[string][]string{
+		m := MapParams{
 			"rowcount": {"100"},
 			"fields": {
 				`{"name":"id","function":"autoincrement"}`,
@@ -102,7 +102,7 @@ func BenchmarkCSVLookup1000(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("csv")
-		m := map[string][]string{
+		m := MapParams{
 			"rowcount": {"1000"},
 			"fields": {
 				`{"name":"id","function":"autoincrement"}`,
@@ -125,7 +125,7 @@ func BenchmarkCSVLookup10000(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("csv")
-		m := map[string][]string{
+		m := MapParams{
 			"rowcount": {"10000"},
 			"fields": {
 				`{"name":"id","function":"autoincrement"}`,
@@ -148,7 +148,7 @@ func BenchmarkCSVLookup100000(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("csv")
-		m := map[string][]string{
+		m := MapParams{
 			"rowcount": {"100000"},
 			"fields": {
 				`{"name":"id","function":"autoincrement"}`,

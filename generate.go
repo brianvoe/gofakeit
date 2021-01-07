@@ -64,7 +64,7 @@ func generate(r *rand.Rand, dataVal string) string {
 		// Check to see if its a replaceable lookup function
 		if info := GetFuncLookup(fName); info != nil {
 			// Get parameters, make sure params and the split both have values
-			var mapParams map[string][]string
+			var mapParams MapParams
 			paramsLen := len(info.Params)
 			if paramsLen > 0 && fParams != "" {
 				splitVals := funcLookupSplit(fParams)
@@ -305,7 +305,7 @@ func addGenerateLookup() {
 		Params: []Param{
 			{Field: "str", Display: "String", Type: "string", Description: "String value to generate from"},
 		},
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			str, err := info.GetString(m, "str")
 			if err != nil {
 				return nil, err
@@ -329,7 +329,7 @@ func addGenerateLookup() {
 		Params: []Param{
 			{Field: "str", Display: "String", Type: "string", Description: "Regex RE2 syntax string"},
 		},
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			str, err := info.GetString(m, "str")
 			if err != nil {
 				return nil, err

@@ -194,7 +194,7 @@ func addNumberLookup() {
 			{Field: "min", Display: "Min", Type: "int", Default: "-2147483648", Description: "Minimum integer value"},
 			{Field: "max", Display: "Max", Type: "int", Default: "2147483647", Description: "Maximum integer value"},
 		},
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			min, err := info.GetInt(m, "min")
 			if err != nil {
 				return nil, err
@@ -219,7 +219,7 @@ func addNumberLookup() {
 		Description: "Random uint8 value",
 		Example:     "152",
 		Output:      "uint8",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return uint8Func(r), nil
 		},
 	})
@@ -230,7 +230,7 @@ func addNumberLookup() {
 		Description: "Random uint16 value",
 		Example:     "34968",
 		Output:      "uint16",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return uint16Func(r), nil
 		},
 	})
@@ -241,7 +241,7 @@ func addNumberLookup() {
 		Description: "Random uint32 value",
 		Example:     "1075055705",
 		Output:      "uint32",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return uint32Func(r), nil
 		},
 	})
@@ -252,7 +252,7 @@ func addNumberLookup() {
 		Description: "Random uint64 value",
 		Example:     "843730692693298265",
 		Output:      "uint64",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return uint64Func(r), nil
 		},
 	})
@@ -263,7 +263,7 @@ func addNumberLookup() {
 		Description: "Random int8 value",
 		Example:     "24",
 		Output:      "int8",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return int8Func(r), nil
 		},
 	})
@@ -274,7 +274,7 @@ func addNumberLookup() {
 		Description: "Random int16 value",
 		Example:     "2200",
 		Output:      "int16",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return int16Func(r), nil
 		},
 	})
@@ -285,7 +285,7 @@ func addNumberLookup() {
 		Description: "Random int32 value",
 		Example:     "-1072427943",
 		Output:      "int32",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return int32Func(r), nil
 		},
 	})
@@ -296,7 +296,7 @@ func addNumberLookup() {
 		Description: "Random int64 value",
 		Example:     "-8379641344161477543",
 		Output:      "int64",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return int64Func(r), nil
 		},
 	})
@@ -307,7 +307,7 @@ func addNumberLookup() {
 		Description: "Random float32 value",
 		Example:     "3.1128167e+37",
 		Output:      "float32",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return float32Func(r), nil
 		},
 	})
@@ -322,7 +322,7 @@ func addNumberLookup() {
 			{Field: "min", Display: "Min", Type: "int", Description: "Minimum float32 value"},
 			{Field: "max", Display: "Max", Type: "int", Description: "Maximum float32 value"},
 		},
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			min, err := info.GetFloat32(m, "min")
 			if err != nil {
 				return nil, err
@@ -343,7 +343,7 @@ func addNumberLookup() {
 		Description: "Random float64 value",
 		Example:     "1.644484108270445e+307",
 		Output:      "float64",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return float64Func(r), nil
 		},
 	})
@@ -358,7 +358,7 @@ func addNumberLookup() {
 			{Field: "min", Display: "Min", Type: "int", Description: "Minimum float64 value"},
 			{Field: "max", Display: "Max", Type: "int", Description: "Maximum float64 value"},
 		},
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			min, err := info.GetFloat64(m, "min")
 			if err != nil {
 				return nil, err
@@ -382,7 +382,7 @@ func addNumberLookup() {
 		Params: []Param{
 			{Field: "ints", Display: "Integers", Type: "[]int", Description: "Delimited separated integers"},
 		},
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			ints, err := info.GetIntArray(m, "ints")
 			if err != nil {
 				return nil, err

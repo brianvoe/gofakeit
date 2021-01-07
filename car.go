@@ -78,7 +78,7 @@ func addCarLookup() {
 		Description: "Random car set of data",
 		Output:      "map[string]interface",
 		Example:     `{type: "Passenger car mini", fuel: "Gasoline", transmission: "Automatic", brand: "Fiat", model: "Freestyle Fwd", year: "1972"}`,
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return car(r), nil
 		},
 	})
@@ -89,7 +89,7 @@ func addCarLookup() {
 		Description: "Random car type",
 		Example:     "Passenger car mini",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return carType(r), nil
 		},
 	})
@@ -100,7 +100,7 @@ func addCarLookup() {
 		Description: "Random car fuel type",
 		Example:     "CNG",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return carFuelType(r), nil
 		},
 	})
@@ -111,7 +111,7 @@ func addCarLookup() {
 		Description: "Random car transmission type",
 		Example:     "Manual",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return carTransmissionType(r), nil
 		},
 	})
@@ -122,7 +122,7 @@ func addCarLookup() {
 		Description: "Random car maker",
 		Example:     "Nissan",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return carMaker(r), nil
 		},
 	})
@@ -133,7 +133,7 @@ func addCarLookup() {
 		Description: "Random car model",
 		Example:     "Aveo",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return carModel(r), nil
 		},
 	})

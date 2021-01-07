@@ -22,7 +22,7 @@ func addGameLookup() {
 		Description: "Random gamertag",
 		Example:     "footinterpret63",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return gamertag(r), nil
 		},
 	})

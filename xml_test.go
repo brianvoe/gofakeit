@@ -80,7 +80,7 @@ func TestXMLSingle(t *testing.T) {
 		Description: "",
 		Example:     "",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return map[string]interface{}{
 				"string": "string value",
 				"int":    123456789,
@@ -121,7 +121,7 @@ func TestXMLArray(t *testing.T) {
 		Description: "",
 		Example:     "",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return map[string]interface{}{
 				"string": "string value",
 				"int":    123456789,
@@ -160,22 +160,18 @@ func TestXMLLookup(t *testing.T) {
 	faker := New(0)
 	info := GetFuncLookup("xml")
 
-	m := map[string][]string{
-		"type":     {"array"},
-		"rowcount": {"10"},
-		"indent":   {"true"},
-		"fields": {
-			`{"name":"id","function":"autoincrement"}`,
-			`{"name":"first_name","function":"firstname"}`,
-			`{"name":"password","function":"password","params":{"special":["false"],"length":["20"]}}`,
-		},
-	}
-	_, err := info.Call(faker.Rand, &m, info)
+	m := NewMapParams()
+	m.Add("type", "array")
+	m.Add("rowcount", "10")
+	m.Add("indent", "true")
+	m.Add("fields", `{"name":"id","function":"autoincrement"}`)
+	m.Add("fields", `{"name":"first_name","function":"firstname"}`)
+	m.Add("fields", `{"name":"password","function":"password","params":{"special":["false"],"length":["20"]}}`)
+
+	_, err := info.Call(faker.Rand, m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
-
-	// t.Fatal(fmt.Sprintf("%s", value.([]byte)))
 }
 
 func BenchmarkXMLLookup100(b *testing.B) {
@@ -183,19 +179,18 @@ func BenchmarkXMLLookup100(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("xml")
-		m := map[string][]string{
-			"type":     {"array"},
-			"rowcount": {"100"},
-			"fields": {
-				`{"name":"id","function":"autoincrement"}`,
-				`{"name":"first_name","function":"firstname"}`,
-				`{"name":"last_name","function":"lastname"}`,
-				`{"name":"password","function":"password"}`,
-				`{"name":"description","function":"paragraph"}`,
-				`{"name":"created_at","function":"date"}`,
-			},
-		}
-		_, err := info.Call(faker.Rand, &m, info)
+
+		m := NewMapParams()
+		m.Add("type", "array")
+		m.Add("rowcount", "100")
+		m.Add("fields", `{"name":"id","function":"autoincrement"}`)
+		m.Add("fields", `{"name":"first_name","function":"firstname"}`)
+		m.Add("fields", `{"name":"last_name","function":"lastname"}`)
+		m.Add("fields", `{"name":"password","function":"password"}`)
+		m.Add("fields", `{"name":"description","function":"paragraph"}`)
+		m.Add("fields", `{"name":"created_at","function":"date"}`)
+
+		_, err := info.Call(faker.Rand, m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
@@ -207,19 +202,18 @@ func BenchmarkXMLLookup1000(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("xml")
-		m := map[string][]string{
-			"type":     {"array"},
-			"rowcount": {"1000"},
-			"fields": {
-				`{"name":"id","function":"autoincrement"}`,
-				`{"name":"first_name","function":"firstname"}`,
-				`{"name":"last_name","function":"lastname"}`,
-				`{"name":"password","function":"password"}`,
-				`{"name":"description","function":"paragraph"}`,
-				`{"name":"created_at","function":"date"}`,
-			},
-		}
-		_, err := info.Call(faker.Rand, &m, info)
+
+		m := NewMapParams()
+		m.Add("type", "array")
+		m.Add("rowcount", "1000")
+		m.Add("fields", `{"name":"id","function":"autoincrement"}`)
+		m.Add("fields", `{"name":"first_name","function":"firstname"}`)
+		m.Add("fields", `{"name":"last_name","function":"lastname"}`)
+		m.Add("fields", `{"name":"password","function":"password"}`)
+		m.Add("fields", `{"name":"description","function":"paragraph"}`)
+		m.Add("fields", `{"name":"created_at","function":"date"}`)
+
+		_, err := info.Call(faker.Rand, m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
@@ -231,19 +225,18 @@ func BenchmarkXMLLookup10000(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("xml")
-		m := map[string][]string{
-			"type":     {"array"},
-			"rowcount": {"10000"},
-			"fields": {
-				`{"name":"id","function":"autoincrement"}`,
-				`{"name":"first_name","function":"firstname"}`,
-				`{"name":"last_name","function":"lastname"}`,
-				`{"name":"password","function":"password"}`,
-				`{"name":"description","function":"paragraph"}`,
-				`{"name":"created_at","function":"date"}`,
-			},
-		}
-		_, err := info.Call(faker.Rand, &m, info)
+
+		m := NewMapParams()
+		m.Add("type", "array")
+		m.Add("rowcount", "10000")
+		m.Add("fields", `{"name":"id","function":"autoincrement"}`)
+		m.Add("fields", `{"name":"first_name","function":"firstname"}`)
+		m.Add("fields", `{"name":"last_name","function":"lastname"}`)
+		m.Add("fields", `{"name":"password","function":"password"}`)
+		m.Add("fields", `{"name":"description","function":"paragraph"}`)
+		m.Add("fields", `{"name":"created_at","function":"date"}`)
+
+		_, err := info.Call(faker.Rand, m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
@@ -254,19 +247,18 @@ func BenchmarkXMLLookup100000(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("xml")
-		m := map[string][]string{
-			"type":     {"array"},
-			"rowcount": {"100000"},
-			"fields": {
-				`{"name":"id","function":"autoincrement"}`,
-				`{"name":"first_name","function":"firstname"}`,
-				`{"name":"last_name","function":"lastname"}`,
-				`{"name":"password","function":"password"}`,
-				`{"name":"description","function":"paragraph"}`,
-				`{"name":"created_at","function":"date"}`,
-			},
-		}
-		_, err := info.Call(faker.Rand, &m, info)
+
+		m := NewMapParams()
+		m.Add("type", "array")
+		m.Add("rowcount", "100000")
+		m.Add("fields", `{"name":"id","function":"autoincrement"}`)
+		m.Add("fields", `{"name":"first_name","function":"firstname"}`)
+		m.Add("fields", `{"name":"last_name","function":"lastname"}`)
+		m.Add("fields", `{"name":"password","function":"password"}`)
+		m.Add("fields", `{"name":"description","function":"paragraph"}`)
+		m.Add("fields", `{"name":"created_at","function":"date"}`)
+
+		_, err := info.Call(faker.Rand, m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}

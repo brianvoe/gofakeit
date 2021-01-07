@@ -15,7 +15,7 @@ func Example_custom() {
 		Description: "Random friend name",
 		Example:     "bill",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return RandomString([]string{"bill", "bob", "sally"}), nil
 		},
 	})
@@ -42,7 +42,7 @@ func Example_custom_with_params() {
 		Params: []Param{
 			{Field: "word", Type: "int", Description: "Word you want to jumble"},
 		},
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			word, err := info.GetString(m, "word")
 			if err != nil {
 				return nil, err
@@ -69,7 +69,7 @@ func TestLookupChecking(t *testing.T) {
 	faker := New(0)
 
 	for field, info := range FuncLookups {
-		var mapData map[string][]string
+		var mapData MapParams
 		if info.Params != nil && len(info.Params) != 0 {
 			// Make sure mapdata is set
 			if mapData == nil {
@@ -160,7 +160,7 @@ func TestLookupRemove(t *testing.T) {
 		Description: "Random friend name",
 		Example:     "bill",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return RandomString([]string{"bill", "bob", "sally"}), nil
 		},
 	})
@@ -175,5 +175,60 @@ func TestLookupRemove(t *testing.T) {
 	info = GetFuncLookup(funcName)
 	if info != nil {
 		t.Fatal("Got info when I shouldn't have")
+	}
+}
+
+func TestGetAllRequests(t *testing.T) {
+	faker := New(0)
+
+	for _, info := range FuncLookups {
+		mapData := make(MapParams)
+
+		// If parameters are required build it
+		if info.Params != nil && len(info.Params) != 0 {
+			// Loop through params and add fields to mapdata
+			for _, p := range info.Params {
+				if p.Default != "" {
+					mapData.Add(p.Field, p.Default)
+					continue
+				}
+
+				switch p.Type {
+				case "bool":
+					mapData.Add(p.Field, fmt.Sprintf("%v", Bool()))
+					break
+				case "string":
+					mapData.Add(p.Field, Letter())
+					break
+				case "uint":
+					mapData.Add(p.Field, fmt.Sprintf("%v", Uint16()))
+				case "int":
+					mapData.Add(p.Field, fmt.Sprintf("%v", Int16()))
+				case "float":
+					mapData.Add(p.Field, fmt.Sprintf("%v", Float32()))
+					break
+				case "[]string":
+					mapData.Add(p.Field, Letter())
+					mapData.Add(p.Field, Letter())
+					mapData.Add(p.Field, Letter())
+					mapData.Add(p.Field, Letter())
+					break
+				case "[]int":
+					mapData.Add(p.Field, fmt.Sprintf("%d", Int8()))
+					mapData.Add(p.Field, fmt.Sprintf("%d", Int8()))
+					mapData.Add(p.Field, fmt.Sprintf("%d", Int8()))
+					mapData.Add(p.Field, fmt.Sprintf("%d", Int8()))
+					break
+				case "[]Field":
+					mapData.Add(p.Field, `{"name":"first_name","function":"firstname"}`)
+					break
+				default:
+					t.Fatalf("Looking for %s but switch case doesnt have it", p.Type)
+				}
+			}
+		}
+
+		info.Call(faker.Rand, &mapData, &info)
+
 	}
 }

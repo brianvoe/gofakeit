@@ -89,7 +89,7 @@ AddFuncLookup("friendname", Info{
 	Description: "Random friend name",
 	Example:     "bill",
 	Output:      "string",
-	Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+	Call: func(m *MapParams, info *Info) (interface{}, error) {
 		return RandomString([]string{"bill", "bob", "sally"}), nil
 	},
 })
@@ -103,7 +103,7 @@ AddFuncLookup("jumbleword", Info{
 	Params: []Param{
 		{Field: "word", Type: "int", Description: "Word you want to jumble"},
 	},
-	Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+	Call: func(m *MapParams, info *Info) (interface{}, error) {
 		word, err := info.GetString(m, "word")
 		if err != nil {
 			return nil, err

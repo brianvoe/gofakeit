@@ -52,7 +52,7 @@ func addHipsterLookup() {
 		Description: "Random hipster word",
 		Example:     "microdosing",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return hipsterWord(r), nil
 		},
 	})
@@ -66,7 +66,7 @@ func addHipsterLookup() {
 		Params: []Param{
 			{Field: "wordcount", Display: "Word Count", Type: "int", Default: "5", Description: "Number of words in a sentence"},
 		},
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			wordCount, err := info.GetInt(m, "wordcount")
 			if err != nil {
 				return nil, err
@@ -91,7 +91,7 @@ func addHipsterLookup() {
 			{Field: "wordcount", Display: "Word Count", Type: "int", Default: "5", Description: "Number of words in a sentence"},
 			{Field: "paragraphseparator", Display: "Paragraph Separator", Type: "string", Default: "<br />", Description: "String value to add between paragraphs"},
 		},
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			paragraphCount, err := info.GetInt(m, "paragraphcount")
 			if err != nil {
 				return nil, err

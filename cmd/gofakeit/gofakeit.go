@@ -58,7 +58,7 @@ func main() {
 	}
 
 	// Set function and params
-	var params map[string][]string
+	params := gofakeit.NewMapParams()
 	paramsLen := len(info.Params)
 	if paramsLen > 0 {
 		for i := 0; i < argsLen; i++ {
@@ -66,24 +66,22 @@ func main() {
 				continue
 			}
 
-			// if params not set make it
-			if params == nil {
-				params = make(map[string][]string)
-			}
-
 			// Map argument to param field
 			if paramsLen >= i {
 				p := info.Params[i-1]
 				if strings.Contains(p.Type, "[]") {
-					params[p.Field] = strings.Split(args[i], ",")
+					args := strings.Split(args[i], ",")
+					for _, arg := range args {
+						params.Add(p.Field, arg)
+					}
 				} else {
-					params[p.Field] = []string{args[i]}
+					params.Add(p.Field, args[i])
 				}
 			}
 		}
 	}
 
-	value, err := info.Call(faker.Rand, &params, info)
+	value, err := info.Call(faker.Rand, params, info)
 	if err != nil {
 		fmt.Println(err.Error())
 		return

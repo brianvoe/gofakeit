@@ -165,21 +165,17 @@ func TestJSONLookup(t *testing.T) {
 	faker := New(0)
 	info := GetFuncLookup("json")
 
-	m := map[string][]string{
-		"type":     {"array"},
-		"rowcount": {"10"},
-		"fields": {
-			`{"name":"id","function":"autoincrement"}`,
-			`{"name":"first_name","function":"firstname"}`,
-			`{"name":"password","function":"password","params":{"special":["false"],"length":["20"]}}`,
-		},
-	}
-	_, err := info.Call(faker.Rand, &m, info)
+	m := NewMapParams()
+	m.Add("type", "array")
+	m.Add("rowcount", "10")
+	m.Add("fields", `{"name":"id","function":"autoincrement"}`)
+	m.Add("fields", `{"name":"first_name","function":"firstname"}`)
+	m.Add("fields", `{"name":"password","function":"password","params":{"special":["false"],"length":["20"]}}`)
+
+	_, err := info.Call(faker.Rand, m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
-
-	// t.Fatal(fmt.Sprintf("%s", value.([]byte)))
 }
 
 func BenchmarkJSONLookup100(b *testing.B) {
@@ -187,19 +183,18 @@ func BenchmarkJSONLookup100(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("json")
-		m := map[string][]string{
-			"type":     {"array"},
-			"rowcount": {"100"},
-			"fields": {
-				`{"name":"id","function":"autoincrement"}`,
-				`{"name":"first_name","function":"firstname"}`,
-				`{"name":"last_name","function":"lastname"}`,
-				`{"name":"password","function":"password"}`,
-				`{"name":"description","function":"paragraph"}`,
-				`{"name":"created_at","function":"date"}`,
-			},
-		}
-		_, err := info.Call(faker.Rand, &m, info)
+
+		m := NewMapParams()
+		m.Add("type", "array")
+		m.Add("rowcount", "100")
+		m.Add("fields", `{"name":"id","function":"autoincrement"}`)
+		m.Add("fields", `{"name":"first_name","function":"firstname"}`)
+		m.Add("fields", `{"name":"last_name","function":"lastname"}`)
+		m.Add("fields", `{"name":"password","function":"password"}`)
+		m.Add("fields", `{"name":"description","function":"paragraph"}`)
+		m.Add("fields", `{"name":"created_at","function":"date"}`)
+
+		_, err := info.Call(faker.Rand, m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
@@ -211,7 +206,7 @@ func BenchmarkJSONLookup1000(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("json")
-		m := map[string][]string{
+		m := MapParams{
 			"type":     {"array"},
 			"rowcount": {"1000"},
 			"fields": {
@@ -235,7 +230,7 @@ func BenchmarkJSONLookup10000(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("json")
-		m := map[string][]string{
+		m := MapParams{
 			"type":     {"array"},
 			"rowcount": {"10000"},
 			"fields": {
@@ -259,7 +254,7 @@ func BenchmarkJSONLookup100000(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("json")
-		m := map[string][]string{
+		m := MapParams{
 			"type":     {"array"},
 			"rowcount": {"100000"},
 			"fields": {

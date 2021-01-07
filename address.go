@@ -221,7 +221,7 @@ func addAddressLookup() {
 			longitude: "89.022594"
 		}`,
 		Output: "map[string]interface",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return address(r), nil
 		},
 	})
@@ -232,7 +232,7 @@ func addAddressLookup() {
 		Description: "Random city",
 		Example:     "Marcelside",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return city(r), nil
 		},
 	})
@@ -243,7 +243,7 @@ func addAddressLookup() {
 		Description: "Random country",
 		Example:     "United States of America",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return country(r), nil
 		},
 	})
@@ -254,7 +254,7 @@ func addAddressLookup() {
 		Description: "Random 2 digit country abbreviation",
 		Example:     "US",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return countryAbr(r), nil
 		},
 	})
@@ -265,7 +265,7 @@ func addAddressLookup() {
 		Description: "Random state",
 		Example:     "Illinois",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return state(r), nil
 		},
 	})
@@ -276,7 +276,7 @@ func addAddressLookup() {
 		Description: "Random 2 digit state abbreviation",
 		Example:     "IL",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return stateAbr(r), nil
 		},
 	})
@@ -287,7 +287,7 @@ func addAddressLookup() {
 		Description: "Random full street",
 		Example:     "364 East Rapidsborough",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return street(r), nil
 		},
 	})
@@ -298,7 +298,7 @@ func addAddressLookup() {
 		Description: "Random street name",
 		Example:     "View",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return streetName(r), nil
 		},
 	})
@@ -309,7 +309,7 @@ func addAddressLookup() {
 		Description: "Random street number",
 		Example:     "13645",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return streetNumber(r), nil
 		},
 	})
@@ -320,7 +320,7 @@ func addAddressLookup() {
 		Description: "Random street prefix",
 		Example:     "Lake",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return streetPrefix(r), nil
 		},
 	})
@@ -331,7 +331,7 @@ func addAddressLookup() {
 		Description: "Random street suffix",
 		Example:     "land",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return streetSuffix(r), nil
 		},
 	})
@@ -342,7 +342,7 @@ func addAddressLookup() {
 		Description: "Random street zip",
 		Example:     "13645",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return zip(r), nil
 		},
 	})
@@ -353,7 +353,7 @@ func addAddressLookup() {
 		Description: "Random latitude",
 		Example:     "-73.534056",
 		Output:      "float",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return latitude(r), nil
 		},
 	})
@@ -368,7 +368,7 @@ func addAddressLookup() {
 			{Field: "min", Display: "Min", Type: "float", Default: "0", Description: "Minimum range"},
 			{Field: "max", Display: "Max", Type: "float", Default: "90", Description: "Maximum range"},
 		},
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			min, err := info.GetFloat64(m, "min")
 			if err != nil {
 				return nil, err
@@ -394,7 +394,7 @@ func addAddressLookup() {
 		Description: "Random longitude",
 		Example:     "-147.068112",
 		Output:      "float",
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return longitude(r), nil
 		},
 	})
@@ -409,7 +409,7 @@ func addAddressLookup() {
 			{Field: "min", Display: "Min", Type: "float", Default: "0", Description: "Minimum range"},
 			{Field: "max", Display: "Max", Type: "float", Default: "180", Description: "Maximum range"},
 		},
-		Call: func(r *rand.Rand, m *map[string][]string, info *Info) (interface{}, error) {
+		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			min, err := info.GetFloat64(m, "min")
 			if err != nil {
 				return nil, err
