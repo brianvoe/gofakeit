@@ -11,7 +11,7 @@ import (
 var FuncLookups map[string]Info
 var lockFuncLookups sync.Mutex
 
-// MapParams is the values to pass into a lookup call
+// MapParams is the values to pass into a lookup generate
 type MapParams map[string][]string
 
 // Info structures fields to better break down what each one generates
@@ -23,7 +23,7 @@ type Info struct {
 	Output      string                                                            `json:"output"`
 	Data        map[string]string                                                 `json:"-"`
 	Params      []Param                                                           `json:"params"`
-	Call        func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) `json:"-"`
+	Generate    func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) `json:"-"`
 }
 
 // Param is a breakdown of param requirements and type definition

@@ -83,7 +83,7 @@ func generate(r *rand.Rand, dataVal string) string {
 			}
 
 			// Call function
-			fValue, err := info.Call(r, &mapParams, info)
+			fValue, err := info.Generate(r, &mapParams, info)
 			if err != nil {
 				// If we came across an error just dont replace value
 				dataVal = strings.Replace(dataVal, "{"+fParts+"}", err.Error(), 1)
@@ -305,7 +305,7 @@ func addGenerateLookup() {
 		Params: []Param{
 			{Field: "str", Display: "String", Type: "string", Description: "String value to generate from"},
 		},
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			str, err := info.GetString(m, "str")
 			if err != nil {
 				return nil, err
@@ -329,7 +329,7 @@ func addGenerateLookup() {
 		Params: []Param{
 			{Field: "str", Display: "String", Type: "string", Description: "Regex RE2 syntax string"},
 		},
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			str, err := info.GetString(m, "str")
 			if err != nil {
 				return nil, err

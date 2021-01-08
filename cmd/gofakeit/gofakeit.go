@@ -81,7 +81,7 @@ func main() {
 		}
 	}
 
-	value, err := info.Call(faker.Rand, params, info)
+	value, err := info.Generate(faker.Rand, params, info)
 	if err != nil {
 		fmt.Println(err.Error())
 		return

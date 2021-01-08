@@ -172,7 +172,7 @@ func TestCreditCardNumberLookup(t *testing.T) {
 	m := NewMapParams()
 	m.Add("gaps", "true")
 
-	_, err := info.Call(faker.Rand, m, info)
+	_, err := info.Generate(faker.Rand, m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}

@@ -189,7 +189,7 @@ func addWordLookup() {
 		Description: "Random noun",
 		Example:     "foot",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return noun(r), nil
 		},
 	})
@@ -200,7 +200,7 @@ func addWordLookup() {
 		Description: "Random verb",
 		Example:     "release",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return verb(r), nil
 		},
 	})
@@ -211,7 +211,7 @@ func addWordLookup() {
 		Description: "Random adverb",
 		Example:     "smoothly",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return adverb(r), nil
 		},
 	})
@@ -222,7 +222,7 @@ func addWordLookup() {
 		Description: "Random preposition",
 		Example:     "down",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return preposition(r), nil
 		},
 	})
@@ -233,7 +233,7 @@ func addWordLookup() {
 		Description: "Random adjective",
 		Example:     "genuine",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return adjective(r), nil
 		},
 	})
@@ -244,7 +244,7 @@ func addWordLookup() {
 		Description: "Random word",
 		Example:     "man",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return word(r), nil
 		},
 	})
@@ -258,7 +258,7 @@ func addWordLookup() {
 		Params: []Param{
 			{Field: "wordcount", Display: "Word Count", Type: "int", Default: "5", Description: "Number of words in a sentence"},
 		},
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			wordCount, err := info.GetInt(m, "wordcount")
 			if err != nil {
 				return nil, err
@@ -283,7 +283,7 @@ func addWordLookup() {
 			{Field: "wordcount", Display: "Word Count", Type: "int", Default: "5", Description: "Number of words in a sentence"},
 			{Field: "paragraphseparator", Display: "Paragraph Separator", Type: "string", Default: "<br />", Description: "String value to add between paragraphs"},
 		},
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			paragraphCount, err := info.GetInt(m, "paragraphcount")
 			if err != nil {
 				return nil, err
@@ -323,7 +323,7 @@ func addWordLookup() {
 		Description: "Random question",
 		Example:     "Roof chia echo?",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return question(r), nil
 		},
 	})
@@ -334,7 +334,7 @@ func addWordLookup() {
 		Description: "Random quote",
 		Example:     `"Roof chia echo." - Lura Lockman`,
 		Output:      "string",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return quote(r), nil
 		},
 	})
@@ -345,7 +345,7 @@ func addWordLookup() {
 		Description: "Random phrase",
 		Example:     "time will tell",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return phrase(r), nil
 		},
 	})

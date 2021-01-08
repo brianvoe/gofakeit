@@ -15,7 +15,7 @@ func Example_custom() {
 		Description: "Random friend name",
 		Example:     "bill",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return RandomString([]string{"bill", "bob", "sally"}), nil
 		},
 	})
@@ -42,7 +42,7 @@ func Example_custom_with_params() {
 		Params: []Param{
 			{Field: "word", Type: "int", Description: "Word you want to jumble"},
 		},
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			word, err := info.GetString(m, "word")
 			if err != nil {
 				return nil, err
@@ -112,7 +112,7 @@ func TestLookupChecking(t *testing.T) {
 			}
 		}
 
-		_, err := info.Call(faker.Rand, &mapData, &info)
+		_, err := info.Generate(faker.Rand, &mapData, &info)
 		if err != nil {
 			t.Fatalf("%s failed - Err: %s - Data: %v", field, err, mapData)
 		}
@@ -160,7 +160,7 @@ func TestLookupRemove(t *testing.T) {
 		Description: "Random friend name",
 		Example:     "bill",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return RandomString([]string{"bill", "bob", "sally"}), nil
 		},
 	})
@@ -228,7 +228,7 @@ func TestLookupCalls(t *testing.T) {
 			}
 		}
 
-		_, err := info.Call(faker.Rand, &mapData, &info)
+		_, err := info.Generate(faker.Rand, &mapData, &info)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -320,7 +320,7 @@ func TestLookupCallsErrorParams(t *testing.T) {
 			}
 
 			if !skip {
-				_, err := info.Call(faker.Rand, mapData, &info)
+				_, err := info.Generate(faker.Rand, mapData, &info)
 				if err == nil {
 					t.Error(funcName+" should have failed on param", currentEmptyParam)
 				}

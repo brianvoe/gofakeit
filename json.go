@@ -89,7 +89,7 @@ func jsonFunc(r *rand.Rand, jo *JSONOptions) ([]byte, error) {
 			}
 
 			// Call function value
-			value, err := funcInfo.Call(r, &field.Params, funcInfo)
+			value, err := funcInfo.Generate(r, &field.Params, funcInfo)
 			if err != nil {
 				return nil, err
 			}
@@ -133,7 +133,7 @@ func jsonFunc(r *rand.Rand, jo *JSONOptions) ([]byte, error) {
 				}
 
 				// Call function value
-				value, err := funcInfo.Call(r, &field.Params, funcInfo)
+				value, err := funcInfo.Generate(r, &field.Params, funcInfo)
 				if err != nil {
 					return nil, err
 				}
@@ -174,7 +174,7 @@ func addFileJSONLookup() {
 			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function to run in json format"},
 			{Field: "indent", Display: "Indent", Type: "bool", Default: "false", Description: "Whether or not to add indents and newlines"},
 		},
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			jo := JSONOptions{}
 
 			typ, err := info.GetString(m, "type")

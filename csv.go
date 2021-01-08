@@ -73,7 +73,7 @@ func csvFunc(r *rand.Rand, co *CSVOptions) ([]byte, error) {
 				return nil, errors.New("Invalid function, " + field.Function + " does not exist")
 			}
 
-			value, err := funcInfo.Call(r, &field.Params, funcInfo)
+			value, err := funcInfo.Generate(r, &field.Params, funcInfo)
 			if err != nil {
 				return nil, err
 			}
@@ -109,7 +109,7 @@ func addFileCSVLookup() {
 			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function to run in json format"},
 			{Field: "delimiter", Display: "Delimiter", Type: "string", Default: ",", Description: "Separator in between row values"},
 		},
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			co := CSVOptions{}
 
 			rowcount, err := info.GetInt(m, "rowcount")

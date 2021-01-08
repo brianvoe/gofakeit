@@ -66,7 +66,7 @@ func TestCSVLookup(t *testing.T) {
 			`{"name":"password","function":"password","params":{"special":["false"],"length":["20"]}}`,
 		},
 	}
-	_, err := info.Call(faker.Rand, &m, info)
+	_, err := info.Generate(faker.Rand, &m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -90,7 +90,7 @@ func BenchmarkCSVLookup100(b *testing.B) {
 				`{"name":"created_at","function":"date"}`,
 			},
 		}
-		_, err := info.Call(faker.Rand, &m, info)
+		_, err := info.Generate(faker.Rand, &m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
@@ -113,7 +113,7 @@ func BenchmarkCSVLookup1000(b *testing.B) {
 				`{"name":"created_at","function":"date"}`,
 			},
 		}
-		_, err := info.Call(faker.Rand, &m, info)
+		_, err := info.Generate(faker.Rand, &m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
@@ -136,7 +136,7 @@ func BenchmarkCSVLookup10000(b *testing.B) {
 				`{"name":"created_at","function":"date"}`,
 			},
 		}
-		_, err := info.Call(faker.Rand, &m, info)
+		_, err := info.Generate(faker.Rand, &m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
@@ -159,7 +159,7 @@ func BenchmarkCSVLookup100000(b *testing.B) {
 				`{"name":"created_at","function":"date"}`,
 			},
 		}
-		_, err := info.Call(faker.Rand, &m, info)
+		_, err := info.Generate(faker.Rand, &m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}

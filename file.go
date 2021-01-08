@@ -25,7 +25,7 @@ func addFileLookup() {
 		Description: "Random file extension",
 		Example:     "nes",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return fileExtension(r), nil
 		},
 	})
@@ -36,7 +36,7 @@ func addFileLookup() {
 		Description: "Random file mime type",
 		Example:     "application/json",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return fileMimeType(r), nil
 		},
 	})

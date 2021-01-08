@@ -82,8 +82,8 @@ func lookupGet(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	// Call method to generate requested data
-	data, err := info.Call(faker.Rand, m, info)
+	// Generate requested data
+	data, err := info.Generate(faker.Rand, m, info)
 	if err != nil {
 		badrequest(w, err.Error())
 		return
@@ -148,8 +148,8 @@ func lookupPost(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	// Call method to generate requested data
-	data, err := info.Call(faker.Rand, mapString, info)
+	// Generate requested data
+	data, err := info.Generate(faker.Rand, mapString, info)
 	if err != nil {
 		badrequest(w, err.Error())
 		return

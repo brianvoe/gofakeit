@@ -226,7 +226,7 @@ func addPersonLookup() {
 			}
 		}`,
 		Output: "map[string]interface",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return person(r), nil
 		},
 	})
@@ -237,7 +237,7 @@ func addPersonLookup() {
 		Description: "Random name",
 		Example:     "Markus Moen",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return name(r), nil
 		},
 	})
@@ -248,7 +248,7 @@ func addPersonLookup() {
 		Description: "Random name prefix",
 		Example:     "Mr.",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return namePrefix(r), nil
 		},
 	})
@@ -259,7 +259,7 @@ func addPersonLookup() {
 		Description: "Random name suffix",
 		Example:     "Jr.",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return nameSuffix(r), nil
 		},
 	})
@@ -270,7 +270,7 @@ func addPersonLookup() {
 		Description: "Random first name",
 		Example:     "Markus",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return firstName(r), nil
 		},
 	})
@@ -281,7 +281,7 @@ func addPersonLookup() {
 		Description: "Random last name",
 		Example:     "Daniel",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return lastName(r), nil
 		},
 	})
@@ -292,7 +292,7 @@ func addPersonLookup() {
 		Description: "Random gender",
 		Example:     "male",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return gender(r), nil
 		},
 	})
@@ -303,7 +303,7 @@ func addPersonLookup() {
 		Description: "Random social security number",
 		Example:     "296446360",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return ssn(r), nil
 		},
 	})
@@ -314,7 +314,7 @@ func addPersonLookup() {
 		Description: "Random email",
 		Example:     "markusmoen@pagac.net",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return email(r), nil
 		},
 	})
@@ -325,7 +325,7 @@ func addPersonLookup() {
 		Description: "Random phone number",
 		Example:     "6136459948",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return phone(r), nil
 		},
 	})
@@ -336,7 +336,7 @@ func addPersonLookup() {
 		Description: "Random formatted phone number",
 		Example:     "136-459-9489",
 		Output:      "string",
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return phoneFormatted(r), nil
 		},
 	})
@@ -351,7 +351,7 @@ func addPersonLookup() {
 			{Field: "people", Display: "Strings", Type: "[]string", Description: "Array of people"},
 			{Field: "teams", Display: "Strings", Type: "[]string", Description: "Array of teams"},
 		},
-		Call: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			people, err := info.GetStringArray(m, "people")
 			if err != nil {
 				return nil, err
