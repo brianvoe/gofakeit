@@ -11,10 +11,34 @@ func ExampleLanguage() {
 	// Output: Kazakh
 }
 
+func ExampleFaker_Language() {
+	f := New(11)
+	fmt.Println(f.Language())
+	// Output: Kazakh
+}
+
 func BenchmarkLanguage(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		Language()
-	}
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			Language()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.Language()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.Language()
+		}
+	})
 }
 
 func ExampleLanguageAbbreviation() {
@@ -23,10 +47,34 @@ func ExampleLanguageAbbreviation() {
 	// Output: kk
 }
 
+func ExampleFaker_LanguageAbbreviation() {
+	f := New(11)
+	fmt.Println(f.LanguageAbbreviation())
+	// Output: kk
+}
+
 func BenchmarkLanguageAbbreviation(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		LanguageAbbreviation()
-	}
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			LanguageAbbreviation()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.LanguageAbbreviation()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.LanguageAbbreviation()
+		}
+	})
 }
 
 func ExampleProgrammingLanguage() {
@@ -35,10 +83,34 @@ func ExampleProgrammingLanguage() {
 	// Output: Go
 }
 
+func ExampleFaker_ProgrammingLanguage() {
+	f := New(464)
+	fmt.Println(f.ProgrammingLanguage())
+	// Output: Go
+}
+
 func BenchmarkProgrammingLanguage(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		ProgrammingLanguage()
-	}
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			ProgrammingLanguage()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.ProgrammingLanguage()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.ProgrammingLanguage()
+		}
+	})
 }
 
 func ExampleProgrammingLanguageBest() {
@@ -47,8 +119,32 @@ func ExampleProgrammingLanguageBest() {
 	// Output: Go
 }
 
+func ExampleFaker_ProgrammingLanguageBest() {
+	f := New(11)
+	fmt.Println(f.ProgrammingLanguageBest())
+	// Output: Go
+}
+
 func BenchmarkProgrammingLanguageBest(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		ProgrammingLanguageBest()
-	}
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			ProgrammingLanguageBest()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.ProgrammingLanguageBest()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.ProgrammingLanguageBest()
+		}
+	})
 }

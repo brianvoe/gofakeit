@@ -7,8 +7,10 @@ Random data generator written in go
 
 ## Features
 - [160+ Functions!!!](#functions)
-- [Struct Generator](#example-struct)
-- [Custom Functions](#example-custom-functions)
+- [Concurrent](#concurrent-struct)
+- [Global Rand](#global-rand-set)
+- [Struct Generator](#struct)
+- [Custom Functions](#custom-functions)
 - [Http Server](https://github.com/brianvoe/gofakeit/tree/master/cmd/gofakeitserver)
 - [Command Line Tool](https://github.com/brianvoe/gofakeit/tree/master/cmd/gofakeit)
 - Zero dependencies
@@ -17,12 +19,12 @@ Random data generator written in go
 
 ## Installation
 ```go
-go get github.com/brianvoe/gofakeit/v5
+go get github.com/brianvoe/gofakeit/v6
 ```
 
-## Example
+## Simple Usage
 ```go
-import "github.com/brianvoe/gofakeit/v5"
+import "github.com/brianvoe/gofakeit/v6"
 
 gofakeit.Seed(0)
 
@@ -40,9 +42,40 @@ gofakeit.CurrencyShort()    // USD
 // See full list below
 ```
 
-## Example Struct
+## Concurrent Struct
+If you need to have independent randomization for the purposes of cuncurrency
 ```go
-import "github.com/brianvoe/gofakeit/v5"
+import "github.com/brianvoe/gofakeit/v6"
+
+faker := New(0) // or NewCrypto() to use crypto/rand
+
+faker.Name()             // Markus Moen
+faker.Email()            // alaynawuckert@kozey.biz
+faker.Phone()            // (570)245-7485
+faker.BS()               // front-end
+faker.BeerName()         // Duvel
+faker.Color()            // MediumOrchid
+faker.Company()          // Moen, Pagac and Wuckert
+faker.CreditCardNumber() // 4287271570245748
+faker.HackerPhrase()     // Connecting the array won't do anything, we need to generate the haptic COM driver!
+faker.JobTitle()         // Director
+faker.CurrencyShort()    // USD
+// See full list below
+```
+
+## Global Rand Set
+If you would like to use the simple function call but need to use something like
+crypto/rand you can override the default global with the type you want
+```go
+import "github.com/brianvoe/gofakeit/v6"
+
+faker := NewCrypto()
+SetGlobalFaker(faker)
+```
+
+## Struct
+```go
+import "github.com/brianvoe/gofakeit/v6"
 
 // Create structs with random injected data
 type Foo struct {
@@ -81,7 +114,7 @@ fmt.Println(fb.Foos)      // [{blmfxy -2585154718894894116 0xc000317bc0 Emmy Att
 
 ```
 
-## Example Custom Functions
+## Custom Functions
 ```go
 // Simple
 AddFuncLookup("friendname", Info{
@@ -89,7 +122,7 @@ AddFuncLookup("friendname", Info{
 	Description: "Random friend name",
 	Example:     "bill",
 	Output:      "string",
-	Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+	Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 		return RandomString([]string{"bill", "bob", "sally"}), nil
 	},
 })
@@ -103,7 +136,7 @@ AddFuncLookup("jumbleword", Info{
 	Params: []Param{
 		{Field: "word", Type: "int", Description: "Word you want to jumble"},
 	},
-	Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+	Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 		word, err := info.GetString(m, "word")
 		if err != nil {
 			return nil, err
@@ -127,6 +160,7 @@ fmt.Printf("%s", f.JumbleWord) // loredlowlh
 ```
 
 ## Functions
+All functions also exist as methods on the Faker struct
 ### File
 ```go
 JSON(jo *JSONOptions) []byte

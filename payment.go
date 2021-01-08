@@ -2,12 +2,12 @@ package gofakeit
 
 import (
 	"math"
-	"math/rand"
+	rand "math/rand"
 	"strconv"
 	"strings"
 	"time"
 
-	"github.com/brianvoe/gofakeit/v5/data"
+	"github.com/brianvoe/gofakeit/v6/data"
 )
 
 // CurrencyInfo is a struct of currency information
@@ -17,8 +17,13 @@ type CurrencyInfo struct {
 }
 
 // Currency will generate a struct with random currency information
-func Currency() *CurrencyInfo {
-	index := rand.Intn(len(data.Data["currency"]["short"]))
+func Currency() *CurrencyInfo { return currency(globalFaker.Rand) }
+
+// Currency will generate a struct with random currency information
+func (f *Faker) Currency() *CurrencyInfo { return currency(f.Rand) }
+
+func currency(r *rand.Rand) *CurrencyInfo {
+	index := r.Intn(len(data.Data["currency"]["short"]))
 	return &CurrencyInfo{
 		Short: data.Data["currency"]["short"][index],
 		Long:  data.Data["currency"]["long"][index],
@@ -26,18 +31,29 @@ func Currency() *CurrencyInfo {
 }
 
 // CurrencyShort will generate a random short currency value
-func CurrencyShort() string {
-	return getRandValue([]string{"currency", "short"})
-}
+func CurrencyShort() string { return currencyShort(globalFaker.Rand) }
+
+// CurrencyShort will generate a random short currency value
+func (f *Faker) CurrencyShort() string { return currencyShort(f.Rand) }
+
+func currencyShort(r *rand.Rand) string { return getRandValue(r, []string{"currency", "short"}) }
 
 // CurrencyLong will generate a random long currency name
-func CurrencyLong() string {
-	return getRandValue([]string{"currency", "long"})
-}
+func CurrencyLong() string { return currencyLong(globalFaker.Rand) }
+
+// CurrencyLong will generate a random long currency name
+func (f *Faker) CurrencyLong() string { return currencyLong(f.Rand) }
+
+func currencyLong(r *rand.Rand) string { return getRandValue(r, []string{"currency", "long"}) }
 
 // Price will take in a min and max value and return a formatted price
-func Price(min, max float64) float64 {
-	return math.Floor(randFloat64Range(min, max)*100) / 100
+func Price(min, max float64) float64 { return price(globalFaker.Rand, min, max) }
+
+// Price will take in a min and max value and return a formatted price
+func (f *Faker) Price(min, max float64) float64 { return price(f.Rand, min, max) }
+
+func price(r *rand.Rand, min, max float64) float64 {
+	return math.Floor(float64Range(r, min, max)*100) / 100
 }
 
 // CreditCardInfo is a struct containing credit variables
@@ -49,19 +65,29 @@ type CreditCardInfo struct {
 }
 
 // CreditCard will generate a struct full of credit card information
-func CreditCard() *CreditCardInfo {
-	ccType := RandomString(data.CreditCardTypes)
+func CreditCard() *CreditCardInfo { return creditCard(globalFaker.Rand) }
+
+// CreditCard will generate a struct full of credit card information
+func (f *Faker) CreditCard() *CreditCardInfo { return creditCard(f.Rand) }
+
+func creditCard(r *rand.Rand) *CreditCardInfo {
+	ccType := randomString(r, data.CreditCardTypes)
 	return &CreditCardInfo{
-		Type:   data.CreditCards[RandomString(data.CreditCardTypes)].Display,
-		Number: CreditCardNumber(&CreditCardOptions{Types: []string{ccType}}),
-		Exp:    CreditCardExp(),
-		Cvv:    Generate(strings.Repeat("#", int(data.CreditCards[RandomString(data.CreditCardTypes)].Code.Size))),
+		Type:   data.CreditCards[randomString(r, data.CreditCardTypes)].Display,
+		Number: creditCardNumber(r, &CreditCardOptions{Types: []string{ccType}}),
+		Exp:    creditCardExp(r),
+		Cvv:    generate(r, strings.Repeat("#", int(data.CreditCards[randomString(r, data.CreditCardTypes)].Code.Size))),
 	}
 }
 
 // CreditCardType will generate a random credit card type string
-func CreditCardType() string {
-	return data.CreditCards[RandomString(data.CreditCardTypes)].Display
+func CreditCardType() string { return creditCardType(globalFaker.Rand) }
+
+// CreditCardType will generate a random credit card type string
+func (f *Faker) CreditCardType() string { return creditCardType(f.Rand) }
+
+func creditCardType(r *rand.Rand) string {
+	return data.CreditCards[randomString(r, data.CreditCardTypes)].Display
 }
 
 // CreditCardOptions is the options for credit card number
@@ -72,34 +98,39 @@ type CreditCardOptions struct {
 }
 
 // CreditCardNumber will generate a random luhn credit card number
-func CreditCardNumber(cco *CreditCardOptions) string {
+func CreditCardNumber(cco *CreditCardOptions) string { return creditCardNumber(globalFaker.Rand, cco) }
+
+// CreditCardNumber will generate a random luhn credit card number
+func (f *Faker) CreditCardNumber(cco *CreditCardOptions) string { return creditCardNumber(f.Rand, cco) }
+
+func creditCardNumber(r *rand.Rand, cco *CreditCardOptions) string {
 	if cco == nil {
 		cco = &CreditCardOptions{}
 	}
 	if cco.Types == nil || len(cco.Types) == 0 {
 		cco.Types = data.CreditCardTypes
 	}
-	ccType := RandomString(cco.Types)
+	ccType := randomString(r, cco.Types)
 
 	// Get Card info
 	var cardInfo data.CreditCardInfo
 	if info, ok := data.CreditCards[ccType]; ok {
 		cardInfo = info
 	} else {
-		ccType = RandomString(data.CreditCardTypes)
+		ccType = randomString(r, data.CreditCardTypes)
 		cardInfo = data.CreditCards[ccType]
 	}
 
 	// Get length and pattern
-	length := RandomUint(cardInfo.Lengths)
+	length := randomUint(r, cardInfo.Lengths)
 	numStr := ""
 	if len(cco.Bins) >= 1 {
-		numStr = RandomString(cco.Bins)
+		numStr = randomString(r, cco.Bins)
 	} else {
-		numStr = strconv.FormatUint(uint64(RandomUint(cardInfo.Patterns)), 10)
+		numStr = strconv.FormatUint(uint64(randomUint(r, cardInfo.Patterns)), 10)
 	}
 	numStr += strings.Repeat("#", int(length)-len(numStr))
-	numStr = Numerify(numStr)
+	numStr = numerify(r, numStr)
 	ui, _ := strconv.ParseUint(numStr, 10, 64)
 
 	// Loop through until its a valid luhn
@@ -124,21 +155,31 @@ func CreditCardNumber(cco *CreditCardOptions) string {
 
 // CreditCardExp will generate a random credit card expiration date string
 // Exp date will always be a future date
-func CreditCardExp() string {
-	month := strconv.Itoa(randIntRange(1, 12))
+func CreditCardExp() string { return creditCardExp(globalFaker.Rand) }
+
+// CreditCardExp will generate a random credit card expiration date string
+// Exp date will always be a future date
+func (f *Faker) CreditCardExp() string { return creditCardExp(f.Rand) }
+
+func creditCardExp(r *rand.Rand) string {
+	month := strconv.Itoa(randIntRange(r, 1, 12))
 	if len(month) == 1 {
 		month = "0" + month
 	}
 
 	var currentYear = time.Now().Year() - 2000
-	return month + "/" + strconv.Itoa(randIntRange(currentYear+1, currentYear+10))
+	return month + "/" + strconv.Itoa(randIntRange(r, currentYear+1, currentYear+10))
 }
 
 // CreditCardCvv will generate a random CVV number
 // Its a string because you could have 017 as an exp date
-func CreditCardCvv() string {
-	return Numerify("###")
-}
+func CreditCardCvv() string { return creditCardCvv(globalFaker.Rand) }
+
+// CreditCardCvv will generate a random CVV number
+// Its a string because you could have 017 as an exp date
+func (f *Faker) CreditCardCvv() string { return creditCardCvv(f.Rand) }
+
+func creditCardCvv(r *rand.Rand) string { return numerify(r, "###") }
 
 // isLuhn check is used for checking if credit card is a valid luhn card
 func isLuhn(s string) bool {
@@ -159,27 +200,43 @@ func isLuhn(s string) bool {
 }
 
 // AchRouting will generate a 9 digit routing number
-func AchRouting() string {
-	return Numerify("#########")
-}
+func AchRouting() string { return achRouting(globalFaker.Rand) }
+
+// AchRouting will generate a 9 digit routing number
+func (f *Faker) AchRouting() string { return achRouting(f.Rand) }
+
+func achRouting(r *rand.Rand) string { return numerify(r, "#########") }
 
 // AchAccount will generate a 12 digit account number
-func AchAccount() string {
-	return Numerify("############")
-}
+func AchAccount() string { return achAccount(globalFaker.Rand) }
+
+// AchAccount will generate a 12 digit account number
+func (f *Faker) AchAccount() string { return achAccount(f.Rand) }
+
+func achAccount(r *rand.Rand) string { return numerify(r, "############") }
 
 // BitcoinAddress will generate a random bitcoin address consisting of numbers, upper and lower characters
-func BitcoinAddress() string {
-	return RandomString([]string{"1", "3"}) + Password(true, true, true, false, false, Number(25, 34))
+func BitcoinAddress() string { return bitcoinAddress(globalFaker.Rand) }
+
+// BitcoinAddress will generate a random bitcoin address consisting of numbers, upper and lower characters
+func (f *Faker) BitcoinAddress() string { return bitcoinAddress(f.Rand) }
+
+func bitcoinAddress(r *rand.Rand) string {
+	return randomString(r, []string{"1", "3"}) + password(r, true, true, true, false, false, number(r, 25, 34))
 }
 
 // BitcoinPrivateKey will generate a random bitcoin private key base58 consisting of numbers, upper and lower characters
-func BitcoinPrivateKey() string {
+func BitcoinPrivateKey() string { return bitcoinPrivateKey(globalFaker.Rand) }
+
+// BitcoinPrivateKey will generate a random bitcoin private key base58 consisting of numbers, upper and lower characters
+func (f *Faker) BitcoinPrivateKey() string { return bitcoinPrivateKey(f.Rand) }
+
+func bitcoinPrivateKey(r *rand.Rand) string {
 	var b strings.Builder
 	for i := 0; i < 49; i++ {
-		b.WriteString(randCharacter(base58))
+		b.WriteString(randCharacter(r, base58))
 	}
-	return "5" + RandomString([]string{"H", "J", "K"}) + b.String()
+	return "5" + randomString(r, []string{"H", "J", "K"}) + b.String()
 }
 
 func addPaymentLookup() {
@@ -189,8 +246,8 @@ func addPaymentLookup() {
 		Description: "Random currency data set",
 		Example:     `{short: "USD", long: "United States Dollar"}`,
 		Output:      "map[string]string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return CurrencyShort(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return currencyShort(r), nil
 		},
 	})
 
@@ -200,8 +257,8 @@ func addPaymentLookup() {
 		Description: "Random currency abbreviated",
 		Example:     "USD",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return CurrencyShort(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return currencyShort(r), nil
 		},
 	})
 
@@ -211,8 +268,8 @@ func addPaymentLookup() {
 		Description: "Random currency",
 		Example:     "United States Dollar",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return CurrencyLong(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return currencyLong(r), nil
 		},
 	})
 
@@ -226,7 +283,7 @@ func addPaymentLookup() {
 			{Field: "min", Display: "Min", Type: "float", Default: "0", Description: "Minimum price value"},
 			{Field: "max", Display: "Max", Type: "float", Default: "1000", Description: "Maximum price value"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			min, err := info.GetFloat64(m, "min")
 			if err != nil {
 				return nil, err
@@ -237,7 +294,7 @@ func addPaymentLookup() {
 				return nil, err
 			}
 
-			return Price(min, max), nil
+			return price(r, min, max), nil
 		},
 	})
 
@@ -247,8 +304,8 @@ func addPaymentLookup() {
 		Description: "Random credit card data set",
 		Example:     `{type: "Visa", number: "4136459948995369", exp: "01/21", cvv: "513"}`,
 		Output:      "map[string]interface",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return CreditCard(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return creditCard(r), nil
 		},
 	})
 
@@ -258,8 +315,8 @@ func addPaymentLookup() {
 		Description: "Random credit card type",
 		Example:     "Visa",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return CreditCardType(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return creditCardType(r), nil
 		},
 	})
 
@@ -275,10 +332,10 @@ func addPaymentLookup() {
 				Options:     []string{"visa", "mastercard", "american-express", "diners-club", "discover", "jcb", "unionpay", "maestro", "elo", "hiper", "hipercard"},
 				Description: "A select number of types you want to use when generating a credit card number",
 			},
-			{Field: "bins", Display: "Bins", Type: "[]string", Description: "Optional list of prepended bin numbers to pick from"},
+			{Field: "bins", Display: "Bins", Type: "[]string", Optional: true, Description: "Optional list of prepended bin numbers to pick from"},
 			{Field: "gaps", Display: "Gaps", Type: "bool", Default: "false", Description: "Whether or not to have gaps in number"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			types, err := info.GetStringArray(m, "types")
 			if err != nil {
 				return nil, err
@@ -303,7 +360,7 @@ func addPaymentLookup() {
 				options.Bins = bins
 			}
 
-			return CreditCardNumber(&options), nil
+			return creditCardNumber(r, &options), nil
 		},
 	})
 
@@ -313,8 +370,8 @@ func addPaymentLookup() {
 		Description: "Random credit card expiraction date",
 		Example:     "01/21",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return CreditCardExp(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return creditCardExp(r), nil
 		},
 	})
 
@@ -324,8 +381,8 @@ func addPaymentLookup() {
 		Description: "Random credit card number",
 		Example:     "513",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return CreditCardCvv(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return creditCardCvv(r), nil
 		},
 	})
 
@@ -335,8 +392,8 @@ func addPaymentLookup() {
 		Description: "Random 9 digit ach routing number",
 		Example:     "513715684",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return AchRouting(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return achRouting(r), nil
 		},
 	})
 
@@ -346,8 +403,8 @@ func addPaymentLookup() {
 		Description: "Random 12 digit ach account number",
 		Example:     "491527954328",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return AchAccount(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return achAccount(r), nil
 		},
 	})
 
@@ -357,8 +414,8 @@ func addPaymentLookup() {
 		Description: "Random 26-35 characters representing a bitcoin address",
 		Example:     "1lWLbxojXq6BqWX7X60VkcDIvYA",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return BitcoinAddress(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return bitcoinAddress(r), nil
 		},
 	})
 
@@ -368,8 +425,8 @@ func addPaymentLookup() {
 		Description: "Random 51 characters representing a bitcoin private key",
 		Example:     "5vrbXTADWJ6sQBSYd6lLkG97jljNc0X9VPBvbVqsIH9lWOLcoqg",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return BitcoinPrivateKey(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return bitcoinPrivateKey(r), nil
 		},
 	})
 }

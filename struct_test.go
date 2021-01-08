@@ -335,6 +335,36 @@ func Example_struct() {
 	// <nil>
 }
 
+func ExampleFaker_struct() {
+	f := New(11)
+
+	type Foo struct {
+		Bar     string
+		Int     int
+		Pointer *int
+		Name    string  `fake:"{firstname}"`
+		Number  string  `fake:"{number:1,10}"`
+		Skip    *string `fake:"skip"`
+	}
+
+	var foo Foo
+	f.Struct(&foo)
+
+	fmt.Printf("%s\n", foo.Bar)
+	fmt.Printf("%d\n", foo.Int)
+	fmt.Printf("%d\n", *foo.Pointer)
+	fmt.Printf("%v\n", foo.Name)
+	fmt.Printf("%v\n", foo.Number)
+	fmt.Printf("%v\n", foo.Skip)
+
+	// Output: bRMaRxHki
+	// -8576773003117070818
+	// -7054675846543980602
+	// Enrique
+	// 4
+	// <nil>
+}
+
 func Example_array() {
 	Seed(11)
 
@@ -353,6 +383,33 @@ func Example_array() {
 
 	var fm FooMany
 	Struct(&fm)
+
+	fmt.Printf("%v\n", fm.Foos)
+	fmt.Printf("%v\n", fm.Names)
+
+	// Output:
+	// [{bRMaRxHki -8576773003117070818 Carole 6 <nil>}]
+	// [Dawn Zachery Amie]
+}
+
+func ExampleFaker_array() {
+	f := New(11)
+
+	type Foo struct {
+		Bar    string
+		Int    int
+		Name   string  `fake:"{firstname}"`
+		Number string  `fake:"{number:1,10}"`
+		Skip   *string `fake:"skip"`
+	}
+
+	type FooMany struct {
+		Foos  []Foo    `fakesize:"1"`
+		Names []string `fake:"{firstname}" fakesize:"3"`
+	}
+
+	var fm FooMany
+	f.Struct(&fm)
 
 	fmt.Printf("%v\n", fm.Foos)
 	fmt.Printf("%v\n", fm.Names)

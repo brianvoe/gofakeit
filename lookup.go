@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	rand "math/rand"
 	"strconv"
 	"sync"
 )
@@ -10,16 +11,19 @@ import (
 var FuncLookups map[string]Info
 var lockFuncLookups sync.Mutex
 
+// MapParams is the values to pass into a lookup generate
+type MapParams map[string][]string
+
 // Info structures fields to better break down what each one generates
 type Info struct {
-	Display     string                                                        `json:"display"`
-	Category    string                                                        `json:"category"`
-	Description string                                                        `json:"description"`
-	Example     string                                                        `json:"example"`
-	Output      string                                                        `json:"output"`
-	Data        map[string]string                                             `json:"-"`
-	Params      []Param                                                       `json:"params"`
-	Call        func(m *map[string][]string, info *Info) (interface{}, error) `json:"-"`
+	Display     string                                                            `json:"display"`
+	Category    string                                                            `json:"category"`
+	Description string                                                            `json:"description"`
+	Example     string                                                            `json:"example"`
+	Output      string                                                            `json:"output"`
+	Data        map[string]string                                                 `json:"-"`
+	Params      []Param                                                           `json:"params"`
+	Generate    func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) `json:"-"`
 }
 
 // Param is a breakdown of param requirements and type definition
@@ -27,6 +31,7 @@ type Param struct {
 	Field       string   `json:"field"`
 	Display     string   `json:"display"`
 	Type        string   `json:"type"`
+	Optional    bool     `json:"optional"`
 	Default     string   `json:"default"`
 	Options     []string `json:"options"`
 	Description string   `json:"description"`
@@ -34,19 +39,22 @@ type Param struct {
 
 // Field is used for defining what name and function you to generate for file outuputs
 type Field struct {
-	Name     string              `json:"name"`
-	Function string              `json:"function"`
-	Params   map[string][]string `json:"params"`
+	Name     string    `json:"name"`
+	Function string    `json:"function"`
+	Params   MapParams `json:"params"`
 }
 
+func init() { initLookup() }
+
 // init will add all the functions to MapLookups
-func init() {
+func initLookup() {
 	addAuthLookup()
 	addAddressLookup()
 	addBeerLookup()
 	addCarLookup()
 	addPersonLookup()
 	addWordLookup()
+	addLoremLookup()
 	addGenerateLookup()
 	addMiscLookup()
 	addColorLookup()
@@ -69,6 +77,22 @@ func init() {
 	addGameLookup()
 	addFoodLookup()
 	addAppLookup()
+}
+
+// NewMapParams will create a new MapParams
+func NewMapParams() *MapParams {
+	return &MapParams{}
+}
+
+// Add will take in a field and value and add it to the map params type
+func (m *MapParams) Add(field string, value string) {
+	_, ok := (*m)[field]
+	if !ok {
+		(*m)[field] = []string{value}
+		return
+	}
+
+	(*m)[field] = append((*m)[field], value)
 }
 
 // AddFuncLookup takes a field and adds it to map
@@ -105,7 +129,7 @@ func RemoveFuncLookup(functionName string) {
 }
 
 // GetField will retrieve field from data
-func (i *Info) GetField(m *map[string][]string, field string) (*Param, []string, error) {
+func (i *Info) GetField(m *MapParams, field string) (*Param, []string, error) {
 	// Get param
 	var p *Param
 	for _, param := range i.Params {
@@ -122,8 +146,8 @@ func (i *Info) GetField(m *map[string][]string, field string) (*Param, []string,
 	if m != nil {
 		value, ok := (*m)[field]
 		if !ok {
+			// If default isnt empty use default
 			if p.Default != "" {
-				// If default isnt empty use default
 				return p, []string{p.Default}, nil
 			}
 
@@ -140,7 +164,7 @@ func (i *Info) GetField(m *map[string][]string, field string) (*Param, []string,
 }
 
 // GetBool will retrieve boolean field from data
-func (i *Info) GetBool(m *map[string][]string, field string) (bool, error) {
+func (i *Info) GetBool(m *MapParams, field string) (bool, error) {
 	p, value, err := i.GetField(m, field)
 	if err != nil {
 		return false, err
@@ -156,7 +180,7 @@ func (i *Info) GetBool(m *map[string][]string, field string) (bool, error) {
 }
 
 // GetInt will retrieve int field from data
-func (i *Info) GetInt(m *map[string][]string, field string) (int, error) {
+func (i *Info) GetInt(m *MapParams, field string) (int, error) {
 	p, value, err := i.GetField(m, field)
 	if err != nil {
 		return 0, err
@@ -172,7 +196,7 @@ func (i *Info) GetInt(m *map[string][]string, field string) (int, error) {
 }
 
 // GetUint will retrieve uint field from data
-func (i *Info) GetUint(m *map[string][]string, field string) (uint, error) {
+func (i *Info) GetUint(m *MapParams, field string) (uint, error) {
 	p, value, err := i.GetField(m, field)
 	if err != nil {
 		return 0, err
@@ -188,7 +212,7 @@ func (i *Info) GetUint(m *map[string][]string, field string) (uint, error) {
 }
 
 // GetFloat32 will retrieve int field from data
-func (i *Info) GetFloat32(m *map[string][]string, field string) (float32, error) {
+func (i *Info) GetFloat32(m *MapParams, field string) (float32, error) {
 	p, value, err := i.GetField(m, field)
 	if err != nil {
 		return 0, err
@@ -204,7 +228,7 @@ func (i *Info) GetFloat32(m *map[string][]string, field string) (float32, error)
 }
 
 // GetFloat64 will retrieve int field from data
-func (i *Info) GetFloat64(m *map[string][]string, field string) (float64, error) {
+func (i *Info) GetFloat64(m *MapParams, field string) (float64, error) {
 	p, value, err := i.GetField(m, field)
 	if err != nil {
 		return 0, err
@@ -220,7 +244,7 @@ func (i *Info) GetFloat64(m *map[string][]string, field string) (float64, error)
 }
 
 // GetString will retrieve string field from data
-func (i *Info) GetString(m *map[string][]string, field string) (string, error) {
+func (i *Info) GetString(m *MapParams, field string) (string, error) {
 	_, value, err := i.GetField(m, field)
 	if err != nil {
 		return "", err
@@ -230,7 +254,7 @@ func (i *Info) GetString(m *map[string][]string, field string) (string, error) {
 }
 
 // GetStringArray will retrieve []string field from data
-func (i *Info) GetStringArray(m *map[string][]string, field string) ([]string, error) {
+func (i *Info) GetStringArray(m *MapParams, field string) ([]string, error) {
 	_, values, err := i.GetField(m, field)
 	if err != nil {
 		return nil, err
@@ -240,7 +264,7 @@ func (i *Info) GetStringArray(m *map[string][]string, field string) ([]string, e
 }
 
 // GetIntArray will retrieve []int field from data
-func (i *Info) GetIntArray(m *map[string][]string, field string) ([]int, error) {
+func (i *Info) GetIntArray(m *MapParams, field string) ([]int, error) {
 	_, value, err := i.GetField(m, field)
 	if err != nil {
 		return nil, err
