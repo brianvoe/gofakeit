@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	"testing"
 )
 
 func Example() {
@@ -59,6 +60,20 @@ func ExampleNewCrypto() {
 	// Cannot output example as crypto/rand cant be predicted
 }
 
+func TestNewCrypto(t *testing.T) {
+	// Create new crypto faker struct
+	fake := NewCrypto()
+
+	// All global functions are also available in the structs methods
+	name := fake.Name()
+	email := fake.Email()
+	phone := fake.Phone()
+
+	if name == "" || email == "" || phone == "" {
+		t.Error("One of the values was empty")
+	}
+}
+
 type customRand struct{}
 
 func (c *customRand) Seed(seed int64) {}
@@ -83,4 +98,22 @@ func ExampleNewCustom() {
 	// Name: Aaliyah Abbott
 	// Email: aaliyahabbott@abbott.com
 	// Phone: 1000000000
+}
+
+func ExampleSetGlobalFaker(t *testing.T) {
+	cryptoFaker := NewCrypto()
+	SetGlobalFaker(cryptoFaker)
+}
+
+func TestSetGlobalFaker(t *testing.T) {
+	cryptoFaker := NewCrypto()
+	SetGlobalFaker(cryptoFaker)
+
+	name := Name()
+	if name == "" {
+		t.Error("Name was empty")
+	}
+
+	// Set global back to psuedo
+	SetGlobalFaker(New(0))
 }

@@ -188,6 +188,12 @@ func ExampleFaker_FlipACoin() {
 	// Output: Tails
 }
 
+func TestFlipACoin(t *testing.T) {
+	for i := 0; i < 100; i++ {
+		FlipACoin()
+	}
+}
+
 func BenchmarkFlipACoin(b *testing.B) {
 	b.Run("package", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {

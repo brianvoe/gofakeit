@@ -18,6 +18,25 @@ func ExampleFaker_Date() {
 	// Output: 1908-12-07 04:14:25.685339029 +0000 UTC
 }
 
+func TestDateLookup(t *testing.T) {
+	info := GetFuncLookup("date")
+	for _, o := range info.Params[0].Options {
+		mapParams := NewMapParams()
+		mapParams.Add("format", o)
+		val, _ := info.Call(globalFaker.Rand, mapParams, info)
+		if val == "" {
+			t.Error("value was empty")
+		}
+	}
+
+	mapParams := NewMapParams()
+	mapParams.Add("format", "")
+	_, err := info.Call(globalFaker.Rand, mapParams, info)
+	if err == nil {
+		t.Error("should have gotten an error")
+	}
+}
+
 func BenchmarkDate(b *testing.B) {
 	b.Run("package", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {

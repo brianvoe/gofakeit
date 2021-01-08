@@ -543,6 +543,14 @@ func ExampleFaker_RandomInt() {
 	// Output: 52
 }
 
+func TestRandomInt(t *testing.T) {
+	ints := []int{}
+	RandomInt(ints)
+
+	ints = []int{1}
+	RandomInt(ints)
+}
+
 func BenchmarkRandomInt(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		RandomInt([]int{52, 854, 941, 74125, 8413, 777, 89416, 841657})
@@ -563,6 +571,14 @@ func ExampleFaker_RandomUint() {
 	ints := []uint{52, 854, 941, 74125, 8413, 777, 89416, 841657}
 	fmt.Println(f.RandomUint(ints))
 	// Output: 52
+}
+
+func TestRandomUint(t *testing.T) {
+	ints := []uint{}
+	RandomUint(ints)
+
+	ints = []uint{1}
+	RandomUint(ints)
 }
 
 func BenchmarkRandomUint(b *testing.B) {

@@ -71,7 +71,7 @@ func CreditCard() *CreditCardInfo { return creditCard(globalFaker.Rand) }
 func (f *Faker) CreditCard() *CreditCardInfo { return creditCard(f.Rand) }
 
 func creditCard(r *rand.Rand) *CreditCardInfo {
-	ccType := RandomString(data.CreditCardTypes)
+	ccType := randomString(r, data.CreditCardTypes)
 	return &CreditCardInfo{
 		Type:   data.CreditCards[randomString(r, data.CreditCardTypes)].Display,
 		Number: creditCardNumber(r, &CreditCardOptions{Types: []string{ccType}}),
@@ -110,27 +110,27 @@ func creditCardNumber(r *rand.Rand, cco *CreditCardOptions) string {
 	if cco.Types == nil || len(cco.Types) == 0 {
 		cco.Types = data.CreditCardTypes
 	}
-	ccType := RandomString(cco.Types)
+	ccType := randomString(r, cco.Types)
 
 	// Get Card info
 	var cardInfo data.CreditCardInfo
 	if info, ok := data.CreditCards[ccType]; ok {
 		cardInfo = info
 	} else {
-		ccType = RandomString(data.CreditCardTypes)
+		ccType = randomString(r, data.CreditCardTypes)
 		cardInfo = data.CreditCards[ccType]
 	}
 
 	// Get length and pattern
-	length := RandomUint(cardInfo.Lengths)
+	length := randomUint(r, cardInfo.Lengths)
 	numStr := ""
 	if len(cco.Bins) >= 1 {
-		numStr = RandomString(cco.Bins)
+		numStr = randomString(r, cco.Bins)
 	} else {
-		numStr = strconv.FormatUint(uint64(RandomUint(cardInfo.Patterns)), 10)
+		numStr = strconv.FormatUint(uint64(randomUint(r, cardInfo.Patterns)), 10)
 	}
 	numStr += strings.Repeat("#", int(length)-len(numStr))
-	numStr = Numerify(numStr)
+	numStr = numerify(r, numStr)
 	ui, _ := strconv.ParseUint(numStr, 10, 64)
 
 	// Loop through until its a valid luhn

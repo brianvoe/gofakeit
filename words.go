@@ -161,7 +161,7 @@ func (f *Faker) Question() string {
 }
 
 func question(r *rand.Rand) string {
-	return strings.Replace(HipsterSentence(Number(3, 10)), ".", "?", 1)
+	return strings.Replace(hipsterSentence(r, number(r, 3, 10)), ".", "?", 1)
 }
 
 // Quote will return a random quote from a random person
@@ -171,7 +171,7 @@ func Quote() string { return quote(globalFaker.Rand) }
 func (f *Faker) Quote() string { return quote(f.Rand) }
 
 func quote(r *rand.Rand) string {
-	return `"` + HipsterSentence(number(r, 3, 10)) + `" - ` + firstName(r) + " " + lastName(r)
+	return `"` + hipsterSentence(r, number(r, 3, 10)) + `" - ` + firstName(r) + " " + lastName(r)
 }
 
 // Phrase will return a random dictionary phrase

@@ -124,7 +124,7 @@ func rString(ra *rand.Rand, t reflect.Type, v reflect.Value, function string) {
 	if function != "" {
 		v.SetString(generate(ra, function))
 	} else {
-		v.SetString(generate(ra, strings.Repeat("?", Number(4, 10))))
+		v.SetString(generate(ra, strings.Repeat("?", number(ra, 4, 10))))
 	}
 }
 
