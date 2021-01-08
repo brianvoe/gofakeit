@@ -5,20 +5,29 @@ import (
 	"math/rand"
 	"reflect"
 
-	"github.com/brianvoe/gofakeit/v5/data"
+	"github.com/brianvoe/gofakeit/v6/data"
 )
 
 // Bool will generate a random boolean value
-func Bool() bool {
-	return randIntRange(0, 1) == 1
-}
+func Bool() bool { return boolFunc(globalFaker.Rand) }
 
-// UUID (version 4) will generate a random unique identifier based upon random nunbers
+// Bool will generate a random boolean value
+func (f *Faker) Bool() bool { return boolFunc(f.Rand) }
+
+func boolFunc(r *rand.Rand) bool { return randIntRange(r, 0, 1) == 1 }
+
+// UUID (version 4) will generate a random unique identifier based upon random numbers
 // Format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-func UUID() string {
+func UUID() string { return uuid(globalFaker.Rand) }
+
+// UUID (version 4) will generate a random unique identifier based upon random numbers
+// Format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+func (f *Faker) UUID() string { return uuid(f.Rand) }
+
+func uuid(r *rand.Rand) string {
 	version := byte(4)
 	uuid := make([]byte, 16)
-	rand.Read(uuid)
+	r.Read(uuid)
 
 	// Set version
 	uuid[6] = (uuid[6] & 0x0f) | (version << 4)
@@ -41,7 +50,13 @@ func UUID() string {
 	return string(buf)
 }
 
-func ShuffleAnySlice(v interface{}) {
+// ShuffleAnySlice takes in a slice and outputs it in a random order
+func ShuffleAnySlice(v interface{}) { shuffleAnySlice(globalFaker.Rand, v) }
+
+// ShuffleAnySlice takes in a slice and outputs it in a random order
+func (f *Faker) ShuffleAnySlice(v interface{}) { shuffleAnySlice(f.Rand, v) }
+
+func shuffleAnySlice(r *rand.Rand, v interface{}) {
 	if v == nil {
 		return
 	}
@@ -68,14 +83,19 @@ func ShuffleAnySlice(v interface{}) {
 	//if size is > int32 probably it will never finish, or ran out of entropy
 	i := n - 1
 	for ; i > 0; i-- {
-		j := int(rand.Int31n(int32(i + 1)))
+		j := int(r.Int31n(int32(i + 1)))
 		swap(i, j)
 	}
 }
 
 // FlipACoin will return a random value of Heads or Tails
-func FlipACoin() string {
-	if Bool() {
+func FlipACoin() string { return flipACoin(globalFaker.Rand) }
+
+// FlipACoin will return a random value of Heads or Tails
+func (f *Faker) FlipACoin() string { return flipACoin(f.Rand) }
+
+func flipACoin(r *rand.Rand) string {
+	if boolFunc(r) {
 		return "Heads"
 	}
 
@@ -102,8 +122,8 @@ func addMiscLookup() {
 		Description: "Random uuid",
 		Example:     "590c1440-9888-45b0-bd51-a817ee07c3f2",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return UUID(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return uuid(r), nil
 		},
 	})
 
@@ -113,8 +133,8 @@ func addMiscLookup() {
 		Description: "Random boolean",
 		Example:     "true",
 		Output:      "bool",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Bool(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return boolFunc(r), nil
 		},
 	})
 
@@ -124,8 +144,8 @@ func addMiscLookup() {
 		Description: "Random Heads or Tails outcome",
 		Example:     "Tails",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return FlipACoin(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return flipACoin(r), nil
 		},
 	})
 }

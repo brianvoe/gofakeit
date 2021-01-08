@@ -12,6 +12,13 @@ func ExampleCurrency() {
 	// Output: IQD - Iraq Dinar
 }
 
+func ExampleFaker_Currency() {
+	f := New(11)
+	currency := f.Currency()
+	fmt.Printf("%s - %s", currency.Short, currency.Long)
+	// Output: IQD - Iraq Dinar
+}
+
 func BenchmarkCurrency(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		Currency()
@@ -21,6 +28,12 @@ func BenchmarkCurrency(b *testing.B) {
 func ExampleCurrencyShort() {
 	Seed(11)
 	fmt.Println(CurrencyShort())
+	// Output: IQD
+}
+
+func ExampleFaker_CurrencyShort() {
+	f := New(11)
+	fmt.Println(f.CurrencyShort())
 	// Output: IQD
 }
 
@@ -36,6 +49,12 @@ func ExampleCurrencyLong() {
 	// Output: Iraq Dinar
 }
 
+func ExampleFaker_CurrencyLong() {
+	f := New(11)
+	fmt.Println(f.CurrencyLong())
+	// Output: Iraq Dinar
+}
+
 func BenchmarkCurrencyLong(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		CurrencyLong()
@@ -45,6 +64,12 @@ func BenchmarkCurrencyLong(b *testing.B) {
 func ExamplePrice() {
 	Seed(11)
 	fmt.Printf("%.2f", Price(0.8618, 1000))
+	// Output: 92.26
+}
+
+func ExampleFaker_Price() {
+	f := New(11)
+	fmt.Printf("%.2f", f.Price(0.8618, 1000))
 	// Output: 92.26
 }
 
@@ -64,7 +89,21 @@ func ExampleCreditCard() {
 	// Output:
 	// UnionPay
 	// 4645994899536906358
-	// 11/21
+	// 11/22
+	// 259
+}
+
+func ExampleFaker_CreditCard() {
+	f := New(11)
+	ccInfo := f.CreditCard()
+	fmt.Println(ccInfo.Type)
+	fmt.Println(ccInfo.Number)
+	fmt.Println(ccInfo.Exp)
+	fmt.Println(ccInfo.Cvv)
+	// Output:
+	// UnionPay
+	// 4645994899536906358
+	// 11/22
 	// 259
 }
 
@@ -77,6 +116,12 @@ func BenchmarkCreditCard(b *testing.B) {
 func ExampleCreditCardType() {
 	Seed(11)
 	fmt.Println(CreditCardType())
+	// Output: Visa
+}
+
+func ExampleFaker_CreditCardType() {
+	f := New(11)
+	fmt.Println(f.CreditCardType())
 	// Output: Visa
 }
 
@@ -99,6 +144,19 @@ func ExampleCreditCardNumber() {
 	// 2131 0889 9822 7212
 }
 
+func ExampleFaker_CreditCardNumber() {
+	f := New(11)
+	fmt.Println(f.CreditCardNumber(nil))
+	fmt.Println(f.CreditCardNumber(&CreditCardOptions{Types: []string{"visa", "discover"}}))
+	fmt.Println(f.CreditCardNumber(&CreditCardOptions{Bins: []string{"4111"}}))
+	fmt.Println(f.CreditCardNumber(&CreditCardOptions{Gaps: true}))
+	// Output:
+	// 4364599489953690649
+	// 6011425914583029
+	// 4111020276132178
+	// 2131 0889 9822 7212
+}
+
 func TestCreditCardNumber(t *testing.T) {
 	for i := 0; i < 100000; i++ {
 		if !isLuhn(CreditCardNumber(nil)) {
@@ -108,12 +166,13 @@ func TestCreditCardNumber(t *testing.T) {
 }
 
 func TestCreditCardNumberLookup(t *testing.T) {
+	faker := New(0)
 	info := GetFuncLookup("creditcardnumber")
 
-	m := map[string][]string{
-		"gaps": {"true"},
-	}
-	_, err := info.Call(&m, info)
+	m := NewMapParams()
+	m.Add("gaps", "true")
+
+	_, err := info.Generate(faker.Rand, m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -142,7 +201,13 @@ func TestIsLuhn(t *testing.T) {
 func ExampleCreditCardExp() {
 	Seed(11)
 	fmt.Println(CreditCardExp())
-	// Output: 01/22
+	// Output: 01/23
+}
+
+func ExampleFaker_CreditCardExp() {
+	f := New(11)
+	fmt.Println(f.CreditCardExp())
+	// Output: 01/23
 }
 
 func BenchmarkCreditCardExp(b *testing.B) {
@@ -154,6 +219,12 @@ func BenchmarkCreditCardExp(b *testing.B) {
 func ExampleCreditCardCvv() {
 	Seed(11)
 	fmt.Println(CreditCardCvv())
+	// Output: 513
+}
+
+func ExampleFaker_CreditCardCvv() {
+	f := New(11)
+	fmt.Println(f.CreditCardCvv())
 	// Output: 513
 }
 
@@ -169,6 +240,12 @@ func ExampleAchRouting() {
 	// Output: 713645994
 }
 
+func ExampleFaker_AchRouting() {
+	f := New(11)
+	fmt.Println(f.AchRouting())
+	// Output: 713645994
+}
+
 func BenchmarkAchRouting(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		AchRouting()
@@ -178,6 +255,12 @@ func BenchmarkAchRouting(b *testing.B) {
 func ExampleAchAccount() {
 	Seed(11)
 	fmt.Println(AchAccount())
+	// Output: 413645994899
+}
+
+func ExampleFaker_AchAccount() {
+	f := New(11)
+	fmt.Println(f.AchAccount())
 	// Output: 413645994899
 }
 
@@ -193,6 +276,12 @@ func ExampleBitcoinAddress() {
 	// Output: 1lWLbxojXq6BqWX7X60VkcDIvYA
 }
 
+func ExampleFaker_BitcoinAddress() {
+	f := New(11)
+	fmt.Println(f.BitcoinAddress())
+	// Output: 1lWLbxojXq6BqWX7X60VkcDIvYA
+}
+
 func BenchmarkBitcoinAddress(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		BitcoinAddress()
@@ -202,6 +291,12 @@ func BenchmarkBitcoinAddress(b *testing.B) {
 func ExampleBitcoinPrivateKey() {
 	Seed(11)
 	fmt.Println(BitcoinPrivateKey())
+	// Output: 5KWjEJ7SnBNJyDjdPUjLuYByYzM9rG1trax8c2NTSBtv7YtR57v
+}
+
+func ExampleFaker_BitcoinPrivateKey() {
+	f := New(11)
+	fmt.Println(f.BitcoinPrivateKey())
 	// Output: 5KWjEJ7SnBNJyDjdPUjLuYByYzM9rG1trax8c2NTSBtv7YtR57v
 }
 

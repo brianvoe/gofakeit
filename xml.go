@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
+	rand "math/rand"
 	"reflect"
 )
 
@@ -127,7 +128,12 @@ func xmlMapLoop(e *xml.Encoder, m *xmlMap) error {
 }
 
 // XML generates an object or an array of objects in json format
-func XML(xo *XMLOptions) ([]byte, error) {
+func XML(xo *XMLOptions) ([]byte, error) { return xmlFunc(globalFaker.Rand, xo) }
+
+// XML generates an object or an array of objects in json format
+func (f *Faker) XML(xo *XMLOptions) ([]byte, error) { return xmlFunc(f.Rand, xo) }
+
+func xmlFunc(r *rand.Rand, xo *XMLOptions) ([]byte, error) {
 	// Check to make sure they passed in a type
 	if xo.Type != "single" && xo.Type != "array" {
 		return nil, errors.New("Invalid type, must be array or object")
@@ -169,7 +175,7 @@ func XML(xo *XMLOptions) ([]byte, error) {
 				return nil, errors.New("Invalid function, " + field.Function + " does not exist")
 			}
 
-			value, err := funcInfo.Call(&field.Params, funcInfo)
+			value, err := funcInfo.Generate(r, &field.Params, funcInfo)
 			if err != nil {
 				return nil, err
 			}
@@ -222,7 +228,7 @@ func XML(xo *XMLOptions) ([]byte, error) {
 					return nil, errors.New("Invalid function, " + field.Function + " does not exist")
 				}
 
-				value, err := funcInfo.Call(&field.Params, funcInfo)
+				value, err := funcInfo.Generate(r, &field.Params, funcInfo)
 				if err != nil {
 					return nil, err
 				}
@@ -278,7 +284,7 @@ func addFileXMLLookup() {
 			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function to run in json format"},
 			{Field: "indent", Display: "Indent", Type: "bool", Default: "false", Description: "Whether or not to add indents and newlines"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			xo := XMLOptions{}
 
 			typ, err := info.GetString(m, "type")
@@ -329,7 +335,7 @@ func addFileXMLLookup() {
 			}
 			xo.Indent = indent
 
-			return XML(&xo)
+			return xmlFunc(r, &xo)
 		},
 	})
 }

@@ -1,1 +1,0 @@
-* Look at [data list](https://github.com/dariusk/corpora/tree/master/data) and see if it makes sense to add that data in or if it seems unncessary.

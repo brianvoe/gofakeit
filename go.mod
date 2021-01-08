@@ -1,3 +1,3 @@
-module github.com/brianvoe/gofakeit/v5
+module github.com/brianvoe/gofakeit/v6
 
-go 1.14
+go 1.15

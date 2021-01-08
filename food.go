@@ -1,44 +1,78 @@
 package gofakeit
 
-import "strings"
+import (
+	"math/rand"
+	"strings"
+)
 
 // Fruit will return a random fruit name
-func Fruit() string {
-	return getRandValue([]string{"food", "fruit"})
-}
+func Fruit() string { return fruit(globalFaker.Rand) }
+
+// Fruit will return a random fruit name
+func (f *Faker) Fruit() string { return fruit(f.Rand) }
+
+func fruit(r *rand.Rand) string { return getRandValue(r, []string{"food", "fruit"}) }
 
 // Vegetable will return a random vegetable name
-func Vegetable() string {
-	return getRandValue([]string{"food", "vegetable"})
-}
+func Vegetable() string { return vegetable(globalFaker.Rand) }
+
+// Vegetable will return a random vegetable name
+func (f *Faker) Vegetable() string { return vegetable(f.Rand) }
+
+func vegetable(r *rand.Rand) string { return getRandValue(r, []string{"food", "vegetable"}) }
 
 // Breakfast will return a random breakfast name
-func Breakfast() string {
-	v := getRandValue([]string{"food", "breakfast"})
+func Breakfast() string { return breakfast(globalFaker.Rand) }
+
+// Breakfast will return a random breakfast name
+func (f *Faker) Breakfast() string { return breakfast(f.Rand) }
+
+func breakfast(r *rand.Rand) string {
+	v := getRandValue(r, []string{"food", "breakfast"})
 	return strings.ToUpper(v[:1]) + v[1:]
 }
 
 // Lunch will return a random lunch name
-func Lunch() string {
-	v := getRandValue([]string{"food", "lunch"})
+func Lunch() string { return lunch(globalFaker.Rand) }
+
+// Lunch will return a random lunch name
+func (f *Faker) Lunch() string { return lunch(f.Rand) }
+
+func lunch(r *rand.Rand) string {
+	v := getRandValue(r, []string{"food", "lunch"})
 	return strings.ToUpper(v[:1]) + v[1:]
 }
 
 // Dinner will return a random dinner name
-func Dinner() string {
-	v := getRandValue([]string{"food", "dinner"})
+func Dinner() string { return dinner(globalFaker.Rand) }
+
+// Dinner will return a random dinner name
+func (f *Faker) Dinner() string { return dinner(f.Rand) }
+
+func dinner(r *rand.Rand) string {
+	v := getRandValue(r, []string{"food", "dinner"})
 	return strings.ToUpper(v[:1]) + v[1:]
 }
 
 // Snack will return a random snack name
-func Snack() string {
-	v := getRandValue([]string{"food", "snack"})
+func Snack() string { return snack(globalFaker.Rand) }
+
+// Snack will return a random snack name
+func (f *Faker) Snack() string { return snack(f.Rand) }
+
+func snack(r *rand.Rand) string {
+	v := getRandValue(r, []string{"food", "snack"})
 	return strings.ToUpper(v[:1]) + v[1:]
 }
 
 // Dessert will return a random dessert name
-func Dessert() string {
-	v := getRandValue([]string{"food", "dessert"})
+func Dessert() string { return dessert(globalFaker.Rand) }
+
+// Dessert will return a random dessert name
+func (f *Faker) Dessert() string { return dessert(f.Rand) }
+
+func dessert(r *rand.Rand) string {
+	v := getRandValue(r, []string{"food", "dessert"})
 	return strings.ToUpper(v[:1]) + v[1:]
 }
 
@@ -49,8 +83,8 @@ func addFoodLookup() {
 		Description: "Random fruit",
 		Example:     "Dates",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Fruit(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return fruit(r), nil
 		},
 	})
 
@@ -60,8 +94,8 @@ func addFoodLookup() {
 		Description: "Random vegetable",
 		Example:     "Amaranth Leaves",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Vegetable(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return vegetable(r), nil
 		},
 	})
 
@@ -71,8 +105,8 @@ func addFoodLookup() {
 		Description: "Random breakfast",
 		Example:     "Blueberry banana happy face pancakes",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Breakfast(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return breakfast(r), nil
 		},
 	})
 
@@ -82,8 +116,8 @@ func addFoodLookup() {
 		Description: "Random lunch",
 		Example:     "No bake hersheys bar pie",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Lunch(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return lunch(r), nil
 		},
 	})
 
@@ -93,8 +127,8 @@ func addFoodLookup() {
 		Description: "Random dinner",
 		Example:     "Wild addicting dip",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Dinner(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return dinner(r), nil
 		},
 	})
 
@@ -104,8 +138,8 @@ func addFoodLookup() {
 		Description: "Random snack",
 		Example:     "Hoisin marinated wing pieces",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Snack(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return snack(r), nil
 		},
 	})
 
@@ -115,8 +149,8 @@ func addFoodLookup() {
 		Description: "Random dessert",
 		Example:     "French napoleons",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Dessert(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return dessert(r), nil
 		},
 	})
 }
