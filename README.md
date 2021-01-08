@@ -19,12 +19,12 @@ Random data generator written in go
 
 ## Installation
 ```go
-go get github.com/brianvoe/gofakeit/v5
+go get github.com/brianvoe/gofakeit/v6
 ```
 
 ## Simple Usage
 ```go
-import "github.com/brianvoe/gofakeit/v5"
+import "github.com/brianvoe/gofakeit/v6"
 
 gofakeit.Seed(0)
 
@@ -45,7 +45,7 @@ gofakeit.CurrencyShort()    // USD
 ## Concurrent Struct
 If you need to have independent randomization for the purposes of cuncurrency
 ```go
-import "github.com/brianvoe/gofakeit/v5"
+import "github.com/brianvoe/gofakeit/v6"
 
 faker := New(0) // or NewCrypto() to use crypto/rand
 
@@ -67,7 +67,7 @@ faker.CurrencyShort()    // USD
 If you would like to use the simple function call but need to use something like
 crypto/rand you can override the default global with the type you want
 ```go
-import "github.com/brianvoe/gofakeit/v5"
+import "github.com/brianvoe/gofakeit/v6"
 
 faker := NewCrypto()
 SetGlobalFaker(faker)
@@ -75,7 +75,7 @@ SetGlobalFaker(faker)
 
 ## Struct
 ```go
-import "github.com/brianvoe/gofakeit/v5"
+import "github.com/brianvoe/gofakeit/v6"
 
 // Create structs with random injected data
 type Foo struct {

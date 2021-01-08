@@ -10,7 +10,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/brianvoe/gofakeit/v5"
+	"github.com/brianvoe/gofakeit/v6"
 )
 
 var port string

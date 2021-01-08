@@ -8,7 +8,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/brianvoe/gofakeit/v5/data"
+	"github.com/brianvoe/gofakeit/v6/data"
 )
 
 const lowerStr = "abcdefghijklmnopqrstuvwxyz"

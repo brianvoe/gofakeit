@@ -6,7 +6,7 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/brianvoe/gofakeit/v5/data"
+	"github.com/brianvoe/gofakeit/v6/data"
 )
 
 func ExampleBool() {

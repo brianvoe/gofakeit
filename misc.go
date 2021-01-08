@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"reflect"
 
-	"github.com/brianvoe/gofakeit/v5/data"
+	"github.com/brianvoe/gofakeit/v6/data"
 )
 
 // Bool will generate a random boolean value

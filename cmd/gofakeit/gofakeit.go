@@ -6,7 +6,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/brianvoe/gofakeit/v5"
+	"github.com/brianvoe/gofakeit/v6"
 )
 
 var noFuncRunMsg = "Could not find function to run\nRun gofakeit help or gofakeit list for available functions"
