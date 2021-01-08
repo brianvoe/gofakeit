@@ -100,7 +100,7 @@ func ExampleNewCustom() {
 	// Phone: 1000000000
 }
 
-func ExampleSetGlobalFaker(t *testing.T) {
+func ExampleSetGlobalFaker() {
 	cryptoFaker := NewCrypto()
 	SetGlobalFaker(cryptoFaker)
 }
