@@ -17,6 +17,15 @@ func ExampleFaker_AppName() {
 	// Output: Parkrespond
 }
 
+func TestAppName(t *testing.T) {
+	for i := 0; i < 100; i++ {
+		name := AppName()
+		if name == "" {
+			t.Error("app name should not be empty")
+		}
+	}
+}
+
 func BenchmarkAppName(b *testing.B) {
 	b.Run("package", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
@@ -87,6 +96,15 @@ func ExampleFaker_AppAuthor() {
 	f := New(11)
 	fmt.Println(f.AppAuthor())
 	// Output: Qado Energy, Inc.
+}
+
+func TestAuthor(t *testing.T) {
+	for i := 0; i < 100; i++ {
+		author := AppAuthor()
+		if author == "" {
+			t.Error("app author should not be empty")
+		}
+	}
 }
 
 func BenchmarkAppAuthor(b *testing.B) {
