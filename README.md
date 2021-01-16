@@ -43,7 +43,7 @@ gofakeit.CurrencyShort()    // USD
 ```
 
 ## Concurrent Struct
-If you need to have independent randomization for the purposes of cuncurrency
+If you need to have independent randomization for the purposes of concurrency
 ```go
 import "github.com/brianvoe/gofakeit/v6"
 
