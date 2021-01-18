@@ -13,7 +13,7 @@ func (f *Faker) HackerPhrase() string { return hackerPhrase(f.Rand) }
 
 func hackerPhrase(r *rand.Rand) string {
 	words := strings.Split(generate(r, getRandValue(r, []string{"hacker", "phrase"})), " ")
-	words[0] = strings.Title(words[0])
+	words[0] = strings.ToUpper(words[0][0:1]) + words[0][1:]
 	return strings.Join(words, " ")
 }
 
