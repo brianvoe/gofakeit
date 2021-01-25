@@ -3,13 +3,33 @@ package gofakeit
 import (
 	"fmt"
 	"regexp"
+	"strings"
 	"testing"
 )
 
 func TestGenerate(t *testing.T) {
-	numTests := 100
+	output := ""
+
+	numTests := 1000
 	for i := 0; i < numTests; i++ {
-		Generate("{firstname} {lastname} {email} #?#?#?")
+		output = Generate("{firstname} {lastname} {email} #?#?#?")
+		if strings.Contains(output, "{") || strings.Contains(output, "}") {
+			t.Error("Output should not contain either { or }. Output: ", output)
+		}
+	}
+}
+
+func TestGenerate_Sub(t *testing.T) {
+	Seed(11)
+
+	output := Generate("{randomstring:[{firstname},{lastname}]}")
+	if output != "Moen" {
+		t.Error("Did not generate what was expected. Got: ", output)
+	}
+
+	output = Generate("{randomstring:[{randomstring:[{firstname},{lastname}]},{randomstring:[{firstname},{lastname}]}]}")
+	if output != "Kozey" {
+		t.Error("Did not generate what was expected. Got: ", output)
 	}
 }
 
