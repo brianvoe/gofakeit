@@ -46,9 +46,29 @@ func generate(r *rand.Rand, dataVal string) string {
 	dataVal = replaceWithNumbers(r, dataVal)
 	dataVal = replaceWithLetters(r, dataVal)
 
-	// Identify items between brackets: {person.first}
-	for strings.Count(dataVal, "{") > 0 && strings.Count(dataVal, "}") > 0 {
-		fParts := dataVal[(strings.Index(dataVal, "{") + 1):strings.Index(dataVal, "}")]
+	// Variables to identify the index in which it exists
+	startCurly := -1
+	endCurly := -1
+
+	// Identify items between brackets. Ex: {firstname}
+	for i := 0; i < len(dataVal); i++ {
+		if string(dataVal[i]) == "{" {
+			startCurly = i
+			continue
+		}
+		if string(dataVal[i]) == "}" {
+			endCurly = i
+		}
+		if startCurly == -1 || endCurly == -1 {
+			continue
+		}
+
+		// Get the value between brackets
+		fParts := dataVal[startCurly+1 : endCurly]
+
+		// Reset the curly index back to -1
+		startCurly = -1
+		endCurly = -1
 
 		// Check if has params separated by :
 		fNameSplit := strings.SplitN(fParts, ":", 2)
@@ -64,37 +84,43 @@ func generate(r *rand.Rand, dataVal string) string {
 		// Check to see if its a replaceable lookup function
 		if info := GetFuncLookup(fName); info != nil {
 			// Get parameters, make sure params and the split both have values
-			var mapParams MapParams
+			var mapParams *MapParams
 			paramsLen := len(info.Params)
 			if paramsLen > 0 && fParams != "" {
 				splitVals := funcLookupSplit(fParams)
-				for i := 0; i < len(splitVals); i++ {
-					if paramsLen-1 >= i {
+				for ii := 0; ii < len(splitVals); ii++ {
+					if paramsLen-1 >= ii {
 						if mapParams == nil {
-							mapParams = make(map[string][]string)
+							mapParams = NewMapParams()
 						}
-						if strings.HasPrefix(splitVals[i], "[") {
-							mapParams[info.Params[i].Field] = funcLookupSplit(strings.TrimRight(strings.TrimLeft(splitVals[i], "["), "]"))
+						if strings.HasPrefix(splitVals[ii], "[") {
+							lookupSplits := funcLookupSplit(strings.TrimRight(strings.TrimLeft(splitVals[ii], "["), "]"))
+							for _, v := range lookupSplits {
+								mapParams.Add(info.Params[ii].Field, v)
+							}
 						} else {
-							mapParams[info.Params[i].Field] = []string{splitVals[i]}
+							mapParams.Add(info.Params[ii].Field, splitVals[ii])
 						}
 					}
 				}
 			}
 
 			// Call function
-			fValue, err := info.Generate(r, &mapParams, info)
+			fValue, err := info.Generate(r, mapParams, info)
 			if err != nil {
 				// If we came across an error just dont replace value
 				dataVal = strings.Replace(dataVal, "{"+fParts+"}", err.Error(), 1)
+				i = -1 // Reset back to the start of the string
 				continue
 			}
 			dataVal = strings.Replace(dataVal, "{"+fParts+"}", fmt.Sprintf("%v", fValue), 1)
+			i = -1 // Reset back to the start of the string
 			continue
 		}
 
 		// Couldnt find anything - set to n/a
 		dataVal = strings.Replace(dataVal, "{"+fParts+"}", "n/a", 1)
+		i = -1
 		continue
 	}
 
