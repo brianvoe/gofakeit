@@ -20,17 +20,23 @@ func TestGenerate(t *testing.T) {
 }
 
 func TestGenerate_Sub(t *testing.T) {
-	Seed(11)
+	t.Run("Simple", func(t *testing.T) {
+		Seed(11)
 
-	output := Generate("{randomstring:[{firstname},{lastname}]}")
-	if output != "Moen" {
-		t.Error("Did not generate what was expected. Got: ", output)
-	}
+		output := Generate("{randomstring:[{firstname},{lastname}]}")
+		if output != "Moen" {
+			t.Error("Did not generate what was expected. Got: ", output)
+		}
+	})
 
-	output = Generate("{randomstring:[{randomstring:[{firstname},{lastname}]},{randomstring:[{firstname},{lastname}]}]}")
-	if output != "Kozey" {
-		t.Error("Did not generate what was expected. Got: ", output)
-	}
+	t.Run("Complex", func(t *testing.T) {
+		Seed(11)
+
+		output := Generate("{randomstring:[{randomstring:[{firstname},{lastname}]},{randomstring:[{firstname},{lastname}]}]}")
+		if output != "Kozey" {
+			t.Error("Did not generate what was expected. Got: ", output)
+		}
+	})
 }
 
 func ExampleGenerate() {
@@ -67,6 +73,12 @@ func BenchmarkGenerate(b *testing.B) {
 	b.Run("package", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			Generate("{firstname} {lastname} {email} #?#?#?")
+		}
+	})
+
+	b.Run("Complex", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			Generate("{randomstring:[{randomstring:[{firstname},{lastname}]},{randomstring:[{firstname},{lastname}]}]}")
 		}
 	})
 

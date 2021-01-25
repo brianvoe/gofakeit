@@ -54,6 +54,7 @@ func generate(r *rand.Rand, dataVal string) string {
 	for i := 0; i < len(dataVal); i++ {
 		if string(dataVal[i]) == "{" {
 			startCurly = i
+			continue
 		}
 		if string(dataVal[i]) == "}" {
 			endCurly = i
@@ -65,7 +66,7 @@ func generate(r *rand.Rand, dataVal string) string {
 		// Get the value between brackets
 		fParts := dataVal[startCurly+1 : endCurly]
 
-		// Reset the curlies back to -1
+		// Reset the curly index back to -1
 		startCurly = -1
 		endCurly = -1
 
@@ -87,18 +88,18 @@ func generate(r *rand.Rand, dataVal string) string {
 			paramsLen := len(info.Params)
 			if paramsLen > 0 && fParams != "" {
 				splitVals := funcLookupSplit(fParams)
-				for i := 0; i < len(splitVals); i++ {
-					if paramsLen-1 >= i {
+				for ii := 0; ii < len(splitVals); ii++ {
+					if paramsLen-1 >= ii {
 						if mapParams == nil {
 							mapParams = NewMapParams()
 						}
-						if strings.HasPrefix(splitVals[i], "[") {
-							lookupSplits := funcLookupSplit(strings.TrimRight(strings.TrimLeft(splitVals[i], "["), "]"))
+						if strings.HasPrefix(splitVals[ii], "[") {
+							lookupSplits := funcLookupSplit(strings.TrimRight(strings.TrimLeft(splitVals[ii], "["), "]"))
 							for _, v := range lookupSplits {
-								mapParams.Add(info.Params[i].Field, v)
+								mapParams.Add(info.Params[ii].Field, v)
 							}
 						} else {
-							mapParams.Add(info.Params[i].Field, splitVals[i])
+							mapParams.Add(info.Params[ii].Field, splitVals[ii])
 						}
 					}
 				}
@@ -119,6 +120,7 @@ func generate(r *rand.Rand, dataVal string) string {
 
 		// Couldnt find anything - set to n/a
 		dataVal = strings.Replace(dataVal, "{"+fParts+"}", "n/a", 1)
+		i = -1
 		continue
 	}
 
