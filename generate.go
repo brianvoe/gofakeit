@@ -48,10 +48,27 @@ func generate(r *rand.Rand, dataVal string) string {
 
 	// Variables to identify the index in which it exists
 	startCurly := -1
+	startCurlyIgnore := []int{}
 	endCurly := -1
+	endCurlyIgnore := []int{}
 
-	// Identify items between brackets. Ex: {firstname}
+	// Loop through string characters
 	for i := 0; i < len(dataVal); i++ {
+		// Check for ignores if equal skip
+		for _, ig := range startCurlyIgnore {
+			if i == ig {
+				fmt.Println("hit start")
+				continue
+			}
+		}
+		for _, ig := range endCurlyIgnore {
+			if i == ig {
+				fmt.Println("hit end")
+				continue
+			}
+		}
+
+		// Identify items between brackets. Ex: {firstname}
 		if string(dataVal[i]) == "{" {
 			startCurly = i
 			continue
@@ -65,10 +82,6 @@ func generate(r *rand.Rand, dataVal string) string {
 
 		// Get the value between brackets
 		fParts := dataVal[startCurly+1 : endCurly]
-
-		// Reset the curly index back to -1
-		startCurly = -1
-		endCurly = -1
 
 		// Check if has params separated by :
 		fNameSplit := strings.SplitN(fParts, ":", 2)
@@ -110,17 +123,28 @@ func generate(r *rand.Rand, dataVal string) string {
 			if err != nil {
 				// If we came across an error just dont replace value
 				dataVal = strings.Replace(dataVal, "{"+fParts+"}", err.Error(), 1)
-				i = -1 // Reset back to the start of the string
-				continue
+			} else {
+				// Successfully found, run replace with new value
+				dataVal = strings.Replace(dataVal, "{"+fParts+"}", fmt.Sprintf("%v", fValue), 1)
 			}
-			dataVal = strings.Replace(dataVal, "{"+fParts+"}", fmt.Sprintf("%v", fValue), 1)
+
+			// Reset the curly index back to -1 and reset ignores
+			startCurly = -1
+			startCurlyIgnore = []int{}
+			endCurly = -1
+			endCurlyIgnore = []int{}
 			i = -1 // Reset back to the start of the string
 			continue
 		}
 
-		// Couldnt find anything - set to n/a
-		dataVal = strings.Replace(dataVal, "{"+fParts+"}", "n/a", 1)
-		i = -1
+		// Couldnt find anything - mark curly brackets to skip and rerun
+		startCurlyIgnore = append(startCurlyIgnore, startCurly)
+		endCurlyIgnore = append(endCurlyIgnore, endCurly)
+
+		// Reset the curly index back to -1
+		startCurly = -1
+		endCurly = -1
+		i = -1 // Reset back to the start of the string
 		continue
 	}
 

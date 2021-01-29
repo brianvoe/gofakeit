@@ -161,6 +161,42 @@ func TestRegex(t *testing.T) {
 	}
 }
 
+func TestRegex_Generate(t *testing.T) {
+	Seed(11)
+
+	output := Generate("{regex:Z{2,5}}")
+	if output != "ZZZ" {
+		t.Error("Was expecting ZZZ got ", output)
+	}
+}
+
+func TestRegex_Struct(t *testing.T) {
+	Seed(11)
+
+	type Reggy struct {
+		// Str1 string `fake:"{regex:^\d+$}"`
+		// Str2  string `fake:"{regex:\D{3}}"`
+		Str3 string `fake:"{regex:Z{2,5}}"`
+		Str4 string `fake:"{regex:[^1]{3,5}}"`
+		Str5 string `fake:"{regex:(ab|bc)def}"`
+		Str6 string `fake:"{regex:((123)?){3}}"`
+		Str7 string `fake:"{regex:[^abcdef]{5}}"`
+		Str8 string `fake:"{regex:[a-zA-Z]{100}}"`
+		Str9 string `fake:"{regex:[[:upper:]]{5}}"`
+		// Str10 string `fake:"{regex:[^0-5a-z\s]{5}}"`
+		// Str11 string `fake:"{regex:123[0-2]+.*\w{3}}"`
+		Str12 string `fake:"{regex:(hello|world|whats|up)}"`
+		// Str13 string `fake:"{regex:^\d{1,2}[/](1[0-2]|[1-9])[/]((19|20)\d{2})$}"`
+	}
+
+	rg := Reggy{}
+	Struct(&rg)
+
+	if rg.Str3 != "" {
+		t.Error("Str1 should be  got: ", rg.Str3)
+	}
+}
+
 func BenchmarkRegex(b *testing.B) {
 	b.Run("package", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
