@@ -106,6 +106,7 @@ fmt.Println(f.Name)     // fred
 fmt.Println(f.Sentence) // Record river mind.
 fmt.Println(f.RandStr)  // world
 fmt.Println(f.Number)   // 4
+fmt.Println(f.Regex)    // cbdfc
 fmt.Println(f.Skip)     // <nil>
 
 var fb FooBar
@@ -394,11 +395,11 @@ Dog() string
 
 ### Emoji
 ```go
-Emoji() string // 🤣
-EmojiDescription() string // winking face
-EmojiCategory() string // Smileys & Emotion
-EmojiAlias() string // smiley
-EmojiTag() string // happy
+Emoji() string
+EmojiDescription() string
+EmojiCategory() string
+EmojiAlias() string
+EmojiTag() string
 ```
 
 ### Languages
