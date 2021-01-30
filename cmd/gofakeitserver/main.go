@@ -10,13 +10,15 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/brianvoe/gofakeit/v5"
+	"github.com/brianvoe/gofakeit/v6"
 )
 
 var port string
+var faker *gofakeit.Faker
 
 func init() {
 	flag.StringVar(&port, "port", "8080", "server port")
+	faker = gofakeit.New(0)
 }
 
 func main() {
@@ -71,17 +73,17 @@ func lookupGet(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Get url params
-	var mapString map[string][]string
+	m := gofakeit.NewMapParams()
 	urlParams := r.URL.Query()
 	for key, values := range urlParams {
-		if mapString == nil {
-			mapString = make(map[string][]string)
+
+		for _, value := range values {
+			m.Add(key, value)
 		}
-		mapString[key] = values
 	}
 
-	// Call method to generate requested data
-	data, err := info.Call(&mapString, info)
+	// Generate requested data
+	data, err := info.Generate(faker.Rand, m, info)
 	if err != nil {
 		badrequest(w, err.Error())
 		return
@@ -105,11 +107,11 @@ func lookupPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var mapString map[string][]string
+	var mapString *gofakeit.MapParams
 
 	// Try to decode body if params are needed
 	if len(info.Params) > 0 {
-		mapString = make(map[string][]string)
+		mapString = gofakeit.NewMapParams()
 		mapInterface := map[string]interface{}{}
 		err = json.NewDecoder(r.Body).Decode(&mapInterface)
 		if err != nil {
@@ -122,30 +124,32 @@ func lookupPost(w http.ResponseWriter, r *http.Request) {
 			v := reflect.ValueOf(value)
 			switch v.Kind() {
 			case reflect.Bool:
-				mapString[key] = []string{fmt.Sprintf("%v", value)}
+				mapString.Add(key, fmt.Sprintf("%v", value))
 			case reflect.Int, reflect.Int8, reflect.Int32, reflect.Int64:
-				mapString[key] = []string{fmt.Sprintf("%v", value)}
+				mapString.Add(key, fmt.Sprintf("%v", value))
 			case reflect.Uint, reflect.Uint8, reflect.Uint32, reflect.Uint64:
-				mapString[key] = []string{fmt.Sprintf("%v", value)}
+				mapString.Add(key, fmt.Sprintf("%v", value))
 			case reflect.Float32, reflect.Float64:
-				mapString[key] = []string{fmt.Sprintf("%v", value)}
+				mapString.Add(key, fmt.Sprintf("%v", value))
 			case reflect.String:
-				mapString[key] = []string{fmt.Sprintf("%v", value)}
+				mapString.Add(key, fmt.Sprintf("%v", value))
 			case reflect.Map:
-				mapString[key] = []string{fmt.Sprintf("%v", value)}
+				mapString.Add(key, fmt.Sprintf("%v", value))
 			case reflect.Slice:
 				var vals []string
 				for i := 0; i < v.Len(); i++ {
 					vals = append(vals, fmt.Sprintf("%v", v.Index(i).Interface()))
 				}
 
-				mapString[key] = vals
+				for _, val := range vals {
+					mapString.Add(key, val)
+				}
 			}
 		}
 	}
 
-	// Call method to generate requested data
-	data, err := info.Call(&mapString, info)
+	// Generate requested data
+	data, err := info.Generate(faker.Rand, mapString, info)
 	if err != nil {
 		badrequest(w, err.Error())
 		return

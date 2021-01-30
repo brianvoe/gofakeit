@@ -7,80 +7,155 @@ import (
 )
 
 // Number will generate a random number between given min And max
-func Number(min int, max int) int {
-	return randIntRange(min, max)
-}
+func Number(min int, max int) int { return number(globalFaker.Rand, min, max) }
+
+// Number will generate a random number between given min And max
+func (f *Faker) Number(min int, max int) int { return number(f.Rand, min, max) }
+
+func number(r *rand.Rand, min int, max int) int { return randIntRange(r, min, max) }
 
 // Uint8 will generate a random uint8 value
-func Uint8() uint8 {
-	return uint8(randIntRange(0, math.MaxUint8))
-}
+func Uint8() uint8 { return uint8Func(globalFaker.Rand) }
+
+// Uint8 will generate a random uint8 value
+func (f *Faker) Uint8() uint8 { return uint8Func(f.Rand) }
+
+func uint8Func(r *rand.Rand) uint8 { return uint8(randIntRange(r, 0, math.MaxUint8)) }
 
 // Uint16 will generate a random uint16 value
-func Uint16() uint16 {
-	return uint16(randIntRange(0, math.MaxUint16))
-}
+func Uint16() uint16 { return uint16Func(globalFaker.Rand) }
+
+// Uint16 will generate a random uint16 value
+func (f *Faker) Uint16() uint16 { return uint16Func(f.Rand) }
+
+func uint16Func(r *rand.Rand) uint16 { return uint16(randIntRange(r, 0, math.MaxUint16)) }
 
 // Uint32 will generate a random uint32 value
-func Uint32() uint32 {
-	return uint32(randIntRange(0, math.MaxInt32))
-}
+func Uint32() uint32 { return uint32Func(globalFaker.Rand) }
+
+// Uint32 will generate a random uint32 value
+func (f *Faker) Uint32() uint32 { return uint32Func(f.Rand) }
+
+func uint32Func(r *rand.Rand) uint32 { return uint32(randIntRange(r, 0, math.MaxInt32)) }
 
 // Uint64 will generate a random uint64 value
-func Uint64() uint64 {
-	return uint64(rand.Int63n(math.MaxInt64))
-}
+func Uint64() uint64 { return uint64Func(globalFaker.Rand) }
+
+// Uint64 will generate a random uint64 value
+func (f *Faker) Uint64() uint64 { return uint64Func(f.Rand) }
+
+func uint64Func(r *rand.Rand) uint64 { return uint64(r.Int63n(math.MaxInt64)) }
 
 // Int8 will generate a random Int8 value
-func Int8() int8 {
-	return int8(randIntRange(math.MinInt8, math.MaxInt8))
-}
+func Int8() int8 { return int8Func(globalFaker.Rand) }
+
+// Int8 will generate a random Int8 value
+func (f *Faker) Int8() int8 { return int8Func(f.Rand) }
+
+func int8Func(r *rand.Rand) int8 { return int8(randIntRange(r, math.MinInt8, math.MaxInt8)) }
 
 // Int16 will generate a random int16 value
-func Int16() int16 {
-	return int16(randIntRange(math.MinInt16, math.MaxInt16))
-}
+func Int16() int16 { return int16Func(globalFaker.Rand) }
+
+// Int16 will generate a random int16 value
+func (f *Faker) Int16() int16 { return int16Func(f.Rand) }
+
+func int16Func(r *rand.Rand) int16 { return int16(randIntRange(r, math.MinInt16, math.MaxInt16)) }
 
 // Int32 will generate a random int32 value
-func Int32() int32 {
-	return int32(randIntRange(math.MinInt32, math.MaxInt32))
-}
+func Int32() int32 { return int32Func(globalFaker.Rand) }
+
+// Int32 will generate a random int32 value
+func (f *Faker) Int32() int32 { return int32Func(f.Rand) }
+
+func int32Func(r *rand.Rand) int32 { return int32(randIntRange(r, math.MinInt32, math.MaxInt32)) }
 
 // Int64 will generate a random int64 value
-func Int64() int64 {
-	return rand.Int63n(math.MaxInt64) + math.MinInt64
-}
+func Int64() int64 { return int64Func(globalFaker.Rand) }
+
+// Int64 will generate a random int64 value
+func (f *Faker) Int64() int64 { return int64Func(f.Rand) }
+
+func int64Func(r *rand.Rand) int64 { return r.Int63n(math.MaxInt64) + math.MinInt64 }
 
 // Float32 will generate a random float32 value
-func Float32() float32 {
-	return randFloat32Range(math.SmallestNonzeroFloat32, math.MaxFloat32)
+func Float32() float32 { return float32Func(globalFaker.Rand) }
+
+// Float32 will generate a random float32 value
+func (f *Faker) Float32() float32 { return float32Func(f.Rand) }
+
+func float32Func(r *rand.Rand) float32 {
+	return float32Range(r, math.SmallestNonzeroFloat32, math.MaxFloat32)
 }
 
 // Float32Range will generate a random float32 value between min and max
 func Float32Range(min, max float32) float32 {
-	return randFloat32Range(min, max)
+	return float32Range(globalFaker.Rand, min, max)
+}
+
+// Float32Range will generate a random float32 value between min and max
+func (f *Faker) Float32Range(min, max float32) float32 {
+	return float32Range(f.Rand, min, max)
+}
+
+func float32Range(r *rand.Rand, min, max float32) float32 {
+	if min == max {
+		return min
+	}
+	return r.Float32()*(max-min) + min
 }
 
 // Float64 will generate a random float64 value
 func Float64() float64 {
-	return randFloat64Range(math.SmallestNonzeroFloat64, math.MaxFloat64)
+	return float64Func(globalFaker.Rand)
+}
+
+// Float64 will generate a random float64 value
+func (f *Faker) Float64() float64 {
+	return float64Func(f.Rand)
+}
+
+func float64Func(r *rand.Rand) float64 {
+	return float64Range(r, math.SmallestNonzeroFloat64, math.MaxFloat64)
 }
 
 // Float64Range will generate a random float64 value between min and max
 func Float64Range(min, max float64) float64 {
-	return randFloat64Range(min, max)
+	return float64Range(globalFaker.Rand, min, max)
+}
+
+// Float64Range will generate a random float64 value between min and max
+func (f *Faker) Float64Range(min, max float64) float64 {
+	return float64Range(f.Rand, min, max)
+}
+
+func float64Range(r *rand.Rand, min, max float64) float64 {
+	if min == max {
+		return min
+	}
+	return r.Float64()*(max-min) + min
 }
 
 // ShuffleInts will randomize a slice of ints
-func ShuffleInts(a []int) {
+func ShuffleInts(a []int) { shuffleInts(globalFaker.Rand, a) }
+
+// ShuffleInts will randomize a slice of ints
+func (f *Faker) ShuffleInts(a []int) { shuffleInts(f.Rand, a) }
+
+func shuffleInts(r *rand.Rand, a []int) {
 	for i := range a {
-		j := rand.Intn(i + 1)
+		j := r.Intn(i + 1)
 		a[i], a[j] = a[j], a[i]
 	}
 }
 
 // RandomInt will take in a slice of int and return a randomly selected value
-func RandomInt(i []int) int {
+func RandomInt(i []int) int { return randomInt(globalFaker.Rand, i) }
+
+// RandomInt will take in a slice of int and return a randomly selected value
+func (f *Faker) RandomInt(i []int) int { return randomInt(f.Rand, i) }
+
+func randomInt(r *rand.Rand, i []int) int {
 	size := len(i)
 	if size == 0 {
 		return 0
@@ -88,19 +163,24 @@ func RandomInt(i []int) int {
 	if size == 1 {
 		return i[0]
 	}
-	return i[rand.Intn(size)]
+	return i[r.Intn(size)]
 }
 
 // RandomUint will take in a slice of uint and return a randomly selected value
-func RandomUint(i []uint) uint {
-	size := len(i)
+func RandomUint(u []uint) uint { return randomUint(globalFaker.Rand, u) }
+
+// RandomUint will take in a slice of uint and return a randomly selected value
+func (f *Faker) RandomUint(u []uint) uint { return randomUint(f.Rand, u) }
+
+func randomUint(r *rand.Rand, u []uint) uint {
+	size := len(u)
 	if size == 0 {
 		return 0
 	}
 	if size == 1 {
-		return i[0]
+		return u[0]
 	}
-	return i[rand.Intn(size)]
+	return u[r.Intn(size)]
 }
 
 func addNumberLookup() {
@@ -114,7 +194,7 @@ func addNumberLookup() {
 			{Field: "min", Display: "Min", Type: "int", Default: "-2147483648", Description: "Minimum integer value"},
 			{Field: "max", Display: "Max", Type: "int", Default: "2147483647", Description: "Maximum integer value"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			min, err := info.GetInt(m, "min")
 			if err != nil {
 				return nil, err
@@ -129,7 +209,7 @@ func addNumberLookup() {
 				return nil, errors.New("Max integer must be larger than Min")
 			}
 
-			return Number(min, max), nil
+			return number(r, min, max), nil
 		},
 	})
 
@@ -139,8 +219,8 @@ func addNumberLookup() {
 		Description: "Random uint8 value",
 		Example:     "152",
 		Output:      "uint8",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Uint8(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return uint8Func(r), nil
 		},
 	})
 
@@ -150,8 +230,8 @@ func addNumberLookup() {
 		Description: "Random uint16 value",
 		Example:     "34968",
 		Output:      "uint16",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Uint16(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return uint16Func(r), nil
 		},
 	})
 
@@ -161,8 +241,8 @@ func addNumberLookup() {
 		Description: "Random uint32 value",
 		Example:     "1075055705",
 		Output:      "uint32",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Uint32(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return uint32Func(r), nil
 		},
 	})
 
@@ -172,8 +252,8 @@ func addNumberLookup() {
 		Description: "Random uint64 value",
 		Example:     "843730692693298265",
 		Output:      "uint64",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Uint64(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return uint64Func(r), nil
 		},
 	})
 
@@ -183,8 +263,8 @@ func addNumberLookup() {
 		Description: "Random int8 value",
 		Example:     "24",
 		Output:      "int8",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Int8(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return int8Func(r), nil
 		},
 	})
 
@@ -194,8 +274,8 @@ func addNumberLookup() {
 		Description: "Random int16 value",
 		Example:     "2200",
 		Output:      "int16",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Int16(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return int16Func(r), nil
 		},
 	})
 
@@ -205,8 +285,8 @@ func addNumberLookup() {
 		Description: "Random int32 value",
 		Example:     "-1072427943",
 		Output:      "int32",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Int32(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return int32Func(r), nil
 		},
 	})
 
@@ -216,8 +296,8 @@ func addNumberLookup() {
 		Description: "Random int64 value",
 		Example:     "-8379641344161477543",
 		Output:      "int64",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Int64(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return int64Func(r), nil
 		},
 	})
 
@@ -227,8 +307,8 @@ func addNumberLookup() {
 		Description: "Random float32 value",
 		Example:     "3.1128167e+37",
 		Output:      "float32",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Float32(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return float32Func(r), nil
 		},
 	})
 
@@ -242,7 +322,7 @@ func addNumberLookup() {
 			{Field: "min", Display: "Min", Type: "int", Description: "Minimum float32 value"},
 			{Field: "max", Display: "Max", Type: "int", Description: "Maximum float32 value"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			min, err := info.GetFloat32(m, "min")
 			if err != nil {
 				return nil, err
@@ -253,7 +333,7 @@ func addNumberLookup() {
 				return nil, err
 			}
 
-			return Float32Range(min, max), nil
+			return float32Range(r, min, max), nil
 		},
 	})
 
@@ -263,8 +343,8 @@ func addNumberLookup() {
 		Description: "Random float64 value",
 		Example:     "1.644484108270445e+307",
 		Output:      "float64",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Float64(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return float64Func(r), nil
 		},
 	})
 
@@ -278,7 +358,7 @@ func addNumberLookup() {
 			{Field: "min", Display: "Min", Type: "int", Description: "Minimum float64 value"},
 			{Field: "max", Display: "Max", Type: "int", Description: "Maximum float64 value"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			min, err := info.GetFloat64(m, "min")
 			if err != nil {
 				return nil, err
@@ -289,7 +369,7 @@ func addNumberLookup() {
 				return nil, err
 			}
 
-			return Float64Range(min, max), nil
+			return float64Range(r, min, max), nil
 		},
 	})
 
@@ -302,13 +382,13 @@ func addNumberLookup() {
 		Params: []Param{
 			{Field: "ints", Display: "Integers", Type: "[]int", Description: "Delimited separated integers"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			ints, err := info.GetIntArray(m, "ints")
 			if err != nil {
 				return nil, err
 			}
 
-			ShuffleInts(ints)
+			shuffleInts(r, ints)
 
 			return ints, nil
 		},

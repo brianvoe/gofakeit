@@ -1,24 +1,41 @@
 package gofakeit
 
+import rand "math/rand"
+
 // Language will return a random language
-func Language() string {
-	return getRandValue([]string{"language", "long"})
-}
+func Language() string { return language(globalFaker.Rand) }
+
+// Language will return a random language
+func (f *Faker) Language() string { return language(f.Rand) }
+
+func language(r *rand.Rand) string { return getRandValue(r, []string{"language", "long"}) }
 
 // LanguageAbbreviation will return a random language abbreviation
-func LanguageAbbreviation() string {
-	return getRandValue([]string{"language", "short"})
-}
+func LanguageAbbreviation() string { return languageAbbreviation(globalFaker.Rand) }
+
+// LanguageAbbreviation will return a random language abbreviation
+func (f *Faker) LanguageAbbreviation() string { return languageAbbreviation(f.Rand) }
+
+func languageAbbreviation(r *rand.Rand) string { return getRandValue(r, []string{"language", "short"}) }
 
 // ProgrammingLanguage will return a random programming language
-func ProgrammingLanguage() string {
-	return getRandValue([]string{"language", "programming"})
+func ProgrammingLanguage() string { return programmingLanguage(globalFaker.Rand) }
+
+// ProgrammingLanguage will return a random programming language
+func (f *Faker) ProgrammingLanguage() string { return programmingLanguage(f.Rand) }
+
+func programmingLanguage(r *rand.Rand) string {
+	return getRandValue(r, []string{"language", "programming"})
 }
 
 // ProgrammingLanguageBest will return a random programming language
-func ProgrammingLanguageBest() string {
-	return "Go"
-}
+func ProgrammingLanguageBest() string { return programmingLanguageBest(globalFaker.Rand) }
+
+// ProgrammingLanguageBest will return a random programming language
+func (f *Faker) ProgrammingLanguageBest() string { return programmingLanguageBest(f.Rand) }
+
+// ProgrammingLanguageBest will return a random programming language
+func programmingLanguageBest(r *rand.Rand) string { return "Go" }
 
 func addLanguagesLookup() {
 	AddFuncLookup("language", Info{
@@ -27,8 +44,8 @@ func addLanguagesLookup() {
 		Description: "Random language",
 		Example:     "Kazakh",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Language(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return language(r), nil
 		},
 	})
 
@@ -38,8 +55,8 @@ func addLanguagesLookup() {
 		Description: "Random abbreviated language",
 		Example:     "kk",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return LanguageAbbreviation(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return languageAbbreviation(r), nil
 		},
 	})
 
@@ -49,8 +66,8 @@ func addLanguagesLookup() {
 		Description: "Random programming language",
 		Example:     "Go",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return ProgrammingLanguage(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return programmingLanguage(r), nil
 		},
 	})
 }

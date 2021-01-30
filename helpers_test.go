@@ -4,15 +4,19 @@ import (
 	"testing"
 )
 
+func TestSeed(t *testing.T) {
+	Seed(0)
+}
+
 func TestRandIntRange(t *testing.T) {
-	if randIntRange(5, 5) != 5 {
+	if randIntRange(globalFaker.Rand, 5, 5) != 5 {
 		t.Error("You should have gotten 5 back")
 	}
 }
 
 func TestGetRandValueFail(t *testing.T) {
 	for _, test := range [][]string{nil, {}, {"not", "found"}, {"person", "notfound"}} {
-		if getRandValue(test) != "" {
+		if getRandValue(globalFaker.Rand, test) != "" {
 			t.Error("You should have gotten no value back")
 		}
 	}
@@ -20,26 +24,14 @@ func TestGetRandValueFail(t *testing.T) {
 
 func TestGetRandIntValueFail(t *testing.T) {
 	for _, test := range [][]string{nil, {}, {"not", "found"}, {"status_code", "notfound"}} {
-		if getRandIntValue(test) != 0 {
+		if getRandIntValue(globalFaker.Rand, test) != 0 {
 			t.Error("You should have gotten no value back")
 		}
 	}
 }
 
-func TestRandFloat32RangeSame(t *testing.T) {
-	if randFloat32Range(5.0, 5.0) != 5.0 {
-		t.Error("You should have gotten 5.0 back")
-	}
-}
-
-func TestRandFloat64RangeSame(t *testing.T) {
-	if randFloat64Range(5.0, 5.0) != 5.0 {
-		t.Error("You should have gotten 5.0 back")
-	}
-}
-
 func TestReplaceWithNumbers(t *testing.T) {
-	if replaceWithNumbers("") != "" {
+	if replaceWithNumbers(globalFaker.Rand, "") != "" {
 		t.Error("You should have gotten an empty string")
 	}
 }
@@ -50,7 +42,7 @@ func BenchmarkReplaceWithNumbers(b *testing.B) {
 		Seed(42)
 
 		b.StartTimer()
-		replaceWithNumbers("###☺#☻##☹##")
+		replaceWithNumbers(globalFaker.Rand, "###☺#☻##☹##")
 		b.StopTimer()
 	}
 }
@@ -62,7 +54,7 @@ func TestReplaceWithNumbersUnicode(t *testing.T) {
 		{"\x80#¼#語", "\x805¼7語"},
 	} {
 		Seed(42)
-		got := replaceWithNumbers(test.in)
+		got := replaceWithNumbers(globalFaker.Rand, test.in)
 		if got == test.should {
 			continue
 		}
@@ -72,13 +64,13 @@ func TestReplaceWithNumbersUnicode(t *testing.T) {
 }
 
 func TestReplaceWithLetters(t *testing.T) {
-	if replaceWithLetters("") != "" {
+	if replaceWithLetters(globalFaker.Rand, "") != "" {
 		t.Error("You should have gotten an empty string")
 	}
 }
 
 func TestReplaceWithHexLetters(t *testing.T) {
-	if "" != replaceWithHexLetters("") {
+	if "" != replaceWithHexLetters(globalFaker.Rand, "") {
 		t.Error("You should have gotten an empty string")
 	}
 }

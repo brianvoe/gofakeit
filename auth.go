@@ -1,18 +1,35 @@
 package gofakeit
 
-import (
-	"math/rand"
-)
+import rand "math/rand"
 
-// Username will genrate a random username based upon picking a random lastname and random numbers at the end
+// Username will generate a random username based upon picking a random lastname and random numbers at the end
 func Username() string {
-	return getRandValue([]string{"person", "last"}) + replaceWithNumbers("####")
+	return username(globalFaker.Rand)
 }
 
-// Password will generate a random password
-// Minimum number length of 5 if less than
+// Username will generate a random username based upon picking a random lastname and random numbers at the end
+func (f *Faker) Username() string {
+	return username(f.Rand)
+}
+
+func username(r *rand.Rand) string {
+	return getRandValue(r, []string{"person", "last"}) + replaceWithNumbers(r, "####")
+}
+
+// Password will generate a random password.
+// Minimum number length of 5 if less than.
 func Password(lower bool, upper bool, numeric bool, special bool, space bool, num int) string {
-	// Make sure the num minimun is at least 5
+	return password(globalFaker.Rand, lower, upper, numeric, special, space, num)
+}
+
+// Password will generate a random password.
+// Minimum number length of 5 if less than.
+func (f *Faker) Password(lower bool, upper bool, numeric bool, special bool, space bool, num int) string {
+	return password(f.Rand, lower, upper, numeric, special, space, num)
+}
+
+func password(r *rand.Rand, lower bool, upper bool, numeric bool, special bool, space bool, num int) string {
+	// Make sure the num minimum is at least 5
 	if num < 5 {
 		num = 5
 	}
@@ -22,27 +39,27 @@ func Password(lower bool, upper bool, numeric bool, special bool, space bool, nu
 
 	if lower {
 		passString += lowerStr
-		b[i] = lowerStr[rand.Int63()%int64(len(lowerStr))]
+		b[i] = lowerStr[r.Int63()%int64(len(lowerStr))]
 		i++
 	}
 	if upper {
 		passString += upperStr
-		b[i] = upperStr[rand.Int63()%int64(len(upperStr))]
+		b[i] = upperStr[r.Int63()%int64(len(upperStr))]
 		i++
 	}
 	if numeric {
 		passString += numericStr
-		b[i] = numericStr[rand.Int63()%int64(len(numericStr))]
+		b[i] = numericStr[r.Int63()%int64(len(numericStr))]
 		i++
 	}
 	if special {
 		passString += specialStr
-		b[i] = specialStr[rand.Int63()%int64(len(specialStr))]
+		b[i] = specialStr[r.Int63()%int64(len(specialStr))]
 		i++
 	}
 	if space {
 		passString += spaceStr
-		b[i] = spaceStr[rand.Int63()%int64(len(spaceStr))]
+		b[i] = spaceStr[r.Int63()%int64(len(spaceStr))]
 		i++
 	}
 
@@ -53,13 +70,13 @@ func Password(lower bool, upper bool, numeric bool, special bool, space bool, nu
 
 	// Loop through and add it up
 	for i <= num-1 {
-		b[i] = passString[rand.Int63()%int64(len(passString))]
+		b[i] = passString[r.Int63()%int64(len(passString))]
 		i++
 	}
 
 	// Shuffle bytes
 	for i := range b {
-		j := rand.Intn(i + 1)
+		j := r.Intn(i + 1)
 		b[i], b[j] = b[j], b[i]
 	}
 
@@ -73,8 +90,8 @@ func addAuthLookup() {
 		Description: "Generates a random username",
 		Example:     "Daniel1364",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Username(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return username(r), nil
 		},
 	})
 
@@ -92,7 +109,7 @@ func addAuthLookup() {
 			{Field: "space", Display: "Space", Type: "bool", Default: "false", Description: "Whether or not to add spaces"},
 			{Field: "length", Display: "Length", Type: "int", Default: "12", Description: "Number of characters in password"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			lower, err := info.GetBool(m, "lower")
 			if err != nil {
 				return nil, err
@@ -123,7 +140,7 @@ func addAuthLookup() {
 				return nil, err
 			}
 
-			return Password(lower, upper, numeric, special, space, length), nil
+			return password(r, lower, upper, numeric, special, space, length), nil
 		},
 	})
 }

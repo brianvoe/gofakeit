@@ -1,14 +1,22 @@
 package gofakeit
 
+import "math/rand"
+
 // FileExtension will generate a random file extension
-func FileExtension() string {
-	return getRandValue([]string{"file", "extension"})
-}
+func FileExtension() string { return fileExtension(globalFaker.Rand) }
+
+// FileExtension will generate a random file extension
+func (f *Faker) FileExtension() string { return fileExtension(f.Rand) }
+
+func fileExtension(r *rand.Rand) string { return getRandValue(r, []string{"file", "extension"}) }
 
 // FileMimeType will generate a random mime file type
-func FileMimeType() string {
-	return getRandValue([]string{"file", "mime_type"})
-}
+func FileMimeType() string { return fileMimeType(globalFaker.Rand) }
+
+// FileMimeType will generate a random mime file type
+func (f *Faker) FileMimeType() string { return fileMimeType(f.Rand) }
+
+func fileMimeType(r *rand.Rand) string { return getRandValue(r, []string{"file", "mime_type"}) }
 
 func addFileLookup() {
 	AddFuncLookup("fileextension", Info{
@@ -17,8 +25,8 @@ func addFileLookup() {
 		Description: "Random file extension",
 		Example:     "nes",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return FileExtension(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return fileExtension(r), nil
 		},
 	})
 
@@ -28,8 +36,8 @@ func addFileLookup() {
 		Description: "Random file mime type",
 		Example:     "application/json",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return FileMimeType(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return fileMimeType(r), nil
 		},
 	})
 }

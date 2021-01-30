@@ -29,10 +29,36 @@ func ExampleCSV_array() {
 	// 2,Osborne,Hilll,XPJ9OVNbs5lm
 }
 
+func ExampleFaker_CSV_array() {
+	f := New(11)
+
+	value, err := f.CSV(&CSVOptions{
+		RowCount: 3,
+		Fields: []Field{
+			{Name: "id", Function: "autoincrement"},
+			{Name: "first_name", Function: "firstname"},
+			{Name: "last_name", Function: "lastname"},
+			{Name: "password", Function: "password", Params: map[string][]string{"special": {"false"}}},
+		},
+	})
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(string(value))
+
+	// Output:
+	// id,first_name,last_name,password
+	// 1,Markus,Moen,Dc0VYXjkWABx
+	// 2,Osborne,Hilll,XPJ9OVNbs5lm
+}
+
 func TestCSVLookup(t *testing.T) {
+	faker := New(0)
+
 	info := GetFuncLookup("csv")
 
-	m := map[string][]string{
+	m := MapParams{
 		"rowcount": {"10"},
 		"fields": {
 			`{"name":"id","function":"autoincrement"}`,
@@ -40,7 +66,7 @@ func TestCSVLookup(t *testing.T) {
 			`{"name":"password","function":"password","params":{"special":["false"],"length":["20"]}}`,
 		},
 	}
-	_, err := info.Call(&m, info)
+	_, err := info.Generate(faker.Rand, &m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -49,9 +75,11 @@ func TestCSVLookup(t *testing.T) {
 }
 
 func BenchmarkCSVLookup100(b *testing.B) {
+	faker := New(0)
+
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("csv")
-		m := map[string][]string{
+		m := MapParams{
 			"rowcount": {"100"},
 			"fields": {
 				`{"name":"id","function":"autoincrement"}`,
@@ -62,7 +90,7 @@ func BenchmarkCSVLookup100(b *testing.B) {
 				`{"name":"created_at","function":"date"}`,
 			},
 		}
-		_, err := info.Call(&m, info)
+		_, err := info.Generate(faker.Rand, &m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
@@ -70,9 +98,11 @@ func BenchmarkCSVLookup100(b *testing.B) {
 }
 
 func BenchmarkCSVLookup1000(b *testing.B) {
+	faker := New(0)
+
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("csv")
-		m := map[string][]string{
+		m := MapParams{
 			"rowcount": {"1000"},
 			"fields": {
 				`{"name":"id","function":"autoincrement"}`,
@@ -83,7 +113,7 @@ func BenchmarkCSVLookup1000(b *testing.B) {
 				`{"name":"created_at","function":"date"}`,
 			},
 		}
-		_, err := info.Call(&m, info)
+		_, err := info.Generate(faker.Rand, &m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
@@ -91,9 +121,11 @@ func BenchmarkCSVLookup1000(b *testing.B) {
 }
 
 func BenchmarkCSVLookup10000(b *testing.B) {
+	faker := New(0)
+
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("csv")
-		m := map[string][]string{
+		m := MapParams{
 			"rowcount": {"10000"},
 			"fields": {
 				`{"name":"id","function":"autoincrement"}`,
@@ -104,7 +136,7 @@ func BenchmarkCSVLookup10000(b *testing.B) {
 				`{"name":"created_at","function":"date"}`,
 			},
 		}
-		_, err := info.Call(&m, info)
+		_, err := info.Generate(faker.Rand, &m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
@@ -112,9 +144,11 @@ func BenchmarkCSVLookup10000(b *testing.B) {
 }
 
 func BenchmarkCSVLookup100000(b *testing.B) {
+	faker := New(0)
+
 	for i := 0; i < b.N; i++ {
 		info := GetFuncLookup("csv")
-		m := map[string][]string{
+		m := MapParams{
 			"rowcount": {"100000"},
 			"fields": {
 				`{"name":"id","function":"autoincrement"}`,
@@ -125,7 +159,7 @@ func BenchmarkCSVLookup100000(b *testing.B) {
 				`{"name":"created_at","function":"date"}`,
 			},
 		}
-		_, err := info.Call(&m, info)
+		_, err := info.Generate(faker.Rand, &m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}

@@ -1,33 +1,89 @@
 package gofakeit
 
+import "math/rand"
+
 // PetName will return a random fun pet name
 func PetName() string {
-	return getRandValue([]string{"animal", "petname"})
+	return petName(globalFaker.Rand)
+}
+
+// PetName will return a random fun pet name
+func (f *Faker) PetName() string {
+	return petName(f.Rand)
+}
+
+func petName(r *rand.Rand) string {
+	return getRandValue(r, []string{"animal", "petname"})
 }
 
 // Animal will return a random animal
 func Animal() string {
-	return getRandValue([]string{"animal", "animal"})
+	return animal(globalFaker.Rand)
+}
+
+// Animal will return a random animal
+func (f *Faker) Animal() string {
+	return animal(f.Rand)
+}
+
+func animal(r *rand.Rand) string {
+	return getRandValue(r, []string{"animal", "animal"})
 }
 
 // AnimalType will return a random animal type
 func AnimalType() string {
-	return getRandValue([]string{"animal", "type"})
+	return animalType(globalFaker.Rand)
+}
+
+// AnimalType will return a random animal type
+func (f *Faker) AnimalType() string {
+	return animalType(f.Rand)
+}
+
+func animalType(r *rand.Rand) string {
+	return getRandValue(r, []string{"animal", "type"})
 }
 
 // FarmAnimal will return a random animal that usually lives on a farm
 func FarmAnimal() string {
-	return getRandValue([]string{"animal", "farm"})
+	return farmAnimal(globalFaker.Rand)
+}
+
+// FarmAnimal will return a random animal that usually lives on a farm
+func (f *Faker) FarmAnimal() string {
+	return farmAnimal(f.Rand)
+}
+
+func farmAnimal(r *rand.Rand) string {
+	return getRandValue(r, []string{"animal", "farm"})
 }
 
 // Cat will return a random cat breed
 func Cat() string {
-	return getRandValue([]string{"animal", "cat"})
+	return cat(globalFaker.Rand)
+}
+
+// Cat will return a random cat breed
+func (f *Faker) Cat() string {
+	return cat(f.Rand)
+}
+
+func cat(r *rand.Rand) string {
+	return getRandValue(r, []string{"animal", "cat"})
 }
 
 // Dog will return a random dog breed
 func Dog() string {
-	return getRandValue([]string{"animal", "dog"})
+	return dog(globalFaker.Rand)
+}
+
+// Dog will return a random dog breed
+func (f *Faker) Dog() string {
+	return dog(f.Rand)
+}
+
+func dog(r *rand.Rand) string {
+	return getRandValue(r, []string{"animal", "dog"})
 }
 
 func addAnimalLookup() {
@@ -37,8 +93,8 @@ func addAnimalLookup() {
 		Description: "Random pet name",
 		Example:     "Ozzy Pawsborne",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return PetName(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return petName(r), nil
 		},
 	})
 
@@ -48,8 +104,8 @@ func addAnimalLookup() {
 		Description: "Random animal",
 		Example:     "elk",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Animal(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return animal(r), nil
 		},
 	})
 
@@ -59,8 +115,8 @@ func addAnimalLookup() {
 		Description: "Random animal type",
 		Example:     "amphibians",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return AnimalType(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return animalType(r), nil
 		},
 	})
 
@@ -70,8 +126,8 @@ func addAnimalLookup() {
 		Description: "Random farm animal",
 		Example:     "Chicken",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return FarmAnimal(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return farmAnimal(r), nil
 		},
 	})
 
@@ -81,8 +137,8 @@ func addAnimalLookup() {
 		Description: "Random cat type",
 		Example:     "Chausie",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Cat(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return cat(r), nil
 		},
 	})
 
@@ -92,8 +148,8 @@ func addAnimalLookup() {
 		Description: "Random dog type",
 		Example:     "Norwich Terrier",
 		Output:      "string",
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
-			return Dog(), nil
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return dog(r), nil
 		},
 	})
 }

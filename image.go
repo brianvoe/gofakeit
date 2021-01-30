@@ -3,29 +3,40 @@ package gofakeit
 import (
 	"bytes"
 	"errors"
-	"image"
-	"image/color"
+	img "image"
+	imgCol "image/color"
 	"image/jpeg"
 	"image/png"
+	rand "math/rand"
 	"strconv"
 )
 
 // ImageURL will generate a random Image Based Upon Height And Width. https://picsum.photos/
-func ImageURL(width int, height int) string {
+func ImageURL(width int, height int) string { return imageURL(globalFaker.Rand, width, height) }
+
+// ImageURL will generate a random Image Based Upon Height And Width. https://picsum.photos/
+func (f *Faker) ImageURL(width int, height int) string { return imageURL(f.Rand, width, height) }
+
+func imageURL(r *rand.Rand, width int, height int) string {
 	return "https://picsum.photos/" + strconv.Itoa(width) + "/" + strconv.Itoa(height)
 }
 
 // Image generates a random rgba image
-func Image(width int, height int) *image.RGBA {
-	upLeft := image.Point{0, 0}
-	lowRight := image.Point{width, height}
+func Image(width int, height int) *img.RGBA { return image(globalFaker.Rand, width, height) }
 
-	img := image.NewRGBA(image.Rectangle{upLeft, lowRight})
+// Image generates a random rgba image
+func (f *Faker) Image(width int, height int) *img.RGBA { return image(f.Rand, width, height) }
+
+func image(r *rand.Rand, width int, height int) *img.RGBA {
+	upLeft := img.Point{0, 0}
+	lowRight := img.Point{width, height}
+
+	img := img.NewRGBA(img.Rectangle{upLeft, lowRight})
 
 	// Set color for each pixel
 	for x := 0; x < width; x++ {
 		for y := 0; y < height; y++ {
-			img.Set(x, y, color.RGBA{uint8(Number(0, 255)), uint8(Number(0, 255)), uint8(Number(0, 255)), 0xff})
+			img.Set(x, y, imgCol.RGBA{uint8(number(r, 0, 255)), uint8(number(r, 0, 255)), uint8(number(r, 0, 255)), 0xff})
 		}
 	}
 
@@ -33,16 +44,26 @@ func Image(width int, height int) *image.RGBA {
 }
 
 // ImageJpeg generates a random rgba jpeg image
-func ImageJpeg(width int, height int) []byte {
+func ImageJpeg(width int, height int) []byte { return imageJpeg(globalFaker.Rand, width, height) }
+
+// ImageJpeg generates a random rgba jpeg image
+func (f *Faker) ImageJpeg(width int, height int) []byte { return imageJpeg(f.Rand, width, height) }
+
+func imageJpeg(r *rand.Rand, width int, height int) []byte {
 	buf := new(bytes.Buffer)
-	jpeg.Encode(buf, Image(width, height), nil)
+	jpeg.Encode(buf, image(r, width, height), nil)
 	return buf.Bytes()
 }
 
 // ImagePng generates a random rgba png image
-func ImagePng(width int, height int) []byte {
+func ImagePng(width int, height int) []byte { return imagePng(globalFaker.Rand, width, height) }
+
+// ImagePng generates a random rgba png image
+func (f *Faker) ImagePng(width int, height int) []byte { return imagePng(f.Rand, width, height) }
+
+func imagePng(r *rand.Rand, width int, height int) []byte {
 	buf := new(bytes.Buffer)
-	png.Encode(buf, Image(width, height))
+	png.Encode(buf, image(r, width, height))
 	return buf.Bytes()
 }
 
@@ -57,7 +78,7 @@ func addImageLookup() {
 			{Field: "width", Display: "Width", Type: "int", Default: "500", Description: "Image width in px"},
 			{Field: "height", Display: "Height", Type: "int", Default: "500", Description: "Image height in px"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			width, err := info.GetInt(m, "width")
 			if err != nil {
 				return nil, err
@@ -74,7 +95,7 @@ func addImageLookup() {
 				return nil, errors.New("Invalid image height, must be greater than 10, less than 1000")
 			}
 
-			return ImageURL(width, height), nil
+			return imageURL(r, width, height), nil
 		},
 	})
 
@@ -88,7 +109,7 @@ func addImageLookup() {
 			{Field: "width", Display: "Width", Type: "int", Default: "500", Description: "Image width in px"},
 			{Field: "height", Display: "Height", Type: "int", Default: "500", Description: "Image height in px"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			width, err := info.GetInt(m, "width")
 			if err != nil {
 				return nil, err
@@ -105,7 +126,7 @@ func addImageLookup() {
 				return nil, errors.New("Invalid image height, must be greater than 10, less than 1000")
 			}
 
-			return ImageJpeg(width, height), nil
+			return imageJpeg(r, width, height), nil
 		},
 	})
 
@@ -119,7 +140,7 @@ func addImageLookup() {
 			{Field: "width", Display: "Width", Type: "int", Default: "500", Description: "Image width in px"},
 			{Field: "height", Display: "Height", Type: "int", Default: "500", Description: "Image height in px"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			width, err := info.GetInt(m, "width")
 			if err != nil {
 				return nil, err
@@ -136,7 +157,7 @@ func addImageLookup() {
 				return nil, errors.New("Invalid image height, must be greater than 10, less than 1000")
 			}
 
-			return ImagePng(width, height), nil
+			return imagePng(r, width, height), nil
 		},
 	})
 }

@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	rand "math/rand"
 )
 
 // JSONOptions defines values needed for json generation
@@ -54,7 +55,13 @@ func (okv jsonOrderedKeyVal) MarshalJSON() ([]byte, error) {
 }
 
 // JSON generates an object or an array of objects in json format
-func JSON(jo *JSONOptions) ([]byte, error) {
+func JSON(jo *JSONOptions) ([]byte, error) { return jsonFunc(globalFaker.Rand, jo) }
+
+// JSON generates an object or an array of objects in json format
+func (f *Faker) JSON(jo *JSONOptions) ([]byte, error) { return jsonFunc(f.Rand, jo) }
+
+// JSON generates an object or an array of objects in json format
+func jsonFunc(r *rand.Rand, jo *JSONOptions) ([]byte, error) {
 	// Check to make sure they passed in a type
 	if jo.Type != "array" && jo.Type != "object" {
 		return nil, errors.New("Invalid type, must be array or object")
@@ -82,7 +89,7 @@ func JSON(jo *JSONOptions) ([]byte, error) {
 			}
 
 			// Call function value
-			value, err := funcInfo.Call(&field.Params, funcInfo)
+			value, err := funcInfo.Generate(r, &field.Params, funcInfo)
 			if err != nil {
 				return nil, err
 			}
@@ -126,7 +133,7 @@ func JSON(jo *JSONOptions) ([]byte, error) {
 				}
 
 				// Call function value
-				value, err := funcInfo.Call(&field.Params, funcInfo)
+				value, err := funcInfo.Generate(r, &field.Params, funcInfo)
 				if err != nil {
 					return nil, err
 				}
@@ -167,7 +174,7 @@ func addFileJSONLookup() {
 			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function to run in json format"},
 			{Field: "indent", Display: "Indent", Type: "bool", Default: "false", Description: "Whether or not to add indents and newlines"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			jo := JSONOptions{}
 
 			typ, err := info.GetString(m, "type")
@@ -206,7 +213,7 @@ func addFileJSONLookup() {
 			}
 			jo.Indent = indent
 
-			return JSON(&jo)
+			return jsonFunc(r, &jo)
 		},
 	})
 }

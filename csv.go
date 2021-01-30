@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	rand "math/rand"
 	"strings"
 )
 
@@ -17,7 +18,12 @@ type CSVOptions struct {
 }
 
 // CSV generates an object or an array of objects in json format
-func CSV(co *CSVOptions) ([]byte, error) {
+func CSV(co *CSVOptions) ([]byte, error) { return csvFunc(globalFaker.Rand, co) }
+
+// CSV generates an object or an array of objects in json format
+func (f *Faker) CSV(co *CSVOptions) ([]byte, error) { return csvFunc(f.Rand, co) }
+
+func csvFunc(r *rand.Rand, co *CSVOptions) ([]byte, error) {
 	// Check delimiter
 	if co.Delimiter == "" {
 		co.Delimiter = ","
@@ -51,7 +57,7 @@ func CSV(co *CSVOptions) ([]byte, error) {
 	w.Write(header)
 
 	// Loop through row count and add fields
-	for i := 1; i < int(co.RowCount); i++ {
+	for i := 1; i < co.RowCount; i++ {
 		vr := make([]string, len(co.Fields))
 
 		// Loop through fields and add to them to map[string]interface{}
@@ -67,7 +73,7 @@ func CSV(co *CSVOptions) ([]byte, error) {
 				return nil, errors.New("Invalid function, " + field.Function + " does not exist")
 			}
 
-			value, err := funcInfo.Call(&field.Params, funcInfo)
+			value, err := funcInfo.Generate(r, &field.Params, funcInfo)
 			if err != nil {
 				return nil, err
 			}
@@ -103,7 +109,7 @@ func addFileCSVLookup() {
 			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function to run in json format"},
 			{Field: "delimiter", Display: "Delimiter", Type: "string", Default: ",", Description: "Separator in between row values"},
 		},
-		Call: func(m *map[string][]string, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			co := CSVOptions{}
 
 			rowcount, err := info.GetInt(m, "rowcount")
@@ -136,7 +142,7 @@ func addFileCSVLookup() {
 			}
 			co.Delimiter = delimiter
 
-			csvOut, err := CSV(&co)
+			csvOut, err := csvFunc(r, &co)
 			if err != nil {
 				return nil, err
 			}
