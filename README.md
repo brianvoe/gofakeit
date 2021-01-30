@@ -82,11 +82,12 @@ type Foo struct {
 	Bar      string
 	Int      int
 	Pointer  *int
-	Name     string  `fake:"{firstname}"`   // Any available function all lowercase
-	Sentence string  `fake:"{sentence:3}"`  // Can call with parameters
+	Name     string  `fake:"{firstname}"`         // Any available function all lowercase
+	Sentence string  `fake:"{sentence:3}"`        // Can call with parameters
 	RandStr  string  `fake:"{randomstring:[hello,world]}"`
-	Number   string  `fake:"{number:1,10}"` // Comma separated for multiple values
-	Skip     *string `fake:"skip"`          // Set to "skip" to not generate data for
+	Number   string  `fake:"{number:1,10}"`       // Comma separated for multiple values
+	Regex    string  `fake:"{regex:[abcdef]{5}}"` // Generate string from regex
+	Skip     *string `fake:"skip"`                // Set to "skip" to not generate data for
 }
 
 type FooBar struct {
@@ -191,6 +192,7 @@ Teams(people []string, teams []string) map[string][]string
 Struct(v interface{})
 Map() map[string]interface{}
 Generate(value string) string
+Regex(value string) string
 ```
 
 ### Auth
