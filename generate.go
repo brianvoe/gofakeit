@@ -55,17 +55,19 @@ func generate(r *rand.Rand, dataVal string) string {
 	// Loop through string characters
 	for i := 0; i < len(dataVal); i++ {
 		// Check for ignores if equal skip
-		for _, ig := range startCurlyIgnore {
-			if i == ig {
-				fmt.Println("hit start")
-				continue
+		shouldSkip := false
+		for _, igs := range startCurlyIgnore {
+			if i == igs {
+				shouldSkip = true
 			}
 		}
-		for _, ig := range endCurlyIgnore {
-			if i == ig {
-				fmt.Println("hit end")
-				continue
+		for _, ige := range endCurlyIgnore {
+			if i == ige {
+				shouldSkip = true
 			}
+		}
+		if shouldSkip {
+			continue
 		}
 
 		// Identify items between brackets. Ex: {firstname}
@@ -99,7 +101,14 @@ func generate(r *rand.Rand, dataVal string) string {
 			// Get parameters, make sure params and the split both have values
 			var mapParams *MapParams
 			paramsLen := len(info.Params)
-			if paramsLen > 0 && fParams != "" {
+
+			// If just one param and its a string simply just pass it
+			if paramsLen == 1 && info.Params[0].Type == "string" {
+				if mapParams == nil {
+					mapParams = NewMapParams()
+				}
+				mapParams.Add(info.Params[0].Field, fParams)
+			} else if paramsLen > 0 && fParams != "" {
 				splitVals := funcLookupSplit(fParams)
 				for ii := 0; ii < len(splitVals); ii++ {
 					if paramsLen-1 >= ii {
