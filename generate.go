@@ -75,7 +75,7 @@ func generate(r *rand.Rand, dataVal string) string {
 			startCurly = i
 			continue
 		}
-		if string(dataVal[i]) == "}" {
+		if startCurly != -1 && string(dataVal[i]) == "}" {
 			endCurly = i
 		}
 		if startCurly == -1 || endCurly == -1 {
