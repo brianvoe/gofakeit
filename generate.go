@@ -48,15 +48,34 @@ func generate(r *rand.Rand, dataVal string) string {
 
 	// Variables to identify the index in which it exists
 	startCurly := -1
+	startCurlyIgnore := []int{}
 	endCurly := -1
+	endCurlyIgnore := []int{}
 
-	// Identify items between brackets. Ex: {firstname}
+	// Loop through string characters
 	for i := 0; i < len(dataVal); i++ {
+		// Check for ignores if equal skip
+		shouldSkip := false
+		for _, igs := range startCurlyIgnore {
+			if i == igs {
+				shouldSkip = true
+			}
+		}
+		for _, ige := range endCurlyIgnore {
+			if i == ige {
+				shouldSkip = true
+			}
+		}
+		if shouldSkip {
+			continue
+		}
+
+		// Identify items between brackets. Ex: {firstname}
 		if string(dataVal[i]) == "{" {
 			startCurly = i
 			continue
 		}
-		if string(dataVal[i]) == "}" {
+		if startCurly != -1 && string(dataVal[i]) == "}" {
 			endCurly = i
 		}
 		if startCurly == -1 || endCurly == -1 {
@@ -65,10 +84,6 @@ func generate(r *rand.Rand, dataVal string) string {
 
 		// Get the value between brackets
 		fParts := dataVal[startCurly+1 : endCurly]
-
-		// Reset the curly index back to -1
-		startCurly = -1
-		endCurly = -1
 
 		// Check if has params separated by :
 		fNameSplit := strings.SplitN(fParts, ":", 2)
@@ -86,7 +101,14 @@ func generate(r *rand.Rand, dataVal string) string {
 			// Get parameters, make sure params and the split both have values
 			var mapParams *MapParams
 			paramsLen := len(info.Params)
-			if paramsLen > 0 && fParams != "" {
+
+			// If just one param and its a string simply just pass it
+			if paramsLen == 1 && info.Params[0].Type == "string" {
+				if mapParams == nil {
+					mapParams = NewMapParams()
+				}
+				mapParams.Add(info.Params[0].Field, fParams)
+			} else if paramsLen > 0 && fParams != "" {
 				splitVals := funcLookupSplit(fParams)
 				for ii := 0; ii < len(splitVals); ii++ {
 					if paramsLen-1 >= ii {
@@ -110,17 +132,28 @@ func generate(r *rand.Rand, dataVal string) string {
 			if err != nil {
 				// If we came across an error just dont replace value
 				dataVal = strings.Replace(dataVal, "{"+fParts+"}", err.Error(), 1)
-				i = -1 // Reset back to the start of the string
-				continue
+			} else {
+				// Successfully found, run replace with new value
+				dataVal = strings.Replace(dataVal, "{"+fParts+"}", fmt.Sprintf("%v", fValue), 1)
 			}
-			dataVal = strings.Replace(dataVal, "{"+fParts+"}", fmt.Sprintf("%v", fValue), 1)
+
+			// Reset the curly index back to -1 and reset ignores
+			startCurly = -1
+			startCurlyIgnore = []int{}
+			endCurly = -1
+			endCurlyIgnore = []int{}
 			i = -1 // Reset back to the start of the string
 			continue
 		}
 
-		// Couldnt find anything - set to n/a
-		dataVal = strings.Replace(dataVal, "{"+fParts+"}", "n/a", 1)
-		i = -1
+		// Couldnt find anything - mark curly brackets to skip and rerun
+		startCurlyIgnore = append(startCurlyIgnore, startCurly)
+		endCurlyIgnore = append(endCurlyIgnore, endCurly)
+
+		// Reset the curly index back to -1
+		startCurly = -1
+		endCurly = -1
+		i = -1 // Reset back to the start of the string
 		continue
 	}
 

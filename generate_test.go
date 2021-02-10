@@ -161,6 +161,69 @@ func TestRegex(t *testing.T) {
 	}
 }
 
+func TestRegex_Struct(t *testing.T) {
+	Seed(11)
+
+	type Reggy struct {
+		Str1  string `fake:"{regex:^\\d+$}"`
+		Str2  string `fake:"{regex:\\D{3}}"`
+		Str3  string `fake:"{regex:Z{2,5}}"`
+		Str4  string `fake:"{regex:[^1]{3,5}}"`
+		Str5  string `fake:"{regex:(ab|bc)def}"`
+		Str6  string `fake:"{regex:((123)?){3}}"`
+		Str7  string `fake:"{regex:[^abcdef]{5}}"`
+		Str8  string `fake:"{regex:[a-zA-Z]{10}}"`
+		Str9  string `fake:"{regex:[[:upper:]]{5}}"`
+		Str10 string `fake:"{regex:[^0-5a-z\\s]{5}}"`
+		Str11 string `fake:"{regex:123[0-2]+.*\\w{3}}"`
+		Str12 string `fake:"{regex:(hello|world|whats|up)}"`
+		Str13 string `fake:"{regex:^\\d{1,2}[/](1[0-2]|[1-9])[/]((19|20)\\d{2})$}"`
+	}
+
+	rg := Reggy{}
+	Struct(&rg)
+
+	if rg.Str1 != "165989" {
+		t.Errorf("Str1 should be 165989 got: %s", rg.Str1)
+	}
+	if rg.Str2 != "X,P" {
+		t.Errorf("Str2 should be X,P got: %s", rg.Str2)
+	}
+	if rg.Str3 != "ZZZZ" {
+		t.Errorf("Str3 should be ZZZZ got: %s", rg.Str3)
+	}
+	if rg.Str4 != "+EW" {
+		t.Errorf("Str4 should be +EW got: %s", rg.Str4)
+	}
+	if rg.Str5 != "abdef" {
+		t.Errorf("Str5 should be abdef got: %s", rg.Str5)
+	}
+	if rg.Str6 != "123M123M123M" {
+		t.Errorf("Str6 should be 123M123M123M got: %s", rg.Str6)
+	}
+	if rg.Str7 != "8|_Jh" {
+		t.Errorf("Str7 should be 8|_Jh got: %s", rg.Str7)
+	}
+	if rg.Str8 != "wnqhqclaYk" {
+		t.Errorf("Str8 should be wnqhqclaYk got: %s", rg.Str8)
+	}
+	if rg.Str9 != "WWFOR" {
+		t.Errorf("Str9 should be WWFOR got: %s", rg.Str9)
+	}
+	if rg.Str10 != "G)#AA" {
+		t.Errorf("Str10 should be G)#AA got: %s", rg.Str10)
+	}
+	if rg.Str11 != "12320kxu2d" {
+		t.Errorf("Str11 should be 12320kxu2d got: %s", rg.Str11)
+	}
+	if rg.Str12 != "world" {
+		t.Errorf("Str12 should be world got: %s", rg.Str12)
+	}
+	if rg.Str13 != "93/11/2029" {
+		t.Errorf("Str13 should be 93/11/2029 got: %s", rg.Str13)
+	}
+}
+
 func BenchmarkRegex(b *testing.B) {
 	b.Run("package", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {

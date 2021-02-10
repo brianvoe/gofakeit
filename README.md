@@ -82,11 +82,12 @@ type Foo struct {
 	Bar      string
 	Int      int
 	Pointer  *int
-	Name     string  `fake:"{firstname}"`   // Any available function all lowercase
-	Sentence string  `fake:"{sentence:3}"`  // Can call with parameters
+	Name     string  `fake:"{firstname}"`         // Any available function all lowercase
+	Sentence string  `fake:"{sentence:3}"`        // Can call with parameters
 	RandStr  string  `fake:"{randomstring:[hello,world]}"`
-	Number   string  `fake:"{number:1,10}"` // Comma separated for multiple values
-	Skip     *string `fake:"skip"`          // Set to "skip" to not generate data for
+	Number   string  `fake:"{number:1,10}"`       // Comma separated for multiple values
+	Regex    string  `fake:"{regex:[abcdef]{5}}"` // Generate string from regex
+	Skip     *string `fake:"skip"`                // Set to "skip" to not generate data for
 }
 
 type FooBar struct {
@@ -105,6 +106,7 @@ fmt.Println(f.Name)     // fred
 fmt.Println(f.Sentence) // Record river mind.
 fmt.Println(f.RandStr)  // world
 fmt.Println(f.Number)   // 4
+fmt.Println(f.Regex)    // cbdfc
 fmt.Println(f.Skip)     // <nil>
 
 var fb FooBar
@@ -191,6 +193,7 @@ Teams(people []string, teams []string) map[string][]string
 Struct(v interface{})
 Map() map[string]interface{}
 Generate(value string) string
+Regex(value string) string
 ```
 
 ### Auth
@@ -392,11 +395,11 @@ Dog() string
 
 ### Emoji
 ```go
-Emoji() string // 🤣
-EmojiDescription() string // winking face
-EmojiCategory() string // Smileys & Emotion
-EmojiAlias() string // smiley
-EmojiTag() string // happy
+Emoji() string
+EmojiDescription() string
+EmojiCategory() string
+EmojiAlias() string
+EmojiTag() string
 ```
 
 ### Languages
