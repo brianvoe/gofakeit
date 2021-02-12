@@ -281,3 +281,22 @@ func (i *Info) GetIntArray(m *MapParams, field string) ([]int, error) {
 
 	return ints, nil
 }
+
+// GetFloat32Array will retrieve []int field from data
+func (i *Info) GetFloat32Array(m *MapParams, field string) ([]float32, error) {
+	_, value, err := i.GetField(m, field)
+	if err != nil {
+		return nil, err
+	}
+
+	var floats []float32
+	for i := 0; i < len(value); i++ {
+		valueFloat, err := strconv.ParseFloat(value[i], 32)
+		if err != nil {
+			return nil, fmt.Errorf("%s value could not parse to int", value[i])
+		}
+		floats = append(floats, float32(valueFloat))
+	}
+
+	return floats, nil
+}
