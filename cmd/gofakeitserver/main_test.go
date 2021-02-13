@@ -66,6 +66,12 @@ func TestGetAllRequests(t *testing.T) {
 					mapData.Add(p.Field, fmt.Sprintf("%d", gofakeit.Int8()))
 					mapData.Add(p.Field, fmt.Sprintf("%d", gofakeit.Int8()))
 					break
+				case "[]float":
+					mapData.Add(p.Field, fmt.Sprintf("%v", gofakeit.Float32()))
+					mapData.Add(p.Field, fmt.Sprintf("%v", gofakeit.Float32()))
+					mapData.Add(p.Field, fmt.Sprintf("%v", gofakeit.Float32()))
+					mapData.Add(p.Field, fmt.Sprintf("%v", gofakeit.Float32()))
+					break
 				case "[]Field":
 					mapData.Add(p.Field, `{"name":"first_name","function":"firstname"}`)
 					break
@@ -172,6 +178,9 @@ func TestPostAllRequests(t *testing.T) {
 					break
 				case "[]int":
 					mapData[p.Field] = []string{fmt.Sprintf("%d", gofakeit.Int8()), fmt.Sprintf("%d", gofakeit.Int8()), fmt.Sprintf("%d", gofakeit.Int8()), fmt.Sprintf("%d", gofakeit.Int8())}
+					break
+				case "[]float":
+					mapData[p.Field] = []string{fmt.Sprintf("%v", gofakeit.Float32()), fmt.Sprintf("%v", gofakeit.Float32()), fmt.Sprintf("%v", gofakeit.Float32()), fmt.Sprintf("%v", gofakeit.Float32())}
 					break
 				case "[]Field":
 					mapData[p.Field] = []string{`{"name":"first_name","function":"firstname"}`}
