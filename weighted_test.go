@@ -52,6 +52,20 @@ func TestWeighted(t *testing.T) {
 	}
 }
 
+func TestWeightedStruct(t *testing.T) {
+	type weighted struct {
+		S string `fake:"{weighted:[hello, 2, 6.9],[1, 2, 3]}"`
+	}
+
+	Seed(11)
+
+	var weight weighted
+	Struct(&weight)
+	if weight.S != "hello" {
+		t.Errorf("Expected hello got %s", weight.S)
+	}
+}
+
 func BenchmarkWeighted(b *testing.B) {
 	options := []interface{}{"hello", 2, 6.9}
 	weights := []float32{1, 2, 3}

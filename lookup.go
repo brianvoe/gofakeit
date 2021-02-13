@@ -57,6 +57,7 @@ func initLookup() {
 	addLoremLookup()
 	addGenerateLookup()
 	addMiscLookup()
+	addWeightedLookup()
 	addColorLookup()
 	addInternetLookup()
 	addDateTimeLookup()

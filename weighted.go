@@ -78,11 +78,12 @@ func addWeightedLookup() {
 	AddFuncLookup("weighted", Info{
 		Display:     "Weighted",
 		Category:    "misc",
-		Description: "Randomly select ",
-		Example:     "g",
+		Description: "Randomly select a given option based upon an equal amount of weights",
+		Example:     "[hello, 2, 6.9],[1, 2, 3] => 6.9",
 		Output:      "any",
 		Params: []Param{
-			{Field: "options", Display: "Count", Type: "uint", Description: "Number of digits to generate"},
+			{Field: "options", Display: "Options", Type: "[]string", Description: "Array of any values"},
+			{Field: "weights", Display: "Weights", Type: "[]float", Description: "Array of weights"},
 		},
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			options, err := info.GetStringArray(m, "options")
@@ -95,7 +96,12 @@ func addWeightedLookup() {
 				return nil, err
 			}
 
-			return weighted(r, options, weights)
+			optionsInterface := make([]interface{}, len(options))
+			for i, o := range options {
+				optionsInterface[i] = o
+			}
+
+			return weighted(r, optionsInterface, weights)
 		},
 	})
 }
