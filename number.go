@@ -319,8 +319,8 @@ func addNumberLookup() {
 		Example:     "914774.6",
 		Output:      "float32",
 		Params: []Param{
-			{Field: "min", Display: "Min", Type: "int", Description: "Minimum float32 value"},
-			{Field: "max", Display: "Max", Type: "int", Description: "Maximum float32 value"},
+			{Field: "min", Display: "Min", Type: "float", Description: "Minimum float32 value"},
+			{Field: "max", Display: "Max", Type: "float", Description: "Maximum float32 value"},
 		},
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			min, err := info.GetFloat32(m, "min")
@@ -355,8 +355,8 @@ func addNumberLookup() {
 		Example:     "914774.5585333086",
 		Output:      "float64",
 		Params: []Param{
-			{Field: "min", Display: "Min", Type: "int", Description: "Minimum float64 value"},
-			{Field: "max", Display: "Max", Type: "int", Description: "Maximum float64 value"},
+			{Field: "min", Display: "Min", Type: "float", Description: "Minimum float64 value"},
+			{Field: "max", Display: "Max", Type: "float", Description: "Maximum float64 value"},
 		},
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			min, err := info.GetFloat64(m, "min")
