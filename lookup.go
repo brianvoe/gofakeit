@@ -57,7 +57,6 @@ func initLookup() {
 	addLoremLookup()
 	addGenerateLookup()
 	addMiscLookup()
-	addWeightedLookup()
 	addColorLookup()
 	addInternetLookup()
 	addDateTimeLookup()
@@ -78,6 +77,7 @@ func initLookup() {
 	addGameLookup()
 	addFoodLookup()
 	addAppLookup()
+	addWeightedLookup()
 }
 
 // NewMapParams will create a new MapParams
@@ -283,7 +283,7 @@ func (i *Info) GetIntArray(m *MapParams, field string) ([]int, error) {
 	return ints, nil
 }
 
-// GetFloat32Array will retrieve []int field from data
+// GetFloat32Array will retrieve []float field from data
 func (i *Info) GetFloat32Array(m *MapParams, field string) ([]float32, error) {
 	_, value, err := i.GetField(m, field)
 	if err != nil {
