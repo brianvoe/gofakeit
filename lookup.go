@@ -294,7 +294,7 @@ func (i *Info) GetFloat32Array(m *MapParams, field string) ([]float32, error) {
 	for i := 0; i < len(value); i++ {
 		valueFloat, err := strconv.ParseFloat(value[i], 32)
 		if err != nil {
-			return nil, fmt.Errorf("%s value could not parse to int", value[i])
+			return nil, fmt.Errorf("%s value could not parse to float", value[i])
 		}
 		floats = append(floats, float32(valueFloat))
 	}
