@@ -10,10 +10,22 @@ type Basic struct {
 	S string
 }
 
+type embeder struct {
+	A  string
+	AA []string
+	embedee
+}
+
+type embedee struct {
+	B  string   `fake:"{firstname}"`
+	BA []string `fake:"{firstname}" fakesize:"5"`
+}
+
 type Nested struct {
 	A   string
 	B   *Basic
 	bar *Basic
+	embeder
 }
 
 type BuiltIn struct {
@@ -81,7 +93,13 @@ func TestStructNested(t *testing.T) {
 		t.Error("nested struct string field is not populated")
 	}
 	if nested.bar != nil {
-		t.Error("nested struct bar should be be populated due to unexported variable")
+		t.Error("nested struct bar should not be populated due to unexported variable")
+	}
+	if nested.embeder.A == "" || nested.embeder.AA == nil {
+		t.Error("nested embeder fields should be populated")
+	}
+	if nested.embeder.embedee.B == "" || nested.embeder.embedee.BA == nil || len(nested.embeder.embedee.BA) != 5 {
+		t.Error("nested embeder fields should be populated")
 	}
 }
 

@@ -1,6 +1,6 @@
 ![alt text](https://raw.githubusercontent.com/brianvoe/gofakeit/master/logo.png)
 
-# Gofakeit [![Go Report Card](https://goreportcard.com/badge/github.com/brianvoe/gofakeit)](https://goreportcard.com/report/github.com/brianvoe/gofakeit) ![Go](https://github.com/brianvoe/gofakeit/workflows/Go/badge.svg) [![codecov.io](https://codecov.io/github/brianvoe/gofakeit/branch/master/graph/badge.svg)](https://codecov.io/github/brianvoe/gofakeit) [![GoDoc](https://godoc.org/github.com/brianvoe/gofakeit?status.svg)](https://godoc.org/github.com/brianvoe/gofakeit) [![license](http://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://raw.githubusercontent.com/brianvoe/gofakeit/master/LICENSE.txt)
+# Gofakeit [![Go Report Card](https://goreportcard.com/badge/github.com/brianvoe/gofakeit)](https://goreportcard.com/report/github.com/brianvoe/gofakeit) ![Test](https://github.com/brianvoe/gofakeit/workflows/Test/badge.svg?branch=master) [![codecov.io](https://codecov.io/github/brianvoe/gofakeit/branch/master/graph/badge.svg)](https://codecov.io/github/brianvoe/gofakeit) [![GoDoc](https://godoc.org/github.com/brianvoe/gofakeit?status.svg)](https://godoc.org/github.com/brianvoe/gofakeit) [![license](http://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://raw.githubusercontent.com/brianvoe/gofakeit/master/LICENSE.txt)
 Random data generator written in go
 
 <a href="https://www.buymeacoffee.com/brianvoe" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
@@ -165,10 +165,10 @@ fmt.Printf("%s", f.JumbleWord) // loredlowlh
 All functions also exist as methods on the Faker struct
 ### File
 ```go
-JSON(jo *JSONOptions) []byte
-XML(xo *XMLOptions) []byte
-Extension() string
-MimeType() string
+JSON(jo *JSONOptions) ([]byte, error)
+XML(xo *XMLOptions) ([]byte, error)
+FileExtension() string
+FileMimeType() string
 ```
 
 ### Person
@@ -185,7 +185,7 @@ Contact() *ContactInfo
 Email() string
 Phone() string
 PhoneFormatted() string
-Teams(people []string, teams []string) map[string][]string
+Teams(peopleArray []string, teamsArray []string) map[string][]string
 ```
 
 ### Generate
@@ -239,14 +239,14 @@ BeerStyle() string
 BeerYeast() string
 ```
 
-### Cars
+### Car
 ```go
-Vehicle() *VehicleInfo
+Car() *CarInfo
 CarMaker() string
 CarModel() string
-VehicleType() string
-FuelType() string
-TransmissionGearType() string
+CarType() string
+CarFuelType() string
+CarTransmissionType() string
 ```
 
 ### Words
@@ -282,6 +282,8 @@ Dessert() string
 ```go
 Bool() bool
 UUID() string
+FlipACoin() string
+ShuffleAnySlice(v interface{})
 ```
 
 ### Colors
@@ -295,13 +297,13 @@ SafeColor() string
 ### Internet
 ```go
 URL() string
-ImageURL(width int, height int) string
 DomainName() string
 DomainSuffix() string
 IPv4Address() string
 IPv6Address() string
-StatusCode() string
-SimpleStatusCode() int
+MacAddress() string
+HTTPStatusCode() string
+HTTPStatusCodeSimple() int
 LogLevel(logType string) string
 HTTPMethod() string
 UserAgent() string
@@ -363,7 +365,7 @@ JobTitle() string
 ```go
 HackerAbbreviation() string
 HackerAdjective() string
-HackerIngverb() string
+Hackeringverb() string
 HackerNoun() string
 HackerPhrase() string
 HackerVerb() string
@@ -402,7 +404,7 @@ EmojiAlias() string
 EmojiTag() string
 ```
 
-### Languages
+### Language
 ```go
 Language() string
 LanguageAbbreviation() string
@@ -410,7 +412,7 @@ ProgrammingLanguage() string
 ProgrammingLanguageBest() string
 ```
 
-### Numbers
+### Number
 ```go
 Number(min int, max int) int
 Int8() int8
@@ -432,9 +434,9 @@ RandomInt(i []int) int
 ### String
 ```go
 Digit() string
-DigitN(n int) string
+DigitN(n uint) string
 Letter() string
-LetterN(n int) string
+LetterN(n uint) string
 Lexify(str string) string
 Numerify(str string) string
 ShuffleStrings(a []string)
