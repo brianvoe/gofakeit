@@ -54,7 +54,7 @@ func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value) {
 		t, ok := elementT.Tag.Lookup("fake")
 		if ok && t == "skip" {
 			// Do nothing, skip it
-		} else if elementV.CanSet() {
+		} else if elementV.CanSet() || elementT.Anonymous {
 			// Check if fakesize is set
 			size := -1 // Set to -1 to indicate fakesize was not set
 			fs, ok := elementT.Tag.Lookup("fakesize")
