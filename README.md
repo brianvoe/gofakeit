@@ -191,6 +191,7 @@ Teams(peopleArray []string, teamsArray []string) map[string][]string
 ### Generate
 ```go
 Struct(v interface{})
+Slice(v interface{})
 Map() map[string]interface{}
 Generate(value string) string
 Regex(value string) string
