@@ -28,7 +28,7 @@ func structFunc(ra *rand.Rand, v interface{}) {
 func r(ra *rand.Rand, t reflect.Type, v reflect.Value, function string, size int) {
 	switch t.Kind() {
 	case reflect.Ptr:
-		rPointer(ra, t, v, function)
+		rPointer(ra, t, v, function, size)
 	case reflect.Struct:
 		rStruct(ra, t, v)
 	case reflect.String:
@@ -70,14 +70,14 @@ func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value) {
 	}
 }
 
-func rPointer(ra *rand.Rand, t reflect.Type, v reflect.Value, function string) {
+func rPointer(ra *rand.Rand, t reflect.Type, v reflect.Value, function string, size int) {
 	elemT := t.Elem()
 	if v.IsNil() {
 		nv := reflect.New(elemT)
-		r(ra, elemT, nv.Elem(), function, 0)
+		r(ra, elemT, nv.Elem(), function, size)
 		v.Set(nv)
 	} else {
-		r(ra, elemT, v.Elem(), function, 0)
+		r(ra, elemT, v.Elem(), function, size)
 	}
 }
 
