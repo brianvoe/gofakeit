@@ -332,13 +332,13 @@ func BenchmarkState(b *testing.B) {
 func ExampleStateAbr() {
 	Seed(11)
 	fmt.Println(StateAbr())
-	// Output: OR
+	// Output: CO
 }
 
 func ExampleFaker_StateAbr() {
 	f := New(11)
 	fmt.Println(f.StateAbr())
-	// Output: OR
+	// Output: CO
 }
 
 func BenchmarkStateAbr(b *testing.B) {
