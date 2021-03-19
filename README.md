@@ -82,12 +82,14 @@ type Foo struct {
 	Bar      string
 	Int      int
 	Pointer  *int
-	Name     string  `fake:"{firstname}"`         // Any available function all lowercase
-	Sentence string  `fake:"{sentence:3}"`        // Can call with parameters
-	RandStr  string  `fake:"{randomstring:[hello,world]}"`
-	Number   string  `fake:"{number:1,10}"`       // Comma separated for multiple values
-	Regex    string  `fake:"{regex:[abcdef]{5}}"` // Generate string from regex
-	Skip     *string `fake:"skip"`                // Set to "skip" to not generate data for
+	Name     string    `fake:"{firstname}"`         // Any available function all lowercase
+	Sentence string    `fake:"{sentence:3}"`        // Can call with parameters
+	RandStr  string    `fake:"{randomstring:[hello,world]}"`
+	Number   string    `fake:"{number:1,10}"`       // Comma separated for multiple values
+	Regex    string    `fake:"{regex:[abcdef]{5}}"` // Generate string from regex
+	Skip     *string   `fake:"skip"`                // Set to "skip" to not generate data for
+	Created  time.Time								// Can take in a fake tag as well as a format tag
+	CreatedFormat  time.Time `fake:"{year}-{month}-{day}" format:"2006-01-02"`
 }
 
 type FooBar struct {
@@ -99,22 +101,23 @@ type FooBar struct {
 // Pass your struct as a pointer
 var f Foo
 gofakeit.Struct(&f)
-fmt.Println(f.Bar)      // hrukpttuezptneuvunh
-fmt.Println(f.Int)      // -7825289004089916589
-fmt.Println(*f.Pointer) // -343806609094473732
-fmt.Println(f.Name)     // fred
-fmt.Println(f.Sentence) // Record river mind.
-fmt.Println(f.RandStr)  // world
-fmt.Println(f.Number)   // 4
-fmt.Println(f.Regex)    // cbdfc
-fmt.Println(f.Skip)     // <nil>
+fmt.Println(f.Bar)      		// hrukpttuezptneuvunh
+fmt.Println(f.Int)      		// -7825289004089916589
+fmt.Println(*f.Pointer) 		// -343806609094473732
+fmt.Println(f.Name)     		// fred
+fmt.Println(f.Sentence) 		// Record river mind.
+fmt.Println(f.RandStr)  		// world
+fmt.Println(f.Number)   		// 4
+fmt.Println(f.Regex)    		// cbdfc
+fmt.Println(f.Skip)     		// <nil>
+fmt.Println(f.Created.String()) // 1908-12-07 04:14:25.685339029 +0000 UTC
 
 var fb FooBar
 gofakeit.Struct(&fb)
 fmt.Println(fb.Bars)      // [Charlie Senger]
 fmt.Println(fb.Foos)      // [{blmfxy -2585154718894894116 0xc000317bc0 Emmy Attitude demand addition. hello 3 <nil>} {cplbf -1722374676852125164 0xc000317cb0 Viva Addition option link. hello 7 <nil>}]
 
-// Supported formats - Array and pointers
+// Supported formats - Array and pointers as well
 // int, int8, int16, int32, int64,
 // float32, float64,
 // bool, string,
