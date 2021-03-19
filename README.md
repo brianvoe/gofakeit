@@ -114,6 +114,12 @@ gofakeit.Struct(&fb)
 fmt.Println(fb.Bars)      // [Charlie Senger]
 fmt.Println(fb.Foos)      // [{blmfxy -2585154718894894116 0xc000317bc0 Emmy Attitude demand addition. hello 3 <nil>} {cplbf -1722374676852125164 0xc000317cb0 Viva Addition option link. hello 7 <nil>}]
 
+// Supported formats - Array and pointers
+// int, int8, int16, int32, int64,
+// float32, float64,
+// bool, string,
+// time.Time // If setting time you can also set a format tag
+// Nested Struct Fields and Embeded Fields
 ```
 
 ## Custom Functions

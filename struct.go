@@ -1,10 +1,11 @@
 package gofakeit
 
 import (
-	rand "math/rand"
+	"math/rand"
 	"reflect"
 	"strconv"
 	"strings"
+	"time"
 )
 
 // Struct fills in exported fields of a struct with random data
@@ -30,7 +31,7 @@ func r(ra *rand.Rand, t reflect.Type, v reflect.Value, function string, size int
 	case reflect.Ptr:
 		rPointer(ra, t, v, function, size)
 	case reflect.Struct:
-		rStruct(ra, t, v)
+		rStruct(ra, t, v, function)
 	case reflect.String:
 		rString(ra, t, v, function)
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
@@ -46,15 +47,22 @@ func r(ra *rand.Rand, t reflect.Type, v reflect.Value, function string, size int
 	}
 }
 
-func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value) {
+func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, function string) {
 	n := t.NumField()
 	for i := 0; i < n; i++ {
 		elementT := t.Field(i)
 		elementV := v.Field(i)
-		t, ok := elementT.Tag.Lookup("fake")
-		if ok && t == "skip" {
+		fakeTag, ok := elementT.Tag.Lookup("fake")
+		if ok && fakeTag == "skip" {
 			// Do nothing, skip it
 		} else if elementV.CanSet() || elementT.Anonymous {
+			// Check if reflect type is of values we can specifically set
+			switch elementT.Type.String() {
+			case "time.Time":
+				rTime(ra, elementT, elementV, fakeTag)
+				continue
+			}
+
 			// Check if fakesize is set
 			size := -1 // Set to -1 to indicate fakesize was not set
 			fs, ok := elementT.Tag.Lookup("fakesize")
@@ -65,7 +73,7 @@ func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value) {
 					size = number(ra, 1, 10)
 				}
 			}
-			r(ra, elementT.Type, elementV, t, size)
+			r(ra, elementT.Type, elementV, fakeTag, size)
 		}
 	}
 }
@@ -205,4 +213,22 @@ func rBool(ra *rand.Rand, t reflect.Type, v reflect.Value, function string) {
 
 	// If no function or error converting to boolean, set with random value
 	v.SetBool(boolFunc(ra))
+}
+
+// rTime will set a time.Time field the best it can from either the default date function or from the generate function
+func rTime(ra *rand.Rand, t reflect.StructField, v reflect.Value, tag string) {
+	if tag != "" {
+		timeFormat, timeFormatOK := t.Tag.Lookup("format")
+		// If no format passed in use the most popular RFC3339
+		if !timeFormatOK {
+			timeFormat = time.RFC3339
+		}
+		timeOutput := generate(ra, tag)
+		timeStruct, err := time.Parse(timeFormat, timeOutput)
+		if err == nil {
+			v.Set(reflect.ValueOf(timeStruct))
+		}
+	} else {
+		v.Set(reflect.ValueOf(date(ra)))
+	}
 }
