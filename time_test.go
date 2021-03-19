@@ -28,13 +28,6 @@ func TestDateLookup(t *testing.T) {
 			t.Error("value was empty")
 		}
 	}
-
-	mapParams := NewMapParams()
-	mapParams.Add("format", "")
-	_, err := info.Generate(globalFaker.Rand, mapParams, info)
-	if err == nil {
-		t.Error("should have gotten an error")
-	}
 }
 
 func BenchmarkDate(b *testing.B) {
@@ -100,13 +93,13 @@ func BenchmarkDateRange(b *testing.B) {
 func ExampleMonth() {
 	Seed(11)
 	fmt.Println(Month())
-	// Output: January
+	// Output: 1
 }
 
 func ExampleFaker_Month() {
 	f := New(11)
 	fmt.Println(f.Month())
-	// Output: January
+	// Output: 1
 }
 
 func BenchmarkMonth(b *testing.B) {
@@ -129,6 +122,42 @@ func BenchmarkMonth(b *testing.B) {
 
 		for i := 0; i < b.N; i++ {
 			f.Month()
+		}
+	})
+}
+
+func ExampleMonthString() {
+	Seed(11)
+	fmt.Println(MonthString())
+	// Output: January
+}
+
+func ExampleFaker_MonthString() {
+	f := New(11)
+	fmt.Println(f.MonthString())
+	// Output: January
+}
+
+func BenchmarkMonthString(b *testing.B) {
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			MonthString()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.MonthString()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.MonthString()
 		}
 	})
 }

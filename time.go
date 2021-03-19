@@ -1,7 +1,6 @@
 package gofakeit
 
 import (
-	"errors"
 	"math/rand"
 	"strconv"
 	"time"
@@ -75,13 +74,21 @@ func (f *Faker) WeekDay() string { return weekDay(f.Rand) }
 
 func weekDay(r *rand.Rand) string { return time.Weekday(number(r, 0, 6)).String() }
 
-// Month will generate a random month string
-func Month() string { return month(globalFaker.Rand) }
+// Month will generate a random month int
+func Month() int { return month(globalFaker.Rand) }
 
-// Month will generate a random month string
-func (f *Faker) Month() string { return month(f.Rand) }
+// Month will generate a random month int
+func (f *Faker) Month() int { return month(f.Rand) }
 
-func month(r *rand.Rand) string { return time.Month(number(r, 1, 12)).String() }
+func month(r *rand.Rand) int { return number(r, 1, 12) }
+
+// MonthString will generate a random month string
+func MonthString() string { return monthString(globalFaker.Rand) }
+
+// MonthString will generate a random month string
+func (f *Faker) MonthString() string { return monthString(f.Rand) }
+
+func monthString(r *rand.Rand) string { return time.Month(number(r, 1, 12)).String() }
 
 // Year will generate a random year between 1900 - current year
 func Year() int { return year(globalFaker.Rand) }
@@ -178,9 +185,9 @@ func addDateTimeLookup() {
 				return Date().Format(time.RFC3339), nil
 			case "RFC3339Nano":
 				return Date().Format(time.RFC3339Nano), nil
+			default:
+				return Date().Format(time.RFC3339), nil
 			}
-
-			return "", errors.New("Invalid format")
 		},
 	})
 
@@ -247,6 +254,28 @@ func addDateTimeLookup() {
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return weekDay(r), nil
+		},
+	})
+
+	AddFuncLookup("month", Info{
+		Display:     "Month",
+		Category:    "time",
+		Description: "Random month",
+		Example:     "1",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return month(r), nil
+		},
+	})
+
+	AddFuncLookup("monthstring", Info{
+		Display:     "Month String",
+		Category:    "time",
+		Description: "Random month in string output",
+		Example:     "September",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return monthString(r), nil
 		},
 	})
 

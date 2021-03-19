@@ -3,6 +3,7 @@ package gofakeit
 import (
 	"fmt"
 	"testing"
+	"time"
 )
 
 type Basic struct {
@@ -434,5 +435,25 @@ func TestStructToBool(t *testing.T) {
 	}
 	if sf.BoolGenerate != true {
 		t.Errorf("BoolGenerate should be true got false")
+	}
+}
+
+func TestStructToDateTime(t *testing.T) {
+	Seed(11)
+
+	var datetime struct {
+		Simple    time.Time
+		Tag       time.Time `fake:"{date}"`
+		TagFormat time.Time `fake:"{number:1900,1950}-12-05" format:"2006-01-02"`
+	}
+	Struct(&datetime)
+	if datetime.Simple.String() != "1908-12-07 04:14:25.685339029 +0000 UTC" {
+		t.Errorf("Simple should be 1908-12-07 04:14:25.685339029 +0000 UTC and instead got %s", datetime.Simple.String())
+	}
+	if datetime.Tag.String() != "1979-05-21 05:49:35 +0000 UTC" {
+		t.Errorf("Tag should be 1979-05-21 05:49:35 +0000 UTC and instead got %s", datetime.Tag.String())
+	}
+	if datetime.TagFormat.String() != "1943-12-05 00:00:00 +0000 UTC" {
+		t.Errorf("TagFormat should be 1943-12-05 00:00:00 +0000 UTC and instead got %s", datetime.TagFormat.String())
 	}
 }
