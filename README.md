@@ -331,7 +331,8 @@ NanoSecond() int
 Second() int
 Minute() int
 Hour() int
-Month() string
+Month() int
+MonthString() string
 Day() int
 WeekDay() string
 Year() int
