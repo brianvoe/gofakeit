@@ -35,7 +35,7 @@ func ExampleXML_single() {
 	// </xml>
 }
 
-func ExampleXMLFaker_single() {
+func ExampleFaker_XML_single() {
 	f := New(11)
 
 	value, err := f.XML(&XMLOptions{
@@ -100,7 +100,7 @@ func ExampleXML_array() {
 	// </xml>
 }
 
-func ExampleXMLFaker_array() {
+func ExampleFaker_XML_array() {
 	f := New(11)
 
 	value, err := f.XML(&XMLOptions{
