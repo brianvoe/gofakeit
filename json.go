@@ -64,11 +64,11 @@ func (f *Faker) JSON(jo *JSONOptions) ([]byte, error) { return jsonFunc(f.Rand, 
 func jsonFunc(r *rand.Rand, jo *JSONOptions) ([]byte, error) {
 	// Check to make sure they passed in a type
 	if jo.Type != "array" && jo.Type != "object" {
-		return nil, errors.New("Invalid type, must be array or object")
+		return nil, errors.New("invalid type, must be array or object")
 	}
 
 	if jo.Fields == nil || len(jo.Fields) <= 0 {
-		return nil, errors.New("Must pass fields in order to build json object(s)")
+		return nil, errors.New("must pass fields in order to build json object(s)")
 	}
 
 	if jo.Type == "object" {
@@ -85,7 +85,7 @@ func jsonFunc(r *rand.Rand, jo *JSONOptions) ([]byte, error) {
 			// Get function info
 			funcInfo := GetFuncLookup(field.Function)
 			if funcInfo == nil {
-				return nil, errors.New("Invalid function, " + field.Function + " does not exist")
+				return nil, errors.New("invalid function, " + field.Function + " does not exist")
 			}
 
 			// Call function value
@@ -99,19 +99,19 @@ func jsonFunc(r *rand.Rand, jo *JSONOptions) ([]byte, error) {
 		}
 
 		// Marshal into bytes
-		j := []byte{}
 		if jo.Indent {
-			j, _ = json.MarshalIndent(v, "", "    ")
-		} else {
-			j, _ = json.Marshal(v)
+			j, _ := json.MarshalIndent(v, "", "    ")
+			return j, nil
 		}
+
+		j, _ := json.Marshal(v)
 		return j, nil
 	}
 
 	if jo.Type == "array" {
 		// Make sure you set a row count
 		if jo.RowCount <= 0 {
-			return nil, errors.New("Must have row count")
+			return nil, errors.New("must have row count")
 		}
 
 		v := make([]jsonOrderedKeyVal, jo.RowCount)
@@ -129,7 +129,7 @@ func jsonFunc(r *rand.Rand, jo *JSONOptions) ([]byte, error) {
 				// Get function info
 				funcInfo := GetFuncLookup(field.Function)
 				if funcInfo == nil {
-					return nil, errors.New("Invalid function, " + field.Function + " does not exist")
+					return nil, errors.New("invalid function, " + field.Function + " does not exist")
 				}
 
 				// Call function value
@@ -145,16 +145,16 @@ func jsonFunc(r *rand.Rand, jo *JSONOptions) ([]byte, error) {
 		}
 
 		// Marshal into bytes
-		j := []byte{}
 		if jo.Indent {
-			j, _ = json.MarshalIndent(v, "", "    ")
-		} else {
-			j, _ = json.Marshal(v)
+			j, _ := json.MarshalIndent(v, "", "    ")
+			return j, nil
 		}
+
+		j, _ := json.Marshal(v)
 		return j, nil
 	}
 
-	return nil, errors.New("Invalid type, must be array or object")
+	return nil, errors.New("invalid type, must be array or object")
 }
 
 func addFileJSONLookup() {
@@ -202,7 +202,7 @@ func addFileJSONLookup() {
 					// Unmarshal fields string into fields array
 					err = json.Unmarshal([]byte(f), &jo.Fields[i])
 					if err != nil {
-						return nil, errors.New("Unable to decode json string")
+						return nil, errors.New("unable to decode json string")
 					}
 				}
 			}

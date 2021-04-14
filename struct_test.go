@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	rand "math/rand"
 	"testing"
 	"time"
 )
@@ -456,4 +457,39 @@ func TestStructToDateTime(t *testing.T) {
 	if datetime.TagFormat.String() != "1943-12-05 00:00:00 +0000 UTC" {
 		t.Errorf("TagFormat should be 1943-12-05 00:00:00 +0000 UTC and instead got %s", datetime.TagFormat.String())
 	}
+}
+
+func TestStructSetSubStruct(t *testing.T) {
+	type Sub struct {
+		Str string
+		Num int
+		Flo float32
+	}
+
+	type Foo struct {
+		Sub Sub `fake:"{setstruct}"`
+	}
+
+	AddFuncLookup("setstruct", Info{
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return Sub{Str: "string", Num: 123, Flo: 123.456}, nil
+		},
+	})
+
+	Seed(11)
+
+	var f Foo
+	Struct(&f)
+
+	if f.Sub.Str != "string" {
+		t.Errorf("str didnt equal string, got %s", f.Sub.Str)
+	}
+	if f.Sub.Num != 123 {
+		t.Errorf("num didnt equal 123, got %d", f.Sub.Num)
+	}
+	if f.Sub.Flo != 123.456 {
+		t.Errorf("flo didnt equal 123.456, got %v", f.Sub.Flo)
+	}
+
+	RemoveFuncLookup("setstruct")
 }

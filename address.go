@@ -175,7 +175,7 @@ func (f *Faker) LatitudeInRange(min, max float64) (float64, error) {
 
 func latitudeInRange(r *rand.Rand, min, max float64) (float64, error) {
 	if min > max || min < -90 || min > 90 || max < -90 || max > 90 {
-		return 0, errors.New("Invalid min or max range, must be valid floats and between -90 and 90")
+		return 0, errors.New("invalid min or max range, must be valid floats and between -90 and 90")
 	}
 	return toFixed(float64Range(r, min, max), 6), nil
 }
@@ -200,7 +200,7 @@ func (f *Faker) LongitudeInRange(min, max float64) (float64, error) {
 
 func longitudeInRange(r *rand.Rand, min, max float64) (float64, error) {
 	if min > max || min < -180 || min > 180 || max < -180 || max > 180 {
-		return 0, errors.New("Invalid min or max range, must be valid floats and between -180 and 180")
+		return 0, errors.New("invalid min or max range, must be valid floats and between -180 and 180")
 	}
 	return toFixed(float64Range(r, min, max), 6), nil
 }

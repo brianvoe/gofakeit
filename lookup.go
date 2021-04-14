@@ -140,7 +140,7 @@ func (i *Info) GetField(m *MapParams, field string) (*Param, []string, error) {
 		}
 	}
 	if p == nil {
-		return nil, nil, fmt.Errorf("Could not find param field %s", field)
+		return nil, nil, fmt.Errorf("could not find param field %s", field)
 	}
 
 	// Get value from map
@@ -152,7 +152,7 @@ func (i *Info) GetField(m *MapParams, field string) (*Param, []string, error) {
 				return p, []string{p.Default}, nil
 			}
 
-			return nil, nil, fmt.Errorf("Could not find field: %s", field)
+			return nil, nil, fmt.Errorf("could not find field: %s", field)
 		}
 
 		return p, value, nil
@@ -161,7 +161,7 @@ func (i *Info) GetField(m *MapParams, field string) (*Param, []string, error) {
 		return p, []string{p.Default}, nil
 	}
 
-	return nil, nil, fmt.Errorf("Could not find field: %s", field)
+	return nil, nil, fmt.Errorf("could not find field: %s", field)
 }
 
 // GetBool will retrieve boolean field from data
