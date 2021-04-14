@@ -264,7 +264,7 @@ func addWordLookup() {
 				return nil, err
 			}
 			if wordCount <= 0 || wordCount > 50 {
-				return nil, errors.New("Invalid word count, must be greater than 0, less than 50")
+				return nil, errors.New("invalid word count, must be greater than 0, less than 50")
 			}
 
 			return sentence(r, wordCount), nil
@@ -289,7 +289,7 @@ func addWordLookup() {
 				return nil, err
 			}
 			if paragraphCount <= 0 || paragraphCount > 20 {
-				return nil, errors.New("Invalid paragraph count, must be greater than 0, less than 20")
+				return nil, errors.New("invalid paragraph count, must be greater than 0, less than 20")
 			}
 
 			sentenceCount, err := info.GetInt(m, "sentencecount")
@@ -297,7 +297,7 @@ func addWordLookup() {
 				return nil, err
 			}
 			if sentenceCount <= 0 || sentenceCount > 20 {
-				return nil, errors.New("Invalid sentence count, must be greater than 0, less than 20")
+				return nil, errors.New("invalid sentence count, must be greater than 0, less than 20")
 			}
 
 			wordCount, err := info.GetInt(m, "wordcount")
@@ -305,7 +305,7 @@ func addWordLookup() {
 				return nil, err
 			}
 			if wordCount <= 0 || wordCount > 50 {
-				return nil, errors.New("Invalid word count, must be greater than 0, less than 50")
+				return nil, errors.New("invalid word count, must be greater than 0, less than 50")
 			}
 
 			paragraphSeparator, err := info.GetString(m, "paragraphseparator")

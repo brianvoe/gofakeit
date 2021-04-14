@@ -136,12 +136,12 @@ func (f *Faker) XML(xo *XMLOptions) ([]byte, error) { return xmlFunc(f.Rand, xo)
 func xmlFunc(r *rand.Rand, xo *XMLOptions) ([]byte, error) {
 	// Check to make sure they passed in a type
 	if xo.Type != "single" && xo.Type != "array" {
-		return nil, errors.New("Invalid type, must be array or object")
+		return nil, errors.New("invalid type, must be array or object")
 	}
 
 	// Check fields length
 	if xo.Fields == nil || len(xo.Fields) <= 0 {
-		return nil, errors.New("Must pass fields in order to build json object(s)")
+		return nil, errors.New("must pass fields in order to build json object(s)")
 	}
 
 	// Check root element string
@@ -172,7 +172,7 @@ func xmlFunc(r *rand.Rand, xo *XMLOptions) ([]byte, error) {
 			// Get function info
 			funcInfo := GetFuncLookup(field.Function)
 			if funcInfo == nil {
-				return nil, errors.New("Invalid function, " + field.Function + " does not exist")
+				return nil, errors.New("invalid function, " + field.Function + " does not exist")
 			}
 
 			value, err := funcInfo.Generate(r, &field.Params, funcInfo)
@@ -200,7 +200,7 @@ func xmlFunc(r *rand.Rand, xo *XMLOptions) ([]byte, error) {
 	if xo.Type == "array" {
 		// Make sure you set a row count
 		if xo.RowCount <= 0 {
-			return nil, errors.New("Must have row count")
+			return nil, errors.New("must have row count")
 		}
 
 		xa := xmlArray{
@@ -225,7 +225,7 @@ func xmlFunc(r *rand.Rand, xo *XMLOptions) ([]byte, error) {
 				// Get function info
 				funcInfo := GetFuncLookup(field.Function)
 				if funcInfo == nil {
-					return nil, errors.New("Invalid function, " + field.Function + " does not exist")
+					return nil, errors.New("invalid function, " + field.Function + " does not exist")
 				}
 
 				value, err := funcInfo.Generate(r, &field.Params, funcInfo)
@@ -253,7 +253,7 @@ func xmlFunc(r *rand.Rand, xo *XMLOptions) ([]byte, error) {
 		return b.Bytes(), nil
 	}
 
-	return nil, errors.New("Invalid type, must be array or object")
+	return nil, errors.New("invalid type, must be array or object")
 }
 
 func addFileXMLLookup() {
@@ -324,7 +324,7 @@ func addFileXMLLookup() {
 					// Unmarshal fields string into fields array
 					err = json.Unmarshal([]byte(f), &xo.Fields[i])
 					if err != nil {
-						return nil, errors.New("Unable to decode json string")
+						return nil, errors.New("unable to decode json string")
 					}
 				}
 			}

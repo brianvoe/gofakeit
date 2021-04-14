@@ -84,7 +84,7 @@ func addImageLookup() {
 				return nil, err
 			}
 			if width < 10 || width >= 1000 {
-				return nil, errors.New("Invalid image width, must be greater than 10, less than 1000")
+				return nil, errors.New("invalid image width, must be greater than 10, less than 1000")
 			}
 
 			height, err := info.GetInt(m, "height")
@@ -92,7 +92,7 @@ func addImageLookup() {
 				return nil, err
 			}
 			if height < 10 || height >= 1000 {
-				return nil, errors.New("Invalid image height, must be greater than 10, less than 1000")
+				return nil, errors.New("invalid image height, must be greater than 10, less than 1000")
 			}
 
 			return imageURL(r, width, height), nil
@@ -115,7 +115,7 @@ func addImageLookup() {
 				return nil, err
 			}
 			if width < 10 || width >= 1000 {
-				return nil, errors.New("Invalid image width, must be greater than 10, less than 1000")
+				return nil, errors.New("invalid image width, must be greater than 10, less than 1000")
 			}
 
 			height, err := info.GetInt(m, "height")
@@ -123,7 +123,7 @@ func addImageLookup() {
 				return nil, err
 			}
 			if height < 10 || height >= 1000 {
-				return nil, errors.New("Invalid image height, must be greater than 10, less than 1000")
+				return nil, errors.New("invalid image height, must be greater than 10, less than 1000")
 			}
 
 			return imageJpeg(r, width, height), nil
@@ -146,7 +146,7 @@ func addImageLookup() {
 				return nil, err
 			}
 			if width < 10 || width >= 1000 {
-				return nil, errors.New("Invalid image width, must be greater than 10, less than 1000")
+				return nil, errors.New("invalid image width, must be greater than 10, less than 1000")
 			}
 
 			height, err := info.GetInt(m, "height")
@@ -154,7 +154,7 @@ func addImageLookup() {
 				return nil, err
 			}
 			if height < 10 || height >= 1000 {
-				return nil, errors.New("Invalid image height, must be greater than 10, less than 1000")
+				return nil, errors.New("invalid image height, must be greater than 10, less than 1000")
 			}
 
 			return imagePng(r, width, height), nil

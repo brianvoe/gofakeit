@@ -206,7 +206,7 @@ func addNumberLookup() {
 			}
 
 			if min > max {
-				return nil, errors.New("Max integer must be larger than Min")
+				return nil, errors.New("max integer must be larger than Min")
 			}
 
 			return number(r, min, max), nil

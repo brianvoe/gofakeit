@@ -27,17 +27,17 @@ func weighted(r *rand.Rand, options []interface{}, weights []float32) (interface
 
 	// Make sure they are passing in options
 	if ol == 0 {
-		return nil, errors.New("Didnt pass options")
+		return nil, errors.New("didnt pass options")
 	}
 
 	// Make sure they are passing in weights
 	if wl == 0 {
-		return nil, errors.New("Didnt pass weights")
+		return nil, errors.New("didnt pass weights")
 	}
 
 	// Make sure they are passing in the same length
 	if ol != wl {
-		return nil, errors.New("Options and weights need to be the same length")
+		return nil, errors.New("options and weights need to be the same length")
 	}
 
 	// Compute the discrete cumulative density from the sum of the weights
@@ -71,7 +71,7 @@ func weighted(r *rand.Rand, options []interface{}, weights []float32) (interface
 		}
 	}
 
-	return nil, errors.New("End of function")
+	return nil, errors.New("end of function")
 }
 
 func addWeightedLookup() {

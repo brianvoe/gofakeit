@@ -70,7 +70,7 @@ func TestReplaceWithLetters(t *testing.T) {
 }
 
 func TestReplaceWithHexLetters(t *testing.T) {
-	if "" != replaceWithHexLetters(globalFaker.Rand, "") {
+	if replaceWithHexLetters(globalFaker.Rand, "") != "" {
 		t.Error("You should have gotten an empty string")
 	}
 }

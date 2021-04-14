@@ -86,29 +86,22 @@ func TestLookupChecking(t *testing.T) {
 				switch p.Type {
 				case "bool":
 					mapData[p.Field] = []string{fmt.Sprintf("%v", Bool())}
-					break
 				case "string":
 					mapData[p.Field] = []string{Letter()}
-					break
 				case "uint":
 					mapData[p.Field] = []string{fmt.Sprintf("%v", Uint16())}
 				case "int":
 					mapData[p.Field] = []string{fmt.Sprintf("%v", Int16())}
 				case "float":
 					mapData[p.Field] = []string{fmt.Sprintf("%v", Float32())}
-					break
 				case "[]string":
 					mapData[p.Field] = []string{Letter(), Letter(), Letter(), Letter()}
-					break
 				case "[]int":
 					mapData[p.Field] = []string{fmt.Sprintf("%d", Int8()), fmt.Sprintf("%d", Int8()), fmt.Sprintf("%d", Int8()), fmt.Sprintf("%d", Int8())}
-					break
 				case "[]float":
 					mapData[p.Field] = []string{fmt.Sprintf("%v", Float32()), fmt.Sprintf("%v", Float32()), fmt.Sprintf("%v", Float32()), fmt.Sprintf("%v", Float32())}
-					break
 				case "[]Field":
 					mapData[p.Field] = []string{`{"name":"first_name","function":"firstname"}`}
-					break
 				default:
 					t.Fatalf("Looking for %s but switch case doesnt have it", p.Type)
 				}
@@ -199,38 +192,31 @@ func TestLookupCalls(t *testing.T) {
 				switch p.Type {
 				case "bool":
 					mapData.Add(p.Field, fmt.Sprintf("%v", Bool()))
-					break
 				case "string":
 					mapData.Add(p.Field, Letter())
-					break
 				case "uint":
 					mapData.Add(p.Field, fmt.Sprintf("%v", Uint16()))
 				case "int":
 					mapData.Add(p.Field, fmt.Sprintf("%v", Int16()))
 				case "float":
 					mapData.Add(p.Field, fmt.Sprintf("%v", Float32()))
-					break
 				case "[]string":
 					mapData.Add(p.Field, Letter())
 					mapData.Add(p.Field, Letter())
 					mapData.Add(p.Field, Letter())
 					mapData.Add(p.Field, Letter())
-					break
 				case "[]int":
 					mapData.Add(p.Field, fmt.Sprintf("%d", Int8()))
 					mapData.Add(p.Field, fmt.Sprintf("%d", Int8()))
 					mapData.Add(p.Field, fmt.Sprintf("%d", Int8()))
 					mapData.Add(p.Field, fmt.Sprintf("%d", Int8()))
-					break
 				case "[]float":
 					mapData.Add(p.Field, fmt.Sprintf("%v", Float32()))
 					mapData.Add(p.Field, fmt.Sprintf("%v", Float32()))
 					mapData.Add(p.Field, fmt.Sprintf("%v", Float32()))
 					mapData.Add(p.Field, fmt.Sprintf("%v", Float32()))
-					break
 				case "[]Field":
 					mapData.Add(p.Field, `{"name":"first_name","function":"firstname"}`)
-					break
 				default:
 					t.Fatalf("Looking for %s but switch case doesnt have it", p.Type)
 				}
@@ -297,38 +283,31 @@ func TestLookupCallsErrorParams(t *testing.T) {
 				switch p.Type {
 				case "bool":
 					mapData.Add(p.Field, fmt.Sprintf("%v", Bool()))
-					break
 				case "string":
 					mapData.Add(p.Field, Letter())
-					break
 				case "uint":
 					mapData.Add(p.Field, fmt.Sprintf("%v", Uint16()))
 				case "int":
 					mapData.Add(p.Field, fmt.Sprintf("%v", Int16()))
 				case "float":
 					mapData.Add(p.Field, fmt.Sprintf("%v", Float32()))
-					break
 				case "[]string":
 					mapData.Add(p.Field, Letter())
 					mapData.Add(p.Field, Letter())
 					mapData.Add(p.Field, Letter())
 					mapData.Add(p.Field, Letter())
-					break
 				case "[]int":
 					mapData.Add(p.Field, fmt.Sprintf("%d", Int8()))
 					mapData.Add(p.Field, fmt.Sprintf("%d", Int8()))
 					mapData.Add(p.Field, fmt.Sprintf("%d", Int8()))
 					mapData.Add(p.Field, fmt.Sprintf("%d", Int8()))
-					break
 				case "[]float":
 					mapData.Add(p.Field, fmt.Sprintf("%v", Float32()))
 					mapData.Add(p.Field, fmt.Sprintf("%v", Float32()))
 					mapData.Add(p.Field, fmt.Sprintf("%v", Float32()))
 					mapData.Add(p.Field, fmt.Sprintf("%v", Float32()))
-					break
 				case "[]Field":
 					mapData.Add(p.Field, `{"name":"first_name","function":"firstname"}`)
-					break
 				default:
 					t.Fatalf("Looking for %s but switch case doesnt have it", p.Type)
 				}
