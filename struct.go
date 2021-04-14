@@ -26,36 +26,104 @@ func structFunc(ra *rand.Rand, v interface{}) {
 	r(ra, reflect.TypeOf(v), reflect.ValueOf(v), "", 0)
 }
 
-func r(ra *rand.Rand, t reflect.Type, v reflect.Value, function string, size int) {
+func r(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) {
 	switch t.Kind() {
 	case reflect.Ptr:
-		rPointer(ra, t, v, function, size)
+		rPointer(ra, t, v, tag, size)
 	case reflect.Struct:
-		rStruct(ra, t, v, function)
+		rStruct(ra, t, v, tag)
 	case reflect.String:
-		rString(ra, t, v, function)
+		rString(ra, t, v, tag)
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
-		rUint(ra, t, v, function)
+		rUint(ra, t, v, tag)
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-		rInt(ra, t, v, function)
+		rInt(ra, t, v, tag)
 	case reflect.Float32, reflect.Float64:
-		rFloat(ra, t, v, function)
+		rFloat(ra, t, v, tag)
 	case reflect.Bool:
-		rBool(ra, t, v, function)
+		rBool(ra, t, v, tag)
 	case reflect.Array, reflect.Slice:
-		rSlice(ra, t, v, function, size)
+		rSlice(ra, t, v, tag, size)
 	}
 }
 
-func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, function string) {
+func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) {
+	// If tag is set lets try to set the struct values from the tag response
+	if tag != "" {
+		// Trim the curly on the begining and end
+		tag = strings.TrimLeft(tag, "{")
+		tag = strings.TrimRight(tag, "}")
+
+		// Check if has params separated by :
+		fNameSplit := strings.SplitN(tag, ":", 2)
+		fName := ""
+		fParams := ""
+		if len(fNameSplit) >= 1 {
+			fName = fNameSplit[0]
+		}
+		if len(fNameSplit) >= 2 {
+			fParams = fNameSplit[1]
+		}
+
+		// Check to see if its a replaceable lookup function
+		if info := GetFuncLookup(fName); info != nil {
+			// Get parameters, make sure params and the split both have values
+			var mapParams *MapParams
+			paramsLen := len(info.Params)
+
+			// If just one param and its a string simply just pass it
+			if paramsLen == 1 && info.Params[0].Type == "string" {
+				if mapParams == nil {
+					mapParams = NewMapParams()
+				}
+				mapParams.Add(info.Params[0].Field, fParams)
+			} else if paramsLen > 0 && fParams != "" {
+				splitVals := funcLookupSplit(fParams)
+				for ii := 0; ii < len(splitVals); ii++ {
+					if paramsLen-1 >= ii {
+						if mapParams == nil {
+							mapParams = NewMapParams()
+						}
+						if strings.HasPrefix(splitVals[ii], "[") {
+							lookupSplits := funcLookupSplit(strings.TrimRight(strings.TrimLeft(splitVals[ii], "["), "]"))
+							for _, v := range lookupSplits {
+								mapParams.Add(info.Params[ii].Field, v)
+							}
+						} else {
+							mapParams.Add(info.Params[ii].Field, splitVals[ii])
+						}
+					}
+				}
+			}
+
+			// Call function
+			fValue, err := info.Generate(ra, mapParams, info)
+			if err == nil {
+				field := reflect.New(reflect.TypeOf(fValue))
+				field.Elem().Set(reflect.ValueOf(fValue))
+				v.Set(field.Elem())
+
+				// If a function is called to set the struct
+				// stop from going through sub fields
+				return
+			}
+		}
+	}
+
 	n := t.NumField()
 	for i := 0; i < n; i++ {
 		elementT := t.Field(i)
 		elementV := v.Field(i)
 		fakeTag, ok := elementT.Tag.Lookup("fake")
+
+		// Check whether or not to skip this field
 		if ok && fakeTag == "skip" {
 			// Do nothing, skip it
-		} else if elementV.CanSet() || elementT.Anonymous {
+			continue
+		}
+
+		// Check to make sure you can set it or that its an embeded(anonymous) field
+		if elementV.CanSet() || elementT.Anonymous {
 			// Check if reflect type is of values we can specifically set
 			switch elementT.Type.String() {
 			case "time.Time":
@@ -78,18 +146,18 @@ func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, function string) {
 	}
 }
 
-func rPointer(ra *rand.Rand, t reflect.Type, v reflect.Value, function string, size int) {
+func rPointer(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) {
 	elemT := t.Elem()
 	if v.IsNil() {
 		nv := reflect.New(elemT)
-		r(ra, elemT, nv.Elem(), function, size)
+		r(ra, elemT, nv.Elem(), tag, size)
 		v.Set(nv)
 	} else {
-		r(ra, elemT, v.Elem(), function, size)
+		r(ra, elemT, v.Elem(), tag, size)
 	}
 }
 
-func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, function string, size int) {
+func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) {
 	// If you cant even set it dont even try
 	if !v.CanSet() {
 		return
@@ -115,37 +183,37 @@ func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, function string, siz
 		// Loop through the elements length and set based upon the index
 		for i := 0; i < size; i++ {
 			nv := reflect.New(elemT)
-			r(ra, elemT, nv.Elem(), function, ogSize)
+			r(ra, elemT, nv.Elem(), tag, ogSize)
 			v.Index(i).Set(reflect.Indirect(nv))
 		}
 	} else {
 		// Loop through the size and append and set
 		for i := 0; i < size; i++ {
 			nv := reflect.New(elemT)
-			r(ra, elemT, nv.Elem(), function, ogSize)
+			r(ra, elemT, nv.Elem(), tag, ogSize)
 			v.Set(reflect.Append(reflect.Indirect(v), reflect.Indirect(nv)))
 		}
 	}
 }
 
-func rString(ra *rand.Rand, t reflect.Type, v reflect.Value, function string) {
-	if function != "" {
-		v.SetString(generate(ra, function))
+func rString(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) {
+	if tag != "" {
+		v.SetString(generate(ra, tag))
 	} else {
 		v.SetString(generate(ra, strings.Repeat("?", number(ra, 4, 10))))
 	}
 }
 
-func rInt(ra *rand.Rand, t reflect.Type, v reflect.Value, function string) {
-	if function != "" {
-		i, err := strconv.ParseInt(generate(ra, function), 10, 64)
+func rInt(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) {
+	if tag != "" {
+		i, err := strconv.ParseInt(generate(ra, tag), 10, 64)
 		if err == nil {
 			v.SetInt(i)
 			return
 		}
 	}
 
-	// If no function or error converting to int, set with random value
+	// If no tag or error converting to int, set with random value
 	switch t.Kind() {
 	case reflect.Int:
 		v.SetInt(int64Func(ra))
@@ -160,16 +228,16 @@ func rInt(ra *rand.Rand, t reflect.Type, v reflect.Value, function string) {
 	}
 }
 
-func rUint(ra *rand.Rand, t reflect.Type, v reflect.Value, function string) {
-	if function != "" {
-		u, err := strconv.ParseUint(generate(ra, function), 10, 64)
+func rUint(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) {
+	if tag != "" {
+		u, err := strconv.ParseUint(generate(ra, tag), 10, 64)
 		if err == nil {
 			v.SetUint(u)
 			return
 		}
 	}
 
-	// If no function or error converting to uint, set with random value
+	// If no tag or error converting to uint, set with random value
 	switch t.Kind() {
 	case reflect.Uint:
 		v.SetUint(uint64Func(ra))
@@ -184,16 +252,16 @@ func rUint(ra *rand.Rand, t reflect.Type, v reflect.Value, function string) {
 	}
 }
 
-func rFloat(ra *rand.Rand, t reflect.Type, v reflect.Value, function string) {
-	if function != "" {
-		f, err := strconv.ParseFloat(generate(ra, function), 64)
+func rFloat(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) {
+	if tag != "" {
+		f, err := strconv.ParseFloat(generate(ra, tag), 64)
 		if err == nil {
 			v.SetFloat(f)
 			return
 		}
 	}
 
-	// If no function or error converting to float, set with random value
+	// If no tag or error converting to float, set with random value
 	switch t.Kind() {
 	case reflect.Float64:
 		v.SetFloat(float64Func(ra))
@@ -202,20 +270,20 @@ func rFloat(ra *rand.Rand, t reflect.Type, v reflect.Value, function string) {
 	}
 }
 
-func rBool(ra *rand.Rand, t reflect.Type, v reflect.Value, function string) {
-	if function != "" {
-		b, err := strconv.ParseBool(generate(ra, function))
+func rBool(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) {
+	if tag != "" {
+		b, err := strconv.ParseBool(generate(ra, tag))
 		if err == nil {
 			v.SetBool(b)
 			return
 		}
 	}
 
-	// If no function or error converting to boolean, set with random value
+	// If no tag or error converting to boolean, set with random value
 	v.SetBool(boolFunc(ra))
 }
 
-// rTime will set a time.Time field the best it can from either the default date function or from the generate function
+// rTime will set a time.Time field the best it can from either the default date tag or from the generate tag
 func rTime(ra *rand.Rand, t reflect.StructField, v reflect.Value, tag string) {
 	if tag != "" {
 		timeFormat, timeFormatOK := t.Tag.Lookup("format")
