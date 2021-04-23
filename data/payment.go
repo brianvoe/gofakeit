@@ -24,7 +24,7 @@ var CreditCards = map[string]CreditCardInfo{
 		Display:  "Visa",
 		Patterns: []uint{4},
 		Gaps:     []uint{4, 8, 12},
-		Lengths:  []uint{16, 18, 19},
+		Lengths:  []uint{16},
 		Code: CreditCardCode{
 			Name: "CVV",
 			Size: 3,
