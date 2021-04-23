@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -126,6 +127,13 @@ func ExampleFaker_Sentence() {
 }
 
 func TestSentence(t *testing.T) {
+	for i := 0; i < 1000; i++ {
+		length := len(strings.Split(Sentence(10), " "))
+		if length != 10 {
+			t.Errorf("result should have a length of 10 got %d", length)
+		}
+	}
+
 	for _, count := range []int{-100, -1, 0} {
 		if Sentence(count) != "" {
 			t.Errorf("result should be blank for %d words", count)
