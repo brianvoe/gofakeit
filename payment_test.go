@@ -88,9 +88,9 @@ func ExampleCreditCard() {
 	fmt.Println(ccInfo.Cvv)
 	// Output:
 	// UnionPay
-	// 4645994899536906358
-	// 11/22
-	// 259
+	// 4364599489953698
+	// 01/25
+	// 300
 }
 
 func ExampleFaker_CreditCard() {
@@ -102,9 +102,9 @@ func ExampleFaker_CreditCard() {
 	fmt.Println(ccInfo.Cvv)
 	// Output:
 	// UnionPay
-	// 4645994899536906358
-	// 11/22
-	// 259
+	// 4364599489953698
+	// 01/25
+	// 300
 }
 
 func BenchmarkCreditCard(b *testing.B) {
@@ -138,10 +138,10 @@ func ExampleCreditCardNumber() {
 	fmt.Println(CreditCardNumber(&CreditCardOptions{Bins: []string{"4111"}}))
 	fmt.Println(CreditCardNumber(&CreditCardOptions{Gaps: true}))
 	// Output:
-	// 4364599489953690649
-	// 6011425914583029
-	// 4111020276132178
-	// 2131 0889 9822 7212
+	// 4136459948995375
+	// 4635300425914586
+	// 4111232020276132
+	// 3054 800889 9827
 }
 
 func ExampleFaker_CreditCardNumber() {
@@ -151,10 +151,10 @@ func ExampleFaker_CreditCardNumber() {
 	fmt.Println(f.CreditCardNumber(&CreditCardOptions{Bins: []string{"4111"}}))
 	fmt.Println(f.CreditCardNumber(&CreditCardOptions{Gaps: true}))
 	// Output:
-	// 4364599489953690649
-	// 6011425914583029
-	// 4111020276132178
-	// 2131 0889 9822 7212
+	// 4136459948995375
+	// 4635300425914586
+	// 4111232020276132
+	// 3054 800889 9827
 }
 
 func TestCreditCardNumber(t *testing.T) {
