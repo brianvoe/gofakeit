@@ -3,6 +3,7 @@ package gofakeit
 import (
 	"math/rand"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -141,6 +142,53 @@ func timeZoneOffset(r *rand.Rand) float32 {
 	return float32(value)
 }
 
+// javaDateFormatToGolangDateFormat converts java date format into go date format
+func javaDateFormatToGolangDateFormat(format string) string {
+	format = strings.Replace(format, "ddd", "_2", -1)
+	format = strings.Replace(format, "dd", "02", -1)
+	format = strings.Replace(format, "d", "2", -1)
+
+	format = strings.Replace(format, "HH", "15", -1)
+
+	format = strings.Replace(format, "hh", "03", -1)
+	format = strings.Replace(format, "h", "3", -1)
+
+	format = strings.Replace(format, "mm", "04", -1)
+	format = strings.Replace(format, "m", "4", -1)
+
+	format = strings.Replace(format, "ss", "05", -1)
+	format = strings.Replace(format, "s", "5", -1)
+
+	format = strings.Replace(format, "yyyy", "2006", -1)
+	format = strings.Replace(format, "yy", "06", -1)
+	format = strings.Replace(format, "y", "06", -1)
+
+	format = strings.Replace(format, "SSS", "000", -1)
+
+	format = strings.Replace(format, "a", "pm", -1)
+	format = strings.Replace(format, "aa", "PM", -1)
+
+	format = strings.Replace(format, "MMMM", "January", -1)
+	format = strings.Replace(format, "MMM", "Jan", -1)
+	format = strings.Replace(format, "MM", "01", -1)
+	format = strings.Replace(format, "M", "1", -1)
+
+	format = strings.Replace(format, "ZZ", "-0700", -1)
+
+	if !strings.Contains(format, "Z07") {
+		format = strings.Replace(format, "Z", "-07", -1)
+	}
+
+	format = strings.Replace(format, "zz:zz", "Z07:00", -1)
+	format = strings.Replace(format, "zzzz", "Z0700", -1)
+	format = strings.Replace(format, "z", "MST", -1)
+
+	format = strings.Replace(format, "EEEE", "Monday", -1)
+	format = strings.Replace(format, "E", "Mon", -1)
+
+	return format
+}
+
 func addDateTimeLookup() {
 	AddFuncLookup("date", Info{
 		Display:     "Date",
@@ -155,7 +203,7 @@ func addDateTimeLookup() {
 				Type:        "string",
 				Default:     "RFC3339",
 				Options:     []string{"ANSIC", "UnixDate", "RubyDate", "RFC822", "RFC822Z", "RFC850", "RFC1123", "RFC1123Z", "RFC3339", "RFC3339Nano"},
-				Description: "Date time string format output",
+				Description: "Date time string format output. You may also use golang time format or java time format",
 			},
 		},
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
@@ -186,8 +234,70 @@ func addDateTimeLookup() {
 			case "RFC3339Nano":
 				return Date().Format(time.RFC3339Nano), nil
 			default:
-				return Date().Format(time.RFC3339), nil
+				if format == "" {
+					return Date().Format(time.RFC3339), nil
+				}
+
+				return Date().Format(javaDateFormatToGolangDateFormat(format)), nil
 			}
+		},
+	})
+
+	AddFuncLookup("daterange", Info{
+		Display:     "DateRange",
+		Category:    "time",
+		Description: "Random date between two ranges",
+		Example:     "2006-01-02T15:04:05Z07:00",
+		Output:      "string",
+		Params: []Param{
+			{
+				Field:       "startdate",
+				Display:     "Start Date",
+				Type:        "string",
+				Default:     "1970-01-01",
+				Description: "Start date time string",
+			},
+			{
+				Field:       "enddate",
+				Display:     "End Date",
+				Type:        "string",
+				Default:     time.Now().Format("2006-01-02"),
+				Description: "End date time string",
+			},
+			{
+				Field:       "format",
+				Display:     "Format",
+				Type:        "string",
+				Default:     "yyyy-MM-dd",
+				Description: "Date time string format",
+			},
+		},
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			format, err := info.GetString(m, "format")
+			if err != nil {
+				return nil, err
+			}
+			format = javaDateFormatToGolangDateFormat(format)
+
+			startdate, err := info.GetString(m, "startdate")
+			if err != nil {
+				return nil, err
+			}
+			startDateTime, err := time.Parse(format, startdate)
+			if err != nil {
+				return nil, err
+			}
+
+			enddate, err := info.GetString(m, "enddate")
+			if err != nil {
+				return nil, err
+			}
+			endDateTime, err := time.Parse(format, enddate)
+			if err != nil {
+				return nil, err
+			}
+
+			return DateRange(startDateTime, endDateTime).Format(format), nil
 		},
 	})
 

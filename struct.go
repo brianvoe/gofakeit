@@ -291,9 +291,12 @@ func rTime(ra *rand.Rand, t reflect.StructField, v reflect.Value, tag string) {
 		if !timeFormatOK {
 			timeFormat = time.RFC3339
 		}
+		timeFormat = javaDateFormatToGolangDateFormat(timeFormat)
 		timeOutput := generate(ra, tag)
 		timeStruct, err := time.Parse(timeFormat, timeOutput)
-		if err == nil {
+		if err != nil {
+			// return err
+		} else {
 			v.Set(reflect.ValueOf(timeStruct))
 		}
 	} else {
