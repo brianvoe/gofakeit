@@ -449,7 +449,11 @@ func TestStructToDateTime(t *testing.T) {
 		TagJavaFormat time.Time `fake:"{number:1900,1950}-12-05" format:"yyyy-MM-dd"`
 		Range         time.Time `fake:"{daterange:1970-01-01,2000-12-31,2006-01-02}" format:"yyyy-MM-dd"`
 	}
-	Struct(&datetime)
+	err := Struct(&datetime)
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	if datetime.Simple.String() != "1908-12-07 04:14:25.685339029 +0000 UTC" {
 		t.Errorf("Simple should be 1908-12-07 04:14:25.685339029 +0000 UTC and instead got %s", datetime.Simple.String())
 	}

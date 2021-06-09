@@ -1,6 +1,7 @@
 package gofakeit
 
 import (
+	"errors"
 	"math/rand"
 	"reflect"
 	"strconv"
@@ -13,41 +14,43 @@ import (
 // Use `fake:"skip"` to explicitly skip an element.
 // All built-in types are supported, with templating support
 // for string types.
-func Struct(v interface{}) { structFunc(globalFaker.Rand, v) }
+func Struct(v interface{}) error { return structFunc(globalFaker.Rand, v) }
 
 // Struct fills in exported fields of a struct with random data
 // based on the value of `fake` tag of exported fields.
 // Use `fake:"skip"` to explicitly skip an element.
 // All built-in types are supported, with templating support
 // for string types.
-func (f *Faker) Struct(v interface{}) { structFunc(f.Rand, v) }
+func (f *Faker) Struct(v interface{}) error { return structFunc(f.Rand, v) }
 
-func structFunc(ra *rand.Rand, v interface{}) {
-	r(ra, reflect.TypeOf(v), reflect.ValueOf(v), "", 0)
+func structFunc(ra *rand.Rand, v interface{}) error {
+	return r(ra, reflect.TypeOf(v), reflect.ValueOf(v), "", 0)
 }
 
-func r(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) {
+func r(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) error {
 	switch t.Kind() {
 	case reflect.Ptr:
-		rPointer(ra, t, v, tag, size)
+		return rPointer(ra, t, v, tag, size)
 	case reflect.Struct:
-		rStruct(ra, t, v, tag)
+		return rStruct(ra, t, v, tag)
 	case reflect.String:
-		rString(ra, t, v, tag)
+		return rString(ra, t, v, tag)
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
-		rUint(ra, t, v, tag)
+		return rUint(ra, t, v, tag)
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-		rInt(ra, t, v, tag)
+		return rInt(ra, t, v, tag)
 	case reflect.Float32, reflect.Float64:
-		rFloat(ra, t, v, tag)
+		return rFloat(ra, t, v, tag)
 	case reflect.Bool:
-		rBool(ra, t, v, tag)
+		return rBool(ra, t, v, tag)
 	case reflect.Array, reflect.Slice:
-		rSlice(ra, t, v, tag, size)
+		return rSlice(ra, t, v, tag, size)
 	}
+
+	return nil
 }
 
-func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) {
+func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 	// If tag is set lets try to set the struct values from the tag response
 	if tag != "" {
 		// Trim the curly on the begining and end
@@ -98,15 +101,17 @@ func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) {
 
 			// Call function
 			fValue, err := info.Generate(ra, mapParams, info)
-			if err == nil {
-				field := reflect.New(reflect.TypeOf(fValue))
-				field.Elem().Set(reflect.ValueOf(fValue))
-				v.Set(field.Elem())
-
-				// If a function is called to set the struct
-				// stop from going through sub fields
-				return
+			if err != nil {
+				return err
 			}
+
+			field := reflect.New(reflect.TypeOf(fValue))
+			field.Elem().Set(reflect.ValueOf(fValue))
+			v.Set(field.Elem())
+
+			// If a function is called to set the struct
+			// stop from going through sub fields
+			return nil
 		}
 	}
 
@@ -127,7 +132,10 @@ func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) {
 			// Check if reflect type is of values we can specifically set
 			switch elementT.Type.String() {
 			case "time.Time":
-				rTime(ra, elementT, elementV, fakeTag)
+				err := rTime(ra, elementT, elementV, fakeTag)
+				if err != nil {
+					return err
+				}
 				continue
 			}
 
@@ -138,29 +146,42 @@ func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) {
 				var err error
 				size, err = strconv.Atoi(fs)
 				if err != nil {
-					size = number(ra, 1, 10)
+					return err
 				}
 			}
-			r(ra, elementT.Type, elementV, fakeTag, size)
+			err := r(ra, elementT.Type, elementV, fakeTag, size)
+			if err != nil {
+				return err
+			}
 		}
 	}
+
+	return nil
 }
 
-func rPointer(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) {
+func rPointer(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) error {
 	elemT := t.Elem()
 	if v.IsNil() {
 		nv := reflect.New(elemT)
-		r(ra, elemT, nv.Elem(), tag, size)
+		err := r(ra, elemT, nv.Elem(), tag, size)
+		if err != nil {
+			return err
+		}
 		v.Set(nv)
 	} else {
-		r(ra, elemT, v.Elem(), tag, size)
+		err := r(ra, elemT, v.Elem(), tag, size)
+		if err != nil {
+			return err
+		}
 	}
+
+	return nil
 }
 
-func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) {
+func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) error {
 	// If you cant even set it dont even try
 	if !v.CanSet() {
-		return
+		return errors.New("Cannot set slice")
 	}
 
 	// Grab original size to use if needed for sub arrays
@@ -183,34 +204,46 @@ func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int
 		// Loop through the elements length and set based upon the index
 		for i := 0; i < size; i++ {
 			nv := reflect.New(elemT)
-			r(ra, elemT, nv.Elem(), tag, ogSize)
+			err := r(ra, elemT, nv.Elem(), tag, ogSize)
+			if err != nil {
+				return err
+			}
 			v.Index(i).Set(reflect.Indirect(nv))
 		}
 	} else {
 		// Loop through the size and append and set
 		for i := 0; i < size; i++ {
 			nv := reflect.New(elemT)
-			r(ra, elemT, nv.Elem(), tag, ogSize)
+			err := r(ra, elemT, nv.Elem(), tag, ogSize)
+			if err != nil {
+				return err
+			}
 			v.Set(reflect.Append(reflect.Indirect(v), reflect.Indirect(nv)))
 		}
 	}
+
+	return nil
 }
 
-func rString(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) {
+func rString(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
 		v.SetString(generate(ra, tag))
 	} else {
 		v.SetString(generate(ra, strings.Repeat("?", number(ra, 4, 10))))
 	}
+
+	return nil
 }
 
-func rInt(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) {
+func rInt(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
 		i, err := strconv.ParseInt(generate(ra, tag), 10, 64)
-		if err == nil {
-			v.SetInt(i)
-			return
+		if err != nil {
+			return err
 		}
+
+		v.SetInt(i)
+		return nil
 	}
 
 	// If no tag or error converting to int, set with random value
@@ -226,15 +259,19 @@ func rInt(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) {
 	case reflect.Int64:
 		v.SetInt(int64Func(ra))
 	}
+
+	return nil
 }
 
-func rUint(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) {
+func rUint(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
 		u, err := strconv.ParseUint(generate(ra, tag), 10, 64)
-		if err == nil {
-			v.SetUint(u)
-			return
+		if err != nil {
+			return err
 		}
+
+		v.SetUint(u)
+		return nil
 	}
 
 	// If no tag or error converting to uint, set with random value
@@ -250,15 +287,19 @@ func rUint(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) {
 	case reflect.Uint64:
 		v.SetUint(uint64Func(ra))
 	}
+
+	return nil
 }
 
-func rFloat(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) {
+func rFloat(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
 		f, err := strconv.ParseFloat(generate(ra, tag), 64)
-		if err == nil {
-			v.SetFloat(f)
-			return
+		if err != nil {
+			return err
 		}
+
+		v.SetFloat(f)
+		return nil
 	}
 
 	// If no tag or error converting to float, set with random value
@@ -268,38 +309,54 @@ func rFloat(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) {
 	case reflect.Float32:
 		v.SetFloat(float64(float32Func(ra)))
 	}
+
+	return nil
 }
 
-func rBool(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) {
+func rBool(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
 		b, err := strconv.ParseBool(generate(ra, tag))
-		if err == nil {
-			v.SetBool(b)
-			return
+		if err != nil {
+			return err
 		}
+
+		v.SetBool(b)
+		return nil
 	}
 
 	// If no tag or error converting to boolean, set with random value
 	v.SetBool(boolFunc(ra))
+
+	return nil
 }
 
 // rTime will set a time.Time field the best it can from either the default date tag or from the generate tag
-func rTime(ra *rand.Rand, t reflect.StructField, v reflect.Value, tag string) {
+func rTime(ra *rand.Rand, t reflect.StructField, v reflect.Value, tag string) error {
 	if tag != "" {
 		timeFormat, timeFormatOK := t.Tag.Lookup("format")
-		// If no format passed in use the most popular RFC3339
 		if !timeFormatOK {
 			timeFormat = time.RFC3339
 		}
+
 		timeFormat = javaDateFormatToGolangDateFormat(timeFormat)
+
+		// Generate time
 		timeOutput := generate(ra, tag)
+
+		// If output is larger than format cut the output
+		if len(timeOutput) > len(timeFormat) {
+			timeOutput = timeOutput[:len(timeFormat)]
+		}
+
 		timeStruct, err := time.Parse(timeFormat, timeOutput)
 		if err != nil {
-			// return err
-		} else {
-			v.Set(reflect.ValueOf(timeStruct))
+			return err
 		}
-	} else {
-		v.Set(reflect.ValueOf(date(ra)))
+
+		v.Set(reflect.ValueOf(timeStruct))
+		return nil
 	}
+
+	v.Set(reflect.ValueOf(date(ra)))
+	return nil
 }
