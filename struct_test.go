@@ -278,6 +278,30 @@ func TestStructWithFunction(t *testing.T) {
 	}
 }
 
+func TestStructPointer(t *testing.T) {
+	type Info struct {
+		Person        PersonInfo  `fake:"{person}"`
+		PersonPointer *PersonInfo `fake:"{person}"`
+	}
+
+	var info Info
+	err := Struct(&info)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if info.Person.FirstName == "" {
+		t.Error("Person wasnt properly set")
+	}
+
+	if info.PersonPointer == nil {
+		t.Error("PersonPointer wasnt properly set")
+	}
+	if info.PersonPointer.FirstName == "" {
+		t.Error("PersonPointer firstname wasnt properly set")
+	}
+}
+
 func TestStructArray(t *testing.T) {
 	Seed(11)
 

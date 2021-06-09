@@ -105,9 +105,18 @@ func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 				return err
 			}
 
+			// Create new element of expected type
 			field := reflect.New(reflect.TypeOf(fValue))
 			field.Elem().Set(reflect.ValueOf(fValue))
-			v.Set(field.Elem())
+
+			// Check if element is pointer if so
+			// grab the underlyning value before setting
+			fieldElem := field.Elem()
+			if fieldElem.Kind() == reflect.Ptr {
+				v.Set(fieldElem.Elem())
+			} else {
+				v.Set(fieldElem)
+			}
 
 			// If a function is called to set the struct
 			// stop from going through sub fields
