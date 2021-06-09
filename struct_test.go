@@ -278,6 +278,30 @@ func TestStructWithFunction(t *testing.T) {
 	}
 }
 
+func TestStructPointer(t *testing.T) {
+	type Info struct {
+		Person        PersonInfo  `fake:"{person}"`
+		PersonPointer *PersonInfo `fake:"{person}"`
+	}
+
+	var info Info
+	err := Struct(&info)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if info.Person.FirstName == "" {
+		t.Error("Person wasnt properly set")
+	}
+
+	if info.PersonPointer == nil {
+		t.Error("PersonPointer wasnt properly set")
+	}
+	if info.PersonPointer.FirstName == "" {
+		t.Error("PersonPointer firstname wasnt properly set")
+	}
+}
+
 func TestStructArray(t *testing.T) {
 	Seed(11)
 
@@ -443,11 +467,17 @@ func TestStructToDateTime(t *testing.T) {
 	Seed(11)
 
 	var datetime struct {
-		Simple    time.Time
-		Tag       time.Time `fake:"{date}"`
-		TagFormat time.Time `fake:"{number:1900,1950}-12-05" format:"2006-01-02"`
+		Simple        time.Time
+		Tag           time.Time `fake:"{date}"`
+		TagFormat     time.Time `fake:"{number:1900,1950}-12-05" format:"2006-01-02"`
+		TagJavaFormat time.Time `fake:"{number:1900,1950}-12-05" format:"yyyy-MM-dd"`
+		Range         time.Time `fake:"{daterange:1970-01-01,2000-12-31,2006-01-02}" format:"yyyy-MM-dd"`
 	}
-	Struct(&datetime)
+	err := Struct(&datetime)
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	if datetime.Simple.String() != "1908-12-07 04:14:25.685339029 +0000 UTC" {
 		t.Errorf("Simple should be 1908-12-07 04:14:25.685339029 +0000 UTC and instead got %s", datetime.Simple.String())
 	}
@@ -456,6 +486,12 @@ func TestStructToDateTime(t *testing.T) {
 	}
 	if datetime.TagFormat.String() != "1943-12-05 00:00:00 +0000 UTC" {
 		t.Errorf("TagFormat should be 1943-12-05 00:00:00 +0000 UTC and instead got %s", datetime.TagFormat.String())
+	}
+	if datetime.TagJavaFormat.String() != "1917-12-05 00:00:00 +0000 UTC" {
+		t.Errorf("TagJavaFormat should be 1917-12-05 00:00:00 +0000 UTC and instead got %s", datetime.TagJavaFormat.String())
+	}
+	if datetime.Range.String() != "1998-10-27 00:00:00 +0000 UTC" {
+		t.Errorf("Range should be 1998-10-27 00:00:00 +0000 UTC and instead got %s", datetime.Range.String())
 	}
 }
 
