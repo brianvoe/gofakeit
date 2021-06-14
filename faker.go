@@ -3,7 +3,7 @@ package gofakeit
 import (
 	crand "crypto/rand"
 	"encoding/binary"
-	rand "math/rand"
+	"math/rand"
 	"sync"
 )
 
@@ -35,6 +35,35 @@ func (c *cryptoRand) Int63() int64 {
 	return int64(c.Uint64() & ^uint64(1<<63))
 }
 
+// lockedSource is a thread-safe implementation of rand.Source
+// see: https://github.com/golang/go/issues/24121
+type lockedSource struct {
+	mu  sync.Mutex
+	src rand.Source
+}
+
+// NewLockedSource returns a new pseudo-random Source (seeded with the given parent source)
+// that is safe for concurrent use by multiple goroutines.
+func NewLockedSource(src rand.Source) rand.Source {
+	return &lockedSource{
+		src: src,
+	}
+}
+
+func (r *lockedSource) Int63() (n int64) {
+	r.mu.Lock()
+	n = r.src.Int63()
+	r.mu.Unlock()
+
+	return
+}
+
+func (r *lockedSource) Seed(seed int64) {
+	r.mu.Lock()
+	r.src.Seed(seed)
+	r.mu.Unlock()
+}
+
 // NewCrypto will utilize crypto/rand for concurrent pseudo random usage.
 func NewCrypto() *Faker {
 	return &Faker{Rand: rand.New(&cryptoRand{
@@ -50,7 +79,7 @@ func New(seed int64) *Faker {
 		binary.Read(crand.Reader, binary.BigEndian, &seed)
 	}
 
-	return &Faker{Rand: rand.New(rand.NewSource(seed))}
+	return &Faker{Rand: rand.New(NewLockedSource(rand.NewSource(seed)))}
 }
 
 // NewCustom will utilize a custom rand.Source64 for concurrent random usage

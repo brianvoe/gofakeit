@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	"sync"
 	"testing"
 )
 
@@ -15,6 +16,21 @@ func ExampleFaker_Color() {
 	f := New(11)
 	fmt.Println(f.Color())
 	// Output: MediumOrchid
+}
+
+func TestThreadSafeColor(t *testing.T) {
+	f := New(11)
+	wg := sync.WaitGroup{}
+
+	for i := 0; i < 20; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			fmt.Println(f.Color())
+		}()
+	}
+
+	wg.Wait()
 }
 
 func BenchmarkColor(b *testing.B) {
