@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	"sync"
 	"testing"
 )
 
@@ -116,4 +117,18 @@ func TestSetGlobalFaker(t *testing.T) {
 
 	// Set global back to psuedo
 	SetGlobalFaker(New(0))
+}
+
+func TestThreadSafeColor(t *testing.T) {
+	wg := sync.WaitGroup{}
+
+	for i := 0; i < 20; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			Color()
+		}()
+	}
+
+	wg.Wait()
 }
