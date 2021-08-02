@@ -21,7 +21,7 @@ func ExampleAddress() {
 	// Rutherfordstad
 	// New Jersey
 	// 36906
-	// South Africa
+	// Tokelau
 	// 23.058758
 	// 89.022594
 }
@@ -42,7 +42,7 @@ func ExampleFaker_Address() {
 	// Rutherfordstad
 	// New Jersey
 	// 36906
-	// South Africa
+	// Tokelau
 	// 23.058758
 	// 89.022594
 }
@@ -404,13 +404,13 @@ func BenchmarkZip(b *testing.B) {
 func ExampleCountry() {
 	Seed(11)
 	fmt.Println(Country())
-	// Output: Tajikistan
+	// Output: Cabo Verde
 }
 
 func ExampleFaker_Country() {
 	f := New(11)
 	fmt.Println(f.Country())
-	// Output: Tajikistan
+	// Output: Cabo Verde
 }
 
 func BenchmarkCountry(b *testing.B) {
@@ -440,13 +440,13 @@ func BenchmarkCountry(b *testing.B) {
 func ExampleCountryAbr() {
 	Seed(11)
 	fmt.Println(CountryAbr())
-	// Output: FI
+	// Output: CV
 }
 
 func ExampleFaker_CountryAbr() {
 	f := New(11)
 	fmt.Println(f.CountryAbr())
-	// Output: FI
+	// Output: CV
 }
 
 func BenchmarkCountryAbr(b *testing.B) {

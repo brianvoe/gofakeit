@@ -33,7 +33,7 @@ func ExampleJSON_object() {
 	//         "city": "Lake Carroll",
 	//         "state": "Mississippi",
 	//         "zip": "90635",
-	//         "country": "Saint Pierre and Miquelon",
+	//         "country": "Rwanda",
 	//         "latitude": 22.008873,
 	//         "longitude": 158.531956
 	//     },
@@ -69,7 +69,7 @@ func ExampleFaker_JSON_object() {
 	//         "city": "Lake Carroll",
 	//         "state": "Mississippi",
 	//         "zip": "90635",
-	//         "country": "Saint Pierre and Miquelon",
+	//         "country": "Rwanda",
 	//         "latitude": 22.008873,
 	//         "longitude": 158.531956
 	//     },

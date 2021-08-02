@@ -182,7 +182,7 @@ func ExamplePerson() {
 	// Rossieview
 	// Hawaii
 	// 42591
-	// Burkina Faso
+	// Ghana
 	// -6.662595
 	// 23.921575
 	// 3023202027
@@ -244,7 +244,7 @@ func ExampleFaker_Person() {
 	// Rossieview
 	// Hawaii
 	// 42591
-	// Burkina Faso
+	// Ghana
 	// -6.662595
 	// 23.921575
 	// 3023202027

@@ -119,10 +119,22 @@ func ExampleHTTPMethod() {
 	// Output: HEAD
 }
 
+func ExampleHTTPVersion() {
+	Seed(11)
+	fmt.Println(HTTPVersion())
+	// Output: HTTP/1.0
+}
+
 func ExampleFaker_HTTPMethod() {
 	f := New(11)
 	fmt.Println(f.HTTPMethod())
 	// Output: HEAD
+}
+
+func ExampleFaker_HTTPVersion() {
+	f := New(11)
+	fmt.Println(f.HTTPVersion())
+	// Output: HTTP/1.0
 }
 
 func BenchmarkHTTPMethod(b *testing.B) {
