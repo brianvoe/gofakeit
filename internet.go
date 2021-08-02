@@ -248,6 +248,16 @@ func randomPlatform(r *rand.Rand) string {
 	return randomString(r, platforms)
 }
 
+// HTTPVersion will generate a random http version
+func HTTPVersion() string { return httpVersion(globalFaker.Rand) }
+
+// HTTPVersion will generate a random http version
+func (f *Faker) HTTPVersion() string { return httpVersion(f.Rand) }
+
+func httpVersion(r *rand.Rand) string {
+	return getRandValue(r, []string{"internet", "http_version"})
+}
+
 func addInternetLookup() {
 	AddFuncLookup("url", Info{
 		Display:     "URL",
@@ -400,6 +410,17 @@ func addInternetLookup() {
 		Output:      "int",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return httpStatusCodeSimple(r), nil
+		},
+	})
+
+	AddFuncLookup("httpversion", Info{
+		Display:     "HTTP Version",
+		Category:    "internet",
+		Description: "Random http version",
+		Example:     "HTTP/1.1",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return httpVersion(r), nil
 		},
 	})
 }
