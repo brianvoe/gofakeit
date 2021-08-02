@@ -316,6 +316,7 @@ HTTPStatusCode() string
 HTTPStatusCodeSimple() int
 LogLevel(logType string) string
 HTTPMethod() string
+HTTPVersion() string
 UserAgent() string
 ChromeUserAgent() string
 FirefoxUserAgent() string
