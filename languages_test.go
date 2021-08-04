@@ -77,6 +77,42 @@ func BenchmarkLanguageAbbreviation(b *testing.B) {
 	})
 }
 
+func ExampleLanguageBCP() {
+	Seed(11)
+	fmt.Println(LanguageBCP())
+	// Output: de-DE
+}
+
+func ExampleFaker_LanguageBCP() {
+	f := New(11)
+	fmt.Println(f.LanguageBCP())
+	// Output: de-DE
+}
+
+func BenchmarkLanguageBCP(b *testing.B) {
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			LanguageBCP()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.LanguageBCP()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.LanguageBCP()
+		}
+	})
+}
+
 func ExampleProgrammingLanguage() {
 	Seed(464)
 	fmt.Println(ProgrammingLanguage())

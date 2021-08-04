@@ -18,6 +18,14 @@ func (f *Faker) LanguageAbbreviation() string { return languageAbbreviation(f.Ra
 
 func languageAbbreviation(r *rand.Rand) string { return getRandValue(r, []string{"language", "short"}) }
 
+// LanguageBCP will return a random language BCP (Best Current Practices)
+func LanguageBCP() string { return languageBCP(globalFaker.Rand) }
+
+// LanguageBCP will return a random language BCP (Best Current Practices)
+func (f *Faker) LanguageBCP() string { return languageBCP(f.Rand) }
+
+func languageBCP(r *rand.Rand) string { return getRandValue(r, []string{"language", "bcp"}) }
+
 // ProgrammingLanguage will return a random programming language
 func ProgrammingLanguage() string { return programmingLanguage(globalFaker.Rand) }
 
@@ -34,7 +42,6 @@ func ProgrammingLanguageBest() string { return programmingLanguageBest(globalFak
 // ProgrammingLanguageBest will return a random programming language
 func (f *Faker) ProgrammingLanguageBest() string { return programmingLanguageBest(f.Rand) }
 
-// ProgrammingLanguageBest will return a random programming language
 func programmingLanguageBest(r *rand.Rand) string { return "Go" }
 
 func addLanguagesLookup() {
@@ -57,6 +64,17 @@ func addLanguagesLookup() {
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return languageAbbreviation(r), nil
+		},
+	})
+
+	AddFuncLookup("languagebcp", Info{
+		Display:     "Language BCP",
+		Category:    "language",
+		Description: "Random language BCP (Best Current Practices)",
+		Example:     "en-US",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return languageBCP(r), nil
 		},
 	})
 
