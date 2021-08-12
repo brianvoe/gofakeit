@@ -183,6 +183,57 @@ func randomUint(r *rand.Rand, u []uint) uint {
 	return u[r.Intn(size)]
 }
 
+// HexUint8 will generate a random uint8 hex value with "0x" prefix
+func HexUint8() string { return hexUint(globalFaker.Rand, 8) }
+
+// HexUint8 will generate a random uint8 hex value with "0x" prefix
+func (f *Faker) HexUint8() string { return hexUint(f.Rand, 8) }
+
+// HexUint16 will generate a random uint16 hex value with "0x" prefix
+func HexUint16() string { return hexUint(globalFaker.Rand, 16) }
+
+// HexUint16 will generate a random uint16 hex value with "0x" prefix
+func (f *Faker) HexUint16() string { return hexUint(f.Rand, 16) }
+
+// HexUint32 will generate a random uint32 hex value with "0x" prefix
+func HexUint32() string { return hexUint(globalFaker.Rand, 32) }
+
+// HexUint32 will generate a random uint32 hex value with "0x" prefix
+func (f *Faker) HexUint32() string { return hexUint(f.Rand, 32) }
+
+// HexUint64 will generate a random uint64 hex value with "0x" prefix
+func HexUint64() string { return hexUint(globalFaker.Rand, 64) }
+
+// HexUint64 will generate a random uint64 hex value with "0x" prefix
+func (f *Faker) HexUint64() string { return hexUint(f.Rand, 64) }
+
+// HexUint128 will generate a random uint128 hex value with "0x" prefix
+func HexUint128() string { return hexUint(globalFaker.Rand, 128) }
+
+// HexUint128 will generate a random uint128 hex value with "0x" prefix
+func (f *Faker) HexUint128() string { return hexUint(f.Rand, 128) }
+
+// HexUint256 will generate a random uint256 hex value with "0x" prefix
+func HexUint256() string { return hexUint(globalFaker.Rand, 256) }
+
+// HexUint256 will generate a random uint256 hex value with "0x" prefix
+func (f *Faker) HexUint256() string { return hexUint(f.Rand, 256) }
+
+func hexUint(r *rand.Rand, bitSize int) string {
+	digits := []byte("0123456789abcdef")
+	hexLen := (bitSize >> 2) + 2
+	if hexLen <= 2 {
+		return "0x"
+	}
+
+	s := make([]byte, hexLen)
+	s[0], s[1] = '0', 'x'
+	for i := 2; i < hexLen; i++ {
+		s[i] = digits[r.Intn(16)]
+	}
+	return string(s)
+}
+
 func addNumberLookup() {
 	AddFuncLookup("number", Info{
 		Display:     "Number",
@@ -391,6 +442,72 @@ func addNumberLookup() {
 			shuffleInts(r, ints)
 
 			return ints, nil
+		},
+	})
+
+	AddFuncLookup("hexuint8", Info{
+		Display:     "HexUint8",
+		Category:    "number",
+		Description: "Random uint8 hex value",
+		Example:     "0x87",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return hexUint(r, 8), nil
+		},
+	})
+
+	AddFuncLookup("hexuint16", Info{
+		Display:     "HexUint16",
+		Category:    "number",
+		Description: "Random uint16 hex value",
+		Example:     "0x8754",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return hexUint(r, 16), nil
+		},
+	})
+
+	AddFuncLookup("hexuint32", Info{
+		Display:     "HexUint32",
+		Category:    "number",
+		Description: "Random uint32 hex value",
+		Example:     "0x87546957",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return hexUint(r, 32), nil
+		},
+	})
+
+	AddFuncLookup("hexuint64", Info{
+		Display:     "HexUint64",
+		Category:    "number",
+		Description: "Random uint64 hex value",
+		Example:     "0x875469578e51b5e5",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return hexUint(r, 64), nil
+		},
+	})
+
+	AddFuncLookup("hexuint128", Info{
+		Display:     "HexUint128",
+		Category:    "number",
+		Description: "Random uint128 hex value",
+		Example:     "0x875469578e51b5e56c95b64681d147a1",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return hexUint(r, 128), nil
+		},
+	})
+
+	AddFuncLookup("hexuint256", Info{
+		Display:     "HexUint256",
+		Category:    "number",
+		Description: "Random uint256 hex value",
+		Example:     "0x875469578e51b5e56c95b64681d147a12cde48a4f417231b0c486abbc263e48d",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return hexUint(r, 256), nil
 		},
 	})
 }
