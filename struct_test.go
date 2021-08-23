@@ -529,3 +529,16 @@ func TestStructSetSubStruct(t *testing.T) {
 
 	RemoveFuncLookup("setstruct")
 }
+
+func TestStructSliceLoopGeneration(t *testing.T) {
+	type S struct {
+		A []string
+	}
+
+	s := &S{}
+	for i := 0; i < 2; i++ {
+		if err := Struct(s); err != nil {
+			t.Fatal(err)
+		}
+	}
+}

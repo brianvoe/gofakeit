@@ -604,3 +604,219 @@ func BenchmarkRandomUint(b *testing.B) {
 		}
 	})
 }
+
+func ExampleHexUint8() {
+	Seed(11)
+	fmt.Println(HexUint8())
+	// Output: 0x87
+}
+
+func ExampleFaker_HexUint8() {
+	f := New(11)
+	fmt.Println(f.HexUint8())
+	// Output: 0x87
+}
+
+func BenchmarkHexUint8(b *testing.B) {
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HexUint8()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.HexUint8()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.HexUint8()
+		}
+	})
+}
+
+func ExampleHexUint16() {
+	Seed(11)
+	fmt.Println(HexUint16())
+	// Output: 0x8754
+}
+
+func ExampleFaker_HexUint16() {
+	f := New(11)
+	fmt.Println(f.HexUint16())
+	// Output: 0x8754
+}
+
+func BenchmarkHexUint16(b *testing.B) {
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HexUint16()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.HexUint16()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.HexUint16()
+		}
+	})
+}
+
+func ExampleHexUint32() {
+	Seed(11)
+	fmt.Println(HexUint32())
+	// Output: 0x87546957
+}
+
+func ExampleFaker_HexUint32() {
+	f := New(11)
+	fmt.Println(f.HexUint32())
+	// Output: 0x87546957
+}
+
+func BenchmarkHexUint32(b *testing.B) {
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HexUint32()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.HexUint32()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.HexUint32()
+		}
+	})
+}
+
+func ExampleHexUint64() {
+	Seed(11)
+	fmt.Println(HexUint64())
+	// Output: 0x875469578e51b5e5
+}
+
+func ExampleFaker_HexUint64() {
+	f := New(11)
+	fmt.Println(f.HexUint64())
+	// Output: 0x875469578e51b5e5
+}
+
+func BenchmarkHexUint64(b *testing.B) {
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HexUint64()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.HexUint64()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.HexUint64()
+		}
+	})
+}
+
+func ExampleHexUint128() {
+	Seed(11)
+	fmt.Println(HexUint128())
+	// Output: 0x875469578e51b5e56c95b64681d147a1
+}
+
+func ExampleFaker_HexUint128() {
+	f := New(11)
+	fmt.Println(f.HexUint128())
+	// Output: 0x875469578e51b5e56c95b64681d147a1
+}
+
+func BenchmarkHexUint128(b *testing.B) {
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HexUint128()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.HexUint128()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.HexUint128()
+		}
+	})
+}
+
+func ExampleHexUint256() {
+	Seed(11)
+	fmt.Println(HexUint256())
+	// Output: 0x875469578e51b5e56c95b64681d147a12cde48a4f417231b0c486abbc263e48d
+}
+
+func ExampleFaker_HexUint256() {
+	f := New(11)
+	fmt.Println(f.HexUint256())
+	// Output: 0x875469578e51b5e56c95b64681d147a12cde48a4f417231b0c486abbc263e48d
+}
+
+func BenchmarkHexUint256(b *testing.B) {
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HexUint256()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.HexUint256()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.HexUint256()
+		}
+	})
+}

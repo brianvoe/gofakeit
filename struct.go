@@ -196,13 +196,13 @@ func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int
 	// Grab original size to use if needed for sub arrays
 	ogSize := size
 
-	// If the value has a cap and is less than the size
+	// If the value has a len and is less than the size
 	// use that instead of the requested size
-	elemCap := v.Cap()
-	if elemCap == 0 && size == -1 {
+	elemLen := v.Len()
+	if elemLen == 0 && size == -1 {
 		size = number(ra, 1, 10)
-	} else if elemCap != 0 && (size == -1 || elemCap < size) {
-		size = elemCap
+	} else if elemLen != 0 && (size == -1 || elemLen < size) {
+		size = elemLen
 	}
 
 	// Get the element type
