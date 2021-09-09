@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"errors"
+	"fmt"
 	"math/rand"
 	"reflect"
 	"strconv"
@@ -45,6 +46,8 @@ func r(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) err
 		return rBool(ra, t, v, tag)
 	case reflect.Array, reflect.Slice:
 		return rSlice(ra, t, v, tag, size)
+	case reflect.Map:
+		return rMap(ra, t, v, tag)
 	}
 
 	return nil
@@ -165,6 +168,84 @@ func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 		}
 	}
 
+	return nil
+}
+
+func rMap(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
+	// If tag is set lets try to set the struct values from the tag response
+	if tag != "" {
+		// Trim the curly on the begining and end
+		tag = strings.TrimLeft(tag, "{")
+		tag = strings.TrimRight(tag, "}")
+
+		// Check if has params separated by :
+		fNameSplit := strings.SplitN(tag, ":", 2)
+		fName := ""
+		fParams := ""
+		if len(fNameSplit) >= 1 {
+			fName = fNameSplit[0]
+		}
+		if len(fNameSplit) >= 2 {
+			fParams = fNameSplit[1]
+		}
+
+		// Check to see if its a replaceable lookup function
+		if info := GetFuncLookup(fName); info != nil {
+			// Get parameters, make sure params and the split both have values
+			var mapParams *MapParams
+			paramsLen := len(info.Params)
+
+			// If just one param and its a string simply just pass it
+			if paramsLen == 1 && info.Params[0].Type == "string" {
+				if mapParams == nil {
+					mapParams = NewMapParams()
+				}
+				mapParams.Add(info.Params[0].Field, fParams)
+			} else if paramsLen > 0 && fParams != "" {
+				splitVals := funcLookupSplit(fParams)
+				for ii := 0; ii < len(splitVals); ii++ {
+					if paramsLen-1 >= ii {
+						if mapParams == nil {
+							mapParams = NewMapParams()
+						}
+						if strings.HasPrefix(splitVals[ii], "[") {
+							lookupSplits := funcLookupSplit(strings.TrimRight(strings.TrimLeft(splitVals[ii], "["), "]"))
+							for _, v := range lookupSplits {
+								mapParams.Add(info.Params[ii].Field, v)
+							}
+						} else {
+							mapParams.Add(info.Params[ii].Field, splitVals[ii])
+						}
+					}
+				}
+			}
+
+			// Call function
+			fValue, err := info.Generate(ra, mapParams, info)
+			if err != nil {
+				return err
+			} else if reflect.TypeOf(fValue) != t {
+				return fmt.Errorf("expected value of type: %s but got value of: %s", t, reflect.TypeOf(fValue))
+			}
+
+			// Create new element of expected type
+			field := reflect.New(reflect.TypeOf(fValue))
+			field.Elem().Set(reflect.ValueOf(fValue))
+
+			// Check if element is pointer if so
+			// grab the underlyning value before setting
+			fieldElem := field.Elem()
+			if fieldElem.Kind() == reflect.Ptr {
+				v.Set(fieldElem.Elem())
+			} else {
+				v.Set(fieldElem)
+			}
+
+			// If a function is called to set the struct
+			// stop from going through sub fields
+			return nil
+		}
+	}
 	return nil
 }
 
