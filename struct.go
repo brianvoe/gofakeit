@@ -56,51 +56,11 @@ func r(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) err
 func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 	// If tag is set lets try to set the struct values from the tag response
 	if tag != "" {
-		// Trim the curly on the begining and end
-		tag = strings.TrimLeft(tag, "{")
-		tag = strings.TrimRight(tag, "}")
-
-		// Check if has params separated by :
-		fNameSplit := strings.SplitN(tag, ":", 2)
-		fName := ""
-		fParams := ""
-		if len(fNameSplit) >= 1 {
-			fName = fNameSplit[0]
-		}
-		if len(fNameSplit) >= 2 {
-			fParams = fNameSplit[1]
-		}
-
+		fName, fParams := parseNameAndParamsFromTag(tag)
 		// Check to see if its a replaceable lookup function
 		if info := GetFuncLookup(fName); info != nil {
-			// Get parameters, make sure params and the split both have values
-			var mapParams *MapParams
-			paramsLen := len(info.Params)
-
-			// If just one param and its a string simply just pass it
-			if paramsLen == 1 && info.Params[0].Type == "string" {
-				if mapParams == nil {
-					mapParams = NewMapParams()
-				}
-				mapParams.Add(info.Params[0].Field, fParams)
-			} else if paramsLen > 0 && fParams != "" {
-				splitVals := funcLookupSplit(fParams)
-				for ii := 0; ii < len(splitVals); ii++ {
-					if paramsLen-1 >= ii {
-						if mapParams == nil {
-							mapParams = NewMapParams()
-						}
-						if strings.HasPrefix(splitVals[ii], "[") {
-							lookupSplits := funcLookupSplit(strings.TrimRight(strings.TrimLeft(splitVals[ii], "["), "]"))
-							for _, v := range lookupSplits {
-								mapParams.Add(info.Params[ii].Field, v)
-							}
-						} else {
-							mapParams.Add(info.Params[ii].Field, splitVals[ii])
-						}
-					}
-				}
-			}
+			// Parse map params
+			mapParams := parseMapParams(info, fParams)
 
 			// Call function
 			fValue, err := info.Generate(ra, mapParams, info)
@@ -171,54 +131,63 @@ func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 	return nil
 }
 
-func rMap(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
-	// If tag is set lets try to set the struct values from the tag response
-	if tag != "" {
-		// Trim the curly on the begining and end
-		tag = strings.TrimLeft(tag, "{")
-		tag = strings.TrimRight(tag, "}")
+func parseNameAndParamsFromTag(tag string) (string, string) {
+	// Trim the curly on the beginning and end
+	tag = strings.TrimLeft(tag, "{")
+	tag = strings.TrimRight(tag, "}")
+	// Check if has params separated by :
+	fNameSplit := strings.SplitN(tag, ":", 2)
+	fName := ""
+	fParams := ""
+	if len(fNameSplit) >= 1 {
+		fName = fNameSplit[0]
+	}
+	if len(fNameSplit) >= 2 {
+		fParams = fNameSplit[1]
+	}
+	return fName, fParams
+}
 
-		// Check if has params separated by :
-		fNameSplit := strings.SplitN(tag, ":", 2)
-		fName := ""
-		fParams := ""
-		if len(fNameSplit) >= 1 {
-			fName = fNameSplit[0]
+func parseMapParams(info *Info, fParams string) *MapParams {
+	// Get parameters, make sure params and the split both have values
+	var mapParams *MapParams
+	paramsLen := len(info.Params)
+
+	// If just one param and its a string simply just pass it
+	if paramsLen == 1 && info.Params[0].Type == "string" {
+		if mapParams == nil {
+			mapParams = NewMapParams()
 		}
-		if len(fNameSplit) >= 2 {
-			fParams = fNameSplit[1]
-		}
-
-		// Check to see if its a replaceable lookup function
-		if info := GetFuncLookup(fName); info != nil {
-			// Get parameters, make sure params and the split both have values
-			var mapParams *MapParams
-			paramsLen := len(info.Params)
-
-			// If just one param and its a string simply just pass it
-			if paramsLen == 1 && info.Params[0].Type == "string" {
+		mapParams.Add(info.Params[0].Field, fParams)
+	} else if paramsLen > 0 && fParams != "" {
+		splitVals := funcLookupSplit(fParams)
+		for ii := 0; ii < len(splitVals); ii++ {
+			if paramsLen-1 >= ii {
 				if mapParams == nil {
 					mapParams = NewMapParams()
 				}
-				mapParams.Add(info.Params[0].Field, fParams)
-			} else if paramsLen > 0 && fParams != "" {
-				splitVals := funcLookupSplit(fParams)
-				for ii := 0; ii < len(splitVals); ii++ {
-					if paramsLen-1 >= ii {
-						if mapParams == nil {
-							mapParams = NewMapParams()
-						}
-						if strings.HasPrefix(splitVals[ii], "[") {
-							lookupSplits := funcLookupSplit(strings.TrimRight(strings.TrimLeft(splitVals[ii], "["), "]"))
-							for _, v := range lookupSplits {
-								mapParams.Add(info.Params[ii].Field, v)
-							}
-						} else {
-							mapParams.Add(info.Params[ii].Field, splitVals[ii])
-						}
+				if strings.HasPrefix(splitVals[ii], "[") {
+					lookupSplits := funcLookupSplit(strings.TrimRight(strings.TrimLeft(splitVals[ii], "["), "]"))
+					for _, v := range lookupSplits {
+						mapParams.Add(info.Params[ii].Field, v)
 					}
+				} else {
+					mapParams.Add(info.Params[ii].Field, splitVals[ii])
 				}
 			}
+		}
+	}
+	return mapParams
+}
+
+func rMap(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
+	// If tag is set lets try to set the struct values from the tag response
+	if tag != "" {
+		fName, fParams := parseNameAndParamsFromTag(tag)
+		// Check to see if its a replaceable lookup function
+		if info := GetFuncLookup(fName); info != nil {
+			// Parse map params
+			mapParams := parseMapParams(info, fParams)
 
 			// Call function
 			fValue, err := info.Generate(ra, mapParams, info)
@@ -315,7 +284,7 @@ func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int
 	return nil
 }
 
-func rString(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
+func rString(ra *rand.Rand, _ reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
 		v.SetString(generate(ra, tag))
 	} else {
@@ -403,7 +372,7 @@ func rFloat(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 	return nil
 }
 
-func rBool(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
+func rBool(ra *rand.Rand, _ reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
 		b, err := strconv.ParseBool(generate(ra, tag))
 		if err != nil {
