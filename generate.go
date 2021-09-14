@@ -99,32 +99,18 @@ func generate(r *rand.Rand, dataVal string) string {
 		// Check to see if its a replaceable lookup function
 		if info := GetFuncLookup(fName); info != nil {
 			// Get parameters, make sure params and the split both have values
-			var mapParams *MapParams
+			mapParams := NewMapParams()
 			paramsLen := len(info.Params)
 
 			// If just one param and its a string simply just pass it
 			if paramsLen == 1 && info.Params[0].Type == "string" {
-				if mapParams == nil {
-					mapParams = NewMapParams()
-				}
 				mapParams.Add(info.Params[0].Field, fParams)
 			} else if paramsLen > 0 && fParams != "" {
 				splitVals := funcLookupSplit(fParams)
-				for ii := 0; ii < len(splitVals); ii++ {
-					if paramsLen-1 >= ii {
-						if mapParams == nil {
-							mapParams = NewMapParams()
-						}
-						if strings.HasPrefix(splitVals[ii], "[") {
-							lookupSplits := funcLookupSplit(strings.TrimRight(strings.TrimLeft(splitVals[ii], "["), "]"))
-							for _, v := range lookupSplits {
-								mapParams.Add(info.Params[ii].Field, v)
-							}
-						} else {
-							mapParams.Add(info.Params[ii].Field, splitVals[ii])
-						}
-					}
-				}
+				mapParams = addSplitValsToMapParams(splitVals, info, mapParams)
+			}
+			if mapParams.Size() == 0 {
+				mapParams = nil
 			}
 
 			// Call function
