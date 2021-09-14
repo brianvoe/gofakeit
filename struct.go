@@ -131,55 +131,6 @@ func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 	return nil
 }
 
-func parseNameAndParamsFromTag(tag string) (string, string) {
-	// Trim the curly on the beginning and end
-	tag = strings.TrimLeft(tag, "{")
-	tag = strings.TrimRight(tag, "}")
-	// Check if has params separated by :
-	fNameSplit := strings.SplitN(tag, ":", 2)
-	fName := ""
-	fParams := ""
-	if len(fNameSplit) >= 1 {
-		fName = fNameSplit[0]
-	}
-	if len(fNameSplit) >= 2 {
-		fParams = fNameSplit[1]
-	}
-	return fName, fParams
-}
-
-func parseMapParams(info *Info, fParams string) *MapParams {
-	// Get parameters, make sure params and the split both have values
-	var mapParams *MapParams
-	paramsLen := len(info.Params)
-
-	// If just one param and its a string simply just pass it
-	if paramsLen == 1 && info.Params[0].Type == "string" {
-		if mapParams == nil {
-			mapParams = NewMapParams()
-		}
-		mapParams.Add(info.Params[0].Field, fParams)
-	} else if paramsLen > 0 && fParams != "" {
-		splitVals := funcLookupSplit(fParams)
-		for ii := 0; ii < len(splitVals); ii++ {
-			if paramsLen-1 >= ii {
-				if mapParams == nil {
-					mapParams = NewMapParams()
-				}
-				if strings.HasPrefix(splitVals[ii], "[") {
-					lookupSplits := funcLookupSplit(strings.TrimRight(strings.TrimLeft(splitVals[ii], "["), "]"))
-					for _, v := range lookupSplits {
-						mapParams.Add(info.Params[ii].Field, v)
-					}
-				} else {
-					mapParams.Add(info.Params[ii].Field, splitVals[ii])
-				}
-			}
-		}
-	}
-	return mapParams
-}
-
 func rMap(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 	// If tag is set lets try to set the struct values from the tag response
 	if tag != "" {

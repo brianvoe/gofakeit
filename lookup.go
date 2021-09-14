@@ -96,6 +96,15 @@ func (m *MapParams) Add(field string, value string) {
 	(*m)[field] = append((*m)[field], value)
 }
 
+// Size will return the total size of the underlying map
+func (m *MapParams) Size() int {
+	size := 0
+	for range *m {
+		size++
+	}
+	return size
+}
+
 // AddFuncLookup takes a field and adds it to map
 func AddFuncLookup(functionName string, info Info) {
 	if FuncLookups == nil {
