@@ -388,4 +388,15 @@ func addGenerateLookup() {
 			return regex(r, str), nil
 		},
 	})
+
+	AddFuncLookup("map", Info{
+		Display:     "Map",
+		Category:    "generate",
+		Description: "Random map of generated data",
+		Example:     `map[consult:respond context:9285735]`,
+		Output:      "map[string]interface{}",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return mapFunc(r), nil
+		},
+	})
 }

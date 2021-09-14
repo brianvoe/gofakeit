@@ -233,6 +233,7 @@ func funcLookupSplit(str string) []string {
 	return out
 }
 
+// Used for parsing the tag in a struct
 func parseNameAndParamsFromTag(tag string) (string, string) {
 	// Trim the curly on the beginning and end
 	tag = strings.TrimLeft(tag, "{")
@@ -250,6 +251,7 @@ func parseNameAndParamsFromTag(tag string) (string, string) {
 	return fName, fParams
 }
 
+// Used for parsing map params
 func parseMapParams(info *Info, fParams string) *MapParams {
 	// Get parameters, make sure params and the split both have values
 	mapParams := NewMapParams()
@@ -269,6 +271,7 @@ func parseMapParams(info *Info, fParams string) *MapParams {
 	}
 }
 
+// Used for splitting the values
 func addSplitValsToMapParams(splitVals []string, info *Info, mapParams *MapParams) *MapParams {
 	for ii := 0; ii < len(splitVals); ii++ {
 		if len(info.Params)-1 >= ii {
