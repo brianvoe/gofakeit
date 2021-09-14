@@ -172,7 +172,6 @@ func ExampleFaker_Struct() {
 	// Enrique
 	// 4
 	// <nil>
-	// nil
 }
 
 func ExampleStruct_array() {
