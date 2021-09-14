@@ -441,6 +441,12 @@ Float64() float64
 Float64Range(min, max float64) float64
 ShuffleInts(a []int)
 RandomInt(i []int) int
+HexUint8() string
+HexUint16() string
+HexUint32() string
+HexUint64() string
+HexUint128() string
+HexUint256() string
 ```
 
 ### String

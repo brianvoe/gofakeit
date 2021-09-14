@@ -159,9 +159,7 @@ func lookupPost(w http.ResponseWriter, r *http.Request) {
 }
 
 func getInfoFromPath(r *http.Request) (*gofakeit.Info, error) {
-	path := r.URL.Path
-	path = strings.Trim(path, "/")
-	paths := strings.Split(path, "/")
+	paths := strings.Split(strings.Trim(r.URL.Path, "/"), "/")
 	if len(paths) == 0 {
 		return nil, errors.New("No function was called, please pass func parameter")
 	}

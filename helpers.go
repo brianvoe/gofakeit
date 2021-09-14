@@ -232,3 +232,58 @@ func funcLookupSplit(str string) []string {
 
 	return out
 }
+
+// Used for parsing the tag in a struct
+func parseNameAndParamsFromTag(tag string) (string, string) {
+	// Trim the curly on the beginning and end
+	tag = strings.TrimLeft(tag, "{")
+	tag = strings.TrimRight(tag, "}")
+	// Check if has params separated by :
+	fNameSplit := strings.SplitN(tag, ":", 2)
+	fName := ""
+	fParams := ""
+	if len(fNameSplit) >= 1 {
+		fName = fNameSplit[0]
+	}
+	if len(fNameSplit) >= 2 {
+		fParams = fNameSplit[1]
+	}
+	return fName, fParams
+}
+
+// Used for parsing map params
+func parseMapParams(info *Info, fParams string) *MapParams {
+	// Get parameters, make sure params and the split both have values
+	mapParams := NewMapParams()
+	paramsLen := len(info.Params)
+
+	// If just one param and its a string simply just pass it
+	if paramsLen == 1 && info.Params[0].Type == "string" {
+		mapParams.Add(info.Params[0].Field, fParams)
+	} else if paramsLen > 0 && fParams != "" {
+		splitVals := funcLookupSplit(fParams)
+		mapParams = addSplitValsToMapParams(splitVals, info, mapParams)
+	}
+	if mapParams.Size() > 0 {
+		return mapParams
+	} else {
+		return nil
+	}
+}
+
+// Used for splitting the values
+func addSplitValsToMapParams(splitVals []string, info *Info, mapParams *MapParams) *MapParams {
+	for ii := 0; ii < len(splitVals); ii++ {
+		if len(info.Params)-1 >= ii {
+			if strings.HasPrefix(splitVals[ii], "[") {
+				lookupSplits := funcLookupSplit(strings.TrimRight(strings.TrimLeft(splitVals[ii], "["), "]"))
+				for _, v := range lookupSplits {
+					mapParams.Add(info.Params[ii].Field, v)
+				}
+			} else {
+				mapParams.Add(info.Params[ii].Field, splitVals[ii])
+			}
+		}
+	}
+	return mapParams
+}

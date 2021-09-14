@@ -77,6 +77,7 @@ func ExampleStruct() {
 		Name    string  `fake:"{firstname}"`
 		Number  string  `fake:"{number:1,10}"`
 		Skip    *string `fake:"skip"`
+		Map     map[string]string
 	}
 
 	var f Foo
@@ -88,6 +89,7 @@ func ExampleStruct() {
 	fmt.Printf("%v\n", f.Name)
 	fmt.Printf("%v\n", f.Number)
 	fmt.Printf("%v\n", f.Skip)
+	fmt.Printf("%v\n", f.Map)
 
 	// Output: bRMaRxHki
 	// -8576773003117070818
@@ -95,6 +97,51 @@ func ExampleStruct() {
 	// Enrique
 	// 4
 	// <nil>
+	// map[]
+
+}
+
+func ExampleStructMap() {
+	Seed(11)
+
+	AddFuncLookup("fakeMap", Info{
+		Output: "map[string]string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return map[string]string{
+				"key1": "val1",
+			}, nil
+		},
+	})
+
+	type Foo struct {
+		Bar     string
+		Int     int
+		Pointer *int
+		Name    string            `fake:"{firstname}"`
+		Number  string            `fake:"{number:1,10}"`
+		Skip    *string           `fake:"skip"`
+		Map     map[string]string `fake:"fakeMap:param1"`
+	}
+
+	var f Foo
+	Struct(&f)
+
+	fmt.Printf("%s\n", f.Bar)
+	fmt.Printf("%d\n", f.Int)
+	fmt.Printf("%d\n", *f.Pointer)
+	fmt.Printf("%v\n", f.Name)
+	fmt.Printf("%v\n", f.Number)
+	fmt.Printf("%v\n", f.Skip)
+	fmt.Printf("%v\n", f.Map)
+
+	// Output: bRMaRxHki
+	// -8576773003117070818
+	// -7054675846543980602
+	// Enrique
+	// 4
+	// <nil>
+	// map[key1:val1]
+
 }
 
 func ExampleFaker_Struct() {
@@ -528,4 +575,17 @@ func TestStructSetSubStruct(t *testing.T) {
 	}
 
 	RemoveFuncLookup("setstruct")
+}
+
+func TestStructSliceLoopGeneration(t *testing.T) {
+	type S struct {
+		A []string
+	}
+
+	s := &S{}
+	for i := 0; i < 2; i++ {
+		if err := Struct(s); err != nil {
+			t.Fatal(err)
+		}
+	}
 }
