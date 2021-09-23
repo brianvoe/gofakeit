@@ -9,7 +9,7 @@ Random data generator written in go
 ## Features
 
 - [160+ Functions!!!](#functions)
-- [Concurrent](#concurrent-struct)
+- [Random Sources](#random-sources)
 - [Global Rand](#global-rand-set)
 - [Struct Generator](#struct)
 - [Custom Functions](#custom-functions)
@@ -46,27 +46,26 @@ gofakeit.CurrencyShort()    // USD
 // See full list below
 ```
 
-## Concurrent Struct
+## Random Sources
 
-If you need to have independent randomization for the purposes of concurrency
+Gofakeit has a few rand sources, by default it uses math.Rand and uses mutex locking to allow for safe goroutines.
+If you want to use a more performant source please use NewUnlocked. Be aware that it is not goroutine safe.
 
 ```go
 import "github.com/brianvoe/gofakeit/v6"
 
-faker := New(0) // or NewCrypto() to use crypto/rand
+// Uses math/Rand(Pseudo) with mutex locking
+faker := New(0)
 
-faker.Name()             // Markus Moen
-faker.Email()            // alaynawuckert@kozey.biz
-faker.Phone()            // (570)245-7485
-faker.BS()               // front-end
-faker.BeerName()         // Duvel
-faker.Color()            // MediumOrchid
-faker.Company()          // Moen, Pagac and Wuckert
-faker.CreditCardNumber() // 4287271570245748
-faker.HackerPhrase()     // Connecting the array won't do anything, we need to generate the haptic COM driver!
-faker.JobTitle()         // Director
-faker.CurrencyShort()    // USD
-// See full list below
+// Uses math/Rand(Pseudo) with NO mutext locking
+// More performant but not goroutine safe.
+faker := NewUnlocked(0)
+
+// Uses crypto/rand(cryptographically secure) with mutext locking
+faker := NewCrypto()
+
+// Pass in your own random source
+faker := NewCustom()
 ```
 
 ## Global Rand Set
