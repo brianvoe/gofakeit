@@ -1,11 +1,13 @@
 ![alt text](https://raw.githubusercontent.com/brianvoe/gofakeit/master/logo.png)
 
 # Gofakeit [![Go Report Card](https://goreportcard.com/badge/github.com/brianvoe/gofakeit)](https://goreportcard.com/report/github.com/brianvoe/gofakeit) ![Test](https://github.com/brianvoe/gofakeit/workflows/Test/badge.svg?branch=master) [![codecov.io](https://codecov.io/github/brianvoe/gofakeit/branch/master/graph/badge.svg)](https://codecov.io/github/brianvoe/gofakeit) [![GoDoc](https://godoc.org/github.com/brianvoe/gofakeit/v6?status.svg)](https://godoc.org/github.com/brianvoe/gofakeit/v6) [![license](http://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://raw.githubusercontent.com/brianvoe/gofakeit/master/LICENSE.txt)
+
 Random data generator written in go
 
 <a href="https://www.buymeacoffee.com/brianvoe" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 
 ## Features
+
 - [160+ Functions!!!](#functions)
 - [Concurrent](#concurrent-struct)
 - [Global Rand](#global-rand-set)
@@ -18,11 +20,13 @@ Random data generator written in go
 - [Issue](https://github.com/brianvoe/gofakeit/issues)
 
 ## Installation
+
 ```go
 go get github.com/brianvoe/gofakeit/v6
 ```
 
 ## Simple Usage
+
 ```go
 import "github.com/brianvoe/gofakeit/v6"
 
@@ -43,7 +47,9 @@ gofakeit.CurrencyShort()    // USD
 ```
 
 ## Concurrent Struct
+
 If you need to have independent randomization for the purposes of concurrency
+
 ```go
 import "github.com/brianvoe/gofakeit/v6"
 
@@ -64,8 +70,10 @@ faker.CurrencyShort()    // USD
 ```
 
 ## Global Rand Set
+
 If you would like to use the simple function call but need to use something like
 crypto/rand you can override the default global with the type you want
+
 ```go
 import "github.com/brianvoe/gofakeit/v6"
 
@@ -74,6 +82,7 @@ SetGlobalFaker(faker)
 ```
 
 ## Struct
+
 ```go
 import "github.com/brianvoe/gofakeit/v6"
 
@@ -126,6 +135,7 @@ fmt.Println(fb.Foos)      // [{blmfxy -2585154718894894116 0xc000317bc0 Emmy Att
 ```
 
 ## Custom Functions
+
 ```go
 // Simple
 AddFuncLookup("friendname", Info{
@@ -171,8 +181,11 @@ fmt.Printf("%s", f.JumbleWord) // loredlowlh
 ```
 
 ## Functions
+
 All functions also exist as methods on the Faker struct
+
 ### File
+
 ```go
 JSON(jo *JSONOptions) ([]byte, error)
 XML(xo *XMLOptions) ([]byte, error)
@@ -181,6 +194,7 @@ FileMimeType() string
 ```
 
 ### Person
+
 ```go
 Person() *PersonInfo
 Name() string
@@ -198,6 +212,7 @@ Teams(peopleArray []string, teamsArray []string) map[string][]string
 ```
 
 ### Generate
+
 ```go
 Struct(v interface{})
 Slice(v interface{})
@@ -207,12 +222,14 @@ Regex(value string) string
 ```
 
 ### Auth
+
 ```go
 Username() string
 Password(lower bool, upper bool, numeric bool, special bool, space bool, num int) string
 ```
 
 ### Address
+
 ```go
 Address() *AddressInfo
 City() string
@@ -233,11 +250,13 @@ LongitudeInRange(min, max float64) (float64, error)
 ```
 
 ### Game
+
 ```go
 Gamertag() string
 ```
 
 ### Beer
+
 ```go
 BeerAlcohol() string
 BeerBlg() string
@@ -250,6 +269,7 @@ BeerYeast() string
 ```
 
 ### Car
+
 ```go
 Car() *CarInfo
 CarMaker() string
@@ -260,6 +280,7 @@ CarTransmissionType() string
 ```
 
 ### Words
+
 ```go
 Noun() string
 Verb() string
@@ -278,6 +299,7 @@ Phrase() string
 ```
 
 ### Foods
+
 ```go
 Fruit() string
 Vegetable() string
@@ -289,6 +311,7 @@ Dessert() string
 ```
 
 ### Misc
+
 ```go
 Bool() bool
 UUID() string
@@ -297,6 +320,7 @@ ShuffleAnySlice(v interface{})
 ```
 
 ### Colors
+
 ```go
 Color() string
 HexColor() string
@@ -305,6 +329,7 @@ SafeColor() string
 ```
 
 ### Internet
+
 ```go
 URL() string
 DomainName() string
@@ -325,6 +350,7 @@ SafariUserAgent() string
 ```
 
 ### Date/Time
+
 ```go
 Date() time.Time
 DateRange(start, end time.Time) time.Time
@@ -345,6 +371,7 @@ TimeZoneRegion() string
 ```
 
 ### Payment
+
 ```go
 Price(min, max float64) float64
 CreditCard() *CreditCardInfo
@@ -362,6 +389,7 @@ BitcoinPrivateKey() string
 ```
 
 ### Company
+
 ```go
 BS() string
 BuzzWord() string
@@ -374,6 +402,7 @@ JobTitle() string
 ```
 
 ### Hacker
+
 ```go
 HackerAbbreviation() string
 HackerAdjective() string
@@ -384,6 +413,7 @@ HackerVerb() string
 ```
 
 ### Hipster
+
 ```go
 HipsterWord() string
 HipsterSentence(wordCount int) string
@@ -391,6 +421,7 @@ HipsterParagraph(paragraphCount int, sentenceCount int, wordCount int, separator
 ```
 
 ### App
+
 ```go
 AppName() string
 AppVersion() string
@@ -398,6 +429,7 @@ AppAuthor() string
 ```
 
 ### Animal
+
 ```go
 PetName() string
 Animal() string
@@ -408,6 +440,7 @@ Dog() string
 ```
 
 ### Emoji
+
 ```go
 Emoji() string
 EmojiDescription() string
@@ -417,6 +450,7 @@ EmojiTag() string
 ```
 
 ### Language
+
 ```go
 Language() string
 LanguageAbbreviation() string
@@ -425,6 +459,7 @@ ProgrammingLanguageBest() string
 ```
 
 ### Number
+
 ```go
 Number(min int, max int) int
 Int8() int8
@@ -450,6 +485,7 @@ HexUint256() string
 ```
 
 ### String
+
 ```go
 Digit() string
 DigitN(n uint) string
