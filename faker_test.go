@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	"sync"
 	"testing"
 )
 
@@ -116,4 +117,22 @@ func TestSetGlobalFaker(t *testing.T) {
 
 	// Set global back to psuedo
 	SetGlobalFaker(New(0))
+}
+
+func TestConcurrency(t *testing.T) {
+	var setupComplete sync.WaitGroup
+	setupComplete.Add(1)
+
+	var wg sync.WaitGroup
+	for i := 0; i < 10000; i++ {
+		wg.Add(1)
+		go func() {
+			setupComplete.Wait()
+			Paragraph(1, 5, 20, " ")
+			wg.Done()
+		}()
+	}
+
+	setupComplete.Done()
+	wg.Wait()
 }
