@@ -500,6 +500,8 @@ func TestStructToDateTime(t *testing.T) {
 }
 
 func TestStructSetSubStruct(t *testing.T) {
+	Seed(11)
+
 	type Sub struct {
 		Str string
 		Num int
@@ -516,8 +518,6 @@ func TestStructSetSubStruct(t *testing.T) {
 		},
 	})
 
-	Seed(11)
-
 	var f Foo
 	Struct(&f)
 
@@ -532,6 +532,25 @@ func TestStructSetSubStruct(t *testing.T) {
 	}
 
 	RemoveFuncLookup("setstruct")
+}
+
+func TestStructMap(t *testing.T) {
+	Seed(11)
+
+	type Bar struct {
+		Name string
+	}
+
+	type Foo struct {
+		Map      map[string]interface{}
+		MapInt   map[int]string
+		MapArray map[string][]Bar
+	}
+
+	var f Foo
+	Struct(&f)
+
+	t.Errorf("%+v", f.Map)
 }
 
 func TestStructSliceLoopGeneration(t *testing.T) {

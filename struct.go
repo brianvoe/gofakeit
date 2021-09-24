@@ -47,7 +47,7 @@ func r(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) err
 	case reflect.Array, reflect.Slice:
 		return rSlice(ra, t, v, tag, size)
 	case reflect.Map:
-		return rMap(ra, t, v, tag)
+		return rMap(ra, t, v, tag, size)
 	}
 
 	return nil
@@ -131,44 +131,6 @@ func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 	return nil
 }
 
-func rMap(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
-	// If tag is set lets try to set the struct values from the tag response
-	if tag != "" {
-		fName, fParams := parseNameAndParamsFromTag(tag)
-		// Check to see if its a replaceable lookup function
-		if info := GetFuncLookup(fName); info != nil {
-			// Parse map params
-			mapParams := parseMapParams(info, fParams)
-
-			// Call function
-			fValue, err := info.Generate(ra, mapParams, info)
-			if err != nil {
-				return err
-			} else if reflect.TypeOf(fValue) != t {
-				return fmt.Errorf("expected value of type: %s but got value of: %s", t, reflect.TypeOf(fValue))
-			}
-
-			// Create new element of expected type
-			field := reflect.New(reflect.TypeOf(fValue))
-			field.Elem().Set(reflect.ValueOf(fValue))
-
-			// Check if element is pointer if so
-			// grab the underlyning value before setting
-			fieldElem := field.Elem()
-			if fieldElem.Kind() == reflect.Ptr {
-				v.Set(fieldElem.Elem())
-			} else {
-				v.Set(fieldElem)
-			}
-
-			// If a function is called to set the struct
-			// stop from going through sub fields
-			return nil
-		}
-	}
-	return nil
-}
-
 func rPointer(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) error {
 	elemT := t.Elem()
 	if v.IsNil() {
@@ -231,6 +193,52 @@ func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int
 			v.Set(reflect.Append(reflect.Indirect(v), reflect.Indirect(nv)))
 		}
 	}
+
+	return nil
+}
+
+func rMap(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) error {
+	// If you cant even set it dont even try
+	if !v.CanSet() {
+		return errors.New("Cannot set slice")
+	}
+
+	if tag != "" {
+		// If tag is set lets try to set the struct values from the tag response
+		fName, fParams := parseNameAndParamsFromTag(tag)
+		// Check to see if its a replaceable lookup function
+		if info := GetFuncLookup(fName); info != nil {
+			// Parse map params
+			mapParams := parseMapParams(info, fParams)
+
+			// Call function
+			fValue, err := info.Generate(ra, mapParams, info)
+			if err != nil {
+				return err
+			} else if reflect.TypeOf(fValue) != t {
+				return fmt.Errorf("expected value of type: %s but got value of: %s", t, reflect.TypeOf(fValue))
+			}
+
+			// Create new element of expected type
+			field := reflect.New(reflect.TypeOf(fValue))
+			field.Elem().Set(reflect.ValueOf(fValue))
+
+			// Check if element is pointer if so
+			// grab the underlyning value before setting
+			fieldElem := field.Elem()
+			if fieldElem.Kind() == reflect.Ptr {
+				v.Set(fieldElem.Elem())
+			} else {
+				v.Set(fieldElem)
+			}
+
+			// If a function is called to set the struct
+			// stop from going through sub fields
+			return nil
+		}
+	}
+
+	// Has no tag or func lookup failed generate map with random data
 
 	return nil
 }

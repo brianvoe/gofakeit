@@ -30,8 +30,6 @@ go get github.com/brianvoe/gofakeit/v6
 ```go
 import "github.com/brianvoe/gofakeit/v6"
 
-gofakeit.Seed(0)
-
 gofakeit.Name()             // Markus Moen
 gofakeit.Email()            // alaynawuckert@kozey.biz
 gofakeit.Phone()            // (570)245-7485
@@ -43,7 +41,26 @@ gofakeit.CreditCardNumber() // 4287271570245748
 gofakeit.HackerPhrase()     // Connecting the array won't do anything, we need to generate the haptic COM driver!
 gofakeit.JobTitle()         // Director
 gofakeit.CurrencyShort()    // USD
-// See full list below
+```
+
+[See full list of functions](#functions)
+
+## Seed
+
+If you are using the default global usage and dont care about seeding no need to set anything.
+Gofakeit will seed it with a cryptographically secure number.
+
+If you need a reproducible outcome you can set it via the Seed function call. Every example in
+this repo sets it for testing purposes.
+
+```go
+import "github.com/brianvoe/gofakeit/v6"
+
+gofakeit.Seed(0) // If 0 will use crypto/rand to generate a number
+
+// or
+
+gofakeit.Seed(8675309) // Set it to whatever number you want
 ```
 
 ## Random Sources
@@ -54,30 +71,30 @@ If you want to use a more performant source please use NewUnlocked. Be aware tha
 ```go
 import "github.com/brianvoe/gofakeit/v6"
 
-// Uses math/Rand(Pseudo) with mutex locking
-faker := New(0)
+// Uses math/rand(Pseudo) with mutex locking
+faker := gofakeit.New(0)
 
-// Uses math/Rand(Pseudo) with NO mutext locking
+// Uses math/rand(Pseudo) with NO mutext locking
 // More performant but not goroutine safe.
-faker := NewUnlocked(0)
+faker := gofakeit.NewUnlocked(0)
 
 // Uses crypto/rand(cryptographically secure) with mutext locking
-faker := NewCrypto()
+faker := gofakeit.NewCrypto()
 
 // Pass in your own random source
-faker := NewCustom()
+faker := gofakeit.NewCustom()
 ```
 
 ## Global Rand Set
 
-If you would like to use the simple function call but need to use something like
-crypto/rand you can override the default global with the type you want
+If you would like to use the simple function calls but need to use something like
+crypto/rand you can override the default global with the random source that you want.
 
 ```go
 import "github.com/brianvoe/gofakeit/v6"
 
-faker := NewCrypto()
-SetGlobalFaker(faker)
+faker := gofakeit.NewCrypto()
+gofakeit.SetGlobalFaker(faker)
 ```
 
 ## Struct
@@ -95,12 +112,13 @@ type Foo struct {
 	RandStr  string    `fake:"{randomstring:[hello,world]}"`
 	Number   string    `fake:"{number:1,10}"`       // Comma separated for multiple values
 	Regex    string    `fake:"{regex:[abcdef]{5}}"` // Generate string from regex
+	Map map[string]interface
 	Skip     *string   `fake:"skip"`                // Set to "skip" to not generate data for
 	Created  time.Time								// Can take in a fake tag as well as a format tag
 	CreatedFormat  time.Time `fake:"{year}-{month}-{day}" format:"2006-01-02"`
 }
 
-type FooBar struct {
+type Bar struct {
 	Bars    []string `fake:"{name}"`              // Array of random size (1-10) with fake function applied
 	Foos    []Foo    `fakesize:"3"`               // Array of size specified with faked struct
 	FooBars []Foo    `fake:"{name}" fakesize:"3"` // Array of size 3 with fake function applied
@@ -137,7 +155,7 @@ fmt.Println(fb.Foos)      // [{blmfxy -2585154718894894116 0xc000317bc0 Emmy Att
 
 ```go
 // Simple
-AddFuncLookup("friendname", Info{
+gofakeit.AddFuncLookup("friendname", Info{
 	Category:    "custom",
 	Description: "Random friend name",
 	Example:     "bill",
@@ -148,7 +166,7 @@ AddFuncLookup("friendname", Info{
 })
 
 // With Params
-AddFuncLookup("jumbleword", Info{
+gofakeit.AddFuncLookup("jumbleword", Info{
 	Category:    "jumbleword",
 	Description: "Take a word and jumple it up",
 	Example:     "loredlowlh",
@@ -174,7 +192,7 @@ type Foo struct {
 }
 
 var f Foo
-Struct(&f)
+gofakeit.Struct(&f)
 fmt.Printf("%s", f.FriendName) // bill
 fmt.Printf("%s", f.JumbleWord) // loredlowlh
 ```
