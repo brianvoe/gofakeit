@@ -1,13 +1,15 @@
 ![alt text](https://raw.githubusercontent.com/brianvoe/gofakeit/master/logo.png)
 
 # Gofakeit [![Go Report Card](https://goreportcard.com/badge/github.com/brianvoe/gofakeit)](https://goreportcard.com/report/github.com/brianvoe/gofakeit) ![Test](https://github.com/brianvoe/gofakeit/workflows/Test/badge.svg?branch=master) [![codecov.io](https://codecov.io/github/brianvoe/gofakeit/branch/master/graph/badge.svg)](https://codecov.io/github/brianvoe/gofakeit) [![GoDoc](https://godoc.org/github.com/brianvoe/gofakeit/v6?status.svg)](https://godoc.org/github.com/brianvoe/gofakeit/v6) [![license](http://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://raw.githubusercontent.com/brianvoe/gofakeit/master/LICENSE.txt)
+
 Random data generator written in go
 
 <a href="https://www.buymeacoffee.com/brianvoe" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 
 ## Features
+
 - [160+ Functions!!!](#functions)
-- [Concurrent](#concurrent-struct)
+- [Random Sources](#random-sources)
 - [Global Rand](#global-rand-set)
 - [Struct Generator](#struct)
 - [Custom Functions](#custom-functions)
@@ -18,15 +20,15 @@ Random data generator written in go
 - [Issue](https://github.com/brianvoe/gofakeit/issues)
 
 ## Installation
+
 ```go
 go get github.com/brianvoe/gofakeit/v6
 ```
 
 ## Simple Usage
+
 ```go
 import "github.com/brianvoe/gofakeit/v6"
-
-gofakeit.Seed(0)
 
 gofakeit.Name()             // Markus Moen
 gofakeit.Email()            // alaynawuckert@kozey.biz
@@ -39,69 +41,102 @@ gofakeit.CreditCardNumber() // 4287271570245748
 gofakeit.HackerPhrase()     // Connecting the array won't do anything, we need to generate the haptic COM driver!
 gofakeit.JobTitle()         // Director
 gofakeit.CurrencyShort()    // USD
-// See full list below
 ```
 
-## Concurrent Struct
-If you need to have independent randomization for the purposes of concurrency
+[See full list of functions](#functions)
+
+## Seed
+
+If you are using the default global usage and dont care about seeding no need to set anything.
+Gofakeit will seed it with a cryptographically secure number.
+
+If you need a reproducible outcome you can set it via the Seed function call. Every example in
+this repo sets it for testing purposes.
+
 ```go
 import "github.com/brianvoe/gofakeit/v6"
 
-faker := New(0) // or NewCrypto() to use crypto/rand
+gofakeit.Seed(0) // If 0 will use crypto/rand to generate a number
 
-faker.Name()             // Markus Moen
-faker.Email()            // alaynawuckert@kozey.biz
-faker.Phone()            // (570)245-7485
-faker.BS()               // front-end
-faker.BeerName()         // Duvel
-faker.Color()            // MediumOrchid
-faker.Company()          // Moen, Pagac and Wuckert
-faker.CreditCardNumber() // 4287271570245748
-faker.HackerPhrase()     // Connecting the array won't do anything, we need to generate the haptic COM driver!
-faker.JobTitle()         // Director
-faker.CurrencyShort()    // USD
-// See full list below
+// or
+
+gofakeit.Seed(8675309) // Set it to whatever number you want
+```
+
+## Random Sources
+
+Gofakeit has a few rand sources, by default it uses math.Rand and uses mutex locking to allow for safe goroutines.
+
+If you want to use a more performant source please use NewUnlocked. Be aware that it is not goroutine safe.
+
+```go
+import "github.com/brianvoe/gofakeit/v6"
+
+// Uses math/rand(Pseudo) with mutex locking
+faker := gofakeit.New(0)
+
+// Uses math/rand(Pseudo) with NO mutext locking
+// More performant but not goroutine safe.
+faker := gofakeit.NewUnlocked(0)
+
+// Uses crypto/rand(cryptographically secure) with mutext locking
+faker := gofakeit.NewCrypto()
+
+// Pass in your own random source
+faker := gofakeit.NewCustom()
 ```
 
 ## Global Rand Set
-If you would like to use the simple function call but need to use something like
-crypto/rand you can override the default global with the type you want
+
+If you would like to use the simple function calls but need to use something like
+crypto/rand you can override the default global with the random source that you want.
+
 ```go
 import "github.com/brianvoe/gofakeit/v6"
 
-faker := NewCrypto()
-SetGlobalFaker(faker)
+faker := gofakeit.NewCrypto()
+gofakeit.SetGlobalFaker(faker)
 ```
 
 ## Struct
+
+Gofakeit can generate random data for struct fields. For the most part it covers all the basic type
+as well as some non basic like time.Time.
+
+Struct fields can also use tags to more specifically generate data for that field type.
+
 ```go
 import "github.com/brianvoe/gofakeit/v6"
 
 // Create structs with random injected data
 type Foo struct {
-	Bar      string
+	Str      string
 	Int      int
 	Pointer  *int
-	Name     string    `fake:"{firstname}"`         // Any available function all lowercase
-	Sentence string    `fake:"{sentence:3}"`        // Can call with parameters
-	RandStr  string    `fake:"{randomstring:[hello,world]}"`
-	Number   string    `fake:"{number:1,10}"`       // Comma separated for multiple values
-	Regex    string    `fake:"{regex:[abcdef]{5}}"` // Generate string from regex
-	Skip     *string   `fake:"skip"`                // Set to "skip" to not generate data for
-	Created  time.Time								// Can take in a fake tag as well as a format tag
+	Name     string         `fake:"{firstname}"`         // Any available function all lowercase
+	Sentence string         `fake:"{sentence:3}"`        // Can call with parameters
+	RandStr  string         `fake:"{randomstring:[hello,world]}"`
+	Number   string         `fake:"{number:1,10}"`       // Comma separated for multiple values
+	Regex    string         `fake:"{regex:[abcdef]{5}}"` // Generate string from regex
+	Map      map[string]int `fakesize:"2"`
+	Array    []string       `fakesize:"2"`
+	Bar 	 Bar
+	Skip     *string        `fake:"skip"`                // Set to "skip" to not generate data for
+	Created  time.Time								     // Can take in a fake tag as well as a format tag
 	CreatedFormat  time.Time `fake:"{year}-{month}-{day}" format:"2006-01-02"`
 }
 
-type FooBar struct {
-	Bars    []string `fake:"{name}"`              // Array of random size (1-10) with fake function applied
-	Foos    []Foo    `fakesize:"3"`               // Array of size specified with faked struct
-	FooBars []Foo    `fake:"{name}" fakesize:"3"` // Array of size 3 with fake function applied
+type Bar struct {
+	Name    string
+	Number  int
+	Float   float32
 }
 
 // Pass your struct as a pointer
 var f Foo
 gofakeit.Struct(&f)
-fmt.Println(f.Bar)      		// hrukpttuezptneuvunh
+
+fmt.Println(f.Str)      		// hrukpttuezptneuvunh
 fmt.Println(f.Int)      		// -7825289004089916589
 fmt.Println(*f.Pointer) 		// -343806609094473732
 fmt.Println(f.Name)     		// fred
@@ -109,26 +144,33 @@ fmt.Println(f.Sentence) 		// Record river mind.
 fmt.Println(f.RandStr)  		// world
 fmt.Println(f.Number)   		// 4
 fmt.Println(f.Regex)    		// cbdfc
+fmt.Println(f.Map)    			// map[PxLIo:52 lxwnqhqc:846]
+fmt.Println(f.Array)    		// cbdfc
+fmt.Printf("%+v", f.Bar)    	// {Name:QFpZ Number:-2882647639396178786 Float:1.7636692e+37}
 fmt.Println(f.Skip)     		// <nil>
 fmt.Println(f.Created.String()) // 1908-12-07 04:14:25.685339029 +0000 UTC
 
-var fb FooBar
-gofakeit.Struct(&fb)
-fmt.Println(fb.Bars)      // [Charlie Senger]
-fmt.Println(fb.Foos)      // [{blmfxy -2585154718894894116 0xc000317bc0 Emmy Attitude demand addition. hello 3 <nil>} {cplbf -1722374676852125164 0xc000317cb0 Viva Addition option link. hello 7 <nil>}]
-
-// Supported formats - Array and pointers as well
+// Supported formats
 // int, int8, int16, int32, int64,
+// uint, uint8, uint16, uint32, uint64,
 // float32, float64,
 // bool, string,
+// array, pointers, map
 // time.Time // If setting time you can also set a format tag
 // Nested Struct Fields and Embeded Fields
 ```
 
 ## Custom Functions
+
+In a lot of sitations you may need to use your own random function usage for your specific needs.
+
+If you would like to extend the usage of struct tags, generate function, available usages in the gofakeit server
+or gofakeit command sub packages. You can do so via the AddFuncLookup. Each function has their own lookup, if
+you need more reference examples you can look at each files lookups.
+
 ```go
 // Simple
-AddFuncLookup("friendname", Info{
+gofakeit.AddFuncLookup("friendname", Info{
 	Category:    "custom",
 	Description: "Random friend name",
 	Example:     "bill",
@@ -139,7 +181,7 @@ AddFuncLookup("friendname", Info{
 })
 
 // With Params
-AddFuncLookup("jumbleword", Info{
+gofakeit.AddFuncLookup("jumbleword", Info{
 	Category:    "jumbleword",
 	Description: "Take a word and jumple it up",
 	Example:     "loredlowlh",
@@ -165,14 +207,17 @@ type Foo struct {
 }
 
 var f Foo
-Struct(&f)
+gofakeit.Struct(&f)
 fmt.Printf("%s", f.FriendName) // bill
 fmt.Printf("%s", f.JumbleWord) // loredlowlh
 ```
 
 ## Functions
+
 All functions also exist as methods on the Faker struct
+
 ### File
+
 ```go
 JSON(jo *JSONOptions) ([]byte, error)
 XML(xo *XMLOptions) ([]byte, error)
@@ -181,6 +226,7 @@ FileMimeType() string
 ```
 
 ### Person
+
 ```go
 Person() *PersonInfo
 Name() string
@@ -198,6 +244,7 @@ Teams(peopleArray []string, teamsArray []string) map[string][]string
 ```
 
 ### Generate
+
 ```go
 Struct(v interface{})
 Slice(v interface{})
@@ -207,12 +254,14 @@ Regex(value string) string
 ```
 
 ### Auth
+
 ```go
 Username() string
 Password(lower bool, upper bool, numeric bool, special bool, space bool, num int) string
 ```
 
 ### Address
+
 ```go
 Address() *AddressInfo
 City() string
@@ -233,11 +282,13 @@ LongitudeInRange(min, max float64) (float64, error)
 ```
 
 ### Game
+
 ```go
 Gamertag() string
 ```
 
 ### Beer
+
 ```go
 BeerAlcohol() string
 BeerBlg() string
@@ -250,6 +301,7 @@ BeerYeast() string
 ```
 
 ### Car
+
 ```go
 Car() *CarInfo
 CarMaker() string
@@ -260,6 +312,7 @@ CarTransmissionType() string
 ```
 
 ### Words
+
 ```go
 Noun() string
 Verb() string
@@ -278,6 +331,7 @@ Phrase() string
 ```
 
 ### Foods
+
 ```go
 Fruit() string
 Vegetable() string
@@ -289,6 +343,7 @@ Dessert() string
 ```
 
 ### Misc
+
 ```go
 Bool() bool
 UUID() string
@@ -297,6 +352,7 @@ ShuffleAnySlice(v interface{})
 ```
 
 ### Colors
+
 ```go
 Color() string
 HexColor() string
@@ -305,6 +361,7 @@ SafeColor() string
 ```
 
 ### Internet
+
 ```go
 URL() string
 DomainName() string
@@ -325,6 +382,7 @@ SafariUserAgent() string
 ```
 
 ### Date/Time
+
 ```go
 Date() time.Time
 DateRange(start, end time.Time) time.Time
@@ -345,6 +403,7 @@ TimeZoneRegion() string
 ```
 
 ### Payment
+
 ```go
 Price(min, max float64) float64
 CreditCard() *CreditCardInfo
@@ -362,6 +421,7 @@ BitcoinPrivateKey() string
 ```
 
 ### Company
+
 ```go
 BS() string
 BuzzWord() string
@@ -374,6 +434,7 @@ JobTitle() string
 ```
 
 ### Hacker
+
 ```go
 HackerAbbreviation() string
 HackerAdjective() string
@@ -384,6 +445,7 @@ HackerVerb() string
 ```
 
 ### Hipster
+
 ```go
 HipsterWord() string
 HipsterSentence(wordCount int) string
@@ -391,6 +453,7 @@ HipsterParagraph(paragraphCount int, sentenceCount int, wordCount int, separator
 ```
 
 ### App
+
 ```go
 AppName() string
 AppVersion() string
@@ -398,6 +461,7 @@ AppAuthor() string
 ```
 
 ### Animal
+
 ```go
 PetName() string
 Animal() string
@@ -408,6 +472,7 @@ Dog() string
 ```
 
 ### Emoji
+
 ```go
 Emoji() string
 EmojiDescription() string
@@ -417,6 +482,7 @@ EmojiTag() string
 ```
 
 ### Language
+
 ```go
 Language() string
 LanguageAbbreviation() string
@@ -425,6 +491,7 @@ ProgrammingLanguageBest() string
 ```
 
 ### Number
+
 ```go
 Number(min int, max int) int
 Int8() int8
@@ -450,6 +517,7 @@ HexUint256() string
 ```
 
 ### String
+
 ```go
 Digit() string
 DigitN(n uint) string
