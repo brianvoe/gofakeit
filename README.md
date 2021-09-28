@@ -66,6 +66,7 @@ gofakeit.Seed(8675309) // Set it to whatever number you want
 ## Random Sources
 
 Gofakeit has a few rand sources, by default it uses math.Rand and uses mutex locking to allow for safe goroutines.
+
 If you want to use a more performant source please use NewUnlocked. Be aware that it is not goroutine safe.
 
 ```go
@@ -99,7 +100,10 @@ gofakeit.SetGlobalFaker(faker)
 
 ## Struct
 
-Gofakeit can generate random data for
+Gofakeit can generate random data for struct fields. For the most part it covers all the basic type
+as well as some non basic like time.Time.
+
+Struct fields can also use tags to more specifically generate data for that field type.
 
 ```go
 import "github.com/brianvoe/gofakeit/v6"
@@ -157,6 +161,12 @@ fmt.Println(f.Created.String()) // 1908-12-07 04:14:25.685339029 +0000 UTC
 ```
 
 ## Custom Functions
+
+In a lot of sitations you may need to use your own random function usage for your specific needs.
+
+If you would like to extend the usage of struct tags, generate function, available usages in the gofakeit server
+or gofakeit command sub packages. You can do so via the AddFuncLookup. Each function has their own lookup, if
+you need more reference examples you can look at each files lookups.
 
 ```go
 // Simple
