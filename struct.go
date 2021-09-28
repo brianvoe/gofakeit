@@ -171,25 +171,18 @@ func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int
 	// Get the element type
 	elemT := t.Elem()
 
-	// If values are already set fill them up, otherwise append
-	if v.Len() != 0 {
-		// Loop through the elements length and set based upon the index
-		for i := 0; i < size; i++ {
-			nv := reflect.New(elemT)
-			err := r(ra, elemT, nv.Elem(), tag, ogSize)
-			if err != nil {
-				return err
-			}
-			v.Index(i).Set(reflect.Indirect(nv))
+	// Loop through the elements length and set based upon the index
+	for i := 0; i < size; i++ {
+		nv := reflect.New(elemT)
+		err := r(ra, elemT, nv.Elem(), tag, ogSize)
+		if err != nil {
+			return err
 		}
-	} else {
-		// Loop through the size and append and set
-		for i := 0; i < size; i++ {
-			nv := reflect.New(elemT)
-			err := r(ra, elemT, nv.Elem(), tag, ogSize)
-			if err != nil {
-				return err
-			}
+
+		// If values are already set fill them up, otherwise append
+		if elemLen != 0 {
+			v.Index(i).Set(reflect.Indirect(nv))
+		} else {
 			v.Set(reflect.Append(reflect.Indirect(v), reflect.Indirect(nv)))
 		}
 	}
@@ -239,6 +232,41 @@ func rMap(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) 
 	}
 
 	// Has no tag or func lookup failed generate map with random data
+
+	// Set a size
+	newSize := size
+	if newSize == -1 {
+		newSize = number(ra, 5, 10)
+	}
+
+	// Create new map based upon map key value type
+	mapType := reflect.MapOf(t.Key(), t.Elem())
+	newMap := reflect.MakeMap(mapType)
+
+	for i := 0; i < newSize; i++ {
+		// Create new key
+		mapIndex := reflect.New(t.Key())
+		err := r(ra, t.Key(), mapIndex.Elem(), "", -1)
+		if err != nil {
+			return err
+		}
+
+		// Create new value
+		mapValue := reflect.New(t.Elem())
+		err = r(ra, t.Elem(), mapValue.Elem(), "", -1)
+		if err != nil {
+			return err
+		}
+
+		newMap.SetMapIndex(mapIndex.Elem(), mapValue.Elem())
+	}
+
+	// Set newMap into struct field
+	if t.Kind() == reflect.Ptr {
+		v.Set(newMap.Elem())
+	} else {
+		v.Set(newMap)
+	}
 
 	return nil
 }

@@ -70,26 +70,36 @@ type NestedArray struct {
 func ExampleStruct() {
 	Seed(11)
 
+	type Bar struct {
+		Name   string
+		Number int
+		Float  float32
+	}
+
 	type Foo struct {
-		Bar     string
+		Str     string
 		Int     int
 		Pointer *int
-		Name    string  `fake:"{firstname}"`
-		Number  string  `fake:"{number:1,10}"`
-		Skip    *string `fake:"skip"`
-		Map     map[string]string
+		Name    string            `fake:"{firstname}"`
+		Number  string            `fake:"{number:1,10}"`
+		Skip    *string           `fake:"skip"`
+		Array   []string          `fakesize:"2"`
+		Map     map[string]string `fakesize:"2"`
+		Bar     Bar
 	}
 
 	var f Foo
 	Struct(&f)
 
-	fmt.Printf("%s\n", f.Bar)
+	fmt.Printf("%s\n", f.Str)
 	fmt.Printf("%d\n", f.Int)
 	fmt.Printf("%d\n", *f.Pointer)
 	fmt.Printf("%v\n", f.Name)
 	fmt.Printf("%v\n", f.Number)
 	fmt.Printf("%v\n", f.Skip)
+	fmt.Printf("%v\n", f.Array)
 	fmt.Printf("%v\n", f.Map)
+	fmt.Printf("%+v\n", f.Bar)
 
 	// Output: bRMaRxHki
 	// -8576773003117070818
@@ -97,31 +107,44 @@ func ExampleStruct() {
 	// Enrique
 	// 4
 	// <nil>
-	// map[]
-
+	// [pWYJ nSMKg]
+	// map[PxLIo:QqanPAKaXS lxwnqhqc:aYkWwfoRL]
+	// {Name:QFpZ Number:-2882647639396178786 Float:1.7636692e+37}
 }
 
 func ExampleFaker_Struct() {
-	f := New(11)
+	fake := New(11)
 
-	type Foo struct {
-		Bar     string
-		Int     int
-		Pointer *int
-		Name    string  `fake:"{firstname}"`
-		Number  string  `fake:"{number:1,10}"`
-		Skip    *string `fake:"skip"`
+	type Bar struct {
+		Name   string
+		Number int
+		Float  float32
 	}
 
-	var foo Foo
-	f.Struct(&foo)
+	type Foo struct {
+		Str     string
+		Int     int
+		Pointer *int
+		Name    string            `fake:"{firstname}"`
+		Number  string            `fake:"{number:1,10}"`
+		Skip    *string           `fake:"skip"`
+		Array   []string          `fakesize:"2"`
+		Map     map[string]string `fakesize:"2"`
+		Bar     Bar
+	}
 
-	fmt.Printf("%s\n", foo.Bar)
-	fmt.Printf("%d\n", foo.Int)
-	fmt.Printf("%d\n", *foo.Pointer)
-	fmt.Printf("%v\n", foo.Name)
-	fmt.Printf("%v\n", foo.Number)
-	fmt.Printf("%v\n", foo.Skip)
+	var f Foo
+	fake.Struct(&f)
+
+	fmt.Printf("%s\n", f.Str)
+	fmt.Printf("%d\n", f.Int)
+	fmt.Printf("%d\n", *f.Pointer)
+	fmt.Printf("%v\n", f.Name)
+	fmt.Printf("%v\n", f.Number)
+	fmt.Printf("%v\n", f.Skip)
+	fmt.Printf("%v\n", f.Array)
+	fmt.Printf("%v\n", f.Map)
+	fmt.Printf("%+v\n", f.Bar)
 
 	// Output: bRMaRxHki
 	// -8576773003117070818
@@ -129,6 +152,9 @@ func ExampleFaker_Struct() {
 	// Enrique
 	// 4
 	// <nil>
+	// [pWYJ nSMKg]
+	// map[PxLIo:QqanPAKaXS lxwnqhqc:aYkWwfoRL]
+	// {Name:QFpZ Number:-2882647639396178786 Float:1.7636692e+37}
 }
 
 func ExampleStruct_array() {
@@ -542,15 +568,60 @@ func TestStructMap(t *testing.T) {
 	}
 
 	type Foo struct {
-		Map      map[string]interface{}
-		MapInt   map[int]string
-		MapArray map[string][]Bar
+		MapStr    map[string]string
+		MapInt    map[int]int
+		MapFloat  map[float32]float32
+		MapStrPtr map[string]*string
+		MapPtr    *map[string]interface{}
+		MapStruct map[string]Bar
+		MapArray  map[string][]Bar
+		MapSize   map[string]string `fakesize:"20"`
 	}
 
 	var f Foo
-	Struct(&f)
+	err := Struct(&f)
+	if err != nil {
+		t.Fatal(err)
+	}
 
-	t.Errorf("%+v", f.Map)
+	if len(f.MapStr) == 0 {
+		t.Errorf("Map Str %+v", f.MapStr)
+	}
+
+	if len(f.MapInt) == 0 {
+		t.Errorf("Map Int %+v", f.MapInt)
+	}
+
+	if len(f.MapFloat) == 0 {
+		t.Errorf("Map Float %+v", f.MapFloat)
+	}
+
+	if len(f.MapStrPtr) == 0 {
+		t.Errorf("Map Str Ptr %+v", f.MapStrPtr)
+	}
+
+	if len(*f.MapPtr) == 0 {
+		t.Errorf("Map Ptr %+v", *f.MapPtr)
+	}
+
+	if len(f.MapStruct) == 0 {
+		t.Errorf("Map Struct %+v", f.MapStruct)
+	}
+
+	if len(f.MapArray) == 0 {
+		t.Errorf("Map Array %+v", f.MapArray)
+	} else {
+		for _, v := range f.MapArray {
+			if len(v) == 0 {
+				t.Errorf("Map Array Values %+v", f.MapArray)
+				break
+			}
+		}
+	}
+
+	if len(f.MapSize) != 20 {
+		t.Errorf("Map size %+v", f.MapSize)
+	}
 }
 
 func TestStructSliceLoopGeneration(t *testing.T) {
