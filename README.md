@@ -99,35 +99,40 @@ gofakeit.SetGlobalFaker(faker)
 
 ## Struct
 
+Gofakeit can generate random data for
+
 ```go
 import "github.com/brianvoe/gofakeit/v6"
 
 // Create structs with random injected data
 type Foo struct {
-	Bar      string
+	Str      string
 	Int      int
 	Pointer  *int
-	Name     string    `fake:"{firstname}"`         // Any available function all lowercase
-	Sentence string    `fake:"{sentence:3}"`        // Can call with parameters
-	RandStr  string    `fake:"{randomstring:[hello,world]}"`
-	Number   string    `fake:"{number:1,10}"`       // Comma separated for multiple values
-	Regex    string    `fake:"{regex:[abcdef]{5}}"` // Generate string from regex
-	Map map[string]interface
-	Skip     *string   `fake:"skip"`                // Set to "skip" to not generate data for
-	Created  time.Time								// Can take in a fake tag as well as a format tag
+	Name     string         `fake:"{firstname}"`         // Any available function all lowercase
+	Sentence string         `fake:"{sentence:3}"`        // Can call with parameters
+	RandStr  string         `fake:"{randomstring:[hello,world]}"`
+	Number   string         `fake:"{number:1,10}"`       // Comma separated for multiple values
+	Regex    string         `fake:"{regex:[abcdef]{5}}"` // Generate string from regex
+	Map      map[string]int `fakesize:"2"`
+	Array    []string       `fakesize:"2"`
+	Bar 	 Bar
+	Skip     *string        `fake:"skip"`                // Set to "skip" to not generate data for
+	Created  time.Time								     // Can take in a fake tag as well as a format tag
 	CreatedFormat  time.Time `fake:"{year}-{month}-{day}" format:"2006-01-02"`
 }
 
 type Bar struct {
-	Bars    []string `fake:"{name}"`              // Array of random size (1-10) with fake function applied
-	Foos    []Foo    `fakesize:"3"`               // Array of size specified with faked struct
-	FooBars []Foo    `fake:"{name}" fakesize:"3"` // Array of size 3 with fake function applied
+	Name    string
+	Number  int
+	Float   float32
 }
 
 // Pass your struct as a pointer
 var f Foo
 gofakeit.Struct(&f)
-fmt.Println(f.Bar)      		// hrukpttuezptneuvunh
+
+fmt.Println(f.Str)      		// hrukpttuezptneuvunh
 fmt.Println(f.Int)      		// -7825289004089916589
 fmt.Println(*f.Pointer) 		// -343806609094473732
 fmt.Println(f.Name)     		// fred
@@ -135,18 +140,18 @@ fmt.Println(f.Sentence) 		// Record river mind.
 fmt.Println(f.RandStr)  		// world
 fmt.Println(f.Number)   		// 4
 fmt.Println(f.Regex)    		// cbdfc
+fmt.Println(f.Map)    			// map[PxLIo:52 lxwnqhqc:846]
+fmt.Println(f.Array)    		// cbdfc
+fmt.Printf("%+v", f.Bar)    	// {Name:QFpZ Number:-2882647639396178786 Float:1.7636692e+37}
 fmt.Println(f.Skip)     		// <nil>
 fmt.Println(f.Created.String()) // 1908-12-07 04:14:25.685339029 +0000 UTC
 
-var fb FooBar
-gofakeit.Struct(&fb)
-fmt.Println(fb.Bars)      // [Charlie Senger]
-fmt.Println(fb.Foos)      // [{blmfxy -2585154718894894116 0xc000317bc0 Emmy Attitude demand addition. hello 3 <nil>} {cplbf -1722374676852125164 0xc000317cb0 Viva Addition option link. hello 7 <nil>}]
-
-// Supported formats - Array and pointers as well
+// Supported formats
 // int, int8, int16, int32, int64,
+// uint, uint8, uint16, uint32, uint64,
 // float32, float64,
 // bool, string,
+// array, pointers, map
 // time.Time // If setting time you can also set a format tag
 // Nested Struct Fields and Embeded Fields
 ```
