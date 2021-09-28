@@ -236,7 +236,7 @@ func rMap(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) 
 	// Set a size
 	newSize := size
 	if newSize == -1 {
-		newSize = number(ra, 5, 10)
+		newSize = number(ra, 1, 10)
 	}
 
 	// Create new map based upon map key value type
