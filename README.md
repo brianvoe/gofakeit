@@ -187,7 +187,7 @@ gofakeit.AddFuncLookup("jumbleword", Info{
 	Example:     "loredlowlh",
 	Output:      "string",
 	Params: []Param{
-		{Field: "word", Type: "int", Description: "Word you want to jumble"},
+		{Field: "word", Type: "string", Description: "Word you want to jumble"},
 	},
 	Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 		word, err := info.GetString(m, "word")
