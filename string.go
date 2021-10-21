@@ -62,10 +62,10 @@ func (f *Faker) Numerify(str string) string { return numerify(f.Rand, str) }
 
 func numerify(r *rand.Rand, str string) string { return replaceWithNumbers(r, str) }
 
-// Lexify will replace ? will random generated letters
+// Lexify will replace ? with random generated letters
 func Lexify(str string) string { return lexify(globalFaker.Rand, str) }
 
-// Lexify will replace ? will random generated letters
+// Lexify will replace ? with random generated letters
 func (f *Faker) Lexify(str string) string { return lexify(f.Rand, str) }
 
 func lexify(r *rand.Rand, str string) string { return replaceWithLetters(r, str) }
@@ -194,11 +194,11 @@ func addStringLookup() {
 	AddFuncLookup("lexify", Info{
 		Display:     "Lexify",
 		Category:    "string",
-		Description: "Replace ? will random generated letters",
+		Description: "Replace ? with random generated letters",
 		Example:     "?????@??????.com => billy@mister.com",
 		Output:      "string",
 		Params: []Param{
-			{Field: "str", Display: "String", Type: "string", Description: "String value to replace #'s"},
+			{Field: "str", Display: "String", Type: "string", Description: "String value to replace ?'s"},
 		},
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			str, err := info.GetString(m, "str")
