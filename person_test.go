@@ -98,13 +98,13 @@ func BenchmarkNameSuffix(b *testing.B) {
 func ExampleSSN() {
 	Seed(11)
 	fmt.Println(SSN())
-	// Output: 296446360
+	// Output: 493298265
 }
 
 func ExampleFaker_SSN() {
 	f := New(11)
 	fmt.Println(f.SSN())
-	// Output: 296446360
+	// Output: 493298265
 }
 
 func BenchmarkSSN(b *testing.B) {
@@ -116,13 +116,13 @@ func BenchmarkSSN(b *testing.B) {
 func ExampleGender() {
 	Seed(11)
 	fmt.Println(Gender())
-	// Output: female
+	// Output: male
 }
 
 func ExampleFaker_Gender() {
 	f := New(11)
 	fmt.Println(f.Gender())
-	// Output: female
+	// Output: male
 }
 
 func BenchmarkGender(b *testing.B) {
@@ -171,17 +171,17 @@ func ExamplePerson() {
 	// Markus
 	// Moen
 	// male
-	// 420776036
+	// 275413589
 	// https://picsum.photos/300/300/people
 	// Morgan Stanley
 	// Associate
 	// Human
 	// Usability
-	// 99536 North Stream ville, Rossieview, Hawaii 42591
-	// 99536 North Stream ville
-	// Rossieview
-	// Hawaii
-	// 42591
+	// 99536 Pine mouth, Moenport, North Dakota 24259
+	// 99536 Pine mouth
+	// Moenport
+	// North Dakota
+	// 24259
 	// Ghana
 	// -6.662595
 	// 23.921575
@@ -189,7 +189,7 @@ func ExamplePerson() {
 	// lamarkoelpin@heaney.biz
 	// Maestro
 	// 39800889982276
-	// 05/30
+	// 01/27
 	// 932
 }
 
@@ -233,17 +233,17 @@ func ExampleFaker_Person() {
 	// Markus
 	// Moen
 	// male
-	// 420776036
+	// 275413589
 	// https://picsum.photos/300/300/people
 	// Morgan Stanley
 	// Associate
 	// Human
 	// Usability
-	// 99536 North Stream ville, Rossieview, Hawaii 42591
-	// 99536 North Stream ville
-	// Rossieview
-	// Hawaii
-	// 42591
+	// 99536 Pine mouth, Moenport, North Dakota 24259
+	// 99536 Pine mouth
+	// Moenport
+	// North Dakota
+	// 24259
 	// Ghana
 	// -6.662595
 	// 23.921575
@@ -251,7 +251,7 @@ func ExampleFaker_Person() {
 	// lamarkoelpin@heaney.biz
 	// Maestro
 	// 39800889982276
-	// 05/30
+	// 01/27
 	// 932
 }
 

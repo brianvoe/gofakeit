@@ -28,9 +28,9 @@ func ExampleJSON_object() {
 	//     "first_name": "Markus",
 	//     "last_name": "Moen",
 	//     "address": {
-	//         "address": "4599 Dale ton, Lake Carroll, Mississippi 90635",
+	//         "address": "4599 Dale ton, Stantonmouth, Mississippi 90635",
 	//         "street": "4599 Dale ton",
-	//         "city": "Lake Carroll",
+	//         "city": "Stantonmouth",
 	//         "state": "Mississippi",
 	//         "zip": "90635",
 	//         "country": "Rwanda",
@@ -64,9 +64,9 @@ func ExampleFaker_JSON_object() {
 	//     "first_name": "Markus",
 	//     "last_name": "Moen",
 	//     "address": {
-	//         "address": "4599 Dale ton, Lake Carroll, Mississippi 90635",
+	//         "address": "4599 Dale ton, Stantonmouth, Mississippi 90635",
 	//         "street": "4599 Dale ton",
-	//         "city": "Lake Carroll",
+	//         "city": "Stantonmouth",
 	//         "state": "Mississippi",
 	//         "zip": "90635",
 	//         "country": "Rwanda",

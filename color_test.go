@@ -116,13 +116,13 @@ func BenchmarkHexColor(b *testing.B) {
 func ExampleRGBColor() {
 	Seed(11)
 	fmt.Println(RGBColor())
-	// Output: [152 23 53]
+	// Output: [89 176 195]
 }
 
 func ExampleFaker_RGBColor() {
 	f := New(11)
 	fmt.Println(f.RGBColor())
-	// Output: [152 23 53]
+	// Output: [89 176 195]
 }
 
 func BenchmarkRGBColor(b *testing.B) {

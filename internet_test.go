@@ -80,13 +80,13 @@ func BenchmarkDomainSuffix(b *testing.B) {
 func ExampleURL() {
 	Seed(11)
 	fmt.Println(URL())
-	// Output: http://www.principalproductize.biz/target
+	// Output: https://www.dynamiciterate.name/target/seamless
 }
 
 func ExampleFaker_URL() {
 	f := New(11)
 	fmt.Println(f.URL())
-	// Output: http://www.principalproductize.biz/target
+	// Output: https://www.dynamiciterate.name/target/seamless
 }
 
 func BenchmarkURL(b *testing.B) {
@@ -388,13 +388,13 @@ func BenchmarkLogLevel(b *testing.B) {
 func ExampleUserAgent() {
 	Seed(11)
 	fmt.Println(UserAgent())
-	// Output: Mozilla/5.0 (Windows NT 5.0) AppleWebKit/5362 (KHTML, like Gecko) Chrome/37.0.834.0 Mobile Safari/5362
+	// Output: Mozilla/5.0 (Windows NT 5.0) AppleWebKit/5312 (KHTML, like Gecko) Chrome/40.0.800.0 Mobile Safari/5312
 }
 
 func ExampleFaker_UserAgent() {
 	f := New(11)
 	fmt.Println(f.UserAgent())
-	// Output: Mozilla/5.0 (Windows NT 5.0) AppleWebKit/5362 (KHTML, like Gecko) Chrome/37.0.834.0 Mobile Safari/5362
+	// Output: Mozilla/5.0 (Windows NT 5.0) AppleWebKit/5312 (KHTML, like Gecko) Chrome/40.0.800.0 Mobile Safari/5312
 }
 
 func BenchmarkUserAgent(b *testing.B) {
@@ -430,13 +430,13 @@ func TestUserAgent(t *testing.T) {
 func ExampleChromeUserAgent() {
 	Seed(11)
 	fmt.Println(ChromeUserAgent())
-	// Output: Mozilla/5.0 (X11; Linux i686) AppleWebKit/5312 (KHTML, like Gecko) Chrome/39.0.836.0 Mobile Safari/5312
+	// Output: Mozilla/5.0 (X11; Linux i686) AppleWebKit/5360 (KHTML, like Gecko) Chrome/40.0.889.0 Mobile Safari/5360
 }
 
 func ExampleFaker_ChromeUserAgent() {
 	f := New(11)
 	fmt.Println(f.ChromeUserAgent())
-	// Output: Mozilla/5.0 (X11; Linux i686) AppleWebKit/5312 (KHTML, like Gecko) Chrome/39.0.836.0 Mobile Safari/5312
+	// Output: Mozilla/5.0 (X11; Linux i686) AppleWebKit/5360 (KHTML, like Gecko) Chrome/40.0.889.0 Mobile Safari/5360
 }
 
 func BenchmarkChromeUserAgent(b *testing.B) {
@@ -466,13 +466,13 @@ func BenchmarkChromeUserAgent(b *testing.B) {
 func ExampleFirefoxUserAgent() {
 	Seed(11)
 	fmt.Println(FirefoxUserAgent())
-	// Output: Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_8_3 rv:7.0) Gecko/1908-07-12 Firefox/37.0
+	// Output: Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_9_10 rv:7.0) Gecko/1991-24-01 Firefox/36.0
 }
 
 func ExampleFaker_FirefoxUserAgent() {
 	f := New(11)
 	fmt.Println(f.FirefoxUserAgent())
-	// Output: Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_8_3 rv:7.0) Gecko/1908-07-12 Firefox/37.0
+	// Output: Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_9_10 rv:7.0) Gecko/1991-24-01 Firefox/36.0
 }
 
 func BenchmarkFirefoxUserAgent(b *testing.B) {
@@ -502,13 +502,13 @@ func BenchmarkFirefoxUserAgent(b *testing.B) {
 func ExampleSafariUserAgent() {
 	Seed(11)
 	fmt.Println(SafariUserAgent())
-	// Output: Mozilla/5.0 (iPad; CPU OS 8_3_2 like Mac OS X; en-US) AppleWebKit/531.15.6 (KHTML, like Gecko) Version/4.0.5 Mobile/8B120 Safari/6531.15.6
+	// Output: Mozilla/5.0 (iPad; CPU OS 7_0_2 like Mac OS X; en-US) AppleWebKit/536.4.4 (KHTML, like Gecko) Version/3.0.5 Mobile/8B120 Safari/6536.4.4
 }
 
 func ExampleFaker_SafariUserAgent() {
 	f := New(11)
 	fmt.Println(f.SafariUserAgent())
-	// Output: Mozilla/5.0 (iPad; CPU OS 8_3_2 like Mac OS X; en-US) AppleWebKit/531.15.6 (KHTML, like Gecko) Version/4.0.5 Mobile/8B120 Safari/6531.15.6
+	// Output: Mozilla/5.0 (iPad; CPU OS 7_0_2 like Mac OS X; en-US) AppleWebKit/536.4.4 (KHTML, like Gecko) Version/3.0.5 Mobile/8B120 Safari/6536.4.4
 }
 
 func BenchmarkSafariUserAgent(b *testing.B) {
@@ -538,13 +538,13 @@ func BenchmarkSafariUserAgent(b *testing.B) {
 func ExampleOperaUserAgent() {
 	Seed(11)
 	fmt.Println(OperaUserAgent())
-	// Output: Opera/8.39 (Macintosh; U; PPC Mac OS X 10_8_7; en-US) Presto/2.9.335 Version/10.00
+	// Output: Opera/8.20 (Macintosh; U; PPC Mac OS X 10_9_10; en-US) Presto/2.9.198 Version/11.00
 }
 
 func ExampleFaker_OperaUserAgent() {
 	f := New(11)
 	fmt.Println(f.OperaUserAgent())
-	// Output: Opera/8.39 (Macintosh; U; PPC Mac OS X 10_8_7; en-US) Presto/2.9.335 Version/10.00
+	// Output: Opera/8.20 (Macintosh; U; PPC Mac OS X 10_9_10; en-US) Presto/2.9.198 Version/11.00
 }
 
 func BenchmarkOperaUserAgent(b *testing.B) {

@@ -99,13 +99,13 @@ func BenchmarkAdjective(b *testing.B) {
 func ExampleWord() {
 	Seed(11)
 	fmt.Println(Word())
-	// Output: interpret
+	// Output: park
 }
 
 func ExampleFaker_Word() {
 	f := New(11)
 	fmt.Println(f.Word())
-	// Output: interpret
+	// Output: park
 }
 
 func BenchmarkWord(b *testing.B) {
@@ -117,13 +117,13 @@ func BenchmarkWord(b *testing.B) {
 func ExampleSentence() {
 	Seed(11)
 	fmt.Println(Sentence(5))
-	// Output: Interpret context record river mind.
+	// Output: Park context record river college.
 }
 
 func ExampleFaker_Sentence() {
 	f := New(11)
 	fmt.Println(f.Sentence(5))
-	// Output: Interpret context record river mind.
+	// Output: Park context record river college.
 }
 
 func TestSentence(t *testing.T) {
@@ -150,17 +150,17 @@ func BenchmarkSentence(b *testing.B) {
 func ExampleParagraph() {
 	Seed(11)
 	fmt.Println(Paragraph(3, 5, 12, "\n"))
-	// Output: Interpret context record river mind press self should compare property outcome divide. Combine approach sustain consult discover explanation direct address church husband seek army. Begin own act welfare replace press suspect stay link place manchester specialist. Arrive price satisfy sign force application hair train provide basis right pay. Close mark teacher strengthen information attempt head touch aim iron tv take.
-	// Handle wait begin look speech trust cancer visit capacity disease chancellor clean. Race aim function gain couple push faith enjoy admit ring attitude develop. Edge game prevent cast mill favour father star live search aim guess. West heart item adopt compete equipment miss output report communicate model cabinet. Seek worker variety step argue air improve give succeed relief artist suffer.
-	// Hide finish insist knowledge thatcher make research chance structure proportion husband implement. Town crown restaurant cost material compete lady climb football region discussion order. Place lee market ice like display mind stress compete weather station raise. Democracy college major recall struggle use cut intention accept period generation strike. Benefit defend recommend conclude justify result depend succeed address owner fill interpret.
+	// Output: Park context record river college purchase appreciate should compare like preserve deal. Combine approach sustain north session explanation race deputy church view efficiency fix. While own act fight roof care god bath link place form specialist. Period sign awareness spread force remember hair wonder provide link right specialist. Cabinet mark teacher gas information attempt flat representation staff iron lift take.
+	// Handle food begin look speech trust accept visit go consider chancellor accident. Race intention function sugar exclude person confirm enjoy criticism ring attitude crisis. Complete appear prevent cast mill stop father invite live border aim row. West heart communicate advance compete equipment remain demand report life model cabinet. Chapter use variety realise argue air influence assistance succeed cross artist suffer.
+	// Hide forest insist knowledge thatcher executive fashion knock sign proportion expect implement. Work crown restaurant victim material map follow climb attack answer plan order. Place explore telephone operate like display star teach compete weather recommend raise. Democracy college dance recall struggle use cut intention aircraft period generation variety. Benefit defend inquiry conclude justify result depend driver address owner conversation potential.
 }
 
 func ExampleFaker_Paragraph() {
 	f := New(11)
 	fmt.Println(f.Paragraph(3, 5, 12, "\n"))
-	// Output: Interpret context record river mind press self should compare property outcome divide. Combine approach sustain consult discover explanation direct address church husband seek army. Begin own act welfare replace press suspect stay link place manchester specialist. Arrive price satisfy sign force application hair train provide basis right pay. Close mark teacher strengthen information attempt head touch aim iron tv take.
-	// Handle wait begin look speech trust cancer visit capacity disease chancellor clean. Race aim function gain couple push faith enjoy admit ring attitude develop. Edge game prevent cast mill favour father star live search aim guess. West heart item adopt compete equipment miss output report communicate model cabinet. Seek worker variety step argue air improve give succeed relief artist suffer.
-	// Hide finish insist knowledge thatcher make research chance structure proportion husband implement. Town crown restaurant cost material compete lady climb football region discussion order. Place lee market ice like display mind stress compete weather station raise. Democracy college major recall struggle use cut intention accept period generation strike. Benefit defend recommend conclude justify result depend succeed address owner fill interpret.
+	// Output: Park context record river college purchase appreciate should compare like preserve deal. Combine approach sustain north session explanation race deputy church view efficiency fix. While own act fight roof care god bath link place form specialist. Period sign awareness spread force remember hair wonder provide link right specialist. Cabinet mark teacher gas information attempt flat representation staff iron lift take.
+	// Handle food begin look speech trust accept visit go consider chancellor accident. Race intention function sugar exclude person confirm enjoy criticism ring attitude crisis. Complete appear prevent cast mill stop father invite live border aim row. West heart communicate advance compete equipment remain demand report life model cabinet. Chapter use variety realise argue air influence assistance succeed cross artist suffer.
+	// Hide forest insist knowledge thatcher executive fashion knock sign proportion expect implement. Work crown restaurant victim material map follow climb attack answer plan order. Place explore telephone operate like display star teach compete weather recommend raise. Democracy college dance recall struggle use cut intention aircraft period generation variety. Benefit defend inquiry conclude justify result depend driver address owner conversation potential.
 }
 
 func TestParagraph(t *testing.T) {
@@ -188,13 +188,13 @@ func BenchmarkParagraph(b *testing.B) {
 func ExampleQuestion() {
 	Seed(11)
 	fmt.Println(Question())
-	// Output: Roof chia echo?
+	// Output: Roof chia echo pickled?
 }
 
 func ExampleFaker_Question() {
 	f := New(11)
 	fmt.Println(f.Question())
-	// Output: Roof chia echo?
+	// Output: Roof chia echo pickled?
 }
 
 func BenchmarkQuestion(b *testing.B) {
@@ -206,13 +206,13 @@ func BenchmarkQuestion(b *testing.B) {
 func ExampleQuote() {
 	Seed(11)
 	fmt.Println(Quote())
-	// Output: "Roof chia echo." - Lura Lockman
+	// Output: "Roof chia echo pickled." - Marques Jakubowski
 }
 
 func ExampleFaker_Quote() {
 	f := New(11)
 	fmt.Println(f.Quote())
-	// Output: "Roof chia echo." - Lura Lockman
+	// Output: "Roof chia echo pickled." - Marques Jakubowski
 }
 
 func BenchmarkQuote(b *testing.B) {
