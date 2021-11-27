@@ -49,6 +49,26 @@ func ExampleNew() {
 	// Phone: 9948995369
 }
 
+func ExampleNewUnlocked() {
+	fake := NewUnlocked(11)
+
+	// All global functions are also available in the structs methods
+	fmt.Println("Name:", fake.Name())
+	fmt.Println("Email:", fake.Email())
+	fmt.Println("Phone:", fake.Phone())
+	// Output:
+	// Name: Markus Moen
+	// Email: alaynawuckert@kozey.biz
+	// Phone: 9948995369
+}
+
+func TestNewUnlocked(t *testing.T) {
+	fake := NewUnlocked(0)
+	if fake.Name() == "" {
+		t.Error("Name was empty")
+	}
+}
+
 func ExampleNewCrypto() {
 	// Create new crypto faker struct
 	fake := NewCrypto()
