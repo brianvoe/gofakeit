@@ -1,6 +1,7 @@
 package gofakeit
 
 import (
+	"math"
 	"testing"
 )
 
@@ -8,9 +9,96 @@ func TestSeed(t *testing.T) {
 	Seed(0)
 }
 
+// Test taking in two random int values and making sure the output is within the range
 func TestRandIntRange(t *testing.T) {
-	if randIntRange(globalFaker.Rand, 5, 5) != 5 {
-		t.Error("You should have gotten 5 back")
+	// Create a set of structs to test
+	type testStruct struct {
+		min, max int
+	}
+
+	// Create a set of test values
+	tests := []testStruct{
+		{0, 0},
+		{1000, -1000},
+		{math.MinInt, math.MaxInt},
+		{math.MaxInt - 20000, math.MaxInt - 10000},
+		{math.MinInt + 10000, math.MaxInt - 10000},
+	}
+
+	// Add 10000 random values to the test set
+	for i := 0; i < 5000; i++ {
+		tests = append(tests, testStruct{
+			min: randIntRange(globalFaker.Rand, 0, math.MaxInt),
+			max: randIntRange(globalFaker.Rand, 0, math.MaxInt),
+		})
+	}
+	for i := 0; i < 5000; i++ {
+		tests = append(tests, testStruct{
+			min: randIntRange(globalFaker.Rand, math.MinInt, 0),
+			max: randIntRange(globalFaker.Rand, 0, math.MaxInt),
+		})
+	}
+
+	// Loop through the tests
+	for _, test := range tests {
+		// Get the result
+		result := randIntRange(globalFaker.Rand, test.min, test.max)
+
+		// Check the result
+		if test.min > test.max {
+			// Test if min is greater than max by reversing the check
+			if result > test.min && result < test.max {
+				t.Fatalf("The result should be between %d and %d. Got: %d", test.min, test.max, result)
+			}
+		} else if result < test.min || result > test.max {
+			t.Fatalf("The result should be between %d and %d. Got: %d", test.min, test.max, result)
+		}
+	}
+}
+
+// Test taking in two random uint values and making sure the output is within the range
+func TestRandUintRange(t *testing.T) {
+	// Create a set of structs to test
+	type testStruct struct {
+		min, max uint
+	}
+
+	// Create a set of test values
+	tests := []testStruct{
+		{0, 0},
+		{100000, 100},
+		{0, math.MaxUint64},
+		{0 + 10000, math.MaxUint64 - 10000},
+	}
+
+	// Add 10000 random values to the test set
+	for i := 0; i < 5000; i++ {
+		tests = append(tests, testStruct{
+			min: randUintRange(globalFaker.Rand, 0, math.MaxUint64),
+			max: randUintRange(globalFaker.Rand, 0, math.MaxUint64),
+		})
+	}
+	for i := 0; i < 5000; i++ {
+		tests = append(tests, testStruct{
+			min: randUintRange(globalFaker.Rand, 0, math.MaxUint64/2),
+			max: randUintRange(globalFaker.Rand, math.MaxUint64/2, math.MaxUint64),
+		})
+	}
+
+	// Loop through the tests
+	for _, test := range tests {
+		// Get the result
+		result := randUintRange(globalFaker.Rand, test.min, test.max)
+
+		// Check the result
+		if test.min > test.max {
+			// Test if min is greater than max by reversing the check
+			if result > test.min && result < test.max {
+				t.Fatalf("The result should be between %d and %d. Got: %d", test.min, test.max, result)
+			}
+		} else if result < test.min || result > test.max {
+			t.Fatalf("The result should be between %d and %d. Got: %d", test.min, test.max, result)
+		}
 	}
 }
 

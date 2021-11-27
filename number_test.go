@@ -8,13 +8,13 @@ import (
 func ExampleNumber() {
 	Seed(11)
 	fmt.Println(Number(50, 23456))
-	// Output: 14866
+	// Output: 12583
 }
 
 func ExampleFaker_Number() {
 	f := New(11)
 	fmt.Println(f.Number(50, 23456))
-	// Output: 14866
+	// Output: 12583
 }
 
 func BenchmarkNumber(b *testing.B) {
@@ -152,13 +152,13 @@ func BenchmarkUint32(b *testing.B) {
 func ExampleUint64() {
 	Seed(11)
 	fmt.Println(Uint64())
-	// Output: 843730692693298265
+	// Output: 10067102729548074073
 }
 
 func ExampleFaker_Uint64() {
 	f := New(11)
 	fmt.Println(f.Uint64())
-	// Output: 843730692693298265
+	// Output: 10067102729548074073
 }
 
 func BenchmarkUint64(b *testing.B) {
@@ -185,16 +185,54 @@ func BenchmarkUint64(b *testing.B) {
 	})
 }
 
+func ExampleUintRange() {
+	Seed(11)
+	fmt.Println(UintRange(1, 10))
+	// Output: 1
+}
+
+func ExampleFaker_UintRange() {
+	f := New(11)
+	fmt.Println(f.UintRange(1, 10))
+	// Output: 1
+}
+
+func BenchmarkUintRange(b *testing.B) {
+	min := uint(1)
+	max := uint(10)
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			UintRange(min, max)
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.UintRange(min, max)
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.UintRange(min, max)
+		}
+	})
+}
+
 func ExampleInt8() {
 	Seed(11)
 	fmt.Println(Int8())
-	// Output: 24
+	// Output: -39
 }
 
 func ExampleFaker_Int8() {
 	f := New(11)
 	fmt.Println(f.Int8())
-	// Output: 24
+	// Output: -39
 }
 
 func BenchmarkInt8(b *testing.B) {
@@ -224,13 +262,13 @@ func BenchmarkInt8(b *testing.B) {
 func ExampleInt16() {
 	Seed(11)
 	fmt.Println(Int16())
-	// Output: 2200
+	// Output: -29607
 }
 
 func ExampleFaker_Int16() {
 	f := New(11)
 	fmt.Println(f.Int16())
-	// Output: 2200
+	// Output: -29607
 }
 
 func BenchmarkInt16(b *testing.B) {
@@ -296,13 +334,13 @@ func BenchmarkInt32(b *testing.B) {
 func ExampleInt64() {
 	Seed(11)
 	fmt.Println(Int64())
-	// Output: -8379641344161477543
+	// Output: -1072427943
 }
 
 func ExampleFaker_Int64() {
 	f := New(11)
 	fmt.Println(f.Int64())
-	// Output: -8379641344161477543
+	// Output: -1072427943
 }
 
 func BenchmarkInt64(b *testing.B) {
@@ -325,6 +363,44 @@ func BenchmarkInt64(b *testing.B) {
 
 		for i := 0; i < b.N; i++ {
 			f.Int64()
+		}
+	})
+}
+
+func ExampleIntRange() {
+	Seed(11)
+	fmt.Println(IntRange(1, 10))
+	// Output: 6
+}
+
+func ExampleFaker_IntRange() {
+	f := New(11)
+	fmt.Println(f.IntRange(1, 10))
+	// Output: 6
+}
+
+func BenchmarkIntRange(b *testing.B) {
+	min := int(1)
+	max := int(10)
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			IntRange(min, max)
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.IntRange(min, max)
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.IntRange(min, max)
 		}
 	})
 }
