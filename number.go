@@ -1,7 +1,6 @@
 package gofakeit
 
 import (
-	"errors"
 	"math"
 	"math/rand"
 )
@@ -270,10 +269,6 @@ func addNumberLookup() {
 			max, err := info.GetInt(m, "max")
 			if err != nil {
 				return nil, err
-			}
-
-			if min > max {
-				return nil, errors.New("max integer must be larger than Min")
 			}
 
 			return number(r, min, max), nil
