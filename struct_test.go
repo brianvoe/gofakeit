@@ -496,9 +496,20 @@ func TestStructToBool(t *testing.T) {
 func TestStructToDateTime(t *testing.T) {
 	Seed(11)
 
+	AddFuncLookup("datetimestatic", Info{
+		Description: "A static date time",
+		Example:     "2021-11-26 15:22:00",
+		Output:      "time.Time",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			// Create new static date time
+			return time.Date(2021, 11, 26, 15, 22, 0, 0, time.UTC), nil
+		},
+	})
+
 	var datetime struct {
 		Simple        time.Time
 		Tag           time.Time `fake:"{date}"`
+		TagCustom     time.Time `fake:"{datetimestatic}"`
 		TagFormat     time.Time `fake:"{number:1900,1950}-12-05" format:"2006-01-02"`
 		TagJavaFormat time.Time `fake:"{number:1900,1950}-12-05" format:"yyyy-MM-dd"`
 		Range         time.Time `fake:"{daterange:1970-01-01,2000-12-31,2006-01-02}" format:"yyyy-MM-dd"`
@@ -514,6 +525,9 @@ func TestStructToDateTime(t *testing.T) {
 	if datetime.Tag.String() != "1904-02-10 22:06:24 +0000 UTC" {
 		t.Errorf("Tag should be 1904-02-10 22:06:24 +0000 UTC and instead got %s", datetime.Tag.String())
 	}
+	if datetime.TagCustom.String() != "2021-11-26 15:22:00 +0000 UTC" {
+		t.Errorf("TagCustom should be 2021-11-26 15:22:00 +0000 UTC and instead got %s", datetime.TagCustom.String())
+	}
 	if datetime.TagFormat.String() != "1945-12-05 00:00:00 +0000 UTC" {
 		t.Errorf("TagFormat should be 1945-12-05 00:00:00 +0000 UTC and instead got %s", datetime.TagFormat.String())
 	}
@@ -523,6 +537,8 @@ func TestStructToDateTime(t *testing.T) {
 	if datetime.Range.String() != "1998-10-27 00:00:00 +0000 UTC" {
 		t.Errorf("Range should be 1998-10-27 00:00:00 +0000 UTC and instead got %s", datetime.Range.String())
 	}
+
+	RemoveFuncLookup("datetimestatic")
 }
 
 func TestStructSetSubStruct(t *testing.T) {
