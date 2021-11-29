@@ -20,22 +20,22 @@ func TestRandIntRange(t *testing.T) {
 	tests := []testStruct{
 		{0, 0},
 		{1000, -1000},
-		{math.MinInt, math.MaxInt},
-		{math.MaxInt - 20000, math.MaxInt - 10000},
-		{math.MinInt + 10000, math.MaxInt - 10000},
+		{math.MinInt64, math.MaxInt64},
+		{math.MaxInt64 - 20000, math.MaxInt64 - 10000},
+		{math.MinInt64 + 10000, math.MaxInt64 - 10000},
 	}
 
 	// Add 10000 random values to the test set
 	for i := 0; i < 5000; i++ {
 		tests = append(tests, testStruct{
-			min: randIntRange(globalFaker.Rand, 0, math.MaxInt),
-			max: randIntRange(globalFaker.Rand, 0, math.MaxInt),
+			min: randIntRange(globalFaker.Rand, 0, math.MaxInt64),
+			max: randIntRange(globalFaker.Rand, 0, math.MaxInt64),
 		})
 	}
 	for i := 0; i < 5000; i++ {
 		tests = append(tests, testStruct{
-			min: randIntRange(globalFaker.Rand, math.MinInt, 0),
-			max: randIntRange(globalFaker.Rand, 0, math.MaxInt),
+			min: randIntRange(globalFaker.Rand, math.MinInt64, 0),
+			max: randIntRange(globalFaker.Rand, 0, math.MaxInt64),
 		})
 	}
 

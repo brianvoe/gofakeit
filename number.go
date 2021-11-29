@@ -43,7 +43,7 @@ func Uint64() uint64 { return uint64Func(globalFaker.Rand) }
 // Uint64 will generate a random uint64 value
 func (f *Faker) Uint64() uint64 { return uint64Func(f.Rand) }
 
-func uint64Func(r *rand.Rand) uint64 { return uint64(randUintRange(r, 0, math.MaxUint)) }
+func uint64Func(r *rand.Rand) uint64 { return uint64(randUintRange(r, 0, math.MaxUint64)) }
 
 // UintRange will generate a random uint value between min and max
 func UintRange(min, max uint) uint { return uintRangeFunc(globalFaker.Rand, min, max) }
