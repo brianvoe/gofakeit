@@ -9,13 +9,13 @@ import (
 func ExampleDate() {
 	Seed(11)
 	fmt.Println(Date())
-	// Output: 1908-12-07 04:14:25.685339029 +0000 UTC
+	// Output: 1991-01-24 13:00:35.820738079 +0000 UTC
 }
 
 func ExampleFaker_Date() {
 	f := New(11)
 	fmt.Println(f.Date())
-	// Output: 1908-12-07 04:14:25.685339029 +0000 UTC
+	// Output: 1991-01-24 13:00:35.820738079 +0000 UTC
 }
 
 func TestDateLookup(t *testing.T) {
@@ -93,13 +93,13 @@ func BenchmarkDateRange(b *testing.B) {
 func ExampleMonth() {
 	Seed(11)
 	fmt.Println(Month())
-	// Output: 1
+	// Output: 6
 }
 
 func ExampleFaker_Month() {
 	f := New(11)
 	fmt.Println(f.Month())
-	// Output: 1
+	// Output: 6
 }
 
 func BenchmarkMonth(b *testing.B) {
@@ -129,13 +129,13 @@ func BenchmarkMonth(b *testing.B) {
 func ExampleMonthString() {
 	Seed(11)
 	fmt.Println(MonthString())
-	// Output: January
+	// Output: June
 }
 
 func ExampleFaker_MonthString() {
 	f := New(11)
 	fmt.Println(f.MonthString())
-	// Output: January
+	// Output: June
 }
 
 func BenchmarkMonthString(b *testing.B) {
@@ -165,13 +165,13 @@ func BenchmarkMonthString(b *testing.B) {
 func ExampleWeekDay() {
 	Seed(11)
 	fmt.Println(WeekDay())
-	// Output: Friday
+	// Output: Tuesday
 }
 
 func ExampleFaker_WeekDay() {
 	f := New(11)
 	fmt.Println(f.WeekDay())
-	// Output: Friday
+	// Output: Tuesday
 }
 
 func BenchmarkWeekDay(b *testing.B) {
@@ -201,13 +201,13 @@ func BenchmarkWeekDay(b *testing.B) {
 func ExampleDay() {
 	Seed(11)
 	fmt.Println(Day())
-	// Output: 12
+	// Output: 23
 }
 
 func ExampleFaker_Day() {
 	f := New(11)
 	fmt.Println(f.Day())
-	// Output: 12
+	// Output: 23
 }
 
 func BenchmarkDay(b *testing.B) {
@@ -237,13 +237,13 @@ func BenchmarkDay(b *testing.B) {
 func ExampleYear() {
 	Seed(11)
 	fmt.Println(Year())
-	// Output: 1908
+	// Output: 1991
 }
 
 func ExampleFaker_Year() {
 	f := New(11)
 	fmt.Println(f.Year())
-	// Output: 1908
+	// Output: 1991
 }
 
 func BenchmarkYear(b *testing.B) {
@@ -273,13 +273,13 @@ func BenchmarkYear(b *testing.B) {
 func ExampleHour() {
 	Seed(11)
 	fmt.Println(Hour())
-	// Output: 0
+	// Output: 17
 }
 
 func ExampleFaker_Hour() {
 	f := New(11)
 	fmt.Println(f.Hour())
-	// Output: 0
+	// Output: 17
 }
 
 func BenchmarkHour(b *testing.B) {
@@ -309,13 +309,13 @@ func BenchmarkHour(b *testing.B) {
 func ExampleMinute() {
 	Seed(11)
 	fmt.Println(Minute())
-	// Output: 0
+	// Output: 5
 }
 
 func ExampleFaker_Minute() {
 	f := New(11)
 	fmt.Println(f.Minute())
-	// Output: 0
+	// Output: 5
 }
 
 func BenchmarkMinute(b *testing.B) {
@@ -345,13 +345,13 @@ func BenchmarkMinute(b *testing.B) {
 func ExampleSecond() {
 	Seed(11)
 	fmt.Println(Second())
-	// Output: 0
+	// Output: 5
 }
 
 func ExampleFaker_Second() {
 	f := New(11)
 	fmt.Println(f.Second())
-	// Output: 0
+	// Output: 5
 }
 
 func BenchmarkSecond(b *testing.B) {
@@ -381,13 +381,13 @@ func BenchmarkSecond(b *testing.B) {
 func ExampleNanoSecond() {
 	Seed(11)
 	fmt.Println(NanoSecond())
-	// Output: 196446360
+	// Output: 693298265
 }
 
 func ExampleFaker_NanoSecond() {
 	f := New(11)
 	fmt.Println(f.NanoSecond())
-	// Output: 196446360
+	// Output: 693298265
 }
 
 func BenchmarkNanoSecond(b *testing.B) {

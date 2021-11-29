@@ -8,13 +8,13 @@ import (
 func ExampleGamertag() {
 	Seed(11)
 	fmt.Println(Gamertag())
-	// Output: footinterpret63
+	// Output: footinterpret129
 }
 
 func ExampleFaker_Gamertag() {
 	f := New(11)
 	fmt.Println(f.Gamertag())
-	// Output: footinterpret63
+	// Output: footinterpret129
 }
 
 func BenchmarkGamertag(b *testing.B) {

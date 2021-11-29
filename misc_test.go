@@ -12,13 +12,13 @@ import (
 func ExampleBool() {
 	Seed(11)
 	fmt.Println(Bool())
-	// Output: false
+	// Output: true
 }
 
 func ExampleFaker_Bool() {
 	f := New(11)
 	fmt.Println(f.Bool())
-	// Output: false
+	// Output: true
 }
 
 func BenchmarkBool(b *testing.B) {
@@ -179,13 +179,13 @@ func BenchmarkShuffleAnySlice(b *testing.B) {
 func ExampleFlipACoin() {
 	Seed(11)
 	fmt.Println(FlipACoin())
-	// Output: Tails
+	// Output: Heads
 }
 
 func ExampleFaker_FlipACoin() {
 	f := New(11)
 	fmt.Println(f.FlipACoin())
-	// Output: Tails
+	// Output: Heads
 }
 
 func TestFlipACoin(t *testing.T) {

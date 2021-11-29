@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	"sync"
 	"testing"
 )
 
@@ -23,7 +24,7 @@ func Example() {
 	// Name: Markus Moen
 	// Email: alaynawuckert@kozey.biz
 	// Phone: 9948995369
-	// Address: 35300 South Roads haven, Hilllville, Montana 30232
+	// Address: 35300 South Roads haven, Port Ruecker, Montana 30232
 	// BS: e-enable
 	// Beer Name: Weihenstephaner Hefeweissbier
 	// Color: MidnightBlue
@@ -46,6 +47,26 @@ func ExampleNew() {
 	// Name: Markus Moen
 	// Email: alaynawuckert@kozey.biz
 	// Phone: 9948995369
+}
+
+func ExampleNewUnlocked() {
+	fake := NewUnlocked(11)
+
+	// All global functions are also available in the structs methods
+	fmt.Println("Name:", fake.Name())
+	fmt.Println("Email:", fake.Email())
+	fmt.Println("Phone:", fake.Phone())
+	// Output:
+	// Name: Markus Moen
+	// Email: alaynawuckert@kozey.biz
+	// Phone: 9948995369
+}
+
+func TestNewUnlocked(t *testing.T) {
+	fake := NewUnlocked(0)
+	if fake.Name() == "" {
+		t.Error("Name was empty")
+	}
 }
 
 func ExampleNewCrypto() {
@@ -116,4 +137,22 @@ func TestSetGlobalFaker(t *testing.T) {
 
 	// Set global back to psuedo
 	SetGlobalFaker(New(0))
+}
+
+func TestConcurrency(t *testing.T) {
+	var setupComplete sync.WaitGroup
+	setupComplete.Add(1)
+
+	var wg sync.WaitGroup
+	for i := 0; i < 10000; i++ {
+		wg.Add(1)
+		go func() {
+			setupComplete.Wait()
+			Paragraph(1, 5, 20, " ")
+			wg.Done()
+		}()
+	}
+
+	setupComplete.Done()
+	wg.Wait()
 }

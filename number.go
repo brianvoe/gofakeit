@@ -1,7 +1,6 @@
 package gofakeit
 
 import (
-	"errors"
 	"math"
 	"math/rand"
 )
@@ -20,7 +19,7 @@ func Uint8() uint8 { return uint8Func(globalFaker.Rand) }
 // Uint8 will generate a random uint8 value
 func (f *Faker) Uint8() uint8 { return uint8Func(f.Rand) }
 
-func uint8Func(r *rand.Rand) uint8 { return uint8(randIntRange(r, 0, math.MaxUint8)) }
+func uint8Func(r *rand.Rand) uint8 { return uint8(randUintRange(r, 0, math.MaxUint8)) }
 
 // Uint16 will generate a random uint16 value
 func Uint16() uint16 { return uint16Func(globalFaker.Rand) }
@@ -28,7 +27,7 @@ func Uint16() uint16 { return uint16Func(globalFaker.Rand) }
 // Uint16 will generate a random uint16 value
 func (f *Faker) Uint16() uint16 { return uint16Func(f.Rand) }
 
-func uint16Func(r *rand.Rand) uint16 { return uint16(randIntRange(r, 0, math.MaxUint16)) }
+func uint16Func(r *rand.Rand) uint16 { return uint16(randUintRange(r, 0, math.MaxUint16)) }
 
 // Uint32 will generate a random uint32 value
 func Uint32() uint32 { return uint32Func(globalFaker.Rand) }
@@ -36,7 +35,7 @@ func Uint32() uint32 { return uint32Func(globalFaker.Rand) }
 // Uint32 will generate a random uint32 value
 func (f *Faker) Uint32() uint32 { return uint32Func(f.Rand) }
 
-func uint32Func(r *rand.Rand) uint32 { return uint32(randIntRange(r, 0, math.MaxInt32)) }
+func uint32Func(r *rand.Rand) uint32 { return uint32(randUintRange(r, 0, math.MaxUint32)) }
 
 // Uint64 will generate a random uint64 value
 func Uint64() uint64 { return uint64Func(globalFaker.Rand) }
@@ -44,7 +43,15 @@ func Uint64() uint64 { return uint64Func(globalFaker.Rand) }
 // Uint64 will generate a random uint64 value
 func (f *Faker) Uint64() uint64 { return uint64Func(f.Rand) }
 
-func uint64Func(r *rand.Rand) uint64 { return uint64(r.Int63n(math.MaxInt64)) }
+func uint64Func(r *rand.Rand) uint64 { return uint64(randUintRange(r, 0, math.MaxUint64)) }
+
+// UintRange will generate a random uint value between min and max
+func UintRange(min, max uint) uint { return uintRangeFunc(globalFaker.Rand, min, max) }
+
+// UintRange will generate a random uint value between min and max
+func (f *Faker) UintRange(min, max uint) uint { return uintRangeFunc(f.Rand, min, max) }
+
+func uintRangeFunc(r *rand.Rand, min, max uint) uint { return randUintRange(r, min, max) }
 
 // Int8 will generate a random Int8 value
 func Int8() int8 { return int8Func(globalFaker.Rand) }
@@ -76,7 +83,15 @@ func Int64() int64 { return int64Func(globalFaker.Rand) }
 // Int64 will generate a random int64 value
 func (f *Faker) Int64() int64 { return int64Func(f.Rand) }
 
-func int64Func(r *rand.Rand) int64 { return r.Int63n(math.MaxInt64) + math.MinInt64 }
+func int64Func(r *rand.Rand) int64 { return int64(randIntRange(r, math.MinInt32, math.MaxInt32)) }
+
+// IntRange will generate a random int value between min and max
+func IntRange(min, max int) int { return intRangeFunc(globalFaker.Rand, min, max) }
+
+// IntRange will generate a random int value between min and max
+func (f *Faker) IntRange(min, max int) int { return intRangeFunc(f.Rand, min, max) }
+
+func intRangeFunc(r *rand.Rand, min, max int) int { return randIntRange(r, min, max) }
 
 // Float32 will generate a random float32 value
 func Float32() float32 { return float32Func(globalFaker.Rand) }
@@ -256,10 +271,6 @@ func addNumberLookup() {
 				return nil, err
 			}
 
-			if min > max {
-				return nil, errors.New("max integer must be larger than Min")
-			}
-
 			return number(r, min, max), nil
 		},
 	})
@@ -308,6 +319,31 @@ func addNumberLookup() {
 		},
 	})
 
+	AddFuncLookup("uintrange", Info{
+		Display:     "UintRange",
+		Category:    "number",
+		Description: "Random uint value between given range",
+		Example:     "1075055705",
+		Output:      "uint",
+		Params: []Param{
+			{Field: "min", Display: "Min", Type: "uint", Default: "0", Description: "Minimum uint value"},
+			{Field: "max", Display: "Max", Type: "uint", Default: "4294967295", Description: "Maximum uint value"},
+		},
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			min, err := info.GetUint(m, "min")
+			if err != nil {
+				return nil, err
+			}
+
+			max, err := info.GetUint(m, "max")
+			if err != nil {
+				return nil, err
+			}
+
+			return uintRangeFunc(r, min, max), nil
+		},
+	})
+
 	AddFuncLookup("int8", Info{
 		Display:     "Int8",
 		Category:    "number",
@@ -349,6 +385,31 @@ func addNumberLookup() {
 		Output:      "int64",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return int64Func(r), nil
+		},
+	})
+
+	AddFuncLookup("intrange", Info{
+		Display:     "IntRange",
+		Category:    "number",
+		Description: "Random int value between min and max",
+		Example:     "-8379477543",
+		Output:      "int",
+		Params: []Param{
+			{Field: "min", Display: "Min", Type: "int", Description: "Minimum int value"},
+			{Field: "max", Display: "Max", Type: "int", Description: "Maximum int value"},
+		},
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			min, err := info.GetInt(m, "min")
+			if err != nil {
+				return nil, err
+			}
+
+			max, err := info.GetInt(m, "max")
+			if err != nil {
+				return nil, err
+			}
+
+			return intRangeFunc(r, min, max), nil
 		},
 	})
 
