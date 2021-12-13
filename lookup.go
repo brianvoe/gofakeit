@@ -78,6 +78,7 @@ func initLookup() {
 	addFoodLookup()
 	addAppLookup()
 	addWeightedLookup()
+	addMinecraftLookup()
 }
 
 // NewMapParams will create a new MapParams

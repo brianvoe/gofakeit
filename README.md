@@ -528,3 +528,26 @@ Numerify(str string) string
 ShuffleStrings(a []string)
 RandomString(a []string) string
 ```
+
+### Minecraft
+
+```go
+MinecraftOre() string
+MinecraftWood() string
+MinecraftArmorTier() string
+MinecraftArmorPart() string
+MinecraftWeapon() string
+MinecraftTool() string
+MinecraftDye() string
+MinecraftFood() string
+MinecraftAnimal() string
+MinecraftVillagerJob() string
+MinecraftVillagerStation() string
+MinecraftVillagerLevel() string
+MinecraftMobPassive() string
+MinecraftMobNeutral() string
+MinecraftMobHostile() string
+MinecraftMobBoss() string
+MinecraftBiome() string
+MinecraftWeather() string
+```
