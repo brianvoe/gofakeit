@@ -224,13 +224,13 @@ func BenchmarkQuote(b *testing.B) {
 func ExamplePhrase() {
 	Seed(11)
 	fmt.Println(Phrase())
-	// Output: shut the front door
+	// Output: horses for courses
 }
 
 func ExampleFaker_Phrase() {
 	f := New(11)
 	fmt.Println(f.Phrase())
-	// Output: shut the front door
+	// Output: horses for courses
 }
 
 func BenchmarkPhrase(b *testing.B) {

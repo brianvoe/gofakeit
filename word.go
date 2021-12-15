@@ -20,14 +20,6 @@ const bytesPerWordEstimation = 6
 type sentenceGenerator func(r *rand.Rand, wordCount int) string
 type wordGenerator func(r *rand.Rand) string
 
-// Noun will generate a random noun
-func Noun() string { return noun(globalFaker.Rand) }
-
-// Noun will generate a random noun
-func (f *Faker) Noun() string { return noun(f.Rand) }
-
-func noun(r *rand.Rand) string { return getRandValue(r, []string{"word", "noun"}) }
-
 // Verb will generate a random verb
 func Verb() string { return verb(globalFaker.Rand) }
 
