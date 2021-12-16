@@ -6,24 +6,6 @@ import (
 	"testing"
 )
 
-func ExamplePreposition() {
-	Seed(11)
-	fmt.Println(Preposition())
-	// Output: down
-}
-
-func ExampleFaker_Preposition() {
-	f := New(11)
-	fmt.Println(f.Preposition())
-	// Output: down
-}
-
-func BenchmarkPreposition(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		Preposition()
-	}
-}
-
 func ExampleAdjective() {
 	Seed(11)
 	fmt.Println(Adjective())

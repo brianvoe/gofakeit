@@ -54,6 +54,7 @@ func initLookup() {
 	addCarLookup()
 	addPersonLookup()
 	addWordLookup()
+	addWordPrepositionLookup()
 	addLoremLookup()
 	addGenerateLookup()
 	addMiscLookup()

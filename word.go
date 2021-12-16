@@ -20,14 +20,6 @@ const bytesPerWordEstimation = 6
 type sentenceGenerator func(r *rand.Rand, wordCount int) string
 type wordGenerator func(r *rand.Rand) string
 
-// Preposition will generate a random preposition
-func Preposition() string { return preposition(globalFaker.Rand) }
-
-// Preposition will generate a random preposition
-func (f *Faker) Preposition() string { return preposition(f.Rand) }
-
-func preposition(r *rand.Rand) string { return getRandValue(r, []string{"word", "preposition"}) }
-
 // Adjective will generate a random adjective
 func Adjective() string { return adjective(globalFaker.Rand) }
 
@@ -189,17 +181,6 @@ func addWordLookup() {
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return adverb(r), nil
-		},
-	})
-
-	AddFuncLookup("preposition", Info{
-		Display:     "Preposition",
-		Category:    "word",
-		Description: "Random preposition",
-		Example:     "down",
-		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
-			return preposition(r), nil
 		},
 	})
 
