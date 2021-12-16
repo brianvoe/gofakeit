@@ -3,7 +3,7 @@ package gofakeit
 import (
 	"bytes"
 	"errors"
-	rand "math/rand"
+	"math/rand"
 	"strings"
 	"unicode"
 )
@@ -19,14 +19,6 @@ const bytesPerWordEstimation = 6
 
 type sentenceGenerator func(r *rand.Rand, wordCount int) string
 type wordGenerator func(r *rand.Rand) string
-
-// Adverb will generate a random adverb
-func Adverb() string { return adverb(globalFaker.Rand) }
-
-// Adverb will generate a random adverb
-func (f *Faker) Adverb() string { return adverb(f.Rand) }
-
-func adverb(r *rand.Rand) string { return getRandValue(r, []string{"word", "adverb"}) }
 
 // Preposition will generate a random preposition
 func Preposition() string { return preposition(globalFaker.Rand) }

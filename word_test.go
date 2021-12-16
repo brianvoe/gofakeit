@@ -6,24 +6,6 @@ import (
 	"testing"
 )
 
-func ExampleAdverb() {
-	Seed(11)
-	fmt.Println(Adverb())
-	// Output: smoothly
-}
-
-func ExampleFaker_Adverb() {
-	f := New(11)
-	fmt.Println(f.Adverb())
-	// Output: smoothly
-}
-
-func BenchmarkAdverb(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		Adverb()
-	}
-}
-
 func ExamplePreposition() {
 	Seed(11)
 	fmt.Println(Preposition())
