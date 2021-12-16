@@ -44,7 +44,7 @@ var Word = map[string][]string{
 	// Pronouns
 	"pronoun_personal":      {"I", "we", "you", "he", "she", "it", "they"},
 	"pronoun_object":        {"me", "us", "you", "her", "him", "it", "them"},
-	"pronoun_posessive":     {"mine", "ours", "yours", "hers", "his", "theirs"},
+	"pronoun_possessive":    {"mine", "ours", "yours", "hers", "his", "theirs"},
 	"pronoun_reflective":    {"myself", "yourself", "herself", "himself", "itself", "ourselves", "yourselves", "themselves"},
 	"pronoun_indefinite":    {"all", "another", "any", "anybody", "anyone", "anything", "both", "each", "either", "everybody", "everyone", "everything", "few", "many", "most", "neither", "nobody", "none", "no one", "nothing", "one", "other", "others", "several", "some", "somebody", "someone", "something", "such"},
 	"pronoun_demonstrative": {"this", "that", "these", "those"},

@@ -327,18 +327,6 @@ NounCountable() string
 NounUncountable() string
 ```
 
-#### Pronoun
-
-```go
-PronounPersonal() string
-PronounObject() string
-PronounPosessive() string
-PronounReflective() string
-PronounDemonstrative() string
-PronounInterrogative() string
-PronounRelative() string
-```
-
 #### Verb
 
 ```go
@@ -357,23 +345,49 @@ AdverbDegree() string
 AdverbPlace() string
 AdverbTimeDefinite() string
 AdverbTimeIndefinite() string
+AdverbFrequencyDefinite() string
+AdverbFrequencyIndefinite() string
 ```
 
 #### Proposition
 
 ```go
 Preposition() string
+PrepositionSimple() string
+PrepositionDouble() string
+PrepositionCompound() string
 ```
 
 #### Adjective
 
 ```go
 Adjective() string
+AdjectiveDescriptive() string
+AdjectiveQuantitative() string
+AdjectiveProper() string
+AdjectiveDemonstrative() string
+AdjectivePossessive() string
+AdjectiveInterrogative() string
+AdjectiveIndefinite() string
+```
+
+#### Pronoun
+
+```go
+Pronoun() string
+PronounPersonal() string
+PronounObject() string
+PronounPosessive() string
+PronounReflective() string
+PronounDemonstrative() string
+PronounInterrogative() string
+PronounRelative() string
 ```
 
 #### Connective
 
 ```go
+Connective() string
 ConnectiveTime() string
 ConnectiveComparative() string
 ConnectiveComplaint() string
