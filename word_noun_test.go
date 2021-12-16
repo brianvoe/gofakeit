@@ -170,13 +170,13 @@ func BenchmarkNounUncountable(b *testing.B) {
 func ExampleNounProper() {
 	Seed(11)
 	fmt.Println(NounProper())
-	// Output: Arlington
+	// Output: Marcel
 }
 
 func ExampleFaker_NounProper() {
 	f := New(11)
 	fmt.Println(f.NounProper())
-	// Output: Arlington
+	// Output: Marcel
 }
 
 func TestNounProper(t *testing.T) {
