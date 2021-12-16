@@ -55,6 +55,7 @@ func initLookup() {
 	addPersonLookup()
 	addWordLookup()
 	addWordNounLookup()
+	addWordVerbLookup()
 	addWordPrepositionLookup()
 	addLoremLookup()
 	addGenerateLookup()

@@ -8,13 +8,13 @@ import (
 func ExampleAppName() {
 	Seed(11)
 	fmt.Println(AppName())
-	// Output: Oxrespond
+	// Output: Oxbeing
 }
 
 func ExampleFaker_AppName() {
 	f := New(11)
 	fmt.Println(f.AppName())
-	// Output: Oxrespond
+	// Output: Oxbeing
 }
 
 func TestAppName(t *testing.T) {

@@ -8,13 +8,13 @@ import (
 func ExampleVerb() {
 	Seed(11)
 	fmt.Println(Verb())
-	// Output: release
+	// Output: does
 }
 
 func ExampleFaker_Verb() {
 	f := New(11)
 	fmt.Println(f.Verb())
-	// Output: release
+	// Output: does
 }
 
 func BenchmarkVerb(b *testing.B) {
