@@ -8,13 +8,13 @@ import (
 func ExampleNoun() {
 	Seed(11)
 	fmt.Println(Noun())
-	// Output: foot
+	// Output: aunt
 }
 
 func ExampleFaker_Noun() {
 	f := New(11)
 	fmt.Println(f.Noun())
-	// Output: foot
+	// Output: aunt
 }
 
 func BenchmarkNoun(b *testing.B) {

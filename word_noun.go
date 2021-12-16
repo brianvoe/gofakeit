@@ -8,7 +8,19 @@ func Noun() string { return noun(globalFaker.Rand) }
 // Noun will generate a random noun
 func (f *Faker) Noun() string { return noun(f.Rand) }
 
-func noun(r *rand.Rand) string { return getRandValue(r, []string{"word", "noun"}) }
+func noun(r *rand.Rand) string {
+	var nounType = map[int]string{
+		0: "noun_common",
+		1: "noun_concrete",
+		2: "noun_abstract",
+		3: "noun_collective_people",
+		4: "noun_collective_animal",
+		5: "noun_collective_thing",
+		6: "noun_countable",
+		7: "noun_uncountable",
+	}
+	return getRandValue(r, []string{"word", nounType[number(r, 0, 7)]})
+}
 
 // NounCommon will generate a random common noun
 func NounCommon() string { return nounCommon(globalFaker.Rand) }
@@ -97,4 +109,116 @@ func nounProper(r *rand.Rand) string {
 	}
 
 	return getRandValue(r, []string{"person", "first"})
+}
+
+func addWordNounLookup() {
+	AddFuncLookup("noun", Info{
+		Display:     "Noun",
+		Category:    "word",
+		Description: "Random noun",
+		Example:     "aunt",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return noun(r), nil
+		},
+	})
+
+	AddFuncLookup("nouncommon", Info{
+		Display:     "Noun Common",
+		Category:    "word",
+		Description: "Random common noun",
+		Example:     "part",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return nounCommon(r), nil
+		},
+	})
+
+	AddFuncLookup("nounconcrete", Info{
+		Display:     "Noun Concrete",
+		Category:    "word",
+		Description: "Random concrete noun",
+		Example:     "snowman",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return nounConcrete(r), nil
+		},
+	})
+
+	AddFuncLookup("nounabstract", Info{
+		Display:     "Noun Abstract",
+		Category:    "word",
+		Description: "Random abstract noun",
+		Example:     "confusion",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return nounAbstract(r), nil
+		},
+	})
+
+	AddFuncLookup("nouncollectivepeople", Info{
+		Display:     "Noun Collective People",
+		Category:    "word",
+		Description: "Random collective noun person",
+		Example:     "body",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return nounCollectivePeople(r), nil
+		},
+	})
+
+	AddFuncLookup("nouncollectiveanimal", Info{
+		Display:     "Noun Collective Animal",
+		Category:    "word",
+		Description: "Random collective noun animal",
+		Example:     "party",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return nounCollectiveAnimal(r), nil
+		},
+	})
+
+	AddFuncLookup("nouncollectivething", Info{
+		Display:     "Noun Collective Thing",
+		Category:    "word",
+		Description: "Random collective noun thing",
+		Example:     "hand",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return nounCollectiveThing(r), nil
+		},
+	})
+
+	AddFuncLookup("nouncountable", Info{
+		Display:     "Noun Countable",
+		Category:    "word",
+		Description: "Random countable noun",
+		Example:     "neck",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return nounCountable(r), nil
+		},
+	})
+
+	AddFuncLookup("noununcountable", Info{
+		Display:     "Noun Uncountable",
+		Category:    "word",
+		Description: "Random uncountable noun",
+		Example:     "seafood",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return nounUncountable(r), nil
+		},
+	})
+
+	AddFuncLookup("nounproper", Info{
+		Display:     "Noun Proper",
+		Category:    "word",
+		Description: "Random proper noun",
+		Example:     "John",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return nounProper(r), nil
+		},
+	})
 }
