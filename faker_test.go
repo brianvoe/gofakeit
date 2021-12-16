@@ -24,15 +24,15 @@ func Example() {
 	// Name: Markus Moen
 	// Email: alaynawuckert@kozey.biz
 	// Phone: 9948995369
-	// Address: 35300 South Roads haven, Port Ruecker, Montana 30232
-	// BS: e-enable
-	// Beer Name: Weihenstephaner Hefeweissbier
-	// Color: MidnightBlue
-	// Company: Epsilon
-	// Credit Card: 6375991714800889
-	// Hacker Phrase: You can't quantify the application without navigating the bluetooth SMS microchip!
-	// Job Title: Architect
-	// Password: SHylpDU2nf9(,U*RaJKM1cOL47VY.BQw
+	// Address: 35300 South Roads haven, Miami, Tennessee 58302
+	// BS: streamline
+	// Beer Name: Pliny The Elder
+	// Color: Gray
+	// Company: Center for Responsive Politics
+	// Credit Card: 3821714800889989
+	// Hacker Phrase: Overriding the capacitor won't do anything, we need to compress the online SMTP protocol!
+	// Job Title: Supervisor
+	// Password: a8TyS<2l(pRLB4QU7V,O9nKUYcMD0(*g
 }
 
 func ExampleNew() {
