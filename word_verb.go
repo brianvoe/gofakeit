@@ -9,12 +9,12 @@ func Verb() string { return verb(globalFaker.Rand) }
 func (f *Faker) Verb() string { return verb(f.Rand) }
 
 func verb(r *rand.Rand) string {
-	var nounType = map[int]string{
+	var verbType = map[int]string{
 		0: "verb_action",
 		1: "verb_linking",
 		2: "verb_helping",
 	}
-	return getRandValue(r, []string{"word", nounType[number(r, 0, 2)]})
+	return getRandValue(r, []string{"word", verbType[number(r, 0, 2)]})
 }
 
 // VerbAction will generate a random action verb
