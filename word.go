@@ -6,6 +6,8 @@ import (
 	"math/rand"
 	"strings"
 	"unicode"
+
+	"github.com/brianvoe/gofakeit/v6/data"
 )
 
 type paragrapOptions struct {
@@ -20,14 +22,6 @@ const bytesPerWordEstimation = 6
 type sentenceGenerator func(r *rand.Rand, wordCount int) string
 type wordGenerator func(r *rand.Rand) string
 
-// Adjective will generate a random adjective
-func Adjective() string { return adjective(globalFaker.Rand) }
-
-// Adjective will generate a random adjective
-func (f *Faker) Adjective() string { return adjective(f.Rand) }
-
-func adjective(r *rand.Rand) string { return getRandValue(r, []string{"word", "adjective"}) }
-
 // Word will generate a random word
 func Word() string { return word(globalFaker.Rand) }
 
@@ -35,11 +29,14 @@ func Word() string { return word(globalFaker.Rand) }
 func (f *Faker) Word() string { return word(f.Rand) }
 
 func word(r *rand.Rand) string {
-	if boolFunc(r) {
-		return getRandValue(r, []string{"word", "noun"})
+	word := getRandValue(r, []string{"word", randomMapKey(r, data.Word).(string)})
+
+	// Word may return a couple of words, if so we will split on space and return a random word
+	if strings.Contains(word, " ") {
+		return randomString(r, strings.Split(word, " "))
 	}
 
-	return getRandValue(r, []string{"word", "verb"})
+	return word
 }
 
 // Sentence will generate a random sentence
@@ -148,20 +145,9 @@ func Phrase() string { return phrase(globalFaker.Rand) }
 // Phrase will return a random dictionary phrase
 func (f *Faker) Phrase() string { return phrase(f.Rand) }
 
-func phrase(r *rand.Rand) string { return getRandValue(r, []string{"word", "phrase"}) }
+func phrase(r *rand.Rand) string { return getRandValue(r, []string{"sentence", "phrase"}) }
 
 func addWordLookup() {
-	AddFuncLookup("adjective", Info{
-		Display:     "Adjective",
-		Category:    "word",
-		Description: "Random adjective",
-		Example:     "genuine",
-		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
-			return adjective(r), nil
-		},
-	})
-
 	AddFuncLookup("word", Info{
 		Display:     "Word",
 		Category:    "word",

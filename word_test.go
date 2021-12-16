@@ -6,39 +6,29 @@ import (
 	"testing"
 )
 
-func ExampleAdjective() {
-	Seed(11)
-	fmt.Println(Adjective())
-	// Output: genuine
-}
-
-func ExampleFaker_Adjective() {
-	f := New(11)
-	fmt.Println(f.Adjective())
-	// Output: genuine
-}
-
-func BenchmarkAdjective(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		Adjective()
-	}
-}
-
 func ExampleWord() {
 	Seed(11)
 	fmt.Println(Word())
-	// Output: park
+	// Output: some
 }
 
 func ExampleFaker_Word() {
 	f := New(11)
 	fmt.Println(f.Word())
-	// Output: park
+	// Output: some
 }
 
 func BenchmarkWord(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		Word()
+	}
+}
+
+func TestWord(t *testing.T) {
+	for i := 0; i < 10000; i++ {
+		if Word() == "" {
+			t.Errorf("result should not be blank")
+		}
 	}
 }
 
