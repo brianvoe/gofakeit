@@ -12,7 +12,7 @@ func Gamertag() string { return gamertag(globalFaker.Rand) }
 func (f *Faker) Gamertag() string { return gamertag(f.Rand) }
 
 func gamertag(r *rand.Rand) string {
-	return fmt.Sprintf("%s%s%d", getRandValue(r, []string{"word", "noun"}), getRandValue(r, []string{"word", "verb"}), number(r, 10, 999))
+	return fmt.Sprintf("%s%s%d", noun(r), verb(r), number(r, 10, 999))
 }
 
 func addGameLookup() {
