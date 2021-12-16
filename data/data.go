@@ -22,6 +22,7 @@ var Data = map[string]map[string][]string{
 	"car":       Car,
 	"emoji":     Emoji,
 	"word":      Word,
+	"sentence":  Sentence,
 	"food":      Food,
 	"minecraft": Minecraft,
 	"celebrity": Celebrity,
