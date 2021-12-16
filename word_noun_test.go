@@ -179,6 +179,15 @@ func ExampleFaker_NounProper() {
 	// Output: Arlington
 }
 
+func TestNounProper(t *testing.T) {
+	f := New(11)
+	for i := 0; i < 100; i++ {
+		if f.NounProper() == "" {
+			t.Errorf("Expected a non-empty string, got nothing")
+		}
+	}
+}
+
 func BenchmarkNounProper(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		NounProper()

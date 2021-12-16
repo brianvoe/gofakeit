@@ -91,10 +91,8 @@ func (f *Faker) NounProper() string { return nounProper(f.Rand) }
 func nounProper(r *rand.Rand) string {
 	switch randInt := randIntRange(r, 1, 3); randInt {
 	case 1:
-		return getRandValue(r, []string{"person", "first"})
-	case 2:
 		return getRandValue(r, []string{"celebrity", "actor"})
-	case 3:
+	case 2:
 		return generate(r, getRandValue(r, []string{"address", "city"}))
 	}
 
