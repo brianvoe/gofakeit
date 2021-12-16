@@ -8,7 +8,18 @@ func Adverb() string { return adverb(globalFaker.Rand) }
 // Adverb will generate a random adverb
 func (f *Faker) Adverb() string { return adverb(f.Rand) }
 
-func adverb(r *rand.Rand) string { return getRandValue(r, []string{"word", "adverb"}) }
+func adverb(r *rand.Rand) string {
+	var adverbType = map[int]string{
+		0: "adverb_manner",
+		1: "adverb_degree",
+		2: "adverb_place",
+		3: "adverb_time_definite",
+		4: "adverb_time_indefinite",
+		5: "adverb_frequency_definite",
+		6: "adverb_frequency_indefinite",
+	}
+	return getRandValue(r, []string{"word", adverbType[number(r, 0, 6)]})
+}
 
 // AdverbManner will generate a random manner adverb
 func AdverbManner() string { return adverbManner(globalFaker.Rand) }
@@ -72,4 +83,94 @@ func (f *Faker) AdverbFrequencyIndefinite() string { return adverbFrequencyIndef
 
 func adverbFrequencyIndefinite(r *rand.Rand) string {
 	return getRandValue(r, []string{"word", "adverb_frequency_indefinite"})
+}
+
+func addWordAdverbLookup() {
+	AddFuncLookup("adverb", Info{
+		Display:     "Adverb",
+		Category:    "word",
+		Description: "Random adverb",
+		Example:     "smoothly",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return adverb(r), nil
+		},
+	})
+
+	AddFuncLookup("adverbmanner", Info{
+		Display:     "Adverb Manner",
+		Category:    "word",
+		Description: "Random manner adverb",
+		Example:     "stupidly",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return adverbManner(r), nil
+		},
+	})
+
+	AddFuncLookup("adverbdegree", Info{
+		Display:     "Adverb Degree",
+		Category:    "word",
+		Description: "Random degree adverb",
+		Example:     "intensely",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return adverbDegree(r), nil
+		},
+	})
+
+	AddFuncLookup("adverbplace", Info{
+		Display:     "Adverb Place",
+		Category:    "word",
+		Description: "Random place adverb",
+		Example:     "east",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return adverbPlace(r), nil
+		},
+	})
+
+	AddFuncLookup("adverbtimedefinite", Info{
+		Display:     "Adverb Time Definite",
+		Category:    "word",
+		Description: "Random time definite adverb",
+		Example:     "now",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return adverbTimeDefinite(r), nil
+		},
+	})
+
+	AddFuncLookup("adverbtimeindefinite", Info{
+		Display:     "Adverb Time Indefinite",
+		Category:    "word",
+		Description: "Random time indefinite adverb",
+		Example:     "already",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return adverbTimeIndefinite(r), nil
+		},
+	})
+
+	AddFuncLookup("adverbfrequencydefinite", Info{
+		Display:     "Adverb Frequency Definite",
+		Category:    "word",
+		Description: "Random frequency definite adverb",
+		Example:     "hourly",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return adverbFrequencyDefinite(r), nil
+		},
+	})
+
+	AddFuncLookup("adverbfrequencyindefinite", Info{
+		Display:     "Adverb Frequency Indefinite",
+		Category:    "word",
+		Description: "Random frequency indefinite adverb",
+		Example:     "occasionally",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return adverbFrequencyIndefinite(r), nil
+		},
+	})
 }

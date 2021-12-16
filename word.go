@@ -151,17 +151,6 @@ func (f *Faker) Phrase() string { return phrase(f.Rand) }
 func phrase(r *rand.Rand) string { return getRandValue(r, []string{"word", "phrase"}) }
 
 func addWordLookup() {
-	AddFuncLookup("adverb", Info{
-		Display:     "Adverb",
-		Category:    "word",
-		Description: "Random adverb",
-		Example:     "smoothly",
-		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
-			return adverb(r), nil
-		},
-	})
-
 	AddFuncLookup("adjective", Info{
 		Display:     "Adjective",
 		Category:    "word",
