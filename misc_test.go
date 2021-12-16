@@ -218,6 +218,29 @@ func BenchmarkFlipACoin(b *testing.B) {
 	})
 }
 
+func TestRandomMapKey(t *testing.T) {
+	mStr := map[string]int{
+		"a": 1,
+		"b": 2,
+		"c": 3,
+	}
+
+	for i := 0; i < 100; i++ {
+		RandomMapKey(mStr)
+	}
+
+	mInt := map[int]string{
+		1: "a",
+		2: "b",
+		3: "c",
+	}
+
+	for i := 0; i < 100; i++ {
+		f := New(11)
+		f.RandomMapKey(mInt)
+	}
+}
+
 func TestCategories(t *testing.T) {
 	var got, expected []string
 	for k := range Categories() {

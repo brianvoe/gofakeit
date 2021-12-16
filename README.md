@@ -419,6 +419,7 @@ Dessert() string
 Bool() bool
 UUID() string
 FlipACoin() string
+RandomMapKey(mapI interface{}) interface{}
 ShuffleAnySlice(v interface{})
 ```
 
