@@ -44,13 +44,13 @@ func BenchmarkNounCommon(b *testing.B) {
 func ExampleNounConcrete() {
 	Seed(11)
 	fmt.Println(NounConcrete())
-	// Output: part
+	// Output: snowman
 }
 
 func ExampleFaker_NounConcrete() {
 	f := New(11)
 	fmt.Println(f.NounConcrete())
-	// Output: part
+	// Output: snowman
 }
 
 func BenchmarkNounConcrete(b *testing.B) {
@@ -62,13 +62,13 @@ func BenchmarkNounConcrete(b *testing.B) {
 func ExampleNounAbstract() {
 	Seed(11)
 	fmt.Println(NounAbstract())
-	// Output: part
+	// Output: confusion
 }
 
 func ExampleFaker_NounAbstract() {
 	f := New(11)
 	fmt.Println(f.NounAbstract())
-	// Output: part
+	// Output: confusion
 }
 
 func BenchmarkNounAbstract(b *testing.B) {
@@ -80,13 +80,13 @@ func BenchmarkNounAbstract(b *testing.B) {
 func ExampleNounCollectivePeople() {
 	Seed(11)
 	fmt.Println(NounCollectivePeople())
-	// Output: part
+	// Output: body
 }
 
 func ExampleFaker_NounCollectivePeople() {
 	f := New(11)
 	fmt.Println(f.NounCollectivePeople())
-	// Output: part
+	// Output: body
 }
 
 func BenchmarkNounCollectivePeople(b *testing.B) {
@@ -98,13 +98,13 @@ func BenchmarkNounCollectivePeople(b *testing.B) {
 func ExampleNounCollectiveAnimal() {
 	Seed(11)
 	fmt.Println(NounCollectiveAnimal())
-	// Output: part
+	// Output: party
 }
 
 func ExampleFaker_NounCollectiveAnimal() {
 	f := New(11)
 	fmt.Println(f.NounCollectiveAnimal())
-	// Output: part
+	// Output: party
 }
 
 func BenchmarkNounCollectiveAnimal(b *testing.B) {
@@ -116,13 +116,13 @@ func BenchmarkNounCollectiveAnimal(b *testing.B) {
 func ExampleNounCollectiveThing() {
 	Seed(11)
 	fmt.Println(NounCollectiveThing())
-	// Output: part
+	// Output: hand
 }
 
 func ExampleFaker_NounCollectiveThing() {
 	f := New(11)
 	fmt.Println(f.NounCollectiveThing())
-	// Output: part
+	// Output: hand
 }
 
 func BenchmarkNounCollectiveThing(b *testing.B) {
@@ -134,13 +134,13 @@ func BenchmarkNounCollectiveThing(b *testing.B) {
 func ExampleNounCountable() {
 	Seed(11)
 	fmt.Println(NounCountable())
-	// Output: part
+	// Output: neck
 }
 
 func ExampleFaker_NounCountable() {
 	f := New(11)
 	fmt.Println(f.NounCountable())
-	// Output: part
+	// Output: neck
 }
 
 func BenchmarkNounCountable(b *testing.B) {
@@ -152,13 +152,13 @@ func BenchmarkNounCountable(b *testing.B) {
 func ExampleNounUncountable() {
 	Seed(11)
 	fmt.Println(NounUncountable())
-	// Output: part
+	// Output: seafood
 }
 
 func ExampleFaker_NounUncountable() {
 	f := New(11)
 	fmt.Println(f.NounUncountable())
-	// Output: part
+	// Output: seafood
 }
 
 func BenchmarkNounUncountable(b *testing.B) {
