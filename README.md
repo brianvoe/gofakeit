@@ -313,13 +313,84 @@ CarTransmissionType() string
 
 ### Words
 
+#### Noun
+
 ```go
 Noun() string
+NounCommon() string
+NounConcrete() string
+NounAbstract() string
+NounCollectivePeople() string
+NounCollectiveAnimal() string
+NounCollectiveThing() string
+NounCountable() string
+NounUncountable() string
+```
+
+#### Pronoun
+
+```go
+PronounPersonal() string
+PronounObject() string
+PronounPosessive() string
+PronounReflective() string
+PronounDemonstrative() string
+PronounInterrogative() string
+PronounRelative() string
+```
+
+#### Verb
+
+```go
 Verb() string
+VerbAction() string
+VerbLinking() string
+VerbHelping() string
+```
+
+#### Adverb
+
+```go
 Adverb() string
+AdverbManner() string
+AdverbDegree() string
+AdverbPlace() string
+AdverbTimeDefinite() string
+AdverbTimeIndefinite() string
+```
+
+#### Proposition
+
+```go
 Preposition() string
+```
+
+#### Adjective
+
+```go
 Adjective() string
+```
+
+#### Connective
+
+```go
+ConnectiveTime() string
+ConnectiveComparative() string
+ConnectiveComplaint() string
+ConnectiveListing() string
+ConnectiveCasual() string
+ConnectiveExamplify() string
+```
+
+#### Word
+
+```go
 Word() string
+```
+
+#### Sentences
+
+```go
 Sentence(wordCount int) string
 Paragraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string
 LoremIpsumWord() string
@@ -527,6 +598,14 @@ Lexify(str string) string
 Numerify(str string) string
 ShuffleStrings(a []string)
 RandomString(a []string) string
+```
+
+### Celebrity
+
+```go
+CelebrityActor() string
+CelebrityBusiness() string
+CelebritySport() string
 ```
 
 ### Minecraft
