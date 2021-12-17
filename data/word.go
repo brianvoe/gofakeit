@@ -1,5 +1,21 @@
 package data
 
+import (
+	"sort"
+)
+
+var WordKeys []string
+
+func init() {
+	// Loop through Word and put togther a list of keys
+	for key := range Word {
+		WordKeys = append(WordKeys, key)
+	}
+
+	// Sort the keys
+	sort.Strings(WordKeys)
+}
+
 // Word consists of common english words
 var Word = map[string][]string{
 	// Nouns

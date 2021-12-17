@@ -226,7 +226,10 @@ func TestRandomMapKey(t *testing.T) {
 	}
 
 	for i := 0; i < 100; i++ {
-		RandomMapKey(mStr)
+		key := RandomMapKey(mStr)
+		if _, ok := mStr[key.(string)]; !ok {
+			t.Errorf("key %s not found in map", key)
+		}
 	}
 
 	mInt := map[int]string{
@@ -237,7 +240,10 @@ func TestRandomMapKey(t *testing.T) {
 
 	for i := 0; i < 100; i++ {
 		f := New(11)
-		f.RandomMapKey(mInt)
+		key := f.RandomMapKey(mInt)
+		if _, ok := mInt[key.(int)]; !ok {
+			t.Errorf("key %d not found in map", key)
+		}
 	}
 }
 

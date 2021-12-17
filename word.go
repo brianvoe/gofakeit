@@ -29,7 +29,7 @@ func Word() string { return word(globalFaker.Rand) }
 func (f *Faker) Word() string { return word(f.Rand) }
 
 func word(r *rand.Rand) string {
-	word := getRandValue(r, []string{"word", randomMapKey(r, data.Word).(string)})
+	word := getRandValue(r, []string{"word", randomString(r, data.WordKeys)})
 
 	// Word may return a couple of words, if so we will split on space and return a random word
 	if strings.Contains(word, " ") {

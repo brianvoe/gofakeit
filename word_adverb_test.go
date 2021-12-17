@@ -8,13 +8,13 @@ import (
 func ExampleAdverb() {
 	Seed(11)
 	fmt.Println(Adverb())
-	// Output: smoothly
+	// Output: over
 }
 
 func ExampleFaker_Adverb() {
 	f := New(11)
 	fmt.Println(f.Adverb())
-	// Output: smoothly
+	// Output: over
 }
 
 func BenchmarkAdverb(b *testing.B) {

@@ -9,13 +9,13 @@ import (
 func ExampleWord() {
 	Seed(11)
 	fmt.Println(Word())
-	// Output: some
+	// Output: yesterday
 }
 
 func ExampleFaker_Word() {
 	f := New(11)
 	fmt.Println(f.Word())
-	// Output: some
+	// Output: yesterday
 }
 
 func BenchmarkWord(b *testing.B) {
@@ -35,13 +35,13 @@ func TestWord(t *testing.T) {
 func ExampleSentence() {
 	Seed(11)
 	fmt.Println(Sentence(5))
-	// Output: Park context record river college.
+	// Output: Yesterday next worrisome she one.
 }
 
 func ExampleFaker_Sentence() {
 	f := New(11)
 	fmt.Println(f.Sentence(5))
-	// Output: Park context record river college.
+	// Output: Yesterday next worrisome she one.
 }
 
 func TestSentence(t *testing.T) {
@@ -68,17 +68,17 @@ func BenchmarkSentence(b *testing.B) {
 func ExampleParagraph() {
 	Seed(11)
 	fmt.Println(Paragraph(3, 5, 12, "\n"))
-	// Output: Park context record river college purchase appreciate should compare like preserve deal. Combine approach sustain north session explanation race deputy church view efficiency fix. While own act fight roof care god bath link place form specialist. Period sign awareness spread force remember hair wonder provide link right specialist. Cabinet mark teacher gas information attempt flat representation staff iron lift take.
-	// Handle food begin look speech trust accept visit go consider chancellor accident. Race intention function sugar exclude person confirm enjoy criticism ring attitude crisis. Complete appear prevent cast mill stop father invite live border aim row. West heart communicate advance compete equipment remain demand report life model cabinet. Chapter use variety realise argue air influence assistance succeed cross artist suffer.
-	// Hide forest insist knowledge thatcher executive fashion knock sign proportion expect implement. Work crown restaurant victim material map follow climb attack answer plan order. Place explore telephone operate like display star teach compete weather recommend raise. Democracy college dance recall struggle use cut intention aircraft period generation variety. Benefit defend inquiry conclude justify result depend driver address owner conversation potential.
+	// Output: Yesterday next worrisome she one must as woman niche our eye paint. Money throughout hair neither journey yet theirs e.g. of calm i.e. her. Tonight busy loosely theirs could delay that some forest not to theirs. Casino our then straightaway herself no cluster herself insufficient us give silly. By below by quarterly his behind enchanted help may that next anybody.
+	// Several page gossip necklace am nobody bored accordingly they should can these. Microscope being to reluctantly thing sometimes oxygen than above daily mine a. Brace hug smell vivaciously annually had besides accordingly there these speed lot. Woman loneliness elsewhere park finally wad at most wad conclude thoughtfully stupid. Over one quarterly it growth their is tonight has super terribly now.
+	// He recently which troop Bangladeshi ourselves behind youth summation Darwinian being what. Then when this why their stealthily here theirs lot was without crawl. Mine why finally yours how think should as as great annually none. Sammarinese where very bouquet Danish hair ears in no with eye other. Early Swiss buy mob religion later you tonight occasionally in class here.
 }
 
 func ExampleFaker_Paragraph() {
 	f := New(11)
 	fmt.Println(f.Paragraph(3, 5, 12, "\n"))
-	// Output: Park context record river college purchase appreciate should compare like preserve deal. Combine approach sustain north session explanation race deputy church view efficiency fix. While own act fight roof care god bath link place form specialist. Period sign awareness spread force remember hair wonder provide link right specialist. Cabinet mark teacher gas information attempt flat representation staff iron lift take.
-	// Handle food begin look speech trust accept visit go consider chancellor accident. Race intention function sugar exclude person confirm enjoy criticism ring attitude crisis. Complete appear prevent cast mill stop father invite live border aim row. West heart communicate advance compete equipment remain demand report life model cabinet. Chapter use variety realise argue air influence assistance succeed cross artist suffer.
-	// Hide forest insist knowledge thatcher executive fashion knock sign proportion expect implement. Work crown restaurant victim material map follow climb attack answer plan order. Place explore telephone operate like display star teach compete weather recommend raise. Democracy college dance recall struggle use cut intention aircraft period generation variety. Benefit defend inquiry conclude justify result depend driver address owner conversation potential.
+	// Output: Yesterday next worrisome she one must as woman niche our eye paint. Money throughout hair neither journey yet theirs e.g. of calm i.e. her. Tonight busy loosely theirs could delay that some forest not to theirs. Casino our then straightaway herself no cluster herself insufficient us give silly. By below by quarterly his behind enchanted help may that next anybody.
+	// Several page gossip necklace am nobody bored accordingly they should can these. Microscope being to reluctantly thing sometimes oxygen than above daily mine a. Brace hug smell vivaciously annually had besides accordingly there these speed lot. Woman loneliness elsewhere park finally wad at most wad conclude thoughtfully stupid. Over one quarterly it growth their is tonight has super terribly now.
+	// He recently which troop Bangladeshi ourselves behind youth summation Darwinian being what. Then when this why their stealthily here theirs lot was without crawl. Mine why finally yours how think should as as great annually none. Sammarinese where very bouquet Danish hair ears in no with eye other. Early Swiss buy mob religion later you tonight occasionally in class here.
 }
 
 func TestParagraph(t *testing.T) {
