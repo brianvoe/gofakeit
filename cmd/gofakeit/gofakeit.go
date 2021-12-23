@@ -12,15 +12,29 @@ import (
 var noFuncRunMsg = "Could not find function to run\nRun gofakeit help or gofakeit list for available functions"
 
 func main() {
-	faker := gofakeit.New(0)
-
 	args := os.Args[1:]
+
+	// Loop through args and remove any that begin with - as an indicator of flags
+	cleanArgs := []string{}
+	for i := 0; i < len(args); i++ {
+		if !strings.HasPrefix(args[i], "-") {
+			cleanArgs = append(cleanArgs, args[i])
+		}
+	}
+	args = cleanArgs
+
+	out := mainFunc(0, args)
+	fmt.Printf("%s", out)
+}
+
+func mainFunc(seed int64, args []string) string {
+	faker := gofakeit.New(seed)
+
 	argsLen := len(args)
 
 	// Make sure they passed first argument for function call
 	if argsLen < 1 {
-		fmt.Println(noFuncRunMsg)
-		return
+		return noFuncRunMsg
 	}
 
 	// Get function name
@@ -28,16 +42,19 @@ func main() {
 
 	// If function is help, give some information
 	if function == "help" {
-		fmt.Println("NAME")
-		fmt.Println("    gofakeit -- command line random data generator")
-		fmt.Println()
-		fmt.Println("SYNOPSIS")
-		fmt.Println("    gofakeit list")
-		fmt.Println("    gofakeit [function] [parameters...]")
-		fmt.Println()
-		fmt.Println("DESCRIPTION")
-		fmt.Println("    gofakeit is a set of functions that allow you to generate random data.")
-		return
+		// string builder
+		var sb strings.Builder
+		sb.WriteString("NAME\n")
+		sb.WriteString("    gofakeit - Go fake data generator\n")
+		sb.WriteString("\n")
+		sb.WriteString("SYNOPSIS\n")
+		sb.WriteString("    gofakeit list\n")
+		sb.WriteString("    gofakeit list [category]\n")
+		sb.WriteString("    gofakeit [function] [args]\n")
+		sb.WriteString("\n")
+		sb.WriteString("DESCRIPTION\n")
+		sb.WriteString("    gofakeit is a set of functions that allow you to generate random data.\n")
+		return sb.String()
 	}
 
 	// If function is list output list
@@ -46,15 +63,19 @@ func main() {
 		if argsLen >= 2 {
 			selectedCat = args[1]
 		}
-		listOutput(selectedCat)
-		return
+
+		selectedFunc := ""
+		if argsLen >= 3 {
+			selectedFunc = args[2]
+		}
+
+		return listOutput(selectedCat, selectedFunc)
 	}
 
 	// Lookup fake data method
 	info := gofakeit.GetFuncLookup(function)
 	if info == nil {
-		fmt.Println(noFuncRunMsg)
-		return
+		return noFuncRunMsg
 	}
 
 	// Set function and params
@@ -83,14 +104,19 @@ func main() {
 
 	value, err := info.Generate(faker.Rand, params, info)
 	if err != nil {
-		fmt.Println(err.Error())
-		return
+		return err.Error()
 	}
 
-	fmt.Println(fmt.Sprintf("%v", value))
+	return fmt.Sprintf("%v", value)
 }
 
-func listOutput(selectedCategory string) {
+func listOutput(selectedCategory string, selectedFunction string) string {
+	// Determine space or no space
+	functionSpace := ""
+	if selectedCategory == "" {
+		functionSpace = "    "
+	}
+
 	stringInSlice := func(a string, list []string) bool {
 		for _, b := range list {
 			if b == a {
@@ -116,30 +142,61 @@ func listOutput(selectedCategory string) {
 	// Sort categories
 	sort.Strings(categories)
 
+	// Put together an array or strings
+	outArray := []string{}
+
 	for i := 0; i < len(categories); i++ {
-		fmt.Println(categories[i])
+		// Write category only if category and function are not set
+		if selectedCategory == "" && selectedFunction == "" {
+			outArray = append(outArray, categories[i])
+		}
 
+		// Get all functions for category
 		funcNames := []string{}
-
-		// Get all in category
 		for fName, l := range gofakeit.FuncLookups {
 			if categories[i] == l.Category && !stringInSlice(fName, funcNames) {
 				funcNames = append(funcNames, fName)
 			}
 		}
 
-		// Sort categories
+		// Sort function names
 		sort.Strings(funcNames)
 
 		// Output func info
 		for _, fName := range funcNames {
+			// If selected function is set only grab that function
+			if selectedFunction != "" && selectedFunction != fName {
+				continue
+			}
+
+			// Get function info
 			info := gofakeit.GetFuncLookup(fName)
-			fmt.Println("    " + fName + " - " + info.Description)
+			outArray = append(outArray, fmt.Sprintf("%s%s - %s", functionSpace, fName, info.Description))
 			for _, p := range info.Params {
-				fmt.Println("        Field Name: " + p.Field + " Type: " + p.Type + " Default: " + p.Default + " - " + p.Description)
+				// Build string for param using string builder
+				var sb strings.Builder
+				sb.WriteString(functionSpace)
+				sb.WriteString("    ") // Add space for param
+				sb.WriteString(fmt.Sprintf("Name: %s", p.Field))
+				sb.WriteString(fmt.Sprintf(" Type: %s", p.Type))
+				sb.WriteString(fmt.Sprintf(" Default: %s", p.Default))
+				sb.WriteString(fmt.Sprintf(" Description: %s", p.Description))
+				outArray = append(outArray, sb.String())
 			}
 		}
-
-		fmt.Println()
 	}
+
+	// Loop through array and write to string builder
+	var sb strings.Builder
+	for i, s := range outArray {
+		sb.WriteString(s)
+
+		// Only add new line if not last item
+		if i != len(outArray)-1 {
+			sb.WriteString("\n")
+		}
+	}
+
+	// Return the built string
+	return sb.String()
 }
