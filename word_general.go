@@ -23,3 +23,16 @@ func word(r *rand.Rand) string {
 
 	return word
 }
+
+func addWordGeneralLookup() {
+	AddFuncLookup("word", Info{
+		Display:     "Word",
+		Category:    "word",
+		Description: "Random word",
+		Example:     "man",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return word(r), nil
+		},
+	})
+}
