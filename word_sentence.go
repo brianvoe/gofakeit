@@ -120,14 +120,6 @@ func quote(r *rand.Rand) string {
 	return `"` + hipsterSentence(r, number(r, 3, 10)) + `" - ` + firstName(r) + " " + lastName(r)
 }
 
-// Phrase will return a random dictionary phrase
-func Phrase() string { return phrase(globalFaker.Rand) }
-
-// Phrase will return a random dictionary phrase
-func (f *Faker) Phrase() string { return phrase(f.Rand) }
-
-func phrase(r *rand.Rand) string { return getRandValue(r, []string{"sentence", "phrase"}) }
-
 func addWordSentenceLookup() {
 	AddFuncLookup("sentence", Info{
 		Display:     "Sentence",
@@ -216,17 +208,6 @@ func addWordSentenceLookup() {
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return quote(r), nil
-		},
-	})
-
-	AddFuncLookup("phrase", Info{
-		Display:     "Phrase",
-		Category:    "word",
-		Description: "Random phrase",
-		Example:     "time will tell",
-		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
-			return phrase(r), nil
 		},
 	})
 }
