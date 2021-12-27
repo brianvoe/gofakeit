@@ -41,6 +41,42 @@ func BenchmarkVerbAction(b *testing.B) {
 	}
 }
 
+func ExampleVerbTransitive() {
+	Seed(11)
+	fmt.Println(VerbTransitive())
+	// Output: follow
+}
+
+func ExampleFaker_VerbTransitive() {
+	f := New(11)
+	fmt.Println(f.VerbTransitive())
+	// Output: follow
+}
+
+func BenchmarkVerbTransitive(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		VerbTransitive()
+	}
+}
+
+func ExampleVerbIntransitive() {
+	Seed(11)
+	fmt.Println(VerbIntransitive())
+	// Output: laugh
+}
+
+func ExampleFaker_VerbIntransitive() {
+	f := New(11)
+	fmt.Println(f.VerbIntransitive())
+	// Output: laugh
+}
+
+func BenchmarkVerbIntransitive(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		VerbIntransitive()
+	}
+}
+
 func ExampleVerbLinking() {
 	Seed(11)
 	fmt.Println(VerbLinking())

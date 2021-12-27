@@ -25,6 +25,24 @@ func (f *Faker) VerbAction() string { return verbAction(f.Rand) }
 
 func verbAction(r *rand.Rand) string { return getRandValue(r, []string{"word", "verb_action"}) }
 
+// VerbTransitive will generate a random transitive verb
+func VerbTransitive() string { return verbTransitive(globalFaker.Rand) }
+
+// VerbTransitive will generate a random transitive verb
+func (f *Faker) VerbTransitive() string { return verbTransitive(f.Rand) }
+
+func verbTransitive(r *rand.Rand) string { return getRandValue(r, []string{"word", "verb_transitive"}) }
+
+// VerbIntransitive will generate a random intransitive verb
+func VerbIntransitive() string { return verbIntransitive(globalFaker.Rand) }
+
+// VerbIntransitive will generate a random intransitive verb
+func (f *Faker) VerbIntransitive() string { return verbIntransitive(f.Rand) }
+
+func verbIntransitive(r *rand.Rand) string {
+	return getRandValue(r, []string{"word", "verb_intransitive"})
+}
+
 // VerbLinking will generate a random linking verb
 func VerbLinking() string { return verbLinking(globalFaker.Rand) }
 
@@ -61,6 +79,28 @@ func addWordVerbLookup() {
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return verbAction(r), nil
+		},
+	})
+
+	AddFuncLookup("verbtransitive", Info{
+		Display:     "Transitive Verb",
+		Category:    "word",
+		Description: "Random transitive verb",
+		Example:     "follow",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return verbTransitive(r), nil
+		},
+	})
+
+	AddFuncLookup("verbintransitive", Info{
+		Display:     "Intransitive Verb",
+		Category:    "word",
+		Description: "Random intransitive verb",
+		Example:     "laugh",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return verbIntransitive(r), nil
 		},
 	})
 
