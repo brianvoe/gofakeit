@@ -9,13 +9,13 @@ import (
 func ExampleSentence() {
 	Seed(11)
 	fmt.Println(Sentence(5))
-	// Output: Yesterday next worrisome she one.
+	// Output: There had result everything niche.
 }
 
 func ExampleFaker_Sentence() {
 	f := New(11)
 	fmt.Println(f.Sentence(5))
-	// Output: Yesterday next worrisome she one.
+	// Output: There had result everything niche.
 }
 
 func TestSentence(t *testing.T) {
@@ -42,17 +42,17 @@ func BenchmarkSentence(b *testing.B) {
 func ExampleParagraph() {
 	Seed(11)
 	fmt.Println(Paragraph(3, 5, 12, "\n"))
-	// Output: Yesterday next worrisome she one must as woman niche our eye paint. Money throughout hair neither journey yet theirs e.g. of calm i.e. her. Tonight busy loosely theirs could delay that some forest not to theirs. Casino our then straightaway herself no cluster herself insufficient us give silly. By below by quarterly his behind enchanted help may that next anybody.
-	// Several page gossip necklace am nobody bored accordingly they should can these. Microscope being to reluctantly thing sometimes oxygen than above daily mine a. Brace hug smell vivaciously annually had besides accordingly there these speed lot. Woman loneliness elsewhere park finally wad at most wad conclude thoughtfully stupid. Over one quarterly it growth their is tonight has super terribly now.
-	// He recently which troop Bangladeshi ourselves behind youth summation Darwinian being what. Then when this why their stealthily here theirs lot was without crawl. Mine why finally yours how think should as as great annually none. Sammarinese where very bouquet Danish hair ears in no with eye other. Early Swiss buy mob religion later you tonight occasionally in class here.
+	// Output: There had result everything niche backwards caused quarterly without week it hungry. Thing someone him regularly today whomever this revolt hence from his timing. As quantity us these yours live these frantic not may another how. This ours his them those whose them batch its Iraqi most that. Few abroad cheese this whereas next how there gorgeous genetics time choir.
+	// Fiction therefore yourselves am those infrequently heap software quarterly rather punctuation yellow. Where several his orchard to frequently hence victorious boxers each does auspicious. Yourselves first soup tomorrow this that must conclude anyway some yearly who. Cough laugh himself both yet rarely me dolphin intensely block would leap. Plane us first then down them eager would hundred super throughout animal.
+	// Yet themselves been group flock shake part purchase up usually it her. None it hers boat what their there Turkmen moreover one Lebanese to. Brace these shower in it everybody should whatever those uninterested several nobody. Yours thankful innocent power to any from its few luxury none boy. Religion themselves it there might must near theirs mine thing tonight outside.
 }
 
 func ExampleFaker_Paragraph() {
 	f := New(11)
 	fmt.Println(f.Paragraph(3, 5, 12, "\n"))
-	// Output: Yesterday next worrisome she one must as woman niche our eye paint. Money throughout hair neither journey yet theirs e.g. of calm i.e. her. Tonight busy loosely theirs could delay that some forest not to theirs. Casino our then straightaway herself no cluster herself insufficient us give silly. By below by quarterly his behind enchanted help may that next anybody.
-	// Several page gossip necklace am nobody bored accordingly they should can these. Microscope being to reluctantly thing sometimes oxygen than above daily mine a. Brace hug smell vivaciously annually had besides accordingly there these speed lot. Woman loneliness elsewhere park finally wad at most wad conclude thoughtfully stupid. Over one quarterly it growth their is tonight has super terribly now.
-	// He recently which troop Bangladeshi ourselves behind youth summation Darwinian being what. Then when this why their stealthily here theirs lot was without crawl. Mine why finally yours how think should as as great annually none. Sammarinese where very bouquet Danish hair ears in no with eye other. Early Swiss buy mob religion later you tonight occasionally in class here.
+	// Output: There had result everything niche backwards caused quarterly without week it hungry. Thing someone him regularly today whomever this revolt hence from his timing. As quantity us these yours live these frantic not may another how. This ours his them those whose them batch its Iraqi most that. Few abroad cheese this whereas next how there gorgeous genetics time choir.
+	// Fiction therefore yourselves am those infrequently heap software quarterly rather punctuation yellow. Where several his orchard to frequently hence victorious boxers each does auspicious. Yourselves first soup tomorrow this that must conclude anyway some yearly who. Cough laugh himself both yet rarely me dolphin intensely block would leap. Plane us first then down them eager would hundred super throughout animal.
+	// Yet themselves been group flock shake part purchase up usually it her. None it hers boat what their there Turkmen moreover one Lebanese to. Brace these shower in it everybody should whatever those uninterested several nobody. Yours thankful innocent power to any from its few luxury none boy. Religion themselves it there might must near theirs mine thing tonight outside.
 }
 
 func TestParagraph(t *testing.T) {

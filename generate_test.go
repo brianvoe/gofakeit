@@ -48,7 +48,7 @@ func ExampleGenerate() {
 	fmt.Println(Generate("{number:1,50}"))
 	fmt.Println(Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}"))
 	// Output: Markus Moen ssn is 526643139 and lives at 599 Dale ton
-	// It must as.
+	// Niche backwards caused.
 	// [1 3 2]
 	// 27
 	// [a:b key:value int:string 1:2]
@@ -63,7 +63,7 @@ func ExampleFaker_Generate() {
 	fmt.Println(f.Generate("{number:1,50}"))
 	fmt.Println(f.Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}"))
 	// Output: Markus Moen ssn is 526643139 and lives at 599 Dale ton
-	// It must as.
+	// Niche backwards caused.
 	// [1 3 2]
 	// 27
 	// [a:b key:value int:string 1:2]
@@ -275,13 +275,13 @@ func BenchmarkRegexEmail(b *testing.B) {
 func ExampleMap() {
 	Seed(11)
 	fmt.Println(Map())
-	// Output: map[I:map[one:green] dive:1776.1494 next:6789316 niche:[must paint enough hair Italian yet] themselves:780528 tonight:2272 North Fords furt, Houston, Mississippi 45294]
+	// Output: map[contrast:Associate gauva:map[jump:scale] generally:8504801 him:[them whomever ours hence here his] its:8335564 table:map[did:[these delay these]] therefore:map[nearly:784141.8] thing:map[everything:[where caused why week hourly]]]
 }
 
 func ExampleFaker_Map() {
 	f := New(11)
 	fmt.Println(f.Map())
-	// Output: map[I:map[one:green] dive:1776.1494 next:6789316 niche:[must paint enough hair Italian yet] themselves:780528 tonight:2272 North Fords furt, Houston, Mississippi 45294]
+	// Output: map[contrast:Associate gauva:map[jump:scale] generally:8504801 him:[them whomever ours hence here his] its:8335564 table:map[did:[these delay these]] therefore:map[nearly:784141.8] thing:map[everything:[where caused why week hourly]]]
 }
 
 func TestMap(t *testing.T) {

@@ -8,13 +8,13 @@ import (
 func ExampleWord() {
 	Seed(11)
 	fmt.Println(Word())
-	// Output: yesterday
+	// Output: there
 }
 
 func ExampleFaker_Word() {
 	f := New(11)
 	fmt.Println(f.Word())
-	// Output: yesterday
+	// Output: there
 }
 
 func BenchmarkWord(b *testing.B) {
