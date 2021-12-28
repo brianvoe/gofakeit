@@ -5,8 +5,6 @@ import (
 	"unicode"
 )
 
-// simple, compound, complex, and compound-complex
-
 // SentenceSimple will generate a random simple sentence
 func SentenceSimple() string { return sentenceSimple(globalFaker.Rand) }
 
