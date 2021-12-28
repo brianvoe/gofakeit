@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"sort"
+	"strconv"
 	"strings"
 
 	"github.com/brianvoe/gofakeit/v6"
@@ -12,22 +13,38 @@ import (
 var noFuncRunMsg = "Could not find function to run\nRun gofakeit help or gofakeit list for available functions"
 
 func main() {
+	var loop int = 1
 	args := os.Args[1:]
 
 	// Loop through args and remove any that begin with - as an indicator of flags
 	cleanArgs := []string{}
 	for i := 0; i < len(args); i++ {
+		// If loop flag is set, set loop
+		if strings.Contains(args[i], "-loop") {
+			// Split on =
+			split := strings.Split(args[i], "=")
+
+			// convert string to int
+			var err error
+			loop, err = strconv.Atoi(split[1])
+			if err != nil {
+				fmt.Println("Error converting loop flag to int")
+				os.Exit(1)
+			}
+		}
+
+		// remove anything with a -
 		if !strings.HasPrefix(args[i], "-") {
 			cleanArgs = append(cleanArgs, args[i])
 		}
 	}
 	args = cleanArgs
 
-	out := mainFunc(0, args)
+	out := mainFunc(0, args, loop)
 	fmt.Printf("%s", out)
 }
 
-func mainFunc(seed int64, args []string) string {
+func mainFunc(seed int64, args []string, loop int) string {
 	faker := gofakeit.New(seed)
 
 	argsLen := len(args)
@@ -51,6 +68,7 @@ func mainFunc(seed int64, args []string) string {
 		sb.WriteString("    gofakeit list\n")
 		sb.WriteString("    gofakeit list [category]\n")
 		sb.WriteString("    gofakeit [function] [args]\n")
+		sb.WriteString("    gofakeit [function] -loop=5\n")
 		sb.WriteString("\n")
 		sb.WriteString("DESCRIPTION\n")
 		sb.WriteString("    gofakeit is a set of functions that allow you to generate random data.\n")
@@ -72,10 +90,24 @@ func mainFunc(seed int64, args []string) string {
 		return listOutput(selectedCat, selectedFunc)
 	}
 
+	// Loop through loop and append to output and join on \n
+	sa := []string{}
+	for i := 0; i < loop; i++ {
+		sa = append(sa, runFunction(faker, function, args))
+	}
+
+	return strings.Join(sa, "\n")
+}
+
+func runFunction(faker *gofakeit.Faker, function string, args []string) string {
+	argsLen := len(args)
+
 	// Lookup fake data method
 	info := gofakeit.GetFuncLookup(function)
 	if info == nil {
-		return noFuncRunMsg
+		fmt.Println(noFuncRunMsg)
+		os.Exit(1)
+		return ""
 	}
 
 	// Set function and params
