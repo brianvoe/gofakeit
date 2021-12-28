@@ -63,6 +63,7 @@ func initLookup() {
 	addWordConnectiveLookup()
 	addWordPhraseLookup()
 	addWordSentenceLookup()
+	addWordGrammerLookup()
 	addLoremLookup()
 	addGenerateLookup()
 	addMiscLookup()

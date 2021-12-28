@@ -22,3 +22,16 @@ func sentenceSimple(r *rand.Rand) string {
 	strR[0] = unicode.ToUpper(strR[0])
 	return string(strR)
 }
+
+func addWordGrammerLookup() {
+	AddFuncLookup("sentencesimple", Info{
+		Display:     "Simple Sentence",
+		Category:    "word",
+		Description: "Random simple sentence",
+		Example:     "A tribe fly the lemony kitchen.",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return sentenceSimple(r), nil
+		},
+	})
+}
