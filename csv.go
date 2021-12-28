@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	rand "math/rand"
+	"math/rand"
 	"strings"
 )
 

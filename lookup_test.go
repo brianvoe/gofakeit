@@ -2,7 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
-	rand "math/rand"
+	"math/rand"
 	"strings"
 	"testing"
 )

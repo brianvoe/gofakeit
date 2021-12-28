@@ -1,6 +1,6 @@
 package gofakeit
 
-import rand "math/rand"
+import "math/rand"
 
 // Preposition will generate a random preposition
 func Preposition() string { return preposition(globalFaker.Rand) }

@@ -3,7 +3,7 @@ package gofakeit
 import (
 	crand "crypto/rand"
 	"encoding/binary"
-	rand "math/rand"
+	"math/rand"
 	"sync"
 )
 
