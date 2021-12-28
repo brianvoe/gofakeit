@@ -188,13 +188,13 @@ func BenchmarkBeerMalt(b *testing.B) {
 func ExampleBeerIbu() {
 	Seed(11)
 	fmt.Println(BeerIbu())
-	// Output: 29 IBU
+	// Output: 47 IBU
 }
 
 func ExampleFaker_BeerIbu() {
 	f := New(11)
 	fmt.Println(f.BeerIbu())
-	// Output: 29 IBU
+	// Output: 47 IBU
 }
 
 func BenchmarkBeerIbu(b *testing.B) {

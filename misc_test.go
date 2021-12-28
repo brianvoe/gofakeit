@@ -12,13 +12,13 @@ import (
 func ExampleBool() {
 	Seed(11)
 	fmt.Println(Bool())
-	// Output: false
+	// Output: true
 }
 
 func ExampleFaker_Bool() {
 	f := New(11)
 	fmt.Println(f.Bool())
-	// Output: false
+	// Output: true
 }
 
 func BenchmarkBool(b *testing.B) {
@@ -179,13 +179,13 @@ func BenchmarkShuffleAnySlice(b *testing.B) {
 func ExampleFlipACoin() {
 	Seed(11)
 	fmt.Println(FlipACoin())
-	// Output: Tails
+	// Output: Heads
 }
 
 func ExampleFaker_FlipACoin() {
 	f := New(11)
 	fmt.Println(f.FlipACoin())
-	// Output: Tails
+	// Output: Heads
 }
 
 func TestFlipACoin(t *testing.T) {
@@ -216,6 +216,35 @@ func BenchmarkFlipACoin(b *testing.B) {
 			f.FlipACoin()
 		}
 	})
+}
+
+func TestRandomMapKey(t *testing.T) {
+	mStr := map[string]int{
+		"a": 1,
+		"b": 2,
+		"c": 3,
+	}
+
+	for i := 0; i < 100; i++ {
+		key := RandomMapKey(mStr)
+		if _, ok := mStr[key.(string)]; !ok {
+			t.Errorf("key %s not found in map", key)
+		}
+	}
+
+	mInt := map[int]string{
+		1: "a",
+		2: "b",
+		3: "c",
+	}
+
+	for i := 0; i < 100; i++ {
+		f := New(11)
+		key := f.RandomMapKey(mInt)
+		if _, ok := mInt[key.(int)]; !ok {
+			t.Errorf("key %d not found in map", key)
+		}
+	}
 }
 
 func TestCategories(t *testing.T) {

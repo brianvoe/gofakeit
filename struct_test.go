@@ -101,15 +101,15 @@ func ExampleStruct() {
 	fmt.Printf("%v\n", f.Map)
 	fmt.Printf("%+v\n", f.Bar)
 
-	// Output: bRMaRxHki
-	// -8576773003117070818
-	// -7054675846543980602
-	// Enrique
-	// 4
+	// Output: bRMaRx
+	// -605057214
+	// 1412367049
+	// Andre
+	// 1
 	// <nil>
-	// [pWYJ nSMKg]
-	// map[PxLIo:QqanPAKaXS lxwnqhqc:aYkWwfoRL]
-	// {Name:QFpZ Number:-2882647639396178786 Float:1.7636692e+37}
+	// [PtapWYJdn MKgtlxwnq]
+	// map[qanPAKaXS:QFpZysVaHG qclaYkWw:oRLOPxLIok]
+	// {Name:yvqqdH Number:-356428491 Float:2.8838284e+38}
 }
 
 func ExampleFaker_Struct() {
@@ -146,15 +146,15 @@ func ExampleFaker_Struct() {
 	fmt.Printf("%v\n", f.Map)
 	fmt.Printf("%+v\n", f.Bar)
 
-	// Output: bRMaRxHki
-	// -8576773003117070818
-	// -7054675846543980602
-	// Enrique
-	// 4
+	// Output: bRMaRx
+	// -605057214
+	// 1412367049
+	// Andre
+	// 1
 	// <nil>
-	// [pWYJ nSMKg]
-	// map[PxLIo:QqanPAKaXS lxwnqhqc:aYkWwfoRL]
-	// {Name:QFpZ Number:-2882647639396178786 Float:1.7636692e+37}
+	// [PtapWYJdn MKgtlxwnq]
+	// map[qanPAKaXS:QFpZysVaHG qclaYkWw:oRLOPxLIok]
+	// {Name:yvqqdH Number:-356428491 Float:2.8838284e+38}
 }
 
 func ExampleStruct_array() {
@@ -180,8 +180,8 @@ func ExampleStruct_array() {
 	fmt.Printf("%v\n", fm.Names)
 
 	// Output:
-	// [{bRMaRxHki -8576773003117070818 Carole 6 <nil>}]
-	// [Dawn Zachery Amie]
+	// [{bRMaRx -605057214 Paolo 4 <nil>}]
+	// [Santino Carole Enrique]
 }
 
 func ExampleFaker_Struct_array() {
@@ -207,8 +207,8 @@ func ExampleFaker_Struct_array() {
 	fmt.Printf("%v\n", fm.Names)
 
 	// Output:
-	// [{bRMaRxHki -8576773003117070818 Carole 6 <nil>}]
-	// [Dawn Zachery Amie]
+	// [{bRMaRx -605057214 Paolo 4 <nil>}]
+	// [Santino Carole Enrique]
 }
 
 func TestStructBasic(t *testing.T) {
@@ -482,23 +482,34 @@ func TestStructToBool(t *testing.T) {
 		BoolGenerate bool `fake:"{bool}"`
 	}
 	Struct(&sf)
-	if sf.Bool == true {
-		t.Error("Bool should be true got false")
+	if sf.Bool == false {
+		t.Error("Bool should be false got true")
 	}
 	if sf.BoolConst != true {
 		t.Errorf("BoolConst should be true got false")
 	}
-	if sf.BoolGenerate != true {
-		t.Errorf("BoolGenerate should be true got false")
+	if sf.BoolGenerate != false {
+		t.Errorf("BoolGenerate should be false got true")
 	}
 }
 
 func TestStructToDateTime(t *testing.T) {
 	Seed(11)
 
+	AddFuncLookup("datetimestatic", Info{
+		Description: "A static date time",
+		Example:     "2021-11-26 15:22:00",
+		Output:      "time.Time",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			// Create new static date time
+			return time.Date(2021, 11, 26, 15, 22, 0, 0, time.UTC), nil
+		},
+	})
+
 	var datetime struct {
 		Simple        time.Time
 		Tag           time.Time `fake:"{date}"`
+		TagCustom     time.Time `fake:"{datetimestatic}"`
 		TagFormat     time.Time `fake:"{number:1900,1950}-12-05" format:"2006-01-02"`
 		TagJavaFormat time.Time `fake:"{number:1900,1950}-12-05" format:"yyyy-MM-dd"`
 		Range         time.Time `fake:"{daterange:1970-01-01,2000-12-31,2006-01-02}" format:"yyyy-MM-dd"`
@@ -508,21 +519,26 @@ func TestStructToDateTime(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if datetime.Simple.String() != "1908-12-07 04:14:25.685339029 +0000 UTC" {
-		t.Errorf("Simple should be 1908-12-07 04:14:25.685339029 +0000 UTC and instead got %s", datetime.Simple.String())
+	if datetime.Simple.String() != "1991-01-24 13:00:35.820738079 +0000 UTC" {
+		t.Errorf("Simple should be 1991-01-24 13:00:35.820738079 +0000 UTC and instead got %s", datetime.Simple.String())
 	}
-	if datetime.Tag.String() != "1979-05-21 05:49:35 +0000 UTC" {
-		t.Errorf("Tag should be 1979-05-21 05:49:35 +0000 UTC and instead got %s", datetime.Tag.String())
+	if datetime.Tag.String() != "1904-02-10 22:06:24 +0000 UTC" {
+		t.Errorf("Tag should be 1904-02-10 22:06:24 +0000 UTC and instead got %s", datetime.Tag.String())
 	}
-	if datetime.TagFormat.String() != "1943-12-05 00:00:00 +0000 UTC" {
-		t.Errorf("TagFormat should be 1943-12-05 00:00:00 +0000 UTC and instead got %s", datetime.TagFormat.String())
+	if datetime.TagCustom.String() != "2021-11-26 15:22:00 +0000 UTC" {
+		t.Errorf("TagCustom should be 2021-11-26 15:22:00 +0000 UTC and instead got %s", datetime.TagCustom.String())
 	}
-	if datetime.TagJavaFormat.String() != "1917-12-05 00:00:00 +0000 UTC" {
-		t.Errorf("TagJavaFormat should be 1917-12-05 00:00:00 +0000 UTC and instead got %s", datetime.TagJavaFormat.String())
+	if datetime.TagFormat.String() != "1945-12-05 00:00:00 +0000 UTC" {
+		t.Errorf("TagFormat should be 1945-12-05 00:00:00 +0000 UTC and instead got %s", datetime.TagFormat.String())
+	}
+	if datetime.TagJavaFormat.String() != "1929-12-05 00:00:00 +0000 UTC" {
+		t.Errorf("TagJavaFormat should be 1929-12-05 00:00:00 +0000 UTC and instead got %s", datetime.TagJavaFormat.String())
 	}
 	if datetime.Range.String() != "1998-10-27 00:00:00 +0000 UTC" {
 		t.Errorf("Range should be 1998-10-27 00:00:00 +0000 UTC and instead got %s", datetime.Range.String())
 	}
+
+	RemoveFuncLookup("datetimestatic")
 }
 
 func TestStructSetSubStruct(t *testing.T) {

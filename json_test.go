@@ -28,16 +28,16 @@ func ExampleJSON_object() {
 	//     "first_name": "Markus",
 	//     "last_name": "Moen",
 	//     "address": {
-	//         "address": "4599 Dale ton, Lake Carroll, Mississippi 90635",
+	//         "address": "4599 Dale ton, Norfolk, New Jersey 36906",
 	//         "street": "4599 Dale ton",
-	//         "city": "Lake Carroll",
-	//         "state": "Mississippi",
-	//         "zip": "90635",
-	//         "country": "Rwanda",
-	//         "latitude": 22.008873,
-	//         "longitude": 158.531956
+	//         "city": "Norfolk",
+	//         "state": "New Jersey",
+	//         "zip": "36906",
+	//         "country": "Tokelau",
+	//         "latitude": 23.058758,
+	//         "longitude": 89.022594
 	//     },
-	//     "password": "YjJbXclnVN0H"
+	//     "password": "qjXy56JHcVlZ"
 	// }
 }
 
@@ -64,16 +64,16 @@ func ExampleFaker_JSON_object() {
 	//     "first_name": "Markus",
 	//     "last_name": "Moen",
 	//     "address": {
-	//         "address": "4599 Dale ton, Lake Carroll, Mississippi 90635",
+	//         "address": "4599 Dale ton, Norfolk, New Jersey 36906",
 	//         "street": "4599 Dale ton",
-	//         "city": "Lake Carroll",
-	//         "state": "Mississippi",
-	//         "zip": "90635",
-	//         "country": "Rwanda",
-	//         "latitude": 22.008873,
-	//         "longitude": 158.531956
+	//         "city": "Norfolk",
+	//         "state": "New Jersey",
+	//         "zip": "36906",
+	//         "country": "Tokelau",
+	//         "latitude": 23.058758,
+	//         "longitude": 89.022594
 	//     },
-	//     "password": "YjJbXclnVN0H"
+	//     "password": "qjXy56JHcVlZ"
 	// }
 }
 

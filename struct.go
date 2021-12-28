@@ -153,7 +153,7 @@ func rPointer(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size i
 func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) error {
 	// If you cant even set it dont even try
 	if !v.CanSet() {
-		return errors.New("Cannot set slice")
+		return errors.New("cannot set slice")
 	}
 
 	// Grab original size to use if needed for sub arrays
@@ -193,7 +193,7 @@ func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int
 func rMap(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) error {
 	// If you cant even set it dont even try
 	if !v.CanSet() {
-		return errors.New("Cannot set slice")
+		return errors.New("cannot set slice")
 	}
 
 	if tag != "" {
@@ -379,21 +379,31 @@ func rBool(ra *rand.Rand, v reflect.Value, tag string) error {
 // rTime will set a time.Time field the best it can from either the default date tag or from the generate tag
 func rTime(ra *rand.Rand, t reflect.StructField, v reflect.Value, tag string) error {
 	if tag != "" {
-		timeFormat, timeFormatOK := t.Tag.Lookup("format")
-		if !timeFormatOK {
-			timeFormat = time.RFC3339
-		}
-
-		timeFormat = javaDateFormatToGolangDateFormat(timeFormat)
-
 		// Generate time
 		timeOutput := generate(ra, tag)
 
+		// Check to see if they are passing in a format	to parse the time
+		timeFormat, timeFormatOK := t.Tag.Lookup("format")
+		if timeFormatOK {
+			timeFormat = javaDateFormatToGolangDateFormat(timeFormat)
+		} else {
+			// If tag == "{date}" use time.RFC3339
+			// They are attempting to use the default date lookup
+			if tag == "{date}" {
+				timeFormat = time.RFC3339
+			} else {
+				// Default format of time.Now().String()
+				timeFormat = "2006-01-02 15:04:05.999999999 -0700 MST"
+			}
+		}
+
 		// If output is larger than format cut the output
+		// This helps us avoid errors from time.Parse
 		if len(timeOutput) > len(timeFormat) {
 			timeOutput = timeOutput[:len(timeFormat)]
 		}
 
+		// Attempt to parse the time
 		timeStruct, err := time.Parse(timeFormat, timeOutput)
 		if err != nil {
 			return err

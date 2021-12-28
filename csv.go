@@ -105,8 +105,8 @@ func addFileCSVLookup() {
 		`,
 		Output: "[]byte",
 		Params: []Param{
-			{Field: "rowcount", Display: "Row Count", Type: "int", Default: "100", Description: "Number of rows in JSON array"},
-			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function to run in json format"},
+			{Field: "rowcount", Display: "Row Count", Type: "int", Default: "100", Description: "Number of rows"},
+			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function"},
 			{Field: "delimiter", Display: "Delimiter", Type: "string", Default: ",", Description: "Separator in between row values"},
 		},
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {

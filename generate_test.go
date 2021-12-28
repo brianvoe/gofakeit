@@ -47,10 +47,10 @@ func ExampleGenerate() {
 	fmt.Println(Generate("{shuffleints:[1,2,3]}"))
 	fmt.Println(Generate("{number:1,50}"))
 	fmt.Println(Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}"))
-	// Output: Markus Moen ssn is 952284213 and lives at 599 New Cliffs stad
-	// Arrival tour security.
+	// Output: Markus Moen ssn is 526643139 and lives at 599 Dale ton
+	// Niche backwards caused.
 	// [1 3 2]
-	// 34
+	// 27
 	// [a:b key:value int:string 1:2]
 }
 
@@ -62,10 +62,10 @@ func ExampleFaker_Generate() {
 	fmt.Println(f.Generate("{shuffleints:[1,2,3]}"))
 	fmt.Println(f.Generate("{number:1,50}"))
 	fmt.Println(f.Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}"))
-	// Output: Markus Moen ssn is 952284213 and lives at 599 New Cliffs stad
-	// Arrival tour security.
+	// Output: Markus Moen ssn is 526643139 and lives at 599 Dale ton
+	// Niche backwards caused.
 	// [1 3 2]
-	// 34
+	// 27
 	// [a:b key:value int:string 1:2]
 }
 
@@ -108,8 +108,8 @@ func ExampleRegex() {
 	fmt.Println(Regex(`^[a-z]{5,10}@[a-z]{5,10}\.(com|net|org)$`))
 	// Output: affec
 	// RXHKI
-	// up
-	// ptapwy@dnsmkgtl.com
+	// world
+	// tapwyjdnsm@gtlxw.net
 }
 
 func ExampleFaker_Regex() {
@@ -121,8 +121,8 @@ func ExampleFaker_Regex() {
 	fmt.Println(f.Regex(`^[a-z]{5,10}@[a-z]{5,10}\.(com|net|org)$`))
 	// Output: affec
 	// RXHKI
-	// up
-	// ptapwy@dnsmkgtl.com
+	// world
+	// tapwyjdnsm@gtlxw.net
 }
 
 var regexes = []struct{ test string }{
@@ -183,44 +183,44 @@ func TestRegex_Struct(t *testing.T) {
 	rg := Reggy{}
 	Struct(&rg)
 
-	if rg.Str1 != "165989" {
-		t.Errorf("Str1 should be 165989 got: %s", rg.Str1)
+	if rg.Str1 != "16" {
+		t.Errorf("Str1 should be 16 got: %s", rg.Str1)
 	}
-	if rg.Str2 != "X,P" {
-		t.Errorf("Str2 should be X,P got: %s", rg.Str2)
+	if rg.Str2 != "fP?" {
+		t.Errorf("Str2 should be fP? got: %s", rg.Str2)
 	}
-	if rg.Str3 != "ZZZZ" {
-		t.Errorf("Str3 should be ZZZZ got: %s", rg.Str3)
+	if rg.Str3 != "ZZ" {
+		t.Errorf("Str3 should be ZZ got: %s", rg.Str3)
 	}
-	if rg.Str4 != "+EW" {
-		t.Errorf("Str4 should be +EW got: %s", rg.Str4)
+	if rg.Str4 != "$ z" {
+		t.Errorf("Str4 should be $ z got: %s", rg.Str4)
 	}
 	if rg.Str5 != "abdef" {
 		t.Errorf("Str5 should be abdef got: %s", rg.Str5)
 	}
-	if rg.Str6 != "123M123M123M" {
-		t.Errorf("Str6 should be 123M123M123M got: %s", rg.Str6)
+	if rg.Str6 != "123a123a123a" {
+		t.Errorf("Str6 should be 123a123a123a got: %s", rg.Str6)
 	}
-	if rg.Str7 != "8|_Jh" {
-		t.Errorf("Str7 should be 8|_Jh got: %s", rg.Str7)
+	if rg.Str7 != ";,}(l" {
+		t.Errorf("Str7 should be ;,}(l got: %s", rg.Str7)
 	}
-	if rg.Str8 != "wnqhqclaYk" {
-		t.Errorf("Str8 should be wnqhqclaYk got: %s", rg.Str8)
+	if rg.Str8 != "nSMKgtlxwn" {
+		t.Errorf("Str8 should be nSMKgtlxwn got: %s", rg.Str8)
 	}
-	if rg.Str9 != "WWFOR" {
-		t.Errorf("Str9 should be WWFOR got: %s", rg.Str9)
+	if rg.Str9 != "QHQCL" {
+		t.Errorf("Str9 should be QHQCL got: %s", rg.Str9)
 	}
-	if rg.Str10 != "G)#AA" {
-		t.Errorf("Str10 should be G)#AA got: %s", rg.Str10)
+	if rg.Str10 != "-T?6X" {
+		t.Errorf("Str10 should be -T?6X got: %s", rg.Str10)
 	}
-	if rg.Str11 != "12320kxu2d" {
-		t.Errorf("Str11 should be 12320kxu2d got: %s", rg.Str11)
+	if rg.Str11 != "123120aeD" {
+		t.Errorf("Str11 should be 123120aeD got: %s", rg.Str11)
 	}
-	if rg.Str12 != "world" {
-		t.Errorf("Str12 should be world got: %s", rg.Str12)
+	if rg.Str12 != "hello" {
+		t.Errorf("Str12 should be hello got: %s", rg.Str12)
 	}
-	if rg.Str13 != "93/11/2029" {
-		t.Errorf("Str13 should be 93/11/2029 got: %s", rg.Str13)
+	if rg.Str13 != "8/10/2022" {
+		t.Errorf("Str13 should be 8/10/2022 got: %s", rg.Str13)
 	}
 }
 
@@ -275,13 +275,13 @@ func BenchmarkRegexEmail(b *testing.B) {
 func ExampleMap() {
 	Seed(11)
 	fmt.Println(Map())
-	// Output: map[approach:map[mind:[arrival should resolve outcome hurt]] arrive:Coordinator consult:respond context:9285735 water:5081652]
+	// Output: map[contrast:Associate gauva:map[jump:scale] generally:8504801 him:[them whomever ours hence here his] its:8335564 table:map[did:[these delay these]] therefore:map[nearly:784141.8] thing:map[everything:[where caused why week hourly]]]
 }
 
 func ExampleFaker_Map() {
 	f := New(11)
 	fmt.Println(f.Map())
-	// Output: map[approach:map[mind:[arrival should resolve outcome hurt]] arrive:Coordinator consult:respond context:9285735 water:5081652]
+	// Output: map[contrast:Associate gauva:map[jump:scale] generally:8504801 him:[them whomever ours hence here his] its:8335564 table:map[did:[these delay these]] therefore:map[nearly:784141.8] thing:map[everything:[where caused why week hourly]]]
 }
 
 func TestMap(t *testing.T) {

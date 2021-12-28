@@ -16,14 +16,14 @@ func ExampleAddress() {
 	fmt.Println(address.Country)
 	fmt.Println(address.Latitude)
 	fmt.Println(address.Longitude)
-	// Output: 364 East Rapids borough, Rutherfordstad, New Jersey 36906
-	// 364 East Rapids borough
-	// Rutherfordstad
-	// New Jersey
-	// 36906
-	// Tokelau
-	// 23.058758
-	// 89.022594
+	// Output: 364 Unions ville, Norfolk, Ohio 99536
+	// 364 Unions ville
+	// Norfolk
+	// Ohio
+	// 99536
+	// Lesotho
+	// 88.792592
+	// 174.504681
 }
 
 func ExampleFaker_Address() {
@@ -37,14 +37,14 @@ func ExampleFaker_Address() {
 	fmt.Println(address.Country)
 	fmt.Println(address.Latitude)
 	fmt.Println(address.Longitude)
-	// Output: 364 East Rapids borough, Rutherfordstad, New Jersey 36906
-	// 364 East Rapids borough
-	// Rutherfordstad
-	// New Jersey
-	// 36906
-	// Tokelau
-	// 23.058758
-	// 89.022594
+	// Output: 364 Unions ville, Norfolk, Ohio 99536
+	// 364 Unions ville
+	// Norfolk
+	// Ohio
+	// 99536
+	// Lesotho
+	// 88.792592
+	// 174.504681
 }
 
 func BenchmarkAddress(b *testing.B) {
@@ -74,13 +74,13 @@ func BenchmarkAddress(b *testing.B) {
 func ExampleStreet() {
 	Seed(11)
 	fmt.Println(Street())
-	// Output: 364 East Rapids borough
+	// Output: 364 Unions ville
 }
 
 func ExampleFaker_Street() {
 	f := New(11)
 	fmt.Println(f.Street())
-	// Output: 364 East Rapids borough
+	// Output: 364 Unions ville
 }
 
 func BenchmarkStreet(b *testing.B) {
@@ -254,13 +254,13 @@ func BenchmarkStreetSuffix(b *testing.B) {
 func ExampleCity() {
 	Seed(11)
 	fmt.Println(City())
-	// Output: Marcelside
+	// Output: Plano
 }
 
 func ExampleFaker_City() {
 	f := New(11)
 	fmt.Println(f.City())
-	// Output: Marcelside
+	// Output: Plano
 }
 
 func TestCity(t *testing.T) {
