@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -71,10 +72,9 @@ func TestNotEnoughArgs(t *testing.T) {
 	seed := int64(11)
 	args := []string{}
 
-	outStr := mainFunc(seed, args, 1)
-
-	if outStr != noFuncRunMsg {
-		t.Errorf("Expected %s, got %s", noFuncRunMsg, outStr)
+	_, err := mainFunc(seed, args, 1)
+	if !errors.Is(err, errNoFuncRunMsg) {
+		t.Error("Expected error, got no error")
 	}
 }
 
@@ -82,10 +82,9 @@ func TestNoFunction(t *testing.T) {
 	seed := int64(11)
 	args := []string{"notafunction"}
 
-	outStr := mainFunc(seed, args, 1)
-
-	if outStr != noFuncRunMsg {
-		t.Errorf("Expected %s, got %s", noFuncRunMsg, outStr)
+	_, err := mainFunc(seed, args, 1)
+	if !errors.Is(err, errNoFuncRunMsg) {
+		t.Error("Expected error, got no error")
 	}
 }
 
@@ -93,7 +92,10 @@ func TestFunctionSimple(t *testing.T) {
 	seed := int64(11)
 	args := []string{"firstname"}
 
-	outStr := mainFunc(seed, args, 1)
+	outStr, err := mainFunc(seed, args, 1)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
 
 	// Check if lastname is in the data array
 	isIn := false
@@ -115,7 +117,11 @@ func TestFunctionWithParams(t *testing.T) {
 	seed := int64(11)
 	args := []string{"shufflestrings", strings.Join(strs, ",")}
 
-	outStr := mainFunc(seed, args, 1)
+	outStr, err := mainFunc(seed, args, 1)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+
 	if outStr != "[up world whats hello]" {
 		t.Errorf("shufflestrings output is not in the right order. Got: %s", outStr)
 	}
@@ -125,7 +131,10 @@ func TestHelp(t *testing.T) {
 	seed := int64(11)
 	args := []string{"help"}
 
-	outStr := mainFunc(seed, args, 1)
+	outStr, err := mainFunc(seed, args, 1)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
 
 	// Make sure outStr contains NAME, SYNOPSIS, DESCRIPTION
 	if !strings.Contains(outStr, "NAME") {
@@ -143,7 +152,10 @@ func TestList(t *testing.T) {
 	seed := int64(11)
 	args := []string{"list"}
 
-	outStr := mainFunc(seed, args, 1)
+	outStr, err := mainFunc(seed, args, 1)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
 
 	// Make sure outStr contains person, word, address, string, and number
 	if !strings.Contains(outStr, "person") {
@@ -167,7 +179,10 @@ func TestListCategory(t *testing.T) {
 	seed := int64(11)
 	args := []string{"list", "person"}
 
-	outStr := mainFunc(seed, args, 1)
+	outStr, err := mainFunc(seed, args, 1)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
 
 	// Make sure outStr contains email, firstname, lastname, and gender
 	if !strings.Contains(outStr, "email") {
@@ -188,7 +203,11 @@ func TestListCategoryFunction(t *testing.T) {
 	seed := int64(11)
 	args := []string{"list", "word", "noun"}
 
-	outStr := mainFunc(seed, args, 1)
+	outStr, err := mainFunc(seed, args, 1)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+
 	outStr = strings.ToLower(outStr)
 
 	// Make sure outStr contains random noun

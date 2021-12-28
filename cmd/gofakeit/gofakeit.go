@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"sort"
@@ -10,7 +11,7 @@ import (
 	"github.com/brianvoe/gofakeit/v6"
 )
 
-var noFuncRunMsg = "Could not find function to run\nRun gofakeit help or gofakeit list for available functions"
+var errNoFuncRunMsg = errors.New("could not find function to run\nrun gofakeit help or gofakeit list for available functions")
 
 func main() {
 	var loop int = 1
@@ -40,18 +41,23 @@ func main() {
 	}
 	args = cleanArgs
 
-	out := mainFunc(0, args, loop)
+	out, err := mainFunc(0, args, loop)
+	if err != nil {
+		fmt.Println(err.Error())
+		os.Exit(1)
+	}
+
 	fmt.Printf("%s", out)
 }
 
-func mainFunc(seed int64, args []string, loop int) string {
+func mainFunc(seed int64, args []string, loop int) (string, error) {
 	faker := gofakeit.New(seed)
 
 	argsLen := len(args)
 
 	// Make sure they passed first argument for function call
 	if argsLen < 1 {
-		return noFuncRunMsg
+		return "", errNoFuncRunMsg
 	}
 
 	// Get function name
@@ -72,7 +78,7 @@ func mainFunc(seed int64, args []string, loop int) string {
 		sb.WriteString("\n")
 		sb.WriteString("DESCRIPTION\n")
 		sb.WriteString("    gofakeit is a set of functions that allow you to generate random data.\n")
-		return sb.String()
+		return sb.String(), nil
 	}
 
 	// If function is list output list
@@ -87,27 +93,29 @@ func mainFunc(seed int64, args []string, loop int) string {
 			selectedFunc = args[2]
 		}
 
-		return listOutput(selectedCat, selectedFunc)
+		return listOutput(selectedCat, selectedFunc), nil
 	}
 
 	// Loop through loop and append to output and join on \n
 	sa := []string{}
 	for i := 0; i < loop; i++ {
-		sa = append(sa, runFunction(faker, function, args))
+		funcStr, err := runFunction(faker, function, args)
+		if err != nil {
+			return "", err
+		}
+		sa = append(sa, funcStr)
 	}
 
-	return strings.Join(sa, "\n")
+	return strings.Join(sa, "\n"), nil
 }
 
-func runFunction(faker *gofakeit.Faker, function string, args []string) string {
+func runFunction(faker *gofakeit.Faker, function string, args []string) (string, error) {
 	argsLen := len(args)
 
 	// Lookup fake data method
 	info := gofakeit.GetFuncLookup(function)
 	if info == nil {
-		fmt.Println(noFuncRunMsg)
-		os.Exit(1)
-		return ""
+		return "", errNoFuncRunMsg
 	}
 
 	// Set function and params
@@ -136,10 +144,10 @@ func runFunction(faker *gofakeit.Faker, function string, args []string) string {
 
 	value, err := info.Generate(faker.Rand, params, info)
 	if err != nil {
-		return err.Error()
+		return "", err
 	}
 
-	return fmt.Sprintf("%v", value)
+	return fmt.Sprintf("%v", value), nil
 }
 
 func listOutput(selectedCategory string, selectedFunction string) string {
