@@ -17,6 +17,7 @@ const numericStr = "0123456789"
 const specialStr = "!@#$%&*+-_=?:;,.|(){}<>"
 const spaceStr = " "
 const allStr = lowerStr + upperStr + numericStr + specialStr + spaceStr
+const vowels = "aeiou"
 const hashtag = '#'
 const questionmark = '?'
 const base58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
