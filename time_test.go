@@ -9,13 +9,13 @@ import (
 func ExampleDate() {
 	Seed(11)
 	fmt.Println(Date())
-	// Output: 1991-01-24 13:00:35.820738079 +0000 UTC
+	// Output: 1995-01-24 13:00:35.820738079 +0000 UTC
 }
 
 func ExampleFaker_Date() {
 	f := New(11)
 	fmt.Println(f.Date())
-	// Output: 1991-01-24 13:00:35.820738079 +0000 UTC
+	// Output: 1995-01-24 13:00:35.820738079 +0000 UTC
 }
 
 func TestDateLookup(t *testing.T) {
@@ -237,13 +237,13 @@ func BenchmarkDay(b *testing.B) {
 func ExampleYear() {
 	Seed(11)
 	fmt.Println(Year())
-	// Output: 1991
+	// Output: 1995
 }
 
 func ExampleFaker_Year() {
 	f := New(11)
 	fmt.Println(f.Year())
-	// Output: 1991
+	// Output: 1995
 }
 
 func BenchmarkYear(b *testing.B) {
