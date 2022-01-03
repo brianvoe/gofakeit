@@ -1,6 +1,6 @@
 package gofakeit
 
-import rand "math/rand"
+import "math/rand"
 
 // Connective will generate a random connective
 func Connective() string { return connective(globalFaker.Rand) }

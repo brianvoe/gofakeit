@@ -2,7 +2,7 @@ package gofakeit
 
 import (
 	"math"
-	rand "math/rand"
+	"math/rand"
 	"strconv"
 	"strings"
 	"time"

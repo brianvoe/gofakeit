@@ -189,7 +189,7 @@ func ExamplePerson() {
 	// jalonrolfson@quigley.info
 	// Hiper
 	// 4011781714800889
-	// 09/25
+	// 09/26
 	// 272
 }
 
@@ -251,7 +251,7 @@ func ExampleFaker_Person() {
 	// jalonrolfson@quigley.info
 	// Hiper
 	// 4011781714800889
-	// 09/25
+	// 09/26
 	// 272
 }
 

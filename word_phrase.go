@@ -1,7 +1,7 @@
 package gofakeit
 
 import (
-	rand "math/rand"
+	"math/rand"
 	"strings"
 )
 
@@ -20,21 +20,19 @@ func PhraseNoun() string { return phraseNoun(globalFaker.Rand) }
 func (f *Faker) PhraseNoun() string { return phraseNoun(f.Rand) }
 
 func phraseNoun(r *rand.Rand) string {
-	// Put together a string builder
-	sb := []string{}
-
-	// List of things a noun phrase can start with
-	sb = append(sb, randomString(r, []string{"a", "an", "the"}))
+	str := ""
 
 	// You may also want to add an adjective to describe the noun
 	if boolFunc(r) {
-		sb = append(sb, adjectiveDescriptive(r))
+		str = adjectiveDescriptive(r) + " " + noun(r)
+	} else {
+		str = noun(r)
 	}
 
-	// Add a noun
-	sb = append(sb, noun(r))
+	// Add determiner
+	str = getArticle(str) + " " + str
 
-	return strings.Join(sb, " ")
+	return str
 }
 
 // PhraseVerb will return a random preposition phrase

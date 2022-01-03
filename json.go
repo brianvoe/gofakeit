@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	rand "math/rand"
+	"math/rand"
 )
 
 // JSONOptions defines values needed for json generation

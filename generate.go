@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"math"
-	rand "math/rand"
+	"math/rand"
 	"regexp/syntax"
 	"strings"
 )

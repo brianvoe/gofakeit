@@ -1,6 +1,6 @@
 package gofakeit
 
-import rand "math/rand"
+import "math/rand"
 
 // CelebrityActor will generate a random celebrity actor
 func CelebrityActor() string { return celebrityActor(globalFaker.Rand) }
