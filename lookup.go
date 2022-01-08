@@ -1,6 +1,7 @@
 package gofakeit
 
 import (
+	"encoding/json"
 	"fmt"
 	"math/rand"
 	"strconv"
@@ -12,7 +13,9 @@ var FuncLookups map[string]Info
 var lockFuncLookups sync.Mutex
 
 // MapParams is the values to pass into a lookup generate
-type MapParams map[string][]string
+type MapParams map[string]MapParamsValue
+
+type MapParamsValue []string
 
 // Info structures fields to better break down what each one generates
 type Info struct {
@@ -108,6 +111,11 @@ func (m *MapParams) Add(field string, value string) {
 	(*m)[field] = append((*m)[field], value)
 }
 
+// Get will return the array of string from the provided field
+func (m *MapParams) Get(field string) []string {
+	return (*m)[field]
+}
+
 // Size will return the total size of the underlying map
 func (m *MapParams) Size() int {
 	size := 0
@@ -115,6 +123,34 @@ func (m *MapParams) Size() int {
 		size++
 	}
 	return size
+}
+
+// UnmarshalJSON will unmarshal the json into the []string
+func (m *MapParamsValue) UnmarshalJSON(data []byte) error {
+	// check if the data is an array
+	// if so, marshal it into m
+	if data[0] == '[' {
+		var values []interface{}
+		err := json.Unmarshal(data, &values)
+		if err != nil {
+			return err
+		}
+
+		// convert the values to array of strings
+		for _, value := range values {
+			*m = append(*m, fmt.Sprintf("%v", value))
+		}
+		return nil
+	}
+
+	// if not, then convert into a string and add it to m
+	var s interface{}
+	if err := json.Unmarshal(data, &s); err != nil {
+		return err
+	}
+
+	*m = append(*m, fmt.Sprintf("%v", s))
+	return nil
 }
 
 // AddFuncLookup takes a field and adds it to map

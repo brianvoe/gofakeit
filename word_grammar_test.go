@@ -8,13 +8,13 @@ import (
 func ExampleSentenceSimple() {
 	Seed(11)
 	fmt.Println(SentenceSimple())
-	// Output: A purple tribe fly a buckles.
+	// Output: The purple tribe indeed swiftly laugh.
 }
 
 func ExampleFaker_SentenceSimple() {
 	f := New(11)
 	fmt.Println(f.SentenceSimple())
-	// Output: A purple tribe fly a buckles.
+	// Output: The purple tribe indeed swiftly laugh.
 }
 
 func BenchmarkSentenceSimple(b *testing.B) {

@@ -26,13 +26,13 @@ func BenchmarkPhrase(b *testing.B) {
 func ExamplePhraseNoun() {
 	Seed(11)
 	fmt.Println(PhraseNoun())
-	// Output: a purple tribe
+	// Output: the purple tribe
 }
 
 func ExampleFaker_PhraseNoun() {
 	f := New(11)
 	fmt.Println(f.PhraseNoun())
-	// Output: a purple tribe
+	// Output: the purple tribe
 }
 
 func BenchmarkPhraseNoun(b *testing.B) {
@@ -44,13 +44,13 @@ func BenchmarkPhraseNoun(b *testing.B) {
 func ExamplePhraseVerb() {
 	Seed(11)
 	fmt.Println(PhraseVerb())
-	// Output: gladly dream indeed swiftly till a problem
+	// Output: gladly dream indeed swiftly till a problem poorly
 }
 
 func ExampleFaker_PhraseVerb() {
 	f := New(11)
 	fmt.Println(f.PhraseVerb())
-	// Output: gladly dream indeed swiftly till a problem
+	// Output: gladly dream indeed swiftly till a problem poorly
 }
 
 func BenchmarkPhraseVerb(b *testing.B) {
@@ -80,13 +80,13 @@ func BenchmarkPhraseAdverb(b *testing.B) {
 func ExamplePhrasePreposition() {
 	Seed(11)
 	fmt.Println(PhrasePreposition())
-	// Output: out a tribe
+	// Output: out the tribe
 }
 
 func ExampleFaker_PhrasePreposition() {
 	f := New(11)
 	fmt.Println(f.PhrasePreposition())
-	// Output: out a tribe
+	// Output: out the tribe
 }
 
 func BenchmarkPhrasePreposition(b *testing.B) {

@@ -14,7 +14,7 @@ func ExampleCSV_array() {
 			{Name: "id", Function: "autoincrement"},
 			{Name: "first_name", Function: "firstname"},
 			{Name: "last_name", Function: "lastname"},
-			{Name: "password", Function: "password", Params: map[string][]string{"special": {"false"}}},
+			{Name: "password", Function: "password", Params: MapParams{"special": {"false"}}},
 		},
 	})
 	if err != nil {
@@ -38,7 +38,7 @@ func ExampleFaker_CSV_array() {
 			{Name: "id", Function: "autoincrement"},
 			{Name: "first_name", Function: "firstname"},
 			{Name: "last_name", Function: "lastname"},
-			{Name: "password", Function: "password", Params: map[string][]string{"special": {"false"}}},
+			{Name: "password", Function: "password", Params: MapParams{"special": {"false"}}},
 		},
 	})
 	if err != nil {

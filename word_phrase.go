@@ -29,8 +29,13 @@ func phraseNoun(r *rand.Rand) string {
 		str = noun(r)
 	}
 
-	// Add determiner
-	str = getArticle(str) + " " + str
+	// Add determiner from weighted list
+	prob, _ := weighted(r, []interface{}{1, 2, 3}, []float32{2, 1.5, 1})
+	if prob == 1 {
+		str = getArticle(str) + " " + str
+	} else if prob == 2 {
+		str = "the " + str
+	}
 
 	return str
 }
