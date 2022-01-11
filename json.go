@@ -94,6 +94,16 @@ func jsonFunc(r *rand.Rand, jo *JSONOptions) ([]byte, error) {
 				return nil, err
 			}
 
+			if _, ok := value.([]byte); ok {
+				// If it's a slice, unmarshal it into an interface
+				var val interface{}
+				err := json.Unmarshal(value.([]byte), &val)
+				if err != nil {
+					return nil, err
+				}
+				value = val
+			}
+
 			v[i] = &jsonKeyVal{Key: field.Name, Value: value}
 
 		}
