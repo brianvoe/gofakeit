@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"math/rand"
+	"reflect"
 	"strconv"
 	"sync"
 )
@@ -138,7 +139,17 @@ func (m *MapParamsValue) UnmarshalJSON(data []byte) error {
 
 		// convert the values to array of strings
 		for _, value := range values {
-			*m = append(*m, fmt.Sprintf("%v", value))
+			typeOf := reflect.TypeOf(value).Kind().String()
+
+			if typeOf == "map" {
+				v, err := json.Marshal(value)
+				if err != nil {
+					return err
+				}
+				*m = append(*m, string(v))
+			} else {
+				*m = append(*m, fmt.Sprintf("%v", value))
+			}
 		}
 		return nil
 	}

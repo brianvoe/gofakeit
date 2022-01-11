@@ -1,6 +1,7 @@
 package gofakeit
 
 import (
+	"encoding/json"
 	"fmt"
 	"testing"
 )
@@ -175,6 +176,64 @@ func TestJSONLookup(t *testing.T) {
 	_, err := info.Generate(faker.Rand, m, info)
 	if err != nil {
 		t.Fatal(err.Error())
+	}
+}
+
+func TestJSONLookupWithSubJSON(t *testing.T) {
+	faker := New(11)
+	info := GetFuncLookup("json")
+
+	m := NewMapParams()
+	m.Add("type", "object")
+	m.Add("fields", `{
+		"name":"json",
+		"function":"json",
+		"params":{
+			"type":"object",
+			"fields":[
+				{"name":"id","function":"autoincrement"},
+				{"name":"first_name","function":"firstname"},
+				{"name":"last_name","function":"lastname"},
+				{"name":"password","function":"password","params":{"special":"false","length":"20"}}
+			]
+		}
+	}`)
+
+	output, err := info.Generate(faker.Rand, m, info)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+
+	// put together a struct to unmarshal the output json into
+	type jsonStruct struct {
+		ID        int    `json:"id"`
+		FirstName string `json:"first_name"`
+		LastName  string `json:"last_name"`
+		Password  string `json:"password"`
+	}
+
+	type jsonParent struct {
+		JStruct jsonStruct `json:"json"`
+	}
+
+	var j jsonParent
+	err = json.Unmarshal(output.([]byte), &j)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+
+	// check that the output values are correct
+	if j.JStruct.ID == 0 {
+		t.Fatal("ID is 0")
+	}
+	if j.JStruct.FirstName != "Markus" {
+		t.Errorf("FirstName is incorrect got: %s", j.JStruct.FirstName)
+	}
+	if j.JStruct.LastName != "Moen" {
+		t.Errorf("LastName is incorrect got: %s", j.JStruct.LastName)
+	}
+	if j.JStruct.Password != "WWXYVxbjXckoID06qBLA" {
+		t.Errorf("Password is incorrect got: %s", j.JStruct.Password)
 	}
 }
 
