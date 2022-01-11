@@ -104,6 +104,14 @@ func gender(r *rand.Rand) string {
 	return "female"
 }
 
+// Hobby will generate a random hobby string
+func Hobby() string { return hobby(globalFaker.Rand) }
+
+// Hobby will generate a random hobby string
+func (f *Faker) Hobby() string { return hobby(f.Rand) }
+
+func hobby(r *rand.Rand) string { return getRandValue(r, []string{"person", "hobby"}) }
+
 // ContactInfo struct full of contact info
 type ContactInfo struct {
 	Phone string `json:"phone" xml:"phone"`
@@ -305,6 +313,17 @@ func addPersonLookup() {
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return ssn(r), nil
+		},
+	})
+
+	AddFuncLookup("hobby", Info{
+		Display:     "Hobby",
+		Category:    "person",
+		Description: "Random hobby activity",
+		Example:     "Swimming",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return hobby(r), nil
 		},
 	})
 

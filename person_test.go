@@ -131,6 +131,24 @@ func BenchmarkGender(b *testing.B) {
 	}
 }
 
+func ExampleHobby() {
+	Seed(11)
+	fmt.Println(Hobby())
+	// Output: Transit map collecting
+}
+
+func ExampleFaker_Hobby() {
+	f := New(11)
+	fmt.Println(f.Hobby())
+	// Output: Transit map collecting
+}
+
+func BenchmarkHobby(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Hobby()
+	}
+}
+
 func ExamplePerson() {
 	Seed(11)
 	person := Person()
