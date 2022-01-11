@@ -81,7 +81,7 @@ func addFoodLookup() {
 		Display:     "Fruit",
 		Category:    "food",
 		Description: "Random fruit",
-		Example:     "Dates",
+		Example:     "Peach",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return fruit(r), nil

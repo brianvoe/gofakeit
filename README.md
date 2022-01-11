@@ -236,6 +236,7 @@ FirstName() string
 LastName() string
 Gender() string
 SSN() string
+Hobby() string
 Contact() *ContactInfo
 Email() string
 Phone() string

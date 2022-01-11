@@ -179,7 +179,7 @@ func TestJSONLookup(t *testing.T) {
 	}
 }
 
-func TestJSONLookupWithSubJSON(t *testing.T) {
+func TestJSONObjectLookupWithSubJSON(t *testing.T) {
 	faker := New(11)
 	info := GetFuncLookup("json")
 
@@ -223,8 +223,8 @@ func TestJSONLookupWithSubJSON(t *testing.T) {
 	}
 
 	// check that the output values are correct
-	if j.JStruct.ID == 0 {
-		t.Fatal("ID is 0")
+	if j.JStruct.ID != 1 {
+		t.Fatalf("ID is not 1 got: %v", j.JStruct.ID)
 	}
 	if j.JStruct.FirstName != "Markus" {
 		t.Errorf("FirstName is incorrect got: %s", j.JStruct.FirstName)
@@ -234,6 +234,65 @@ func TestJSONLookupWithSubJSON(t *testing.T) {
 	}
 	if j.JStruct.Password != "WWXYVxbjXckoID06qBLA" {
 		t.Errorf("Password is incorrect got: %s", j.JStruct.Password)
+	}
+}
+
+func TestJSONArrayLookupWithSubJSON(t *testing.T) {
+	faker := New(11)
+	info := GetFuncLookup("json")
+
+	m := NewMapParams()
+	m.Add("type", "object")
+	m.Add("fields", `{
+		"name":"json",
+		"function":"json",
+		"params":{
+			"type":"array",
+			"rowcount": 10,
+			"fields":[
+				{"name":"id","function":"autoincrement"},
+				{"name":"first_name","function":"firstname"},
+				{"name":"last_name","function":"lastname"},
+				{"name":"password","function":"password","params":{"special":"false","length":"20"}}
+			]
+		}
+	}`)
+
+	output, err := info.Generate(faker.Rand, m, info)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+
+	// put together a struct to unmarshal the output json into
+	type jsonStruct struct {
+		ID        int    `json:"id"`
+		FirstName string `json:"first_name"`
+		LastName  string `json:"last_name"`
+		Password  string `json:"password"`
+	}
+
+	type jsonParent struct {
+		JStruct []jsonStruct `json:"json"`
+	}
+
+	var j jsonParent
+	err = json.Unmarshal(output.([]byte), &j)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+
+	// check that the output values are correct
+	if j.JStruct[0].ID != 1 {
+		t.Fatalf("ID is incorrect should be 1 got: %v", j.JStruct[0].ID)
+	}
+	if j.JStruct[0].FirstName != "Markus" {
+		t.Errorf("FirstName is incorrect got: %s", j.JStruct[0].FirstName)
+	}
+	if j.JStruct[0].LastName != "Moen" {
+		t.Errorf("LastName is incorrect got: %s", j.JStruct[0].LastName)
+	}
+	if j.JStruct[0].Password != "WWXYVxbjXckoID06qBLA" {
+		t.Errorf("Password is incorrect got: %s", j.JStruct[0].Password)
 	}
 }
 
