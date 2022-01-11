@@ -8,13 +8,13 @@ import (
 func ExampleFruit() {
 	Seed(11)
 	fmt.Println(Fruit())
-	// Output: Date
+	// Output: Peach
 }
 
 func ExampleFaker_Fruit() {
 	f := New(11)
 	fmt.Println(f.Fruit())
-	// Output: Date
+	// Output: Peach
 }
 
 func BenchmarkFruit(b *testing.B) {
