@@ -80,20 +80,21 @@ func csvFunc(r *rand.Rand, co *CSVOptions) ([]byte, error) {
 			}
 
 			// If the value is a point get the underlying value of the pointer
-			rv := reflect.ValueOf(value)
-			if rv.Kind() == reflect.Ptr {
-				value = rv.Elem()
-			}
+			// rv := reflect.ValueOf(value)
+			// if rv.Kind() == reflect.Ptr {
+			// 	value = rv.Elem()
+			// }
 
 			// If the value is a struct marshal it into a map[string]interface{}
-			if reflect.TypeOf(value).Kind() == reflect.Struct {
-				fmt.Printf("%+v\n", value)
+			if reflect.TypeOf(value).Kind() == reflect.Struct || reflect.TypeOf(value).Kind() == reflect.Ptr {
+				// fmt.Printf("%+v\n", value)
 				b, err := json.Marshal(value)
 				if err != nil {
 					return nil, err
 				}
-				fmt.Println(string(b))
 				value = string(b)
+				// vr[ii] = fmt.Sprintf("%v", string(b))
+				// continue
 			}
 
 			if _, ok := value.([]byte); ok {
