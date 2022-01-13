@@ -103,7 +103,8 @@ func addFileCSVLookup() {
 			1,Markus,Moen,Dc0VYXjkWABx
 			2,Osborne,Hilll,XPJ9OVNbs5lm
 		`,
-		Output: "[]byte",
+		Output:      "[]byte",
+		ContentType: "text/csv",
 		Params: []Param{
 			{Field: "rowcount", Display: "Row Count", Type: "int", Default: "100", Description: "Number of rows"},
 			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function"},

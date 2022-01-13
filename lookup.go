@@ -25,7 +25,7 @@ type Info struct {
 	Description string                                                            `json:"description"`
 	Example     string                                                            `json:"example"`
 	Output      string                                                            `json:"output"`
-	Data        map[string]string                                                 `json:"-"`
+	ContentType string                                                            `json:"content_type"`
 	Params      []Param                                                           `json:"params"`
 	Generate    func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) `json:"-"`
 }
@@ -168,6 +168,11 @@ func (m *MapParamsValue) UnmarshalJSON(data []byte) error {
 func AddFuncLookup(functionName string, info Info) {
 	if FuncLookups == nil {
 		FuncLookups = make(map[string]Info)
+	}
+
+	// Check content type
+	if info.ContentType == "" {
+		info.ContentType = "text/plain"
 	}
 
 	lockFuncLookups.Lock()
