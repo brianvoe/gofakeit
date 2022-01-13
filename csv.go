@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"math/rand"
+	"reflect"
 	"strings"
 )
 
@@ -76,6 +77,33 @@ func csvFunc(r *rand.Rand, co *CSVOptions) ([]byte, error) {
 			value, err := funcInfo.Generate(r, &field.Params, funcInfo)
 			if err != nil {
 				return nil, err
+			}
+
+			// If the value is a point get the underlying value of the pointer
+			rv := reflect.ValueOf(value)
+			if rv.Kind() == reflect.Ptr {
+				value = rv.Elem()
+			}
+
+			// If the value is a struct marshal it into a map[string]interface{}
+			if reflect.TypeOf(value).Kind() == reflect.Struct {
+				fmt.Printf("%+v\n", value)
+				b, err := json.Marshal(value)
+				if err != nil {
+					return nil, err
+				}
+				fmt.Println(string(b))
+				value = string(b)
+			}
+
+			if _, ok := value.([]byte); ok {
+				fmt.Println("byte")
+				// If it's a slice of bytes or struct, unmarshal it into an interface
+				var v interface{}
+				if err := json.Unmarshal(value.([]byte), &v); err != nil {
+					return nil, err
+				}
+				value = v
 			}
 
 			vr[ii] = fmt.Sprintf("%v", value)

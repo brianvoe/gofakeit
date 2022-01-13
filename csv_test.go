@@ -61,17 +61,18 @@ func TestCSVLookup(t *testing.T) {
 	m := MapParams{
 		"rowcount": {"10"},
 		"fields": {
-			`{"name":"id","function":"autoincrement"}`,
-			`{"name":"first_name","function":"firstname"}`,
-			`{"name":"password","function":"password","params":{"special":["false"],"length":["20"]}}`,
+			// `{"name":"id","function":"autoincrement"}`,
+			// `{"name":"first_name","function":"firstname"}`,
+			// `{"name":"password","function":"password","params":{"special":["false"],"length":["20"]}}`,
+			`{"name":"address","function":"address"}`,
 		},
 	}
-	_, err := info.Generate(faker.Rand, &m, info)
+	value, err := info.Generate(faker.Rand, &m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
 
-	// t.Fatal(fmt.Sprintf("%s", value.([]byte)))
+	t.Fatal(fmt.Sprintf("%s", value.([]byte)))
 }
 
 func BenchmarkCSVLookup100(b *testing.B) {
