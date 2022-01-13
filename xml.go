@@ -275,7 +275,8 @@ func addFileXMLLookup() {
 				</record>
 			</xml>
 		`,
-		Output: "[]byte",
+		Output:      "[]byte",
+		ContentType: "application/xml",
 		Params: []Param{
 			{Field: "type", Display: "Type", Type: "string", Default: "single", Options: []string{"single", "array"}, Description: "Type of XML, single or array"},
 			{Field: "rootelement", Display: "Root Element", Type: "string", Default: "xml", Description: "Root element wrapper name"},

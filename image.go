@@ -105,6 +105,7 @@ func addImageLookup() {
 		Description: "Random jpeg image",
 		Example:     "file.jpeg - bytes",
 		Output:      "[]byte",
+		ContentType: "image/jpeg",
 		Params: []Param{
 			{Field: "width", Display: "Width", Type: "int", Default: "500", Description: "Image width in px"},
 			{Field: "height", Display: "Height", Type: "int", Default: "500", Description: "Image height in px"},
@@ -136,6 +137,7 @@ func addImageLookup() {
 		Description: "Random png image",
 		Example:     "file.png - bytes",
 		Output:      "[]byte",
+		ContentType: "image/png",
 		Params: []Param{
 			{Field: "width", Display: "Width", Type: "int", Default: "500", Description: "Image width in px"},
 			{Field: "height", Display: "Height", Type: "int", Default: "500", Description: "Image height in px"},

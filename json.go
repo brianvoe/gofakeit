@@ -187,7 +187,8 @@ func addFileJSONLookup() {
 			{ "id": 2, "first_name": "Alayna", "last_name": "Wuckert" },
 			{ "id": 3, "first_name": "Lura", "last_name": "Lockman" }
 		]`,
-		Output: "[]byte",
+		Output:      "[]byte",
+		ContentType: "application/json",
 		Params: []Param{
 			{Field: "type", Display: "Type", Type: "string", Default: "object", Options: []string{"object", "array"}, Description: "Type of JSON, object or array"},
 			{Field: "rowcount", Display: "Row Count", Type: "int", Default: "100", Description: "Number of rows in JSON array"},
