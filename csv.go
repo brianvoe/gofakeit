@@ -79,32 +79,25 @@ func csvFunc(r *rand.Rand, co *CSVOptions) ([]byte, error) {
 				return nil, err
 			}
 
-			// If the value is a point get the underlying value of the pointer
-			// rv := reflect.ValueOf(value)
-			// if rv.Kind() == reflect.Ptr {
-			// 	value = rv.Elem()
-			// }
-
-			// If the value is a struct marshal it into a map[string]interface{}
-			if reflect.TypeOf(value).Kind() == reflect.Struct || reflect.TypeOf(value).Kind() == reflect.Ptr {
-				// fmt.Printf("%+v\n", value)
-				b, err := json.Marshal(value)
-				if err != nil {
-					return nil, err
-				}
-				value = string(b)
-				// vr[ii] = fmt.Sprintf("%v", string(b))
-				// continue
-			}
-
 			if _, ok := value.([]byte); ok {
-				fmt.Println("byte")
 				// If it's a slice of bytes or struct, unmarshal it into an interface
 				var v interface{}
 				if err := json.Unmarshal(value.([]byte), &v); err != nil {
 					return nil, err
 				}
 				value = v
+			}
+
+			// If the value is a list of possible values, marsha it into a string
+			if reflect.TypeOf(value).Kind() == reflect.Struct ||
+				reflect.TypeOf(value).Kind() == reflect.Ptr ||
+				reflect.TypeOf(value).Kind() == reflect.Map ||
+				reflect.TypeOf(value).Kind() == reflect.Slice {
+				b, err := json.Marshal(value)
+				if err != nil {
+					return nil, err
+				}
+				value = string(b)
 			}
 
 			vr[ii] = fmt.Sprintf("%v", value)
@@ -161,7 +154,7 @@ func addFileCSVLookup() {
 					// Unmarshal fields string into fields array
 					err = json.Unmarshal([]byte(f), &co.Fields[i])
 					if err != nil {
-						return nil, errors.New("unable to decode json string")
+						return nil, err
 					}
 				}
 			}
