@@ -223,7 +223,7 @@ func addFileJSONLookup() {
 					// Unmarshal fields string into fields array
 					err = json.Unmarshal([]byte(f), &jo.Fields[i])
 					if err != nil {
-						return nil, errors.New("unable to decode json string")
+						return nil, err
 					}
 				}
 			}
