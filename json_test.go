@@ -253,7 +253,8 @@ func TestJSONArrayLookupWithSubJSON(t *testing.T) {
 				{"name":"id","function":"autoincrement"},
 				{"name":"first_name","function":"firstname"},
 				{"name":"last_name","function":"lastname"},
-				{"name":"password","function":"password","params":{"special":"false","length":"20"}}
+				{"name":"password","function":"password","params":{"special":"false","length":"20"}},
+				{"name":"address","function":"address"}
 			]
 		}
 	}`)
@@ -265,10 +266,11 @@ func TestJSONArrayLookupWithSubJSON(t *testing.T) {
 
 	// put together a struct to unmarshal the output json into
 	type jsonStruct struct {
-		ID        int    `json:"id"`
-		FirstName string `json:"first_name"`
-		LastName  string `json:"last_name"`
-		Password  string `json:"password"`
+		ID        int         `json:"id"`
+		FirstName string      `json:"first_name"`
+		LastName  string      `json:"last_name"`
+		Password  string      `json:"password"`
+		Address   AddressInfo `json:"address"`
 	}
 
 	type jsonParent struct {
@@ -293,6 +295,9 @@ func TestJSONArrayLookupWithSubJSON(t *testing.T) {
 	}
 	if j.JStruct[0].Password != "WWXYVxbjXckoID06qBLA" {
 		t.Errorf("Password is incorrect got: %s", j.JStruct[0].Password)
+	}
+	if j.JStruct[0].Address.City != "San Antonio" {
+		t.Errorf("City is incorrect got: %s", j.JStruct[0].Address.City)
 	}
 }
 
