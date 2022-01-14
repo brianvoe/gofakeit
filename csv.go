@@ -57,8 +57,8 @@ func csvFunc(r *rand.Rand, co *CSVOptions) ([]byte, error) {
 	}
 	w.Write(header)
 
-	// Loop through row count and add fields
-	for i := 1; i < co.RowCount; i++ {
+	// Loop through row count +1(for header) and add fields
+	for i := 1; i < co.RowCount+1; i++ {
 		vr := make([]string, len(co.Fields))
 
 		// Loop through fields and add to them to map[string]interface{}

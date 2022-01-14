@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -27,6 +28,7 @@ func ExampleCSV_array() {
 	// id,first_name,last_name,password
 	// 1,Markus,Moen,Dc0VYXjkWABx
 	// 2,Osborne,Hilll,XPJ9OVNbs5lm
+	// 3,Mertie,Halvorson,eyl3bhwfV8wA
 }
 
 func ExampleFaker_CSV_array() {
@@ -51,6 +53,7 @@ func ExampleFaker_CSV_array() {
 	// id,first_name,last_name,password
 	// 1,Markus,Moen,Dc0VYXjkWABx
 	// 2,Osborne,Hilll,XPJ9OVNbs5lm
+	// 3,Mertie,Halvorson,eyl3bhwfV8wA
 }
 
 func TestCSVLookup(t *testing.T) {
@@ -81,9 +84,16 @@ func TestCSVLookup(t *testing.T) {
 		},
 	}
 
-	_, err := info.Generate(faker.Rand, &m, info)
+	output, err := info.Generate(faker.Rand, &m, info)
 	if err != nil {
 		t.Fatal(err.Error())
+	}
+
+	value := string(output.([]byte))
+
+	// Check that value has the correct number of rows via new line characters plus 1 for the header
+	if strings.Count(value, "\n") != 11 {
+		t.Error("Expected 10+1(header row) rows, got", strings.Count(value, "\n")+1)
 	}
 
 	// t.Fatal(fmt.Sprintf("%s", value.([]byte)))
