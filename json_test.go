@@ -283,6 +283,11 @@ func TestJSONArrayLookupWithSubJSON(t *testing.T) {
 		t.Fatal(err.Error())
 	}
 
+	// Check row count
+	if len(j.JStruct) != 10 {
+		t.Fatalf("Row count is not 10 got: %v", len(j.JStruct))
+	}
+
 	// check that the output values are correct
 	if j.JStruct[0].ID != 1 {
 		t.Fatalf("ID is incorrect should be 1 got: %v", j.JStruct[0].ID)
