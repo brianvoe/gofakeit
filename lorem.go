@@ -2,7 +2,7 @@ package gofakeit
 
 import (
 	"errors"
-	rand "math/rand"
+	"math/rand"
 )
 
 // LoremIpsumWord will generate a random word

@@ -2,7 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
-	rand "math/rand"
+	"math/rand"
 	"testing"
 )
 
@@ -18,7 +18,7 @@ func ExampleXML_single() {
 		Fields: []Field{
 			{Name: "first_name", Function: "firstname"},
 			{Name: "last_name", Function: "lastname"},
-			{Name: "password", Function: "password", Params: map[string][]string{"special": {"false"}}},
+			{Name: "password", Function: "password", Params: MapParams{"special": {"false"}}},
 		},
 	})
 	if err != nil {
@@ -47,7 +47,7 @@ func ExampleFaker_XML_single() {
 		Fields: []Field{
 			{Name: "first_name", Function: "firstname"},
 			{Name: "last_name", Function: "lastname"},
-			{Name: "password", Function: "password", Params: map[string][]string{"special": {"false"}}},
+			{Name: "password", Function: "password", Params: MapParams{"special": {"false"}}},
 		},
 	})
 	if err != nil {
@@ -76,7 +76,7 @@ func ExampleXML_array() {
 		Fields: []Field{
 			{Name: "first_name", Function: "firstname"},
 			{Name: "last_name", Function: "lastname"},
-			{Name: "password", Function: "password", Params: map[string][]string{"special": {"false"}}},
+			{Name: "password", Function: "password", Params: MapParams{"special": {"false"}}},
 		},
 	})
 	if err != nil {
@@ -112,7 +112,7 @@ func ExampleFaker_XML_array() {
 		Fields: []Field{
 			{Name: "first_name", Function: "firstname"},
 			{Name: "last_name", Function: "lastname"},
-			{Name: "password", Function: "password", Params: map[string][]string{"special": {"false"}}},
+			{Name: "password", Function: "password", Params: MapParams{"special": {"false"}}},
 		},
 	})
 	if err != nil {
@@ -161,9 +161,9 @@ func TestXMLSingle(t *testing.T) {
 		Fields: []Field{
 			{Name: "first_name", Function: "firstname"},
 			{Name: "last_name", Function: "lastname"},
-			{Name: "password", Function: "password", Params: map[string][]string{"special": {"false"}}},
+			{Name: "password", Function: "password", Params: MapParams{"special": {"false"}}},
 			{Name: "person", Function: "person"},
-			{Name: "ints", Function: "shufflestrings", Params: map[string][]string{"strs": {"123", "456", "789"}}},
+			{Name: "ints", Function: "shufflestrings", Params: MapParams{"strs": {"123", "456", "789"}}},
 			{Name: "rand_map", Function: "randmap"},
 		},
 		Indent: true,
@@ -205,9 +205,9 @@ func TestXMLArray(t *testing.T) {
 			{Name: "id", Function: "autoincrement"},
 			{Name: "first_name", Function: "firstname"},
 			{Name: "last_name", Function: "lastname"},
-			{Name: "password", Function: "password", Params: map[string][]string{"special": {"false"}}},
+			{Name: "password", Function: "password", Params: MapParams{"special": {"false"}}},
 			{Name: "person", Function: "person"},
-			{Name: "ints", Function: "shufflestrings", Params: map[string][]string{"strs": {"123", "456", "789"}}},
+			{Name: "ints", Function: "shufflestrings", Params: MapParams{"strs": {"123", "456", "789"}}},
 			{Name: "rand_map", Function: "randmap"},
 		},
 		Indent: true,

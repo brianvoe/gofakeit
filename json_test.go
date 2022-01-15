@@ -1,6 +1,7 @@
 package gofakeit
 
 import (
+	"encoding/json"
 	"fmt"
 	"testing"
 )
@@ -14,7 +15,7 @@ func ExampleJSON_object() {
 			{Name: "first_name", Function: "firstname"},
 			{Name: "last_name", Function: "lastname"},
 			{Name: "address", Function: "address"},
-			{Name: "password", Function: "password", Params: map[string][]string{"special": {"false"}}},
+			{Name: "password", Function: "password", Params: MapParams{"special": {"false"}}},
 		},
 		Indent: true,
 	})
@@ -28,16 +29,16 @@ func ExampleJSON_object() {
 	//     "first_name": "Markus",
 	//     "last_name": "Moen",
 	//     "address": {
-	//         "address": "4599 Dale ton, Stantonmouth, Mississippi 90635",
+	//         "address": "4599 Dale ton, Norfolk, New Jersey 36906",
 	//         "street": "4599 Dale ton",
-	//         "city": "Stantonmouth",
-	//         "state": "Mississippi",
-	//         "zip": "90635",
-	//         "country": "Rwanda",
-	//         "latitude": 22.008873,
-	//         "longitude": 158.531956
+	//         "city": "Norfolk",
+	//         "state": "New Jersey",
+	//         "zip": "36906",
+	//         "country": "Tokelau",
+	//         "latitude": 23.058758,
+	//         "longitude": 89.022594
 	//     },
-	//     "password": "YjJbXclnVN0H"
+	//     "password": "qjXy56JHcVlZ"
 	// }
 }
 
@@ -50,7 +51,7 @@ func ExampleFaker_JSON_object() {
 			{Name: "first_name", Function: "firstname"},
 			{Name: "last_name", Function: "lastname"},
 			{Name: "address", Function: "address"},
-			{Name: "password", Function: "password", Params: map[string][]string{"special": {"false"}}},
+			{Name: "password", Function: "password", Params: MapParams{"special": {"false"}}},
 		},
 		Indent: true,
 	})
@@ -64,16 +65,16 @@ func ExampleFaker_JSON_object() {
 	//     "first_name": "Markus",
 	//     "last_name": "Moen",
 	//     "address": {
-	//         "address": "4599 Dale ton, Stantonmouth, Mississippi 90635",
+	//         "address": "4599 Dale ton, Norfolk, New Jersey 36906",
 	//         "street": "4599 Dale ton",
-	//         "city": "Stantonmouth",
-	//         "state": "Mississippi",
-	//         "zip": "90635",
-	//         "country": "Rwanda",
-	//         "latitude": 22.008873,
-	//         "longitude": 158.531956
+	//         "city": "Norfolk",
+	//         "state": "New Jersey",
+	//         "zip": "36906",
+	//         "country": "Tokelau",
+	//         "latitude": 23.058758,
+	//         "longitude": 89.022594
 	//     },
-	//     "password": "YjJbXclnVN0H"
+	//     "password": "qjXy56JHcVlZ"
 	// }
 }
 
@@ -86,7 +87,7 @@ func ExampleJSON_array() {
 			{Name: "id", Function: "autoincrement"},
 			{Name: "first_name", Function: "firstname"},
 			{Name: "last_name", Function: "lastname"},
-			{Name: "password", Function: "password", Params: map[string][]string{"special": {"false"}}},
+			{Name: "password", Function: "password", Params: MapParams{"special": {"false"}}},
 		},
 		RowCount: 3,
 		Indent:   true,
@@ -128,7 +129,7 @@ func ExampleFaker_JSON_array() {
 			{Name: "id", Function: "autoincrement"},
 			{Name: "first_name", Function: "firstname"},
 			{Name: "last_name", Function: "lastname"},
-			{Name: "password", Function: "password", Params: map[string][]string{"special": {"false"}}},
+			{Name: "password", Function: "password", Params: MapParams{"special": {"false"}}},
 		},
 		RowCount: 3,
 		Indent:   true,
@@ -175,6 +176,133 @@ func TestJSONLookup(t *testing.T) {
 	_, err := info.Generate(faker.Rand, m, info)
 	if err != nil {
 		t.Fatal(err.Error())
+	}
+}
+
+func TestJSONObjectLookupWithSubJSON(t *testing.T) {
+	faker := New(11)
+	info := GetFuncLookup("json")
+
+	m := NewMapParams()
+	m.Add("type", "object")
+	m.Add("fields", `{
+		"name":"json",
+		"function":"json",
+		"params":{
+			"type":"object",
+			"fields":[
+				{"name":"id","function":"autoincrement"},
+				{"name":"first_name","function":"firstname"},
+				{"name":"last_name","function":"lastname"},
+				{"name":"password","function":"password","params":{"special":"false","length":"20"}}
+			]
+		}
+	}`)
+
+	output, err := info.Generate(faker.Rand, m, info)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+
+	// put together a struct to unmarshal the output json into
+	type jsonStruct struct {
+		ID        int    `json:"id"`
+		FirstName string `json:"first_name"`
+		LastName  string `json:"last_name"`
+		Password  string `json:"password"`
+	}
+
+	type jsonParent struct {
+		JStruct jsonStruct `json:"json"`
+	}
+
+	var j jsonParent
+	err = json.Unmarshal(output.([]byte), &j)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+
+	// check that the output values are correct
+	if j.JStruct.ID != 1 {
+		t.Fatalf("ID is not 1 got: %v", j.JStruct.ID)
+	}
+	if j.JStruct.FirstName != "Markus" {
+		t.Errorf("FirstName is incorrect got: %s", j.JStruct.FirstName)
+	}
+	if j.JStruct.LastName != "Moen" {
+		t.Errorf("LastName is incorrect got: %s", j.JStruct.LastName)
+	}
+	if j.JStruct.Password != "WWXYVxbjXckoID06qBLA" {
+		t.Errorf("Password is incorrect got: %s", j.JStruct.Password)
+	}
+}
+
+func TestJSONArrayLookupWithSubJSON(t *testing.T) {
+	faker := New(11)
+	info := GetFuncLookup("json")
+
+	m := NewMapParams()
+	m.Add("type", "object")
+	m.Add("fields", `{
+		"name":"json",
+		"function":"json",
+		"params":{
+			"type":"array",
+			"rowcount": 10,
+			"fields":[
+				{"name":"id","function":"autoincrement"},
+				{"name":"first_name","function":"firstname"},
+				{"name":"last_name","function":"lastname"},
+				{"name":"password","function":"password","params":{"special":"false","length":"20"}},
+				{"name":"address","function":"address"}
+			]
+		}
+	}`)
+
+	output, err := info.Generate(faker.Rand, m, info)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+
+	// put together a struct to unmarshal the output json into
+	type jsonStruct struct {
+		ID        int         `json:"id"`
+		FirstName string      `json:"first_name"`
+		LastName  string      `json:"last_name"`
+		Password  string      `json:"password"`
+		Address   AddressInfo `json:"address"`
+	}
+
+	type jsonParent struct {
+		JStruct []jsonStruct `json:"json"`
+	}
+
+	var j jsonParent
+	err = json.Unmarshal(output.([]byte), &j)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+
+	// Check row count
+	if len(j.JStruct) != 10 {
+		t.Fatalf("Row count is not 10 got: %v", len(j.JStruct))
+	}
+
+	// check that the output values are correct
+	if j.JStruct[0].ID != 1 {
+		t.Fatalf("ID is incorrect should be 1 got: %v", j.JStruct[0].ID)
+	}
+	if j.JStruct[0].FirstName != "Markus" {
+		t.Errorf("FirstName is incorrect got: %s", j.JStruct[0].FirstName)
+	}
+	if j.JStruct[0].LastName != "Moen" {
+		t.Errorf("LastName is incorrect got: %s", j.JStruct[0].LastName)
+	}
+	if j.JStruct[0].Password != "WWXYVxbjXckoID06qBLA" {
+		t.Errorf("Password is incorrect got: %s", j.JStruct[0].Password)
+	}
+	if j.JStruct[0].Address.City != "San Antonio" {
+		t.Errorf("City is incorrect got: %s", j.JStruct[0].Address.City)
 	}
 }
 

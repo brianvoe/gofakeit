@@ -1,6 +1,6 @@
 package gofakeit
 
-import rand "math/rand"
+import "math/rand"
 
 // Company will generate a random company name string
 func Company() string { return company(globalFaker.Rand) }

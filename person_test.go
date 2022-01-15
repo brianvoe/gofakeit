@@ -131,6 +131,24 @@ func BenchmarkGender(b *testing.B) {
 	}
 }
 
+func ExampleHobby() {
+	Seed(11)
+	fmt.Println(Hobby())
+	// Output: Transit map collecting
+}
+
+func ExampleFaker_Hobby() {
+	f := New(11)
+	fmt.Println(f.Hobby())
+	// Output: Transit map collecting
+}
+
+func BenchmarkHobby(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Hobby()
+	}
+}
+
 func ExamplePerson() {
 	Seed(11)
 	person := Person()
@@ -177,20 +195,20 @@ func ExamplePerson() {
 	// Associate
 	// Human
 	// Usability
-	// 99536 Pine mouth, Moenport, North Dakota 24259
+	// 99536 Pine mouth, Fremont, Indiana 30042
 	// 99536 Pine mouth
-	// Moenport
-	// North Dakota
-	// 24259
-	// Ghana
-	// -6.662595
-	// 23.921575
-	// 3023202027
-	// lamarkoelpin@heaney.biz
-	// Maestro
-	// 39800889982276
-	// 01/27
-	// 932
+	// Fremont
+	// Indiana
+	// 30042
+	// Madagascar
+	// -75.631793
+	// -83.487777
+	// 4583023202
+	// jalonrolfson@quigley.info
+	// Hiper
+	// 4011781714800889
+	// 09/26
+	// 272
 }
 
 func ExampleFaker_Person() {
@@ -239,20 +257,20 @@ func ExampleFaker_Person() {
 	// Associate
 	// Human
 	// Usability
-	// 99536 Pine mouth, Moenport, North Dakota 24259
+	// 99536 Pine mouth, Fremont, Indiana 30042
 	// 99536 Pine mouth
-	// Moenport
-	// North Dakota
-	// 24259
-	// Ghana
-	// -6.662595
-	// 23.921575
-	// 3023202027
-	// lamarkoelpin@heaney.biz
-	// Maestro
-	// 39800889982276
-	// 01/27
-	// 932
+	// Fremont
+	// Indiana
+	// 30042
+	// Madagascar
+	// -75.631793
+	// -83.487777
+	// 4583023202
+	// jalonrolfson@quigley.info
+	// Hiper
+	// 4011781714800889
+	// 09/26
+	// 272
 }
 
 func BenchmarkPerson(b *testing.B) {

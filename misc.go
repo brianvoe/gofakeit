@@ -102,6 +102,17 @@ func flipACoin(r *rand.Rand) string {
 	return "Tails"
 }
 
+// RandomMapKey will return a random key from a map
+func RandomMapKey(mapI interface{}) interface{} { return randomMapKey(globalFaker.Rand, mapI) }
+
+// RandomMapKey will return a random key from a map
+func (f *Faker) RandomMapKey(mapI interface{}) interface{} { return randomMapKey(f.Rand, mapI) }
+
+func randomMapKey(r *rand.Rand, mapI interface{}) interface{} {
+	keys := reflect.ValueOf(mapI).MapKeys()
+	return keys[r.Intn(len(keys))].Interface()
+}
+
 // Categories will return a map string array of available data categories and sub categories
 func Categories() map[string][]string {
 	types := make(map[string][]string)

@@ -2,7 +2,7 @@ package gofakeit
 
 import (
 	"errors"
-	rand "math/rand"
+	"math/rand"
 )
 
 // HipsterWord will return a single hipster word

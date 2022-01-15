@@ -6,7 +6,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	rand "math/rand"
+	"math/rand"
+	"reflect"
 	"strings"
 )
 
@@ -56,8 +57,8 @@ func csvFunc(r *rand.Rand, co *CSVOptions) ([]byte, error) {
 	}
 	w.Write(header)
 
-	// Loop through row count and add fields
-	for i := 1; i < co.RowCount; i++ {
+	// Loop through row count +1(for header) and add fields
+	for i := 1; i < co.RowCount+1; i++ {
 		vr := make([]string, len(co.Fields))
 
 		// Loop through fields and add to them to map[string]interface{}
@@ -76,6 +77,27 @@ func csvFunc(r *rand.Rand, co *CSVOptions) ([]byte, error) {
 			value, err := funcInfo.Generate(r, &field.Params, funcInfo)
 			if err != nil {
 				return nil, err
+			}
+
+			if _, ok := value.([]byte); ok {
+				// If it's a slice of bytes or struct, unmarshal it into an interface
+				var v interface{}
+				if err := json.Unmarshal(value.([]byte), &v); err != nil {
+					return nil, err
+				}
+				value = v
+			}
+
+			// If the value is a list of possible values, marsha it into a string
+			if reflect.TypeOf(value).Kind() == reflect.Struct ||
+				reflect.TypeOf(value).Kind() == reflect.Ptr ||
+				reflect.TypeOf(value).Kind() == reflect.Map ||
+				reflect.TypeOf(value).Kind() == reflect.Slice {
+				b, err := json.Marshal(value)
+				if err != nil {
+					return nil, err
+				}
+				value = string(b)
 			}
 
 			vr[ii] = fmt.Sprintf("%v", value)
@@ -103,10 +125,11 @@ func addFileCSVLookup() {
 			1,Markus,Moen,Dc0VYXjkWABx
 			2,Osborne,Hilll,XPJ9OVNbs5lm
 		`,
-		Output: "[]byte",
+		Output:      "[]byte",
+		ContentType: "text/csv",
 		Params: []Param{
-			{Field: "rowcount", Display: "Row Count", Type: "int", Default: "100", Description: "Number of rows in JSON array"},
-			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function to run in json format"},
+			{Field: "rowcount", Display: "Row Count", Type: "int", Default: "100", Description: "Number of rows"},
+			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function"},
 			{Field: "delimiter", Display: "Delimiter", Type: "string", Default: ",", Description: "Separator in between row values"},
 		},
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
@@ -131,7 +154,7 @@ func addFileCSVLookup() {
 					// Unmarshal fields string into fields array
 					err = json.Unmarshal([]byte(f), &co.Fields[i])
 					if err != nil {
-						return nil, errors.New("unable to decode json string")
+						return nil, err
 					}
 				}
 			}

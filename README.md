@@ -236,6 +236,7 @@ FirstName() string
 LastName() string
 Gender() string
 SSN() string
+Hobby() string
 Contact() *ContactInfo
 Email() string
 Phone() string
@@ -313,13 +314,98 @@ CarTransmissionType() string
 
 ### Words
 
+#### Noun
+
 ```go
 Noun() string
+NounCommon() string
+NounConcrete() string
+NounAbstract() string
+NounCollectivePeople() string
+NounCollectiveAnimal() string
+NounCollectiveThing() string
+NounCountable() string
+NounUncountable() string
+```
+
+#### Verb
+
+```go
 Verb() string
+VerbAction() string
+VerbLinking() string
+VerbHelping() string
+```
+
+#### Adverb
+
+```go
 Adverb() string
+AdverbManner() string
+AdverbDegree() string
+AdverbPlace() string
+AdverbTimeDefinite() string
+AdverbTimeIndefinite() string
+AdverbFrequencyDefinite() string
+AdverbFrequencyIndefinite() string
+```
+
+#### Proposition
+
+```go
 Preposition() string
+PrepositionSimple() string
+PrepositionDouble() string
+PrepositionCompound() string
+```
+
+#### Adjective
+
+```go
 Adjective() string
+AdjectiveDescriptive() string
+AdjectiveQuantitative() string
+AdjectiveProper() string
+AdjectiveDemonstrative() string
+AdjectivePossessive() string
+AdjectiveInterrogative() string
+AdjectiveIndefinite() string
+```
+
+#### Pronoun
+
+```go
+Pronoun() string
+PronounPersonal() string
+PronounObject() string
+PronounPosessive() string
+PronounReflective() string
+PronounDemonstrative() string
+PronounInterrogative() string
+PronounRelative() string
+```
+
+#### Connective
+
+```go
+Connective() string
+ConnectiveTime() string
+ConnectiveComparative() string
+ConnectiveComplaint() string
+ConnectiveListing() string
+ConnectiveCasual() string
+ConnectiveExamplify() string
+```
+
+#### Word
+
+```go
 Word() string
+```
+
+#### Sentences
+
+```go
 Sentence(wordCount int) string
 Paragraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string
 LoremIpsumWord() string
@@ -348,6 +434,7 @@ Dessert() string
 Bool() bool
 UUID() string
 FlipACoin() string
+RandomMapKey(mapI interface{}) interface{}
 ShuffleAnySlice(v interface{})
 ```
 
@@ -527,4 +614,35 @@ Lexify(str string) string
 Numerify(str string) string
 ShuffleStrings(a []string)
 RandomString(a []string) string
+```
+
+### Celebrity
+
+```go
+CelebrityActor() string
+CelebrityBusiness() string
+CelebritySport() string
+```
+
+### Minecraft
+
+```go
+MinecraftOre() string
+MinecraftWood() string
+MinecraftArmorTier() string
+MinecraftArmorPart() string
+MinecraftWeapon() string
+MinecraftTool() string
+MinecraftDye() string
+MinecraftFood() string
+MinecraftAnimal() string
+MinecraftVillagerJob() string
+MinecraftVillagerStation() string
+MinecraftVillagerLevel() string
+MinecraftMobPassive() string
+MinecraftMobNeutral() string
+MinecraftMobHostile() string
+MinecraftMobBoss() string
+MinecraftBiome() string
+MinecraftWeather() string
 ```

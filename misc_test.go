@@ -218,6 +218,35 @@ func BenchmarkFlipACoin(b *testing.B) {
 	})
 }
 
+func TestRandomMapKey(t *testing.T) {
+	mStr := map[string]int{
+		"a": 1,
+		"b": 2,
+		"c": 3,
+	}
+
+	for i := 0; i < 100; i++ {
+		key := RandomMapKey(mStr)
+		if _, ok := mStr[key.(string)]; !ok {
+			t.Errorf("key %s not found in map", key)
+		}
+	}
+
+	mInt := map[int]string{
+		1: "a",
+		2: "b",
+		3: "c",
+	}
+
+	for i := 0; i < 100; i++ {
+		f := New(11)
+		key := f.RandomMapKey(mInt)
+		if _, ok := mInt[key.(int)]; !ok {
+			t.Errorf("key %d not found in map", key)
+		}
+	}
+}
+
 func TestCategories(t *testing.T) {
 	var got, expected []string
 	for k := range Categories() {

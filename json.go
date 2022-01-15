@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	rand "math/rand"
+	"math/rand"
 )
 
 // JSONOptions defines values needed for json generation
@@ -94,6 +94,16 @@ func jsonFunc(r *rand.Rand, jo *JSONOptions) ([]byte, error) {
 				return nil, err
 			}
 
+			if _, ok := value.([]byte); ok {
+				// If it's a slice, unmarshal it into an interface
+				var val interface{}
+				err := json.Unmarshal(value.([]byte), &val)
+				if err != nil {
+					return nil, err
+				}
+				value = val
+			}
+
 			v[i] = &jsonKeyVal{Key: field.Name, Value: value}
 
 		}
@@ -138,6 +148,16 @@ func jsonFunc(r *rand.Rand, jo *JSONOptions) ([]byte, error) {
 					return nil, err
 				}
 
+				if _, ok := value.([]byte); ok {
+					// If it's a slice, unmarshal it into an interface
+					var val interface{}
+					err := json.Unmarshal(value.([]byte), &val)
+					if err != nil {
+						return nil, err
+					}
+					value = val
+				}
+
 				vr[ii] = &jsonKeyVal{Key: field.Name, Value: value}
 			}
 
@@ -167,7 +187,8 @@ func addFileJSONLookup() {
 			{ "id": 2, "first_name": "Alayna", "last_name": "Wuckert" },
 			{ "id": 3, "first_name": "Lura", "last_name": "Lockman" }
 		]`,
-		Output: "[]byte",
+		Output:      "[]byte",
+		ContentType: "application/json",
 		Params: []Param{
 			{Field: "type", Display: "Type", Type: "string", Default: "object", Options: []string{"object", "array"}, Description: "Type of JSON, object or array"},
 			{Field: "rowcount", Display: "Row Count", Type: "int", Default: "100", Description: "Number of rows in JSON array"},
@@ -202,7 +223,7 @@ func addFileJSONLookup() {
 					// Unmarshal fields string into fields array
 					err = json.Unmarshal([]byte(f), &jo.Fields[i])
 					if err != nil {
-						return nil, errors.New("unable to decode json string")
+						return nil, err
 					}
 				}
 			}

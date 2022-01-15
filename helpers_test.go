@@ -125,13 +125,9 @@ func TestReplaceWithNumbers(t *testing.T) {
 }
 
 func BenchmarkReplaceWithNumbers(b *testing.B) {
-	b.StopTimer()
 	for i := 0; i < b.N; i++ {
 		Seed(42)
-
-		b.StartTimer()
 		replaceWithNumbers(globalFaker.Rand, "###☺#☻##☹##")
-		b.StopTimer()
 	}
 }
 

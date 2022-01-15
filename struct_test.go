@@ -2,7 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
-	rand "math/rand"
+	"math/rand"
 	"testing"
 	"time"
 )
@@ -519,11 +519,11 @@ func TestStructToDateTime(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if datetime.Simple.String() != "1991-01-24 13:00:35.820738079 +0000 UTC" {
-		t.Errorf("Simple should be 1991-01-24 13:00:35.820738079 +0000 UTC and instead got %s", datetime.Simple.String())
+	if datetime.Simple.String() != "1995-01-24 13:00:35.820738079 +0000 UTC" {
+		t.Errorf("Simple should be 1995-01-24 13:00:35.820738079 +0000 UTC and instead got %s", datetime.Simple.String())
 	}
-	if datetime.Tag.String() != "1904-02-10 22:06:24 +0000 UTC" {
-		t.Errorf("Tag should be 1904-02-10 22:06:24 +0000 UTC and instead got %s", datetime.Tag.String())
+	if datetime.Tag.String() != "1922-02-10 22:06:24 +0000 UTC" {
+		t.Errorf("Tag should be 1922-02-10 22:06:24 +0000 UTC and instead got %s", datetime.Tag.String())
 	}
 	if datetime.TagCustom.String() != "2021-11-26 15:22:00 +0000 UTC" {
 		t.Errorf("TagCustom should be 2021-11-26 15:22:00 +0000 UTC and instead got %s", datetime.TagCustom.String())

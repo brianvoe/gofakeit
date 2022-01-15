@@ -2,7 +2,7 @@ package gofakeit
 
 import (
 	"math"
-	rand "math/rand"
+	"math/rand"
 	"strconv"
 	"strings"
 	"time"
@@ -246,6 +246,7 @@ func addPaymentLookup() {
 		Description: "Random currency data set",
 		Example:     `{short: "USD", long: "United States Dollar"}`,
 		Output:      "map[string]string",
+		ContentType: "application/json",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return currencyShort(r), nil
 		},

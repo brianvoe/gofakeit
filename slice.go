@@ -1,7 +1,7 @@
 package gofakeit
 
 import (
-	rand "math/rand"
+	"math/rand"
 	"reflect"
 )
 

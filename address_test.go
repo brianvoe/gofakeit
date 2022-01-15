@@ -16,14 +16,14 @@ func ExampleAddress() {
 	fmt.Println(address.Country)
 	fmt.Println(address.Latitude)
 	fmt.Println(address.Longitude)
-	// Output: 364 Unions ville, Murphyton, Maryland 53690
+	// Output: 364 Unions ville, Norfolk, Ohio 99536
 	// 364 Unions ville
-	// Murphyton
-	// Maryland
-	// 53690
-	// Georgia
-	// -34.069915
-	// 46.117516
+	// Norfolk
+	// Ohio
+	// 99536
+	// Lesotho
+	// 88.792592
+	// 174.504681
 }
 
 func ExampleFaker_Address() {
@@ -37,14 +37,14 @@ func ExampleFaker_Address() {
 	fmt.Println(address.Country)
 	fmt.Println(address.Latitude)
 	fmt.Println(address.Longitude)
-	// Output: 364 Unions ville, Murphyton, Maryland 53690
+	// Output: 364 Unions ville, Norfolk, Ohio 99536
 	// 364 Unions ville
-	// Murphyton
-	// Maryland
-	// 53690
-	// Georgia
-	// -34.069915
-	// 46.117516
+	// Norfolk
+	// Ohio
+	// 99536
+	// Lesotho
+	// 88.792592
+	// 174.504681
 }
 
 func BenchmarkAddress(b *testing.B) {
@@ -254,13 +254,13 @@ func BenchmarkStreetSuffix(b *testing.B) {
 func ExampleCity() {
 	Seed(11)
 	fmt.Println(City())
-	// Output: North Pagac
+	// Output: Plano
 }
 
 func ExampleFaker_City() {
 	f := New(11)
 	fmt.Println(f.City())
-	// Output: North Pagac
+	// Output: Plano
 }
 
 func TestCity(t *testing.T) {

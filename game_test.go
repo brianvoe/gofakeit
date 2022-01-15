@@ -8,13 +8,22 @@ import (
 func ExampleGamertag() {
 	Seed(11)
 	fmt.Println(Gamertag())
-	// Output: footinterpret129
+	// Output: PurpleSheep5
 }
 
 func ExampleFaker_Gamertag() {
 	f := New(11)
 	fmt.Println(f.Gamertag())
-	// Output: footinterpret129
+	// Output: PurpleSheep5
+}
+
+func TestGamertag(t *testing.T) {
+	for i := 0; i < 100; i++ {
+		g := Gamertag()
+		if g == "" {
+			t.Errorf("Gamertag() returned empty string")
+		}
+	}
 }
 
 func BenchmarkGamertag(b *testing.B) {

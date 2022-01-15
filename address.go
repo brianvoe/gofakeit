@@ -2,7 +2,7 @@ package gofakeit
 
 import (
 	"errors"
-	rand "math/rand"
+	"math/rand"
 	"strings"
 )
 
@@ -100,18 +100,7 @@ func City() string { return city(globalFaker.Rand) }
 // City will generate a random city string
 func (f *Faker) City() string { return city(f.Rand) }
 
-func city(r *rand.Rand) string {
-	switch randInt := randIntRange(r, 1, 3); randInt {
-	case 1:
-		return firstName(r) + streetSuffix(r)
-	case 2:
-		return lastName(r) + streetSuffix(r)
-	case 3:
-		return streetPrefix(r) + " " + lastName(r)
-	}
-
-	return ""
-}
+func city(r *rand.Rand) string { return getRandValue(r, []string{"address", "city"}) }
 
 // State will generate a random state string
 func State() string { return state(globalFaker.Rand) }
@@ -220,7 +209,8 @@ func addAddressLookup() {
 			latitude: "23.058758",
 			longitude: "89.022594"
 		}`,
-		Output: "map[string]interface",
+		Output:      "map[string]interface",
+		ContentType: "application/json",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return address(r), nil
 		},

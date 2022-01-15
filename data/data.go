@@ -22,7 +22,10 @@ var Data = map[string]map[string][]string{
 	"car":       Car,
 	"emoji":     Emoji,
 	"word":      Word,
+	"sentence":  Sentence,
 	"food":      Food,
+	"minecraft": Minecraft,
+	"celebrity": Celebrity,
 }
 
 // IntData consists of the main set of fake information (integer only)

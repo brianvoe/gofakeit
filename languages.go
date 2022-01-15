@@ -1,6 +1,6 @@
 package gofakeit
 
-import rand "math/rand"
+import "math/rand"
 
 // Language will return a random language
 func Language() string { return language(globalFaker.Rand) }

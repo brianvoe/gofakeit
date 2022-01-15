@@ -1,8 +1,9 @@
 package gofakeit
 
 import (
+	"encoding/json"
 	"fmt"
-	rand "math/rand"
+	"math/rand"
 	"strings"
 	"testing"
 )
@@ -65,6 +66,75 @@ func Example_custom_with_params() {
 	// Output: loredlowlh
 }
 
+func TestMapParamsGet(t *testing.T) {
+	mapParams := MapParams{
+		"name": []string{"bill"},
+	}
+
+	// Test get string
+	val := mapParams.Get("name")
+	if val[0] != "bill" {
+		t.Fatalf("Expected bill but got %s", val)
+	}
+
+	// Test get from field that doesnt exist
+	val = mapParams.Get("age")
+	if len(val) != 0 {
+		t.Fatalf("Expected empty slice but got %s", val)
+	}
+}
+
+func TestMapParamsValueUnmarshalJSON(t *testing.T) {
+	mapParamStr := `{"name":["billy","mister"],"nickname":"big boy","age":[10],"weight":200}`
+
+	// Test unmarshal into MapParams
+	var mapData MapParams
+	err := json.Unmarshal([]byte(mapParamStr), &mapData)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// Check to make sure we have the right data
+	if len(mapData) != 4 {
+		t.Fatalf("Expected 4 params, got %d", len(mapData))
+	}
+
+	if len(mapData["name"]) != 2 {
+		t.Fatalf("Expected 2 names, got %d", len(mapData["name"]))
+	} else {
+		if mapData["name"][0] != "billy" {
+			t.Fatalf("Expected billy, got %s", mapData["name"][0])
+		}
+		if mapData["name"][1] != "mister" {
+			t.Fatalf("Expected mister, got %s", mapData["name"][1])
+		}
+	}
+
+	if len(mapData["nickname"]) != 1 {
+		t.Fatalf("Expected 1 nickname, got %d", len(mapData["nickname"]))
+	} else {
+		if mapData["nickname"][0] != "big boy" {
+			t.Fatalf("Expected first value of nickname to be big boy but got %s", mapData["nickname"][0])
+		}
+	}
+
+	if len(mapData["age"]) != 1 {
+		t.Fatalf("Expected 1 age, got %d", len(mapData["age"]))
+	} else {
+		if mapData["age"][0] != "10" {
+			t.Fatalf("Expected first value of age to be 10 but got %s", mapData["age"][0])
+		}
+	}
+
+	if len(mapData["weight"]) != 1 {
+		t.Fatalf("Expected 1 weight, got %d", len(mapData["weight"]))
+	} else {
+		if mapData["weight"][0] != "200" {
+			t.Fatalf("Expected first value of weight to be 200 but got %s", mapData["weight"][0])
+		}
+	}
+}
+
 func TestLookupChecking(t *testing.T) {
 	faker := New(0)
 
@@ -73,7 +143,7 @@ func TestLookupChecking(t *testing.T) {
 		if info.Params != nil && len(info.Params) != 0 {
 			// Make sure mapdata is set
 			if mapData == nil {
-				mapData = make(map[string][]string)
+				mapData = make(MapParams)
 			}
 
 			// Loop through params and add fields to mapdata

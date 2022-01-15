@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"math"
-	rand "math/rand"
+	"math/rand"
 	"regexp/syntax"
 	"strings"
 )
@@ -395,6 +395,7 @@ func addGenerateLookup() {
 		Description: "Random map of generated data",
 		Example:     `map[consult:respond context:9285735]`,
 		Output:      "map[string]interface{}",
+		ContentType: "application/json",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return mapFunc(r), nil
 		},
