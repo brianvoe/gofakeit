@@ -36,45 +36,58 @@ func TestGetAllRequests(t *testing.T) {
 			// Loop through params and add fields to mapdata
 			for _, p := range info.Params {
 				if p.Default != "" {
-					mapData.Add(p.Field, p.Default)
+					// If p.Type is []uint, then we need to convert it to []string
+					if strings.HasPrefix(p.Type, "[") {
+						// Remove [] from type
+						defaultClean := p.Default[1 : len(p.Default)-1]
+
+						// Split on comma
+						defaultSplit := strings.Split(defaultClean, ",")
+
+						// Loop through defaultSplit and add to mapData
+						for _, s := range defaultSplit {
+							mapData.Add(p.Field, s)
+						}
+					} else {
+						mapData.Add(p.Field, p.Default)
+					}
+
 					continue
 				}
 
 				switch p.Type {
 				case "bool":
 					mapData.Add(p.Field, fmt.Sprintf("%v", gofakeit.Bool()))
-					break
 				case "string":
 					mapData.Add(p.Field, gofakeit.Letter())
-					break
 				case "uint":
 					mapData.Add(p.Field, fmt.Sprintf("%v", gofakeit.Uint16()))
 				case "int":
 					mapData.Add(p.Field, fmt.Sprintf("%v", gofakeit.Int16()))
 				case "float":
 					mapData.Add(p.Field, fmt.Sprintf("%v", gofakeit.Float32()))
-					break
 				case "[]string":
 					mapData.Add(p.Field, gofakeit.Letter())
 					mapData.Add(p.Field, gofakeit.Letter())
 					mapData.Add(p.Field, gofakeit.Letter())
 					mapData.Add(p.Field, gofakeit.Letter())
-					break
 				case "[]int":
 					mapData.Add(p.Field, fmt.Sprintf("%d", gofakeit.Int8()))
 					mapData.Add(p.Field, fmt.Sprintf("%d", gofakeit.Int8()))
 					mapData.Add(p.Field, fmt.Sprintf("%d", gofakeit.Int8()))
 					mapData.Add(p.Field, fmt.Sprintf("%d", gofakeit.Int8()))
-					break
+				case "[]uint":
+					mapData.Add(p.Field, fmt.Sprintf("%d", gofakeit.Uint8()))
+					mapData.Add(p.Field, fmt.Sprintf("%d", gofakeit.Uint8()))
+					mapData.Add(p.Field, fmt.Sprintf("%d", gofakeit.Uint8()))
+					mapData.Add(p.Field, fmt.Sprintf("%d", gofakeit.Uint8()))
 				case "[]float":
 					mapData.Add(p.Field, fmt.Sprintf("%v", gofakeit.Float32()))
 					mapData.Add(p.Field, fmt.Sprintf("%v", gofakeit.Float32()))
 					mapData.Add(p.Field, fmt.Sprintf("%v", gofakeit.Float32()))
 					mapData.Add(p.Field, fmt.Sprintf("%v", gofakeit.Float32()))
-					break
 				case "[]Field":
 					mapData.Add(p.Field, `{"name":"first_name","function":"firstname"}`)
-					break
 				default:
 					t.Fatalf("Looking for %s but switch case doesnt have it", p.Type)
 				}
@@ -91,7 +104,7 @@ func TestGetAllRequests(t *testing.T) {
 		})
 
 		if statusCode != 200 {
-			t.Fatalf("Was expecting 200 got %d", statusCode)
+			t.Fatalf("Was expecting 200 got %d, function %v, params %+v", statusCode, field, mapData)
 		}
 	}
 }
@@ -155,36 +168,39 @@ func TestPostAllRequests(t *testing.T) {
 			// Loop through params and add fields to mapdata
 			for _, p := range info.Params {
 				if p.Default != "" {
-					mapData[p.Field] = []string{p.Default}
+					// If p.Type is []uint, then we need to convert it to []string
+					if strings.HasPrefix(p.Type, "[") {
+						// Remove [] from type
+						defaultClean := p.Default[1 : len(p.Default)-1]
+						mapData[p.Field] = strings.Split(defaultClean, ",")
+					} else {
+						mapData[p.Field] = []string{p.Default}
+					}
+
 					continue
 				}
 
 				switch p.Type {
 				case "bool":
 					mapData[p.Field] = []string{fmt.Sprintf("%v", gofakeit.Bool())}
-					break
 				case "string":
 					mapData[p.Field] = []string{gofakeit.Letter()}
-					break
 				case "uint":
 					mapData[p.Field] = []string{fmt.Sprintf("%v", gofakeit.Uint16())}
 				case "int":
 					mapData[p.Field] = []string{fmt.Sprintf("%v", gofakeit.Int16())}
 				case "float":
 					mapData[p.Field] = []string{fmt.Sprintf("%v", gofakeit.Float32())}
-					break
 				case "[]string":
 					mapData[p.Field] = []string{gofakeit.Letter(), gofakeit.Letter(), gofakeit.Letter(), gofakeit.Letter()}
-					break
 				case "[]int":
 					mapData[p.Field] = []string{fmt.Sprintf("%d", gofakeit.Int8()), fmt.Sprintf("%d", gofakeit.Int8()), fmt.Sprintf("%d", gofakeit.Int8()), fmt.Sprintf("%d", gofakeit.Int8())}
-					break
+				case "[]uint":
+					mapData[p.Field] = []string{fmt.Sprintf("%d", gofakeit.Uint8()), fmt.Sprintf("%d", gofakeit.Uint8()), fmt.Sprintf("%d", gofakeit.Uint8()), fmt.Sprintf("%d", gofakeit.Uint8())}
 				case "[]float":
 					mapData[p.Field] = []string{fmt.Sprintf("%v", gofakeit.Float32()), fmt.Sprintf("%v", gofakeit.Float32()), fmt.Sprintf("%v", gofakeit.Float32()), fmt.Sprintf("%v", gofakeit.Float32())}
-					break
 				case "[]Field":
 					mapData[p.Field] = []string{`{"name":"first_name","function":"firstname"}`}
-					break
 				default:
 					t.Fatalf("Looking for %s but switch case doesnt have it", p.Type)
 				}
