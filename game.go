@@ -37,6 +37,32 @@ func gamertag(r *rand.Rand) string {
 	return str
 }
 
+// Dice will generate a random set of dice
+func Dice(numDice uint, sides []uint) []uint { return dice(globalFaker.Rand, numDice, sides) }
+
+// Dice will generate a random set of dice
+func (f *Faker) Dice(numDice uint, sides []uint) []uint { return dice(f.Rand, numDice, sides) }
+
+func dice(r *rand.Rand, numDice uint, sides []uint) []uint {
+	dice := make([]uint, numDice)
+
+	// If we dont have any sides well set the sides to 6
+	if len(sides) == 0 {
+		sides = []uint{6}
+	}
+
+	for i := range dice {
+		// If sides[i] doesnt exist use the first side
+		if len(sides) < i {
+			dice[i] = sides[0]
+		} else {
+			dice[i] = sides[i]
+		}
+	}
+
+	return dice
+}
+
 func addGameLookup() {
 	AddFuncLookup("gamertag", Info{
 		Display:     "Gamertag",
@@ -46,6 +72,31 @@ func addGameLookup() {
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return gamertag(r), nil
+		},
+	})
+
+	AddFuncLookup("dice", Info{
+		Display:     "Dice",
+		Category:    "game",
+		Description: "Random dice outputs",
+		Example:     "footinterpret63",
+		Output:      "[]uint",
+		Params: []Param{
+			{Field: "numdice", Display: "Number of Dice", Type: "uint", Default: "1", Description: "Number of dice to roll"},
+			{Field: "sides", Display: "Number of Sides", Type: "[]uint", Default: "[6]", Description: "Number of sides on each dice"},
+		},
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			numDice, err := info.GetUint(m, "numdice")
+			if err != nil {
+				return nil, err
+			}
+
+			sides, err := info.GetUintArray(m, "sides")
+			if err != nil {
+				return nil, err
+			}
+
+			return dice(r, numDice, sides), nil
 		},
 	})
 }
