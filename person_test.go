@@ -162,6 +162,7 @@ func ExamplePerson() {
 	fmt.Println(person.Gender)
 	fmt.Println(person.SSN)
 	fmt.Println(person.Image)
+	fmt.Println(person.Hobby)
 
 	fmt.Println(job.Company)
 	fmt.Println(job.Title)
@@ -190,25 +191,26 @@ func ExamplePerson() {
 	// Moen
 	// male
 	// 275413589
-	// https://picsum.photos/300/300/people
-	// Morgan Stanley
-	// Associate
-	// Human
-	// Usability
-	// 99536 Pine mouth, Fremont, Indiana 30042
-	// 99536 Pine mouth
-	// Fremont
-	// Indiana
-	// 30042
-	// Madagascar
-	// -75.631793
-	// -83.487777
-	// 4583023202
-	// jalonrolfson@quigley.info
-	// Hiper
-	// 4011781714800889
-	// 09/26
-	// 272
+	// https://picsum.photos/208/500
+	// Lacrosse
+	// Intermap Technologies
+	// Developer
+	// Direct
+	// Paradigm
+	// 369 North Corner bury, Miami, North Dakota 24259
+	// 369 North Corner bury
+	// Miami
+	// North Dakota
+	// 24259
+	// Ghana
+	// -6.662595
+	// 23.921575
+	// 3023202027
+	// lamarkoelpin@heaney.biz
+	// Maestro
+	// 39800889982276
+	// 01/28
+	// 932
 }
 
 func ExampleFaker_Person() {
@@ -224,6 +226,7 @@ func ExampleFaker_Person() {
 	fmt.Println(person.Gender)
 	fmt.Println(person.SSN)
 	fmt.Println(person.Image)
+	fmt.Println(person.Hobby)
 
 	fmt.Println(job.Company)
 	fmt.Println(job.Title)
@@ -252,25 +255,26 @@ func ExampleFaker_Person() {
 	// Moen
 	// male
 	// 275413589
-	// https://picsum.photos/300/300/people
-	// Morgan Stanley
-	// Associate
-	// Human
-	// Usability
-	// 99536 Pine mouth, Fremont, Indiana 30042
-	// 99536 Pine mouth
-	// Fremont
-	// Indiana
-	// 30042
-	// Madagascar
-	// -75.631793
-	// -83.487777
-	// 4583023202
-	// jalonrolfson@quigley.info
-	// Hiper
-	// 4011781714800889
-	// 09/26
-	// 272
+	// https://picsum.photos/208/500
+	// Lacrosse
+	// Intermap Technologies
+	// Developer
+	// Direct
+	// Paradigm
+	// 369 North Corner bury, Miami, North Dakota 24259
+	// 369 North Corner bury
+	// Miami
+	// North Dakota
+	// 24259
+	// Ghana
+	// -6.662595
+	// 23.921575
+	// 3023202027
+	// lamarkoelpin@heaney.biz
+	// Maestro
+	// 39800889982276
+	// 01/28
+	// 932
 }
 
 func BenchmarkPerson(b *testing.B) {
