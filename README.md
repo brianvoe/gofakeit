@@ -286,6 +286,7 @@ LongitudeInRange(min, max float64) (float64, error)
 
 ```go
 Gamertag() string
+Dice(numDice uint, sides []uint) []uint
 ```
 
 ### Beer
