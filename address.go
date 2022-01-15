@@ -209,7 +209,8 @@ func addAddressLookup() {
 			latitude: "23.058758",
 			longitude: "89.022594"
 		}`,
-		Output: "map[string]interface",
+		Output:      "map[string]interface",
+		ContentType: "application/json",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return address(r), nil
 		},

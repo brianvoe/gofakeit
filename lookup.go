@@ -356,6 +356,25 @@ func (i *Info) GetIntArray(m *MapParams, field string) ([]int, error) {
 	return ints, nil
 }
 
+// GetUintArray will retrieve []uint field from data
+func (i *Info) GetUintArray(m *MapParams, field string) ([]uint, error) {
+	_, value, err := i.GetField(m, field)
+	if err != nil {
+		return nil, err
+	}
+
+	var uints []uint
+	for i := 0; i < len(value); i++ {
+		valueUint, err := strconv.ParseUint(value[i], 10, 64)
+		if err != nil {
+			return nil, fmt.Errorf("%s value could not parse to uint", value[i])
+		}
+		uints = append(uints, uint(valueUint))
+	}
+
+	return uints, nil
+}
+
 // GetFloat32Array will retrieve []float field from data
 func (i *Info) GetFloat32Array(m *MapParams, field string) ([]float32, error) {
 	_, value, err := i.GetField(m, field)

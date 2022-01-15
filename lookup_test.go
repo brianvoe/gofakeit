@@ -149,7 +149,15 @@ func TestLookupChecking(t *testing.T) {
 			// Loop through params and add fields to mapdata
 			for _, p := range info.Params {
 				if p.Default != "" {
-					mapData[p.Field] = []string{p.Default}
+					// If p.Type is []uint, then we need to convert it to []string
+					if strings.HasPrefix(p.Type, "[") {
+						// Remove [] from type
+						defaultClean := p.Default[1 : len(p.Default)-1]
+						mapData[p.Field] = strings.Split(defaultClean, ",")
+					} else {
+						mapData[p.Field] = []string{p.Default}
+					}
+
 					continue
 				}
 
@@ -168,6 +176,8 @@ func TestLookupChecking(t *testing.T) {
 					mapData[p.Field] = []string{Letter(), Letter(), Letter(), Letter()}
 				case "[]int":
 					mapData[p.Field] = []string{fmt.Sprintf("%d", Int8()), fmt.Sprintf("%d", Int8()), fmt.Sprintf("%d", Int8()), fmt.Sprintf("%d", Int8())}
+				case "[]uint":
+					mapData[p.Field] = []string{fmt.Sprintf("%d", Uint8()), fmt.Sprintf("%d", Uint8()), fmt.Sprintf("%d", Uint8()), fmt.Sprintf("%d", Uint8())}
 				case "[]float":
 					mapData[p.Field] = []string{fmt.Sprintf("%v", Float32()), fmt.Sprintf("%v", Float32()), fmt.Sprintf("%v", Float32()), fmt.Sprintf("%v", Float32())}
 				case "[]Field":
@@ -255,7 +265,22 @@ func TestLookupCalls(t *testing.T) {
 			// Loop through params and add fields to mapdata
 			for _, p := range info.Params {
 				if p.Default != "" {
-					mapData.Add(p.Field, p.Default)
+					// If p.Type is []uint, then we need to convert it to []string
+					if strings.HasPrefix(p.Type, "[") {
+						// Remove [] from type
+						defaultClean := p.Default[1 : len(p.Default)-1]
+
+						// Split on comma
+						defaultSplit := strings.Split(defaultClean, ",")
+
+						// Loop through defaultSplit and add to mapData
+						for _, s := range defaultSplit {
+							mapData.Add(p.Field, s)
+						}
+					} else {
+						mapData.Add(p.Field, p.Default)
+					}
+
 					continue
 				}
 
@@ -280,6 +305,11 @@ func TestLookupCalls(t *testing.T) {
 					mapData.Add(p.Field, fmt.Sprintf("%d", Int8()))
 					mapData.Add(p.Field, fmt.Sprintf("%d", Int8()))
 					mapData.Add(p.Field, fmt.Sprintf("%d", Int8()))
+				case "[]uint":
+					mapData.Add(p.Field, fmt.Sprintf("%d", Uint8()))
+					mapData.Add(p.Field, fmt.Sprintf("%d", Uint8()))
+					mapData.Add(p.Field, fmt.Sprintf("%d", Uint8()))
+					mapData.Add(p.Field, fmt.Sprintf("%d", Uint8()))
 				case "[]float":
 					mapData.Add(p.Field, fmt.Sprintf("%v", Float32()))
 					mapData.Add(p.Field, fmt.Sprintf("%v", Float32()))
@@ -371,6 +401,11 @@ func TestLookupCallsErrorParams(t *testing.T) {
 					mapData.Add(p.Field, fmt.Sprintf("%d", Int8()))
 					mapData.Add(p.Field, fmt.Sprintf("%d", Int8()))
 					mapData.Add(p.Field, fmt.Sprintf("%d", Int8()))
+				case "[]uint":
+					mapData.Add(p.Field, fmt.Sprintf("%d", Uint8()))
+					mapData.Add(p.Field, fmt.Sprintf("%d", Uint8()))
+					mapData.Add(p.Field, fmt.Sprintf("%d", Uint8()))
+					mapData.Add(p.Field, fmt.Sprintf("%d", Uint8()))
 				case "[]float":
 					mapData.Add(p.Field, fmt.Sprintf("%v", Float32()))
 					mapData.Add(p.Field, fmt.Sprintf("%v", Float32()))
