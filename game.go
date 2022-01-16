@@ -53,10 +53,10 @@ func dice(r *rand.Rand, numDice uint, sides []uint) []uint {
 
 	for i := range dice {
 		// If sides[i] doesnt exist use the first side
-		if len(sides) < i {
-			dice[i] = sides[0]
+		if len(sides)-1 < i {
+			dice[i] = uint(number(r, 1, int(sides[0])))
 		} else {
-			dice[i] = sides[i]
+			dice[i] = uint(number(r, 1, int(sides[i])))
 		}
 	}
 
