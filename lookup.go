@@ -6,6 +6,7 @@ import (
 	"math/rand"
 	"reflect"
 	"strconv"
+	"strings"
 	"sync"
 )
 
@@ -230,6 +231,17 @@ func (i *Info) GetField(m *MapParams, field string) (*Param, []string, error) {
 
 		return p, value, nil
 	} else if m == nil && p.Default != "" {
+		// If p.Type is []uint, then we need to convert it to []string
+		if strings.HasPrefix(p.Default, "[") {
+			// Remove [] from type
+			defaultClean := p.Default[1 : len(p.Default)-1]
+
+			// Split on comma
+			defaultSplit := strings.Split(defaultClean, ",")
+
+			return p, defaultSplit, nil
+		}
+
 		// If default isnt empty use default
 		return p, []string{p.Default}, nil
 	}
