@@ -8,6 +8,12 @@ import (
 	"github.com/brianvoe/gofakeit/v6/data"
 )
 
+// const is32bit = (32 << uintptr(^uintptr(0)>>63)) == 32
+const MinUint = 0
+const MaxUint = ^uint(0)
+const MinInt = -MaxInt - 1
+const MaxInt = int(^uint(0) >> 1)
+
 // Bool will generate a random boolean value
 func Bool() bool { return boolFunc(globalFaker.Rand) }
 

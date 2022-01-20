@@ -334,13 +334,13 @@ func BenchmarkInt32(b *testing.B) {
 func ExampleInt64() {
 	Seed(11)
 	fmt.Println(Int64())
-	// Output: -1072427943
+	// Output: -8379641344161477543
 }
 
 func ExampleFaker_Int64() {
 	f := New(11)
 	fmt.Println(f.Int64())
-	// Output: -1072427943
+	// Output: -8379641344161477543
 }
 
 func BenchmarkInt64(b *testing.B) {

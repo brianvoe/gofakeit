@@ -102,14 +102,14 @@ func ExampleStruct() {
 	fmt.Printf("%+v\n", f.Bar)
 
 	// Output: bRMaRx
-	// -605057214
-	// 1412367049
+	// 8474499440427634498
+	// 4409580151121052361
 	// Andre
 	// 1
 	// <nil>
 	// [PtapWYJdn MKgtlxwnq]
 	// map[qanPAKaXS:QFpZysVaHG qclaYkWw:oRLOPxLIok]
-	// {Name:yvqqdH Number:-356428491 Float:2.8838284e+38}
+	// {Name:yvqqdH Number:4395457394939876661 Float:2.8838284e+38}
 }
 
 func ExampleFaker_Struct() {
@@ -147,14 +147,14 @@ func ExampleFaker_Struct() {
 	fmt.Printf("%+v\n", f.Bar)
 
 	// Output: bRMaRx
-	// -605057214
-	// 1412367049
+	// 8474499440427634498
+	// 4409580151121052361
 	// Andre
 	// 1
 	// <nil>
 	// [PtapWYJdn MKgtlxwnq]
 	// map[qanPAKaXS:QFpZysVaHG qclaYkWw:oRLOPxLIok]
-	// {Name:yvqqdH Number:-356428491 Float:2.8838284e+38}
+	// {Name:yvqqdH Number:4395457394939876661 Float:2.8838284e+38}
 }
 
 func ExampleStruct_array() {
@@ -180,7 +180,7 @@ func ExampleStruct_array() {
 	fmt.Printf("%v\n", fm.Names)
 
 	// Output:
-	// [{bRMaRx -605057214 Paolo 4 <nil>}]
+	// [{bRMaRx 8474499440427634498 Paolo 4 <nil>}]
 	// [Santino Carole Enrique]
 }
 
@@ -207,7 +207,7 @@ func ExampleFaker_Struct_array() {
 	fmt.Printf("%v\n", fm.Names)
 
 	// Output:
-	// [{bRMaRx -605057214 Paolo 4 <nil>}]
+	// [{bRMaRx 8474499440427634498 Paolo 4 <nil>}]
 	// [Santino Carole Enrique]
 }
 
