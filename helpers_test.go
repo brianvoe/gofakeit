@@ -1,7 +1,6 @@
 package gofakeit
 
 import (
-	"math"
 	"testing"
 )
 
@@ -20,22 +19,22 @@ func TestRandIntRange(t *testing.T) {
 	tests := []testStruct{
 		{0, 0},
 		{1000, -1000},
-		{math.MinInt64, math.MaxInt64},
-		{math.MaxInt64 - 20000, math.MaxInt64 - 10000},
-		{math.MinInt64 + 10000, math.MaxInt64 - 10000},
+		{minInt, maxInt},
+		{maxInt - 20000, maxInt - 10000},
+		{minInt + 10000, maxInt - 10000},
 	}
 
 	// Add 10000 random values to the test set
 	for i := 0; i < 5000; i++ {
 		tests = append(tests, testStruct{
-			min: randIntRange(globalFaker.Rand, 0, math.MaxInt64),
-			max: randIntRange(globalFaker.Rand, 0, math.MaxInt64),
+			min: randIntRange(globalFaker.Rand, 0, maxInt),
+			max: randIntRange(globalFaker.Rand, 0, maxInt),
 		})
 	}
 	for i := 0; i < 5000; i++ {
 		tests = append(tests, testStruct{
-			min: randIntRange(globalFaker.Rand, math.MinInt64, 0),
-			max: randIntRange(globalFaker.Rand, 0, math.MaxInt64),
+			min: randIntRange(globalFaker.Rand, minInt, 0),
+			max: randIntRange(globalFaker.Rand, 0, maxInt),
 		})
 	}
 
@@ -67,21 +66,21 @@ func TestRandUintRange(t *testing.T) {
 	tests := []testStruct{
 		{0, 0},
 		{100000, 100},
-		{0, math.MaxUint64},
-		{0 + 10000, math.MaxUint64 - 10000},
+		{0, maxUint},
+		{0 + 10000, maxUint - 10000},
 	}
 
 	// Add 10000 random values to the test set
 	for i := 0; i < 5000; i++ {
 		tests = append(tests, testStruct{
-			min: randUintRange(globalFaker.Rand, 0, math.MaxUint64),
-			max: randUintRange(globalFaker.Rand, 0, math.MaxUint64),
+			min: randUintRange(globalFaker.Rand, 0, maxUint),
+			max: randUintRange(globalFaker.Rand, 0, maxUint),
 		})
 	}
 	for i := 0; i < 5000; i++ {
 		tests = append(tests, testStruct{
-			min: randUintRange(globalFaker.Rand, 0, math.MaxUint64/2),
-			max: randUintRange(globalFaker.Rand, math.MaxUint64/2, math.MaxUint64),
+			min: randUintRange(globalFaker.Rand, 0, maxUint/2),
+			max: randUintRange(globalFaker.Rand, maxUint/2, maxUint),
 		})
 	}
 
