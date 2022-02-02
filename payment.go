@@ -248,7 +248,7 @@ func addPaymentLookup() {
 		Output:      "map[string]string",
 		ContentType: "application/json",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
-			return currencyShort(r), nil
+			return currency(r), nil
 		},
 	})
 
