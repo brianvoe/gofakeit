@@ -216,6 +216,7 @@ func addStringLookup() {
 		Description: "Shuffle an array of strings",
 		Example:     "hello,world,whats,up => whats,world,hello,up",
 		Output:      "[]string",
+		ContentType: "application/json",
 		Params: []Param{
 			{Field: "strs", Display: "Strings", Type: "[]string", Description: "Delimited separated strings"},
 		},
