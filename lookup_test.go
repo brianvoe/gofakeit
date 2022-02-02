@@ -84,6 +84,27 @@ func TestMapParamsGet(t *testing.T) {
 	}
 }
 
+func TestMapParamsMarshalJSON(t *testing.T) {
+	mp := NewMapParams()
+	mp.Add("name", "billy")
+	mp.Add("field", `{name: "billy"}`)
+
+	// Test marshal into JSON
+	jsonData, err := json.Marshal(mp)
+	if err != nil {
+		t.Fatal(err)
+	}
+	// t.Fatal(string(jsonData))
+
+	// Unmarshal into MapParams
+	var mapData MapParams
+	err = json.Unmarshal(jsonData, &mapData)
+	if err != nil {
+		t.Fatal(err)
+	}
+	// t.Fatalf("%+v", mapData)
+}
+
 func TestMapParamsValueUnmarshalJSON(t *testing.T) {
 	mapParamStr := `{"name":["billy","mister"],"nickname":"big boy","age":[10],"weight":200}`
 
