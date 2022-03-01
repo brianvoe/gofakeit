@@ -109,14 +109,6 @@ func TestGetRandValueFail(t *testing.T) {
 	}
 }
 
-func TestGetRandIntValueFail(t *testing.T) {
-	for _, test := range [][]string{nil, {}, {"not", "found"}, {"status_code", "notfound"}} {
-		if getRandIntValue(globalFaker.Rand, test) != 0 {
-			t.Error("You should have gotten no value back")
-		}
-	}
-}
-
 func TestReplaceWithNumbers(t *testing.T) {
 	if replaceWithNumbers(globalFaker.Rand, "") != "" {
 		t.Error("You should have gotten an empty string")

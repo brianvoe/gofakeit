@@ -46,34 +46,12 @@ func dataCheck(dataVal []string) bool {
 	return checkOk
 }
 
-// Check if in lib
-func intDataCheck(dataVal []string) bool {
-	if len(dataVal) != 2 {
-		return false
-	}
-
-	_, checkOk := data.IntData[dataVal[0]]
-	if checkOk {
-		_, checkOk = data.IntData[dataVal[0]][dataVal[1]]
-	}
-
-	return checkOk
-}
-
 // Get Random Value
 func getRandValue(r *rand.Rand, dataVal []string) string {
 	if !dataCheck(dataVal) {
 		return ""
 	}
 	return data.Data[dataVal[0]][dataVal[1]][r.Intn(len(data.Data[dataVal[0]][dataVal[1]]))]
-}
-
-// Get Random Integer Value
-func getRandIntValue(r *rand.Rand, dataVal []string) int {
-	if !intDataCheck(dataVal) {
-		return 0
-	}
-	return data.IntData[dataVal[0]][dataVal[1]][r.Intn(len(data.IntData[dataVal[0]][dataVal[1]]))]
 }
 
 // Replace # with numbers
