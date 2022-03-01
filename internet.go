@@ -106,7 +106,10 @@ func HTTPStatusCode() int { return httpStatusCode(globalFaker.Rand) }
 // HTTPStatusCode will generate a random status code
 func (f *Faker) HTTPStatusCode() int { return httpStatusCode(f.Rand) }
 
-func httpStatusCode(r *rand.Rand) int { return getRandIntValue(r, []string{"status_code", "general"}) }
+func httpStatusCode(r *rand.Rand) int {
+	randInt, _ := strconv.Atoi(getRandValue(r, []string{"internet", "http_status_general"}))
+	return randInt
+}
 
 // HTTPStatusCodeSimple will generate a random simple status code
 func HTTPStatusCodeSimple() int { return httpStatusCodeSimple(globalFaker.Rand) }
@@ -115,7 +118,8 @@ func HTTPStatusCodeSimple() int { return httpStatusCodeSimple(globalFaker.Rand) 
 func (f *Faker) HTTPStatusCodeSimple() int { return httpStatusCodeSimple(f.Rand) }
 
 func httpStatusCodeSimple(r *rand.Rand) int {
-	return getRandIntValue(r, []string{"status_code", "simple"})
+	randInt, _ := strconv.Atoi(getRandValue(r, []string{"internet", "http_status_simple"}))
+	return randInt
 }
 
 // LogLevel will generate a random log level
