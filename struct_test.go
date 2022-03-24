@@ -67,6 +67,21 @@ type NestedArray struct {
 	NA []StructArray `fakesize:"2"`
 }
 
+type Circular struct {
+	StructPointer         *Circular
+	StructSlice           []Circular
+	StructPointerSlice    []*Circular
+	StructMapValue        map[string]Circular
+	StructPointerMapKey   map[*Circular]string
+	StructPointerMapValue map[string]*Circular
+	IndirectStructPointer *IndirectCircular
+}
+
+type IndirectCircular struct {
+	Foo        Circular
+	FooPointer *Circular
+}
+
 func ExampleStruct() {
 	Seed(11)
 
@@ -650,5 +665,12 @@ func TestStructSliceLoopGeneration(t *testing.T) {
 		if err := Struct(s); err != nil {
 			t.Fatal(err)
 		}
+	}
+}
+
+func TestCircleStructGeneration(t *testing.T) {
+	c := &Circular{}
+	if err := Struct(c); err != nil {
+		t.Fatal(err)
 	}
 }

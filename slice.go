@@ -12,5 +12,5 @@ func Slice(v interface{}) { sliceFunc(globalFaker.Rand, v) }
 func (f *Faker) Slice(v interface{}) { sliceFunc(f.Rand, v) }
 
 func sliceFunc(ra *rand.Rand, v interface{}) {
-	r(ra, reflect.TypeOf(v), reflect.ValueOf(v), "", -1)
+	r(nil, ra, reflect.TypeOf(v), reflect.ValueOf(v), "", -1)
 }

@@ -24,16 +24,31 @@ func Struct(v interface{}) error { return structFunc(globalFaker.Rand, v) }
 // for string types.
 func (f *Faker) Struct(v interface{}) error { return structFunc(f.Rand, v) }
 
-func structFunc(ra *rand.Rand, v interface{}) error {
-	return r(ra, reflect.TypeOf(v), reflect.ValueOf(v), "", 0)
+type circleCheck []reflect.Type
+
+func (c circleCheck) IsCircle(t reflect.Type) bool {
+	for _, ct := range c {
+		if ct == t {
+			return true
+		}
+	}
+	return false
 }
 
-func r(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) error {
+func structFunc(ra *rand.Rand, v interface{}) error {
+	return r(nil, ra, reflect.TypeOf(v), reflect.ValueOf(v), "", 0)
+}
+
+func r(cc circleCheck, ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) error {
 	switch t.Kind() {
 	case reflect.Ptr:
-		return rPointer(ra, t, v, tag, size)
+		return rPointer(cc, ra, t, v, tag, size)
 	case reflect.Struct:
-		return rStruct(ra, t, v, tag)
+		if cc.IsCircle(t) {
+			return nil
+		}
+		cc = append(cc, t)
+		return rStruct(cc, ra, t, v, tag)
 	case reflect.String:
 		return rString(ra, v, tag)
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
@@ -45,15 +60,15 @@ func r(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) err
 	case reflect.Bool:
 		return rBool(ra, v, tag)
 	case reflect.Array, reflect.Slice:
-		return rSlice(ra, t, v, tag, size)
+		return rSlice(cc, ra, t, v, tag, size)
 	case reflect.Map:
-		return rMap(ra, t, v, tag, size)
+		return rMap(cc, ra, t, v, tag, size)
 	}
 
 	return nil
 }
 
-func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
+func rStruct(cc circleCheck, ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 	// If tag is set lets try to set the struct values from the tag response
 	if tag != "" {
 		fName, fParams := parseNameAndParamsFromTag(tag)
@@ -121,7 +136,7 @@ func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 					return err
 				}
 			}
-			err := r(ra, elementT.Type, elementV, fakeTag, size)
+			err := r(cc, ra, elementT.Type, elementV, fakeTag, size)
 			if err != nil {
 				return err
 			}
@@ -131,17 +146,17 @@ func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 	return nil
 }
 
-func rPointer(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) error {
+func rPointer(cc circleCheck, ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) error {
 	elemT := t.Elem()
 	if v.IsNil() {
 		nv := reflect.New(elemT)
-		err := r(ra, elemT, nv.Elem(), tag, size)
+		err := r(cc, ra, elemT, nv.Elem(), tag, size)
 		if err != nil {
 			return err
 		}
 		v.Set(nv)
 	} else {
-		err := r(ra, elemT, v.Elem(), tag, size)
+		err := r(cc, ra, elemT, v.Elem(), tag, size)
 		if err != nil {
 			return err
 		}
@@ -150,7 +165,7 @@ func rPointer(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size i
 	return nil
 }
 
-func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) error {
+func rSlice(cc circleCheck, ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) error {
 	// If you cant even set it dont even try
 	if !v.CanSet() {
 		return errors.New("cannot set slice")
@@ -174,7 +189,7 @@ func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int
 	// Loop through the elements length and set based upon the index
 	for i := 0; i < size; i++ {
 		nv := reflect.New(elemT)
-		err := r(ra, elemT, nv.Elem(), tag, ogSize)
+		err := r(cc, ra, elemT, nv.Elem(), tag, ogSize)
 		if err != nil {
 			return err
 		}
@@ -190,7 +205,7 @@ func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int
 	return nil
 }
 
-func rMap(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) error {
+func rMap(cc circleCheck, ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) error {
 	// If you cant even set it dont even try
 	if !v.CanSet() {
 		return errors.New("cannot set slice")
@@ -246,14 +261,14 @@ func rMap(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) 
 	for i := 0; i < newSize; i++ {
 		// Create new key
 		mapIndex := reflect.New(t.Key())
-		err := r(ra, t.Key(), mapIndex.Elem(), "", -1)
+		err := r(cc, ra, t.Key(), mapIndex.Elem(), "", -1)
 		if err != nil {
 			return err
 		}
 
 		// Create new value
 		mapValue := reflect.New(t.Elem())
-		err = r(ra, t.Elem(), mapValue.Elem(), "", -1)
+		err = r(cc, ra, t.Elem(), mapValue.Elem(), "", -1)
 		if err != nil {
 			return err
 		}
