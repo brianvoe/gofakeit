@@ -13,9 +13,9 @@ type SQLOptions struct {
 	Fields     []Field `json:"fields" xml:"fields"`
 }
 
-func SQLInsert(so *SQLOptions) ([]byte, error) {
-	return sqlInsertFunc(globalFaker.Rand, so)
-}
+func SQLInsert(so *SQLOptions) ([]byte, error) { return sqlInsertFunc(globalFaker.Rand, so) }
+
+func (f *Faker) SQLInsert(so *SQLOptions) ([]byte, error) { return sqlInsertFunc(f.Rand, so) }
 
 func sqlInsertFunc(r *rand.Rand, so *SQLOptions) ([]byte, error) {
 	if so.Table == "" {
@@ -34,9 +34,10 @@ func sqlInsertFunc(r *rand.Rand, so *SQLOptions) ([]byte, error) {
 	for i := 0; i < so.EntryCount; i++ {
 		sb.WriteString(" (")
 		// Now, we need to add all of our fields
-		for i, field := range so.Fields {
+		for ii, field := range so.Fields {
 			if field.Function == "autoincrement" { // One
 				// TODO: We need to do something here still...
+
 				continue
 			}
 
@@ -54,7 +55,7 @@ func sqlInsertFunc(r *rand.Rand, so *SQLOptions) ([]byte, error) {
 
 			convertType := ConvertType(funcInfo.Output, val)
 
-			if i == len(so.Fields)-1 { // Last field
+			if ii == len(so.Fields)-1 { // Last field
 				sb.WriteString(convertType)
 			} else {
 				sb.WriteString(convertType + ", ")
