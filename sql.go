@@ -8,9 +8,9 @@ import (
 )
 
 type SQLOptions struct {
-	Table      string  `json:"table" xml:"table"`
-	EntryCount int     `json:"entry_count" xml:"entry_count"`
-	Fields     []Field `json:"fields" xml:"fields"`
+	Table      string  `json:"table" xml:"table"`             // Table name we are inserting into
+	EntryCount int     `json:"entry_count" xml:"entry_count"` // How many entries (tuples) we're generating
+	Fields     []Field `json:"fields" xml:"fields"`           // The fields to be generated
 }
 
 func SQLInsert(so *SQLOptions) ([]byte, error) { return sqlInsertFunc(globalFaker.Rand, so) }
@@ -36,8 +36,12 @@ func sqlInsertFunc(r *rand.Rand, so *SQLOptions) ([]byte, error) {
 		// Now, we need to add all of our fields
 		for ii, field := range so.Fields {
 			if field.Function == "autoincrement" { // One
-				// TODO: We need to do something here still...
-
+				autoIncNum := fmt.Sprintf("%v", i+1)
+				if ii == len(so.Fields)-1 { // Last field
+					sb.WriteString(autoIncNum)
+				} else {
+					sb.WriteString(autoIncNum + ", ")
+				}
 				continue
 			}
 

@@ -75,7 +75,7 @@ func TestSQLInsertNilFields(t *testing.T) {
 	// must pass fields in order to generate SQL queries
 }
 
-func TestSQLInsertNoTable(t *testing.T) {
+func TestSQLInsertNilTable(t *testing.T) {
 	Seed(11)
 
 	_, err := SQLInsert(&SQLOptions{
