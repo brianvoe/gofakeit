@@ -22,7 +22,26 @@ func TestMultiSQLInsert(t *testing.T) {
 
 	// Output:
 	// INSERT INTO People VALUES ('Markus', 'Moen', 21), ('Anibal', 'Kozey', 60), ('Sylvan', 'Mraz', 59);
+}
 
+func TestMultiSQLInsertAutoincrement(t *testing.T) {
+	Seed(11)
+
+	res, _ := SQLInsert(&SQLOptions{
+		Table:      "People",
+		EntryCount: 3,
+		Fields: []Field{
+			{Name: "id", Function: "autoincrement"},
+			{Name: "first_name", Function: "firstname"},
+			{Name: "last_name", Function: "lastname"},
+			{Name: "age", Function: "number", Params: MapParams{"min": {"1"}, "max": {"99"}}},
+		},
+	})
+
+	fmt.Println(string(res))
+
+	// Output:
+	// INSERT INTO People VALUES (1, 'Markus', 'Moen', 21), (2, 'Anibal', 'Kozey', 60), (3, 'Sylvan', 'Mraz', 59);
 }
 
 func TestSignleSQLInsert(t *testing.T) {
