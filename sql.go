@@ -79,6 +79,8 @@ func ConvertType(t string, val interface{}) string {
 	switch t {
 	case "string":
 		return `'` + fmt.Sprintf("%v", val) + `'`
+	case "[]byte":
+		return `'` + fmt.Sprintf("%s", val) + `'`
 	default:
 		return fmt.Sprintf("%v", val)
 	}
