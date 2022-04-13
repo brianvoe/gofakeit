@@ -95,6 +95,7 @@ func initLookup() {
 	addWeightedLookup()
 	addMinecraftLookup()
 	addCelebrityLookup()
+	addDatabaseSQLLookup()
 }
 
 // NewMapParams will create a new MapParams
