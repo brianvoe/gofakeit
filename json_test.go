@@ -306,6 +306,52 @@ func TestJSONArrayLookupWithSubJSON(t *testing.T) {
 	}
 }
 
+func TestJSONNoType(t *testing.T) {
+	Seed(11)
+
+	_, err := JSON(&JSONOptions{
+		Fields: []Field{
+			{Name: "id", Function: "autoincrement"},
+			{Name: "first_name", Function: "firstname"},
+			{Name: "last_name", Function: "lastname"},
+			{Name: "password", Function: "password", Params: MapParams{"special": {"false"}}},
+		},
+		RowCount: 3,
+	})
+	if err == nil {
+		t.Fatal("Expected error, no type specified")
+	}
+}
+
+func TestJSONNoFields(t *testing.T) {
+	Seed(11)
+
+	_, err := JSON(&JSONOptions{
+		Type:     "object",
+		RowCount: 3,
+	})
+	if err == nil {
+		t.Fatal("Expected error, no fields set")
+	}
+}
+
+func TestJSONNoCount(t *testing.T) {
+	Seed(11)
+
+	_, err := JSON(&JSONOptions{
+		Type: "array",
+		Fields: []Field{
+			{Name: "id", Function: "autoincrement"},
+			{Name: "first_name", Function: "firstname"},
+			{Name: "last_name", Function: "lastname"},
+			{Name: "password", Function: "password", Params: MapParams{"special": {"false"}}},
+		},
+	})
+	if err == nil {
+		t.Fatal("Expected error, no count set for array type")
+	}
+}
+
 func BenchmarkJSONLookup100(b *testing.B) {
 	faker := New(0)
 
