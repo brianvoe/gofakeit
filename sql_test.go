@@ -3,31 +3,54 @@ package gofakeit
 import (
 	"fmt"
 	"math/rand"
+	"strings"
 	"testing"
 )
 
-func TestMultiSQLInsert(t *testing.T) {
+func ExampleSQL() {
 	Seed(11)
 
-	res, _ := SQLInsert(&SQLOptions{
-		Table:      "People",
-		EntryCount: 3,
+	res, _ := SQL(&SQLOptions{
+		Table: "people",
+		Count: 2,
 		Fields: []Field{
+			{Name: "id", Function: "autoincrement"},
 			{Name: "first_name", Function: "firstname"},
-			{Name: "last_name", Function: "lastname"},
+			{Name: "price", Function: "price"},
 			{Name: "age", Function: "number", Params: MapParams{"min": {"1"}, "max": {"99"}}},
+			{Name: "created_at", Function: "date", Params: MapParams{"format": {"2006-01-02 15:04:05"}}},
 		},
 	})
 
 	fmt.Println(string(res))
 
 	// Output:
-	// INSERT INTO People VALUES ('Markus', 'Moen', 21), ('Anibal', 'Kozey', 60), ('Sylvan', 'Mraz', 59);
+	// INSERT INTO people (id, first_name, price, age, created_at) VALUES (1, 'Markus', 804.92, 21, '1937-01-30 07:58:01'),(2, 'Santino', 235.13, 40, '1964-07-07 22:25:40');
 }
 
-func TestMultiSQLInsertJSON(t *testing.T) {
+func ExampleFaker_SQL() {
+	f := New(11)
 
-	Seed(12)
+	res, _ := f.SQL(&SQLOptions{
+		Table: "people",
+		Count: 2,
+		Fields: []Field{
+			{Name: "id", Function: "autoincrement"},
+			{Name: "first_name", Function: "firstname"},
+			{Name: "price", Function: "price"},
+			{Name: "age", Function: "number", Params: MapParams{"min": {"1"}, "max": {"99"}}},
+			{Name: "created_at", Function: "date", Params: MapParams{"format": {"2006-01-02 15:04:05"}}},
+		},
+	})
+
+	fmt.Println(string(res))
+
+	// Output:
+	// INSERT INTO people (id, first_name, price, age, created_at) VALUES (1, 'Markus', 804.92, 21, '2018-11-22 07:34:00'),(2, 'Anibal', 674.87, 60, '2004-01-03 11:07:53');
+}
+
+func TestSQLJSON(t *testing.T) {
+	Seed(11)
 
 	AddFuncLookup("jsonperson", Info{
 		Category:    "custom",
@@ -37,8 +60,7 @@ func TestMultiSQLInsertJSON(t *testing.T) {
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 
 			v, _ := JSON(&JSONOptions{
-				Type:     "object",
-				RowCount: 1,
+				Type: "object",
 				Fields: []Field{
 					{Name: "first_name", Function: "firstname"},
 					{Name: "last_name", Function: "lastname"},
@@ -48,120 +70,147 @@ func TestMultiSQLInsertJSON(t *testing.T) {
 			return v, nil
 		},
 	})
+	defer RemoveFuncLookup("jsonperson")
 
-	type RandomPerson struct {
-		FakePerson []byte `fake:{jsonperson}"`
+	res, err := SQL(&SQLOptions{
+		Table: "people",
+		Count: 2,
+		Fields: []Field{
+			{Name: "data", Function: "jsonperson"},
+		},
+	})
+
+	if err != nil {
+		t.Fatal(err)
 	}
 
-	var f RandomPerson
-	Struct(&f)
-	fmt.Printf("%s\n", (f.FakePerson))
+	if res != `INSERT INTO people (data) VALUES ('{"first_name":"Markus","last_name":"Moen"}'),('{"first_name":"Alayna","last_name":"Wuckert"}');` {
+		t.Error("SQL query does not match")
+	}
 }
 
-func TestMultiSQLInsertFloat(t *testing.T) {
+func TestSQLAll(t *testing.T) {
 	Seed(11)
 
-	res, _ := SQLInsert(&SQLOptions{
-		Table:      "People",
-		EntryCount: 3,
+	res, err := SQL(&SQLOptions{
+		Table: "people",
+		Count: 3,
 		Fields: []Field{
+			{Name: "id", Function: "autoincrement"},
 			{Name: "first_name", Function: "firstname"},
-			{Name: "last_name", Function: "lastname"},
 			{Name: "balance", Function: "float32"},
 		},
 	})
 
-	fmt.Println(string(res))
+	if err != nil {
+		t.Fatal(err)
+	}
 
-	// Output:
-	// INSERT INTO People VALUES ('Markus', 'Moen', 2.7766049e+38), ('Anibal', 'Kozey', 3.8815667e+37), ('Sylvan', 'Mraz', 1.6268478e+38);
+	// Split by VALUES
+	values := strings.Split(res, "VALUES")
+
+	// Check to make sure there are 3 ( and ) symbols
+	if strings.Count(values[1], "(") != 3 || strings.Count(values[1], ")") != 3 {
+		t.Error("SQL query does not have 3 values")
+	}
 }
 
-func TestMultiSQLInsertAutoincrement(t *testing.T) {
+func TestSingleSQL(t *testing.T) {
 	Seed(11)
 
-	res, _ := SQLInsert(&SQLOptions{
-		Table:      "People",
-		EntryCount: 3,
-		Fields: []Field{
-			{Name: "id", Function: "autoincrement"},
-			{Name: "first_name", Function: "firstname"},
-			{Name: "last_name", Function: "lastname"},
-			{Name: "age", Function: "number", Params: MapParams{"min": {"1"}, "max": {"99"}}},
-		},
-	})
-
-	fmt.Println(string(res))
-
-	// Output:
-	// INSERT INTO People VALUES (1, 'Markus', 'Moen', 21), (2, 'Anibal', 'Kozey', 60), (3, 'Sylvan', 'Mraz', 59);
-}
-
-func TestSignleSQLInsert(t *testing.T) {
-	Seed(114)
-
-	res, _ := SQLInsert(&SQLOptions{
-		Table:      "People",
-		EntryCount: 1,
+	res, err := SQL(&SQLOptions{
+		Table: "People",
+		Count: 1,
 		Fields: []Field{
 			{Name: "first_name", Function: "firstname"},
 			{Name: "last_name", Function: "lastname"},
 		},
 	})
-	fmt.Println(string(res))
-
-	// Output:
-	// INSERT INTO People VALUES ('Colt', 'Koss');
-}
-
-func TestSQLInsertNoFields(t *testing.T) {
-	Seed(114)
-
-	_, err := SQLInsert(&SQLOptions{
-		Table:      "People",
-		EntryCount: 1,
-		Fields:     []Field{},
-	})
 
 	if err != nil {
-		fmt.Println(err.Error())
+		t.Fatal(err)
 	}
 
-	// Output:
-	// must pass fields in order to generate SQL queries
-}
+	// Split by VALUES
+	values := strings.Split(res, "VALUES")
 
-func TestSQLInsertNilFields(t *testing.T) {
-	Seed(114)
-
-	_, err := SQLInsert(&SQLOptions{
-		Table:      "People",
-		EntryCount: 1,
-	})
-
-	if err != nil {
-		fmt.Println(err.Error())
+	// Check to make sure there are 3 ( and ) symbols
+	if strings.Count(values[1], "(") != 1 || strings.Count(values[1], ")") != 1 {
+		t.Error("SQL query should have 1 value")
 	}
-
-	// Output:
-	// must pass fields in order to generate SQL queries
 }
 
-func TestSQLInsertNilTable(t *testing.T) {
+func TestSQLNoCount(t *testing.T) {
 	Seed(11)
 
-	_, err := SQLInsert(&SQLOptions{
-		EntryCount: 3,
+	_, err := SQL(&SQLOptions{
+		Table: "People",
 		Fields: []Field{
 			{Name: "first_name", Function: "firstname"},
 			{Name: "last_name", Function: "lastname"},
 		},
 	})
 
-	if err != nil {
-		fmt.Println(err.Error())
+	if err == nil {
+		t.Fatal("should have failed for no count")
 	}
+}
 
-	// Output:
-	// must provide table name to generate SQL
+func TestSQLNoFields(t *testing.T) {
+	Seed(11)
+
+	_, err := SQL(&SQLOptions{
+		Table:  "People",
+		Count:  1,
+		Fields: []Field{},
+	})
+
+	if err == nil {
+		t.Fatal("should have failed for no fields")
+	}
+}
+
+func TestSQLNilFields(t *testing.T) {
+	Seed(11)
+
+	_, err := SQL(&SQLOptions{
+		Table: "People",
+		Count: 1,
+	})
+
+	if err == nil {
+		t.Fatal("should have failed for nil fields")
+	}
+}
+
+func TestSQLInvalidFunction(t *testing.T) {
+	Seed(11)
+
+	_, err := SQL(&SQLOptions{
+		Table: "People",
+		Fields: []Field{
+			{Name: "thing", Function: "stuff"},
+		},
+		Count: 1,
+	})
+
+	if err == nil {
+		t.Fatal("should have failed for invalid function")
+	}
+}
+
+func TestSQLNilTable(t *testing.T) {
+	Seed(11)
+
+	_, err := SQL(&SQLOptions{
+		Count: 3,
+		Fields: []Field{
+			{Name: "first_name", Function: "firstname"},
+			{Name: "last_name", Function: "lastname"},
+		},
+	})
+
+	if err == nil {
+		t.Fatal("should have failed for no table")
+	}
 }
