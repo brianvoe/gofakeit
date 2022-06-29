@@ -2,7 +2,6 @@ package gofakeit
 
 import (
 	"errors"
-	"fmt"
 	"math/rand"
 	"reflect"
 	"strconv"
@@ -53,38 +52,49 @@ func r(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) err
 	return nil
 }
 
-func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
-	// If tag is set lets try to set the struct values from the tag response
-	if tag != "" {
-		fName, fParams := parseNameAndParamsFromTag(tag)
-		// Check to see if its a replaceable lookup function
-		if info := GetFuncLookup(fName); info != nil {
-			// Parse map params
-			mapParams := parseMapParams(info, fParams)
+func rCustom(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
+	// If tag is empty return error
+	if tag == "" {
+		return errors.New("tag is empty")
+	}
 
-			// Call function
-			fValue, err := info.Generate(ra, mapParams, info)
-			if err != nil {
-				return err
-			}
+	fName, fParams := parseNameAndParamsFromTag(tag)
+	// Check to see if its a replaceable lookup function
+	if info := GetFuncLookup(fName); info != nil {
+		// Parse map params
+		mapParams := parseMapParams(info, fParams)
 
-			// Create new element of expected type
-			field := reflect.New(reflect.TypeOf(fValue))
-			field.Elem().Set(reflect.ValueOf(fValue))
-
-			// Check if element is pointer if so
-			// grab the underlyning value before setting
-			fieldElem := field.Elem()
-			if fieldElem.Kind() == reflect.Ptr {
-				v.Set(fieldElem.Elem())
-			} else {
-				v.Set(fieldElem)
-			}
-
-			// If a function is called to set the struct
-			// stop from going through sub fields
-			return nil
+		// Call function
+		fValue, err := info.Generate(ra, mapParams, info)
+		if err != nil {
+			return err
 		}
+
+		// Create new element of expected type
+		field := reflect.New(reflect.TypeOf(fValue))
+		field.Elem().Set(reflect.ValueOf(fValue))
+
+		// Check if element is pointer if so
+		// grab the underlyning value before setting
+		fieldElem := field.Elem()
+		if fieldElem.Kind() == reflect.Ptr {
+			v.Set(fieldElem.Elem())
+		} else {
+			v.Set(fieldElem)
+		}
+
+		// If a function is called to set the struct
+		// stop from going through sub fields
+		return nil
+	}
+
+	return errors.New("function not found")
+}
+
+func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
+	// Check if tag exists, if so run custom function
+	if t.Name() != "" && tag != "" {
+		return rCustom(ra, t, v, tag)
 	}
 
 	n := t.NumField()
@@ -156,6 +166,11 @@ func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int
 		return errors.New("cannot set slice")
 	}
 
+	// Check if tag exists, if so run custom function
+	if t.Name() != "" && tag != "" {
+		return rCustom(ra, t, v, tag)
+	}
+
 	// Grab original size to use if needed for sub arrays
 	ogSize := size
 
@@ -196,42 +211,10 @@ func rMap(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) 
 		return errors.New("cannot set slice")
 	}
 
-	if tag != "" {
-		// If tag is set lets try to set the struct values from the tag response
-		fName, fParams := parseNameAndParamsFromTag(tag)
-		// Check to see if its a replaceable lookup function
-		if info := GetFuncLookup(fName); info != nil {
-			// Parse map params
-			mapParams := parseMapParams(info, fParams)
-
-			// Call function
-			fValue, err := info.Generate(ra, mapParams, info)
-			if err != nil {
-				return err
-			} else if reflect.TypeOf(fValue) != t {
-				return fmt.Errorf("expected value of type: %s but got value of: %s", t, reflect.TypeOf(fValue))
-			}
-
-			// Create new element of expected type
-			field := reflect.New(reflect.TypeOf(fValue))
-			field.Elem().Set(reflect.ValueOf(fValue))
-
-			// Check if element is pointer if so
-			// grab the underlyning value before setting
-			fieldElem := field.Elem()
-			if fieldElem.Kind() == reflect.Ptr {
-				v.Set(fieldElem.Elem())
-			} else {
-				v.Set(fieldElem)
-			}
-
-			// If a function is called to set the struct
-			// stop from going through sub fields
-			return nil
-		}
+	// Check if tag exists, if so run custom function
+	if t.Name() != "" && tag != "" {
+		return rCustom(ra, t, v, tag)
 	}
-
-	// Has no tag or func lookup failed generate map with random data
 
 	// Set a size
 	newSize := size
