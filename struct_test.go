@@ -332,6 +332,96 @@ func TestStructPointer(t *testing.T) {
 	}
 }
 
+func TestCustomArrayType(t *testing.T) {
+	Seed(11)
+	AddFuncLookup("customType", Info{
+		Category:    "custom",
+		Description: "Random int array",
+		Example:     "[1]",
+		Output:      "CustomType",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			data := make([]int, 1)
+			data[0] = 42
+			return data, nil
+		},
+	})
+	defer RemoveFuncLookup("customType")
+
+	AddFuncLookup("customByte", Info{
+		Category:    "custom",
+		Description: "Random byte",
+		Example:     "[1]",
+		Output:      "byte",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			data := byte(42)
+			return data, nil
+		},
+	})
+
+	type customType []int
+	var wct struct {
+		WithTag     customType `fake:"{customType}"`
+		WithOutTag  customType
+		IntSlice    []int
+		Char        byte
+		CharWithTag byte `fake:"{customByte}"`
+	}
+	err := Struct(&wct)
+	if err != nil {
+		t.Error(err)
+		t.FailNow()
+	}
+	if len(wct.WithTag) != 1 {
+		t.Error("wct slice WithTag is not populated from custom function")
+	}
+	if wct.WithTag[0] != 42 {
+		t.Errorf("wct slice WithTag: want 42, got %d", wct.WithTag[0])
+	}
+
+	if len(wct.WithOutTag) == 0 {
+		t.Error("wct slice WithoutTag is not populated")
+	}
+
+	if len(wct.IntSlice) == 0 {
+		t.Error("wct slice IntSlice is not populated")
+	}
+
+	if wct.IntSlice[0] == wct.WithOutTag[0] {
+		t.Error("two different slices should have different values")
+	}
+
+	if wct.Char == byte(0) {
+		t.Error("wct Char is not populated")
+	}
+
+	if wct.CharWithTag != byte(42) {
+		t.Error("wct CharWithTag is not populated from custom function")
+	}
+}
+
+func TestStructArrayWithInvalidCustomFunc(t *testing.T) {
+	AddFuncLookup("customType", Info{
+		Category:    "custom",
+		Description: "Random int array",
+		Example:     "[1]",
+		Output:      "CustomType",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			data := make([]int, 1)
+			data[0] = 42
+			return data, nil
+		},
+	})
+	defer RemoveFuncLookup("customType")
+
+	var invalidCustomTag struct {
+		InvalidTag []int `fake:"{customType}"`
+	}
+	err := Struct(&invalidCustomTag)
+	if err.Error() != `strconv.ParseInt: parsing "[42]": invalid syntax` {
+		t.Error(err)
+	}
+
+}
 func TestStructArray(t *testing.T) {
 	Seed(11)
 

@@ -2,6 +2,8 @@ package gofakeit
 
 import (
 	"fmt"
+	"math/rand"
+	"net"
 	"testing"
 )
 
@@ -159,6 +161,33 @@ func BenchmarkHTTPMethod(b *testing.B) {
 			f.HTTPMethod()
 		}
 	})
+}
+
+func ExampleAddFuncLookup_withCustomNetIP() {
+	type Foo struct {
+		IP net.IP `fake:"{ip}"` // https://github.com/brianvoe/gofakeit/issues/202
+	}
+
+	var f Foo
+
+	Seed(11)
+	AddFuncLookup("ip", Info{
+		Category:    "custom",
+		Description: "Random IPv4 Address of type net.IP",
+		Example:     "1.1.1.1",
+		Output:      "net.IP",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			data := net.IPv4(byte(r.Intn(256)), byte(r.Intn(256)), byte(r.Intn(256)), byte(r.Intn(256)))
+			fmt.Printf("data: %s - %T\n", data, data)
+			return data, nil
+		},
+	})
+	defer RemoveFuncLookup("ip")
+	Struct(&f)
+
+	fmt.Printf("%s - %T", f.IP, f.IP)
+	// Output: data: 152.23.53.100 - net.IP
+	// 152.23.53.100 - net.IP
 }
 
 func ExampleIPv4Address() {
