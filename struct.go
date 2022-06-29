@@ -45,6 +45,9 @@ func r(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) err
 	case reflect.Bool:
 		return rBool(ra, v, tag)
 	case reflect.Array, reflect.Slice:
+		if t.Name() != "" && tag != "" {
+			return rStruct(ra, t, v, tag)
+		}
 		return rSlice(ra, t, v, tag, size)
 	case reflect.Map:
 		return rMap(ra, t, v, tag, size)
