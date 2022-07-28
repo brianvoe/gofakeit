@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"encoding/hex"
+	"io"
 	"math/rand"
 	"reflect"
 
@@ -27,7 +28,7 @@ func (f *Faker) UUID() string { return uuid(f.Rand) }
 func uuid(r *rand.Rand) string {
 	version := byte(4)
 	uuid := make([]byte, 16)
-	r.Read(uuid)
+	io.ReadFull(r, uuid[:])
 
 	// Set version
 	uuid[6] = (uuid[6] & 0x0f) | (version << 4)
