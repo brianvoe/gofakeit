@@ -17,13 +17,13 @@ func gamertag(r *rand.Rand) string {
 	num := number(r, 1, 4)
 	switch num {
 	case 1:
-		str = fmt.Sprintf("%s%ser", strings.Title(nounConcrete(r)), strings.Title(verbAction(r)))
+		str = fmt.Sprintf("%s%ser", title(nounConcrete(r)), title(verbAction(r)))
 	case 2:
-		str = fmt.Sprintf("%s%s", strings.Title(adjectiveDescriptive(r)), strings.Title(animal(r)))
+		str = fmt.Sprintf("%s%s", title(adjectiveDescriptive(r)), title(animal(r)))
 	case 3:
-		str = fmt.Sprintf("%s%s", strings.Title(adjectiveDescriptive(r)), strings.Title(nounConcrete(r)))
+		str = fmt.Sprintf("%s%s", title(adjectiveDescriptive(r)), title(nounConcrete(r)))
 	case 4:
-		str = fmt.Sprintf("%s%s", strings.Title(fruit(r)), strings.Title(adjectiveDescriptive(r)))
+		str = fmt.Sprintf("%s%s", title(fruit(r)), title(adjectiveDescriptive(r)))
 	}
 
 	// Randomly determine if we should add a number

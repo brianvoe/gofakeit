@@ -198,6 +198,31 @@ func TestEqualSlice(t *testing.T) {
 	}
 }
 
+func TestStringInSlice(t *testing.T) {
+	if stringInSlice("c", []string{"a", "b"}) {
+		t.Fatalf("Should have returned true because the string is in the slice")
+	}
+	if !stringInSlice("a", []string{"a", "b", "c"}) {
+		t.Fatalf("Should have returned true because the string is in the slice")
+	}
+}
+
+func TestTitle(t *testing.T) {
+	test := map[string]string{
+		"":                     "",
+		"i have a best friend": "I Have A Best Friend",
+		"this is a test":       "This Is A Test",
+		"I am 36 years old":    "I Am 36 Years Old",
+		"whats_up":             "Whats_up",
+	}
+
+	for in, out := range test {
+		if title(in) != out {
+			t.Fatalf("%s did not equal %s. Got: %s", in, out, title(in))
+		}
+	}
+}
+
 func TestFuncLookupSplit(t *testing.T) {
 	tests := map[string][]string{
 		"":                  {},
