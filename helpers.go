@@ -7,6 +7,7 @@ import (
 	"math/rand"
 	"reflect"
 	"strings"
+	"unicode"
 
 	"github.com/brianvoe/gofakeit/v6/data"
 )
@@ -20,7 +21,12 @@ const allStr = lowerStr + upperStr + numericStr + specialStr + spaceStr
 const vowels = "aeiou"
 const hashtag = '#'
 const questionmark = '?'
+const dash = '-'
 const base58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+const minUint = 0
+const maxUint = ^uint(0)
+const minInt = -maxInt - 1
+const maxInt = int(^uint(0) >> 1)
 
 // Seed will set the global random value. Setting seed to 0 will use crypto/rand
 func Seed(seed int64) {
@@ -229,6 +235,57 @@ func equalSliceInterface(a, b []interface{}) bool {
 		}
 	}
 	return true
+}
+
+func stringInSlice(a string, list []string) bool {
+	for _, b := range list {
+		if b == a {
+			return true
+		}
+	}
+	return false
+}
+
+// Title returns a copy of the string s with all Unicode letters that begin words
+// mapped to their Unicode title case
+func title(s string) string {
+	// isSeparator reports whether the rune could mark a word boundary
+	isSeparator := func(r rune) bool {
+		// ASCII alphanumerics and underscore are not separators
+		if r <= 0x7F {
+			switch {
+			case '0' <= r && r <= '9':
+				return false
+			case 'a' <= r && r <= 'z':
+				return false
+			case 'A' <= r && r <= 'Z':
+				return false
+			case r == '_':
+				return false
+			}
+			return true
+		}
+
+		// Letters and digits are not separators
+		if unicode.IsLetter(r) || unicode.IsDigit(r) {
+			return false
+		}
+
+		// Otherwise, all we can do for now is treat spaces as separators.
+		return unicode.IsSpace(r)
+	}
+
+	prev := ' '
+	return strings.Map(
+		func(r rune) rune {
+			if isSeparator(prev) {
+				prev = r
+				return unicode.ToTitle(r)
+			}
+			prev = r
+			return r
+		},
+		s)
 }
 
 func funcLookupSplit(str string) []string {

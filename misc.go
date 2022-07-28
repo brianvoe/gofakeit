@@ -2,17 +2,12 @@ package gofakeit
 
 import (
 	"encoding/hex"
+	"io"
 	"math/rand"
 	"reflect"
 
 	"github.com/brianvoe/gofakeit/v6/data"
 )
-
-// const is32bit = (32 << uintptr(^uintptr(0)>>63)) == 32
-const minUint = 0
-const maxUint = ^uint(0)
-const minInt = -maxInt - 1
-const maxInt = int(^uint(0) >> 1)
 
 // Bool will generate a random boolean value
 func Bool() bool { return boolFunc(globalFaker.Rand) }
@@ -33,7 +28,7 @@ func (f *Faker) UUID() string { return uuid(f.Rand) }
 func uuid(r *rand.Rand) string {
 	version := byte(4)
 	uuid := make([]byte, 16)
-	r.Read(uuid)
+	io.ReadFull(r, uuid[:])
 
 	// Set version
 	uuid[6] = (uuid[6] & 0x0f) | (version << 4)
@@ -42,7 +37,6 @@ func uuid(r *rand.Rand) string {
 	uuid[8] = (uuid[8] & 0xbf) | 0x80
 
 	buf := make([]byte, 36)
-	var dash byte = '-'
 	hex.Encode(buf[0:8], uuid[0:4])
 	buf[8] = dash
 	hex.Encode(buf[9:13], uuid[4:6])

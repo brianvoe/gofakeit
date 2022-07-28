@@ -3,7 +3,6 @@ package gofakeit
 import (
 	"fmt"
 	"math/rand"
-	"strings"
 )
 
 // AppName will generate a random app name
@@ -27,7 +26,7 @@ func appName(r *rand.Rand) string {
 		name = animal(r) + verb(r)
 	}
 
-	return strings.Title(name)
+	return title(name)
 }
 
 // AppVersion will generate a random app version

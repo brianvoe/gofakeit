@@ -150,20 +150,20 @@ func runFunction(faker *gofakeit.Faker, function string, args []string) (string,
 	return fmt.Sprintf("%v", value), nil
 }
 
+func stringInSlice(a string, list []string) bool {
+	for _, b := range list {
+		if b == a {
+			return true
+		}
+	}
+	return false
+}
+
 func listOutput(selectedCategory string, selectedFunction string) string {
 	// Determine space or no space
 	functionSpace := ""
 	if selectedCategory == "" {
 		functionSpace = "    "
-	}
-
-	stringInSlice := func(a string, list []string) bool {
-		for _, b := range list {
-			if b == a {
-				return true
-			}
-		}
-		return false
 	}
 
 	// Get list of categories

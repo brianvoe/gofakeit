@@ -28,6 +28,14 @@ func letterN(r *rand.Rand, n uint) string {
 	return string(out)
 }
 
+// Vowel will generate a single random lower case vowel
+func Vowel() string { return vowel(globalFaker.Rand) }
+
+// Vowel will generate a single random lower case vowel
+func (f *Faker) Vowel() string { return vowel(f.Rand) }
+
+func vowel(r *rand.Rand) string { return string(randCharacter(r, vowels)) }
+
 // Digit will generate a single ASCII digit
 func Digit() string { return digit(globalFaker.Rand) }
 
@@ -139,6 +147,17 @@ func addStringLookup() {
 			}
 
 			return letterN(r, ui), nil
+		},
+	})
+
+	AddFuncLookup("vowel", Info{
+		Display:     "Vowel",
+		Category:    "string",
+		Description: "Generate a single random lower case vowel",
+		Example:     "a",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return vowel(r), nil
 		},
 	})
 

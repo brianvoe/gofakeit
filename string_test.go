@@ -61,6 +61,25 @@ func BenchmarkLetterN(b *testing.B) {
 	}
 }
 
+func ExampleVowel() {
+	Seed(11)
+	fmt.Println(Vowel())
+	// Output: a
+}
+
+func ExampleFaker_Vowel() {
+	f := New(11)
+	fmt.Println(f.Vowel())
+	// Output: a
+}
+
+func BenchmarkVowel(b *testing.B) {
+	Seed(11)
+	for i := 0; i < b.N; i++ {
+		Vowel()
+	}
+}
+
 func ExampleDigit() {
 	Seed(11)
 	fmt.Println(Digit())
