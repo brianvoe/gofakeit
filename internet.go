@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/brianvoe/gofakeit/v6/data"
+	"github.com/simon0-o/gofakeit/v6/data"
 )
 
 // DomainName will generate a random url domain name

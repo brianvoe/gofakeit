@@ -6,7 +6,7 @@ import (
 	"math/rand"
 	"reflect"
 
-	"github.com/brianvoe/gofakeit/v6/data"
+	"github.com/simon0-o/gofakeit/v6/data"
 )
 
 // Bool will generate a random boolean value
@@ -80,7 +80,7 @@ func shuffleAnySlice(r *rand.Rand, v interface{}) {
 		s.Index(j).Set(tmp)
 	}
 
-	//if size is > int32 probably it will never finish, or ran out of entropy
+	// if size is > int32 probably it will never finish, or ran out of entropy
 	i := n - 1
 	for ; i > 0; i-- {
 		j := int(r.Int31n(int32(i + 1)))

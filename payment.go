@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/brianvoe/gofakeit/v6/data"
+	"github.com/simon0-o/gofakeit/v6/data"
 )
 
 // CurrencyInfo is a struct of currency information
@@ -167,7 +167,7 @@ func creditCardExp(r *rand.Rand) string {
 		month = "0" + month
 	}
 
-	var currentYear = time.Now().Year() - 2000
+	currentYear := time.Now().Year() - 2000
 	return month + "/" + strconv.Itoa(randIntRange(r, currentYear+1, currentYear+10))
 }
 
@@ -183,7 +183,7 @@ func creditCardCvv(r *rand.Rand) string { return numerify(r, "###") }
 
 // isLuhn check is used for checking if credit card is a valid luhn card
 func isLuhn(s string) bool {
-	var t = [...]int{0, 2, 4, 6, 8, 1, 3, 5, 7, 9}
+	t := [...]int{0, 2, 4, 6, 8, 1, 3, 5, 7, 9}
 	odd := len(s) & 1
 	var sum int
 	for i, c := range s {

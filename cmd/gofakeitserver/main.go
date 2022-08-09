@@ -10,11 +10,13 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/brianvoe/gofakeit/v6"
+	"github.com/simon0-o/gofakeit/v6"
 )
 
-var port string
-var faker *gofakeit.Faker
+var (
+	port  string
+	faker *gofakeit.Faker
+)
 
 func init() {
 	flag.StringVar(&port, "port", "8080", "server port")
@@ -76,7 +78,6 @@ func lookupGet(w http.ResponseWriter, r *http.Request) {
 	m := gofakeit.NewMapParams()
 	urlParams := r.URL.Query()
 	for key, values := range urlParams {
-
 		for _, value := range values {
 			m.Add(key, value)
 		}

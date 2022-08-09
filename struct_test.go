@@ -800,3 +800,25 @@ func TestStructArrayWithInvalidCustomFunc(t *testing.T) {
 		t.Error(err)
 	}
 }
+
+type Circular struct {
+	StructPointer         *Circular
+	StructSlice           []Circular
+	StructPointerSlice    []*Circular
+	StructMapValue        map[string]Circular
+	StructPointerMapKey   map[*Circular]string
+	StructPointerMapValue map[string]*Circular
+	IndirectStructPointer *IndirectCircular
+}
+
+type IndirectCircular struct {
+	Foo        Circular
+	FooPointer *Circular
+}
+
+func TestCircleStructGeneration(t *testing.T) {
+	c := &Circular{}
+	if err := Struct(c); err != nil {
+		t.Fatal(err)
+	}
+}

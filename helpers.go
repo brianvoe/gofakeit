@@ -9,24 +9,26 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/brianvoe/gofakeit/v6/data"
+	"github.com/simon0-o/gofakeit/v6/data"
 )
 
-const lowerStr = "abcdefghijklmnopqrstuvwxyz"
-const upperStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-const numericStr = "0123456789"
-const specialStr = "!@#$%&*+-_=?:;,.|(){}<>"
-const spaceStr = " "
-const allStr = lowerStr + upperStr + numericStr + specialStr + spaceStr
-const vowels = "aeiou"
-const hashtag = '#'
-const questionmark = '?'
-const dash = '-'
-const base58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
-const minUint = 0
-const maxUint = ^uint(0)
-const minInt = -maxInt - 1
-const maxInt = int(^uint(0) >> 1)
+const (
+	lowerStr     = "abcdefghijklmnopqrstuvwxyz"
+	upperStr     = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	numericStr   = "0123456789"
+	specialStr   = "!@#$%&*+-_=?:;,.|(){}<>"
+	spaceStr     = " "
+	allStr       = lowerStr + upperStr + numericStr + specialStr + spaceStr
+	vowels       = "aeiou"
+	hashtag      = '#'
+	questionmark = '?'
+	dash         = '-'
+	base58       = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+	minUint      = 0
+	maxUint      = ^uint(0)
+	minInt       = -maxInt - 1
+	maxInt       = int(^uint(0) >> 1)
+)
 
 // Seed will set the global random value. Setting seed to 0 will use crypto/rand
 func Seed(seed int64) {

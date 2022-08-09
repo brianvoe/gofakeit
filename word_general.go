@@ -4,7 +4,7 @@ import (
 	"math/rand"
 	"strings"
 
-	"github.com/brianvoe/gofakeit/v6/data"
+	"github.com/simon0-o/gofakeit/v6/data"
 )
 
 // Word will generate a random word
