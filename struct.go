@@ -75,13 +75,20 @@ func rCustom(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 		field.Elem().Set(reflect.ValueOf(fValue))
 
 		// Check if element is pointer if so
-		// grab the underlyning value before setting
+		// grab the underlyning value
 		fieldElem := field.Elem()
 		if fieldElem.Kind() == reflect.Ptr {
-			v.Set(fieldElem.Elem())
-		} else {
-			v.Set(fieldElem)
+			fieldElem = fieldElem.Elem()
 		}
+
+		// Check if field kind is the same as the expected type
+		if fieldElem.Kind() != v.Kind() {
+			// return error saying the field and kinds that do not match
+			return errors.New("field kind " + fieldElem.Kind().String() + " does not match expected kind " + v.Kind().String())
+		}
+
+		// Set the value
+		v.Set(fieldElem)
 
 		// If a function is called to set the struct
 		// stop from going through sub fields
@@ -167,9 +174,9 @@ func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int
 	}
 
 	// Check if tag exists, if so run custom function
-	if t.Name() != "" && tag != "" {
-		return rCustom(ra, t, v, tag)
-	}
+	// if t.Name() != "" && tag != "" {
+	// 	return rCustom(ra, t, v, tag)
+	// }
 
 	// Grab original size to use if needed for sub arrays
 	ogSize := size

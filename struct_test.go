@@ -52,6 +52,9 @@ type Function struct {
 	Const  *string `fake:"ABC"`
 }
 
+type StrArray []string
+type IntArray []int
+
 type StructArray struct {
 	Bars      []*Basic
 	Builds    []BuiltIn
@@ -62,6 +65,8 @@ type StructArray struct {
 	SubStrLen [][2]string
 	Empty     []*Basic    `fakesize:"0"`
 	Multy     []*Function `fakesize:"3"`
+	StrArray  StrArray    `fake:"{firstname}" fakesize:"3"`
+	IntArray  *IntArray   `fake:"{firstname:1,10}" fakesize:"3"`
 }
 
 type NestedArray struct {
@@ -466,6 +471,12 @@ func TestStructArray(t *testing.T) {
 	}
 	if len(sa.Multy) != 3 {
 		t.Error("sa slice Multy is not fully populated")
+	}
+	if len(sa.StrArray) != 3 {
+		t.Error("sa slice StrArray is not fully populated")
+	}
+	if len(*sa.IntArray) != 3 {
+		t.Error("sa slice IntArray is not fully populated")
 	}
 }
 
