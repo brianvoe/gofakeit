@@ -54,6 +54,17 @@ func dinner(r *rand.Rand) string {
 	return strings.ToUpper(v[:1]) + v[1:]
 }
 
+// Drink will return a random drink name
+func Drink() string { return drink(globalFaker.Rand) }
+
+// Drink will return a random drink name
+func (f *Faker) Drink() string { return drink(f.Rand) }
+
+func drink(r *rand.Rand) string {
+	v := getRandValue(r, []string{"food", "drink"})
+	return strings.ToUpper(v[:1]) + v[1:]
+}
+
 // Snack will return a random snack name
 func Snack() string { return snack(globalFaker.Rand) }
 
@@ -129,6 +140,17 @@ func addFoodLookup() {
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return dinner(r), nil
+		},
+	})
+
+	AddFuncLookup("drink", Info{
+		Display:     "Drink",
+		Category:    "food",
+		Description: "Random drink",
+		Example:     "Soda",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return drink(r), nil
 		},
 	})
 

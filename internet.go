@@ -180,7 +180,7 @@ func FirefoxUserAgent() string { return firefoxUserAgent(globalFaker.Rand) }
 func (f *Faker) FirefoxUserAgent() string { return firefoxUserAgent(f.Rand) }
 
 func firefoxUserAgent(r *rand.Rand) string {
-	ver := "Gecko/" + date(r).Format("2006-02-01") + " Firefox/" + strconv.Itoa(randIntRange(r, 35, 37)) + ".0"
+	ver := "Gecko/" + date(r).Format("2006-01-02") + " Firefox/" + strconv.Itoa(randIntRange(r, 35, 37)) + ".0"
 	platforms := []string{
 		"(" + windowsPlatformToken(r) + "; " + "en-US" + "; rv:1.9." + strconv.Itoa(randIntRange(r, 0, 3)) + ".20) " + ver,
 		"(" + linuxPlatformToken(r) + "; rv:" + strconv.Itoa(randIntRange(r, 5, 8)) + ".0) " + ver,

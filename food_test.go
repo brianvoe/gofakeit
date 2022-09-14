@@ -185,6 +185,42 @@ func BenchmarkDinner(b *testing.B) {
 	})
 }
 
+func ExampleDrink() {
+	Seed(11)
+	fmt.Println(Drink())
+	// Output: Water
+}
+
+func ExampleFaker_Drink() {
+	f := New(11)
+	fmt.Println(f.Drink())
+	// Output: Water
+}
+
+func BenchmarkDrink(b *testing.B) {
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			Drink()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.Drink()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.Drink()
+		}
+	})
+}
+
 func ExampleSnack() {
 	Seed(11)
 	fmt.Println(Snack())
