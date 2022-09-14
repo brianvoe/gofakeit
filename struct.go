@@ -174,9 +174,13 @@ func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int
 	}
 
 	// Check if tag exists, if so run custom function
-	// if t.Name() != "" && tag != "" {
-	// 	return rCustom(ra, t, v, tag)
-	// }
+	if t.Name() != "" && tag != "" {
+		// Check to see if custom function works if not continue to normal loop of values
+		err := rCustom(ra, t, v, tag)
+		if err == nil {
+			return nil
+		}
+	}
 
 	// Grab original size to use if needed for sub arrays
 	ogSize := size
