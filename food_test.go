@@ -188,13 +188,13 @@ func BenchmarkDinner(b *testing.B) {
 func ExampleDrink() {
 	Seed(11)
 	fmt.Println(Drink())
-	// Output: Water
+	// Output: Juice
 }
 
 func ExampleFaker_Drink() {
 	f := New(11)
 	fmt.Println(f.Drink())
-	// Output: Water
+	// Output: Juice
 }
 
 func BenchmarkDrink(b *testing.B) {
