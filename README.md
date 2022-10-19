@@ -170,33 +170,33 @@ you need more reference examples you can look at each files lookups.
 
 ```go
 // Simple
-gofakeit.AddFuncLookup("friendname", Info{
+gofakeit.AddFuncLookup("friendname", gofakeit.Info{
 	Category:    "custom",
 	Description: "Random friend name",
 	Example:     "bill",
 	Output:      "string",
-	Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
-		return RandomString([]string{"bill", "bob", "sally"}), nil
+	Generate: func(r *rand.Rand, m *gofakeit.MapParams, info *gofakeit.Info) (interface{}, error) {
+		return gofakeit.RandomString([]string{"bill", "bob", "sally"}), nil
 	},
 })
 
 // With Params
-gofakeit.AddFuncLookup("jumbleword", Info{
+gofakeit.AddFuncLookup("jumbleword", gofakeit.Info{
 	Category:    "jumbleword",
 	Description: "Take a word and jumple it up",
 	Example:     "loredlowlh",
 	Output:      "string",
-	Params: []Param{
+	Params: []gofakeit.Param{
 		{Field: "word", Type: "string", Description: "Word you want to jumble"},
 	},
-	Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+	Generate: func(r *rand.Rand, m *gofakeit.MapParams, info *gofakeit.Info) (interface{}, error) {
 		word, err := info.GetString(m, "word")
 		if err != nil {
 			return nil, err
 		}
 
 		split := strings.Split(word, "")
-		ShuffleStrings(split)
+		gofakeit.ShuffleStrings(split)
 		return strings.Join(split, ""), nil
 	},
 })
