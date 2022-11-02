@@ -157,12 +157,12 @@ fmt.Println(f.Created.String()) // 1908-12-07 04:14:25.685339029 +0000 UTC
 // bool, string,
 // array, pointers, map
 // time.Time // If setting time you can also set a format tag
-// Nested Struct Fields and Embeded Fields
+// Nested Struct Fields and Embedded Fields
 ```
 
 ## Custom Functions
 
-In a lot of sitations you may need to use your own random function usage for your specific needs.
+In a lot of situations you may need to use your own random function usage for your specific needs.
 
 If you would like to extend the usage of struct tags, generate function, available usages in the gofakeit server
 or gofakeit command sub packages. You can do so via the AddFuncLookup. Each function has their own lookup, if
@@ -183,7 +183,7 @@ gofakeit.AddFuncLookup("friendname", gofakeit.Info{
 // With Params
 gofakeit.AddFuncLookup("jumbleword", gofakeit.Info{
 	Category:    "jumbleword",
-	Description: "Take a word and jumple it up",
+	Description: "Take a word and jumble it up",
 	Example:     "loredlowlh",
 	Output:      "string",
 	Params: []gofakeit.Param{
@@ -379,7 +379,7 @@ AdjectiveIndefinite() string
 Pronoun() string
 PronounPersonal() string
 PronounObject() string
-PronounPosessive() string
+PronounPossessive() string
 PronounReflective() string
 PronounDemonstrative() string
 PronounInterrogative() string
@@ -557,6 +557,7 @@ AnimalType() string
 FarmAnimal() string
 Cat() string
 Dog() string
+Bird() string
 ```
 
 ### Emoji
