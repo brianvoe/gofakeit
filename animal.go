@@ -171,7 +171,7 @@ func addAnimalLookup() {
 		Display:     "Bird",
 		Category:    "animal",
 		Description: "Random bird type",
-		Example:     "Albatross",
+		Example:     "goose",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return bird(r), nil
