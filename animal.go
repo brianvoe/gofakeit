@@ -168,7 +168,7 @@ func addAnimalLookup() {
 	})
 
 	AddFuncLookup("bird", Info{
-		Display:     "BIrd",
+		Display:     "Bird",
 		Category:    "animal",
 		Description: "Random bird type",
 		Example:     "Albatross",
