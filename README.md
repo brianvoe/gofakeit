@@ -557,6 +557,7 @@ AnimalType() string
 FarmAnimal() string
 Cat() string
 Dog() string
+Bird() string
 ```
 
 ### Emoji
