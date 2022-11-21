@@ -113,6 +113,38 @@ func BenchmarkSSN(b *testing.B) {
 	}
 }
 
+func ExampleEAMS() {
+	Seed(11)
+	fmt.Println(EAMS())
+}
+
+func ExampleFaker_EAMS() {
+	f := New(11)
+	fmt.Println(f.EAMS())
+}
+
+func BenchmarkEAMS(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		EAMS()
+	}
+}
+
+func ExampleADJNumber() {
+	Seed(11)
+	fmt.Println(ADJNumber())
+}
+
+func ExampleFaker_ADJNumber() {
+	f := New(11)
+	fmt.Println(f.ADJNumber())
+}
+
+func BenchmarkADJNumber(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		ADJNumber()
+	}
+}
+
 func ExampleGender() {
 	Seed(11)
 	fmt.Println(Gender())

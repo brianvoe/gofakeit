@@ -1,6 +1,7 @@
 package gofakeit
 
 import (
+	"fmt"
 	"math"
 	"math/rand"
 	"strconv"
@@ -13,6 +14,8 @@ type PersonInfo struct {
 	LastName   string          `json:"last_name" xml:"last_name"`
 	Gender     string          `json:"gender" xml:"gender"`
 	SSN        string          `json:"ssn" xml:"ssn"`
+	EAMS       string          `json:"eams" xml:"eams"`
+	ADJNumber  string          `json:"adj_number" xml:"adj_number"`
 	Image      string          `json:"image" xml:"image"`
 	Hobby      string          `json:"hobby" xml:"hobby"`
 	Job        *JobInfo        `json:"job" xml:"job"`
@@ -87,8 +90,26 @@ func nameSuffix(r *rand.Rand) string { return getRandValue(r, []string{"person",
 // SSN will generate a random Social Security Number
 func SSN() string { return ssn(globalFaker.Rand) }
 
+// EAMS will generate a random eams Number
+func EAMS() string { return eams(globalFaker.Rand) }
+
+// ADJNumber will generate a random adjust number
+func ADJNumber() string { return adjNumber(globalFaker.Rand) }
+
 // SSN will generate a random Social Security Number
 func (f *Faker) SSN() string { return ssn(f.Rand) }
+
+// EAMS will generate a random eams Number
+func (f *Faker) EAMS() string { return eams(f.Rand) }
+
+// ADJNumber will generate a random adjust number
+func (f *Faker) ADJNumber() string { return adjNumber(f.Rand) }
+
+func adjNumber(r *rand.Rand) string {
+	return fmt.Sprintf("ADJ%d", randIntRange(r, 100000000, 999999999))
+}
+
+func eams(r *rand.Rand) string { return strconv.Itoa(randIntRange(r, 100000000, 999999999)) }
 
 func ssn(r *rand.Rand) string { return strconv.Itoa(randIntRange(r, 100000000, 999999999)) }
 
