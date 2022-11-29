@@ -21,20 +21,97 @@ func (f *Faker) Error() error {
 }
 
 func fakeErr(r *rand.Rand) error {
-	msg := getRandValue(r, []string{"error", "generic"})
+	msg := generate(r, getRandValue(r, []string{"error", "generic"}))
 	return &fakeError{msg}
 }
 
-func HTTP() error {
+func HTTPError() error {
 	return httpErr(globalFaker.Rand)
 }
 
-func (f *Faker) HTTP() error {
+func (f *Faker) HTTPError() error {
 	return httpErr(f.Rand)
 }
 
 func httpErr(r *rand.Rand) error {
 	msg := getRandValue(r, []string{"error", "http"})
+	return &fakeError{msg}
+}
+
+func HTTPClientError() error {
+	return httpClientErr(globalFaker.Rand)
+}
+
+func (f *Faker) HTTPClientError() error {
+	return httpClientErr(f.Rand)
+}
+
+func httpClientErr(r *rand.Rand) error {
+	msg := getRandValue(r, []string{"error", "http-client"})
+	return &fakeError{msg}
+}
+
+func HTTPServerError() error {
+	return httpServerErr(globalFaker.Rand)
+}
+
+func (f *Faker) HTTPServerError() error {
+	return httpServerErr(f.Rand)
+}
+
+func httpServerErr(r *rand.Rand) error {
+	msg := getRandValue(r, []string{"error", "http-server"})
+	return &fakeError{msg}
+}
+
+func DatabaseError() error {
+	return databaseErr(globalFaker.Rand)
+}
+
+func (f *Faker) DatabaseError() error {
+	return databaseErr(f.Rand)
+}
+
+func databaseErr(r *rand.Rand) error {
+	msg := getRandValue(r, []string{"error", "database"})
+	return &fakeError{msg}
+}
+
+func GRPCError() error {
+	return grpcErr(globalFaker.Rand)
+}
+
+func (f *Faker) GRPCError() error {
+	return grpcErr(f.Rand)
+}
+
+func grpcErr(r *rand.Rand) error {
+	msg := getRandValue(r, []string{"error", "grpc"})
+	return &fakeError{msg}
+}
+
+func RuntimeError() error {
+	return runtimeErr(globalFaker.Rand)
+}
+
+func (f *Faker) RuntimeError() error {
+	return runtimeErr(f.Rand)
+}
+
+func runtimeErr(r *rand.Rand) error {
+	msg := getRandValue(r, []string{"error", "runtime"})
+	return &fakeError{msg}
+}
+func InputError() error {
+	return inputErr(globalFaker.Rand)
+}
+
+func (f *Faker) InputError() error {
+	return inputErr(f.Rand)
+}
+
+func inputErr(r *rand.Rand) error {
+	msg := getRandValue(r, []string{"error", "input"})
 	return &fakeError{msg}
 }
 
