@@ -83,15 +83,17 @@ func ExampleStruct() {
 	}
 
 	type Foo struct {
-		Str     string
-		Int     int
-		Pointer *int
-		Name    string            `fake:"{firstname}"`
-		Number  string            `fake:"{number:1,10}"`
-		Skip    *string           `fake:"skip"`
-		Array   []string          `fakesize:"2"`
-		Map     map[string]string `fakesize:"2"`
-		Bar     Bar
+		Str        string
+		Int        int
+		Pointer    *int
+		Name       string            `fake:"{firstname}"`
+		Number     string            `fake:"{number:1,10}"`
+		Skip       *string           `fake:"skip"`
+		Array      []string          `fakesize:"2"`
+		ArrayRange []string          `fakesize:"2,6"`
+		Map        map[string]string `fakesize:"2"`
+		MapRange   map[string]string `fakesize:"2,4"`
+		Bar        Bar
 	}
 
 	var f Foo
@@ -104,7 +106,9 @@ func ExampleStruct() {
 	fmt.Printf("%v\n", f.Number)
 	fmt.Printf("%v\n", f.Skip)
 	fmt.Printf("%v\n", f.Array)
+	fmt.Printf("%v\n", f.ArrayRange)
 	fmt.Printf("%v\n", f.Map)
+	fmt.Printf("%v\n", f.MapRange)
 	fmt.Printf("%+v\n", f.Bar)
 
 	// Output: bRMaRx
@@ -114,8 +118,10 @@ func ExampleStruct() {
 	// 1
 	// <nil>
 	// [PtapWYJdn MKgtlxwnq]
-	// map[qanPAKaXS:QFpZysVaHG qclaYkWw:oRLOPxLIok]
-	// {Name:yvqqdH Number:4395457394939876661 Float:2.8838284e+38}
+	// [claYk wfoRL PxLIok qanPAKaXS QFpZysVaHG]
+	// map[DjRRGUns:xdBXGY yvqqdH:eUxcvUVS]
+	// map[Oyrwg:LhewLkDVtD XpYcnVTKpB:eubY jQZsZt:eUpXhOq ynojqPYDrH:HWYKFgji]
+	// {Name:ANhYxKtSH Number:-5807586752746953977 Float:4.558046e+37}
 }
 
 func ExampleFaker_Struct() {
@@ -128,15 +134,17 @@ func ExampleFaker_Struct() {
 	}
 
 	type Foo struct {
-		Str     string
-		Int     int
-		Pointer *int
-		Name    string            `fake:"{firstname}"`
-		Number  string            `fake:"{number:1,10}"`
-		Skip    *string           `fake:"skip"`
-		Array   []string          `fakesize:"2"`
-		Map     map[string]string `fakesize:"2"`
-		Bar     Bar
+		Str        string
+		Int        int
+		Pointer    *int
+		Name       string            `fake:"{firstname}"`
+		Number     string            `fake:"{number:1,10}"`
+		Skip       *string           `fake:"skip"`
+		Array      []string          `fakesize:"2"`
+		ArrayRange []string          `fakesize:"2,6"`
+		Map        map[string]string `fakesize:"2"`
+		MapRange   map[string]string `fakesize:"2,4"`
+		Bar        Bar
 	}
 
 	var f Foo
@@ -150,6 +158,7 @@ func ExampleFaker_Struct() {
 	fmt.Printf("%v\n", f.Skip)
 	fmt.Printf("%v\n", f.Array)
 	fmt.Printf("%v\n", f.Map)
+	fmt.Printf("%v\n", f.MapRange)
 	fmt.Printf("%+v\n", f.Bar)
 
 	// Output: bRMaRx
@@ -159,8 +168,9 @@ func ExampleFaker_Struct() {
 	// 1
 	// <nil>
 	// [PtapWYJdn MKgtlxwnq]
-	// map[qanPAKaXS:QFpZysVaHG qclaYkWw:oRLOPxLIok]
-	// {Name:yvqqdH Number:4395457394939876661 Float:2.8838284e+38}
+	// map[DjRRGUns:xdBXGY yvqqdH:eUxcvUVS]
+	// map[Oyrwg:LhewLkDVtD XpYcnVTKpB:eubY jQZsZt:eUpXhOq ynojqPYDrH:HWYKFgji]
+	// {Name:ANhYxKtSH Number:-5807586752746953977 Float:4.558046e+37}
 }
 
 func ExampleStruct_array() {
@@ -175,8 +185,9 @@ func ExampleStruct_array() {
 	}
 
 	type FooMany struct {
-		Foos  []Foo    `fakesize:"1"`
-		Names []string `fake:"{firstname}" fakesize:"3"`
+		Foos       []Foo    `fakesize:"1"`
+		Names      []string `fake:"{firstname}" fakesize:"3"`
+		NamesRange []string `fake:"{firstname}" fakesize:"3,6"`
 	}
 
 	var fm FooMany
@@ -184,10 +195,12 @@ func ExampleStruct_array() {
 
 	fmt.Printf("%v\n", fm.Foos)
 	fmt.Printf("%v\n", fm.Names)
+	fmt.Printf("%v\n", fm.NamesRange)
 
 	// Output:
 	// [{bRMaRx 8474499440427634498 Paolo 4 <nil>}]
 	// [Santino Carole Enrique]
+	// [Zachery Amie Alice Zachary]
 }
 
 func ExampleFaker_Struct_array() {
@@ -202,8 +215,9 @@ func ExampleFaker_Struct_array() {
 	}
 
 	type FooMany struct {
-		Foos  []Foo    `fakesize:"1"`
-		Names []string `fake:"{firstname}" fakesize:"3"`
+		Foos       []Foo    `fakesize:"1"`
+		Names      []string `fake:"{firstname}" fakesize:"3"`
+		NamesRange []string `fake:"{firstname}" fakesize:"3,6"`
 	}
 
 	var fm FooMany
@@ -211,10 +225,12 @@ func ExampleFaker_Struct_array() {
 
 	fmt.Printf("%v\n", fm.Foos)
 	fmt.Printf("%v\n", fm.Names)
+	fmt.Printf("%v\n", fm.NamesRange)
 
 	// Output:
 	// [{bRMaRx 8474499440427634498 Paolo 4 <nil>}]
 	// [Santino Carole Enrique]
+	// [Zachery Amie Alice Zachary]
 }
 
 func TestStructBasic(t *testing.T) {

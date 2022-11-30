@@ -101,7 +101,7 @@ gofakeit.SetGlobalFaker(faker)
 ## Struct
 
 Gofakeit can generate random data for struct fields. For the most part it covers all the basic type
-as well as some non basic like time.Time.
+as well as some non-basic like time.Time.
 
 Struct fields can also use tags to more specifically generate data for that field type.
 
@@ -110,20 +110,21 @@ import "github.com/brianvoe/gofakeit/v6"
 
 // Create structs with random injected data
 type Foo struct {
-	Str      string
-	Int      int
-	Pointer  *int
-	Name     string         `fake:"{firstname}"`         // Any available function all lowercase
-	Sentence string         `fake:"{sentence:3}"`        // Can call with parameters
-	RandStr  string         `fake:"{randomstring:[hello,world]}"`
-	Number   string         `fake:"{number:1,10}"`       // Comma separated for multiple values
-	Regex    string         `fake:"{regex:[abcdef]{5}}"` // Generate string from regex
-	Map      map[string]int `fakesize:"2"`
-	Array    []string       `fakesize:"2"`
-	Bar 	 Bar
-	Skip     *string        `fake:"skip"`                // Set to "skip" to not generate data for
-	Created  time.Time								     // Can take in a fake tag as well as a format tag
-	CreatedFormat  time.Time `fake:"{year}-{month}-{day}" format:"2006-01-02"`
+	Str           string
+	Int           int
+	Pointer       *int
+	Name          string         `fake:"{firstname}"`         // Any available function all lowercase
+	Sentence      string         `fake:"{sentence:3}"`        // Can call with parameters
+	RandStr       string         `fake:"{randomstring:[hello,world]}"`
+	Number        string         `fake:"{number:1,10}"`       // Comma separated for multiple values
+	Regex         string         `fake:"{regex:[abcdef]{5}}"` // Generate string from regex
+	Map           map[string]int `fakesize:"2"`
+	Array         []string       `fakesize:"2"`
+	ArrayRange    []string       `fakesize:"2,6"`
+    Bar           Bar
+	Skip          *string        `fake:"skip"`                // Set to "skip" to not generate data for
+	Created       time.Time                                   // Can take in a fake tag as well as a format tag
+	CreatedFormat time.Time      `fake:"{year}-{month}-{day}" format:"2006-01-02"`
 }
 
 type Bar struct {
