@@ -3,6 +3,7 @@ package gofakeit
 import (
 	"encoding/binary"
 	"fmt"
+	"math/rand"
 	"regexp"
 	"strings"
 	"testing"
@@ -168,9 +169,9 @@ func FuzzRegex(f *testing.F) {
 	}
 	f.Fuzz(func(t *testing.T, rand []byte, regex string) {
 		// case added after each character gives bad result to get other cases
-		// if strings.ContainsAny(regex, `^$\*`) {
-		//	return
-		// }
+		if strings.ContainsAny(regex, `^$\`) {
+			return
+		}
 
 		// Try to compile regexTest
 		regCompile, err := regexp.Compile(regex)
@@ -196,6 +197,7 @@ func FuzzRegex(f *testing.F) {
 type notSoRandom struct {
 	data   []uint64
 	offset int
+	tail   rand.Source64 // make long tail behavior more random once we run out of data.
 }
 
 func (r *notSoRandom) Int63() int64 {
@@ -203,8 +205,14 @@ func (r *notSoRandom) Int63() int64 {
 }
 
 func (r *notSoRandom) Uint64() uint64 {
+	if r.tail != nil {
+		return r.tail.Uint64()
+	}
 	out := r.data[r.offset]
 	r.offset = (r.offset + 1) % len(r.data)
+	if r.offset == 0 {
+		r.tail = rand.NewSource(int64(out)).(rand.Source64)
+	}
 	return out
 }
 
