@@ -1,6 +1,7 @@
 package gofakeit
 
 import (
+	"encoding/binary"
 	"fmt"
 	"regexp"
 	"strings"
@@ -159,6 +160,68 @@ func TestRegex(t *testing.T) {
 			}
 		}
 	}
+}
+
+func FuzzRegex(f *testing.F) {
+	for i, regex := range regexes {
+		f.Add(binary.BigEndian.AppendUint64(nil, uint64(i*i*1234567)), regex.test) // Reuse TestRegex cases to seed corpus
+	}
+	f.Fuzz(func(t *testing.T, rand []byte, regex string) {
+		// case added after each character gives bad result to get other cases
+		// if strings.ContainsAny(regex, `^$\*`) {
+		//	return
+		// }
+
+		// Try to compile regexTest
+		regCompile, err := regexp.Compile(regex)
+		if err != nil {
+			return // Ignore bad regex
+		}
+
+		// Let fuzz have control over random behavior
+		fuzzRand := &notSoRandom{}
+		fuzzRand.useBytes(rand)
+		faker := NewCustom(fuzzRand)
+
+		// Generate string and test if it matches the regex syntax
+		reg := faker.Regex(regex)
+		if !regCompile.MatchString(reg) {
+			t.Error("Generated data does not match regex. Regex: ", regex, " output: ", reg)
+		}
+	})
+}
+
+// notSoRandom is a random source that repeats a stream of data. This allows fuzz to slowly
+// change sudo random behavior.
+type notSoRandom struct {
+	data   []uint64
+	offset int
+}
+
+func (r *notSoRandom) Int63() int64 {
+	return int64(r.Uint64() & ^uint64(1<<63))
+}
+
+func (r *notSoRandom) Uint64() uint64 {
+	out := r.data[r.offset]
+	r.offset = (r.offset + 1) % len(r.data)
+	return out
+}
+
+func (r *notSoRandom) Seed(seed int64) {
+	panic("unimplemented")
+}
+
+func (r *notSoRandom) useBytes(seed []byte) {
+	if len(seed) == 0 || len(seed)%8 != 0 {
+		r.useBytes(append(seed, 0))
+		return
+	}
+	var data []uint64
+	for i := 0; i+7 < len(seed); i += 8 {
+		data = append(data, binary.BigEndian.Uint64(seed[i:]))
+	}
+	r.data = data
 }
 
 func TestRegex_Struct(t *testing.T) {
