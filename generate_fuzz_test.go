@@ -15,11 +15,24 @@ func FuzzRegex(f *testing.F) {
 	for i, regex := range regexes {
 		buffer := make([]byte, 8)
 		binary.BigEndian.PutUint64(buffer, uint64(i*i*1234567))
-		f.Add(buffer, regex.test) // Reuse TestRegex cases to seed corpus
+		// Reuse TestRegex cases to seed corpus.
+		f.Add(buffer, regex.test)
+
+		// Cases found and skipped by fuzz test.
+		f.Add([]byte("0"), string("$0"))     // can not match any string
+		f.Add([]byte("0"), string("0^00"))   // can not match any string
+		f.Add([]byte("0"), string("000\\A")) // `\A` gives unexpected results
+		f.Add([]byte("0"), string("\\b"))    // `\b` gives unexpected results
+
+		// Fixed by modifying regexGenerate.
+		f.Add([]byte("("), string("((5555555555555555){700})")) // OOM after fuzz run for a while. fixed by adding limit to regexGenerate
+
+		// Fixed in notSoRandom.
+		f.Add([]byte("\xff\xff\xff\xff\xff\xff\xff\xf1"), string("123[0-2]w{3}")) // choose 1 in 3 loops forever if notSoRandom loops it self instead of using a random tail
 	}
 	f.Fuzz(func(t *testing.T, rand []byte, regex string) {
 		if len(regex) > 20 {
-			return // long regexes take longer to test without adding much
+			return // long regexes take longer to test without adding much, increase this limit will make it easer to find OOM and timeouts.
 		}
 
 		// case added after each character gives bad result to get other cases
@@ -40,10 +53,9 @@ func FuzzRegex(f *testing.F) {
 		fuzzRand.useBytes(rand)
 		faker := NewCustom(fuzzRand)
 
-		defer func() { // ignore limitReached
+		defer func() { // ignore panic limitReached
 			if r := recover(); r != nil {
 				if r == limitReached {
-					println(limitReached + ":" + regex)
 					return
 				}
 				panic(r)
