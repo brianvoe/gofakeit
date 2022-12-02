@@ -27,6 +27,8 @@ func FuzzRegex(f *testing.F) {
 			return
 		}
 
+		regex = "^" + regex + "$" // make sure we do a full capture
+
 		// Try to compile regexTest
 		regCompile, err := regexp.Compile(regex)
 		if err != nil {
@@ -37,6 +39,16 @@ func FuzzRegex(f *testing.F) {
 		fuzzRand := &notSoRandom{}
 		fuzzRand.useBytes(rand)
 		faker := NewCustom(fuzzRand)
+
+		defer func() { // ignore limitReached
+			if r := recover(); r != nil {
+				if r == limitReached {
+					println(limitReached + ":" + regex)
+					return
+				}
+				panic(r)
+			}
+		}()
 
 		// Generate string and test if it matches the regex syntax
 		reg := faker.Regex(regex)
