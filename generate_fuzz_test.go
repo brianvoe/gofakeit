@@ -53,17 +53,12 @@ func FuzzRegex(f *testing.F) {
 		fuzzRand.useBytes(rand)
 		faker := NewCustom(fuzzRand)
 
-		defer func() { // ignore panic limitReached
-			if r := recover(); r != nil {
-				if r == limitReached {
-					return
-				}
-				panic(r)
-			}
-		}()
-
 		// Generate string and test if it matches the regex syntax
 		reg := faker.Regex(regex)
+		if reg == LimitReached {
+			// ignore LimitReached error
+			return
+		}
 		if !regCompile.MatchString(reg) {
 			t.Error("Generated data does not match regex. Regex: ", regex, " output: ", reg)
 		}

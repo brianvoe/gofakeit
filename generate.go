@@ -152,20 +152,34 @@ func Regex(regexStr string) string { return regex(globalFaker.Rand, regexStr) }
 // Regex will generate a string based upon a RE2 syntax
 func (f *Faker) Regex(regexStr string) string { return regex(f.Rand, regexStr) }
 
-func regex(r *rand.Rand, regexStr string) string {
+const (
+	// String constants returned by Regex on unsupported input
+	BadRegex     = "Could not parse regex string"
+	LimitReached = "Length limit reached when generating output"
+)
+
+func regex(r *rand.Rand, regexStr string) (gen string) {
 	re, err := syntax.Parse(regexStr, syntax.Perl)
 	if err != nil {
-		return "Could not parse regex string"
+		return BadRegex
 	}
+
+	defer func() { // turn LimitReached panic into normal output
+		if r := recover(); r != nil {
+			if r == LimitReached {
+				gen = LimitReached
+				return
+			}
+			panic(r)
+		}
+	}()
 
 	return regexGenerate(r, re, len(regexStr)*100)
 }
 
-const limitReached string = "limit reached"
-
 func regexGenerate(ra *rand.Rand, re *syntax.Regexp, limit int) string {
 	if limit <= 0 {
-		panic(limitReached)
+		panic(LimitReached)
 	}
 	op := re.Op
 	switch op {
