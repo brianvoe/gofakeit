@@ -49,22 +49,22 @@ func BenchmarkError(b *testing.B) {
 		}
 	})
 }
-func ExampleHTTPError() {
+func ExampleErrorHTTP() {
 	Seed(11)
-	fmt.Println(HTTPError())
+	fmt.Println(ErrorHTTP())
 	// Output: http error
 }
 
-func ExampleFaker_HTTPError() {
+func ExampleFaker_ErrorHTTP() {
 	f := New(11)
-	fmt.Println(f.HTTPError())
+	fmt.Println(f.ErrorHTTP())
 	// Output: http error
 }
 
-func BenchmarkHTTPError(b *testing.B) {
+func BenchmarkErrorHTTP(b *testing.B) {
 	b.Run("package", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			HTTPError()
+			ErrorHTTP()
 		}
 	})
 
@@ -72,7 +72,7 @@ func BenchmarkHTTPError(b *testing.B) {
 		f := New(0)
 
 		for i := 0; i < b.N; i++ {
-			f.HTTPError()
+			f.ErrorHTTP()
 		}
 	})
 
@@ -80,27 +80,27 @@ func BenchmarkHTTPError(b *testing.B) {
 		f := NewCrypto()
 
 		for i := 0; i < b.N; i++ {
-			f.HTTPError()
+			f.ErrorHTTP()
 		}
 	})
 }
 
-func ExampleHTTPClientError() {
+func ExampleErrorHTTPClient() {
 	Seed(11)
-	fmt.Println(HTTPClientError())
+	fmt.Println(ErrorHTTPClient())
 	// Output: not found
 }
 
-func ExampleFaker_HTTPClientError() {
+func ExampleFaker_ErrorHTTPClient() {
 	f := New(11)
-	fmt.Println(f.HTTPClientError())
+	fmt.Println(f.ErrorHTTPClient())
 	// Output: not found
 }
 
-func BenchmarkHTTPClientError(b *testing.B) {
+func BenchmarkErrorHTTPClient(b *testing.B) {
 	b.Run("package", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			HTTPClientError()
+			ErrorHTTPClient()
 		}
 	})
 
@@ -108,7 +108,7 @@ func BenchmarkHTTPClientError(b *testing.B) {
 		f := New(0)
 
 		for i := 0; i < b.N; i++ {
-			f.HTTPClientError()
+			f.ErrorHTTPClient()
 		}
 	})
 
@@ -116,27 +116,27 @@ func BenchmarkHTTPClientError(b *testing.B) {
 		f := NewCrypto()
 
 		for i := 0; i < b.N; i++ {
-			f.HTTPClientError()
+			f.ErrorHTTPClient()
 		}
 	})
 }
 
-func ExampleHTTPServerError() {
+func ExampleErrorHTTPServer() {
 	Seed(11)
-	fmt.Println(HTTPServerError())
+	fmt.Println(ErrorHTTPServer())
 	// Output: internal server error
 }
 
-func ExampleFaker_HTTPServerError() {
+func ExampleFaker_ErrorHTTPServer() {
 	f := New(11)
-	fmt.Println(f.HTTPServerError())
+	fmt.Println(f.ErrorHTTPServer())
 	// Output: internal server error
 }
 
-func BenchmarkHTTPServerError(b *testing.B) {
+func BenchmarkErrorHTTPServer(b *testing.B) {
 	b.Run("package", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			HTTPServerError()
+			ErrorHTTPServer()
 		}
 	})
 
@@ -144,7 +144,7 @@ func BenchmarkHTTPServerError(b *testing.B) {
 		f := New(0)
 
 		for i := 0; i < b.N; i++ {
-			f.HTTPServerError()
+			f.ErrorHTTPServer()
 		}
 	})
 
@@ -152,27 +152,27 @@ func BenchmarkHTTPServerError(b *testing.B) {
 		f := NewCrypto()
 
 		for i := 0; i < b.N; i++ {
-			f.HTTPServerError()
+			f.ErrorHTTPServer()
 		}
 	})
 }
 
-func ExampleDatabaseError() {
+func ExampleErrorDatabase() {
 	Seed(11)
-	fmt.Println(DatabaseError())
+	fmt.Println(ErrorDatabase())
 	// Output: bad connection
 }
 
-func ExampleFaker_DatabaseError() {
+func ExampleFaker_ErrorDatabase() {
 	f := New(11)
-	fmt.Println(f.DatabaseError())
+	fmt.Println(f.ErrorDatabase())
 	// Output: bad connection
 }
 
-func BenchmarkDatabaseError(b *testing.B) {
+func BenchmarkErrorDatabase(b *testing.B) {
 	b.Run("package", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			DatabaseError()
+			ErrorDatabase()
 		}
 	})
 
@@ -180,7 +180,7 @@ func BenchmarkDatabaseError(b *testing.B) {
 		f := New(0)
 
 		for i := 0; i < b.N; i++ {
-			f.DatabaseError()
+			f.ErrorDatabase()
 		}
 	})
 
@@ -188,26 +188,26 @@ func BenchmarkDatabaseError(b *testing.B) {
 		f := NewCrypto()
 
 		for i := 0; i < b.N; i++ {
-			f.DatabaseError()
+			f.ErrorDatabase()
 		}
 	})
 }
-func ExampleGRPCError() {
+func ExampleErrorGRPC() {
 	Seed(11)
-	fmt.Println(GRPCError())
+	fmt.Println(ErrorGRPC())
 	// Output: rpc error
 }
 
-func ExampleFaker_GRPCError() {
+func ExampleFaker_ErrorGRPC() {
 	f := New(11)
-	fmt.Println(f.GRPCError())
+	fmt.Println(f.ErrorGRPC())
 	// Output: rpc error
 }
 
-func BenchmarkGRPCError(b *testing.B) {
+func BenchmarkErrorGRPC(b *testing.B) {
 	b.Run("package", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			GRPCError()
+			ErrorGRPC()
 		}
 	})
 
@@ -215,7 +215,7 @@ func BenchmarkGRPCError(b *testing.B) {
 		f := New(0)
 
 		for i := 0; i < b.N; i++ {
-			f.GRPCError()
+			f.ErrorGRPC()
 		}
 	})
 
@@ -223,26 +223,26 @@ func BenchmarkGRPCError(b *testing.B) {
 		f := NewCrypto()
 
 		for i := 0; i < b.N; i++ {
-			f.GRPCError()
+			f.ErrorGRPC()
 		}
 	})
 }
-func ExampleRuntimeError() {
+func ExampleErrorRuntime() {
 	Seed(11)
-	fmt.Println(RuntimeError())
+	fmt.Println(ErrorRuntime())
 	// Output: panic: runtime error: invalid memory address or nil pointer dereference
 }
 
-func ExampleFaker_RuntimeError() {
+func ExampleFaker_ErrorRuntime() {
 	f := New(11)
-	fmt.Println(f.RuntimeError())
+	fmt.Println(f.ErrorRuntime())
 	// Output: panic: runtime error: invalid memory address or nil pointer dereference
 }
 
-func BenchmarkRuntimeError(b *testing.B) {
+func BenchmarkErrorRuntime(b *testing.B) {
 	b.Run("package", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			RuntimeError()
+			ErrorRuntime()
 		}
 	})
 
@@ -250,7 +250,7 @@ func BenchmarkRuntimeError(b *testing.B) {
 		f := New(0)
 
 		for i := 0; i < b.N; i++ {
-			f.RuntimeError()
+			f.ErrorRuntime()
 		}
 	})
 
@@ -258,26 +258,26 @@ func BenchmarkRuntimeError(b *testing.B) {
 		f := NewCrypto()
 
 		for i := 0; i < b.N; i++ {
-			f.RuntimeError()
+			f.ErrorRuntime()
 		}
 	})
 }
-func ExampleInputError() {
+func ExampleErrorInput() {
 	Seed(11)
-	fmt.Println(InputError())
+	fmt.Println(ErrorInput())
 	// Output: input error
 }
 
-func ExampleFaker_InputError() {
+func ExampleFaker_ErrorInput() {
 	f := New(11)
-	fmt.Println(f.InputError())
+	fmt.Println(f.ErrorInput())
 	// Output: input error
 }
 
-func BenchmarkInputError(b *testing.B) {
+func BenchmarkErrorInput(b *testing.B) {
 	b.Run("package", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			InputError()
+			ErrorInput()
 		}
 	})
 
@@ -285,7 +285,7 @@ func BenchmarkInputError(b *testing.B) {
 		f := New(0)
 
 		for i := 0; i < b.N; i++ {
-			f.InputError()
+			f.ErrorInput()
 		}
 	})
 
@@ -293,7 +293,7 @@ func BenchmarkInputError(b *testing.B) {
 		f := NewCrypto()
 
 		for i := 0; i < b.N; i++ {
-			f.InputError()
+			f.ErrorInput()
 		}
 	})
 }

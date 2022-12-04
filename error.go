@@ -25,92 +25,92 @@ func fakeErr(r *rand.Rand) error {
 	return &fakeError{msg}
 }
 
-func HTTPError() error {
-	return httpErr(globalFaker.Rand)
+func ErrorHTTP() error {
+	return errorHTTP(globalFaker.Rand)
 }
 
-func (f *Faker) HTTPError() error {
-	return httpErr(f.Rand)
+func (f *Faker) ErrorHTTP() error {
+	return errorHTTP(f.Rand)
 }
 
-func httpErr(r *rand.Rand) error {
+func errorHTTP(r *rand.Rand) error {
 	msg := getRandValue(r, []string{"error", "http"})
 	return &fakeError{msg}
 }
 
-func HTTPClientError() error {
-	return httpClientErr(globalFaker.Rand)
+func ErrorHTTPClient() error {
+	return errorHTTPClient(globalFaker.Rand)
 }
 
-func (f *Faker) HTTPClientError() error {
-	return httpClientErr(f.Rand)
+func (f *Faker) ErrorHTTPClient() error {
+	return errorHTTPClient(f.Rand)
 }
 
-func httpClientErr(r *rand.Rand) error {
+func errorHTTPClient(r *rand.Rand) error {
 	msg := getRandValue(r, []string{"error", "http-client"})
 	return &fakeError{msg}
 }
 
-func HTTPServerError() error {
-	return httpServerErr(globalFaker.Rand)
+func ErrorHTTPServer() error {
+	return errorHTTPServer(globalFaker.Rand)
 }
 
-func (f *Faker) HTTPServerError() error {
-	return httpServerErr(f.Rand)
+func (f *Faker) ErrorHTTPServer() error {
+	return errorHTTPServer(f.Rand)
 }
 
-func httpServerErr(r *rand.Rand) error {
+func errorHTTPServer(r *rand.Rand) error {
 	msg := getRandValue(r, []string{"error", "http-server"})
 	return &fakeError{msg}
 }
 
-func DatabaseError() error {
-	return databaseErr(globalFaker.Rand)
+func ErrorDatabase() error {
+	return errorDatabase(globalFaker.Rand)
 }
 
-func (f *Faker) DatabaseError() error {
-	return databaseErr(f.Rand)
+func (f *Faker) ErrorDatabase() error {
+	return errorDatabase(f.Rand)
 }
 
-func databaseErr(r *rand.Rand) error {
+func errorDatabase(r *rand.Rand) error {
 	msg := getRandValue(r, []string{"error", "database"})
 	return &fakeError{msg}
 }
 
-func GRPCError() error {
-	return grpcErr(globalFaker.Rand)
+func ErrorGRPC() error {
+	return errorGRPC(globalFaker.Rand)
 }
 
-func (f *Faker) GRPCError() error {
-	return grpcErr(f.Rand)
+func (f *Faker) ErrorGRPC() error {
+	return errorGRPC(f.Rand)
 }
 
-func grpcErr(r *rand.Rand) error {
+func errorGRPC(r *rand.Rand) error {
 	msg := getRandValue(r, []string{"error", "grpc"})
 	return &fakeError{msg}
 }
 
-func RuntimeError() error {
-	return runtimeErr(globalFaker.Rand)
+func ErrorRuntime() error {
+	return errorRuntime(globalFaker.Rand)
 }
 
-func (f *Faker) RuntimeError() error {
-	return runtimeErr(f.Rand)
+func (f *Faker) ErrorRuntime() error {
+	return errorRuntime(f.Rand)
 }
 
-func runtimeErr(r *rand.Rand) error {
+func errorRuntime(r *rand.Rand) error {
 	msg := getRandValue(r, []string{"error", "runtime"})
 	return &fakeError{msg}
 }
-func InputError() error {
-	return inputErr(globalFaker.Rand)
+func ErrorInput() error {
+	return errorInput(globalFaker.Rand)
 }
 
-func (f *Faker) InputError() error {
-	return inputErr(f.Rand)
+func (f *Faker) ErrorInput() error {
+	return errorInput(f.Rand)
 }
 
-func inputErr(r *rand.Rand) error {
+func errorInput(r *rand.Rand) error {
 	msg := getRandValue(r, []string{"error", "input"})
 	return &fakeError{msg}
 }
