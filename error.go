@@ -126,16 +126,6 @@ func addErrorLookup() {
 			return getRandValue(r, []string{"error", "object"}), nil
 		},
 	})
-	AddFuncLookup("verb", Info{
-		Display:     "Error verb",
-		Category:    "error",
-		Description: "Random verb describing an error",
-		Example:     "parse",
-		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
-			return getRandValue(r, []string{"error", "verb"}), nil
-		},
-	})
 	AddFuncLookup("inputField", Info{
 		Display:     "Input field error",
 		Category:    "error",

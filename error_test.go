@@ -17,13 +17,13 @@ func TestError(t *testing.T) {
 func ExampleError() {
 	Seed(11)
 	fmt.Println(Error())
-	// Output: failed to bundle method
+	// Output: failed to calculate method
 }
 
 func ExampleFaker_Error() {
 	f := New(11)
 	fmt.Println(f.Error())
-	// Output: failed to bundle method
+	// Output: failed to calculate method
 }
 
 func BenchmarkError(b *testing.B) {

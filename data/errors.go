@@ -1,29 +1,6 @@
 package data
 
 var Error = map[string][]string{
-	"verb": {
-		"read",
-		"write",
-		"parse",
-		"load",
-		"render",
-		"validate",
-		"verify",
-		"sign",
-		"decrypt",
-		"encrypt",
-		"construct",
-		"deconstruct",
-		"compile",
-		"transpile",
-		"bundle",
-		"minify",
-		"shrinkwrap",
-		"lock",
-		"unlock",
-		"buffer",
-		"format",
-	},
 	"object": {
 		"server",
 		"service",
@@ -46,7 +23,7 @@ var Error = map[string][]string{
 		"signature",
 		"undefined",
 	},
-	"inputField": {
+	"inputField": { // TODO: move to html generator
 		"title",
 		"firstName",
 		"middleName",
@@ -80,7 +57,7 @@ var Error = map[string][]string{
 		"error",
 		"syntax error",
 		"requested {object} is unavailable",
-		"failed to {verb} {object}",
+		"failed to {hackerverb} {object}",
 		"expected {object} is undefined",
 		"[object Object]",
 		"no such variable",
