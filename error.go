@@ -25,10 +25,12 @@ func fakeErr(r *rand.Rand) error {
 	return &fakeError{msg}
 }
 
+// ErrorHTTP will return a random HTTP error
 func ErrorHTTP() error {
 	return errorHTTP(globalFaker.Rand)
 }
 
+// ErrorHTTP will return a random HTTP error
 func (f *Faker) ErrorHTTP() error {
 	return errorHTTP(f.Rand)
 }
@@ -38,10 +40,12 @@ func errorHTTP(r *rand.Rand) error {
 	return &fakeError{msg}
 }
 
+// ErrorHTTPClient will return a random HTTP client error response (400-418)
 func ErrorHTTPClient() error {
 	return errorHTTPClient(globalFaker.Rand)
 }
 
+// ErrorHTTPClient will return a random HTTP client error response (400-418)
 func (f *Faker) ErrorHTTPClient() error {
 	return errorHTTPClient(f.Rand)
 }
@@ -51,10 +55,12 @@ func errorHTTPClient(r *rand.Rand) error {
 	return &fakeError{msg}
 }
 
+// ErrorHTTPServer will return a random HTTP server error response (500-511)
 func ErrorHTTPServer() error {
 	return errorHTTPServer(globalFaker.Rand)
 }
 
+// ErrorHTTPServer will return a random HTTP server error response (500-511)
 func (f *Faker) ErrorHTTPServer() error {
 	return errorHTTPServer(f.Rand)
 }
@@ -64,10 +70,12 @@ func errorHTTPServer(r *rand.Rand) error {
 	return &fakeError{msg}
 }
 
+// ErrorDatabase will return a random database error
 func ErrorDatabase() error {
 	return errorDatabase(globalFaker.Rand)
 }
 
+// ErrorDatabase will return a random database error
 func (f *Faker) ErrorDatabase() error {
 	return errorDatabase(f.Rand)
 }
@@ -77,10 +85,12 @@ func errorDatabase(r *rand.Rand) error {
 	return &fakeError{msg}
 }
 
+// ErrorGRPC will return a random gRPC error
 func ErrorGRPC() error {
 	return errorGRPC(globalFaker.Rand)
 }
 
+// ErrorGRPC will return a random gRPC error
 func (f *Faker) ErrorGRPC() error {
 	return errorGRPC(f.Rand)
 }
@@ -90,10 +100,12 @@ func errorGRPC(r *rand.Rand) error {
 	return &fakeError{msg}
 }
 
+// ErrorRuntime will return a random runtime error
 func ErrorRuntime() error {
 	return errorRuntime(globalFaker.Rand)
 }
 
+// ErrorRuntime will return a random runtime error
 func (f *Faker) ErrorRuntime() error {
 	return errorRuntime(f.Rand)
 }
@@ -102,10 +114,13 @@ func errorRuntime(r *rand.Rand) error {
 	msg := getRandValue(r, []string{"error", "runtime"})
 	return &fakeError{msg}
 }
+
+// ErrorInput will return a random input error
 func ErrorInput() error {
 	return errorInput(globalFaker.Rand)
 }
 
+// ErrorInput will return a random input error
 func (f *Faker) ErrorInput() error {
 	return errorInput(f.Rand)
 }

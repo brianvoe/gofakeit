@@ -22,8 +22,11 @@ var Error = map[string][]string{
 		"tag",
 		"signature",
 		"undefined",
+		"variable",
+		"object",
 	},
-	"inputField": { // TODO: move to html generator
+	/* NOTE: future work should move the inputField data to a HTML generator (unimplemented) */
+	"inputField": {
 		"title",
 		"firstName",
 		"middleName",
@@ -61,7 +64,7 @@ var Error = map[string][]string{
 		"expected {object} is undefined",
 		"[object Object]",
 		"no such variable",
-		"variable not initialized",
+		"{object} not initialized",
 		"variable assigned before declaration",
 	},
 	"database": {
@@ -114,6 +117,8 @@ var Error = map[string][]string{
 		"payload too large",             // 413
 		"URI too long",                  // 414
 		"unsupported media type",        // 415
+		"range not satisfiable",         // 416
+		"expectation failed",            // 417
 		"im a teapot",                   // 418
 	},
 	"http-server": { // 500s

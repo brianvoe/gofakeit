@@ -17,13 +17,13 @@ func TestError(t *testing.T) {
 func ExampleError() {
 	Seed(11)
 	fmt.Println(Error())
-	// Output: failed to calculate method
+	// Output: failed to calculate hostname
 }
 
 func ExampleFaker_Error() {
 	f := New(11)
 	fmt.Println(f.Error())
-	// Output: failed to calculate method
+	// Output: failed to calculate hostname
 }
 
 func BenchmarkError(b *testing.B) {
@@ -88,13 +88,13 @@ func BenchmarkErrorHTTP(b *testing.B) {
 func ExampleErrorHTTPClient() {
 	Seed(11)
 	fmt.Println(ErrorHTTPClient())
-	// Output: not found
+	// Output: payment required
 }
 
 func ExampleFaker_ErrorHTTPClient() {
 	f := New(11)
 	fmt.Println(f.ErrorHTTPClient())
-	// Output: not found
+	// Output: payment required
 }
 
 func BenchmarkErrorHTTPClient(b *testing.B) {
