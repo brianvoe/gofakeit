@@ -148,3 +148,39 @@ func BenchmarkImagePng(b *testing.B) {
 		}
 	})
 }
+
+func ExampleImageSvg() {
+	Seed(11)
+	fmt.Println(ImageSvg(nil))
+	// Output: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 496" width="420" height="496"><rect x="0" y="0" width="100%" height="100%" fill="#4f2958" /><polygon points="382,87 418,212 415,110" fill="#fffbb7" /><polygon points="283,270 225,264 411,352" fill="#5b7c8d" /><polygon points="147,283 388,2 117,263" fill="#4f2958" /><polygon points="419,123 71,282 56,55" fill="#fffbb7" /><polygon points="54,451 377,89 52,351" fill="#66b6ab" /></svg>
+}
+
+func ExampleFaker_ImageSvg() {
+	f := New(11)
+	fmt.Println(f.ImageSvg(nil))
+	// Output: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 496" width="420" height="496"><rect x="0" y="0" width="100%" height="100%" fill="#4f2958" /><polygon points="382,87 418,212 415,110" fill="#fffbb7" /><polygon points="283,270 225,264 411,352" fill="#5b7c8d" /><polygon points="147,283 388,2 117,263" fill="#4f2958" /><polygon points="419,123 71,282 56,55" fill="#fffbb7" /><polygon points="54,451 377,89 52,351" fill="#66b6ab" /></svg>
+}
+
+func BenchmarkImageSvg(b *testing.B) {
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			ImageSvg(nil)
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.ImageSvg(nil)
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.ImageSvg(nil)
+		}
+	})
+}
