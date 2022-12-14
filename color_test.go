@@ -41,6 +41,42 @@ func BenchmarkColor(b *testing.B) {
 	})
 }
 
+func ExampleNiceColors() {
+	Seed(11)
+	fmt.Println(NiceColors())
+	// Output: [#5c323e #a82743 #e15e32 #c0d23e #e5f04c]
+}
+
+func ExampleFaker_NiceColors() {
+	f := New(11)
+	fmt.Println(f.NiceColors())
+	// Output: [#5c323e #a82743 #e15e32 #c0d23e #e5f04c]
+}
+
+func BenchmarkNiceColors(b *testing.B) {
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			NiceColors()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.NiceColors()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.NiceColors()
+		}
+	})
+}
+
 func ExampleSafeColor() {
 	Seed(11)
 	fmt.Println(SafeColor())
