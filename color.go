@@ -21,7 +21,7 @@ func NiceColors() []string { return niceColors(globalFaker.Rand) }
 func (f *Faker) NiceColors() []string { return niceColors(f.Rand) }
 
 func niceColors(r *rand.Rand) []string {
-	return data.ColorsNice[randIntRange(r, 0, len(data.ColorsNice))]
+	return data.ColorsNice[randIntRange(r, 0, len(data.ColorsNice)-1)]
 }
 
 // SafeColor will generate a random safe color string

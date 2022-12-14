@@ -44,13 +44,13 @@ func BenchmarkColor(b *testing.B) {
 func ExampleNiceColors() {
 	Seed(11)
 	fmt.Println(NiceColors())
-	// Output: [#5c323e #a82743 #e15e32 #c0d23e #e5f04c]
+	// Output: [#f6f6f6 #e8e8e8 #333333 #990100 #b90504]
 }
 
 func ExampleFaker_NiceColors() {
 	f := New(11)
 	fmt.Println(f.NiceColors())
-	// Output: [#5c323e #a82743 #e15e32 #c0d23e #e5f04c]
+	// Output: [#f6f6f6 #e8e8e8 #333333 #990100 #b90504]
 }
 
 func BenchmarkNiceColors(b *testing.B) {
