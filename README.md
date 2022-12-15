@@ -447,6 +447,17 @@ Color() string
 HexColor() string
 RGBColor() []int
 SafeColor() string
+NiceColors() string
+```
+
+### Images
+
+```go
+ImageURL(width int, height int) string
+Image(width int, height int) *img.RGBA
+ImageJpeg(width int, height int) []byte
+ImagePng(width int, height int) []byte
+ImageSvg(options *ImageSVGOptions) string
 ```
 
 ### Internet
