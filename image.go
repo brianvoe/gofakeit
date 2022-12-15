@@ -74,6 +74,9 @@ type ImageSVGOptions struct {
 	Colors []string
 }
 
+// List of available svg types
+var SvgTypes = []string{"rect", "circle", "ellipse", "line", "polyline", "polygon"}
+
 // Generate a random svg generator
 func ImageSvg(options *ImageSVGOptions) string { return imageSvg(globalFaker.Rand, options) }
 
@@ -97,9 +100,8 @@ func imageSvg(r *rand.Rand, options *ImageSVGOptions) string {
 	heightStr := strconv.Itoa(options.Height)
 
 	// Check if type is set, if not set to random type
-	types := []string{"rect", "circle", "ellipse", "line", "polyline", "polygon"}
 	if options.Type == "" {
-		options.Type = randomString(r, types)
+		options.Type = randomString(r, SvgTypes)
 	}
 
 	// If the colors are not set, set it to a set of nice colors
@@ -114,7 +116,7 @@ func imageSvg(r *rand.Rand, options *ImageSVGOptions) string {
 	svgStr += `<rect x="0" y="0" width="100%" height="100%" fill="` + randomString(r, options.Colors) + `" />`
 
 	// Add a random number of shapes
-	for i := 0; i < number(r, 1, 10); i++ {
+	for i := 0; i < number(r, 10, 20); i++ {
 		// Add a random shape
 		switch options.Type {
 		case "rect":
