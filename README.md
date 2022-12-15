@@ -8,7 +8,7 @@ Random data generator written in go
 
 ## Features
 
-- [160+ Functions!!!](#functions)
+- [260+ Functions!!!](#functions)
 - [Random Sources](#random-sources)
 - [Global Rand](#global-rand-set)
 - [Struct Generator](#struct)
@@ -648,4 +648,19 @@ MinecraftMobHostile() string
 MinecraftMobBoss() string
 MinecraftBiome() string
 MinecraftWeather() string
+```
+
+### Error
+
+Unlike most `gofakeit` methods which return a `string`, the error methods return a Go `error`. Access the error message as a string by chaining the `.Error()` method.
+
+```go
+Error() error
+ErrorDatabase() error
+ErrorGRPC() error
+ErrorHTTP() error
+ErrorHTTPClient() error
+ErrorHTTPServer() error
+ErrorInput() error
+ErrorRuntime() error
 ```
