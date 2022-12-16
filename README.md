@@ -19,6 +19,13 @@ Random data generator written in go
 - [Benchmarks](https://github.com/brianvoe/gofakeit/blob/master/BENCHMARKS.md)
 - [Issue](https://github.com/brianvoe/gofakeit/issues)
 
+## Contributors
+Thanks to everyone who has contributed to Gofakeit!
+
+<a href="https://github.com/brianvoe/gofakeit/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=brianvoe/gofakeit" />
+</a>
+
 ## Installation
 
 ```go
