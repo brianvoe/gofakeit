@@ -55,7 +55,7 @@ func FuzzRegex(f *testing.F) {
 
 		// Generate string and test if it matches the regex syntax
 		reg := faker.Regex(regex)
-		if reg == LimitReached {
+		if reg == "Length limit reached when generating output" {
 			// ignore LimitReached error
 			return
 		}

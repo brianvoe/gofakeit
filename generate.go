@@ -46,6 +46,11 @@ func generate(r *rand.Rand, dataVal string) string {
 	dataVal = replaceWithNumbers(r, dataVal)
 	dataVal = replaceWithLetters(r, dataVal)
 
+	// Check if string has any replaceable values
+	if !strings.Contains(dataVal, "{") && !strings.Contains(dataVal, "}") {
+		return dataVal
+	}
+
 	// Variables to identify the index in which it exists
 	startCurly := -1
 	startCurlyIgnore := []int{}
@@ -152,25 +157,18 @@ func Regex(regexStr string) string { return regex(globalFaker.Rand, regexStr) }
 // Regex will generate a string based upon a RE2 syntax
 func (f *Faker) Regex(regexStr string) string { return regex(f.Rand, regexStr) }
 
-const (
-	// String constants returned by Regex on unsupported input
-	BadRegex     = "Could not parse regex string"
-	LimitReached = "Length limit reached when generating output"
-)
-
 func regex(r *rand.Rand, regexStr string) (gen string) {
 	re, err := syntax.Parse(regexStr, syntax.Perl)
 	if err != nil {
-		return BadRegex
+		return "Could not parse regex string"
 	}
 
-	defer func() { // turn LimitReached panic into normal output
+	// Panic catch
+	defer func() {
 		if r := recover(); r != nil {
-			if r == LimitReached {
-				gen = LimitReached
-				return
-			}
-			panic(r)
+			gen = fmt.Sprint(r)
+			return
+
 		}
 	}()
 
@@ -179,8 +177,9 @@ func regex(r *rand.Rand, regexStr string) (gen string) {
 
 func regexGenerate(ra *rand.Rand, re *syntax.Regexp, limit int) string {
 	if limit <= 0 {
-		panic(LimitReached)
+		panic("Length limit reached when generating output")
 	}
+
 	op := re.Op
 	switch op {
 	case syntax.OpNoMatch: // matches no strings
