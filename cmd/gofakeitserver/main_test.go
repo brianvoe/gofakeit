@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"net/url"
 	"strings"
 	"testing"
@@ -35,7 +36,11 @@ func TestGetAllRequests(t *testing.T) {
 		if info.Params != nil && len(info.Params) != 0 {
 			// Loop through params and add fields to mapdata
 			for _, p := range info.Params {
-				if p.Default != "" {
+				// If default is empty and has options randomly pick one
+				if p.Default == "" && len(p.Options) != 0 {
+					mapData.Add(p.Field, p.Options[faker.Rand.Intn(len(p.Options))])
+					continue
+				} else if p.Default != "" {
 					// If p.Type is []uint, then we need to convert it to []string
 					if strings.HasPrefix(p.Type, "[") {
 						// Remove [] from type
@@ -167,7 +172,11 @@ func TestPostAllRequests(t *testing.T) {
 
 			// Loop through params and add fields to mapdata
 			for _, p := range info.Params {
-				if p.Default != "" {
+				// If default is empty and has options randomly pick one
+				if p.Default == "" && len(p.Options) != 0 {
+					mapData[p.Field] = []string{p.Options[rand.Intn(len(p.Options))]}
+					continue
+				} else if p.Default != "" {
 					// If p.Type is []uint, then we need to convert it to []string
 					if strings.HasPrefix(p.Type, "[") {
 						// Remove [] from type
