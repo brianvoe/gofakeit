@@ -97,6 +97,7 @@ func initLookup() {
 	addCelebrityLookup()
 	addDatabaseSQLLookup()
 	addErrorLookup()
+	addHtmlLookup()
 }
 
 // NewMapParams will create a new MapParams

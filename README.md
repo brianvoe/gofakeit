@@ -464,7 +464,6 @@ ImageURL(width int, height int) string
 Image(width int, height int) *img.RGBA
 ImageJpeg(width int, height int) []byte
 ImagePng(width int, height int) []byte
-ImageSvg(options *ImageSVGOptions) string
 ```
 
 ### Internet
@@ -486,6 +485,13 @@ ChromeUserAgent() string
 FirefoxUserAgent() string
 OperaUserAgent() string
 SafariUserAgent() string
+```
+
+### HTML
+
+```go
+InputName() string
+Svg(options *SVGOptions) string
 ```
 
 ### Date/Time

@@ -2,74 +2,43 @@ package data
 
 var Error = map[string][]string{
 	"object": {
-		"server",
-		"service",
-		"database",
+		"argument",
 		"buffer",
 		"connection",
-		"pointer",
-		"parameter",
-		"argument",
-		"protocol",
+		"database",
+		"header",
 		"hostname",
-		"port",
-		"url",
-		"uri",
 		"method",
+		"object",
+		"parameter",
+		"pointer",
+		"port",
+		"protocol",
 		"request",
 		"response",
-		"header",
-		"tag",
+		"server",
+		"service",
 		"signature",
+		"tag",
 		"undefined",
+		"url",
+		"uri",
 		"variable",
-		"object",
-	},
-	/* NOTE: future work should move the inputField data to a HTML generator (unimplemented) */
-	"inputField": {
-		"title",
-		"firstName",
-		"middleName",
-		"lastName",
-		"suffix",
-		"addressLine1",
-		"addressLine2",
-		"postalCode",
-		"city",
-		"state",
-		"province",
-		"country",
-		"dateOfBirth",
-		"cardNumber",
-		"description",
-		"message",
-		"status",
-	},
-	"httpMethod": {
-		"GET",
-		"HEAD",
-		"POST",
-		"PUT",
-		"PATCH",
-		"DELETE",
-		"CONNECT",
-		"OPTIONS",
-		"TRACE",
 	},
 	"generic": {
 		"error",
 		"syntax error",
-		"requested {object} is unavailable",
-		"failed to {hackerverb} {object}",
-		"expected {object} is undefined",
+		"requested {errorobject} is unavailable",
+		"failed to {hackerverb} {errorobject}",
+		"expected {errorobject} is undefined",
 		"[object Object]",
 		"no such variable",
-		"{object} not initialized",
+		"{errorobject} not initialized",
 		"variable assigned before declaration",
 	},
 	"database": {
 		"sql error",
-		"database connection lost",
+		"database connection error",
 		"table does not exist",
 		"unique key constraint",
 		"table migration failed",
@@ -77,14 +46,12 @@ var Error = map[string][]string{
 		"destination pointer is nil",
 	},
 	"grpc": {
-		"rpc error",
 		"connection refused",
 		"connection closed",
 		"connection is shut down",
 		"client protocol error",
 	},
 	"http": {
-		"http error",
 		"cross-origin-resource-policy error",
 		"feature not supported",
 		"trailer header without chunked transfer encoding",
@@ -98,9 +65,9 @@ var Error = map[string][]string{
 		"connection has been hijacked",
 		"request method or response status code does not allow body",
 		"wrote more than the declared Content-Length",
-		"{httpMethod} not allowed",
+		"{httpmethod} not allowed",
 	},
-	"http-client": { // 400s
+	"http_client": { // 400s
 		"bad request",                   // 400
 		"unauthorized",                  // 401
 		"payment required",              // 402
@@ -121,7 +88,7 @@ var Error = map[string][]string{
 		"expectation failed",            // 417
 		"im a teapot",                   // 418
 	},
-	"http-server": { // 500s
+	"http_server": { // 500s
 		"internal server error",           // 500
 		"not implemented",                 // 501
 		"bad gateway",                     // 502
@@ -134,25 +101,22 @@ var Error = map[string][]string{
 		"not extended",                    // 510
 		"network authentication required", // 511
 	},
-	"input": {
-		"input error",
-		"validation error",
-		"verification error",
-		"invalid format",
-		"missing required field",
-		"{inputField} is required",
-		"{inputField} max length exceeded",
-		"{inputField} must be at exactly 16 characters",
-		"{inputField} must be at exactly 32 bytes",
-		"failed to parse {inputField}",
-		"date is in the past",
-		"payment details cannot be verified",
-	},
 	"runtime": {
 		"panic: runtime error: invalid memory address or nil pointer dereference",
 		"address out of bounds",
 		"undefined has no such property 'length'",
 		"not enough arguments",
 		"expected 2 arguments, got 3",
+	},
+	"validation": {
+		"invalid format",
+		"missing required field",
+		"{inputname} is required",
+		"{inputname} max length exceeded",
+		"{inputname} must be at exactly 16 characters",
+		"{inputname} must be at exactly 32 bytes",
+		"failed to parse {inputname}",
+		"date is in the past",
+		"payment details cannot be verified",
 	},
 }
