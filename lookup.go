@@ -96,6 +96,8 @@ func initLookup() {
 	addMinecraftLookup()
 	addCelebrityLookup()
 	addDatabaseSQLLookup()
+	addErrorLookup()
+	addHtmlLookup()
 }
 
 // NewMapParams will create a new MapParams

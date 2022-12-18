@@ -86,6 +86,20 @@ func dog(r *rand.Rand) string {
 	return getRandValue(r, []string{"animal", "dog"})
 }
 
+// Bird will return a random bird species
+func Bird() string {
+	return bird(globalFaker.Rand)
+}
+
+// Bird will return a random bird species
+func (f *Faker) Bird() string {
+	return bird(f.Rand)
+}
+
+func bird(r *rand.Rand) string {
+	return getRandValue(r, []string{"animal", "bird"})
+}
+
 func addAnimalLookup() {
 	AddFuncLookup("petname", Info{
 		Display:     "Pet Name",
@@ -150,6 +164,17 @@ func addAnimalLookup() {
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return dog(r), nil
+		},
+	})
+
+	AddFuncLookup("bird", Info{
+		Display:     "Bird",
+		Category:    "animal",
+		Description: "Random bird type",
+		Example:     "goose",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return bird(r), nil
 		},
 	})
 }

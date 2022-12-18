@@ -133,9 +133,30 @@ func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 			fs, ok := elementT.Tag.Lookup("fakesize")
 			if ok {
 				var err error
-				size, err = strconv.Atoi(fs)
-				if err != nil {
-					return err
+
+				// Check if size has params separated by ,
+				if strings.Contains(fs, ",") {
+					sizeSplit := strings.SplitN(fs, ",", 2)
+					if len(sizeSplit) == 2 {
+						var sizeMin int
+						var sizeMax int
+
+						sizeMin, err = strconv.Atoi(sizeSplit[0])
+						if err != nil {
+							return err
+						}
+						sizeMax, err = strconv.Atoi(sizeSplit[1])
+						if err != nil {
+							return err
+						}
+
+						size = ra.Intn(sizeMax-sizeMin+1) + sizeMin
+					}
+				} else {
+					size, err = strconv.Atoi(fs)
+					if err != nil {
+						return err
+					}
 				}
 			}
 			err := r(ra, elementT.Type, elementV, fakeTag, size)

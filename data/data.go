@@ -26,6 +26,8 @@ var Data = map[string]map[string][]string{
 	"food":      Food,
 	"minecraft": Minecraft,
 	"celebrity": Celebrity,
+	"error":     Error,
+	"html":      Html,
 }
 
 func List() map[string][]string {

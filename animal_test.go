@@ -220,3 +220,39 @@ func BenchmarkDog(b *testing.B) {
 		}
 	})
 }
+
+func ExampleBird() {
+	Seed(11)
+	fmt.Println(Bird())
+	// Output: goose
+}
+
+func ExampleFaker_Bird() {
+	f := New(11)
+	fmt.Println(f.Bird())
+	// Output: goose
+}
+
+func BenchmarkBird(b *testing.B) {
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			Bird()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.Bird()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.Bird()
+		}
+	})
+}

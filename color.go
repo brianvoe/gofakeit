@@ -1,6 +1,10 @@
 package gofakeit
 
-import "math/rand"
+import (
+	"math/rand"
+
+	"github.com/brianvoe/gofakeit/v6/data"
+)
 
 // Color will generate a random color string
 func Color() string { return color(globalFaker.Rand) }
@@ -9,6 +13,16 @@ func Color() string { return color(globalFaker.Rand) }
 func (f *Faker) Color() string { return color(f.Rand) }
 
 func color(r *rand.Rand) string { return getRandValue(r, []string{"color", "full"}) }
+
+// NiceColor will generate a random safe color string
+func NiceColors() []string { return niceColors(globalFaker.Rand) }
+
+// NiceColor will generate a random safe color string
+func (f *Faker) NiceColors() []string { return niceColors(f.Rand) }
+
+func niceColors(r *rand.Rand) []string {
+	return data.ColorsNice[randIntRange(r, 0, len(data.ColorsNice)-1)]
+}
 
 // SafeColor will generate a random safe color string
 func SafeColor() string { return safeColor(globalFaker.Rand) }
@@ -51,6 +65,17 @@ func addColorLookup() {
 		Description: "Random color",
 		Example:     "MediumOrchid",
 		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return color(r), nil
+		},
+	})
+
+	AddFuncLookup("nicecolors", Info{
+		Display:     "Nice Colors",
+		Category:    "color",
+		Description: "Random set of nice colors",
+		Example:     "[#5c323e #a82743 #e15e32 #c0d23e #e5f04c]",
+		Output:      "[]string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return color(r), nil
 		},
