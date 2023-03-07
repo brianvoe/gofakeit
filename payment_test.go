@@ -89,7 +89,7 @@ func ExampleCreditCard() {
 	// Output:
 	// UnionPay
 	// 4364599489953698
-	// 02/23
+	// 02/24
 	// 300
 }
 
@@ -103,7 +103,7 @@ func ExampleFaker_CreditCard() {
 	// Output:
 	// UnionPay
 	// 4364599489953698
-	// 02/23
+	// 02/24
 	// 300
 }
 
@@ -201,13 +201,13 @@ func TestIsLuhn(t *testing.T) {
 func ExampleCreditCardExp() {
 	Seed(11)
 	fmt.Println(CreditCardExp())
-	// Output: 06/29
+	// Output: 06/30
 }
 
 func ExampleFaker_CreditCardExp() {
 	f := New(11)
 	fmt.Println(f.CreditCardExp())
-	// Output: 06/29
+	// Output: 06/30
 }
 
 func BenchmarkCreditCardExp(b *testing.B) {
