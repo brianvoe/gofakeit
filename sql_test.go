@@ -25,7 +25,7 @@ func ExampleSQL() {
 	fmt.Println(string(res))
 
 	// Output:
-	// INSERT INTO people (id, first_name, price, age, created_at) VALUES (1, 'Markus', 804.92, 21, '1937-01-30 07:58:01'),(2, 'Santino', 235.13, 40, '1964-07-07 22:25:40');
+	// INSERT INTO people (id, first_name, price, age, created_at) VALUES (1, 'Markus', 804.92, 21, '1989-01-30 07:58:01'),(2, 'Santino', 235.13, 40, '1926-07-07 22:25:40');
 }
 
 func ExampleFaker_SQL() {
@@ -46,7 +46,7 @@ func ExampleFaker_SQL() {
 	fmt.Println(string(res))
 
 	// Output:
-	// INSERT INTO people (id, first_name, price, age, created_at) VALUES (1, 'Markus', 804.92, 21, '2018-11-22 07:34:00'),(2, 'Anibal', 674.87, 60, '2004-01-03 11:07:53');
+	// INSERT INTO people (id, first_name, price, age, created_at) VALUES (1, 'Markus', 804.92, 21, '1996-11-22 07:34:00'),(2, 'Anibal', 674.87, 60, '1973-01-03 11:07:53');
 }
 
 func TestSQLJSON(t *testing.T) {

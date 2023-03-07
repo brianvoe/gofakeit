@@ -397,6 +397,13 @@ func rTime(ra *rand.Rand, t reflect.StructField, v reflect.Value, tag string) er
 		// Generate time
 		timeOutput := generate(ra, tag)
 
+		// Check to see if timeOutput has monotonic clock reading
+		// if so, remove it. This is because time.Parse() does not
+		// support parsing the monotonic clock reading
+		if strings.Contains(timeOutput, " m=") {
+			timeOutput = strings.Split(timeOutput, " m=")[0]
+		}
+
 		// Check to see if they are passing in a format	to parse the time
 		timeFormat, timeFormatOK := t.Tag.Lookup("format")
 		if timeFormatOK {

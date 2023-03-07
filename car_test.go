@@ -20,7 +20,7 @@ func ExampleCar() {
 	// Freestyle Fwd
 	// Automatic
 	// Passenger car mini
-	// 1989
+	// 1991
 }
 
 func ExampleFaker_Car() {
@@ -38,7 +38,7 @@ func ExampleFaker_Car() {
 	// Freestyle Fwd
 	// Automatic
 	// Passenger car mini
-	// 1989
+	// 1991
 }
 
 func BenchmarkCar(b *testing.B) {
