@@ -34,7 +34,7 @@ func r(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) err
 	case reflect.Struct:
 		return rStruct(ra, t, v, tag)
 	case reflect.String:
-		return rString(ra, v, tag)
+		return rString(ra, t, v, tag)
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
 		return rUint(ra, t, v, tag)
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
@@ -42,7 +42,7 @@ func r(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) err
 	case reflect.Float32, reflect.Float64:
 		return rFloat(ra, t, v, tag)
 	case reflect.Bool:
-		return rBool(ra, v, tag)
+		return rBool(ra, t, v, tag)
 	case reflect.Array, reflect.Slice:
 		return rSlice(ra, t, v, tag, size)
 	case reflect.Map:
@@ -286,7 +286,7 @@ func rMap(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) 
 	return nil
 }
 
-func rString(ra *rand.Rand, v reflect.Value, tag string) error {
+func rString(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
 		v.SetString(generate(ra, tag))
 	} else {
@@ -374,7 +374,7 @@ func rFloat(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 	return nil
 }
 
-func rBool(ra *rand.Rand, v reflect.Value, tag string) error {
+func rBool(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
 		b, err := strconv.ParseBool(generate(ra, tag))
 		if err != nil {
