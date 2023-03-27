@@ -11,7 +11,7 @@ import (
 
 // XMLOptions defines values needed for json generation
 type XMLOptions struct {
-	Type          string  `json:"type" xml:"type"` // single or multiple
+	Type          string  `json:"type" xml:"type"` // single or array
 	RootElement   string  `json:"root_element" xml:"root_element"`
 	RecordElement string  `json:"record_element" xml:"record_element"`
 	RowCount      int     `json:"row_count" xml:"row_count"`
