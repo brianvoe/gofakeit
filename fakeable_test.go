@@ -614,3 +614,19 @@ func TestNestedOverrideCustom(t *testing.T) {
 		}
 	}
 }
+
+func TestSliceCustom(t *testing.T) {
+	var B []CustomString
+	gofakeit.Slice(&B)
+
+	if len(B) == 0 {
+		t.Errorf("expected slice to not be empty")
+	}
+
+	expected := CustomString("hello test")
+	for _, v := range B {
+		if v != expected {
+			t.Errorf("expected all items to be %q, got %q", expected, v)
+		}
+	}
+}
