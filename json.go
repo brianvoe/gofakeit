@@ -9,8 +9,8 @@ import (
 
 // JSONOptions defines values needed for json generation
 type JSONOptions struct {
-	Type     string  `json:"type" xml:"type"` // array or object
-	RowCount int     `json:"row_count" xml:"row_count"`
+	Type     string  `json:"type" xml:"type" fake:"{randomstring:[array,object]}"` // array or object
+	RowCount int     `json:"row_count" xml:"row_count" fake:"{number:1,10}"`
 	Fields   []Field `json:"fields" xml:"fields"`
 	Indent   bool    `json:"indent" xml:"indent"`
 }
@@ -54,14 +54,24 @@ func (okv jsonOrderedKeyVal) MarshalJSON() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-// JSON generates an object or an array of objects in json format
+// JSON generates an object or an array of objects in json format.
+// A nil JSONOptions returns a randomly structured JSON.
 func JSON(jo *JSONOptions) ([]byte, error) { return jsonFunc(globalFaker.Rand, jo) }
 
-// JSON generates an object or an array of objects in json format
+// JSON generates an object or an array of objects in json format.
+// A nil JSONOptions returns a randomly structured JSON.
 func (f *Faker) JSON(jo *JSONOptions) ([]byte, error) { return jsonFunc(f.Rand, jo) }
 
 // JSON generates an object or an array of objects in json format
 func jsonFunc(r *rand.Rand, jo *JSONOptions) ([]byte, error) {
+	if jo == nil {
+		// We didn't get a JSONOptions, so create a new random one
+		err := Struct(&jo)
+		if err != nil {
+			return nil, err
+		}
+	}
+
 	// Check to make sure they passed in a type
 	if jo.Type != "array" && jo.Type != "object" {
 		return nil, errors.New("invalid type, must be array or object")

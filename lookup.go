@@ -45,8 +45,8 @@ type Param struct {
 // Field is used for defining what name and function you to generate for file outuputs
 type Field struct {
 	Name     string    `json:"name"`
-	Function string    `json:"function"`
-	Params   MapParams `json:"params"`
+	Function string    `json:"function" fake:"{randomstring:[firstname,autoincrement]}"`
+	Params   MapParams `json:"params" fake:"skip"`
 }
 
 func init() { initLookup() }
