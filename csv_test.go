@@ -99,6 +99,16 @@ func TestCSVLookup(t *testing.T) {
 	// t.Fatal(fmt.Sprintf("%s", value.([]byte)))
 }
 
+func TestCSVNoOptions(t *testing.T) {
+	Seed(11)
+
+	// if CSVOptions is nil -> get a random CSVOptions
+	_, err := CSV(nil)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+}
+
 func BenchmarkCSVLookup100(b *testing.B) {
 	faker := New(0)
 
