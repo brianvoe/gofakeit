@@ -11,7 +11,7 @@ import (
 type JSONOptions struct {
 	Type     string  `json:"type" xml:"type" fake:"{randomstring:[array,object]}"` // array or object
 	RowCount int     `json:"row_count" xml:"row_count" fake:"{number:1,10}"`
-	Fields   []Field `json:"fields" xml:"fields"`
+	Fields   []Field `json:"fields" xml:"fields" fake:"{internal_exampleFields}"`
 	Indent   bool    `json:"indent" xml:"indent"`
 }
 
