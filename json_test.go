@@ -362,6 +362,38 @@ func TestJSONNoOptions(t *testing.T) {
 	}
 }
 
+func TestJSONRawMessage(t *testing.T) {
+	type J struct {
+		Field json.RawMessage `json:"field"`
+	}
+
+	Seed(100)
+
+	var objs []J
+	Slice(&objs)
+
+	_, err := json.Marshal(objs)
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestJSONRawMessageWithTag(t *testing.T) {
+	type J struct {
+		Field json.RawMessage `json:"field" faker:"json"`
+	}
+
+	Seed(100)
+
+	var objs []J
+	Slice(&objs)
+
+	_, err := json.Marshal(objs)
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
 func BenchmarkJSONLookup100(b *testing.B) {
 	faker := New(0)
 
