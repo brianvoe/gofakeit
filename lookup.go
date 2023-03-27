@@ -14,6 +14,35 @@ import (
 var FuncLookups map[string]Info
 var lockFuncLookups sync.Mutex
 
+// internalFuncLookups is the internal map array with mapping to all available data
+var internalFuncLookups map[string]Info = map[string]Info{
+	"internal_exampleFields": {
+		Description: "Example fields for generating xml and json",
+		Example:     `{"name":"{firstname}","age":"{number:1,100}"}`,
+		Output:      "gofakeit.Field",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			name, _ := getRandomFuncLookup(r, true)
+			return Field{
+				Name:     name,
+				Function: name,
+			}, nil
+		},
+	},
+}
+
+func getRandomFuncLookup(r *rand.Rand, excludeWithParams bool) (string, Info) {
+	var keys []string
+	for k, v := range FuncLookups {
+		if excludeWithParams && len(v.Params) != 0 {
+			continue
+		}
+		keys = append(keys, k)
+	}
+
+	selected := keys[r.Intn(len(keys))]
+	return selected, FuncLookups[selected]
+}
+
 // MapParams is the values to pass into a lookup generate
 type MapParams map[string]MapParamsValue
 
@@ -45,8 +74,8 @@ type Param struct {
 // Field is used for defining what name and function you to generate for file outuputs
 type Field struct {
 	Name     string    `json:"name"`
-	Function string    `json:"function" fake:"{randomstring:[firstname,autoincrement]}"`
-	Params   MapParams `json:"params" fake:"skip"`
+	Function string    `json:"function"`
+	Params   MapParams `json:"params"`
 }
 
 func init() { initLookup() }
@@ -170,6 +199,10 @@ func (m *MapParamsValue) UnmarshalJSON(data []byte) error {
 
 // AddFuncLookup takes a field and adds it to map
 func AddFuncLookup(functionName string, info Info) {
+	if _, ok := internalFuncLookups[functionName]; ok {
+		panic(fmt.Sprintf("Function %s is used internally and cannot be overwritten", functionName))
+	}
+
 	if FuncLookups == nil {
 		FuncLookups = make(map[string]Info)
 	}
@@ -186,16 +219,28 @@ func AddFuncLookup(functionName string, info Info) {
 
 // GetFuncLookup will lookup
 func GetFuncLookup(functionName string) *Info {
-	info, ok := FuncLookups[functionName]
-	if !ok {
-		return nil
+	var info Info
+	var ok bool
+
+	info, ok = internalFuncLookups[functionName]
+	if ok {
+		return &info
 	}
 
-	return &info
+	info, ok = FuncLookups[functionName]
+	if ok {
+		return &info
+	}
+
+	return nil
 }
 
 // RemoveFuncLookup will remove a function from lookup
 func RemoveFuncLookup(functionName string) {
+	if _, ok := internalFuncLookups[functionName]; ok {
+		panic(fmt.Sprintf("Function %s is used internally and cannot be overwritten", functionName))
+	}
+
 	_, ok := FuncLookups[functionName]
 	if !ok {
 		return

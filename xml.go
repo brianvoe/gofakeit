@@ -15,7 +15,7 @@ type XMLOptions struct {
 	RootElement   string  `json:"root_element" xml:"root_element"`
 	RecordElement string  `json:"record_element" xml:"record_element"`
 	RowCount      int     `json:"row_count" xml:"row_count" fake:"{number:1,10}"`
-	Fields        []Field `json:"fields" xml:"fields"`
+	Fields        []Field `json:"fields" xml:"fields" fake:"{internal_exampleFields}"`
 	Indent        bool    `json:"indent" xml:"indent"`
 }
 
