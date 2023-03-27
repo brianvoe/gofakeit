@@ -10,7 +10,9 @@ import (
 )
 
 // Struct fills in exported fields of a struct with random data
-// based on the value of `fake` tag of exported fields.
+// based on the value of `fake` tag of exported fields
+// or with the result of a call to the Fake() method
+// if the field type implements `Fakeable`.
 // Use `fake:"skip"` to explicitly skip an element.
 // All built-in types are supported, with templating support
 // for string types.
@@ -88,7 +90,7 @@ func rCustom(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 		}
 
 		// Set the value
-		v.Set(fieldElem)
+		v.Set(fieldElem.Convert(v.Type()))
 
 		// If a function is called to set the struct
 		// stop from going through sub fields
@@ -102,66 +104,74 @@ func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 	// Check if tag exists, if so run custom function
 	if t.Name() != "" && tag != "" {
 		return rCustom(ra, t, v, tag)
-	}
-
-	n := t.NumField()
-	for i := 0; i < n; i++ {
-		elementT := t.Field(i)
-		elementV := v.Field(i)
-		fakeTag, ok := elementT.Tag.Lookup("fake")
-
-		// Check whether or not to skip this field
-		if ok && fakeTag == "skip" {
-			// Do nothing, skip it
-			continue
+	} else if isFakeable(t) {
+		value, err := callFake(v, reflect.Struct)
+		if err != nil {
+			return err
 		}
 
-		// Check to make sure you can set it or that its an embeded(anonymous) field
-		if elementV.CanSet() || elementT.Anonymous {
-			// Check if reflect type is of values we can specifically set
-			switch elementT.Type.String() {
-			case "time.Time":
-				err := rTime(ra, elementT, elementV, fakeTag)
-				if err != nil {
-					return err
-				}
+		v.Set(reflect.ValueOf(value))
+	} else {
+
+		n := t.NumField()
+		for i := 0; i < n; i++ {
+			elementT := t.Field(i)
+			elementV := v.Field(i)
+			fakeTag, ok := elementT.Tag.Lookup("fake")
+
+			// Check whether or not to skip this field
+			if ok && fakeTag == "skip" {
+				// Do nothing, skip it
 				continue
 			}
 
-			// Check if fakesize is set
-			size := -1 // Set to -1 to indicate fakesize was not set
-			fs, ok := elementT.Tag.Lookup("fakesize")
-			if ok {
-				var err error
-
-				// Check if size has params separated by ,
-				if strings.Contains(fs, ",") {
-					sizeSplit := strings.SplitN(fs, ",", 2)
-					if len(sizeSplit) == 2 {
-						var sizeMin int
-						var sizeMax int
-
-						sizeMin, err = strconv.Atoi(sizeSplit[0])
-						if err != nil {
-							return err
-						}
-						sizeMax, err = strconv.Atoi(sizeSplit[1])
-						if err != nil {
-							return err
-						}
-
-						size = ra.Intn(sizeMax-sizeMin+1) + sizeMin
-					}
-				} else {
-					size, err = strconv.Atoi(fs)
+			// Check to make sure you can set it or that its an embeded(anonymous) field
+			if elementV.CanSet() || elementT.Anonymous {
+				// Check if reflect type is of values we can specifically set
+				switch elementT.Type.String() {
+				case "time.Time":
+					err := rTime(ra, elementT, elementV, fakeTag)
 					if err != nil {
 						return err
 					}
+					continue
 				}
-			}
-			err := r(ra, elementT.Type, elementV, fakeTag, size)
-			if err != nil {
-				return err
+
+				// Check if fakesize is set
+				size := -1 // Set to -1 to indicate fakesize was not set
+				fs, ok := elementT.Tag.Lookup("fakesize")
+				if ok {
+					var err error
+
+					// Check if size has params separated by ,
+					if strings.Contains(fs, ",") {
+						sizeSplit := strings.SplitN(fs, ",", 2)
+						if len(sizeSplit) == 2 {
+							var sizeMin int
+							var sizeMax int
+
+							sizeMin, err = strconv.Atoi(sizeSplit[0])
+							if err != nil {
+								return err
+							}
+							sizeMax, err = strconv.Atoi(sizeSplit[1])
+							if err != nil {
+								return err
+							}
+
+							size = ra.Intn(sizeMax-sizeMin+1) + sizeMin
+						}
+					} else {
+						size, err = strconv.Atoi(fs)
+						if err != nil {
+							return err
+						}
+					}
+				}
+				err := r(ra, elementT.Type, elementV, fakeTag, size)
+				if err != nil {
+					return err
+				}
 			}
 		}
 	}
@@ -201,6 +211,14 @@ func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int
 		if err == nil {
 			return nil
 		}
+	} else if isFakeable(t) {
+		value, err := callFake(v, reflect.Slice)
+		if err != nil {
+			return err
+		}
+
+		v.Set(reflect.ValueOf(value))
+		return nil
 	}
 
 	// Grab original size to use if needed for sub arrays
@@ -246,6 +264,16 @@ func rMap(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) 
 	// Check if tag exists, if so run custom function
 	if t.Name() != "" && tag != "" {
 		return rCustom(ra, t, v, tag)
+	} else if size > 0 {
+		//NOOP
+	} else if isFakeable(t) {
+		value, err := callFake(v, reflect.Map)
+		if err != nil {
+			return err
+		}
+
+		v.Set(reflect.ValueOf(value))
+		return nil
 	}
 
 	// Set a size
@@ -289,6 +317,17 @@ func rMap(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) 
 func rString(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
 		v.SetString(generate(ra, tag))
+	} else if isFakeable(t) {
+		value, err := callFake(v, reflect.String)
+		if err != nil {
+			return err
+		}
+
+		valueStr, ok := value.(string)
+		if !ok {
+			return errors.New("call to Fake method did not return a string")
+		}
+		v.SetString(valueStr)
 	} else {
 		v.SetString(generate(ra, strings.Repeat("?", number(ra, 4, 10))))
 	}
@@ -304,21 +343,40 @@ func rInt(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 		}
 
 		v.SetInt(i)
-		return nil
-	}
+	} else if isFakeable(t) {
+		value, err := callFake(v, reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64)
+		if err != nil {
+			return err
+		}
 
-	// If no tag or error converting to int, set with random value
-	switch t.Kind() {
-	case reflect.Int:
-		v.SetInt(int64Func(ra))
-	case reflect.Int8:
-		v.SetInt(int64(int8Func(ra)))
-	case reflect.Int16:
-		v.SetInt(int64(int16Func(ra)))
-	case reflect.Int32:
-		v.SetInt(int64(int32Func(ra)))
-	case reflect.Int64:
-		v.SetInt(int64Func(ra))
+		switch i := value.(type) {
+		case int:
+			v.SetInt(int64(i))
+		case int8:
+			v.SetInt(int64(i))
+		case int16:
+			v.SetInt(int64(i))
+		case int32:
+			v.SetInt(int64(i))
+		case int64:
+			v.SetInt(int64(i))
+		default:
+			return errors.New("call to Fake method did not return an integer")
+		}
+	} else {
+		// If no tag or error converting to int, set with random value
+		switch t.Kind() {
+		case reflect.Int:
+			v.SetInt(int64Func(ra))
+		case reflect.Int8:
+			v.SetInt(int64(int8Func(ra)))
+		case reflect.Int16:
+			v.SetInt(int64(int16Func(ra)))
+		case reflect.Int32:
+			v.SetInt(int64(int32Func(ra)))
+		case reflect.Int64:
+			v.SetInt(int64Func(ra))
+		}
 	}
 
 	return nil
@@ -332,21 +390,40 @@ func rUint(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 		}
 
 		v.SetUint(u)
-		return nil
-	}
+	} else if isFakeable(t) {
+		value, err := callFake(v, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64)
+		if err != nil {
+			return err
+		}
 
-	// If no tag or error converting to uint, set with random value
-	switch t.Kind() {
-	case reflect.Uint:
-		v.SetUint(uint64Func(ra))
-	case reflect.Uint8:
-		v.SetUint(uint64(uint8Func(ra)))
-	case reflect.Uint16:
-		v.SetUint(uint64(uint16Func(ra)))
-	case reflect.Uint32:
-		v.SetUint(uint64(uint32Func(ra)))
-	case reflect.Uint64:
-		v.SetUint(uint64Func(ra))
+		switch i := value.(type) {
+		case uint:
+			v.SetUint(uint64(i))
+		case uint8:
+			v.SetUint(uint64(i))
+		case uint16:
+			v.SetUint(uint64(i))
+		case uint32:
+			v.SetUint(uint64(i))
+		case uint64:
+			v.SetUint(uint64(i))
+		default:
+			return errors.New("call to Fake method did not return an unsigned integer")
+		}
+	} else {
+		// If no tag or error converting to uint, set with random value
+		switch t.Kind() {
+		case reflect.Uint:
+			v.SetUint(uint64Func(ra))
+		case reflect.Uint8:
+			v.SetUint(uint64(uint8Func(ra)))
+		case reflect.Uint16:
+			v.SetUint(uint64(uint16Func(ra)))
+		case reflect.Uint32:
+			v.SetUint(uint64(uint32Func(ra)))
+		case reflect.Uint64:
+			v.SetUint(uint64Func(ra))
+		}
 	}
 
 	return nil
@@ -360,15 +437,28 @@ func rFloat(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 		}
 
 		v.SetFloat(f)
-		return nil
-	}
+	} else if isFakeable(t) {
+		value, err := callFake(v, reflect.Float32, reflect.Float64)
+		if err != nil {
+			return err
+		}
 
-	// If no tag or error converting to float, set with random value
-	switch t.Kind() {
-	case reflect.Float64:
-		v.SetFloat(float64Func(ra))
-	case reflect.Float32:
-		v.SetFloat(float64(float32Func(ra)))
+		switch i := value.(type) {
+		case float32:
+			v.SetFloat(float64(i))
+		case float64:
+			v.SetFloat(float64(i))
+		default:
+			return errors.New("call to Fake method did not return a float")
+		}
+	} else {
+		// If no tag or error converting to float, set with random value
+		switch t.Kind() {
+		case reflect.Float64:
+			v.SetFloat(float64Func(ra))
+		case reflect.Float32:
+			v.SetFloat(float64(float32Func(ra)))
+		}
 	}
 
 	return nil
@@ -382,11 +472,22 @@ func rBool(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 		}
 
 		v.SetBool(b)
-		return nil
-	}
+	} else if isFakeable(t) {
+		value, err := callFake(v, reflect.Bool)
+		if err != nil {
+			return err
+		}
 
-	// If no tag or error converting to boolean, set with random value
-	v.SetBool(boolFunc(ra))
+		switch i := value.(type) {
+		case bool:
+			v.SetBool(bool(i))
+		default:
+			return errors.New("call to Fake method did not return a boolean")
+		}
+	} else {
+		// If no tag or error converting to boolean, set with random value
+		v.SetBool(boolFunc(ra))
+	}
 
 	return nil
 }
