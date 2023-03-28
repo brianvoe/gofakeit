@@ -352,6 +352,16 @@ func TestJSONNoCount(t *testing.T) {
 	}
 }
 
+func TestJSONNoOptions(t *testing.T) {
+	Seed(11)
+
+	// if JSONOptions is nil -> get a random JSONOptions
+	_, err := JSON(nil)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+}
+
 func BenchmarkJSONLookup100(b *testing.B) {
 	faker := New(0)
 

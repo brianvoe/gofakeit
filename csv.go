@@ -13,18 +13,28 @@ import (
 
 // CSVOptions defines values needed for csv generation
 type CSVOptions struct {
-	Delimiter string  `json:"delimiter" xml:"delimiter"`
-	RowCount  int     `json:"row_count" xml:"row_count"`
-	Fields    []Field `json:"fields" xml:"fields"`
+	Delimiter string  `json:"delimiter" xml:"delimiter" fake:"{randomstring:[,,tab]}"`
+	RowCount  int     `json:"row_count" xml:"row_count" fake:"{number:1,10}"`
+	Fields    []Field `json:"fields" xml:"fields" fake:"{internal_exampleFields}"`
 }
 
 // CSV generates an object or an array of objects in json format
+// A nil CSVOptions returns a randomly structured CSV.
 func CSV(co *CSVOptions) ([]byte, error) { return csvFunc(globalFaker.Rand, co) }
 
 // CSV generates an object or an array of objects in json format
+// A nil CSVOptions returns a randomly structured CSV.
 func (f *Faker) CSV(co *CSVOptions) ([]byte, error) { return csvFunc(f.Rand, co) }
 
 func csvFunc(r *rand.Rand, co *CSVOptions) ([]byte, error) {
+	if co == nil {
+		// We didn't get a CSVOptions, so create a new random one
+		err := Struct(&co)
+		if err != nil {
+			return nil, err
+		}
+	}
+
 	// Check delimiter
 	if co.Delimiter == "" {
 		co.Delimiter = ","
