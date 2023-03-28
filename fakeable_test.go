@@ -1,6 +1,7 @@
 package gofakeit_test
 
 import (
+	"fmt"
 	"math/rand"
 	"testing"
 	"time"
@@ -14,91 +15,91 @@ var (
 
 type CustomString string
 
-func (c CustomString) Fake() interface{} {
+func (c CustomString) Fake(faker *gofakeit.Faker) interface{} {
 	return CustomString("hello test")
 }
 
 type CustomBool bool
 
-func (c CustomBool) Fake() interface{} {
+func (c CustomBool) Fake(faker *gofakeit.Faker) interface{} {
 	return CustomBool(true)
 }
 
 type CustomInt int
 
-func (c CustomInt) Fake() interface{} {
+func (c CustomInt) Fake(faker *gofakeit.Faker) interface{} {
 	return CustomInt(-42)
 }
 
 type CustomInt8 int8
 
-func (c CustomInt8) Fake() interface{} {
+func (c CustomInt8) Fake(faker *gofakeit.Faker) interface{} {
 	return CustomInt8(-42)
 }
 
 type CustomInt16 int16
 
-func (c CustomInt16) Fake() interface{} {
+func (c CustomInt16) Fake(faker *gofakeit.Faker) interface{} {
 	return CustomInt16(-42)
 }
 
 type CustomInt32 int32
 
-func (c CustomInt32) Fake() interface{} {
+func (c CustomInt32) Fake(faker *gofakeit.Faker) interface{} {
 	return CustomInt32(-42)
 }
 
 type CustomInt64 int64
 
-func (c CustomInt64) Fake() interface{} {
+func (c CustomInt64) Fake(faker *gofakeit.Faker) interface{} {
 	return CustomInt64(-42)
 }
 
 type CustomUint uint
 
-func (c CustomUint) Fake() interface{} {
+func (c CustomUint) Fake(faker *gofakeit.Faker) interface{} {
 	return CustomUint(42)
 }
 
 type CustomUint8 uint8
 
-func (c CustomUint8) Fake() interface{} {
+func (c CustomUint8) Fake(faker *gofakeit.Faker) interface{} {
 	return CustomUint8(42)
 }
 
 type CustomUint16 uint16
 
-func (c CustomUint16) Fake() interface{} {
+func (c CustomUint16) Fake(faker *gofakeit.Faker) interface{} {
 	return CustomUint16(42)
 }
 
 type CustomUint32 uint32
 
-func (c CustomUint32) Fake() interface{} {
+func (c CustomUint32) Fake(faker *gofakeit.Faker) interface{} {
 	return CustomUint32(42)
 }
 
 type CustomUint64 uint64
 
-func (c CustomUint64) Fake() interface{} {
+func (c CustomUint64) Fake(faker *gofakeit.Faker) interface{} {
 	return CustomUint64(42)
 }
 
 type CustomFloat32 float32
 
-func (c CustomFloat32) Fake() interface{} {
+func (c CustomFloat32) Fake(faker *gofakeit.Faker) interface{} {
 	return CustomFloat32(42.123)
 }
 
 type CustomFloat64 float64
 
-func (c CustomFloat64) Fake() interface{} {
+func (c CustomFloat64) Fake(faker *gofakeit.Faker) interface{} {
 	return CustomFloat64(42.123)
 }
 
 type CustomTime time.Time
 
-func (c CustomTime) Fake() interface{} {
+func (c CustomTime) Fake(faker *gofakeit.Faker) interface{} {
 	return CustomTime(testTimeValue)
 }
 
@@ -108,13 +109,13 @@ func (c CustomTime) String() string {
 
 type CustomSlice []string
 
-func (c CustomSlice) Fake() interface{} {
+func (c CustomSlice) Fake(faker *gofakeit.Faker) interface{} {
 	return CustomSlice([]string{"hello", "test"})
 }
 
 type CustomMap map[string]string
 
-func (c CustomMap) Fake() interface{} {
+func (c CustomMap) Fake(faker *gofakeit.Faker) interface{} {
 	return CustomMap(map[string]string{"hello": "1", "test": "2"})
 }
 
@@ -123,7 +124,7 @@ type CustomStruct struct {
 	Int int
 }
 
-func (c CustomStruct) Fake() interface{} {
+func (c CustomStruct) Fake(faker *gofakeit.Faker) interface{} {
 	return CustomStruct{
 		Str: "hello test",
 		Int: 42,
@@ -629,4 +630,39 @@ func TestSliceCustom(t *testing.T) {
 			t.Errorf("expected all items to be %q, got %q", expected, v)
 		}
 	}
+}
+
+type testStruct1 struct {
+	B string `fake:"{firstname}"`
+}
+
+type strTyp string
+
+type testStruct2 struct {
+	B strTyp
+}
+
+func (t strTyp) Fake(faker *gofakeit.Faker) interface{} {
+	return faker.FirstName()
+}
+
+func ExampleFakeable() {
+	var t1 testStruct1
+	var t2 testStruct1
+	var t3 testStruct2
+	var t4 testStruct2
+	gofakeit.New(314).Struct(&t1)
+	gofakeit.New(314).Struct(&t2)
+	gofakeit.New(314).Struct(&t3)
+	gofakeit.New(314).Struct(&t4)
+
+	fmt.Printf("%#v\n", t1)
+	fmt.Printf("%#v\n", t2)
+	fmt.Printf("%#v\n", t3)
+	fmt.Printf("%#v\n", t4)
+	// Expected Output:
+	// gofakeit_test.testStruct1{B:"Margarette"}
+	// gofakeit_test.testStruct1{B:"Margarette"}
+	// gofakeit_test.testStruct2{B:"Margarette"}
+	// gofakeit_test.testStruct2{B:"Margarette"}
 }

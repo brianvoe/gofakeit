@@ -104,7 +104,7 @@ func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	if t.Name() != "" && tag != "" {
 		return rCustom(f, t, v, tag)
 	} else if isFakeable(t) {
-		value, err := callFake(v, reflect.Struct)
+		value, err := callFake(f, v, reflect.Struct)
 		if err != nil {
 			return err
 		}
@@ -211,7 +211,7 @@ func rSlice(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) err
 			return nil
 		}
 	} else if isFakeable(t) {
-		value, err := callFake(v, reflect.Slice)
+		value, err := callFake(f, v, reflect.Slice)
 		if err != nil {
 			return err
 		}
@@ -266,7 +266,7 @@ func rMap(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error
 	} else if size > 0 {
 		//NOOP
 	} else if isFakeable(t) {
-		value, err := callFake(v, reflect.Map)
+		value, err := callFake(f, v, reflect.Map)
 		if err != nil {
 			return err
 		}
@@ -317,7 +317,7 @@ func rString(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
 		v.SetString(generate(f.Rand, tag))
 	} else if isFakeable(t) {
-		value, err := callFake(v, reflect.String)
+		value, err := callFake(f, v, reflect.String)
 		if err != nil {
 			return err
 		}
@@ -343,7 +343,7 @@ func rInt(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 
 		v.SetInt(i)
 	} else if isFakeable(t) {
-		value, err := callFake(v, reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64)
+		value, err := callFake(f, v, reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64)
 		if err != nil {
 			return err
 		}
@@ -390,7 +390,7 @@ func rUint(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 
 		v.SetUint(u)
 	} else if isFakeable(t) {
-		value, err := callFake(v, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64)
+		value, err := callFake(f, v, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64)
 		if err != nil {
 			return err
 		}
@@ -437,7 +437,7 @@ func rFloat(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 
 		v.SetFloat(f)
 	} else if isFakeable(t) {
-		value, err := callFake(v, reflect.Float32, reflect.Float64)
+		value, err := callFake(f, v, reflect.Float32, reflect.Float64)
 		if err != nil {
 			return err
 		}
@@ -472,7 +472,7 @@ func rBool(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 
 		v.SetBool(b)
 	} else if isFakeable(t) {
-		value, err := callFake(v, reflect.Bool)
+		value, err := callFake(f, v, reflect.Bool)
 		if err != nil {
 			return err
 		}
