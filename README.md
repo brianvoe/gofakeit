@@ -227,6 +227,7 @@ All functions also exist as methods on the Faker struct
 ### File
 
 ```go
+CSV(co *CSVOptions) ([]byte, error)
 JSON(jo *JSONOptions) ([]byte, error)
 XML(xo *XMLOptions) ([]byte, error)
 FileExtension() string
