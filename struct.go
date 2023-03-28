@@ -2,7 +2,6 @@ package gofakeit
 
 import (
 	"errors"
-	"math/rand"
 	"reflect"
 	"strconv"
 	"strings"
@@ -16,45 +15,45 @@ import (
 // Use `fake:"skip"` to explicitly skip an element.
 // All built-in types are supported, with templating support
 // for string types.
-func Struct(v interface{}) error { return structFunc(globalFaker.Rand, v) }
+func Struct(v interface{}) error { return structFunc(globalFaker, v) }
 
 // Struct fills in exported fields of a struct with random data
 // based on the value of `fake` tag of exported fields.
 // Use `fake:"skip"` to explicitly skip an element.
 // All built-in types are supported, with templating support
 // for string types.
-func (f *Faker) Struct(v interface{}) error { return structFunc(f.Rand, v) }
+func (f *Faker) Struct(v interface{}) error { return structFunc(f, v) }
 
-func structFunc(ra *rand.Rand, v interface{}) error {
-	return r(ra, reflect.TypeOf(v), reflect.ValueOf(v), "", 0)
+func structFunc(f *Faker, v interface{}) error {
+	return r(f, reflect.TypeOf(v), reflect.ValueOf(v), "", 0)
 }
 
-func r(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) error {
+func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
 	switch t.Kind() {
 	case reflect.Ptr:
-		return rPointer(ra, t, v, tag, size)
+		return rPointer(f, t, v, tag, size)
 	case reflect.Struct:
-		return rStruct(ra, t, v, tag)
+		return rStruct(f, t, v, tag)
 	case reflect.String:
-		return rString(ra, t, v, tag)
+		return rString(f, t, v, tag)
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
-		return rUint(ra, t, v, tag)
+		return rUint(f, t, v, tag)
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-		return rInt(ra, t, v, tag)
+		return rInt(f, t, v, tag)
 	case reflect.Float32, reflect.Float64:
-		return rFloat(ra, t, v, tag)
+		return rFloat(f, t, v, tag)
 	case reflect.Bool:
-		return rBool(ra, t, v, tag)
+		return rBool(f, t, v, tag)
 	case reflect.Array, reflect.Slice:
-		return rSlice(ra, t, v, tag, size)
+		return rSlice(f, t, v, tag, size)
 	case reflect.Map:
-		return rMap(ra, t, v, tag, size)
+		return rMap(f, t, v, tag, size)
 	}
 
 	return nil
 }
 
-func rCustom(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
+func rCustom(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	// If tag is empty return error
 	if tag == "" {
 		return errors.New("tag is empty")
@@ -67,7 +66,7 @@ func rCustom(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 		mapParams := parseMapParams(info, fParams)
 
 		// Call function
-		fValue, err := info.Generate(ra, mapParams, info)
+		fValue, err := info.Generate(f.Rand, mapParams, info)
 		if err != nil {
 			return err
 		}
@@ -100,10 +99,10 @@ func rCustom(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 	return errors.New("function not found")
 }
 
-func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
+func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	// Check if tag exists, if so run custom function
 	if t.Name() != "" && tag != "" {
-		return rCustom(ra, t, v, tag)
+		return rCustom(f, t, v, tag)
 	} else if isFakeable(t) {
 		value, err := callFake(v, reflect.Struct)
 		if err != nil {
@@ -130,7 +129,7 @@ func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 				// Check if reflect type is of values we can specifically set
 				switch elementT.Type.String() {
 				case "time.Time":
-					err := rTime(ra, elementT, elementV, fakeTag)
+					err := rTime(f, elementT, elementV, fakeTag)
 					if err != nil {
 						return err
 					}
@@ -159,7 +158,7 @@ func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 								return err
 							}
 
-							size = ra.Intn(sizeMax-sizeMin+1) + sizeMin
+							size = f.Rand.Intn(sizeMax-sizeMin+1) + sizeMin
 						}
 					} else {
 						size, err = strconv.Atoi(fs)
@@ -168,7 +167,7 @@ func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 						}
 					}
 				}
-				err := r(ra, elementT.Type, elementV, fakeTag, size)
+				err := r(f, elementT.Type, elementV, fakeTag, size)
 				if err != nil {
 					return err
 				}
@@ -179,17 +178,17 @@ func rStruct(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 	return nil
 }
 
-func rPointer(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) error {
+func rPointer(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
 	elemT := t.Elem()
 	if v.IsNil() {
 		nv := reflect.New(elemT)
-		err := r(ra, elemT, nv.Elem(), tag, size)
+		err := r(f, elemT, nv.Elem(), tag, size)
 		if err != nil {
 			return err
 		}
 		v.Set(nv)
 	} else {
-		err := r(ra, elemT, v.Elem(), tag, size)
+		err := r(f, elemT, v.Elem(), tag, size)
 		if err != nil {
 			return err
 		}
@@ -198,7 +197,7 @@ func rPointer(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size i
 	return nil
 }
 
-func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) error {
+func rSlice(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
 	// If you cant even set it dont even try
 	if !v.CanSet() {
 		return errors.New("cannot set slice")
@@ -207,7 +206,7 @@ func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int
 	// Check if tag exists, if so run custom function
 	if t.Name() != "" && tag != "" {
 		// Check to see if custom function works if not continue to normal loop of values
-		err := rCustom(ra, t, v, tag)
+		err := rCustom(f, t, v, tag)
 		if err == nil {
 			return nil
 		}
@@ -228,7 +227,7 @@ func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int
 	// use that instead of the requested size
 	elemLen := v.Len()
 	if elemLen == 0 && size == -1 {
-		size = number(ra, 1, 10)
+		size = number(f.Rand, 1, 10)
 	} else if elemLen != 0 && (size == -1 || elemLen < size) {
 		size = elemLen
 	}
@@ -239,7 +238,7 @@ func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int
 	// Loop through the elements length and set based upon the index
 	for i := 0; i < size; i++ {
 		nv := reflect.New(elemT)
-		err := r(ra, elemT, nv.Elem(), tag, ogSize)
+		err := r(f, elemT, nv.Elem(), tag, ogSize)
 		if err != nil {
 			return err
 		}
@@ -255,7 +254,7 @@ func rSlice(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int
 	return nil
 }
 
-func rMap(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) error {
+func rMap(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
 	// If you cant even set it dont even try
 	if !v.CanSet() {
 		return errors.New("cannot set slice")
@@ -263,7 +262,7 @@ func rMap(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) 
 
 	// Check if tag exists, if so run custom function
 	if t.Name() != "" && tag != "" {
-		return rCustom(ra, t, v, tag)
+		return rCustom(f, t, v, tag)
 	} else if size > 0 {
 		//NOOP
 	} else if isFakeable(t) {
@@ -279,7 +278,7 @@ func rMap(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) 
 	// Set a size
 	newSize := size
 	if newSize == -1 {
-		newSize = number(ra, 1, 10)
+		newSize = number(f.Rand, 1, 10)
 	}
 
 	// Create new map based upon map key value type
@@ -289,14 +288,14 @@ func rMap(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) 
 	for i := 0; i < newSize; i++ {
 		// Create new key
 		mapIndex := reflect.New(t.Key())
-		err := r(ra, t.Key(), mapIndex.Elem(), "", -1)
+		err := r(f, t.Key(), mapIndex.Elem(), "", -1)
 		if err != nil {
 			return err
 		}
 
 		// Create new value
 		mapValue := reflect.New(t.Elem())
-		err = r(ra, t.Elem(), mapValue.Elem(), "", -1)
+		err = r(f, t.Elem(), mapValue.Elem(), "", -1)
 		if err != nil {
 			return err
 		}
@@ -314,9 +313,9 @@ func rMap(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string, size int) 
 	return nil
 }
 
-func rString(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
+func rString(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
-		v.SetString(generate(ra, tag))
+		v.SetString(generate(f.Rand, tag))
 	} else if isFakeable(t) {
 		value, err := callFake(v, reflect.String)
 		if err != nil {
@@ -329,15 +328,15 @@ func rString(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 		}
 		v.SetString(valueStr)
 	} else {
-		v.SetString(generate(ra, strings.Repeat("?", number(ra, 4, 10))))
+		v.SetString(generate(f.Rand, strings.Repeat("?", number(f.Rand, 4, 10))))
 	}
 
 	return nil
 }
 
-func rInt(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
+func rInt(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
-		i, err := strconv.ParseInt(generate(ra, tag), 10, 64)
+		i, err := strconv.ParseInt(generate(f.Rand, tag), 10, 64)
 		if err != nil {
 			return err
 		}
@@ -367,24 +366,24 @@ func rInt(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 		// If no tag or error converting to int, set with random value
 		switch t.Kind() {
 		case reflect.Int:
-			v.SetInt(int64Func(ra))
+			v.SetInt(int64Func(f.Rand))
 		case reflect.Int8:
-			v.SetInt(int64(int8Func(ra)))
+			v.SetInt(int64(int8Func(f.Rand)))
 		case reflect.Int16:
-			v.SetInt(int64(int16Func(ra)))
+			v.SetInt(int64(int16Func(f.Rand)))
 		case reflect.Int32:
-			v.SetInt(int64(int32Func(ra)))
+			v.SetInt(int64(int32Func(f.Rand)))
 		case reflect.Int64:
-			v.SetInt(int64Func(ra))
+			v.SetInt(int64Func(f.Rand))
 		}
 	}
 
 	return nil
 }
 
-func rUint(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
+func rUint(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
-		u, err := strconv.ParseUint(generate(ra, tag), 10, 64)
+		u, err := strconv.ParseUint(generate(f.Rand, tag), 10, 64)
 		if err != nil {
 			return err
 		}
@@ -414,24 +413,24 @@ func rUint(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 		// If no tag or error converting to uint, set with random value
 		switch t.Kind() {
 		case reflect.Uint:
-			v.SetUint(uint64Func(ra))
+			v.SetUint(uint64Func(f.Rand))
 		case reflect.Uint8:
-			v.SetUint(uint64(uint8Func(ra)))
+			v.SetUint(uint64(uint8Func(f.Rand)))
 		case reflect.Uint16:
-			v.SetUint(uint64(uint16Func(ra)))
+			v.SetUint(uint64(uint16Func(f.Rand)))
 		case reflect.Uint32:
-			v.SetUint(uint64(uint32Func(ra)))
+			v.SetUint(uint64(uint32Func(f.Rand)))
 		case reflect.Uint64:
-			v.SetUint(uint64Func(ra))
+			v.SetUint(uint64Func(f.Rand))
 		}
 	}
 
 	return nil
 }
 
-func rFloat(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
+func rFloat(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
-		f, err := strconv.ParseFloat(generate(ra, tag), 64)
+		f, err := strconv.ParseFloat(generate(f.Rand, tag), 64)
 		if err != nil {
 			return err
 		}
@@ -455,18 +454,18 @@ func rFloat(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 		// If no tag or error converting to float, set with random value
 		switch t.Kind() {
 		case reflect.Float64:
-			v.SetFloat(float64Func(ra))
+			v.SetFloat(float64Func(f.Rand))
 		case reflect.Float32:
-			v.SetFloat(float64(float32Func(ra)))
+			v.SetFloat(float64(float32Func(f.Rand)))
 		}
 	}
 
 	return nil
 }
 
-func rBool(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
+func rBool(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
-		b, err := strconv.ParseBool(generate(ra, tag))
+		b, err := strconv.ParseBool(generate(f.Rand, tag))
 		if err != nil {
 			return err
 		}
@@ -486,17 +485,17 @@ func rBool(ra *rand.Rand, t reflect.Type, v reflect.Value, tag string) error {
 		}
 	} else {
 		// If no tag or error converting to boolean, set with random value
-		v.SetBool(boolFunc(ra))
+		v.SetBool(boolFunc(f.Rand))
 	}
 
 	return nil
 }
 
 // rTime will set a time.Time field the best it can from either the default date tag or from the generate tag
-func rTime(ra *rand.Rand, t reflect.StructField, v reflect.Value, tag string) error {
+func rTime(f *Faker, t reflect.StructField, v reflect.Value, tag string) error {
 	if tag != "" {
 		// Generate time
-		timeOutput := generate(ra, tag)
+		timeOutput := generate(f.Rand, tag)
 
 		// Check to see if timeOutput has monotonic clock reading
 		// if so, remove it. This is because time.Parse() does not
@@ -536,6 +535,6 @@ func rTime(ra *rand.Rand, t reflect.StructField, v reflect.Value, tag string) er
 		return nil
 	}
 
-	v.Set(reflect.ValueOf(date(ra)))
+	v.Set(reflect.ValueOf(date(f.Rand)))
 	return nil
 }
