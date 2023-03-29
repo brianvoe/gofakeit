@@ -129,16 +129,16 @@ func xmlMapLoop(e *xml.Encoder, m *xmlMap) error {
 
 // XML generates an object or an array of objects in json format
 // A nil XMLOptions returns a randomly structured XML.
-func XML(xo *XMLOptions) ([]byte, error) { return xmlFunc(globalFaker.Rand, xo) }
+func XML(xo *XMLOptions) ([]byte, error) { return xmlFunc(globalFaker, xo) }
 
 // XML generates an object or an array of objects in json format
 // A nil XMLOptions returns a randomly structured XML.
-func (f *Faker) XML(xo *XMLOptions) ([]byte, error) { return xmlFunc(f.Rand, xo) }
+func (f *Faker) XML(xo *XMLOptions) ([]byte, error) { return xmlFunc(f, xo) }
 
-func xmlFunc(r *rand.Rand, xo *XMLOptions) ([]byte, error) {
+func xmlFunc(f *Faker, xo *XMLOptions) ([]byte, error) {
 	if xo == nil {
 		// We didn't get a XMLOptions, so create a new random one
-		err := Struct(&xo)
+		err := f.Struct(&xo)
 		if err != nil {
 			return nil, err
 		}
@@ -185,7 +185,7 @@ func xmlFunc(r *rand.Rand, xo *XMLOptions) ([]byte, error) {
 				return nil, errors.New("invalid function, " + field.Function + " does not exist")
 			}
 
-			value, err := funcInfo.Generate(r, &field.Params, funcInfo)
+			value, err := funcInfo.Generate(f.Rand, &field.Params, funcInfo)
 			if err != nil {
 				return nil, err
 			}
@@ -238,7 +238,7 @@ func xmlFunc(r *rand.Rand, xo *XMLOptions) ([]byte, error) {
 					return nil, errors.New("invalid function, " + field.Function + " does not exist")
 				}
 
-				value, err := funcInfo.Generate(r, &field.Params, funcInfo)
+				value, err := funcInfo.Generate(f.Rand, &field.Params, funcInfo)
 				if err != nil {
 					return nil, err
 				}
@@ -346,7 +346,8 @@ func addFileXMLLookup() {
 			}
 			xo.Indent = indent
 
-			return xmlFunc(r, &xo)
+			f := &Faker{Rand: r}
+			return xmlFunc(f, &xo)
 		},
 	})
 }

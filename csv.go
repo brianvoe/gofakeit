@@ -20,16 +20,16 @@ type CSVOptions struct {
 
 // CSV generates an object or an array of objects in json format
 // A nil CSVOptions returns a randomly structured CSV.
-func CSV(co *CSVOptions) ([]byte, error) { return csvFunc(globalFaker.Rand, co) }
+func CSV(co *CSVOptions) ([]byte, error) { return csvFunc(globalFaker, co) }
 
 // CSV generates an object or an array of objects in json format
 // A nil CSVOptions returns a randomly structured CSV.
-func (f *Faker) CSV(co *CSVOptions) ([]byte, error) { return csvFunc(f.Rand, co) }
+func (f *Faker) CSV(co *CSVOptions) ([]byte, error) { return csvFunc(f, co) }
 
-func csvFunc(r *rand.Rand, co *CSVOptions) ([]byte, error) {
+func csvFunc(f *Faker, co *CSVOptions) ([]byte, error) {
 	if co == nil {
 		// We didn't get a CSVOptions, so create a new random one
-		err := Struct(&co)
+		err := f.Struct(&co)
 		if err != nil {
 			return nil, err
 		}
@@ -84,7 +84,7 @@ func csvFunc(r *rand.Rand, co *CSVOptions) ([]byte, error) {
 				return nil, errors.New("invalid function, " + field.Function + " does not exist")
 			}
 
-			value, err := funcInfo.Generate(r, &field.Params, funcInfo)
+			value, err := funcInfo.Generate(f.Rand, &field.Params, funcInfo)
 			if err != nil {
 				return nil, err
 			}
@@ -175,7 +175,8 @@ func addFileCSVLookup() {
 			}
 			co.Delimiter = delimiter
 
-			csvOut, err := csvFunc(r, &co)
+			f := &Faker{Rand: r}
+			csvOut, err := csvFunc(f, &co)
 			if err != nil {
 				return nil, err
 			}

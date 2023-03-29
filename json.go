@@ -56,17 +56,17 @@ func (okv jsonOrderedKeyVal) MarshalJSON() ([]byte, error) {
 
 // JSON generates an object or an array of objects in json format.
 // A nil JSONOptions returns a randomly structured JSON.
-func JSON(jo *JSONOptions) ([]byte, error) { return jsonFunc(globalFaker.Rand, jo) }
+func JSON(jo *JSONOptions) ([]byte, error) { return jsonFunc(globalFaker, jo) }
 
 // JSON generates an object or an array of objects in json format.
 // A nil JSONOptions returns a randomly structured JSON.
-func (f *Faker) JSON(jo *JSONOptions) ([]byte, error) { return jsonFunc(f.Rand, jo) }
+func (f *Faker) JSON(jo *JSONOptions) ([]byte, error) { return jsonFunc(f, jo) }
 
 // JSON generates an object or an array of objects in json format
-func jsonFunc(r *rand.Rand, jo *JSONOptions) ([]byte, error) {
+func jsonFunc(f *Faker, jo *JSONOptions) ([]byte, error) {
 	if jo == nil {
 		// We didn't get a JSONOptions, so create a new random one
-		err := Struct(&jo)
+		err := f.Struct(&jo)
 		if err != nil {
 			return nil, err
 		}
@@ -99,7 +99,7 @@ func jsonFunc(r *rand.Rand, jo *JSONOptions) ([]byte, error) {
 			}
 
 			// Call function value
-			value, err := funcInfo.Generate(r, &field.Params, funcInfo)
+			value, err := funcInfo.Generate(f.Rand, &field.Params, funcInfo)
 			if err != nil {
 				return nil, err
 			}
@@ -153,7 +153,7 @@ func jsonFunc(r *rand.Rand, jo *JSONOptions) ([]byte, error) {
 				}
 
 				// Call function value
-				value, err := funcInfo.Generate(r, &field.Params, funcInfo)
+				value, err := funcInfo.Generate(f.Rand, &field.Params, funcInfo)
 				if err != nil {
 					return nil, err
 				}
@@ -244,7 +244,8 @@ func addFileJSONLookup() {
 			}
 			jo.Indent = indent
 
-			return jsonFunc(r, &jo)
+			f := &Faker{Rand: r}
+			return jsonFunc(f, &jo)
 		},
 	})
 }
