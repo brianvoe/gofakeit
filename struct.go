@@ -29,6 +29,22 @@ func structFunc(f *Faker, v interface{}) error {
 }
 
 func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
+	// Handle special types
+
+	// encoding/json.RawMessage is a special case of []byte
+	// it cannot be handled as a reflect.Array/reflect.Slice
+	// because it needs additional structure in the output
+	if t.PkgPath() == "encoding/json" && t.Name() == "RawMessage" {
+		b, err := f.JSON(nil)
+		if err != nil {
+			return err
+		}
+
+		v.SetBytes(b)
+		return nil
+	}
+
+	// Handle generic types
 	switch t.Kind() {
 	case reflect.Ptr:
 		return rPointer(f, t, v, tag, size)
