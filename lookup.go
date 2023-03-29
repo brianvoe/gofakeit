@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 	"reflect"
+	"sort"
 	"strconv"
 	"strings"
 	"sync"
@@ -38,6 +39,8 @@ func getRandomFuncLookup(r *rand.Rand, excludeWithParams bool) (string, Info) {
 		}
 		keys = append(keys, k)
 	}
+
+	sort.Stable(sort.StringSlice(keys))
 
 	selected := keys[r.Intn(len(keys))]
 	return selected, FuncLookups[selected]
