@@ -18,11 +18,11 @@ var lockFuncLookups sync.Mutex
 // internalFuncLookups is the internal map array with mapping to all available data
 var internalFuncLookups map[string]Info = map[string]Info{
 	"internal_exampleFields": {
-		Description: "Example fields for generating xml and json",
-		Example:     `{"name":"{firstname}","age":"{number:1,100}"}`,
+		Description: "Example fields for generating csv, json and xml",
 		Output:      "gofakeit.Field",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
-			name, _ := getRandomFuncLookup(r, true)
+			name, _ := getRandomFuncLookup(r, excludeWithParams,
+				validTypes("string", "int", "[]string", "[]int"))
 			return Field{
 				Name:     name,
 				Function: name,
@@ -31,13 +31,36 @@ var internalFuncLookups map[string]Info = map[string]Info{
 	},
 }
 
-func getRandomFuncLookup(r *rand.Rand, excludeWithParams bool) (string, Info) {
+// filterFuncLookup returns true when the lookup should be accepted
+type filterFuncLookup func(Info) bool
+
+var (
+	excludeWithParams filterFuncLookup = func(info Info) bool {
+		return len(info.Params) == 0
+	}
+
+	validTypes = func(acceptedTypes ...string) filterFuncLookup {
+		return func(info Info) bool {
+			for _, t := range acceptedTypes {
+				if info.Output == t {
+					return true
+				}
+			}
+			return false
+		}
+	}
+)
+
+func getRandomFuncLookup(r *rand.Rand, filters ...filterFuncLookup) (string, Info) {
 	var keys []string
 	for k, v := range FuncLookups {
-		if excludeWithParams && len(v.Params) != 0 {
-			continue
+		isValid := true
+		for _, filter := range filters {
+			isValid = isValid && filter(v)
 		}
-		keys = append(keys, k)
+		if isValid {
+			keys = append(keys, k)
+		}
 	}
 
 	sort.Stable(sort.StringSlice(keys))
