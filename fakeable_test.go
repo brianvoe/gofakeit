@@ -26,6 +26,38 @@ type testStruct2 struct {
 	B strTyp
 }
 
+func TestIsFakeable(t *testing.T) {
+	var t1 testStruct2
+	var t2 *testStruct2
+	var t3 strTyp
+	var t4 *strTyp
+	var t5 strTypPtr
+	var t6 *strTypPtr
+
+	if isFakeable(reflect.ValueOf(t1).Type()) {
+		t.Errorf("expected testStruct2 not to be fakeable")
+	}
+
+	if isFakeable(reflect.ValueOf(t2).Type()) {
+		t.Errorf("expected *testStruct2 not to be fakeable")
+	}
+
+	if !isFakeable(reflect.ValueOf(t3).Type()) {
+		t.Errorf("expected strTyp to be fakeable")
+	}
+
+	if !isFakeable(reflect.ValueOf(t4).Type()) {
+		t.Errorf("expected *strTyp to be fakeable")
+	}
+
+	if !isFakeable(reflect.ValueOf(t5).Type()) {
+		t.Errorf("expected strTypPtr to be fakeable")
+	}
+
+	if !isFakeable(reflect.ValueOf(t6).Type()) {
+		t.Errorf("expected *strTypPtr to be fakeable")
+	}
+}
 
 func ExampleFakeable() {
 	var t1 testStruct1
