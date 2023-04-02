@@ -181,12 +181,13 @@ func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 func rPointer(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
 	elemT := t.Elem()
 	if v.IsNil() {
-		nv := reflect.New(elemT)
-		err := r(f, elemT, nv.Elem(), tag, size)
+		nv := reflect.New(elemT).Elem()
+		err := r(f, elemT, nv, tag, size)
 		if err != nil {
 			return err
 		}
-		v.Set(nv)
+
+		v.Set(nv.Addr())
 	} else {
 		err := r(f, elemT, v.Elem(), tag, size)
 		if err != nil {
