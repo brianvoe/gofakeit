@@ -4,7 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"math/rand"
+	"reflect"
+	"strconv"
 )
 
 // JSONOptions defines values needed for json generation
@@ -248,4 +251,85 @@ func addFileJSONLookup() {
 			return jsonFunc(f, &jo)
 		},
 	})
+}
+
+// encoding/json.RawMessage is a special case of []byte
+// it cannot be handled as a reflect.Array/reflect.Slice
+// because it needs additional structure in the output
+func rJsonRawMessage(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
+	b, err := f.JSON(nil)
+	if err != nil {
+		return err
+	}
+
+	v.SetBytes(b)
+	return nil
+}
+
+// encoding/json.Number is a special case of string
+// that represents a JSON number literal.
+// It cannot be handled as a string because it needs to
+// represent an integer or a floating-point number.
+func rJsonNumber(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
+	var ret json.Number
+
+	var numberType string
+
+	if tag == "" {
+		numberType = f.RandomString([]string{"int", "float"})
+
+		switch numberType {
+		case "int":
+			retInt := f.Int16()
+			ret = json.Number(strconv.Itoa(int(retInt)))
+		case "float":
+			retFloat := f.Float64()
+			ret = json.Number(strconv.FormatFloat(retFloat, 'f', -1, 64))
+		}
+	} else {
+		fName, fParams := parseNameAndParamsFromTag(tag)
+		info := GetFuncLookup(fName)
+		if info == nil {
+			return fmt.Errorf("invalid function, %s does not exist", fName)
+		}
+
+		// Parse map params
+		mapParams := parseMapParams(info, fParams)
+
+		valueIface, err := info.Generate(f.Rand, mapParams, info)
+		if err != nil {
+			return err
+		}
+
+		switch value := valueIface.(type) {
+		case int:
+			ret = json.Number(strconv.FormatInt(int64(value), 10))
+		case int8:
+			ret = json.Number(strconv.FormatInt(int64(value), 10))
+		case int16:
+			ret = json.Number(strconv.FormatInt(int64(value), 10))
+		case int32:
+			ret = json.Number(strconv.FormatInt(int64(value), 10))
+		case int64:
+			ret = json.Number(strconv.FormatInt(int64(value), 10))
+		case uint:
+			ret = json.Number(strconv.FormatUint(uint64(value), 10))
+		case uint8:
+			ret = json.Number(strconv.FormatUint(uint64(value), 10))
+		case uint16:
+			ret = json.Number(strconv.FormatUint(uint64(value), 10))
+		case uint32:
+			ret = json.Number(strconv.FormatUint(uint64(value), 10))
+		case uint64:
+			ret = json.Number(strconv.FormatUint(uint64(value), 10))
+		case float32:
+			ret = json.Number(strconv.FormatFloat(float64(value), 'f', -1, 64))
+		case float64:
+			ret = json.Number(strconv.FormatFloat(float64(value), 'f', -1, 64))
+		default:
+			return fmt.Errorf("invalid type, %s is not a valid type for json.Number", reflect.TypeOf(value))
+		}
+	}
+	v.Set(reflect.ValueOf(ret))
+	return nil
 }

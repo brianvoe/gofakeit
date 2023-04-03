@@ -434,6 +434,52 @@ func TestJSONNumberWithTag(t *testing.T) {
 	}
 }
 
+func ExampleJSONNumberWithTag() {
+	Seed(10)
+
+	type J struct {
+		FieldNumber  json.Number `fake:"number:3,7"`
+		FieldInt8    json.Number `fake:"int8"`
+		FieldInt16   json.Number `fake:"int16"`
+		FieldInt32   json.Number `fake:"int32"`
+		FieldInt64   json.Number `fake:"int64"`
+		FieldUint8   json.Number `fake:"uint8"`
+		FieldUint16  json.Number `fake:"uint16"`
+		FieldUint32  json.Number `fake:"uint32"`
+		FieldUint64  json.Number `fake:"uint64"`
+		FieldFloat32 json.Number `fake:"float32"`
+		FieldFloat64 json.Number `fake:"float64range:12,72"`
+	}
+
+	var obj J
+	Struct(&obj)
+
+	fmt.Printf("obj.FieldNumber = %+v\n", obj.FieldNumber)
+	fmt.Printf("obj.FieldInt8 = %+v\n", obj.FieldInt8)
+	fmt.Printf("obj.FieldInt16 = %+v\n", obj.FieldInt16)
+	fmt.Printf("obj.FieldInt32 = %+v\n", obj.FieldInt32)
+	fmt.Printf("obj.FieldInt64 = %+v\n", obj.FieldInt64)
+	fmt.Printf("obj.FieldUint8 = %+v\n", obj.FieldUint8)
+	fmt.Printf("obj.FieldUint16 = %+v\n", obj.FieldUint16)
+	fmt.Printf("obj.FieldUint32 = %+v\n", obj.FieldUint32)
+	fmt.Printf("obj.FieldUint64 = %+v\n", obj.FieldUint64)
+	fmt.Printf("obj.FieldFloat32 = %+v\n", obj.FieldFloat32)
+	fmt.Printf("obj.FieldFloat64 = %+v\n", obj.FieldFloat64)
+
+	// Output:
+	// obj.FieldNumber = 3
+	// obj.FieldInt8 = 16
+	// obj.FieldInt16 = 10619
+	// obj.FieldInt32 = -1654523813
+	// obj.FieldInt64 = -4710905755560118665
+	// obj.FieldUint8 = 200
+	// obj.FieldUint16 = 28555
+	// obj.FieldUint32 = 162876094
+	// obj.FieldUint64 = 7956601014869229133
+	// obj.FieldFloat32 = 9227009415507442000000000000000000000
+	// obj.FieldFloat64 = 62.323882731848215
+}
+
 func BenchmarkJSONLookup100(b *testing.B) {
 	faker := New(0)
 
