@@ -1,6 +1,7 @@
 package gofakeit
 
 import (
+	"encoding/json"
 	"errors"
 	"reflect"
 	"strconv"
@@ -30,18 +31,19 @@ func structFunc(f *Faker, v interface{}) error {
 
 func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
 	// Handle special types
+	if t.PkgPath() == "encoding/json" {
+		// encoding/json has two special types:
+		// - RawMessage
+		// - Number
 
-	// encoding/json.RawMessage is a special case of []byte
-	// it cannot be handled as a reflect.Array/reflect.Slice
-	// because it needs additional structure in the output
-	if t.PkgPath() == "encoding/json" && t.Name() == "RawMessage" {
-		b, err := f.JSON(nil)
-		if err != nil {
-			return err
+		switch t.Name() {
+		case "RawMessage":
+			return rJsonRawMessage(f, t, v, tag, size)
+		case "Number":
+			return rJsonNumber(f, t, v, tag, size)
+		default:
+			return errors.New("unknown encoding/json type: " + t.Name())
 		}
-
-		v.SetBytes(b)
-		return nil
 	}
 
 	// Handle generic types
@@ -66,6 +68,40 @@ func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
 		return rMap(f, t, v, tag, size)
 	}
 
+	return nil
+}
+
+// encoding/json.RawMessage is a special case of []byte
+// it cannot be handled as a reflect.Array/reflect.Slice
+// because it needs additional structure in the output
+func rJsonRawMessage(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
+	b, err := f.JSON(nil)
+	if err != nil {
+		return err
+	}
+
+	v.SetBytes(b)
+	return nil
+}
+
+// encoding/json.Number is a special case of string
+// that represents a JSON number literal.
+// It cannot be handled as a string because it needs to
+// represent an integer or a floating-point number.
+func rJsonNumber(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
+	var ret json.Number
+
+	numberType := f.RandomInt([]int{0, 1})
+	switch numberType {
+	case 0:
+		retInt := f.Int16()
+		ret = json.Number(strconv.Itoa(int(retInt)))
+	case 1:
+		retFloat := f.Float64()
+		ret = json.Number(strconv.FormatFloat(retFloat, 'f', -1, 64))
+	}
+
+	v.Set(reflect.ValueOf(ret))
 	return nil
 }
 
