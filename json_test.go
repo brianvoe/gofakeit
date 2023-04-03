@@ -394,6 +394,22 @@ func TestJSONRawMessageWithTag(t *testing.T) {
 	}
 }
 
+func TestJSONNumber(t *testing.T) {
+	type J struct {
+		Field json.Number `json:"field"`
+	}
+
+	Seed(100)
+
+	var objs []J
+	Slice(&objs)
+
+	_, err := json.Marshal(objs)
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
 func BenchmarkJSONLookup100(b *testing.B) {
 	faker := New(0)
 
