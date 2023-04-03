@@ -410,6 +410,30 @@ func TestJSONNumber(t *testing.T) {
 	}
 }
 
+func TestJSONNumberWithTag(t *testing.T) {
+	type J struct {
+		Field json.Number `json:"field" fake:"number:3,7"`
+	}
+
+	Seed(100)
+
+	var objs []J
+	Slice(&objs)
+
+	got, err := objs[0].Field.Int64()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got < 3 || got > 7 {
+		t.Errorf("Expected a number between 3 and 7, got %d", got)
+	}
+
+	_, err = json.Marshal(objs)
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
 func BenchmarkJSONLookup100(b *testing.B) {
 	faker := New(0)
 
