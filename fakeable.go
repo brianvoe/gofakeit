@@ -26,7 +26,7 @@ func callFake(faker *Faker, v reflect.Value, possibleKinds ...reflect.Kind) (int
 
 	fakedValue := f.Fake(faker)
 	k := reflect.TypeOf(fakedValue).Kind()
-	if !contains(possibleKinds, k) {
+	if !containsKind(possibleKinds, k) {
 		return nil, fmt.Errorf("returned value kind %q is not amongst the valid ones: %v", k, possibleKinds)
 	}
 
@@ -70,7 +70,7 @@ func callFake(faker *Faker, v reflect.Value, possibleKinds ...reflect.Kind) (int
 	}
 }
 
-func contains(possibleKinds []reflect.Kind, kind reflect.Kind) bool {
+func containsKind(possibleKinds []reflect.Kind, kind reflect.Kind) bool {
 	for _, k := range possibleKinds {
 		if k == kind {
 			return true
