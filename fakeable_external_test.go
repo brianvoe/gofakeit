@@ -670,3 +670,19 @@ func TestSliceCustom(t *testing.T) {
 		}
 	}
 }
+
+func TestSliceNestedCustom(t *testing.T) {
+	var B []NestedCustom
+	gofakeit.Slice(&B)
+
+	if len(B) == 0 {
+		t.Errorf("expected slice to not be empty")
+	}
+
+	expected := CustomString("hello test")
+	for _, v := range B {
+		if v.Str != expected {
+			t.Fatalf("expected all items to be %q, got %q", expected, v.Str)
+		}
+	}
+}
