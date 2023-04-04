@@ -536,6 +536,18 @@ func TestNestedCustom(t *testing.T) {
 	if d.PtrStruct.Int != 42 {
 		t.Errorf("expected %d, got %d", 42, d.PtrStruct.Int)
 	}
+
+	expectedTimestamp := testTimeValue
+	if d.Timestamp != CustomTime(expectedTimestamp) {
+		t.Errorf("expected %q, got %q", expectedTimestamp.String(), d.Timestamp.String())
+	}
+
+	if d.PtrTimestamp == nil {
+		t.Fatal("expected a pointer to a CustomTime, got nil")
+	}
+	if *d.PtrTimestamp != CustomTime(expectedTimestamp) {
+		t.Errorf("expected %q, got %q", expectedTimestamp.String(), d.PtrTimestamp.String())
+	}
 }
 
 func TestNestedOverrideCustom(t *testing.T) {
