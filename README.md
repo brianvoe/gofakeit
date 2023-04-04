@@ -168,6 +168,38 @@ fmt.Println(f.Created.String()) // 1908-12-07 04:14:25.685339029 +0000 UTC
 // Nested Struct Fields and Embedded Fields
 ```
 
+## Fakeable types
+
+It is possible to extend a struct by implementing the `Fakeable` interface
+in order to control the generation.
+
+For example, this is useful when it is not possible to modify the struct that you want to fake by adding struct tags to a field but you still need to be able to control the generation process.
+
+```go
+// Imagine a CustomTime type that is needed to support a custom JSON Marshaler
+type CustomTime time.Time
+
+func (c *CustomTime) Fake(faker *gofakeit.Faker) interface{} {
+	return CustomTime(time.Now())
+}
+
+func (c *CustomTime) MarshalJSON() ([]byte, error) {
+	//...
+}
+
+// This is the struct that we cannot modify to add struct tags
+type NotModifiable struct {
+	Token string
+	Creation *CustomTime
+}
+
+var f NotModifiable
+gofakeit.Struct(&f)
+fmt.Printf("%s", f.Token) // yvqqdH
+fmt.Printf("%s", f.Creation) // 2023-04-02 23:00:00 +0000 UTC m=+0.000000001
+
+```
+
 ## Custom Functions
 
 In a lot of situations you may need to use your own random function usage for your specific needs.
