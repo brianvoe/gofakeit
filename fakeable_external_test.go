@@ -1,6 +1,7 @@
 package gofakeit_test
 
 import (
+	"fmt"
 	"math/rand"
 	"testing"
 	"time"
@@ -685,4 +686,44 @@ func TestSliceNestedCustom(t *testing.T) {
 			t.Fatalf("expected all items to be %q, got %q", expected, v.Str)
 		}
 	}
+}
+
+func ExampleCustomInt() {
+	f1 := gofakeit.New(10)
+	f2 := gofakeit.New(100)
+
+	var A1 CustomInt
+	var A2 CustomInt
+	// CustomInt always returns -42 independently of the seed
+	f1.Struct(&A1)
+	f2.Struct(&A2)
+
+	fmt.Println(A1)
+	fmt.Println(A2)
+	// Output:
+	// -42
+	// -42
+}
+
+type EvenInt int
+
+func (e EvenInt) Fake(faker *gofakeit.Faker) interface{} {
+	return EvenInt(faker.Int8() * 2)
+}
+
+func ExampleEvenInt() {
+	f1 := gofakeit.New(10)
+	f2 := gofakeit.New(100)
+
+	var E1 EvenInt
+	var E2 EvenInt
+	// EventInt always returns an even number
+	f1.Struct(&E1)
+	f2.Struct(&E2)
+
+	fmt.Println(E1)
+	fmt.Println(E2)
+	// Output:
+	// 6
+	// -92
 }
