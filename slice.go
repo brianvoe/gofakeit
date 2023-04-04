@@ -1,16 +1,15 @@
 package gofakeit
 
 import (
-	"math/rand"
 	"reflect"
 )
 
 // Slice fills built-in types and exported fields of a struct with random data.
-func Slice(v interface{}) { sliceFunc(globalFaker.Rand, v) }
+func Slice(v interface{}) { sliceFunc(globalFaker, v) }
 
 // Slice fills built-in types and exported fields of a struct with random data.
-func (f *Faker) Slice(v interface{}) { sliceFunc(f.Rand, v) }
+func (f *Faker) Slice(v interface{}) { sliceFunc(f, v) }
 
-func sliceFunc(ra *rand.Rand, v interface{}) {
-	r(ra, reflect.TypeOf(v), reflect.ValueOf(v), "", -1)
+func sliceFunc(f *Faker, v interface{}) {
+	r(f, reflect.TypeOf(v), reflect.ValueOf(v), "", -1)
 }
