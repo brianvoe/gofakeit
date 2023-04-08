@@ -533,6 +533,14 @@ BitcoinAddress() string
 BitcoinPrivateKey() string
 ```
 
+### Finance
+
+```go
+Cusip() string
+PpnCusip() string
+Isin() string
+```
+
 ### Company
 
 ```go
