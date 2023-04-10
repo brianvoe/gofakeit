@@ -29,6 +29,24 @@ func structFunc(f *Faker, v interface{}) error {
 }
 
 func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
+	// Handle special types
+
+	if t.PkgPath() == "encoding/json" {
+		// encoding/json has two special types:
+		// - RawMessage
+		// - Number
+
+		switch t.Name() {
+		case "RawMessage":
+			return rJsonRawMessage(f, t, v, tag, size)
+		case "Number":
+			return rJsonNumber(f, t, v, tag, size)
+		default:
+			return errors.New("unknown encoding/json type: " + t.Name())
+		}
+	}
+
+	// Handle generic types
 	switch t.Kind() {
 	case reflect.Ptr:
 		return rPointer(f, t, v, tag, size)
