@@ -537,7 +537,6 @@ BitcoinPrivateKey() string
 
 ```go
 Cusip() string
-PpnCusip() string
 Isin() string
 ```
 

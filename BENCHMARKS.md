@@ -236,9 +236,6 @@ Table generated with tablesgenerator.com/markdown_tables
 | BenchmarkCusip/package-8                         | 5402995    | 224.9 ns/op      | 24 B/op        | 2 allocs/op       |
 | BenchmarkCusip/Faker_math-8                      | 5367218    | 221.1 ns/op      | 24 B/op        | 2 allocs/op       |
 | BenchmarkCusip/Faker_crypto-8                    | 363460     | 2967 ns/op       | 24 B/op        | 2 allocs/op       |
-| BenchmarkPpnCusip/package-8                      | 4436744    | 267.2 ns/op      | 24 B/op        | 2 allocs/op       |
-| BenchmarkPpnCusip/Faker_math-8                   | 4465546    | 260.9 ns/op      | 24 B/op        | 2 allocs/op       |
-| BenchmarkPpnCusip/Faker_crypto-8                 | 307485     | 3621 ns/op       | 24 B/op        | 2 allocs/op       |
 | BenchmarkIsin/package-8                          | 1742368    | 701.4 ns/op      | 533 B/op       | 8 allocs/op       |
 | BenchmarkIsin/Faker_math-8                       | 1653408    | 715.5 ns/op      | 533 B/op       | 8 allocs/op       |
 | BenchmarkIsin/Faker_crypto-8                     | 330396     | 3583 ns/op       | 533 B/op       | 8 allocs/op       |
