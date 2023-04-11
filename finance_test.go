@@ -9,13 +9,13 @@ import (
 func ExampleCusip() {
 	Seed(11)
 	fmt.Println(Cusip())
-	// Output: CBHG2P1N5
+	// Output: MLRQCZBX0
 }
 
 func ExampleFaker_Cusip() {
 	f := New(11)
 	fmt.Println(f.Cusip())
-	// Output: CBHG2P1N5
+	// Output: MLRQCZBX0
 }
 
 func TestCusip(t *testing.T) {
@@ -30,7 +30,25 @@ func TestCusip(t *testing.T) {
 	if CusipCheckDigit(cusip[:8]) != string(cusip[8]) {
 		t.Error("Generated Cusip has invalid checksum")
 	}
+}
 
+func TestCusipCheckDigit(t *testing.T) {
+	type test struct {
+		base string
+		want string
+	}
+
+	tests := []test{
+		{base: "03783310", want: "0"},
+		{base: "17275R10", want: "2"},
+		{base: "38259P50", want: "8"},
+	}
+	for _, tc := range tests {
+		digit := CusipCheckDigit(tc.base)
+		if digit != tc.want {
+			t.Errorf("Expected check digit of %s, got %s", tc.want, digit)
+		}
+	}
 }
 
 func BenchmarkCusip(b *testing.B) {
@@ -57,54 +75,17 @@ func BenchmarkCusip(b *testing.B) {
 	})
 }
 
-// PPN CUSIP Tests
-func ExamplePpnCusip() {
-	Seed(11)
-	fmt.Println(PpnCusip())
-	// Output: CBHG2P*N7
-}
-
-func ExampleFaker_PpnCusip() {
-	f := New(11)
-	fmt.Println(f.PpnCusip())
-	// Output: CBHG2P*N7
-}
-
-func BenchmarkPpnCusip(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			PpnCusip()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.PpnCusip()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.PpnCusip()
-		}
-	})
-}
-
 // ISIN Tests
 func ExampleIsin() {
 	Seed(11)
 	fmt.Println(Isin())
-	// Output: CVBHG2P1NG14
+	// Output: CVLRQCZBXQ97
 }
 
 func ExampleFaker_Isin() {
 	f := New(11)
 	fmt.Println(f.Isin())
-	// Output: AMCBHG2P1N52
+	// Output: AMMLRQCZBX03
 }
 
 func TestIsin(t *testing.T) {
@@ -118,6 +99,25 @@ func TestIsin(t *testing.T) {
 	}
 	if IsinCheckDigit(isin[:11]) != string(isin[11]) {
 		t.Error("Generated ISIN has invalid check digit")
+	}
+}
+
+func TestIsinCheckDigit(t *testing.T) {
+	type test struct {
+		base string
+		want string
+	}
+
+	tests := []test{
+		{base: "US037833100", want: "5"},
+		{base: "GB000263494", want: "6"},
+		{base: "US000402625", want: "0"},
+	}
+	for _, tc := range tests {
+		digit := IsinCheckDigit(tc.base)
+		if digit != tc.want {
+			t.Errorf("Expected check digit of %s, got %s", tc.want, digit)
+		}
 	}
 }
 

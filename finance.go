@@ -6,9 +6,7 @@ import (
 	"unicode"
 )
 
-// Reference Constants
-const cusipRunes = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-const ppnRunes = "*@#"
+const cusipStr = upperStr + numericStr
 
 // CUSIP
 func Cusip() string {
@@ -20,50 +18,15 @@ func (f *Faker) Cusip() string {
 }
 
 func cusip(r *rand.Rand) string {
-	return buildCusip(r, false)
-}
-
-func CusipCheckDigit(cusip string) string {
-
-	sum := 0
-	for i, c := range cusip {
-		v := 0
-		if unicode.IsDigit(c) {
-			v = int(c - '0')
-		}
-		if unicode.IsLetter(c) {
-			v = int(c-'A') + 10
-		}
-		if c == '*' {
-			v = 36
-		}
-		if c == '@' {
-			v = 37
-		}
-		if c == '#' {
-			v = 38
-		}
-		if (7 - i%2) == 0 {
-			v = v * 2
-		}
-
-		sum = sum + int(v/10) + v%10
+	cusipBytes := make([]byte, 8)
+	for i := 0; i < len(cusipBytes); i++ {
+		cusipBytes[i] = byte(cusipStr[r.Intn(len(cusipStr))])
 	}
 
-	return strconv.Itoa((10 - (sum % 10)) % 10)
-}
+	baseCusip := string(cusipBytes)
 
-// PPN CUSIP (Insurance Industry Specific)
-func PpnCusip() string {
-	return ppnCusip(globalFaker.Rand)
-}
-
-func (f *Faker) PpnCusip() string {
-	return ppnCusip(f.Rand)
-}
-
-func ppnCusip(r *rand.Rand) string {
-	return buildCusip(r, true)
+	chkDigit := CusipCheckDigit(baseCusip)
+	return baseCusip + chkDigit
 }
 
 // ISIN
@@ -82,31 +45,54 @@ func isin(r *rand.Rand) string {
 	return countryCode + nsin + isinChkDig
 }
 
+// Functions to generate Checksum Digits
+func CusipCheckDigit(cusip string) string {
+
+	sum := 0
+	for i, c := range cusip {
+		v := 0
+		if unicode.IsDigit(c) {
+			v = int(c - '0')
+		}
+		if unicode.IsLetter(c) {
+			//0-indexed ordinal position of Letter + 10
+			v = int(c-'A') + 10
+		}
+		if i%2 != 0 {
+			// Multiply odd digits by two
+			v = v * 2
+		}
+
+		sum = sum + int(v/10) + v%10
+	}
+
+	return strconv.Itoa((10 - (sum % 10)) % 10)
+}
+
 func IsinCheckDigit(isin string) string {
-	flattened := []int{}
+	isinDigits := make([]int, 0)
 	for _, c := range isin {
 		if unicode.IsLetter(c) {
-			convVal := int(c) - 55
+			letterVal := int(c) - 55
 			// Each digit is added as a separate value
-			flattened = append(flattened, convVal/10)
-			flattened = append(flattened, convVal%10)
+			isinDigits = append(isinDigits, letterVal/10)
+			isinDigits = append(isinDigits, letterVal%10)
 		}
 		if unicode.IsDigit(c) {
-			flattened = append(flattened, int(c-'0'))
+			isinDigits = append(isinDigits, int(c-'0'))
 		}
 	}
 
 	oddSum := 0
 	evenSum := 0
 
-	// Per digit summation of each side.
-	for i, d := range flattened {
+	// Take the per digit sum of the digitized ISIN, doubling even indexed digits
+	for i, d := range isinDigits {
 		if i%2 == 0 {
 			elem := 2 * d
 			if elem > 9 {
-				lastDigit := elem % 10
-				firstDigit := elem / 10
-				elem = firstDigit + lastDigit
+				// If the element now has two digits, sum those digits
+				elem = (elem % 10) + (elem / 10)
 			}
 			evenSum += elem
 		} else {
@@ -115,39 +101,6 @@ func IsinCheckDigit(isin string) string {
 	}
 
 	return strconv.Itoa((10 - (oddSum+evenSum)%10) % 10)
-}
-
-// Helper Functions
-func buildCusip(r *rand.Rand, ppn bool) string {
-	cusip := replaceWithCusipRunes(r, "????????", ppn)
-	chkDigit := CusipCheckDigit(cusip)
-	return cusip + chkDigit
-}
-
-func replaceWithCusipRunes(r *rand.Rand, str string, ppn bool) string {
-	if str == "" {
-		return str
-	}
-	bytestr := []byte(str)
-	for i := 0; i < len(bytestr); i++ {
-		if bytestr[i] == questionmark {
-			bytestr[i] = byte(randCusipRune(r))
-		}
-	}
-	if ppn {
-		// PPN Identifiers occur in the 6-8th place
-		bytestr[5+r.Intn(3)] = byte(randPpnRune(r))
-	}
-
-	return string(bytestr)
-}
-
-func randCusipRune(r *rand.Rand) rune {
-	return rune(cusipRunes[r.Intn(len(cusipRunes))])
-}
-
-func randPpnRune(r *rand.Rand) rune {
-	return rune(ppnRunes[r.Intn(len(ppnRunes))])
 }
 
 // Lookup Adds
@@ -160,16 +113,6 @@ func addFinanceLookup() {
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return cusip(r), nil
-		},
-	})
-	AddFuncLookup("ppncusip", Info{
-		Display:     "PPN CUSIP",
-		Category:    "finance",
-		Description: "Random PPN CUSIP",
-		Example:     "38259P508",
-		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
-			return ppnCusip(r), nil
 		},
 	})
 	AddFuncLookup("isin", Info{
