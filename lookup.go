@@ -153,6 +153,7 @@ func initLookup() {
 	addDatabaseSQLLookup()
 	addErrorLookup()
 	addHtmlLookup()
+	addFinanceLookup()
 }
 
 // NewMapParams will create a new MapParams
