@@ -27,7 +27,7 @@ func TestCusip(t *testing.T) {
 	if len(cusip) != 9 {
 		t.Error("Valid Cusips are 9 characters in length")
 	}
-	if CusipCheckDigit(cusip[:8]) != string(cusip[8]) {
+	if cusipChecksumDigit(cusip[:8]) != string(cusip[8]) {
 		t.Error("Generated Cusip has invalid checksum")
 	}
 }
@@ -44,7 +44,7 @@ func TestCusipCheckDigit(t *testing.T) {
 		{base: "38259P50", want: "8"},
 	}
 	for _, tc := range tests {
-		digit := CusipCheckDigit(tc.base)
+		digit := cusipChecksumDigit(tc.base)
 		if digit != tc.want {
 			t.Errorf("Expected check digit of %s, got %s", tc.want, digit)
 		}
@@ -97,7 +97,7 @@ func TestIsin(t *testing.T) {
 	if len(isin) != 12 {
 		t.Error("Valid ISINs are 12 characters in length")
 	}
-	if IsinCheckDigit(isin[:11]) != string(isin[11]) {
+	if isinChecksumDigit(isin[:11]) != string(isin[11]) {
 		t.Error("Generated ISIN has invalid check digit")
 	}
 }
@@ -114,7 +114,7 @@ func TestIsinCheckDigit(t *testing.T) {
 		{base: "US000402625", want: "0"},
 	}
 	for _, tc := range tests {
-		digit := IsinCheckDigit(tc.base)
+		digit := isinChecksumDigit(tc.base)
 		if digit != tc.want {
 			t.Errorf("Expected check digit of %s, got %s", tc.want, digit)
 		}

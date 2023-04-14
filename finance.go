@@ -25,7 +25,7 @@ func cusip(r *rand.Rand) string {
 
 	baseCusip := string(cusipBytes)
 
-	chkDigit := CusipCheckDigit(baseCusip)
+	chkDigit := cusipChecksumDigit(baseCusip)
 	return baseCusip + chkDigit
 }
 
@@ -41,13 +41,12 @@ func (f *Faker) Isin() string {
 func isin(r *rand.Rand) string {
 	countryCode := CountryAbr()
 	nsin := cusip(r)
-	isinChkDig := IsinCheckDigit(countryCode + nsin)
+	isinChkDig := isinChecksumDigit(countryCode + nsin)
 	return countryCode + nsin + isinChkDig
 }
 
-// Functions to generate Checksum Digits
-func CusipCheckDigit(cusip string) string {
-
+// cusipChecksumDigit returns the checksum digit for a CUSIP
+func cusipChecksumDigit(cusip string) string {
 	sum := 0
 	for i, c := range cusip {
 		v := 0
@@ -69,7 +68,8 @@ func CusipCheckDigit(cusip string) string {
 	return strconv.Itoa((10 - (sum % 10)) % 10)
 }
 
-func IsinCheckDigit(isin string) string {
+// isinChecksumDigit returns the checksum digit for an ISIN
+func isinChecksumDigit(isin string) string {
 	isinDigits := make([]int, 0)
 	for _, c := range isin {
 		if unicode.IsLetter(c) {
