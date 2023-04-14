@@ -434,7 +434,7 @@ func TestJSONNumberWithTag(t *testing.T) {
 	}
 }
 
-func ExampleJSONNumberWithTag() {
+func ExampleJSON_numberWithTag() {
 	Seed(10)
 
 	type J struct {
