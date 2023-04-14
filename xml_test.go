@@ -239,6 +239,16 @@ func TestXMLLookup(t *testing.T) {
 	}
 }
 
+func TestXMLNoOptions(t *testing.T) {
+	Seed(11)
+
+	// if XMLOptions is nil -> get a random XMLOptions
+	_, err := XML(nil)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+}
+
 func BenchmarkXMLLookup100(b *testing.B) {
 	faker := New(0)
 

@@ -11,11 +11,11 @@ import (
 
 // XMLOptions defines values needed for json generation
 type XMLOptions struct {
-	Type          string  `json:"type" xml:"type"` // single or multiple
+	Type          string  `json:"type" xml:"type" fake:"{randomstring:[array,single]}"` // single or array
 	RootElement   string  `json:"root_element" xml:"root_element"`
 	RecordElement string  `json:"record_element" xml:"record_element"`
-	RowCount      int     `json:"row_count" xml:"row_count"`
-	Fields        []Field `json:"fields" xml:"fields"`
+	RowCount      int     `json:"row_count" xml:"row_count" fake:"{number:1,10}"`
+	Fields        []Field `json:"fields" xml:"fields" fake:"{internal_exampleFields}"`
 	Indent        bool    `json:"indent" xml:"indent"`
 }
 
@@ -128,12 +128,22 @@ func xmlMapLoop(e *xml.Encoder, m *xmlMap) error {
 }
 
 // XML generates an object or an array of objects in json format
-func XML(xo *XMLOptions) ([]byte, error) { return xmlFunc(globalFaker.Rand, xo) }
+// A nil XMLOptions returns a randomly structured XML.
+func XML(xo *XMLOptions) ([]byte, error) { return xmlFunc(globalFaker, xo) }
 
 // XML generates an object or an array of objects in json format
-func (f *Faker) XML(xo *XMLOptions) ([]byte, error) { return xmlFunc(f.Rand, xo) }
+// A nil XMLOptions returns a randomly structured XML.
+func (f *Faker) XML(xo *XMLOptions) ([]byte, error) { return xmlFunc(f, xo) }
 
-func xmlFunc(r *rand.Rand, xo *XMLOptions) ([]byte, error) {
+func xmlFunc(f *Faker, xo *XMLOptions) ([]byte, error) {
+	if xo == nil {
+		// We didn't get a XMLOptions, so create a new random one
+		err := f.Struct(&xo)
+		if err != nil {
+			return nil, err
+		}
+	}
+
 	// Check to make sure they passed in a type
 	if xo.Type != "single" && xo.Type != "array" {
 		return nil, errors.New("invalid type, must be array or object")
@@ -175,7 +185,7 @@ func xmlFunc(r *rand.Rand, xo *XMLOptions) ([]byte, error) {
 				return nil, errors.New("invalid function, " + field.Function + " does not exist")
 			}
 
-			value, err := funcInfo.Generate(r, &field.Params, funcInfo)
+			value, err := funcInfo.Generate(f.Rand, &field.Params, funcInfo)
 			if err != nil {
 				return nil, err
 			}
@@ -228,7 +238,7 @@ func xmlFunc(r *rand.Rand, xo *XMLOptions) ([]byte, error) {
 					return nil, errors.New("invalid function, " + field.Function + " does not exist")
 				}
 
-				value, err := funcInfo.Generate(r, &field.Params, funcInfo)
+				value, err := funcInfo.Generate(f.Rand, &field.Params, funcInfo)
 				if err != nil {
 					return nil, err
 				}
@@ -336,7 +346,8 @@ func addFileXMLLookup() {
 			}
 			xo.Indent = indent
 
-			return xmlFunc(r, &xo)
+			f := &Faker{Rand: r}
+			return xmlFunc(f, &xo)
 		},
 	})
 }
