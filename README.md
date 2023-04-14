@@ -176,6 +176,14 @@ in order to control the generation.
 For example, this is useful when it is not possible to modify the struct that you want to fake by adding struct tags to a field but you still need to be able to control the generation process.
 
 ```go
+// Custom string that you want to generate your own data for
+// or just return a static value
+type CustomString string
+
+func (c *CustomString) Fake(faker *gofakeit.Faker) interface{} {
+	return CustomString("my custom string")
+}
+
 // Imagine a CustomTime type that is needed to support a custom JSON Marshaler
 type CustomTime time.Time
 
@@ -190,14 +198,15 @@ func (c *CustomTime) MarshalJSON() ([]byte, error) {
 // This is the struct that we cannot modify to add struct tags
 type NotModifiable struct {
 	Token string
+	Value CustomString
 	Creation *CustomTime
 }
 
 var f NotModifiable
 gofakeit.Struct(&f)
 fmt.Printf("%s", f.Token) // yvqqdH
+fmt.Printf("%s", f.Value) // my custom string
 fmt.Printf("%s", f.Creation) // 2023-04-02 23:00:00 +0000 UTC m=+0.000000001
-
 ```
 
 ## Custom Functions
