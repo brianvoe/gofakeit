@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"errors"
+	"fmt"
 	"reflect"
 	"strconv"
 	"strings"
@@ -78,7 +79,7 @@ func rCustom(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	}
 
 	fName, fParams := parseNameAndParamsFromTag(tag)
-	// Check to see if its a replaceable lookup function
+	// Check to see if it's a replaceable lookup function
 	if info := GetFuncLookup(fName); info != nil {
 		// Parse map params
 		mapParams := parseMapParams(info, fParams)
@@ -94,7 +95,7 @@ func rCustom(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 		field.Elem().Set(reflect.ValueOf(fValue))
 
 		// Check if element is pointer if so
-		// grab the underlyning value
+		// grab the underlying value
 		fieldElem := field.Elem()
 		if fieldElem.Kind() == reflect.Ptr {
 			fieldElem = fieldElem.Elem()
@@ -114,7 +115,7 @@ func rCustom(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 		return nil
 	}
 
-	return errors.New("function not found")
+	return fmt.Errorf("function %q not found", tag)
 }
 
 func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
@@ -142,7 +143,7 @@ func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 				continue
 			}
 
-			// Check to make sure you can set it or that its an embeded(anonymous) field
+			// Check to make sure you can set it or that it's an embedded(anonymous) field
 			if elementV.CanSet() || elementT.Anonymous {
 				// Check if reflect type is of values we can specifically set
 				switch elementT.Type.String() {
@@ -283,7 +284,7 @@ func rMap(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error
 	if t.Name() != "" && tag != "" {
 		return rCustom(f, t, v, tag)
 	} else if size > 0 {
-		//NOOP
+		// NOOP
 	} else if isFakeable(t) {
 		value, err := callFake(f, v, reflect.Map)
 		if err != nil {
