@@ -10,7 +10,7 @@ func EnableMovie() {
 	movie := Movie()
 	fmt.Println(movie.Name)
 	fmt.Println(movie.Genre)
-	// Output: Paths of Glory
+	// Output: Into the Wild
 	// War
 }
 
@@ -19,7 +19,7 @@ func ExampleFaker_Movie() {
 	movie := f.Movie()
 	fmt.Println(movie.Name)
 	fmt.Println(movie.Genre)
-	// Output: Paths of Glory
+	// Output: Into the Wild
 	// War
 }
 
@@ -56,13 +56,13 @@ func TestMovie(t *testing.T) {
 func ExampleMovieName() {
 	Seed(11)
 	fmt.Println(MovieName())
-	// Output: Paths of Glory
+	// Output: Into the Wild
 }
 
 func ExampleFaker_MovieName() {
 	f := New(11)
 	fmt.Println(f.MovieName())
-	// Output: Paths of Glory
+	// Output: Into the Wild
 }
 
 func BenchmarkMovieName(b *testing.B) {
