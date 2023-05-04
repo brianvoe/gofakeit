@@ -735,6 +735,14 @@ BookAuthor() string
 BookGenre() string
 ```
 
+### Movie
+
+```go
+Movie() *MovieInfo
+MovieName() string
+MovieGenre() string
+```
+
 ### Error
 
 Unlike most `gofakeit` methods which return a `string`, the error methods return a Go `error`. Access the error message as a string by chaining the `.Error()` method.
