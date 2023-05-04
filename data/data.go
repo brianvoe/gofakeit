@@ -28,6 +28,7 @@ var Data = map[string]map[string][]string{
 	"celebrity": Celebrity,
 	"error":     Error,
 	"html":      Html,
+	"book":		   Books,
 	"movie":     Movies,
 }
 

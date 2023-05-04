@@ -154,6 +154,7 @@ func initLookup() {
 	addErrorLookup()
 	addHtmlLookup()
 	addFinanceLookup()
+	addBookLookup()
 	addMovieLookup()
 }
 

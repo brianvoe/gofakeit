@@ -726,6 +726,15 @@ MinecraftBiome() string
 MinecraftWeather() string
 ```
 
+### Book
+
+```go
+Book() *BookInfo
+BookTitle() string
+BookAuthor() string
+BookGenre() string
+```
+
 ### Movie
 
 ```go
