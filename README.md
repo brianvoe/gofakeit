@@ -20,6 +20,7 @@ Random data generator written in go
 - [Issue](https://github.com/brianvoe/gofakeit/issues)
 
 ## Contributors
+
 Thanks to everyone who has contributed to Gofakeit!
 
 <a href="https://github.com/brianvoe/gofakeit/graphs/contributors">
@@ -723,6 +724,15 @@ MinecraftMobHostile() string
 MinecraftMobBoss() string
 MinecraftBiome() string
 MinecraftWeather() string
+```
+
+### Book
+
+```go
+Book() *BookInfo
+BookTitle() string
+BookAuthor() string
+BookGenre() string
 ```
 
 ### Error

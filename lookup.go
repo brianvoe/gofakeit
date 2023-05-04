@@ -154,6 +154,7 @@ func initLookup() {
 	addErrorLookup()
 	addHtmlLookup()
 	addFinanceLookup()
+	addBookLookup()
 }
 
 // NewMapParams will create a new MapParams
