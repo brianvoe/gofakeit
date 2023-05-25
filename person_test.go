@@ -44,13 +44,13 @@ func BenchmarkFirstName(b *testing.B) {
 func ExampleMiddleName() {
 	Seed(11)
 	fmt.Println(MiddleName())
-	// Output: Enrico
+	// Output: Belinda
 }
 
 func ExampleFaker_MiddleName() {
 	f := New(11)
 	fmt.Println(f.MiddleName())
-	// Output: Enrico
+	// Output: Belinda
 }
 
 func BenchmarkMiddleName(b *testing.B) {
