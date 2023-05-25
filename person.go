@@ -60,6 +60,14 @@ func (f *Faker) FirstName() string { return firstName(f.Rand) }
 
 func firstName(r *rand.Rand) string { return getRandValue(r, []string{"person", "first"}) }
 
+// MiddleName will generate a random middle name
+func MiddleName() string { return middleName(globalFaker.Rand) }
+
+// MiddleName will generate a random middle name
+func (f *Faker) MiddleName() string { return middleName(f.Rand) }
+
+func middleName(r *rand.Rand) string { return getRandValue(r, []string{"person", "middle"}) }
+
 // LastName will generate a random last name
 func LastName() string { return lastName(globalFaker.Rand) }
 
@@ -284,6 +292,17 @@ func addPersonLookup() {
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return firstName(r), nil
+		},
+	})
+
+	AddFuncLookup("middlename", Info{
+		Display:     "Middle Name",
+		Category:    "person",
+		Description: "Random middle name",
+		Example:     "Belinda",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return middleName(r), nil
 		},
 	})
 

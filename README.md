@@ -286,6 +286,7 @@ Name() string
 NamePrefix() string
 NameSuffix() string
 FirstName() string
+MiddleName() string
 LastName() string
 Gender() string
 SSN() string
