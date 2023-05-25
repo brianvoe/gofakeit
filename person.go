@@ -295,6 +295,17 @@ func addPersonLookup() {
 		},
 	})
 
+	AddFuncLookup("middlename", Info{
+		Display:     "Middle Name",
+		Category:    "person",
+		Description: "Random middle name",
+		Example:     "Belinda",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return middleName(r), nil
+		},
+	})
+
 	AddFuncLookup("lastname", Info{
 		Display:     "Last Name",
 		Category:    "person",
