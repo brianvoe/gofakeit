@@ -81,6 +81,30 @@ func (f *Faker) JobLevel() string { return jobLevel(f.Rand) }
 
 func jobLevel(r *rand.Rand) string { return getRandValue(r, []string{"job", "level"}) }
 
+// Slogan will generate a random company slogan
+func Slogan() string { return slogan(globalFaker.Rand) }
+
+// Slogan will generate a random company slogan
+func (f *Faker) Slogan() string { return slogan(f.Rand) }
+
+// Slogan will generate a random company slogan
+func slogan(r *rand.Rand) string {
+	slogan := ""
+	var sloganStyle = number(r, 0, 2)
+	switch sloganStyle {
+	// Noun. Buzzword!
+	case 0:
+		slogan = getRandValue(r, []string{"company", "slogan_noun"}) + ". " + getRandValue(r, []string{"company", "buzzwords"}) + "!"
+	// Buzzword Noun, Buzzword Noun.
+	case 1:
+		slogan = getRandValue(r, []string{"company", "buzzwords"}) + " " + getRandValue(r, []string{"company", "slogan_noun"}) + ", " + getRandValue(r, []string{"company", "buzzwords"}) + " " + getRandValue(r, []string{"company", "slogan_noun"}) + "."
+	// Buzzword bs Noun, Buzzword.
+	case 2:
+		slogan = getRandValue(r, []string{"company", "buzzwords"}) + " " + getRandValue(r, []string{"company", "bs"}) + " " + getRandValue(r, []string{"company", "slogan_noun"}) + ", " + getRandValue(r, []string{"company", "buzzwords"}) + "."
+	}
+	return slogan
+}
+
 func addCompanyLookup() {
 	AddFuncLookup("company", Info{
 		Display:     "Company",
@@ -167,6 +191,17 @@ func addCompanyLookup() {
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			return jobLevel(r), nil
+		},
+	})
+
+	AddFuncLookup("slogal", Info{
+		Display:     "Slogan",
+		Category:    "comapny",
+		Description: "Random company slogan",
+		Example:     "Universal seamless Focus, interactive.",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return slogan(r), nil
 		},
 	})
 }
