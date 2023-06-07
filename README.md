@@ -590,6 +590,7 @@ Isin() string
 
 ```go
 BS() string
+Blurb() string
 BuzzWord() string
 Company() string
 CompanySuffix() string
@@ -597,6 +598,7 @@ Job() *JobInfo
 JobDescriptor() string
 JobLevel() string
 JobTitle() string
+Slogan() string
 ```
 
 ### Hacker
