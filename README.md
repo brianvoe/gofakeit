@@ -20,6 +20,7 @@ Random data generator written in go
 - [Issue](https://github.com/brianvoe/gofakeit/issues)
 
 ## Contributors
+
 Thanks to everyone who has contributed to Gofakeit!
 
 <a href="https://github.com/brianvoe/gofakeit/graphs/contributors">
@@ -285,6 +286,7 @@ Name() string
 NamePrefix() string
 NameSuffix() string
 FirstName() string
+MiddleName() string
 LastName() string
 Gender() string
 SSN() string
@@ -588,6 +590,7 @@ Isin() string
 
 ```go
 BS() string
+Blurb() string
 BuzzWord() string
 Company() string
 CompanySuffix() string
@@ -595,6 +598,7 @@ Job() *JobInfo
 JobDescriptor() string
 JobLevel() string
 JobTitle() string
+Slogan() string
 ```
 
 ### Hacker
@@ -723,6 +727,23 @@ MinecraftMobHostile() string
 MinecraftMobBoss() string
 MinecraftBiome() string
 MinecraftWeather() string
+```
+
+### Book
+
+```go
+Book() *BookInfo
+BookTitle() string
+BookAuthor() string
+BookGenre() string
+```
+
+### Movie
+
+```go
+Movie() *MovieInfo
+MovieName() string
+MovieGenre() string
 ```
 
 ### Error

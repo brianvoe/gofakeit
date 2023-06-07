@@ -41,6 +41,24 @@ func BenchmarkFirstName(b *testing.B) {
 	}
 }
 
+func ExampleMiddleName() {
+	Seed(11)
+	fmt.Println(MiddleName())
+	// Output: Belinda
+}
+
+func ExampleFaker_MiddleName() {
+	f := New(11)
+	fmt.Println(f.MiddleName())
+	// Output: Belinda
+}
+
+func BenchmarkMiddleName(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		MiddleName()
+	}
+}
+
 func ExampleLastName() {
 	Seed(11)
 	fmt.Println(LastName())

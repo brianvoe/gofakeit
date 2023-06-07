@@ -83,6 +83,41 @@ func BenchmarkCompanySuffix(b *testing.B) {
 	})
 }
 
+func ExampleBlurb() {
+	Seed(11)
+	fmt.Println(Blurb())
+	// Output: Motivation
+}
+
+func ExampleFaker_Blurb() {
+	f := New(11)
+	fmt.Println(f.Blurb())
+	// Output: Motivation
+}
+
+func BenchmarkBlurb(b *testing.B) {
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			Blurb()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.Blurb()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.Blurb()
+		}
+	})
+}
 func ExampleBuzzWord() {
 	Seed(11)
 	fmt.Println(BuzzWord())
@@ -309,6 +344,42 @@ func BenchmarkJobLevel(b *testing.B) {
 
 		for i := 0; i < b.N; i++ {
 			f.JobLevel()
+		}
+	})
+}
+
+func ExampleSlogan() {
+	Seed(11)
+	fmt.Println(Slogan())
+	// Output: Universal seamless Focus, interactive.
+}
+
+func ExampleFaker_Slogan() {
+	f := New(11)
+	fmt.Println(f.Slogan())
+	// Output: Universal seamless Focus, interactive.
+}
+
+func BenchmarkSlogan(b *testing.B) {
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			Slogan()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.Slogan()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.Slogan()
 		}
 	})
 }
