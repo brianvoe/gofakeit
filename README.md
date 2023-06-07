@@ -588,6 +588,7 @@ Isin() string
 
 ```go
 BS() string
+Blurb() string
 BuzzWord() string
 Company() string
 CompanySuffix() string
