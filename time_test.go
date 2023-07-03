@@ -54,6 +54,14 @@ func BenchmarkDate(b *testing.B) {
 	})
 }
 
+func TestFutureDate(t *testing.T) {
+	now := time.Now()
+	futureDate := FutureDate()
+	if now.After(futureDate) {
+		t.Error("Expected time from future, got: ", futureDate)
+	}
+}
+
 func ExampleDateRange() {
 	Seed(11)
 	fmt.Println(DateRange(time.Unix(0, 484633944473634951), time.Unix(0, 1431318744473668209))) // May 10, 1985 years to May 10, 2015
