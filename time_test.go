@@ -54,6 +54,16 @@ func BenchmarkDate(b *testing.B) {
 	})
 }
 
+func ExampleFutureData() {
+	Seed(11)
+	fmt.Println(FutureDate())
+}
+
+func ExampleFaker_FutureData() {
+	f := New(11)
+	fmt.Println(f.FutureDate())
+}
+
 func TestFutureDate(t *testing.T) {
 	now := time.Now()
 	futureDate := FutureDate()
