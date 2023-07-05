@@ -41,21 +41,21 @@ func BenchmarkConnectiveTime(b *testing.B) {
 	}
 }
 
-func ExampleConnectiveComparitive() {
+func ExampleConnectiveComparative() {
 	Seed(11)
-	fmt.Println(ConnectiveComparitive())
+	fmt.Println(ConnectiveComparative())
 	// Output: in addition
 }
 
-func ExampleFaker_ConnectiveComparitive() {
+func ExampleFaker_ConnectiveComparative() {
 	f := New(11)
-	fmt.Println(f.ConnectiveComparitive())
+	fmt.Println(f.ConnectiveComparative())
 	// Output: in addition
 }
 
-func BenchmarkConnectiveComparitive(b *testing.B) {
+func BenchmarkConnectiveComparative(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		ConnectiveComparitive()
+		ConnectiveComparative()
 	}
 }
 
