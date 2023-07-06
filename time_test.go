@@ -54,12 +54,12 @@ func BenchmarkDate(b *testing.B) {
 	})
 }
 
-func ExampleFutureData() {
+func ExampleFutureDate() {
 	Seed(11)
 	fmt.Println(FutureDate())
 }
 
-func ExampleFaker_FutureData() {
+func ExampleFaker_FutureDate() {
 	f := New(11)
 	fmt.Println(f.FutureDate())
 }
