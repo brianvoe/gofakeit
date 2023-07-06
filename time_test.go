@@ -54,6 +54,48 @@ func BenchmarkDate(b *testing.B) {
 	})
 }
 
+func ExampleFutureDate() {
+	Seed(11)
+	fmt.Println(FutureDate())
+}
+
+func ExampleFaker_FutureDate() {
+	f := New(11)
+	fmt.Println(f.FutureDate())
+}
+
+func TestFutureDate(t *testing.T) {
+	now := time.Now()
+	futureDate := FutureDate()
+	if now.After(futureDate) {
+		t.Error("Expected time from future, got: ", futureDate)
+	}
+}
+
+func BenchmarkFutureDate(b *testing.B) {
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			FutureDate()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.FutureDate()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.FutureDate()
+		}
+	})
+}
+
 func ExampleDateRange() {
 	Seed(11)
 	fmt.Println(DateRange(time.Unix(0, 484633944473634951), time.Unix(0, 1431318744473668209))) // May 10, 1985 years to May 10, 2015

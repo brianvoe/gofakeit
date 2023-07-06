@@ -14,7 +14,17 @@ func Date() time.Time { return date(globalFaker.Rand) }
 func (f *Faker) Date() time.Time { return date(f.Rand) }
 
 func date(r *rand.Rand) time.Time {
-	return time.Date(year(r), time.Month(number(r, 1, 12)), day(r), hour(r), minute(r), second(r), nanoSecond(r), time.UTC)
+	return time.Date(year(r), time.Month(month(r)), day(r), hour(r), minute(r), second(r), nanoSecond(r), time.UTC)
+}
+
+// FutureDate will generate a random future time.Time struct
+func FutureDate() time.Time { return futureDate(globalFaker.Rand) }
+
+// FutureDate will generate a random future time.Time struct
+func (f *Faker) FutureDate() time.Time { return futureDate(f.Rand) }
+
+func futureDate(r *rand.Rand) time.Time {
+	return time.Now().Add(time.Hour * time.Duration(number(r, 1, 12)))
 }
 
 // DateRange will generate a random time.Time struct between a start and end date

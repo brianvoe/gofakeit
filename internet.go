@@ -427,4 +427,15 @@ func addInternetLookup() {
 			return httpVersion(r), nil
 		},
 	})
+
+	AddFuncLookup("macaddress", Info{
+		Display:     "MAC Address",
+		Category:    "internet",
+		Description: "Random MAC address",
+		Example:     "cb:ce:06:94:22:e9",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return macAddress(r), nil
+		},
+	})
 }

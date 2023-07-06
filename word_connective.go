@@ -31,13 +31,13 @@ func connectiveTime(r *rand.Rand) string {
 	return getRandValue(r, []string{"word", "connective_time"})
 }
 
-// ConnectiveComparitive will generate a random comparative connective
-func ConnectiveComparitive() string { return connectiveComparitive(globalFaker.Rand) }
+// ConnectiveComparative will generate a random comparative connective
+func ConnectiveComparative() string { return connectiveComparative(globalFaker.Rand) }
 
-// ConnectiveComparitive will generate a random comparative connective
-func (f *Faker) ConnectiveComparitive() string { return connectiveComparitive(f.Rand) }
+// ConnectiveComparative will generate a random comparative connective
+func (f *Faker) ConnectiveComparative() string { return connectiveComparative(f.Rand) }
 
-func connectiveComparitive(r *rand.Rand) string {
+func connectiveComparative(r *rand.Rand) string {
 	return getRandValue(r, []string{"word", "connective_comparitive"})
 }
 
@@ -104,14 +104,14 @@ func addWordConnectiveLookup() {
 		},
 	})
 
-	AddFuncLookup("connectivecomparitive", Info{
+	AddFuncLookup("connectivecomparative", Info{
 		Display:     "Connective Comparitive",
 		Category:    "word",
 		Description: "Random connective comparative word",
 		Example:     "in addition",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
-			return connectiveComparitive(r), nil
+			return connectiveComparative(r), nil
 		},
 	})
 
