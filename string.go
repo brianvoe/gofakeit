@@ -10,10 +10,10 @@ func (f *Faker) Letter() string { return letter(f.Rand) }
 
 func letter(r *rand.Rand) string { return string(randLetter(r)) }
 
-// LetterN will generate a random ASCII string with length N
+// LetterN will generate a random ASCII string with length N. Note that this function returns a string with a length of 1 when 0 is passed.
 func LetterN(n uint) string { return letterN(globalFaker.Rand, n) }
 
-// LetterN will generate a random ASCII string with length N
+// LetterN will generate a random ASCII string with length N. Note that this function returns a string with a length of 1 when 0 is passed.
 func (f *Faker) LetterN(n uint) string { return letterN(f.Rand, n) }
 
 func letterN(r *rand.Rand, n uint) string {
@@ -44,10 +44,10 @@ func (f *Faker) Digit() string { return digit(f.Rand) }
 
 func digit(r *rand.Rand) string { return string(randDigit(r)) }
 
-// DigitN will generate a random string of length N consists of ASCII digits (note it can start with 0).
+// DigitN will generate a random string of length N consists of ASCII digits. Note that the string generated can start with 0 and this function returns a string with a length of 1 when 0 is passed.
 func DigitN(n uint) string { return digitN(globalFaker.Rand, n) }
 
-// DigitN will generate a random string of length N consists of ASCII digits (note it can start with 0).
+// DigitN will generate a random string of length N consists of ASCII digits. Note that the string generated can start with 0 and this function returns a string with a length of 1 when 0 is passed.
 func (f *Faker) DigitN(n uint) string { return digitN(f.Rand, n) }
 
 func digitN(r *rand.Rand, n uint) string {
