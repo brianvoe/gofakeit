@@ -29,8 +29,8 @@ func ExampleJSON_object() {
 	//     "first_name": "Markus",
 	//     "last_name": "Moen",
 	//     "address": {
-	//         "address": "4599 Dale ton, Norfolk, New Jersey 36906",
-	//         "street": "4599 Dale ton",
+	//         "address": "4599 Daleton, Norfolk, New Jersey 36906",
+	//         "street": "4599 Daleton",
 	//         "city": "Norfolk",
 	//         "state": "New Jersey",
 	//         "zip": "36906",
@@ -65,8 +65,8 @@ func ExampleFaker_JSON_object() {
 	//     "first_name": "Markus",
 	//     "last_name": "Moen",
 	//     "address": {
-	//         "address": "4599 Dale ton, Norfolk, New Jersey 36906",
-	//         "street": "4599 Dale ton",
+	//         "address": "4599 Daleton, Norfolk, New Jersey 36906",
+	//         "street": "4599 Daleton",
 	//         "city": "Norfolk",
 	//         "state": "New Jersey",
 	//         "zip": "36906",

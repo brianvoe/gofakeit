@@ -47,7 +47,7 @@ func ExampleGenerate() {
 	fmt.Println(Generate("{shuffleints:[1,2,3]}"))
 	fmt.Println(Generate("{number:1,50}"))
 	fmt.Println(Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}"))
-	// Output: Markus Moen ssn is 526643139 and lives at 599 Dale ton
+	// Output: Markus Moen ssn is 526643139 and lives at 599 Daleton
 	// Niche backwards caused.
 	// [1 3 2]
 	// 27
@@ -62,7 +62,7 @@ func ExampleFaker_Generate() {
 	fmt.Println(f.Generate("{shuffleints:[1,2,3]}"))
 	fmt.Println(f.Generate("{number:1,50}"))
 	fmt.Println(f.Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}"))
-	// Output: Markus Moen ssn is 526643139 and lives at 599 Dale ton
+	// Output: Markus Moen ssn is 526643139 and lives at 599 Daleton
 	// Niche backwards caused.
 	// [1 3 2]
 	// 27

@@ -52,9 +52,9 @@ func street(r *rand.Rand) string {
 	var street = ""
 	switch randInt := randIntRange(r, 1, 2); randInt {
 	case 1:
-		street = streetNumber(r) + " " + streetPrefix(r) + " " + streetName(r) + " " + streetSuffix(r)
+		street = streetNumber(r) + " " + streetPrefix(r) + " " + streetName(r) + streetSuffix(r)
 	case 2:
-		street = streetNumber(r) + " " + streetName(r) + " " + streetSuffix(r)
+		street = streetNumber(r) + " " + streetName(r) + streetSuffix(r)
 	}
 
 	return street
