@@ -215,8 +215,8 @@ func ExamplePerson() {
 	// Developer
 	// Direct
 	// Paradigm
-	// 369 North Corner bury, Miami, North Dakota 24259
-	// 369 North Corner bury
+	// 369 North Cornerbury, Miami, North Dakota 24259
+	// 369 North Cornerbury
 	// Miami
 	// North Dakota
 	// 24259
@@ -279,8 +279,8 @@ func ExampleFaker_Person() {
 	// Developer
 	// Direct
 	// Paradigm
-	// 369 North Corner bury, Miami, North Dakota 24259
-	// 369 North Corner bury
+	// 369 North Cornerbury, Miami, North Dakota 24259
+	// 369 North Cornerbury
 	// Miami
 	// North Dakota
 	// 24259

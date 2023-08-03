@@ -24,7 +24,7 @@ func Example() {
 	// Name: Markus Moen
 	// Email: alaynawuckert@kozey.biz
 	// Phone: 9948995369
-	// Address: 35300 South Roads haven, Miami, Tennessee 58302
+	// Address: 35300 South Roadshaven, Miami, Tennessee 58302
 	// BS: streamline
 	// Beer Name: Pliny The Elder
 	// Color: Gray
