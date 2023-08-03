@@ -2,6 +2,7 @@ package data
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -128,5 +129,23 @@ func TestAddReplaceRemoveSub(t *testing.T) {
 
 	if len(Data["desserts"]["cake"]) != 0 {
 		t.Errorf("Expected 0 cakes, got %d", len(Data["desserts"]["cake"]))
+	}
+}
+
+func TestTrailingSpaces(t *testing.T) {
+	assertSpaces := func(selector, str string) {
+		t.Helper()
+		if str != strings.Trim(str, " ") {
+			t.Errorf("In %s dataset: %q has leading or trailing space", selector, str)
+		}
+	}
+
+	for dataKey, data := range Data {
+		for key, values := range data {
+			assertSpaces(dataKey, key)
+			for _, v := range values {
+				assertSpaces(dataKey, v)
+			}
+		}
 	}
 }
