@@ -16,8 +16,8 @@ func ExampleAddress() {
 	fmt.Println(address.Country)
 	fmt.Println(address.Latitude)
 	fmt.Println(address.Longitude)
-	// Output: 364 Unions ville, Norfolk, Ohio 99536
-	// 364 Unions ville
+	// Output: 364 Unionsville, Norfolk, Ohio 99536
+	// 364 Unionsville
 	// Norfolk
 	// Ohio
 	// 99536
@@ -37,8 +37,8 @@ func ExampleFaker_Address() {
 	fmt.Println(address.Country)
 	fmt.Println(address.Latitude)
 	fmt.Println(address.Longitude)
-	// Output: 364 Unions ville, Norfolk, Ohio 99536
-	// 364 Unions ville
+	// Output: 364 Unionsville, Norfolk, Ohio 99536
+	// 364 Unionsville
 	// Norfolk
 	// Ohio
 	// 99536
@@ -74,13 +74,13 @@ func BenchmarkAddress(b *testing.B) {
 func ExampleStreet() {
 	Seed(11)
 	fmt.Println(Street())
-	// Output: 364 Unions ville
+	// Output: 364 Unionsville
 }
 
 func ExampleFaker_Street() {
 	f := New(11)
 	fmt.Println(f.Street())
-	// Output: 364 Unions ville
+	// Output: 364 Unionsville
 }
 
 func BenchmarkStreet(b *testing.B) {
