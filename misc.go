@@ -2,7 +2,6 @@ package gofakeit
 
 import (
 	"encoding/hex"
-	"io"
 	"math/rand"
 	"reflect"
 
@@ -22,13 +21,20 @@ func boolFunc(r *rand.Rand) bool { return randIntRange(r, 0, 1) == 1 }
 func UUID() string { return uuid(globalFaker.Rand) }
 
 // UUID (version 4) will generate a random unique identifier based upon random numbers
-// Format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+// Format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx 8-4-4-4-12
 func (f *Faker) UUID() string { return uuid(f.Rand) }
 
 func uuid(r *rand.Rand) string {
 	version := byte(4)
 	uuid := make([]byte, 16)
-	io.ReadFull(r, uuid[:])
+
+	// Commented out due to io.ReadFull not being race condition safe
+	// io.ReadFull(r, uuid[:])
+
+	// Read 16 random bytes
+	for i := 0; i < 16; i++ {
+		uuid[i] = byte(r.Intn(256))
+	}
 
 	// Set version
 	uuid[6] = (uuid[6] & 0x0f) | (version << 4)

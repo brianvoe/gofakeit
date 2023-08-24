@@ -49,20 +49,28 @@ func TestUUID(t *testing.T) {
 	id := UUID()
 
 	if len(id) != 36 {
+		t.Error(id)
 		t.Error("unique length does not equal requested length")
+	}
+
+	// Checking for race conditions, need to run --race
+	for i := 0; i < 10000; i++ {
+		go func() {
+			_ = UUID()
+		}()
 	}
 }
 
 func ExampleUUID() {
 	Seed(11)
 	fmt.Println(UUID())
-	// Output: 590c1440-9888-45b0-bd51-a817ee07c3f2
+	// Output: 98173564-6619-4557-888e-65b16bb5def5
 }
 
 func ExampleFaker_UUID() {
 	f := New(11)
 	fmt.Println(f.UUID())
-	// Output: 590c1440-9888-45b0-bd51-a817ee07c3f2
+	// Output: 98173564-6619-4557-888e-65b16bb5def5
 }
 
 func BenchmarkUUID(b *testing.B) {
