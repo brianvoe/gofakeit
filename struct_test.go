@@ -620,6 +620,7 @@ func TestStructToDateTime(t *testing.T) {
 		TagFormat     time.Time `fake:"{number:1900,1950}-12-05" format:"2006-01-02"`
 		TagJavaFormat time.Time `fake:"{number:1900,1950}-12-05" format:"yyyy-MM-dd"`
 		Range         time.Time `fake:"{daterange:1970-01-01,2000-12-31,2006-01-02}" format:"yyyy-MM-dd"`
+		SimplePointer *time.Time
 	}
 	err := Struct(&datetime)
 	if err != nil {
@@ -643,6 +644,12 @@ func TestStructToDateTime(t *testing.T) {
 	}
 	if datetime.Range.String() != "1998-10-27 00:00:00 +0000 UTC" {
 		t.Errorf("Range should be 1998-10-27 00:00:00 +0000 UTC and instead got %s", datetime.Range.String())
+	}
+	if datetime.SimplePointer == nil {
+		t.Error("SimplePointer to time.Time should have value")
+	}
+	if datetime.SimplePointer.IsZero() {
+		t.Errorf("SimplePointer yielded a zero value: %s", datetime.SimplePointer.String())
 	}
 
 	RemoveFuncLookup("datetimestatic")
