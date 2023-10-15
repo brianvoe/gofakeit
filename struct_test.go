@@ -614,49 +614,96 @@ func TestStructToDateTime(t *testing.T) {
 	})
 
 	var datetime struct {
-		Simple        time.Time
-		Tag           time.Time `fake:"{date}"`
-		TagCustom     time.Time `fake:"{datetimestatic}"`
-		TagFormat     time.Time `fake:"{number:1900,1950}-12-05" format:"2006-01-02"`
-		TagJavaFormat time.Time `fake:"{number:1900,1950}-12-05" format:"yyyy-MM-dd"`
-		Range         time.Time `fake:"{daterange:1970-01-01,2000-12-31,2006-01-02}" format:"yyyy-MM-dd"`
-		SimplePointer *time.Time
-		TagPointer    *time.Time `fake:"{date}"`
+		Simple               time.Time
+		Tag                  time.Time `fake:"{date}"`
+		TagCustom            time.Time `fake:"{datetimestatic}"`
+		TagFormat            time.Time `fake:"{number:1900,1950}-12-05" format:"2006-01-02"`
+		TagJavaFormat        time.Time `fake:"{number:1900,1950}-12-05" format:"yyyy-MM-dd"`
+		Range                time.Time `fake:"{daterange:1970-01-01,2000-12-31,2006-01-02}" format:"yyyy-MM-dd"`
+		PointerSimple        *time.Time
+		PointerTag           *time.Time `fake:"{date}"`
+		PointerTagCustom     *time.Time `fake:"{datetimestatic}"`
+		PointerTagFormat     *time.Time `fake:"{number:1900,1950}-12-05" format:"2006-01-02"`
+		PointerTagJavaFormat *time.Time `fake:"{number:1900,1950}-12-05" format:"yyyy-MM-dd"`
+		PointerRange         *time.Time `fake:"{daterange:1970-01-01,2000-12-31,2006-01-02}" format:"yyyy-MM-dd"`
 	}
 	err := Struct(&datetime)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if datetime.Simple.String() != "1953-01-24 13:00:35.820738079 +0000 UTC" {
-		t.Errorf("Simple should be 1953-01-24 13:00:35.820738079 +0000 UTC and instead got %s", datetime.Simple.String())
+	type testCmp struct {
+		name     string
+		observed string
+		expected string
 	}
-	if datetime.Tag.String() != "1902-02-10 22:06:24 +0000 UTC" {
-		t.Errorf("Tag should be 1902-02-10 22:06:24 +0000 UTC and instead got %s", datetime.Tag.String())
+
+	testComparisons := []testCmp{
+		{
+			name:     "Simple",
+			observed: datetime.Simple.String(),
+			expected: "1953-01-24 13:00:35.820738079 +0000 UTC",
+		},
+		{
+			name:     "Tag",
+			observed: datetime.Tag.String(),
+			expected: "1902-02-10 22:06:24 +0000 UTC",
+		},
+		{
+			name:     "TagCustom",
+			observed: datetime.TagCustom.String(),
+			expected: "2021-11-26 15:22:00 +0000 UTC",
+		},
+		{
+			name:     "TagFormat",
+			observed: datetime.TagFormat.String(),
+			expected: "1945-12-05 00:00:00 +0000 UTC",
+		},
+		{
+			name:     "TagJavaFormat",
+			observed: datetime.TagJavaFormat.String(),
+			expected: "1929-12-05 00:00:00 +0000 UTC",
+		},
+		{
+			name:     "Range",
+			observed: datetime.Range.String(),
+			expected: "1998-10-27 00:00:00 +0000 UTC",
+		},
+		{
+			name:     "PointerSimple",
+			observed: datetime.PointerSimple.String(),
+			expected: "1901-05-17 13:55:34.57634154 +0000 UTC",
+		},
+		{
+			name:     "PointerTag",
+			observed: datetime.PointerTag.String(),
+			expected: "1949-06-03 07:35:07 +0000 UTC",
+		},
+		{
+			name:     "PointerTagCustom",
+			observed: datetime.PointerTagCustom.String(),
+			expected: "2021-11-26 15:22:00 +0000 UTC",
+		},
+		{
+			name:     "PointerTagFormat",
+			observed: datetime.PointerTagFormat.String(),
+			expected: "1907-12-05 00:00:00 +0000 UTC",
+		},
+		{
+			name:     "PointerTagJavaFormat",
+			observed: datetime.PointerTagJavaFormat.String(),
+			expected: "1904-12-05 00:00:00 +0000 UTC",
+		},
+		{
+			name:     "PointerRange",
+			observed: datetime.PointerRange.String(),
+			expected: "2000-02-05 00:00:00 +0000 UTC",
+		},
 	}
-	if datetime.TagCustom.String() != "2021-11-26 15:22:00 +0000 UTC" {
-		t.Errorf("TagCustom should be 2021-11-26 15:22:00 +0000 UTC and instead got %s", datetime.TagCustom.String())
-	}
-	if datetime.TagFormat.String() != "1945-12-05 00:00:00 +0000 UTC" {
-		t.Errorf("TagFormat should be 1945-12-05 00:00:00 +0000 UTC and instead got %s", datetime.TagFormat.String())
-	}
-	if datetime.TagJavaFormat.String() != "1929-12-05 00:00:00 +0000 UTC" {
-		t.Errorf("TagJavaFormat should be 1929-12-05 00:00:00 +0000 UTC and instead got %s", datetime.TagJavaFormat.String())
-	}
-	if datetime.Range.String() != "1998-10-27 00:00:00 +0000 UTC" {
-		t.Errorf("Range should be 1998-10-27 00:00:00 +0000 UTC and instead got %s", datetime.Range.String())
-	}
-	if datetime.SimplePointer == nil {
-		t.Error("SimplePointer to time.Time should have value")
-	}
-	if datetime.SimplePointer.IsZero() {
-		t.Errorf("SimplePointer yielded a zero value: %s", datetime.SimplePointer.String())
-	}
-	if datetime.TagPointer == nil {
-		t.Error("TagPointer to time.Time should have value")
-	}
-	if datetime.TagPointer.IsZero() {
-		t.Errorf("TagPointer yielded a zero value: %s", datetime.TagPointer.String())
+	for _, c := range testComparisons {
+		if c.expected != c.observed {
+			t.Errorf("%s should be %s and instead got %s", c.name, c.expected, c.observed)
+		}
 	}
 
 	RemoveFuncLookup("datetimestatic")
