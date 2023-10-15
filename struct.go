@@ -147,8 +147,14 @@ func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 			if elementV.CanSet() || elementT.Anonymous {
 				// Check if reflect type is of values we can specifically set
 				switch elementT.Type.String() {
-				case "time.Time", "*time.Time":
+				case "time.Time":
 					err := rTime(f, elementT, elementV, fakeTag)
+					if err != nil {
+						return err
+					}
+					continue
+				case "*time.Time":
+					err := rTimePointer(f, elementT, elementV, fakeTag)
 					if err != nil {
 						return err
 					}
@@ -551,26 +557,25 @@ func rTime(f *Faker, t reflect.StructField, v reflect.Value, tag string) error {
 			return err
 		}
 
-		// Handle case of *time.Time field
-		if t.Type.Kind() == reflect.Ptr {
-			nv := reflect.New(t.Type.Elem()).Elem()
-			nv.Set(reflect.ValueOf(timeStruct))
-			v.Set(nv.Addr())
-			return nil
-		}
-
 		v.Set(reflect.ValueOf(timeStruct))
 		return nil
 	}
 
-	// Handle case of *time.Time field
-	if t.Type.Kind() == reflect.Ptr {
-		nv := reflect.New(t.Type.Elem()).Elem()
-		nv.Set(reflect.ValueOf(date(f.Rand)))
-		v.Set(nv.Addr())
-		return nil
+	v.Set(reflect.ValueOf(date(f.Rand)))
+	return nil
+}
+
+// rTimePointer will set a *time.Time using [rTime]
+func rTimePointer(f *Faker, t reflect.StructField, v reflect.Value, tag string) error {
+	if t.Type.Kind() != reflect.Ptr {
+		return fmt.Errorf("expected pointer, got %s", t.Type.Kind())
 	}
 
-	v.Set(reflect.ValueOf(date(f.Rand)))
+	nv := reflect.New(t.Type.Elem()).Elem()
+	err := rTime(f, t, nv, tag)
+	if err != nil {
+		return err
+	}
+	v.Set(nv.Addr())
 	return nil
 }
