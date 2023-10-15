@@ -551,6 +551,14 @@ func rTime(f *Faker, t reflect.StructField, v reflect.Value, tag string) error {
 			return err
 		}
 
+		// Handle case of *time.Time field
+		if t.Type.Kind() == reflect.Ptr {
+			nv := reflect.New(t.Type.Elem()).Elem()
+			nv.Set(reflect.ValueOf(timeStruct))
+			v.Set(nv.Addr())
+			return nil
+		}
+
 		v.Set(reflect.ValueOf(timeStruct))
 		return nil
 	}
