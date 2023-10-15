@@ -147,7 +147,7 @@ func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 			if elementV.CanSet() || elementT.Anonymous {
 				// Check if reflect type is of values we can specifically set
 				switch elementT.Type.String() {
-				case "time.Time":
+				case "time.Time", "*time.Time":
 					err := rTime(f, elementT, elementV, fakeTag)
 					if err != nil {
 						return err
@@ -552,6 +552,14 @@ func rTime(f *Faker, t reflect.StructField, v reflect.Value, tag string) error {
 		}
 
 		v.Set(reflect.ValueOf(timeStruct))
+		return nil
+	}
+
+	// Handle case of *time.Time field
+	if t.Type.Kind() == reflect.Ptr {
+		nv := reflect.New(t.Type.Elem()).Elem()
+		nv.Set(reflect.ValueOf(date(f.Rand)))
+		v.Set(nv.Addr())
 		return nil
 	}
 
