@@ -58,7 +58,7 @@ type IntArray []int
 type StructArray struct {
 	Bars      []*Basic
 	Builds    []BuiltIn
-	Skips     []string  `fake:"skip"`
+	Skips     []string  `fake:"-"`
 	Strings   []string  `fake:"{firstname}" fakesize:"3"`
 	SetLen    [5]string `fake:"{firstname}"`
 	SubStr    [][]string
