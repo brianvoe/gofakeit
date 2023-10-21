@@ -153,6 +153,12 @@ func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 						return err
 					}
 					continue
+				case "*time.Time":
+					err := rTimePointer(f, elementT, elementV, fakeTag)
+					if err != nil {
+						return err
+					}
+					continue
 				}
 
 				// Check if fakesize is set
@@ -556,5 +562,20 @@ func rTime(f *Faker, t reflect.StructField, v reflect.Value, tag string) error {
 	}
 
 	v.Set(reflect.ValueOf(date(f.Rand)))
+	return nil
+}
+
+// rTimePointer will set a *time.Time using [rTime]
+func rTimePointer(f *Faker, t reflect.StructField, v reflect.Value, tag string) error {
+	if t.Type.Kind() != reflect.Ptr {
+		return fmt.Errorf("expected pointer, got %s", t.Type.Kind())
+	}
+
+	nv := reflect.New(t.Type.Elem()).Elem()
+	err := rTime(f, t, nv, tag)
+	if err != nil {
+		return err
+	}
+	v.Set(nv.Addr())
 	return nil
 }
