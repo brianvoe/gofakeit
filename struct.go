@@ -79,118 +79,141 @@ func rCustom(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	}
 
 	fName, fParams := parseNameAndParamsFromTag(tag)
+	info := GetFuncLookup(fName)
+
 	// Check to see if it's a replaceable lookup function
-	if info := GetFuncLookup(fName); info != nil {
-		// Parse map params
-		mapParams := parseMapParams(info, fParams)
-
-		// Call function
-		fValue, err := info.Generate(f.Rand, mapParams, info)
-		if err != nil {
-			return err
-		}
-
-		// Create new element of expected type
-		field := reflect.New(reflect.TypeOf(fValue))
-		field.Elem().Set(reflect.ValueOf(fValue))
-
-		// Check if element is pointer if so
-		// grab the underlying value
-		fieldElem := field.Elem()
-		if fieldElem.Kind() == reflect.Ptr {
-			fieldElem = fieldElem.Elem()
-		}
-
-		// Check if field kind is the same as the expected type
-		if fieldElem.Kind() != v.Kind() {
-			// return error saying the field and kinds that do not match
-			return errors.New("field kind " + fieldElem.Kind().String() + " does not match expected kind " + v.Kind().String())
-		}
-
-		// Set the value
-		v.Set(fieldElem.Convert(v.Type()))
-
-		// If a function is called to set the struct
-		// stop from going through sub fields
-		return nil
+	if info == nil {
+		return fmt.Errorf("function %q not found", tag)
 	}
 
-	return fmt.Errorf("function %q not found", tag)
+	// Parse map params
+	mapParams := parseMapParams(info, fParams)
+
+	// Call function
+	fValue, err := info.Generate(f.Rand, mapParams, info)
+	if err != nil {
+		return err
+	}
+
+	// Create new element of expected type
+	field := reflect.New(reflect.TypeOf(fValue))
+	field.Elem().Set(reflect.ValueOf(fValue))
+
+	// Check if element is pointer if so
+	// grab the underlying value
+	fieldElem := field.Elem()
+	if fieldElem.Kind() == reflect.Ptr {
+		fieldElem = fieldElem.Elem()
+	}
+
+	// Check if field kind is the same as the expected type
+	if fieldElem.Kind() != v.Kind() {
+		// return error saying the field and kinds that do not match
+		return errors.New("field kind " + fieldElem.Kind().String() + " does not match expected kind " + v.Kind().String())
+	}
+
+	// Set the value
+	v.Set(fieldElem.Convert(v.Type()))
+
+	// If a function is called to set the struct
+	// stop from going through sub fields
+	return nil
 }
 
 func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	// Check if tag exists, if so run custom function
 	if t.Name() != "" && tag != "" {
 		return rCustom(f, t, v, tag)
-	} else if isFakeable(t) {
+	}
+
+	// Check if struct is fakeable
+	if isFakeable(t) {
 		value, err := callFake(f, v, reflect.Struct)
 		if err != nil {
 			return err
 		}
 
 		v.Set(reflect.ValueOf(value))
-	} else {
+		return nil
+	}
 
-		n := t.NumField()
-		for i := 0; i < n; i++ {
-			elementT := t.Field(i)
-			elementV := v.Field(i)
-			fakeTag, ok := elementT.Tag.Lookup("fake")
+	// Loop through all the fields of the struct
+	n := t.NumField()
+	for i := 0; i < n; i++ {
+		elementT := t.Field(i)
+		elementV := v.Field(i)
+		fakeTag, ok := elementT.Tag.Lookup("fake")
 
-			// Check whether or not to skip this field
-			if ok && fakeTag == "skip" {
-				// Do nothing, skip it
-				continue
+		// Check whether or not to skip this field
+		if ok && fakeTag == "skip" || fakeTag == "-" {
+			// Do nothing, skip it
+			continue
+		}
+
+		// Check to make sure you can set it or that it's an embedded(anonymous) field
+		if !elementV.CanSet() && !elementT.Anonymous {
+			continue
+		}
+
+		// Check if reflect type is of values we can specifically set
+		elemStr := elementT.Type.String()
+		switch elemStr {
+		case "time.Time", "*time.Time":
+			// Check if element is a pointer
+			elemV := elementV
+			if elemStr == "*time.Time" {
+				elemV = reflect.New(elementT.Type.Elem()).Elem()
 			}
 
-			// Check to make sure you can set it or that it's an embedded(anonymous) field
-			if elementV.CanSet() || elementT.Anonymous {
-				// Check if reflect type is of values we can specifically set
-				switch elementT.Type.String() {
-				case "time.Time":
-					err := rTime(f, elementT, elementV, fakeTag)
+			// Run rTime on the element
+			err := rTime(f, elementT, elemV, fakeTag)
+			if err != nil {
+				return err
+			}
+
+			if elemStr == "*time.Time" {
+				elementV.Set(elemV.Addr())
+			}
+
+			continue
+		}
+
+		// Check if fakesize is set
+		size := -1 // Set to -1 to indicate fakesize was not set
+		fs, ok := elementT.Tag.Lookup("fakesize")
+		if ok {
+			var err error
+
+			// Check if size has params separated by ,
+			if strings.Contains(fs, ",") {
+				sizeSplit := strings.SplitN(fs, ",", 2)
+				if len(sizeSplit) == 2 {
+					var sizeMin int
+					var sizeMax int
+
+					sizeMin, err = strconv.Atoi(sizeSplit[0])
 					if err != nil {
 						return err
 					}
-					continue
-				}
-
-				// Check if fakesize is set
-				size := -1 // Set to -1 to indicate fakesize was not set
-				fs, ok := elementT.Tag.Lookup("fakesize")
-				if ok {
-					var err error
-
-					// Check if size has params separated by ,
-					if strings.Contains(fs, ",") {
-						sizeSplit := strings.SplitN(fs, ",", 2)
-						if len(sizeSplit) == 2 {
-							var sizeMin int
-							var sizeMax int
-
-							sizeMin, err = strconv.Atoi(sizeSplit[0])
-							if err != nil {
-								return err
-							}
-							sizeMax, err = strconv.Atoi(sizeSplit[1])
-							if err != nil {
-								return err
-							}
-
-							size = f.Rand.Intn(sizeMax-sizeMin+1) + sizeMin
-						}
-					} else {
-						size, err = strconv.Atoi(fs)
-						if err != nil {
-							return err
-						}
+					sizeMax, err = strconv.Atoi(sizeSplit[1])
+					if err != nil {
+						return err
 					}
+
+					size = f.Rand.Intn(sizeMax-sizeMin+1) + sizeMin
 				}
-				err := r(f, elementT.Type, elementV, fakeTag, size)
+			} else {
+				size, err = strconv.Atoi(fs)
 				if err != nil {
 					return err
 				}
 			}
+		}
+
+		// Recursively call r() to fill in the struct
+		err := r(f, elementT.Type, elementV, fakeTag, size)
+		if err != nil {
+			return err
 		}
 	}
 

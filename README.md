@@ -131,6 +131,7 @@ type Foo struct {
 	ArrayRange    []string       `fakesize:"2,6"`
     Bar           Bar
 	Skip          *string        `fake:"skip"`                // Set to "skip" to not generate data for
+	SkipAlt       *string        `fake:"-"`                   // Set to "-" to not generate data for
 	Created       time.Time                                   // Can take in a fake tag as well as a format tag
 	CreatedFormat time.Time      `fake:"{year}-{month}-{day}" format:"2006-01-02"`
 }

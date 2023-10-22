@@ -42,7 +42,7 @@ func csvFunc(f *Faker, co *CSVOptions) ([]byte, error) {
 	if strings.ToLower(co.Delimiter) == "tab" {
 		co.Delimiter = "\t"
 	}
-	if co.Delimiter != "," && co.Delimiter != "\t" {
+	if co.Delimiter != "," && co.Delimiter != "\t" && co.Delimiter != ";" {
 		return nil, errors.New("invalid delimiter type")
 	}
 
