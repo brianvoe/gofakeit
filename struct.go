@@ -145,7 +145,7 @@ func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 		fakeTag, ok := elementT.Tag.Lookup("fake")
 
 		// Check whether or not to skip this field
-		if ok && fakeTag == "skip" || fakeTag == "-") {
+		if ok && fakeTag == "skip" || fakeTag == "-" {
 			// Do nothing, skip it
 			continue
 		}

@@ -58,7 +58,8 @@ type IntArray []int
 type StructArray struct {
 	Bars      []*Basic
 	Builds    []BuiltIn
-	Skips     []string  `fake:"-"`
+	Skips     []string  `fake:"skip"`
+	SkipsAlt  []string  `fake:"-"`
 	Strings   []string  `fake:"{firstname}" fakesize:"3"`
 	SetLen    [5]string `fake:"{firstname}"`
 	SubStr    [][]string
@@ -89,6 +90,7 @@ func ExampleStruct() {
 		Name       string            `fake:"{firstname}"`
 		Number     string            `fake:"{number:1,10}"`
 		Skip       *string           `fake:"skip"`
+		SkipAlt    *string           `fake:"-"`
 		Array      []string          `fakesize:"2"`
 		ArrayRange []string          `fakesize:"2,6"`
 		Map        map[string]string `fakesize:"2"`
@@ -105,6 +107,7 @@ func ExampleStruct() {
 	fmt.Printf("%v\n", f.Name)
 	fmt.Printf("%v\n", f.Number)
 	fmt.Printf("%v\n", f.Skip)
+	fmt.Printf("%v\n", f.SkipAlt)
 	fmt.Printf("%v\n", f.Array)
 	fmt.Printf("%v\n", f.ArrayRange)
 	fmt.Printf("%v\n", f.Map)
@@ -116,6 +119,7 @@ func ExampleStruct() {
 	// 4409580151121052361
 	// Andre
 	// 1
+	// <nil>
 	// <nil>
 	// [PtapWYJdn MKgtlxwnq]
 	// [claYk wfoRL PxLIok qanPAKaXS QFpZysVaHG]
