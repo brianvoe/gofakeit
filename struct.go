@@ -304,7 +304,7 @@ func rMap(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error
 	}
 
 	// Check if tag exists, if so run custom function
-	if t.Name() != "" && tag != "" {
+	if tag != "" {
 		return rCustom(f, t, v, tag)
 	} else if size > 0 {
 		// NOOP
