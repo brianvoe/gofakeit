@@ -912,7 +912,7 @@ func TestStructMapWithCustomFunction(t *testing.T) {
 	}
 
 	if v, ok := f.MapCustomFun["abc"]; ok {
-		if v != "value" {
+		if v != "123" {
 			t.Errorf("value didnt equal 123, got %v", v)
 		}
 	} else {
