@@ -5,24 +5,24 @@ import (
 	"testing"
 )
 
-func ExampleSchoolGen() {
+func ExampleSchool() {
 	Seed(11)
-	fmt.Println(SchoolGen())
+	fmt.Println(School())
 	// Output:
-	// Harborview State Middle School
+	// Harborview State Academy
 }
 
-func ExampleFaker_SchoolGen() {
+func ExampleFaker_School() {
 	f := New(11)
-	fmt.Println(f.SchoolGen())
+	fmt.Println(f.School())
 	// Output:
-	// Harborview State Middle School
+	// Harborview State Academy
 }
 
 func BenchmarkExampleFaker_SchoolGen(b *testing.B) {
 	b.Run("package", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			SchoolGen()
+			School()
 		}
 	})
 
@@ -30,7 +30,7 @@ func BenchmarkExampleFaker_SchoolGen(b *testing.B) {
 		f := New(0)
 
 		for i := 0; i < b.N; i++ {
-			f.SchoolGen()
+			f.School()
 		}
 	})
 
@@ -38,7 +38,7 @@ func BenchmarkExampleFaker_SchoolGen(b *testing.B) {
 		f := NewCrypto()
 
 		for i := 0; i < b.N; i++ {
-			f.SchoolGen()
+			f.School()
 		}
 	})
 }
