@@ -269,12 +269,13 @@ All functions also exist as methods on the Faker struct
 
 ### File
 
-Passing `nil` to `CSV`, `JSON` or `XML` it will auto generate data using a random set of generators.
+Passing `nil` to `CSV`, `JSON`, `Template` or `XML` it will auto generate data using a random set of generators.
 
 ```go
 CSV(co *CSVOptions) ([]byte, error)
 JSON(jo *JSONOptions) ([]byte, error)
 XML(xo *XMLOptions) ([]byte, error)
+Template(xo *TemplateOptions) ([]byte, error)
 FileExtension() string
 FileMimeType() string
 ```
