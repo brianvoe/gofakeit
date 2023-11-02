@@ -762,3 +762,9 @@ ErrorHTTPServer() error
 ErrorInput() error
 ErrorRuntime() error
 ```
+
+### School
+
+```go
+school() string
+```
