@@ -766,5 +766,5 @@ ErrorRuntime() error
 ### School
 
 ```go
-School() string
+school() string
 ```
