@@ -98,14 +98,14 @@ func createGlobalFakerFunctionMap() template.FuncMap {
 
 	//Build the function map from the globalFaker
 	v := reflect.ValueOf(globalFaker)
-	//loop through the methods
+	// loop through the methods
 	for i := 0; i < v.NumMethod(); i++ {
 		method := v.Method(i)
-		//get the method name lowercase
+		// get the method name lowercase
 		method_name := v.Type().Method(i).Name
-		//get the arguments for the method
+		// get the arguments for the method
 		methodArgs := make([]reflect.Value, method.Type().NumIn())
-		//Check to see if the method has any arguments that are not supported by templates
+		// Check to see if the method has any arguments that are not supported by templates
 		has_invalid_arg := false
 		for m := range methodArgs {
 			if method.Type().In(m).Kind() == reflect.Array || method.Type().In(m).Kind() == reflect.Slice || method.Type().In(m).Kind() == reflect.Interface {
@@ -113,15 +113,15 @@ func createGlobalFakerFunctionMap() template.FuncMap {
 				break
 			}
 		}
-		//if the method has no invalid arguments add it to the funcMap
+		// if the method has no invalid arguments add it to the funcMap
 		if !has_invalid_arg {
 			funcMap[method_name] = method.Interface()
 		}
 	}
 
-	//add the custom functions
+	// add the custom functions
 
-	//function to generate a range of integers
+	// function to generate a range of integers
 	funcMap["IntRange"] = func(start, end int) []int { // function to generate a range of integers
 		n := end - start + 1
 		result := make([]int, n)
@@ -131,24 +131,24 @@ func createGlobalFakerFunctionMap() template.FuncMap {
 		return result
 	}
 
-	//function to generate a base64 encode string useful for images
+	// function to generate a base64 encode string useful for images
 	funcMap["Base64Enc"] = base64EncString
 
-	//function  to replace all values in string
+	// function  to replace all values in string
 	funcMap["replace"] = strings.ReplaceAll
 
-	//function to make string lower case
+	// function to make string lower case
 	funcMap["lc"] = strings.ToLower
 
-	//function to make string upper case
+	// function to make string upper case
 	funcMap["uc"] = strings.ToUpper
 
-	//function wrapper for SVG this is because template engine cant handle passing structs
+	// function wrapper for SVG this is because template engine cant handle passing structs
 	funcMap["SVG"] = func(width int, height int) string {
 		return globalFaker.Svg(&SVGOptions{Width: width, Height: height, Type: "svg", Colors: []string{"#000000", "#FFFFFF"}})
 	}
 
-	//function wrapper for SQL this is because template engine cant handle passing structs
+	// function wrapper for SQL this is because template engine cant handle passing structs
 	funcMap["Sql"] = func() (string, error) {
 		return globalFaker.SQL(&SQLOptions{
 			Table: "people",

@@ -1047,7 +1047,7 @@ func TestTemplateHtmlContent(t *testing.T) {
 func TestTemplateAll(t *testing.T) {
 	f := New(11)
 	globalFaker.Rand.Seed(11)
-	//combine all templates
+	// combine all templates
 
 	build_str := ""
 	for k := range data.Template {
