@@ -277,7 +277,6 @@ const html_content6 = `<h2>Person Profile</h2><br>
                 <p class="mb-0">{{Paragraph 1 1 20 '<br>'}}.</p>
             </div>
         </div>
-       
     </div>
 </div><hr><br><br>`
 
