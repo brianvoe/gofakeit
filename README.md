@@ -275,7 +275,6 @@ Passing `nil` to `CSV`, `JSON` or `XML` it will auto generate data using a rando
 CSV(co *CSVOptions) ([]byte, error)
 JSON(jo *JSONOptions) ([]byte, error)
 XML(xo *XMLOptions) ([]byte, error)
-
 FileExtension() string
 FileMimeType() string
 ```
