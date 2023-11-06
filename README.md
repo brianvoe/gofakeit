@@ -765,6 +765,12 @@ ErrorInput() error
 ErrorRuntime() error
 ```
 
+### School
+
+```go
+school() string
+```
+
 ### Template
 
 Generate custom documents using golang's template engine.
@@ -778,3 +784,4 @@ TemplateMarkdown(sections int) (string, error)
 TemplateMarkdownContent() (string, error)
 TemplateEmail() (string, error) 
 ```
+
