@@ -702,6 +702,7 @@ func ExampleTemplateHtmlContent() {
 }
 
 func ExampleFaker_TemplateHtmlContent() {
+
 	// Make sure we get the same results every time
 	f := New(11)
 	globalFaker.Rand.Seed(11)
