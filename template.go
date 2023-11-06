@@ -63,13 +63,23 @@ func (f *Faker) TemplateHtml(sections int) (string, error) {
 }
 
 // Template will return a single random Markdown template document
-func TemplateMarkdown(lines int) (string, error) {
-	return templateDocument(globalFaker, lines, []string{"template", "markdown"})
+func TemplateMarkdown(sections int) (string, error) {
+	return templateDocument(globalFaker, sections, []string{"template", "markdown"})
 }
 
 // Template will return a single random Markdown template document
-func (f *Faker) TemplateMarkdown(lines int) (string, error) {
-	return templateDocument(f, lines, []string{"template", "markdown"})
+func (f *Faker) TemplateMarkdown(sections int) (string, error) {
+	return templateDocument(f, sections, []string{"template", "markdown"})
+}
+
+// Template will return a single random markdown content
+func TemplateMarkdownContent() (string, error) {
+	return templateDocument(globalFaker, -1, []string{"template", "markdown_content"})
+}
+
+// Template will return a single random markdown content
+func (f *Faker) TemplateMarkdownContent() (string, error) {
+	return templateDocument(f, -1, []string{"template", "markdown_content"})
 }
 
 // Template will return a single random email template document
@@ -133,12 +143,12 @@ func createGlobalFakerFunctionMap() template.FuncMap {
 	//function to make string upper case
 	funcMap["uc"] = strings.ToUpper
 
-	//function to generate a random SVG this is because template engine cant handle the struct
+	//function wrapper for SVG this is because template engine cant handle passing structs
 	funcMap["SVG"] = func(width int, height int) string {
 		return globalFaker.Svg(&SVGOptions{Width: width, Height: height, Type: "svg", Colors: []string{"#000000", "#FFFFFF"}})
 	}
 
-	//function to generate a random sql this is because template engine cant handle the struct
+	//function wrapper for SQL this is because template engine cant handle passing structs
 	funcMap["Sql"] = func() (string, error) {
 		return globalFaker.SQL(&SQLOptions{
 			Table: "people",
@@ -159,6 +169,7 @@ func createGlobalFakerFunctionMap() template.FuncMap {
 func templateDocument(f *Faker, lines int, dataVal []string) (string, error) {
 
 	random_template := fixString(getRandValue(f.Rand, dataVal))
+
 	template_options := &TemplateOptions{Template: random_template}
 	if lines > 0 {
 		template_options.Lines = lines
@@ -170,7 +181,7 @@ func templateDocument(f *Faker, lines int, dataVal []string) (string, error) {
 	return string(document), nil
 }
 
-// function to fix the string for the template engine
+// function to fix the multiline template data ready for the template engine
 func fixString(str string) string {
 	str = strings.ReplaceAll(str, "'", "`")
 	str = strings.ReplaceAll(str, "\\n", "\n")
@@ -228,16 +239,18 @@ func addTemplateLookup() {
 		Description: "Generates document from template",
 		Example: `
 			Template
-			{{Name}} {{LastName}}
-
+			{{range $y := IntRange 1 .Lines}}
+			{{Name}} {{LastName}}{{end}}
+			
 			:output
 			Markus Moen
+			Alayna Wuckert
 		`,
 		Output:      "[]byte",
 		ContentType: "text/plain",
 		Params: []Param{
-			{Field: "template", Display: "Template", Type: "string", Description: "Golang template or pass email, html or markdown for example document or leave blank for random document", Optional: true},
-			{Field: "lines", Display: "Lines", Type: "int", Description: "Used for templates that generate multiple lines can use .Lines to access value in template", Optional: true},
+			{Field: "template", Display: "Template", Type: "string", Description: "Golang template to generate the document from", Optional: true},
+			{Field: "lines", Display: "Lines", Type: "int", Description: "Passed as data to the  template engine and used for loops, can access using .Lines to access value in template", Optional: true},
 		},
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			co := TemplateOptions{}
@@ -281,12 +294,12 @@ func addTemplateLookup() {
 
 	AddFuncLookup("template_document", Info{
 		Display:     "Random Document",
-		Category:    "file",
-		Description: "Generates Random document",
+		Category:    "template",
+		Description: "Generates Random document.",
 		Example:     "",
 		Output:      "string",
 		Params: []Param{
-			{Field: "lines", Display: "Lines", Type: "int", Optional: true, Description: "Used for templates that generate multiple lines can use .Lines to access value in template"},
+			{Field: "lines", Display: "Lines", Type: "int", Optional: true, Description: "Passed as data to the  template engine and used for loops, can access using .Lines to access value in template"},
 		},
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			lines, err := info.GetInt(m, "lines")
@@ -299,8 +312,8 @@ func addTemplateLookup() {
 
 	AddFuncLookup("template_email", Info{
 		Display:     "Random email Document",
-		Category:    "file",
-		Description: "Generates random email document",
+		Category:    "template",
+		Description: "Generates random email document.",
 		Example:     "",
 		Output:      "string",
 		Params:      []Param{},
@@ -311,12 +324,12 @@ func addTemplateLookup() {
 
 	AddFuncLookup("template_html", Info{
 		Display:     "Random html Document",
-		Category:    "file",
-		Description: "Generates random html document",
+		Category:    "template",
+		Description: "Generates random html document.",
 		Example:     "",
 		Output:      "string",
 		Params: []Param{
-			{Field: "sections", Display: "Body Sections", Type: "int", Default: "2", Description: "Number of content sections to generate"},
+			{Field: "sections", Display: "Body Sections", Type: "int", Optional: true, Default: "1", Description: "Number of content sections to generate"},
 		},
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			lines, err := info.GetInt(m, "sections")
@@ -328,9 +341,9 @@ func addTemplateLookup() {
 	})
 
 	AddFuncLookup("template_html_content", Info{
-		Display:     "Random html body content Document",
-		Category:    "file",
-		Description: "Generates random html body content document",
+		Display:     "Random html body content.",
+		Category:    "template",
+		Description: "Generates random html body content",
 		Example:     "",
 		Output:      "string",
 		Params:      []Param{},
@@ -340,20 +353,32 @@ func addTemplateLookup() {
 	})
 
 	AddFuncLookup("template_markdown", Info{
-		Display:     "Random markdown document",
-		Category:    "file",
+		Display:     "Random markdown document.",
+		Category:    "template",
 		Description: "Generates random markdown document",
 		Example:     "",
 		Output:      "string",
 		Params: []Param{
-			{Field: "lines", Display: "Lines", Type: "int", Optional: true, Description: "Used for templates that generate multiple lines can use .Lines to access value in template"},
+			{Field: "sections", Display: "Body Sections", Type: "int", Optional: true, Description: "Number of content sections to generate"},
 		},
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
-			lines, err := info.GetInt(m, "lines")
+			lines, err := info.GetInt(m, "sections")
 			if err != nil {
 				lines = -1
 			}
 			return templateDocument(globalFaker, lines, []string{"template", "markdown"})
+		},
+	})
+
+	AddFuncLookup("template_markdown_content", Info{
+		Display:     "Random markdown content.",
+		Category:    "template",
+		Description: "Generates random markdown content",
+		Example:     "",
+		Output:      "string",
+		Params:      []Param{},
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return templateDocument(globalFaker, -1, []string{"template", "markdown_content"})
 		},
 	})
 }

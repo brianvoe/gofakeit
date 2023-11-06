@@ -269,17 +269,17 @@ All functions also exist as methods on the Faker struct
 
 ### File
 
-Passing `nil` to `CSV`, `JSON`, `XML` or `Template` it will auto generate data using a random set of generators.
+Passing `nil` to `CSV`, `JSON` or `XML` it will auto generate data using a random set of generators.
 
 ```go
 CSV(co *CSVOptions) ([]byte, error)
 JSON(jo *JSONOptions) ([]byte, error)
 XML(xo *XMLOptions) ([]byte, error)
-Template(xo *TemplateOptions) ([]byte, error)
 
 FileExtension() string
 FileMimeType() string
 ```
+
 
 ### Person
 
@@ -763,4 +763,18 @@ ErrorHTTPClient() error
 ErrorHTTPServer() error
 ErrorInput() error
 ErrorRuntime() error
+```
+
+### Template
+
+Generate custom documents using golang's template engine.
+
+```go
+Template(template string, lines int) ([]byte, error)
+TemplateDocument() (string, error)
+TemplateHtml(sections int) (string, error)
+TemplateHtmlContent() (string, error)
+TemplateMarkdown(sections int) (string, error)
+TemplateMarkdownContent() (string, error)
+TemplateEmail() (string, error) 
 ```
