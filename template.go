@@ -2,8 +2,10 @@ package gofakeit
 
 import (
 	"bytes"
+	"fmt"
 	"math/rand"
 	"reflect"
+	"strconv"
 	"strings"
 	"text/template"
 )
@@ -20,6 +22,12 @@ type templateData struct {
 	Lines int // number of lines to generate this is passed to the template
 }
 
+// Used with CreateListResult ListResult
+type intRangeResult struct {
+	Value int   // Current value
+	Range []int //Stores a list of values
+}
+
 // Template generates an document based on the the supplied template
 // A nil TemplateOptions returns a document.
 func Template(template string, lines int) ([]byte, error) {
@@ -33,33 +41,13 @@ func (f *Faker) Template(template string, lines int) ([]byte, error) {
 }
 
 // Template Document will return a single random document
-func TemplateDocument() (string, error) {
-	return templateDocument(globalFaker, Number(1, 5), []string{"template", "document"})
+func TemplateDocument(sections int) (string, error) {
+	return templateDocument(globalFaker, sections, []string{"template", "document"})
 }
 
 // Template will return a single random document
-func (f *Faker) TemplateDocument() (string, error) {
-	return templateDocument(f, Number(1, 5), []string{"template", "document"})
-}
-
-// Template will return a single random HTML document
-func TemplateHtmlContent() (string, error) {
-	return templateDocument(globalFaker, Number(1, 5), []string{"template", "html_content"})
-}
-
-// Template will return a single random HTML document
-func (f *Faker) TemplateHtmlContent() (string, error) {
-	return templateDocument(f, Number(1, 5), []string{"template", "html_content"})
-}
-
-// Template will return a single random HTML document
-func TemplateHtml(sections int) (string, error) {
-	return templateDocument(globalFaker, sections, []string{"template", "html"})
-}
-
-// Template will return a single random HTML document
-func (f *Faker) TemplateHtml(sections int) (string, error) {
-	return templateDocument(f, sections, []string{"template", "html"})
+func (f *Faker) TemplateDocument(sections int) (string, error) {
+	return templateDocument(f, sections, []string{"template", "document"})
 }
 
 // Template will return a single random Markdown template document
@@ -72,51 +60,43 @@ func (f *Faker) TemplateMarkdown(sections int) (string, error) {
 	return templateDocument(f, sections, []string{"template", "markdown"})
 }
 
-// Template will return a single random markdown content
-func TemplateMarkdownContent() (string, error) {
-	return templateDocument(globalFaker, -1, []string{"template", "markdown_content"})
-}
-
-// Template will return a single random markdown content
-func (f *Faker) TemplateMarkdownContent() (string, error) {
-	return templateDocument(f, -1, []string{"template", "markdown_content"})
+// Template will return a single random email template document
+func TemplateEmail(sections int) (string, error) {
+	return templateDocument(globalFaker, sections, []string{"template", "email"})
 }
 
 // Template will return a single random email template document
-func TemplateEmail() (string, error) {
-	return templateDocument(globalFaker, -1, []string{"template", "email"})
-}
-
-// Template will return a single random email template document
-func (f *Faker) TemplateEmail() (string, error) {
-	return templateDocument(f, -1, []string{"template", "email"})
+func (f *Faker) TemplateEmail(sections int) (string, error) {
+	return templateDocument(f, sections, []string{"template", "email"})
 }
 
 // function to build the function map for the template engine from the global faker
 func createGlobalFakerFunctionMap() template.FuncMap {
 	funcMap := template.FuncMap{}
 
-	//Build the function map from the globalFaker
+	// functions that wont work with template engine
+	incompatible := map[string]string{
+		"ShuffleAnySlice": "ShuffleAnySlice",
+		"ShuffleInts":     "ShuffleInts",
+		"ShuffleStrings":  "ShuffleStrings",
+		"Slice":           "Slice",
+		"Struct":          "Struct",
+	}
+
+	// Build the function map from the globalFaker
 	v := reflect.ValueOf(globalFaker)
 	// loop through the methods
 	for i := 0; i < v.NumMethod(); i++ {
 		method := v.Method(i)
 		// get the method name lowercase
 		method_name := v.Type().Method(i).Name
-		// get the arguments for the method
-		methodArgs := make([]reflect.Value, method.Type().NumIn())
-		// Check to see if the method has any arguments that are not supported by templates
-		has_invalid_arg := false
-		for m := range methodArgs {
-			if method.Type().In(m).Kind() == reflect.Array || method.Type().In(m).Kind() == reflect.Slice || method.Type().In(m).Kind() == reflect.Interface {
-				has_invalid_arg = true
-				break
-			}
+
+		//check if method_name is in the incompatable list
+		if _, ok := incompatible[method_name]; ok {
+			continue
 		}
-		// if the method has no invalid arguments add it to the funcMap
-		if !has_invalid_arg {
-			funcMap[method_name] = method.Interface()
-		}
+
+		funcMap[method_name] = method.Interface()
 	}
 
 	// add the custom functions
@@ -131,21 +111,128 @@ func createGlobalFakerFunctionMap() template.FuncMap {
 		return result
 	}
 
+	// function to generate a range of integers and store in intRangeResult
+	funcMap["CreateListResult"] = func(start, end int) intRangeResult {
+		n := end - start + 1
+		result := make([]int, n)
+		for i := 0; i < n; i++ {
+			result[i] = start + i
+		}
+		return intRangeResult{Value: start - 1, Range: result}
+	}
+
+	// function to remove value from list
+	funcMap["ListResult"] = func(r intRangeResult, min int, max int, shuffle bool) intRangeResult {
+		var new_list []int
+
+		// if the remove value is in the list remove it
+		if len(r.Range) > 0 {
+			for _, v := range r.Range {
+				if v != r.Value {
+					new_list = append(new_list, v)
+				}
+			}
+		}
+
+		// See if the list is empty
+		if len(r.Range) == 0 {
+			// create a new slice of ints
+			n := max - min + 1
+			for i := 0; i < n; i++ {
+				new_list = append(new_list, min+i)
+			}
+		}
+
+		// Randomize the slice
+		if shuffle {
+			shuffleInts(globalFaker.Rand, new_list)
+		}
+		// return the first value and the rest of the list
+		return intRangeResult{Value: new_list[0], Range: new_list[1:]}
+	}
+
 	// function to generate a base64 encode string useful for images
 	funcMap["Base64Enc"] = base64EncString
 
 	// function  to replace all values in string
-	funcMap["replace"] = strings.ReplaceAll
+	funcMap["Replace"] = strings.ReplaceAll
 
 	// function to make string lower case
 	funcMap["lc"] = strings.ToLower
 
+	// function to concatenate strings
+	funcMap["conc"] = func(args ...string) string {
+		return strings.Join(args, " ")
+	}
 	// function to make string upper case
 	funcMap["uc"] = strings.ToUpper
 
 	// function wrapper for SVG this is because template engine cant handle passing structs
 	funcMap["SVG"] = func(width int, height int) string {
 		return globalFaker.Svg(&SVGOptions{Width: width, Height: height, Type: "svg", Colors: []string{"#000000", "#FFFFFF"}})
+	}
+
+	// function to enable passing slice of interface to functions
+	funcMap["ListI"] = func(args ...interface{}) []interface{} {
+		return args
+	}
+	// function to enable passing slice of float32 to functions
+	funcMap["ListF32"] = func(args ...float32) []float32 {
+		return args
+	}
+
+	// function to enable passing slice of string to functions
+	funcMap["ListS"] = func(args ...string) []string {
+		return args
+	}
+
+	// function to enable passing slice of uint to functions
+	funcMap["ListUInt"] = func(args ...uint) []uint {
+		return args
+	}
+
+	// function to enable passing slice of int to functions
+	funcMap["ListInt"] = func(args ...int) []int {
+		return args
+	}
+
+	// function to enable passing slice of interface to functions
+	funcMap["map_s_int"] = func(args ...string) interface{} {
+		//make map from sting "key:1"
+		tmp_map := make(map[string]interface{})
+		for _, v := range args {
+			//split the string
+			split := strings.Split(v, ":")
+			//check we have a key and value
+			if len(split) == 2 {
+				value, err := strconv.Atoi(split[1])
+				if err != nil {
+					return fmt.Errorf("map_s_int: %s", err)
+				} else {
+					tmp_map[split[0]] = value
+				}
+			}
+		}
+		return tmp_map
+	}
+	// function to enable passing slice of float32 to functions
+	funcMap["map_int_s"] = func(args ...string) interface{} {
+		// make map from sting "key:1"
+		tmp_map := make(map[int]interface{})
+		for _, v := range args {
+			// split the string
+			split := strings.Split(v, ":")
+			// check we have a key and value
+			if len(split) == 2 {
+				value, err := strconv.Atoi(split[0])
+				if err != nil {
+					return fmt.Errorf("map_int_str: %s", err)
+				} else {
+					tmp_map[value] = split[1]
+				}
+			}
+		}
+		return tmp_map
 	}
 
 	// function wrapper for SQL this is because template engine cant handle passing structs
@@ -185,6 +272,7 @@ func templateDocument(f *Faker, lines int, dataVal []string) (string, error) {
 func fixString(str string) string {
 	str = strings.ReplaceAll(str, "'", "`")
 	str = strings.ReplaceAll(str, "\\n", "\n")
+	str = strings.ReplaceAll(str, "|n", "\\n")
 	return str
 }
 
@@ -250,7 +338,7 @@ func addTemplateLookup() {
 		ContentType: "text/plain",
 		Params: []Param{
 			{Field: "template", Display: "Template", Type: "string", Description: "Golang template to generate the document from", Optional: true},
-			{Field: "lines", Display: "Lines", Type: "int", Description: "Passed as data to the  template engine and used for loops, can access using .Lines to access value in template", Optional: true},
+			{Field: "lines", Display: "Body Sections", Type: "int", Optional: true, Description: "Number of content sections to generate"},
 		},
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			co := TemplateOptions{}
@@ -261,9 +349,9 @@ func addTemplateLookup() {
 			param_values := info.Params
 			for _, v := range param_values {
 				switch v.Field {
-				case "lines":
+				case "sections":
 					lines_optional = v.Optional
-				case "template":
+				case "lines":
 					template_optional = v.Optional
 				}
 			}
@@ -276,11 +364,11 @@ func addTemplateLookup() {
 			co.Template = template
 
 			//the template type to use
-			lines, err := info.GetInt(m, "lines")
+			sections, err := info.GetInt(m, "lines")
 			if err != nil && !lines_optional {
 				return nil, err
 			}
-			co.Lines = lines
+			co.Lines = sections
 
 			f := &Faker{Rand: r}
 			templateOut, err := templateFunc(f, &co)
@@ -299,14 +387,14 @@ func addTemplateLookup() {
 		Example:     "",
 		Output:      "string",
 		Params: []Param{
-			{Field: "lines", Display: "Lines", Type: "int", Optional: true, Description: "Passed as data to the  template engine and used for loops, can access using .Lines to access value in template"},
+			{Field: "sections", Display: "Body Sections", Type: "int", Optional: true, Description: "Number of content sections to generate"},
 		},
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
-			lines, err := info.GetInt(m, "lines")
+			sections, err := info.GetInt(m, "sections")
 			if err != nil {
-				lines = -1
+				sections = -1
 			}
-			return templateDocument(globalFaker, lines, []string{"template", "document"})
+			return templateDocument(globalFaker, sections, []string{"template", "document"})
 		},
 	})
 
@@ -316,39 +404,15 @@ func addTemplateLookup() {
 		Description: "Generates random email document.",
 		Example:     "",
 		Output:      "string",
-		Params:      []Param{},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
-			return templateDocument(globalFaker, -1, []string{"template", "email"})
-		},
-	})
-
-	AddFuncLookup("template_html", Info{
-		Display:     "Random html Document",
-		Category:    "template",
-		Description: "Generates random html document.",
-		Example:     "",
-		Output:      "string",
 		Params: []Param{
-			{Field: "sections", Display: "Body Sections", Type: "int", Optional: true, Default: "1", Description: "Number of content sections to generate"},
+			{Field: "sections", Display: "Body Sections", Type: "int", Optional: true, Description: "Number of content sections to generate"},
 		},
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
-			lines, err := info.GetInt(m, "sections")
+			sections, err := info.GetInt(m, "sections")
 			if err != nil {
-				lines = 1
+				sections = -1
 			}
-			return templateDocument(globalFaker, lines, []string{"template", "html"})
-		},
-	})
-
-	AddFuncLookup("template_html_content", Info{
-		Display:     "Random html body content.",
-		Category:    "template",
-		Description: "Generates random html body content",
-		Example:     "",
-		Output:      "string",
-		Params:      []Param{},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
-			return templateDocument(globalFaker, -1, []string{"template", "html_content"})
+			return templateDocument(globalFaker, sections, []string{"template", "email"})
 		},
 	})
 
@@ -370,15 +434,4 @@ func addTemplateLookup() {
 		},
 	})
 
-	AddFuncLookup("template_markdown_content", Info{
-		Display:     "Random markdown content.",
-		Category:    "template",
-		Description: "Generates random markdown content",
-		Example:     "",
-		Output:      "string",
-		Params:      []Param{},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
-			return templateDocument(globalFaker, -1, []string{"template", "markdown_content"})
-		},
-	})
 }
