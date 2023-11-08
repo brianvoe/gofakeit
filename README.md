@@ -489,6 +489,7 @@ Dessert() string
 ```go
 Bool() bool
 UUID() string
+Weighted(options []interface{}, weights []float32)
 FlipACoin() string
 RandomMapKey(mapI interface{}) interface{}
 ShuffleAnySlice(v interface{})
