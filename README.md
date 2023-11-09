@@ -778,6 +778,6 @@ Generate custom documents using golang's template engine.
 Template(template string, lines int) ([]byte, error)
 TemplateDocument(sections int) (string, error)
 TemplateMarkdown(sections int) (string, error)
-TemplateEmail(sections int) (string, error) 
+TemplateEmailText(sections int) (string, error) 
 ```
 

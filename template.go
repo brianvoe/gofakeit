@@ -2,10 +2,8 @@ package gofakeit
 
 import (
 	"bytes"
-	"fmt"
 	"math/rand"
 	"reflect"
-	"strconv"
 	"strings"
 	"text/template"
 )
@@ -60,18 +58,18 @@ func (f *Faker) TemplateMarkdown(sections int) (string, error) {
 	return templateDocument(f, sections, []string{"template", "markdown"})
 }
 
-// Template will return a single random email template document
-func TemplateEmail(sections int) (string, error) {
+// Template will return a single random text email template document
+func TemplateEmailText(sections int) (string, error) {
 	return templateDocument(globalFaker, sections, []string{"template", "email"})
 }
 
-// Template will return a single random email template document
-func (f *Faker) TemplateEmail(sections int) (string, error) {
+// Template will return a single random text email template document
+func (f *Faker) TemplateEmailText(sections int) (string, error) {
 	return templateDocument(f, sections, []string{"template", "email"})
 }
 
 // function to build the function map for the template engine from the global faker
-func createGlobalFakerFunctionMap() template.FuncMap {
+func templateFuncMap() template.FuncMap {
 	funcMap := template.FuncMap{}
 
 	// functions that wont work with template engine
@@ -81,6 +79,9 @@ func createGlobalFakerFunctionMap() template.FuncMap {
 		"ShuffleStrings":  "ShuffleStrings",
 		"Slice":           "Slice",
 		"Struct":          "Struct",
+		"RandomMapKey":    "RandomMapKey",
+		"SQL":             "SQL",
+		"SVG":             "SVG",
 	}
 
 	// Build the function map from the globalFaker
@@ -151,33 +152,21 @@ func createGlobalFakerFunctionMap() template.FuncMap {
 		return intRangeResult{Value: new_list[0], Range: new_list[1:]}
 	}
 
-	// function to generate a base64 encode string useful for images
-	funcMap["Base64Enc"] = base64EncString
-
 	// function  to replace all values in string
 	funcMap["Replace"] = strings.ReplaceAll
 
-	// function to make string lower case
-	funcMap["lc"] = strings.ToLower
-
 	// function to concatenate strings
-	funcMap["conc"] = func(args ...string) string {
+	funcMap["Concat"] = func(args ...string) string {
 		return strings.Join(args, " ")
 	}
 	// function to make string upper case
-	funcMap["uc"] = strings.ToUpper
+	funcMap["Upper"] = strings.ToUpper
 
-	// function wrapper for SVG this is because template engine cant handle passing structs
-	funcMap["SVG"] = func(width int, height int) string {
-		return globalFaker.Svg(&SVGOptions{Width: width, Height: height, Type: "svg", Colors: []string{"#000000", "#FFFFFF"}})
-	}
+	// function to make string lower case
+	funcMap["Lower"] = strings.ToLower
 
 	// function to enable passing slice of interface to functions
 	funcMap["ListI"] = func(args ...interface{}) []interface{} {
-		return args
-	}
-	// function to enable passing slice of float32 to functions
-	funcMap["ListF32"] = func(args ...float32) []float32 {
 		return args
 	}
 
@@ -194,59 +183,6 @@ func createGlobalFakerFunctionMap() template.FuncMap {
 	// function to enable passing slice of int to functions
 	funcMap["ListInt"] = func(args ...int) []int {
 		return args
-	}
-
-	// function to enable passing slice of interface to functions
-	funcMap["map_s_int"] = func(args ...string) interface{} {
-		//make map from sting "key:1"
-		tmp_map := make(map[string]interface{})
-		for _, v := range args {
-			//split the string
-			split := strings.Split(v, ":")
-			//check we have a key and value
-			if len(split) == 2 {
-				value, err := strconv.Atoi(split[1])
-				if err != nil {
-					return fmt.Errorf("map_s_int: %s", err)
-				} else {
-					tmp_map[split[0]] = value
-				}
-			}
-		}
-		return tmp_map
-	}
-	// function to enable passing slice of float32 to functions
-	funcMap["map_int_s"] = func(args ...string) interface{} {
-		// make map from sting "key:1"
-		tmp_map := make(map[int]interface{})
-		for _, v := range args {
-			// split the string
-			split := strings.Split(v, ":")
-			// check we have a key and value
-			if len(split) == 2 {
-				value, err := strconv.Atoi(split[0])
-				if err != nil {
-					return fmt.Errorf("map_int_str: %s", err)
-				} else {
-					tmp_map[value] = split[1]
-				}
-			}
-		}
-		return tmp_map
-	}
-
-	// function wrapper for SQL this is because template engine cant handle passing structs
-	funcMap["Sql"] = func() (string, error) {
-		return globalFaker.SQL(&SQLOptions{
-			Table: "people",
-			Count: 2,
-			Fields: []Field{
-				{Name: "id", Function: "autoincrement"},
-				{Name: "first_name", Function: "firstname"},
-				{Name: "price", Function: "price"},
-				{Name: "age", Function: "number", Params: MapParams{"min": {"1"}, "max": {"99"}}},
-				{Name: "created_at", Function: "date", Params: MapParams{"format": {"2006-01-02 15:04:05"}}},
-			}})
 	}
 
 	return funcMap
@@ -299,7 +235,7 @@ func templateFunc(f *Faker, co *TemplateOptions) ([]byte, error) {
 
 	// check if we have a function map
 	if co.functionMap == nil {
-		co.functionMap = createGlobalFakerFunctionMap()
+		co.functionMap = templateFuncMap()
 	}
 
 	// Create a new template and parse
@@ -398,8 +334,8 @@ func addTemplateLookup() {
 		},
 	})
 
-	AddFuncLookup("template_email", Info{
-		Display:     "Random email Document",
+	AddFuncLookup("template_email_text", Info{
+		Display:     "Random text email Document",
 		Category:    "template",
 		Description: "Generates random email document.",
 		Example:     "",

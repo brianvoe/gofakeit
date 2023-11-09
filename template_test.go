@@ -13,14 +13,12 @@ func TestTemplateFunctionsWithSlices(t *testing.T) {
 	f := New(11)
 	globalFaker.Rand.Seed(11)
 	test := map[string]string{
-		"Weighted":                    "{{Weighted (ListI `hello` 2 6.9) (ListF32 1 2 3)}}",
-		"Dice":                        "{{ Dice 3 (ListUInt 1 5 3) }}",
-		"RandomInt":                   "{{ RandomInt (ListInt 1 5 3) }}",
-		"RandomMapKey map[string]int": "{{RandomMapKey (map_s_int `key1:1` `key2:4` `key3:6`)}}",
-		"RandomMapKey map[int]string": "{RandomMapKey (map_int_s `1:key1` `1:key2` `1:key3`)}}",
-		"RandomString":                "{{RandomString (ListS `key1` `key2` `key3`)}}",
-		"RandomUint":                  "{{RandomUint (ListUInt 2 6 9)}}",
-		"Teams":                       "{{Teams (ListS `person_a` `person_b` `person_c`) (ListS `team_a` `team_b` `team_c`)}}",
+		"Weighted":     "{{Weighted (ListI `hello` 2 6.9) (ListF32 1 2 3)}}",
+		"Dice":         "{{ Dice 3 (ListUInt 1 5 3) }}",
+		"RandomInt":    "{{ RandomInt (ListInt 1 5 3) }}",
+		"RandomString": "{{RandomString (ListS `key1` `key2` `key3`)}}",
+		"RandomUint":   "{{RandomUint (ListUInt 2 6 9)}}",
+		"Teams":        "{{Teams (ListS `person_a` `person_b` `person_c`) (ListS `team_a` `team_b` `team_c`)}}",
 	}
 
 	for k, v := range test {
@@ -179,12 +177,12 @@ func TestTemplateDocumentLookup(t *testing.T) {
 
 }
 
-func ExampleTemplateEmail() {
+func ExampleTemplateEmailText() {
 	// Make sure we get the same results every time
 	Seed(11)
 	globalFaker.Rand.Seed(11)
 
-	value, err := TemplateEmail(5)
+	value, err := TemplateEmailText(5)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -222,7 +220,7 @@ func ExampleFaker_TemplateEmail() {
 	// Make sure we get the same results every time
 	f := New(11)
 	globalFaker.Rand.Seed(11)
-	value, err := f.TemplateEmail(6)
+	value, err := f.TemplateEmailText(6)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -279,7 +277,7 @@ func TestTemplateEmailLookup(t *testing.T) {
 func TestTemplateEmail(t *testing.T) {
 	f := New(5)
 	globalFaker.Rand.Seed(5)
-	value, err := f.TemplateEmail(6)
+	value, err := f.TemplateEmailText(6)
 	if err != nil {
 		t.Error(err)
 	}
