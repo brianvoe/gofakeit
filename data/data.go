@@ -3,7 +3,6 @@ package data
 // Data consists of the main set of fake information
 var Data = map[string]map[string][]string{
 	"person":    Person,
-	"template":  Template,
 	"address":   Address,
 	"company":   Company,
 	"job":       Job,
@@ -31,7 +30,7 @@ var Data = map[string]map[string][]string{
 	"html":      Html,
 	"book":      Books,
 	"movie":     Movies,
-	"school":	School,
+	"school":    School,
 }
 
 func List() map[string][]string {

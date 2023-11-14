@@ -207,6 +207,8 @@ func TestLookupChecking(t *testing.T) {
 					mapData[p.Field] = []string{fmt.Sprintf("%v", Float32()), fmt.Sprintf("%v", Float32()), fmt.Sprintf("%v", Float32()), fmt.Sprintf("%v", Float32())}
 				case "[]Field":
 					mapData[p.Field] = []string{`{"name":"first_name","function":"firstname"}`}
+				case "interface":
+					mapData[p.Field] = []string{Letter()}
 				default:
 					t.Fatalf("Looking for %s but switch case doesnt have it", p.Type)
 				}
@@ -370,6 +372,7 @@ func TestLookupCallsErrorParams(t *testing.T) {
 				params = append(params, p)
 			}
 			info.Params = params
+
 			AddFuncLookup(funcName, info)
 		}
 	}

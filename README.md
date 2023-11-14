@@ -772,12 +772,127 @@ school() string
 
 ### Template
 
-Generate custom documents using golang's template engine.
+Generate custom documents using golang's template engine [https://pkg.go.dev/text/template](https://pkg.go.dev/text/template).
 
 ```go
-Template(template string, lines int) ([]byte, error)
-TemplateDocument(sections int) (string, error)
-TemplateMarkdown(sections int) (string, error)
-TemplateEmailText(sections int) (string, error) 
+Template(co *TemplateOptions) ([]byte, error) // Generates custom documents
+Markdown(co *MarkdownOptions) (string, error) // Generates markdown documents
+EmailText(co *EmailOptions) (string, error)  // Generates email documents
+FixedWidth(co *FixedWidthOptions) ([]byte, error)  // Generates fixed width documents
 ```
+
+#### Template Helper Functions
+
+To help with formatting and using Gofakeit function there are some template helper functions available.
+
+<details>
+  <summary>1. String Functions</summary>
+
+```go
+- Replace(s string, old string, new string) string // Replace a old string with new string
+- Concat(sep string,args ...string) string // concatenate strings together using a separator
+- Upper(s string) string // make string upper case
+- Lower(s string) string // make string lower case
+```
+
+</details>
+
+<details>
+  <summary>2. Slice Functions</summary>
+
+```go
+- ListI(args ...interface{}) []interface{} // Build a slice of interfaces, used with Weighted
+- ListS(args ...string) []string // Build a slice of strings, used with Teams and RandomString
+- ListUInt(args ...uint) []uint // Build a slice of uint, used with Dice and RandomUint
+- ListInt(args ...int) []int // Build a slice of int, used with RandomInt
+```
+
+</details>
+
+<details>
+  <summary>3. Unavailable Gofakeit functions</summary>
+
+The following Gofakeit function are not available to use in templates
+
+```go
+- RandomMapKey(mapI interface{}) interface{}
+- ShuffleAnySlice(v interface{})
+- ShuffleInts(a []int)
+- ShuffleStrings(a []string)
+- Struct(v interface{})
+- Slice(v interface{})
+- Svg(options *SVGOptions) string
+```
+
+</details>
+
+
+#### Example Usages
+
+<details>
+<summary>1. Custom document using Template</summary>
+
+```go
+import "github.com/brianvoe/gofakeit/v6"
+
+// Accessing the Lines variable from within the template.
+template:=`{{range $y := IntRange 1 .Lines}}`
+
+// Example of using a helper functions to build a List of strings and pass it to a gofakeit function, Nested function need to be wrapped in ().
+template +=`{{RandomString (ListS "Contact Details" "Customers Details")}}{{$p:=Person}}` 
+
+// Displaying values from a variable, and using Upper helper function to format Company name.
+template +=`Name: {{$p.FirstName}} {{$p.LastName}}/nCompany: {{Upper ($p.Job.Company)}}/nContact: {{$p.Contact.Email}}{{end}}`
+
+value, err := gofakeit.Template(template, 4)
+if err != nil {
+	fmt.Println(err)
+}
+
+fmt.Println(string(value))
+
+//Output:
+// Contact Details
+// 
+// Name: Philip Casper
+// Company: POSSIBILITYU
+// Contact: jerodhilll@tillman.name
+```
+</details>
+
+<details>
+<summary>2. Generate FixedWidth document</summary>
+
+```go
+import "github.com/brianvoe/gofakeit/v6"
+
+	opts := &FixedWidthOptions{
+		Header:    []string{"Name", "Email", "Cost", "Account"},
+		Row:       []string{"{{FirstName}} {{LastName}}", "{{Email}}", "{{Number 1 100}}", "{{AchAccount}}"},
+		Footer:    []string{" ", " ", "{{.GetTotal}}", " "},
+		HeaderPad: []string{" ", " ", " ", " "},
+		RowPad:    []string{"-", " ", " ", "0"},
+		FooterPad: []string{" ", " ", " ", " "},
+		Align:     []string{"<", "<", "<", ">"},
+		Spacing:   []int{30, 30, 10, 20},
+		Count:     4,
+	}
+
+	value, err := gofakeit.FixedWidth(opts)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(string(value))
+
+	// Output:
+	// Name==========Email=======================Spend
+    // Markus Moen   alaynawuckert@kozey.biz    786.94
+    // Lucinda Murphyandrearmstrong@stanton.io  605.69
+    // Zachery Kuhic alicedenesik@moen.biz      749.81
+    // Fred Hickle   damiandaniel@lueilwitz.biz  275.4
+    //                                         2417.84
+
+```
+</details>
 
