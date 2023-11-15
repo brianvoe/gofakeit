@@ -140,6 +140,7 @@ func initLookup() {
 	addFileXMLLookup()
 	addFileCSVLookup()
 	addTemplateLookup()
+	addFixedWidthLookup()
 	addEmojiLookup()
 	addImageLookup()
 	addNumberLookup()

@@ -772,12 +772,138 @@ school() string
 
 ### Template
 
-Generate custom documents using golang's template engine.
+Generate custom documents using golang's template engine [https://pkg.go.dev/text/template](https://pkg.go.dev/text/template).
 
 ```go
-Template(template string, lines int) ([]byte, error)
-TemplateDocument(sections int) (string, error)
-TemplateMarkdown(sections int) (string, error)
-TemplateEmail(sections int) (string, error) 
+Template(co *TemplateOptions) ([]byte, error) // Generates custom documents
+Markdown(co *MarkdownOptions) (string, error) // Generates markdown documents
+EmailText(co *EmailOptions) (string, error)  // Generates email documents
+FixedWidth(co *FixedWidthOptions) ([]byte, error)  // Generates fixed width documents
 ```
+
+#### Template Helper Functions
+
+To help with formatting and using Gofakeit function there are some template helper functions available.
+
+<details>
+  <summary>1. String Functions</summary>
+
+```go
+- Replace(s string, old string, new string) string // Replace a old string with new string
+- Concat(sep string,args ...string) string // concatenate strings together using a separator
+- Upper(s string) string // make string upper case
+- Lower(s string) string // make string lower case
+```
+
+</details>
+
+<details>
+  <summary>2. Slice Functions</summary>
+
+```go
+- ListI(args ...interface{}) []interface{} // Build a slice of interfaces, used with Weighted
+- ListS(args ...string) []string // Build a slice of strings, used with Teams and RandomString
+- ListUInt(args ...uint) []uint // Build a slice of uint, used with Dice and RandomUint
+- ListInt(args ...int) []int // Build a slice of int, used with RandomInt
+```
+
+</details>
+
+<details>
+  <summary>3. Unavailable Gofakeit functions</summary>
+
+The following Gofakeit function are not available to use in templates
+
+```go
+- RandomMapKey(mapI interface{}) interface{}
+- ShuffleAnySlice(v interface{})
+- ShuffleInts(a []int)
+- ShuffleStrings(a []string)
+- Struct(v interface{})
+- Slice(v interface{})
+- Svg(options *SVGOptions) string
+```
+
+</details>
+
+
+#### Example Usages
+
+<details>
+<summary>1. Custom document using Template</summary>
+
+```go
+import "github.com/brianvoe/gofakeit/v6"
+
+// Accessing the Lines variable from within the template.
+template := `{{range $y := IntRange 1 .Data}}`
+
+// Example of using a helper functions to build a List of strings and pass it to a gofakeit function, Nested function need to be wrapped in ().
+template += `{{RandomString (ListS "Contact Details" "Customers Details")}}{{$p:=Person}}\n`
+
+// Displaying values from a variable, and using Upper helper function to format Company name.
+template += `Name: {{$p.FirstName}} {{$p.LastName}}\nCompany: {{Upper ($p.Job.Company)}}\nContact: {{$p.Contact.Email}}{{end}}`
+
+value, err := gofakeit.Template(template, &TemplateOptions{Data: 5})
+
+if err != nil {
+	fmt.Println(err)
+}
+
+fmt.Println(string(value))
+
+//Output:
+// Customers Details
+// Name: Philip Casper
+// Company: POSSIBILITYU
+// Contact: jerodhilll@tillman.name
+```
+</details>
+
+<details>
+<summary>2. Generate FixedWidth document</summary>
+
+```go
+import "github.com/brianvoe/gofakeit/v6"
+
+	value, err := gofakeit.FixedWidth(&FixedWidthOptions{
+		RowCount: 3,
+		Fields: []Field{
+			{Name: "name", //Column title
+			Function: "{{FirstName}} {{LastName}}", // Template function call
+				Params: MapParams{
+					"spacing":    {"15"},// Specify the column width
+					"header_pad": {"*"},// Specify padding for the header
+					"align":      {"<"}}},// Align content left
+			{Name: "last_name", 
+			Function: "lastname", // faker function call
+				Params: MapParams{
+					"spacing":    {"-1"},// auto the column width
+					"row_pad": {" "},// Specify padding for the row
+					"header_pad": {"*"}}},
+			{Name: "Money", Function: "{{Number 1 100}}",
+				Params: MapParams{
+					"footer":     {"{{.GetTotal}}"}, // footer get total of column
+					"spacing":    {"10"},
+					"align":      {">"},// Align content right
+					"footer_pad": {"0"},
+					"header_pad": {"*"}}},
+		},
+	})
+	
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(string(value))
+
+	// Output:
+	// name***********last_name*****Money
+	// Markus Moen    Daniel           40
+	// Anibal Kozey   Moen             16
+	// Sylvan Mraz    Pagac            62
+	//                         0000118.00
+
+```
+</details>
 
