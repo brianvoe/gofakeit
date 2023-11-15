@@ -118,7 +118,6 @@ func TestFixedWidthLookup(t *testing.T) {
 		t.Error("Expected 10+1(header row footer) rows, got", strings.Count(value, "\n"))
 	}
 
-	// t.Fatal(fmt.Sprintf("%s", value.([]byte)))
 }
 
 func TestFixedWidthNoOptions(t *testing.T) {

@@ -431,28 +431,3 @@ func BenchmarkTemplateLookup100000(b *testing.B) {
 
 	}
 }
-
-func TestExa(t *testing.T) {
-	f := New(3)
-	globalFaker.Rand.Seed(1)
-
-	// Accessing the Lines variable from within the template.
-	template := `{{range $y := IntRange 1 .Data}}`
-
-	// Example of using a helper functions to build a List of strings and pass it to a gofakeit function, Nested function need to be wrapped in ().
-	template += `{{RandomString (ListS "Contact Details" "Customers Details")}}{{$p:=Person}}`
-
-	// Displaying values from a variable, and using Upper helper function to format Company name.
-	template += `Name: {{$p.FirstName}} {{$p.LastName}}\nCompany: {{Upper ($p.Job.Company)}}\nContact: {{$p.Contact.Email}}{{end}}`
-
-	value, err := f.Template(template, &TemplateOptions{Data: 5})
-
-	if err != nil {
-		t.Error(err)
-	}
-
-	println(string(value))
-	if string(value) == "" {
-		t.Error("Expected a document, got nothing")
-	}
-}

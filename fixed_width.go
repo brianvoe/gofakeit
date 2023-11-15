@@ -209,29 +209,29 @@ func fixeWidthFunc(f *Faker, co *FixedWidthOptions) ([]byte, error) {
 				}
 			}
 
-			//convert the value to a string
+			// convert the value to a string
 			column_data = fmt.Sprintf("%s", value)
 
-			//update the running total for the column if numeric
+			// update the running total for the column if numeric
 			if !co.HideFooter {
 				updateColumTotals(co, k, column_data)
 			}
 
-			//get the width and check if its the larger than the current column size
+			// get the width and check if its the larger than the current column size
 			if len(column_data) > column_sizes[k] {
 				column_sizes[k] = len(column_data)
 			}
 
-			//build the row data with padding and spacing
+			// build the row data with padding and spacing
 			rows[r] += fmt.Sprintf("{{Pad `%s` (%s)  (%s) (%s) true}}", column_data, fmt.Sprintf("index .Data.column_sizes %v", k), fmt.Sprintf("index .Data.column_row_pad %v", k), fmt.Sprintf("index .Data.column_align %v", k))
 		}
 	}
 
-	//build the footer data
+	// build the footer data
 	if !co.HideFooter {
 		for i, field := range co.Fields {
 			co.currentColumn = i
-			//parse the footer function
+			// parse the footer function
 			if strings.Contains(column_footer[i], "{{") {
 				// Get function info
 				value, err = templateFunc(f, column_footer[i], co)
@@ -245,10 +245,10 @@ func fixeWidthFunc(f *Faker, co *FixedWidthOptions) ([]byte, error) {
 				}
 			}
 
-			//convert the value to a string
+			// convert the value to a string
 			column_data = fmt.Sprintf("%s", value)
 
-			//build the footer data with padding and spacing
+			// build the footer data with padding and spacing
 			if len(column_data) > column_sizes[i] {
 				column_sizes[i] = len(column_data)
 			}
@@ -258,7 +258,7 @@ func fixeWidthFunc(f *Faker, co *FixedWidthOptions) ([]byte, error) {
 		}
 	}
 
-	//set the current column if the are auto size
+	// set the current column if the are auto size
 	for k := range column_spacing {
 		if column_spacing[k] > 1 {
 			column_sizes[k] = column_spacing[k]
@@ -280,10 +280,10 @@ func fixeWidthFunc(f *Faker, co *FixedWidthOptions) ([]byte, error) {
 		fixed_width_result = fmt.Sprintf("%s\n", header_data)
 	}
 
-	//add the rows
+	// add the rows
 	fixed_width_result = fmt.Sprintf("%s%s\n", fixed_width_result, strings.Join(rows, "\n"))
 
-	//add the footer
+	// add the footer
 	if !co.HideFooter {
 		fixed_width_result = fmt.Sprintf("%s%s", fixed_width_result, footer_data)
 	}
