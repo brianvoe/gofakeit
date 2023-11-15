@@ -20,6 +20,12 @@ type iOptions interface {
 // baseTemplateOptions implements iOptions interface Funcs accessors
 type baseTemplateOptions struct {
 	funcs template.FuncMap
+	Data  interface{} //Data to be used in template
+}
+
+// getValue returns the data interface
+func (b baseTemplateOptions) GetData() interface{} {
+	return b.Data
 }
 
 // GetFuncs returns the template.FuncMap
@@ -101,7 +107,8 @@ func Template(template string, co *TemplateOptions) ([]byte, error) {
 	if template == "" {
 		return nil, fmt.Errorf("template parameter is empty")
 	}
-	return templateFunc(globalFaker, template, co)
+	template_result, err := templateFunc(globalFaker, template, co)
+	return []byte(fixString(string(template_result))), err
 }
 
 // Template generates an document or an array of objects in json format
@@ -110,7 +117,9 @@ func (f *Faker) Template(template string, co *TemplateOptions) ([]byte, error) {
 	if template == "" {
 		return nil, fmt.Errorf("template parameter is empty")
 	}
-	return templateFunc(f, template, co)
+	template_result, err := templateFunc(f, template, co)
+	return []byte(fixString(string(template_result))), err
+
 }
 
 // Template will return a single random Markdown template document

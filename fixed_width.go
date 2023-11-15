@@ -1,38 +1,27 @@
 package gofakeit
 
 import (
-	"bytes"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"math"
 	"math/rand"
+	"reflect"
 	"regexp"
 	"strconv"
 	"strings"
 	"text/template"
-	"unicode"
 )
 
-// getValue returns the data interface
+// FixedWidthOptions defines values needed for csv generation
 type FixedWidthOptions struct {
 	baseTemplateOptions
-	Header        []string    `json:"header" xml:"header" fake:"{{AutoHeader}}" fakesize:"8"`
-	Row           []string    `json:"row" xml:"row" fake:"{randomstring:[{{FirstName}} {{LastName}},{{Email}},{{Number 1 100}},{{AchAccount}},{{Company}},{{Price 10 1000}},{{CurrencyShort}}]}" fakesize:"8"`
-	Footer        []string    `json:"footer" xml:"footer" fake:"{{.GetTotal}}" fakesize:"8"`
-	Spacing       []int       `json:"spacing" xml:"spacing" fake:"-1" fakesize:"8"`               //Required Column Spacing -1 = auto
-	Align         []string    `json:"align" xml:"align" fake:"{randomstring:[<,>]}" fakesize:"8"` //Alignment of the columns < left, > right or ^ center
-	RowPad        []string    `json:"row_pad" xml:"row_pad" fake:" "  fakesize:"8"`               //What character to use for padding the footer column
-	HeaderPad     []string    `json:"header_pad" xml:"header_pad" fake:" "  fakesize:"8"`         //What character to use for padding the footer column
-	FooterPad     []string    `json:"footer_pad" xml:"footer_pad" fake:" "  fakesize:"8"`         //What character to use for padding the footer column
-	Count         int         `json:"count" xml:"count" fake:"{number:5,30}" `                    //Number of Rows to generate
-	runningTotal  []float64   //keep track of the running total
-	currentColumn int         //keep track of the current column
-	Data          interface{} //Data to be used in template
-}
-
-// getValue returns the data interface
-func (f FixedWidthOptions) GetData() interface{} {
-	return f.Data
+	HideHeader    bool      `json:"hide_header" xml:"delimiter" fake:"{bool}"`
+	HideFooter    bool      `json:"hide_footer" xml:"hide_footer" fake:"{bool}"`
+	RowCount      int       `json:"row_count" xml:"row_count" fake:"{number:1,10}"`
+	Fields        []Field   `json:"fields" xml:"fields" fake:"{internal_exampleFields}"`
+	runningTotal  []float64 //keep track of the running total
+	currentColumn int       //keep track of the current column
 }
 
 // get the running total for the current column
@@ -43,146 +32,13 @@ func (f FixedWidthOptions) GetTotal() interface{} {
 	return fmt.Sprintf("%.2f", f.runningTotal[f.currentColumn])
 }
 
-// get the spacing for the current column
-func (f FixedWidthOptions) GetSpacing(col int) int {
-	return f.Spacing[col]
-}
+// FixedWidth generates an object or an array of objects in json format
+// A nil FixedWidthOptions returns a randomly structured FixedWidth.
+func FixedWidth(co *FixedWidthOptions) ([]byte, error) { return fixeWidthFunc(globalFaker, co) }
 
-// Template generates an document based on the the supplied template
-// A nil TemplateOptions returns a document.
-func FixedWidth(co *FixedWidthOptions) ([]byte, error) {
-	return fixedWidth(globalFaker, co)
-}
-
-// Template generates an document or an array of objects in json format
-// A nil TemplateOptions returns a randomly structured CSV.
-func (f *Faker) FixedWidth(co *FixedWidthOptions) ([]byte, error) {
-	return fixedWidth(f, co)
-}
-
-// function to help setup the parameters for the template engine
-func defaultValues(name string, Param []string, defaultValue string, size int) ([]string, error) {
-
-	// see if we have alignment for each column if not set it to left
-	if len(Param) == 0 {
-		Param = make([]string, size)
-		for i := range Param {
-			//test if Param is empty and does not contain < > ^ then set it to the default value
-			if Param[i] != "<" && Param[i] != ">" && Param[i] != "^" {
-				Param[i] = defaultValue
-			}
-		}
-	}
-	// check if we have alignment that it matches the number of columns
-	if len(Param) != size {
-		Param = makeStringSliceRequiredSize(Param, defaultValue, size)
-	}
-
-	return Param, nil
-}
-
-// function  to make sure the sting slice is the correct size
-func makeStringSliceRequiredSize(Param []string, defaultValue string, size int) []string {
-	// check if we have alignment that it matches the number of columns
-	if len(Param) != size {
-		if len(Param) > size {
-			Param = Param[:size]
-		} else if len(Param) == 0 {
-			Param = make([]string, size)
-			for i := range Param {
-				Param[i] = defaultValue
-			}
-		} else if len(Param) < size {
-			//make the Param the same size as the number of columns
-			Param = append(Param, make([]string, size-len(Param))...)
-			for i := range Param {
-				Param[i] = defaultValue
-			}
-		}
-	}
-	return Param
-}
-
-// function  to make sure the Int slice is the correct size
-func makeIntSliceRequiredSize(Param []int, defaultValue int, size int) []int {
-	// check if we have alignment that it matches the number of columns
-	if len(Param) != size {
-		if len(Param) > size {
-			Param = Param[:size]
-		} else if len(Param) == 0 {
-			Param = make([]int, size)
-			for i := range Param {
-				Param[i] = defaultValue
-			}
-		} else if len(Param) < size {
-			//make the Param the same size as the number of columns
-			Param = append(Param, make([]int, size-len(Param))...)
-			for i := range Param {
-				Param[i] = defaultValue
-			}
-		}
-	}
-	return Param
-}
-
-// function to validate the options and set defaults where needed
-func validateInputs(co *FixedWidthOptions) error {
-	var err error
-
-	//Set a max rows
-	if co.Count > 100000 {
-		co.Count = 100000
-	}
-	if co.Count < 0 {
-		co.Count = 1
-	}
-
-	if len(co.Row) < 1 {
-		co.Row = make([]string, 1)
-		co.Row[0] = "{{Name}}"
-	}
-
-	// Validate the options and fix
-	if len(co.Row) != len(co.Spacing) {
-		co.Spacing = makeIntSliceRequiredSize(co.Spacing, -1, len(co.Row))
-	}
-
-	// make sure we have a row data for each column
-	if len(co.Header) > 0 && len(co.Header) != len(co.Row) {
-		return errors.New("number of headers does not match number of row columns")
-	}
-
-	// see if we have alignment for each column if not set it to left
-	co.Align, err = defaultValues("align", co.Align, "<", len(co.Row))
-	if err != nil {
-		return err
-	}
-
-	//see if we have the header padding if not set it to space
-	co.HeaderPad, err = defaultValues("header pad", co.HeaderPad, " ", len(co.Row))
-	if err != nil {
-		return err
-	}
-
-	//see if we have the row padding if not set it to space
-	co.RowPad, err = defaultValues("row pad", co.RowPad, " ", len(co.Row))
-	if err != nil {
-		return err
-	}
-
-	//see if we have the row padding if not set it to space
-	co.FooterPad, err = defaultValues("footer pad", co.FooterPad, " ", len(co.Row))
-	if err != nil {
-		return err
-	}
-
-	//see if we have the footer columns matches the number of header columns
-	if len(co.Footer) > 0 && len(co.Header) != len(co.Footer) {
-		return errors.New("number of headers does not match number of Footers ")
-	}
-
-	return nil
-}
+// FixedWidth generates an object or an array of objects in json format
+// A nil FixedWidthOptions returns a randomly structured FixedWidth.
+func (f *Faker) FixedWidth(co *FixedWidthOptions) ([]byte, error) { return fixeWidthFunc(f, co) }
 
 // function to truncate a string
 func truncateText(s string, max int) string {
@@ -230,54 +86,23 @@ func strPad(input string, padLength int, padString string, padType string, trim 
 	return output
 }
 
-// Function to remove duplicates from a string slice
-func removeDuplicateStr(strSlice []string) []string {
-	allKeys := make(map[string]bool)
-	list := []string{}
-
-	for i := len(strSlice) - 1; i >= 0; i-- {
-		if strSlice[i] == "" {
-			continue
-		}
-		if _, value := allKeys[strSlice[i]]; !value {
-			allKeys[strSlice[i]] = true
-			list = append(list, strSlice[i])
-		}
-	}
-	for i, j := 0, len(list)-1; i < j; i, j = i+1, j-1 {
-		list[i], list[j] = list[j], list[i]
-	}
-
-	return list
-}
-
-// Function to add space to a string
-func addSpace(s string) string {
-	buf := &bytes.Buffer{}
-	for i, rune := range s {
-		if unicode.IsUpper(rune) && i > 0 {
-			buf.WriteRune(' ')
-		}
-		buf.WriteRune(rune)
-	}
-	return buf.String()
-}
-
-// Function to make a fixed width document
-func fixedWidth(f *Faker, co *FixedWidthOptions) ([]byte, error) {
-
+func fixeWidthFunc(f *Faker, co *FixedWidthOptions) ([]byte, error) {
 	if co == nil {
-		// We didn't get a CSVOptions, so create a new random one
+		// We didn't get a FixedWidthOptions, so create a new random one
 		err := f.Struct(&co)
 		if err != nil {
 			return nil, err
 		}
 	}
 
-	// Validate the options and set defaults where needed
-	err := validateInputs(co)
-	if err != nil {
-		return nil, err
+	// Check fields
+	if co.Fields == nil || len(co.Fields) <= 0 {
+		return nil, errors.New("must pass fields in order to build json object(s)")
+	}
+
+	// Make sure you set a row count
+	if co.RowCount <= 0 {
+		return nil, errors.New("must have row count")
 	}
 
 	// Setup the template engine and custom functions
@@ -286,149 +111,181 @@ func fixedWidth(f *Faker, co *FixedWidthOptions) ([]byte, error) {
 	co.SetFuncs(&funcMap)
 
 	// Setup  variables
-	column_sizes := make([]int, len(co.Row)) //save the largest column size
+	var err error
+	column_spacing := make([]int, len(co.Fields))       //tmp store the spacing for each column
+	column_align := make([]string, len(co.Fields))      //tmp store the spacing for each column
+	column_header_pad := make([]string, len(co.Fields)) //tmp store the spacing for each column
+	column_row_pad := make([]string, len(co.Fields))    //tmp store the spacing for each column
+	column_footer_pad := make([]string, len(co.Fields)) //tmp store the spacing for each column
+	column_footer := make([]string, len(co.Fields))     //save the largest column size
+	var custom_data map[string]interface{}              //custom data for the template
+	var value interface{}
+	column_data := ""
+	header_data := ""
+	footer_data := ""
+
+	column_sizes := make([]int, len(co.Fields)) //tmp store the spacing for each column
+	for k := range column_sizes {
+		column_sizes[k] = 0
+	}
 
 	// Setup the running total
-	co.runningTotal = make([]float64, len(co.Footer))
-	for k := range co.Footer {
+	co.runningTotal = make([]float64, len(co.Fields))
+	for k := range co.runningTotal {
 		co.runningTotal[k] = -999999999999999
 	}
 
-	// Setup the spacing and see if it automatic or specified
-	column_spacing := make([]string, len(co.Row)) //tmp store the spacing for each column
-	for k := range co.Spacing {
-		column_spacing[k] = fmt.Sprintf("%v", co.Spacing[k])
-		if co.Spacing[k] < 0 {
-			//user the auto format
-			column_spacing[k] = fmt.Sprintf("(.GetSpacing %v)", k)
-		}
-	}
+	// Setup some variables for storing settings
+	for i, field := range co.Fields {
+		co.currentColumn = i
+		spacing := field.Params.Get("spacing")
+		align := field.Params.Get("align")
+		footer := field.Params.Get("footer")
+		header_pad := field.Params.Get("header_pad")
+		row_pad := field.Params.Get("row_pad")
+		footer_pad := field.Params.Get("footer_pad")
 
-	// Build and Render the header
-	header_str := ""
-	for k := range co.Header {
-		co.currentColumn = k //Set the current column
-		//check if the header is auto header or specified
-		headerValue := co.Header[k]
-		if strings.Contains(headerValue, "AutoHeader") {
-			//get the functions from the row column cleanup and use as the title
-			newHeader := co.Row[k]
-			newHeader = strings.ReplaceAll(newHeader, "{", " ")
-			newHeader = strings.ReplaceAll(newHeader, "}", " ")
-			newHeader = strings.ReplaceAll(newHeader, "  ", "")
-			newHeader = strings.Trim(newHeader, " ")
-			newHeader = addSpace(newHeader)
-			parts := strings.Split(newHeader, " ")
-			parts = removeDuplicateStr(parts)
-			headerValue = strings.Join(parts, "_")
-		} else {
-			// Render the column
-			column_data, err := templateFunc(f, co.Header[k], co)
+		// copy parameters to the column variables or initialize them to default values
+		if len(spacing) > 0 {
+			column_spacing[i], err = strconv.Atoi(spacing[0])
 			if err != nil {
 				return nil, err
 			}
-			headerValue = string(column_data)
 		}
-		//get the width and check if its the larger than the current column size
-		if len(headerValue) > column_sizes[k] {
-			column_sizes[k] = len(headerValue)
+
+		column_align[i] = "<"
+		if len(align) > 0 {
+			column_align[i] = align[0]
 		}
-		header_str += fmt.Sprintf("{{Pad `%s` %s  `%s` `%s` true}}", headerValue, column_spacing[k], co.HeaderPad[k], co.Align[k])
+
+		column_footer[i] = ""
+		if len(footer) > 0 {
+			column_footer[i] = footer[0]
+		}
+
+		column_header_pad[i] = " "
+		if len(header_pad) > 0 {
+			column_header_pad[i] = header_pad[0]
+		}
+
+		column_row_pad[i] = " "
+		if len(row_pad) > 0 {
+			column_row_pad[i] = row_pad[0]
+		}
+
+		column_footer_pad[i] = " "
+		if len(footer_pad) > 0 {
+			column_footer_pad[i] = footer_pad[0]
+		}
+
+		//build the header data with padding and spacing
+		if !co.HideHeader {
+			//get the width and check if its the larger than the current column size
+			if len(field.Name) > column_sizes[i] {
+				column_sizes[i] = len(field.Name)
+			}
+			header_data += fmt.Sprintf("{{Pad `%s` (%s)  (%s) (%s) true}}", field.Name, fmt.Sprintf("index .Data.column_sizes %v", i), fmt.Sprintf("index .Data.column_header_pad %v", i), fmt.Sprintf("index .Data.column_align %v", i))
+		}
 	}
 
-	//rendered_template, err = templateFunc(f, header_str, co)
-	//if err != nil {
-	//	return nil, err
-	//}
-	//header_str = string(rendered_template)
-
-	// Build the rows and loop through them
-	rows := make([]string, co.Count)
+	// Build the row data
+	rows := make([]string, co.RowCount)
 	for r := range rows {
 		rows[r] = ""
 
-		//Loop though the headers
-		for k := range co.Row {
-			co.currentColumn = k //Set the current column
-
-			// Render the column
-			column_data, err := templateFunc(f, co.Row[k], co)
-			if err != nil {
-				return nil, err
-			}
-
-			// if the data is numeric then add it to the running total
-			if len(co.Footer) > 0 {
-				if regexp.MustCompile(`\d`).MatchString(string(column_data)) {
-					value, err := strconv.ParseFloat(string(column_data), 32)
-					if err == nil {
-						//the data is numeric so check if value -99999... the set it to zero
-						if co.runningTotal[k] == -999999999999999 {
-							co.runningTotal[k] = 0
-						}
-						co.runningTotal[k] += value
-					}
+		// Loop through fields and add to them to map[string]interface{}
+		for k, field := range co.Fields {
+			co.currentColumn = k
+			if strings.Contains(field.Function, "{{") {
+				// Get function info
+				value, err = templateFunc(f, field.Function, co)
+				if err != nil {
+					return nil, err
+				}
+			} else {
+				value, err = runFunction(f, field, field.Function)
+				if err != nil {
+					return nil, err
 				}
 			}
 
+			//convert the value to a string
+			column_data = fmt.Sprintf("%s", value)
+
+			//update the running total for the column if numeric
+			if !co.HideFooter {
+				updateColumTotals(co, k, column_data)
+			}
+
 			//get the width and check if its the larger than the current column size
 			if len(column_data) > column_sizes[k] {
 				column_sizes[k] = len(column_data)
 			}
 
-			// Add the column to the row
-			rows[r] += fmt.Sprintf("{{Pad `%s` %v `%s` `%s` true}}", column_data, column_spacing[k], co.RowPad[k], co.Align[k])
+			//build the row data with padding and spacing
+			rows[r] += fmt.Sprintf("{{Pad `%s` (%s)  (%s) (%s) true}}", column_data, fmt.Sprintf("index .Data.column_sizes %v", k), fmt.Sprintf("index .Data.column_row_pad %v", k), fmt.Sprintf("index .Data.column_align %v", k))
 		}
-
 	}
 
-	// Build the footer if footer was configured
-	footer_str := ""
-	// check to see if we have a footer
-	if len(co.Footer) > 0 {
-
-		// Loop through the total columns and render
-		for k := range co.Footer {
-
-			co.currentColumn = k //Set the current column
-
-			// Render the column
-			column_data, err := templateFunc(f, co.Footer[k], co)
-			if err != nil {
-				return nil, err
+	//build the footer data
+	if !co.HideFooter {
+		for i, field := range co.Fields {
+			co.currentColumn = i
+			//parse the footer function
+			if strings.Contains(column_footer[i], "{{") {
+				// Get function info
+				value, err = templateFunc(f, column_footer[i], co)
+				if err != nil {
+					return nil, err
+				}
+			} else {
+				value, err = runFunction(f, field, column_footer[i])
+				if err != nil {
+					return nil, err
+				}
 			}
 
-			//get the width and check if its the larger than the current column size
-			if len(column_data) > column_sizes[k] {
-				column_sizes[k] = len(column_data)
+			//convert the value to a string
+			column_data = fmt.Sprintf("%s", value)
+
+			//build the footer data with padding and spacing
+			if len(column_data) > column_sizes[i] {
+				column_sizes[i] = len(column_data)
 			}
 
 			// build the footer column string
-			footer_str += fmt.Sprintf("{{Pad `%s` %v `%s` `%s` true}}", column_data, column_spacing[k], co.FooterPad[k], co.Align[k])
-		}
-
-	}
-
-	//need to update the column spacing to the largest column size if set to auto
-	for k := range co.Spacing {
-		if co.Spacing[k] < 0 {
-
-			co.Spacing[k] = column_sizes[k]
+			footer_data += fmt.Sprintf("{{Pad `%s` (%s)  (%s) (%s) true}}", column_data, fmt.Sprintf("index .Data.column_sizes %v", i), fmt.Sprintf("index .Data.column_footer_pad %v", i), fmt.Sprintf("index .Data.column_align %v", i))
 		}
 	}
 
-	// Build the final result
+	//set the current column if the are auto size
+	for k := range column_spacing {
+		if column_spacing[k] > 1 {
+			column_sizes[k] = column_spacing[k]
+		}
+	}
+
+	custom_data = map[string]interface{}{
+		"column_sizes":      column_sizes,
+		"column_header_pad": column_header_pad,
+		"column_row_pad":    column_row_pad,
+		"column_footer_pad": column_footer_pad,
+		"column_align":      column_align,
+	}
+	co.Data = custom_data
+
+	// build the file document
 	fixed_width_result := ""
-	if len(co.Header) > 0 {
-		fixed_width_result = fmt.Sprintf("%s\n", header_str)
+	if !co.HideHeader {
+		fixed_width_result = fmt.Sprintf("%s\n", header_data)
 	}
 
 	//add the rows
 	fixed_width_result = fmt.Sprintf("%s%s\n", fixed_width_result, strings.Join(rows, "\n"))
 
 	//add the footer
-	if len(co.Footer) > 0 {
-		fixed_width_result = fmt.Sprintf("%s%s\n", fixed_width_result, footer_str)
+	if !co.HideFooter {
+		fixed_width_result = fmt.Sprintf("%s%s", fixed_width_result, footer_data)
 	}
 
 	// Render the column
@@ -438,86 +295,115 @@ func fixedWidth(f *Faker, co *FixedWidthOptions) ([]byte, error) {
 	}
 
 	return final_render, nil
+
 }
 
-// function to add the fixed width lookup
+// function to update the running total for the column
+func updateColumTotals(co *FixedWidthOptions, column int, value interface{}) {
+	column_data := fmt.Sprintf("%s", value)
+	if regexp.MustCompile(`\d`).MatchString(column_data) {
+		value, err := strconv.ParseFloat(column_data, 32)
+		if err == nil {
+			//the data is numeric so check if value -99999... the set it to zero
+			if co.runningTotal[column] == -999999999999999 {
+				co.runningTotal[column] = 0
+			}
+			co.runningTotal[column] += value
+		}
+	}
+}
+
+// Run a faker function and return the value
+func runFunction(f *Faker, field Field, function string) (interface{}, error) {
+
+	funcInfo := GetFuncLookup(function)
+	if funcInfo == nil {
+		// in this case the function is not a faker function so just return the value
+		return function, nil
+	}
+
+	value, err := funcInfo.Generate(f.Rand, &field.Params, funcInfo)
+	if err != nil {
+		return nil, err
+	}
+
+	if _, ok := value.([]byte); ok {
+		// If it's a slice of bytes or struct, unmarshal it into an interface
+		var v interface{}
+		if err := json.Unmarshal(value.([]byte), &v); err != nil {
+			return nil, err
+		}
+		value = v
+	}
+
+	// If the value is a list of possible values, marsha it into a string
+	if reflect.TypeOf(value).Kind() == reflect.Struct ||
+		reflect.TypeOf(value).Kind() == reflect.Ptr ||
+		reflect.TypeOf(value).Kind() == reflect.Map ||
+		reflect.TypeOf(value).Kind() == reflect.Slice {
+		b, err := json.Marshal(value)
+		if err != nil {
+			return "", err
+		}
+		value = string(b)
+	}
+
+	return value, nil
+}
+
 func addFixedWidthLookup() {
 	AddFuncLookup("fixed_width", Info{
 		Display:     "FixedWidth",
 		Category:    "template",
 		Description: "Generates FixedWidth document",
 		Example: `
-		"Name==========================Email===============================Cost=============Account"
-		"Markus Moen                   alaynawuckert@kozey.biz               8000000000948995369063"
-		"Freeda Keebler                gabriellehuels@borer.io               6900000000932452944030"
-		"****************************************************************218.00********************"`,
+			"Name==========================Email===============================Cost=============Account"
+			"Markus Moen                   alaynawuckert@kozey.biz               8000000000948995369063"
+			"Freeda Keebler                gabriellehuels@borer.io               6900000000932452944030"
+			"****************************************************************218.00********************"
+		`,
 		Output:      "[]byte",
 		ContentType: "text/plain",
 		Params: []Param{
-			{Field: "header", Display: "Header data", Type: "[]string", Default: "[Name,Email]", Description: "Header data for each column"},
-			{Field: "row", Display: "Row data", Type: "[]string", Default: "[{{Name}},{{Email}}]", Description: "Row data for each column"},
-			{Field: "footer", Display: "Footer Data", Type: "[]string", Optional: true, Default: "[,]", Description: "Footer data for each column"},
-			{Field: "header_pad", Display: "Header Padding", Type: "[]string", Optional: true, Default: "[,]", Description: "What character to use for padding the footer column"},
-			{Field: "row_pad", Display: "Row Padding", Type: "[]string", Optional: true, Default: "[,]", Description: "What character to use for padding the footer column"},
-			{Field: "row_pad", Display: "Row Padding", Type: "[]string", Optional: true, Default: "[,]", Description: "What character to use for padding the footer column"},
-			{Field: "footer_pad", Display: "Footer Padding", Type: "[]string", Optional: true, Default: "[,]", Description: "What character to use for padding the footer column"},
-			{Field: "align", Display: "Column Alignment", Type: "[]string", Optional: true, Default: "[=,=]", Description: "Alignment of the columns < left, > right or ^ center"},
-			{Field: "spacing", Display: "Column Spacing", Type: "[]int", Default: "[10,10]", Description: "Required Column Spacing"},
-			{Field: "count", Display: "Number of Rows", Type: "int", Default: "1", Description: "Number of Rows to generate"},
+			{Field: "rowcount", Display: "Row Count", Type: "int", Default: "100", Description: "Number of rows"},
+			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function"},
+			{Field: "hide_header", Display: "HideHeader", Type: "bool", Default: "false", Description: "Hide the header"},
+			{Field: "hide_footer", Display: "HideFooter", Type: "bool", Default: "false", Description: "Hide the footer"},
 		},
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			co := FixedWidthOptions{}
 
-			//template to use
-			header, err := info.GetStringArray(m, "header")
+			rowcount, err := info.GetInt(m, "rowcount")
 			if err != nil {
 				return nil, err
 			}
-			row, err := info.GetStringArray(m, "row")
+			co.RowCount = rowcount
+
+			fieldsStr, err := info.GetStringArray(m, "fields")
 			if err != nil {
 				return nil, err
 			}
-			footer, err := info.GetStringArray(m, "footer")
-			if err != nil {
-				return nil, err
-			}
-			header_pad, _ := info.GetStringArray(m, "header_pad")
-			/*if err != nil {
-				return nil, err
-			}*/
-			row_pad, _ := info.GetStringArray(m, "row_pad")
-			//if err != nil {
-			//	return nil, err
-			//}
-			footer_pad, _ := info.GetStringArray(m, "footer_pad")
-			/*if err != nil {
-				return nil, err
-			}*/
-			spacing, err := info.GetIntArray(m, "spacing")
-			if err != nil {
-				return nil, err
-			}
-			count, err := info.GetInt(m, "count")
-			if err != nil {
-				return nil, err
+
+			// Check to make sure fields has length
+			if len(fieldsStr) > 0 {
+				co.Fields = make([]Field, len(fieldsStr))
+
+				for i, f := range fieldsStr {
+					// Unmarshal fields string into fields array
+					err = json.Unmarshal([]byte(f), &co.Fields[i])
+					if err != nil {
+						return nil, err
+					}
+				}
 			}
 
 			f := &Faker{Rand: r}
-			opt := FixedWidthOptions{
-				Header:    header,
-				Row:       row,
-				Footer:    footer,
-				HeaderPad: header_pad,
-				RowPad:    row_pad,
-				FooterPad: footer_pad,
-				Spacing:   spacing,
-				Count:     count,
-			}
-			templateOut, err := f.FixedWidth(&opt)
+			csvOut, err := fixeWidthFunc(f, &co)
 			if err != nil {
 				return nil, err
 			}
 
-			return fixString(string(templateOut)), nil
+			return csvOut, nil
 		},
 	})
 }

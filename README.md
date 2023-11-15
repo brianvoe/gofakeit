@@ -836,15 +836,16 @@ The following Gofakeit function are not available to use in templates
 import "github.com/brianvoe/gofakeit/v6"
 
 // Accessing the Lines variable from within the template.
-template:=`{{range $y := IntRange 1 .Lines}}`
+template := `{{range $y := IntRange 1 .Data}}`
 
 // Example of using a helper functions to build a List of strings and pass it to a gofakeit function, Nested function need to be wrapped in ().
-template +=`{{RandomString (ListS "Contact Details" "Customers Details")}}{{$p:=Person}}` 
+template += `{{RandomString (ListS "Contact Details" "Customers Details")}}{{$p:=Person}}\n`
 
 // Displaying values from a variable, and using Upper helper function to format Company name.
-template +=`Name: {{$p.FirstName}} {{$p.LastName}}/nCompany: {{Upper ($p.Job.Company)}}/nContact: {{$p.Contact.Email}}{{end}}`
+template += `Name: {{$p.FirstName}} {{$p.LastName}}\nCompany: {{Upper ($p.Job.Company)}}\nContact: {{$p.Contact.Email}}{{end}}`
 
-value, err := gofakeit.Template(template, 4)
+value, err := gofakeit.Template(template, &TemplateOptions{Data: 5})
+
 if err != nil {
 	fmt.Println(err)
 }
@@ -852,8 +853,7 @@ if err != nil {
 fmt.Println(string(value))
 
 //Output:
-// Contact Details
-// 
+// Customers Details
 // Name: Philip Casper
 // Company: POSSIBILITYU
 // Contact: jerodhilll@tillman.name
@@ -866,19 +866,31 @@ fmt.Println(string(value))
 ```go
 import "github.com/brianvoe/gofakeit/v6"
 
-	opts := &FixedWidthOptions{
-		Header:    []string{"Name", "Email", "Cost", "Account"},
-		Row:       []string{"{{FirstName}} {{LastName}}", "{{Email}}", "{{Number 1 100}}", "{{AchAccount}}"},
-		Footer:    []string{" ", " ", "{{.GetTotal}}", " "},
-		HeaderPad: []string{" ", " ", " ", " "},
-		RowPad:    []string{"-", " ", " ", "0"},
-		FooterPad: []string{" ", " ", " ", " "},
-		Align:     []string{"<", "<", "<", ">"},
-		Spacing:   []int{30, 30, 10, 20},
-		Count:     4,
-	}
-
-	value, err := gofakeit.FixedWidth(opts)
+	value, err := gofakeit.FixedWidth(&FixedWidthOptions{
+		RowCount: 3,
+		Fields: []Field{
+			{Name: "name", //Column title
+			Function: "{{FirstName}} {{LastName}}", // Template function call
+				Params: MapParams{
+					"spacing":    {"15"},// Specify the column width
+					"header_pad": {"*"},// Specify padding for the header
+					"align":      {"<"}}},// Align content left
+			{Name: "last_name", 
+			Function: "lastname", // faker function call
+				Params: MapParams{
+					"spacing":    {"-1"},// auto the column width
+					"row_pad": {" "},// Specify padding for the row
+					"header_pad": {"*"}}},
+			{Name: "Money", Function: "{{Number 1 100}}",
+				Params: MapParams{
+					"footer":     {"{{.GetTotal}}"}, // footer get total of column
+					"spacing":    {"10"},
+					"align":      {">"},// Align content right
+					"footer_pad": {"0"},
+					"header_pad": {"*"}}},
+		},
+	})
+	
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -886,12 +898,11 @@ import "github.com/brianvoe/gofakeit/v6"
 	fmt.Println(string(value))
 
 	// Output:
-	// Name==========Email=======================Spend
-    // Markus Moen   alaynawuckert@kozey.biz    786.94
-    // Lucinda Murphyandrearmstrong@stanton.io  605.69
-    // Zachery Kuhic alicedenesik@moen.biz      749.81
-    // Fred Hickle   damiandaniel@lueilwitz.biz  275.4
-    //                                         2417.84
+	// name***********last_name*****Money
+	// Markus Moen    Daniel           40
+	// Anibal Kozey   Moen             16
+	// Sylvan Mraz    Pagac            62
+	//                         0000118.00
 
 ```
 </details>

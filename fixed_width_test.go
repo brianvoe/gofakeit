@@ -6,26 +6,42 @@ import (
 	"testing"
 )
 
-// Template examples and tests
-
 func ExampleFixedWidth() {
-	// Make sure we get the same results every time
 	Seed(11)
-	globalFaker.Rand.Seed(11)
 
-	opts := &FixedWidthOptions{
-		Header:    []string{"Name", "Email", "Cost", "Account"},
-		Row:       []string{"{{FirstName}} {{LastName}}", "{{Email}}", "{{Number 1 100}}", "{{AchAccount}}"},
-		Footer:    []string{"", "", "{{.GetTotal}}", ""},
-		HeaderPad: []string{" ", " ", " ", " "},
-		RowPad:    []string{"", " ", " ", "0"},
-		FooterPad: []string{" ", " ", " ", " "},
-		Align:     []string{"<", "<", "<", ">"},
-		Spacing:   []int{30, 30, 10, 20},
-		Count:     4,
-	}
-
-	value, err := FixedWidth(opts)
+	value, err := FixedWidth(&FixedWidthOptions{
+		RowCount: 3,
+		Fields: []Field{
+			{Name: "name", Function: "{{FirstName}} {{LastName}}",
+				Params: MapParams{
+					"spacing":    {"15"},
+					"header_pad": {"*"}}},
+			{Name: "last_name", Function: "lastname",
+				Params: MapParams{
+					"spacing":    {"15"},
+					"header_pad": {"*"}}},
+			{Name: "Email", Function: "email",
+				Params: MapParams{
+					"spacing":    {"30"},
+					"header_pad": {"*"}}},
+			{Name: "password", Function: "password",
+				Params: MapParams{
+					"special":    {"false"},
+					"spacing":    {"20"},
+					"header_pad": {"*"}}},
+			{Name: "Account No.", Function: "{{AchAccount}}",
+				Params: MapParams{
+					"spacing":    {"20"},
+					"header_pad": {"*"}}},
+			{Name: "Money", Function: "{{Number 1 100}}",
+				Params: MapParams{
+					"footer":     {"{{.GetTotal}}"},
+					"spacing":    {"10"},
+					"align":      {">"},
+					"footer_pad": {"0"},
+					"header_pad": {"*"}}},
+		},
+	})
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -33,34 +49,29 @@ func ExampleFixedWidth() {
 	fmt.Println(string(value))
 
 	// Output:
-	// Name                          Email                         Cost                   Account
-	// Markus Moen-------------------alaynawuckert@kozey.biz       80        00000000948995369063
-	// Rossie Mosciski---------------fredhickle@bahringer.org      41        00000000914583023202
-	// Jalon Rolfson-----------------effiestiedemann@koelpin.biz   28        00000000171480088998
-	// Freeda Keebler----------------gabriellehuels@borer.io       69        00000000932452944030
-	//                                                             218.00
-	//
-
+	// name***********last_name******Email*************************password************Account No.**************Money
+	// Markus Moen    Pagac          anibalkozey@lockman.name      X3ZoWoYkWA6L        302320202761                62
+	// Estell Fay     Marvin         hardyhintz@crooks.io          wWq8lxcb4woV        389344090143                17
+	// Lillie Kuhn    Homenick       hannakassulke@prosacco.name   lJKBT6Pcs9tr        614968021002                87
+	//                                                                                                     0000166.00
 }
 
 func ExampleFaker_FixedWidth() {
-	// Make sure we get the same results every time
+
 	f := New(11)
 	globalFaker.Rand.Seed(11)
 
-	opts := &FixedWidthOptions{
-		Header:    []string{"Name", "Email", "Spend"},
-		Row:       []string{"{{FirstName}} {{LastName}}", "{{Email}}", "{{Price 10 1000}}"},
-		Footer:    []string{" ", " ", "{{.GetTotal}}"},
-		HeaderPad: []string{"=", "=", "="},
-		RowPad:    []string{" ", " ", " "},
-		FooterPad: []string{" ", " ", " "},
-		Align:     []string{"<", "<", ">"},
-		Spacing:   []int{-1, -1, -1},
-		Count:     4,
-	}
-
-	value, err := f.FixedWidth(opts)
+	value, err := f.FixedWidth(&FixedWidthOptions{
+		RowCount: 3,
+		Fields: []Field{
+			{Name: "name", Function: "{{FirstName}} {{LastName}}", Params: MapParams{"spacing": {"-1"}, "header_pad": {"*"}}},
+			{Name: "last_name", Function: "lastname", Params: MapParams{"spacing": {"-1"}, "header_pad": {"*"}}},
+			{Name: "Email", Function: "email", Params: MapParams{"spacing": {"-1"}, "header_pad": {"*"}}},
+			{Name: "password", Function: "password", Params: MapParams{"special": {"false"}, "spacing": {"-1"}, "header_pad": {"*"}}},
+			{Name: "Account No.", Function: "{{AchAccount}}", Params: MapParams{"spacing": {"-1"}, "header_pad": {"*"}}},
+			{Name: "Money", Function: "{{Number 1 100}}", Params: MapParams{"footer": {"{{.GetTotal}}"}, "spacing": {"-1"}, "align": {">"}, "footer_pad": {"0"}, "header_pad": {"*"}}},
+		},
+	})
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -68,165 +79,133 @@ func ExampleFaker_FixedWidth() {
 	fmt.Println(string(value))
 
 	// Output:
-	// Name                          Email                         Cost                   Account
-	// Markus Moen                   alaynawuckert@kozey.biz       80        00000000948995369063
-	// Rossie Mosciski               fredhickle@bahringer.org      41        00000000914583023202
-	// Jalon Rolfson                 effiestiedemann@koelpin.biz   28        00000000171480088998
-	// Freeda Keebler                gabriellehuels@borer.io       69        00000000932452944030
-	//                                                             218.00
+	// name************last_nameEmail********************password****Account No.**Money
+	// Markus Moen     Daniel   marcelpagac@wuckert.biz  W8DAkpLjYoBW364599489953    35
+	// Amie Feil       Kuvalis  trystangislason@pagac.net9G9rOTgd3vDs635300425914    16
+	// Trystan GislasonKeebler  gabriellehuels@borer.io  J41S7H76KwYZ323202027613    61
+	//                                                                           112.00
 }
 
 func TestFixedWidthLookup(t *testing.T) {
-	faker := New(11)
-	globalFaker.Rand.Seed(11)
+	faker := New(0)
+
 	info := GetFuncLookup("fixed_width")
 
 	m := MapParams{
-		"header":     {"Name", "Email", "Cost", "Account"},
-		"row":        {"{{FirstName}} {{LastName}}", "{{Email}}", "{{Number 1 100}}", "{{AchAccount}}"},
-		"footer":     {"", "", "{{.GetTotal}}", ""},
-		"header_pad": {"", "", "", ""},
-		"row_pad":    {"", "", "", ""},
-		"footer_pad": {"", "", "", ""},
-		"align":      {"<", "<", ">", ">"},
-		"spacing":    {"30", "30", "10", "20"},
-		"count":      {"5"},
+		"rowcount": {"10"},
+		"fields": {
+			`{"name":"Name","function":"{{FirstName}} {{LastName}}"}`,
+			`{"name":"Last Name","function":"lastname"}`,
+			`{"name":"Password","function":"password","params":{"special":["false"],"length":["20"]}}`,
+			`{"name":"Account No.","function":"{{AchAccount}}"}`,
+			`{"name":"Money","function":"{{Number 1 100}}",   
+				"params":{
+					"align": ">"
+				}
+			}`,
+		},
 	}
 
-	value, err := info.Generate(faker.Rand, &m, info)
+	output, err := info.Generate(faker.Rand, &m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
 
-	test := map[string]string{
-		"header": "Name                          Email                         Cost      Account",
-		"row1":   "Rossie Mosciski               fredhickle@bahringer.org      41        914583023202",
-		"row2":   "Freeda Keebler                gabriellehuels@borer.io       69        932452944030",
-		"Footer": "                                                            261.00              ",
+	value := string(output.([]byte))
+	fmt.Println(string(value))
+	// Check that value has the correct number of rows via new line characters plus 1 for the header
+	if strings.Count(value, "\n") != 11 {
+		t.Error("Expected 10+1(header row footer) rows, got", strings.Count(value, "\n"))
 	}
 
-	for k, v := range test {
-		if !strings.Contains(string(value.(string)), v) {
-			t.Errorf("expected a value of %s for the %s, got nothing", v, k)
-		}
-	}
-
-}
-
-func TestFixedWidthDefaults(t *testing.T) {
-	// Make sure we get the same results every time
-	f := New(11)
-	globalFaker.Rand.Seed(11)
-
-	opts := &FixedWidthOptions{
-		Header:  []string{"Name", "Email", "Cost", "Account"},
-		Row:     []string{"{{FirstName}} {{LastName}}", "{{Email}}", "{{Number 1 100}}", "{{AchAccount}}"},
-		Footer:  []string{"", "", "{{.GetTotal}}", ""},
-		Spacing: []int{30, 30, 10, 20},
-		Count:   4,
-	}
-
-	value, err := f.FixedWidth(opts)
-	if err != nil {
-		t.Error(err)
-	}
-
-	test := map[string]string{
-		"header": "Name                          Email                         Cost      Account             ",
-		"row1":   "Markus Moen                   alaynawuckert@kozey.biz       80        948995369063        ",
-		"row2":   "Freeda Keebler                gabriellehuels@borer.io       69        932452944030        ",
-		"Footer": "                                                            218.00                        ",
-	}
-
-	for k, v := range test {
-		if !strings.Contains(string(value), v) {
-			t.Errorf("expected a value of %s for the %s, got nothing", v, k)
-		}
-	}
-}
-func TestFixedWidthDefaultsNoFooter(t *testing.T) {
-	// Make sure we get the same results every time
-	f := New(11)
-	globalFaker.Rand.Seed(11)
-
-	opts := &FixedWidthOptions{
-		Header:  []string{"Name", "Email", "Cost", "Account"},
-		Row:     []string{"{{FirstName}} {{LastName}}", "{{Email}}", "{{Number 1 100}}", "{{AchAccount}}"},
-		Spacing: []int{30, 30, 10, 20},
-		Count:   4,
-	}
-
-	test := map[string]string{
-		"header": "Name                          Email                         Cost      Account",
-		"row1":   "Rossie Mosciski               fredhickle@bahringer.org      41        914583023202",
-		"row2":   "Freeda Keebler                gabriellehuels@borer.io       69        932452944030",
-	}
-	value, err := f.FixedWidth(opts)
-	if err != nil {
-		t.Error(err)
-	}
-
-	for k, v := range test {
-		if !strings.Contains(string(value), v) {
-			t.Errorf("expected a value of %s for the %s, got nothing", v, k)
-		}
-	}
-}
-
-func TestFixedWidthFormatting(t *testing.T) {
-	// Make sure we get the same results every time
-	f := New(11)
-	globalFaker.Rand.Seed(11)
-
-	opts := &FixedWidthOptions{
-		Header:    []string{"Name", "Email", "Cost", "Account"},
-		Row:       []string{"{{FirstName}} {{LastName}}", "{{Email}}", "{{Number 1 100}}", "{{AchAccount}}"},
-		Footer:    []string{"", "", "{{.GetTotal}}", ""},
-		HeaderPad: []string{"=", "=", "=", "="},
-		RowPad:    []string{"", " ", " ", "0"},
-		FooterPad: []string{"*", "*", "*", "*"},
-		Align:     []string{"<", "<", ">", ">"},
-		Spacing:   []int{30, 30, 10, 20},
-		Count:     4,
-	}
-
-	test := map[string]string{
-		"header": "Name==========================Email===============================Cost=============Account",
-		"row1":   "Markus Moen                   alaynawuckert@kozey.biz               8000000000948995369063",
-		"row2":   "Freeda Keebler                gabriellehuels@borer.io               6900000000932452944030",
-		"footer": "****************************************************************218.00********************",
-	}
-	value, err := f.FixedWidth(opts)
-	if err != nil {
-		t.Error(err)
-	}
-
-	for k, v := range test {
-		if !strings.Contains(string(value), v) {
-			t.Errorf("expected a value of %s for the %s, got nothing", v, k)
-		}
-	}
+	// t.Fatal(fmt.Sprintf("%s", value.([]byte)))
 }
 
 func TestFixedWidthNoOptions(t *testing.T) {
-	// Make sure we get the same results every time
-	f := New(5)
-	globalFaker.Rand.Seed(5)
+	Seed(11)
 
-	test := map[string]string{
-		"header": "Number_1_100First_Last_Name Price_10_1000First_Last_Name   Currency_ShortPrice_10_1000Price_10_1000Number_1_100",
-		"row1":   "61          Anissa Stracke  600.78       Emelia Rodriguez             RON859.35       306.03       35         ",
-		"row2":   "33          Demond Davis    672.19       Delpha Bartell               TVD618.74       580.06       74          ",
-		"footer": "1199.00                     11163.36                                     10876.01     13253.33     1035.00     ",
-	}
-	value, err := f.FixedWidth(nil)
+	// if CSVOptions is nil -> get a random CSVOptions
+	_, err := FixedWidth(nil)
+
 	if err != nil {
-		t.Error(err)
+		t.Fatal(err.Error())
 	}
+}
 
-	for k, v := range test {
-		if !strings.Contains(string(value), v) {
-			t.Errorf("expected a value of %s for the %s, got nothing", v, k)
+func BenchmarkFixedWidthLookup100(b *testing.B) {
+	faker := New(0)
+
+	for i := 0; i < b.N; i++ {
+		info := GetFuncLookup("fixed_width")
+		m := MapParams{
+			"rowcount": {"100"},
+			"fields": {
+				`{"name":"Name","function":"{{FirstName}} {{LastName}}"}`,
+				`{"name":"Last Name","function":"lastname"}`,
+				`{"name":"Password","function":"password","params":{"special":["false"],"length":["20"]}}`,
+				`{"name":"Account No.","function":"{{AchAccount}}"}`,
+				`{"name":"Money","function":"{{Number 1 100}}",   
+					"params":{
+						"align": ">"
+					}
+				}`,
+			},
+		}
+		_, err := info.Generate(faker.Rand, &m, info)
+		if err != nil {
+			b.Fatal(err.Error())
+		}
+	}
+}
+
+func BenchmarkFixedWidthLookup1000(b *testing.B) {
+	faker := New(0)
+
+	for i := 0; i < b.N; i++ {
+		info := GetFuncLookup("fixed_width")
+		m := MapParams{
+			"rowcount": {"1000"},
+			"fields": {
+				`{"name":"Name","function":"{{FirstName}} {{LastName}}"}`,
+				`{"name":"Last Name","function":"lastname"}`,
+				`{"name":"Password","function":"password","params":{"special":["false"],"length":["20"]}}`,
+				`{"name":"Account No.","function":"{{AchAccount}}"}`,
+				`{"name":"Money","function":"{{Number 1 100}}",   
+					"params":{
+						"align": ">"
+					}
+				}`,
+			},
+		}
+		_, err := info.Generate(faker.Rand, &m, info)
+		if err != nil {
+			b.Fatal(err.Error())
+		}
+	}
+}
+
+func BenchmarkFixedWidthLookup10000(b *testing.B) {
+	faker := New(0)
+
+	for i := 0; i < b.N; i++ {
+		info := GetFuncLookup("fixed_width")
+		m := MapParams{
+			"rowcount": {"10000"},
+			"fields": {
+				`{"name":"Name","function":"{{FirstName}} {{LastName}}"}`,
+				`{"name":"Last Name","function":"lastname"}`,
+				`{"name":"Password","function":"password","params":{"special":["false"],"length":["20"]}}`,
+				`{"name":"Account No.","function":"{{AchAccount}}"}`,
+				`{"name":"Money","function":"{{Number 1 100}}",   
+					"params":{
+						"align": ">"
+					}
+				}`,
+			},
+		}
+		_, err := info.Generate(faker.Rand, &m, info)
+		if err != nil {
+			b.Fatal(err.Error())
 		}
 	}
 }
