@@ -506,6 +506,44 @@ func addNumberLookup() {
 		},
 	})
 
+	AddFuncLookup("randomint", Info{
+		Display:     "Random Int",
+		Category:    "number",
+		Description: "Randomly selected value from a slice of int",
+		Example:     "-1,2,-3,4 => -3",
+		Output:      "int",
+		Params: []Param{
+			{Field: "ints", Display: "Integers", Type: "[]int", Description: "Delimited separated integers"},
+		},
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			ints, err := info.GetIntArray(m, "ints")
+			if err != nil {
+				return nil, err
+			}
+
+			return randomInt(r, ints), nil
+		},
+	})
+
+	AddFuncLookup("randomuint", Info{
+		Display:     "Random Uint",
+		Category:    "number",
+		Description: "Randomly selected value from a slice of uint",
+		Example:     "1,2,3,4 => 4",
+		Output:      "uint",
+		Params: []Param{
+			{Field: "uints", Display: "Unsigned Integers", Type: "[]uint", Description: "Delimited separated unsigned integers"},
+		},
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			uints, err := info.GetUintArray(m, "uints")
+			if err != nil {
+				return nil, err
+			}
+
+			return randomUint(r, uints), nil
+		},
+	})
+
 	AddFuncLookup("hexuint8", Info{
 		Display:     "HexUint8",
 		Category:    "number",
