@@ -367,8 +367,8 @@ func addFixedWidthLookup() {
 		Params: []Param{
 			{Field: "rowcount", Display: "Row Count", Type: "int", Default: "100", Description: "Number of rows"},
 			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function"},
-			{Field: "hide_header", Display: "HideHeader", Type: "bool", Default: "false", Description: "Hide the header"},
-			{Field: "hide_footer", Display: "HideFooter", Type: "bool", Default: "false", Description: "Hide the footer"},
+			{Field: "hide_header", Display: "HideHeader", Type: "bool", Optional: true, Default: "false", Description: "Hide the header"},
+			{Field: "hide_footer", Display: "HideFooter", Type: "bool", Optional: true, Default: "false", Description: "Hide the footer"},
 		},
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
 			co := FixedWidthOptions{}

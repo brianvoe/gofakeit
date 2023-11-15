@@ -112,7 +112,7 @@ func TestFixedWidthLookup(t *testing.T) {
 	}
 
 	value := string(output.([]byte))
-	fmt.Println(string(value))
+
 	// Check that value has the correct number of rows via new line characters plus 1 for the header
 	if strings.Count(value, "\n") != 11 {
 		t.Error("Expected 10+1(header row footer) rows, got", strings.Count(value, "\n"))
