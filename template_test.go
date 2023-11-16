@@ -73,6 +73,7 @@ func ExampleFaker_Template() {
 }
 
 func TestTemplateLookup(t *testing.T) {
+	// Make sure we get the same results every time
 	faker := New(11)
 	globalFaker.Rand.Seed(11)
 	info := GetFuncLookup("template")
@@ -94,6 +95,7 @@ func TestTemplateLookup(t *testing.T) {
 }
 
 func TestTemplateNoTemplateParam(t *testing.T) {
+	// Make sure we get the same results every time
 	f := New(11)
 	globalFaker.Rand.Seed(11)
 	value, err := f.Template("", nil)
@@ -183,6 +185,7 @@ func ExampleFaker_EmailText() {
 }
 
 func TestEmailTextLookup(t *testing.T) {
+	// Make sure we get the same results every time
 	faker := New(6)
 	globalFaker.Rand.Seed(6)
 	info := GetFuncLookup("email_text")
@@ -203,6 +206,7 @@ func TestEmailTextLookup(t *testing.T) {
 }
 
 func TestEmailText(t *testing.T) {
+	// Make sure we get the same results every time
 	f := New(5)
 	globalFaker.Rand.Seed(5)
 	value, err := f.EmailText(&EmailOptions{Sections_count: 6})
@@ -347,8 +351,10 @@ func ExampleFaker_Markdown() {
 }
 
 func TestMarkdownLookup(t *testing.T) {
+	// Make sure we get the same results every time
 	faker := New(9)
 	globalFaker.Rand.Seed(9)
+
 	info := GetFuncLookup("markdown")
 
 	m := MapParams{
@@ -367,8 +373,10 @@ func TestMarkdownLookup(t *testing.T) {
 }
 
 func TestMarkdown(t *testing.T) {
+	// Make sure we get the same results every time
 	f := New(3)
 	globalFaker.Rand.Seed(1)
+
 	value, err := f.Markdown(&MarkdownOptions{Sections_count: 1})
 	if err != nil {
 		t.Error(err)

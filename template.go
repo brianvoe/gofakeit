@@ -40,22 +40,22 @@ func (b *baseTemplateOptions) SetFuncs(f *template.FuncMap) {
 
 // TemplateOptions defines values needed for template document generation
 type TemplateOptions struct {
-	Data interface{} `json:"data" xml:"data" fake:"-"` // number of lines to generate this is passed to the template
+	Data interface{} `json:"data" xml:"data" fake:"-"` // custom data to pass to the template engine
 	baseTemplateOptions
 }
 
-// getValue returns the data interface
+// GetData returns the data interface
 func (f TemplateOptions) GetData() interface{} {
 	return f.Data
 }
 
-// TemplateOptions defines values needed for template document generation
+// EmailOptions defines values needed for email document generation
 type EmailOptions struct {
-	Sections_count int `json:"sections" xml:"sections" fake:"{number:1,10}"` // number of lines to generate this is passed to the template
+	Sections_count int `json:"sections" xml:"sections" fake:"{number:1,10}"` // number of sections to generate this is passed to the template
 	baseTemplateOptions
 }
 
-// getValue returns the data interface
+// EmailOptions.GetData returns the number of sections to generate
 func (f EmailOptions) GetData() interface{} {
 	return f.Sections_count
 }
@@ -66,7 +66,7 @@ type MarkdownOptions struct {
 	baseTemplateOptions
 }
 
-// getValue returns the data interface
+// MarkdownOptions.GetData returns the number of sections to generate
 func (f MarkdownOptions) GetData() interface{} {
 	return f.Sections_count
 }
@@ -94,56 +94,45 @@ const template_markdown = `{{$res:=CreateListResult 1 5}}
 {{end}}{{if eq $res.Value 4}}## Url\n\nGolang you will need to install\n\n{{range $y := IntRange 1 (Number 1 10)}}[{{$saved_url:=URL}}{{$saved_url}}]({{$saved_url}})\n{{end}}\n---
 {{end}}{{if eq $res.Value 5}}## LISTS\n\n{{Paragraph (Number 1 5) (Number 1 5) (Number 1 30) "\n\n"}}.\n\n{{range $y := IntRange 1 (Number 1 10)}}1. {{PhraseVerb}}\n{{end}}\n---{{end}}\n{{end}}`
 
-// function to fix the new line escape characters
-func fixString(str string) string {
-	str = strings.ReplaceAll(str, "\\n", "\n")
-	//str = strings.ReplaceAll(str, `\\"`, "\"")
-	return str
-}
-
 // Template generates an document based on the the supplied template
-// A nil TemplateOptions returns a document.
 func Template(template string, co *TemplateOptions) ([]byte, error) {
 	if template == "" {
 		return nil, fmt.Errorf("template parameter is empty")
 	}
-	template_result, err := templateFunc(globalFaker, template, co)
-	return []byte(fixString(string(template_result))), err
+	return templateFunc(globalFaker, template, co)
 }
 
-// Template generates an document or an array of objects in json format
-// A nil TemplateOptions returns a randomly structured CSV.
+// Template generates an document based on the the supplied template
 func (f *Faker) Template(template string, co *TemplateOptions) ([]byte, error) {
 	if template == "" {
 		return nil, fmt.Errorf("template parameter is empty")
 	}
-	template_result, err := templateFunc(f, template, co)
-	return []byte(fixString(string(template_result))), err
+	return templateFunc(f, template, co)
 
 }
 
-// Template will return a single random Markdown template document
+// Markdown will return a single random Markdown template document
 func Markdown(co *MarkdownOptions) (string, error) {
 	template_result, err := templateFunc(globalFaker, template_markdown, co)
-	return fixString(string(template_result)), err
+	return string(template_result), err
 }
 
-// Template will return a single random Markdown template document
+// Markdown will return a single random Markdown template document
 func (f *Faker) Markdown(co *MarkdownOptions) (string, error) {
 	template_result, err := templateFunc(f, template_markdown, co)
-	return fixString(string(template_result)), err
+	return string(template_result), err
 }
 
-// Template will return a single random text email template document
+// EmailText will return a single random text email template document
 func EmailText(co *EmailOptions) (string, error) {
 	template_result, err := templateFunc(globalFaker, template_email_text, co)
-	return fixString(string(template_result)), err
+	return string(template_result), err
 }
 
-// Template will return a single random text email template document
+// EmailText will return a single random text email template document
 func (f *Faker) EmailText(co *EmailOptions) (string, error) {
 	template_result, err := templateFunc(globalFaker, template_email_text, co)
-	return fixString(string(template_result)), err
+	return string(template_result), err
 }
 
 // function to build the function map for the template engine from the global faker
@@ -171,7 +160,7 @@ func templateFuncMap(fm template.FuncMap) *template.FuncMap {
 		// get the method name lowercase
 		method_name := v.Type().Method(i).Name
 
-		//check if method_name is in the incompatable list
+		// check if method_name is in the incompatible list
 		if _, ok := incompatible[method_name]; ok {
 			continue
 		}
@@ -288,7 +277,6 @@ func templateFuncMap(fm template.FuncMap) *template.FuncMap {
 	}
 
 	// merge the function maps check if the key exists and if it does add a user to the start
-
 	for k, v := range fm {
 		if _, ok := funcMap[k]; ok {
 			funcMap[fmt.Sprintf("user%s", k)] = v
@@ -300,6 +288,7 @@ func templateFuncMap(fm template.FuncMap) *template.FuncMap {
 	return &funcMap
 }
 
+// function to check if the input is nil
 func isNil(input interface{}) bool {
 	if input == nil {
 		return true
@@ -315,21 +304,18 @@ func isNil(input interface{}) bool {
 
 // function to build the function map for the template engine from the global faker
 func templateFunc(f *Faker, tpl string, co iOptions) ([]byte, error) {
+
+	// Check if the options are nil
 	if isNil(co) {
-		// We didn't get a CSVOptions, so create a new random one
-		//err := f.Struct(&co)
-		//if err != nil {
-		//	return nil, err
-		//}
 		co = &TemplateOptions{Data: nil}
 	}
 
-	// Check if we have a template else use email text
+	// Check if we have a template else just return
 	if tpl == "" {
 		return []byte(""), nil
 	}
 
-	// Merge the function user and inbuilt maps
+	// Merge the user function and inbuilt maps
 	co.SetFuncs(templateFuncMap(*co.GetFuncs()))
 
 	// Create a new template and parse
@@ -345,7 +331,7 @@ func templateFunc(f *Faker, tpl string, co iOptions) ([]byte, error) {
 	}
 
 	// Return the result
-	return b.Bytes(), nil
+	return []byte(strings.ReplaceAll(string(b.Bytes()), "\\n", "\n")), nil
 
 }
 
@@ -390,7 +376,7 @@ func addTemplateLookup() {
 				return nil, err
 			}
 
-			return fixString(string(templateOut)), nil
+			return string(templateOut), nil
 		},
 	})
 
@@ -409,7 +395,7 @@ func addTemplateLookup() {
 				sections = 1
 			}
 			template_result, err := templateFunc(globalFaker, template_email_text, &EmailOptions{Sections_count: sections})
-			return fixString(string(template_result)), err
+			return string(template_result), err
 		},
 	})
 
@@ -428,7 +414,7 @@ func addTemplateLookup() {
 				sections = 1
 			}
 			template_result, err := templateFunc(globalFaker, template_markdown, &MarkdownOptions{Sections_count: sections})
-			return fixString(string(template_result)), err
+			return string(template_result), err
 		},
 	})
 

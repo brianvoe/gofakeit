@@ -32,11 +32,11 @@ func (f FixedWidthOptions) GetTotal() interface{} {
 	return fmt.Sprintf("%.2f", f.runningTotal[f.currentColumn])
 }
 
-// FixedWidth generates an object or an array of objects in json format
+// FixedWidth generates an table of random data in fixed width format
 // A nil FixedWidthOptions returns a randomly structured FixedWidth.
 func FixedWidth(co *FixedWidthOptions) ([]byte, error) { return fixeWidthFunc(globalFaker, co) }
 
-// FixedWidth generates an object or an array of objects in json format
+// FixedWidth generates an table of random data in fixed width format
 // A nil FixedWidthOptions returns a randomly structured FixedWidth.
 func (f *Faker) FixedWidth(co *FixedWidthOptions) ([]byte, error) { return fixeWidthFunc(f, co) }
 
@@ -86,6 +86,7 @@ func strPad(input string, padLength int, padString string, padType string, trim 
 	return output
 }
 
+// Function to generate a fixed width document
 func fixeWidthFunc(f *Faker, co *FixedWidthOptions) ([]byte, error) {
 	if co == nil {
 		// We didn't get a FixedWidthOptions, so create a new random one
@@ -110,15 +111,15 @@ func fixeWidthFunc(f *Faker, co *FixedWidthOptions) ([]byte, error) {
 	funcMap["Pad"] = strPad
 	co.SetFuncs(&funcMap)
 
-	// Setup  variables
+	// Setup  variables for storing settings
 	var err error
 	column_spacing := make([]int, len(co.Fields))       //tmp store the spacing for each column
-	column_align := make([]string, len(co.Fields))      //tmp store the spacing for each column
-	column_header_pad := make([]string, len(co.Fields)) //tmp store the spacing for each column
-	column_row_pad := make([]string, len(co.Fields))    //tmp store the spacing for each column
-	column_footer_pad := make([]string, len(co.Fields)) //tmp store the spacing for each column
-	column_footer := make([]string, len(co.Fields))     //save the largest column size
-	var custom_data map[string]interface{}              //custom data for the template
+	column_align := make([]string, len(co.Fields))      //tmp store the align for each column
+	column_header_pad := make([]string, len(co.Fields)) // tmp store the header padding for each column
+	column_row_pad := make([]string, len(co.Fields))    // tmp store the row padding for each column
+	column_footer_pad := make([]string, len(co.Fields)) // tmp store the footer padding for each column
+	column_footer := make([]string, len(co.Fields))     //	tmp store the footer for each column
+	var custom_data map[string]interface{}
 	var value interface{}
 	column_data := ""
 	header_data := ""
@@ -178,12 +179,13 @@ func fixeWidthFunc(f *Faker, co *FixedWidthOptions) ([]byte, error) {
 			column_footer_pad[i] = footer_pad[0]
 		}
 
-		//build the header data with padding and spacing
+		// build the header data with padding and spacing
 		if !co.HideHeader {
-			//get the width and check if its the larger than the current column size
+			// get the width and check if its the larger than the current column size
 			if len(field.Name) > column_sizes[i] {
 				column_sizes[i] = len(field.Name)
 			}
+			// build the header column string
 			header_data += fmt.Sprintf("{{Pad `%s` (%s)  (%s) (%s) true}}", field.Name, fmt.Sprintf("index .Data.column_sizes %v", i), fmt.Sprintf("index .Data.column_header_pad %v", i), fmt.Sprintf("index .Data.column_align %v", i))
 		}
 	}
@@ -264,7 +266,7 @@ func fixeWidthFunc(f *Faker, co *FixedWidthOptions) ([]byte, error) {
 			column_sizes[k] = column_spacing[k]
 		}
 	}
-
+	// build a map of the custom data to pass to the template engine
 	custom_data = map[string]interface{}{
 		"column_sizes":      column_sizes,
 		"column_header_pad": column_header_pad,
