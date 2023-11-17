@@ -873,21 +873,15 @@ import "github.com/brianvoe/gofakeit/v6"
 			Function: "{{FirstName}} {{LastName}}", // Template function call
 				Params: MapParams{
 					"spacing":    {"15"},// Specify the column width
-					"header_pad": {"*"},// Specify padding for the header
 					"align":      {"<"}}},// Align content left
 			{Name: "last_name", 
 			Function: "lastname", // faker function call
 				Params: MapParams{
-					"spacing":    {"-1"},// auto the column width
-					"row_pad": {" "},// Specify padding for the row
-					"header_pad": {"*"}}},
+					"spacing":    {"-1"},}},// auto the column width
 			{Name: "Money", Function: "{{Number 1 100}}",
 				Params: MapParams{
-					"footer":     {"{{.GetTotal}}"}, // footer get total of column
 					"spacing":    {"10"},
-					"align":      {">"},// Align content right
-					"footer_pad": {"0"},
-					"header_pad": {"*"}}},
+					"align":      {">"},}},// Align content right		
 		},
 	})
 	
@@ -898,11 +892,10 @@ import "github.com/brianvoe/gofakeit/v6"
 	fmt.Println(string(value))
 
 	// Output:
-	// name***********last_name*****Money
+	// name           last_name     Money
 	// Markus Moen    Daniel           40
 	// Anibal Kozey   Moen             16
 	// Sylvan Mraz    Pagac            62
-	//                         0000118.00
 
 ```
 </details>

@@ -12,34 +12,12 @@ func ExampleFixedWidth() {
 	value, err := FixedWidth(&FixedWidthOptions{
 		RowCount: 3,
 		Fields: []Field{
-			{Name: "name", Function: "{{FirstName}} {{LastName}}",
-				Params: MapParams{
-					"spacing":    {"15"},
-					"header_pad": {"*"}}},
-			{Name: "last_name", Function: "lastname",
-				Params: MapParams{
-					"spacing":    {"15"},
-					"header_pad": {"*"}}},
-			{Name: "Email", Function: "email",
-				Params: MapParams{
-					"spacing":    {"30"},
-					"header_pad": {"*"}}},
-			{Name: "password", Function: "password",
-				Params: MapParams{
-					"special":    {"false"},
-					"spacing":    {"20"},
-					"header_pad": {"*"}}},
-			{Name: "Account No.", Function: "{{AchAccount}}",
-				Params: MapParams{
-					"spacing":    {"20"},
-					"header_pad": {"*"}}},
-			{Name: "Money", Function: "{{Number 1 100}}",
-				Params: MapParams{
-					"footer":     {"{{.GetTotal}}"},
-					"spacing":    {"10"},
-					"align":      {">"},
-					"footer_pad": {"0"},
-					"header_pad": {"*"}}},
+			{Name: "name", Function: "{{FirstName}} {{LastName}}", Params: MapParams{"spacing": {"15"}}},
+			{Name: "last_name", Function: "lastname", Params: MapParams{"spacing": {"15"}}},
+			{Name: "Email", Function: "email", Params: MapParams{"spacing": {"30"}}},
+			{Name: "password", Function: "password", Params: MapParams{"special": {"false"}, "spacing": {"20"}}},
+			{Name: "Account No.", Function: "{{AchAccount}}", Params: MapParams{"spacing": {"20"}}},
+			{Name: "Money", Function: "{{Number 1 100}}", Params: MapParams{"spacing": {"10"}, "align": {">"}}},
 		},
 	})
 	if err != nil {
@@ -49,11 +27,11 @@ func ExampleFixedWidth() {
 	fmt.Println(string(value))
 
 	// Output:
-	// name***********last_name******Email*************************password************Account No.**************Money
+	// name           last_name      Email                         password            Account No.              Money
 	// Markus Moen    Pagac          anibalkozey@lockman.name      X3ZoWoYkWA6L        302320202761                62
 	// Estell Fay     Marvin         hardyhintz@crooks.io          wWq8lxcb4woV        389344090143                17
 	// Lillie Kuhn    Homenick       hannakassulke@prosacco.name   lJKBT6Pcs9tr        614968021002                87
-	//                                                                                                     0000166.00
+
 }
 
 func ExampleFaker_FixedWidth() {
@@ -64,12 +42,12 @@ func ExampleFaker_FixedWidth() {
 	value, err := f.FixedWidth(&FixedWidthOptions{
 		RowCount: 3,
 		Fields: []Field{
-			{Name: "name", Function: "{{FirstName}} {{LastName}}", Params: MapParams{"spacing": {"-1"}, "header_pad": {"*"}}},
-			{Name: "last_name", Function: "lastname", Params: MapParams{"spacing": {"-1"}, "header_pad": {"*"}}},
-			{Name: "Email", Function: "email", Params: MapParams{"spacing": {"-1"}, "header_pad": {"*"}}},
-			{Name: "password", Function: "password", Params: MapParams{"special": {"false"}, "spacing": {"-1"}, "header_pad": {"*"}}},
-			{Name: "Account No.", Function: "{{AchAccount}}", Params: MapParams{"spacing": {"-1"}, "header_pad": {"*"}}},
-			{Name: "Money", Function: "{{Number 1 100}}", Params: MapParams{"footer": {"{{.GetTotal}}"}, "spacing": {"-1"}, "align": {">"}, "footer_pad": {"0"}, "header_pad": {"*"}}},
+			{Name: "name", Function: "{{FirstName}} {{LastName}}", Params: MapParams{"spacing": {"-1"}}},
+			{Name: "last_name", Function: "lastname", Params: MapParams{"spacing": {"-1"}}},
+			{Name: "Email", Function: "email", Params: MapParams{"spacing": {"-1"}}},
+			{Name: "password", Function: "password", Params: MapParams{"special": {"false"}, "spacing": {"-1"}}},
+			{Name: "Account No.", Function: "{{AchAccount}}", Params: MapParams{"spacing": {"-1"}}},
+			{Name: "Money", Function: "{{Number 1 100}}", Params: MapParams{"spacing": {"-1"}, "align": {">"}}},
 		},
 	})
 	if err != nil {
@@ -79,11 +57,11 @@ func ExampleFaker_FixedWidth() {
 	fmt.Println(string(value))
 
 	// Output:
-	// name************last_nameEmail********************password****Account No.**Money
-	// Markus Moen     Daniel   marcelpagac@wuckert.biz  W8DAkpLjYoBW364599489953    35
-	// Amie Feil       Kuvalis  trystangislason@pagac.net9G9rOTgd3vDs635300425914    16
-	// Trystan GislasonKeebler  gabriellehuels@borer.io  J41S7H76KwYZ323202027613    61
-	//                                                                           112.00
+	// name            last_nameEmail                    password    Account No. Money
+	// Markus Moen     Daniel   marcelpagac@wuckert.biz  W8DAkpLjYoBW364599489953   35
+	// Amie Feil       Kuvalis  trystangislason@pagac.net9G9rOTgd3vDs635300425914   16
+	// Trystan GislasonKeebler  gabriellehuels@borer.io  J41S7H76KwYZ323202027613   61
+
 }
 
 func TestFixedWidthLookup(t *testing.T) {
@@ -129,6 +107,7 @@ func TestFixedWidthNoOptions(t *testing.T) {
 	if err != nil {
 		t.Fatal(err.Error())
 	}
+
 }
 
 func BenchmarkFixedWidthLookup100(b *testing.B) {
