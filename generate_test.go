@@ -45,13 +45,17 @@ func ExampleGenerate() {
 	fmt.Println(Generate("{firstname} {lastname} ssn is {ssn} and lives at {street}"))
 	fmt.Println(Generate("{sentence:3}"))
 	fmt.Println(Generate("{shuffleints:[1,2,3]}"))
+	fmt.Println(Generate("{randomint:[-1,2,3,-4]}"))
+	fmt.Println(Generate("{randomuint:[1,2,3,4]}"))
 	fmt.Println(Generate("{number:1,50}"))
 	fmt.Println(Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}"))
 	// Output: Markus Moen ssn is 526643139 and lives at 599 Daleton
 	// Niche backwards caused.
 	// [1 3 2]
-	// 27
-	// [a:b key:value int:string 1:2]
+	// -4
+	// 3
+	// 46
+	// [a:b int:string key:value 1:2]
 }
 
 func ExampleFaker_Generate() {
@@ -60,13 +64,17 @@ func ExampleFaker_Generate() {
 	fmt.Println(f.Generate("{firstname} {lastname} ssn is {ssn} and lives at {street}"))
 	fmt.Println(f.Generate("{sentence:3}"))
 	fmt.Println(f.Generate("{shuffleints:[1,2,3]}"))
+	fmt.Println(f.Generate("{randomint:[1,2,3,-4]}"))
+	fmt.Println(f.Generate("{randomuint:[1,2,3,4]}"))
 	fmt.Println(f.Generate("{number:1,50}"))
 	fmt.Println(f.Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}"))
 	// Output: Markus Moen ssn is 526643139 and lives at 599 Daleton
 	// Niche backwards caused.
 	// [1 3 2]
-	// 27
-	// [a:b key:value int:string 1:2]
+	// -4
+	// 3
+	// 46
+	// [a:b int:string key:value 1:2]
 }
 
 func BenchmarkGenerate(b *testing.B) {
