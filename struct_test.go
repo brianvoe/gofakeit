@@ -892,3 +892,30 @@ func TestStructArrayWithInvalidCustomFunc(t *testing.T) {
 		t.Error(err)
 	}
 }
+
+func TestStructMapWithCustomFunction(t *testing.T) {
+	AddFuncLookup("custom_map", Info{
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return map[string]string{"abc": "123"}, nil
+		},
+	})
+	defer RemoveFuncLookup("custom_map")
+
+	type StructMap struct {
+		MapCustomFun map[string]string `fake:"{custom_map}"`
+	}
+	var f StructMap
+
+	err := Struct(&f)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if v, ok := f.MapCustomFun["abc"]; ok {
+		if v != "123" {
+			t.Errorf("value didnt equal 123, got %v", v)
+		}
+	} else {
+		t.Errorf("map didnt contain 'abc'.")
+	}
+}
