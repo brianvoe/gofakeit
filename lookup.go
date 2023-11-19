@@ -83,6 +83,7 @@ type Info struct {
 	Output      string                                                    `json:"output"`
 	ContentType string                                                    `json:"content_type"`
 	Params      []Param                                                   `json:"params"`
+	Any         any                                                       `json:"any"`
 	Generate    func(r *rand.Rand, m *MapParams, info *Info) (any, error) `json:"-"`
 }
 
@@ -281,6 +282,16 @@ func RemoveFuncLookup(functionName string) {
 	lockFuncLookups.Lock()
 	delete(FuncLookups, functionName)
 	lockFuncLookups.Unlock()
+}
+
+// GetAny will retrieve Any field from Info
+func (i *Info) GetAny() any {
+	return i.Any
+}
+
+// SetAny will set Any field from Info
+func (i *Info) SetAny(any any) {
+	i.Any = any
 }
 
 // GetField will retrieve field from data
