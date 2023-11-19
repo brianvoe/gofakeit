@@ -138,7 +138,7 @@ func addErrorLookup() {
 		Description: "Random error message",
 		Example:     "syntax error",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return err(r), nil
 		},
 	})
@@ -149,7 +149,7 @@ func addErrorLookup() {
 		Description: "Random error object word",
 		Example:     "protocol",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return errorObject(r), nil
 		},
 	})
@@ -160,7 +160,7 @@ func addErrorLookup() {
 		Description: "Random database error message",
 		Example:     "sql error",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return errorDatabase(r), nil
 		},
 	})
@@ -171,7 +171,7 @@ func addErrorLookup() {
 		Description: "Random gRPC error message",
 		Example:     "client protocol error",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return errorGRPC(r), nil
 		},
 	})
@@ -182,7 +182,7 @@ func addErrorLookup() {
 		Description: "Random HTTP error message",
 		Example:     "invalid method",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return errorHTTP(r), nil
 		},
 	})
@@ -193,7 +193,7 @@ func addErrorLookup() {
 		Description: "Random HTTP client error message",
 		Example:     "request timeout",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return errorHTTPClient(r), nil
 		},
 	})
@@ -204,7 +204,7 @@ func addErrorLookup() {
 		Description: "Random HTTP server error message",
 		Example:     "internal server error",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return errorHTTPServer(r), nil
 		},
 	})
@@ -215,7 +215,7 @@ func addErrorLookup() {
 		Description: "Random runtime error message",
 		Example:     "address out of bounds",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return errorRuntime(r), nil
 		},
 	})
@@ -226,7 +226,7 @@ func addErrorLookup() {
 		Description: "Random validation error message",
 		Example:     "missing required field",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return errorValidation(r), nil
 		},
 	})

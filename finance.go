@@ -111,7 +111,7 @@ func addFinanceLookup() {
 		Description: "Random CUSIP",
 		Example:     "38259P508",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return cusip(r), nil
 		},
 	})
@@ -121,7 +121,7 @@ func addFinanceLookup() {
 		Description: "Random ISIN",
 		Example:     "",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return isin(r), nil
 		},
 	})

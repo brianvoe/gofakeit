@@ -112,7 +112,7 @@ func lookupPost(w http.ResponseWriter, r *http.Request) {
 	// Try to decode body if params are needed
 	if len(info.Params) > 0 {
 		mapString = gofakeit.NewMapParams()
-		mapInterface := map[string]interface{}{}
+		mapInterface := map[string]any{}
 		err = json.NewDecoder(r.Body).Decode(&mapInterface)
 		if err != nil {
 			badrequest(w, "Could not parse post body. Expects key(string) - value or []value")
@@ -173,7 +173,7 @@ func getInfoFromPath(r *http.Request) (*gofakeit.Info, error) {
 	return info, nil
 }
 
-func encodeResponse(v interface{}) []byte {
+func encodeResponse(v any) []byte {
 	// Set new bytes buffer
 	buf := &bytes.Buffer{}
 	enc := json.NewEncoder(buf)
@@ -182,7 +182,7 @@ func encodeResponse(v interface{}) []byte {
 	return buf.Bytes()
 }
 
-func ok(w http.ResponseWriter, data interface{}) {
+func ok(w http.ResponseWriter, data any) {
 	var resp []byte
 	d := reflect.ValueOf(data)
 	switch d.Kind() {

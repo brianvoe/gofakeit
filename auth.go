@@ -90,7 +90,7 @@ func addAuthLookup() {
 		Description: "Generates a random username",
 		Example:     "Daniel1364",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return username(r), nil
 		},
 	})
@@ -109,7 +109,7 @@ func addAuthLookup() {
 			{Field: "space", Display: "Space", Type: "bool", Default: "false", Description: "Whether or not to add spaces"},
 			{Field: "length", Display: "Length", Type: "int", Default: "12", Description: "Number of characters in password"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			lower, err := info.GetBool(m, "lower")
 			if err != nil {
 				return nil, err

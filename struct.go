@@ -16,16 +16,16 @@ import (
 // Use `fake:"skip"` to explicitly skip an element.
 // All built-in types are supported, with templating support
 // for string types.
-func Struct(v interface{}) error { return structFunc(globalFaker, v) }
+func Struct(v any) error { return structFunc(globalFaker, v) }
 
 // Struct fills in exported fields of a struct with random data
 // based on the value of `fake` tag of exported fields.
 // Use `fake:"skip"` to explicitly skip an element.
 // All built-in types are supported, with templating support
 // for string types.
-func (f *Faker) Struct(v interface{}) error { return structFunc(f, v) }
+func (f *Faker) Struct(v any) error { return structFunc(f, v) }
 
-func structFunc(f *Faker, v interface{}) error {
+func structFunc(f *Faker, v any) error {
 	return r(f, reflect.TypeOf(v), reflect.ValueOf(v), "", 0)
 }
 

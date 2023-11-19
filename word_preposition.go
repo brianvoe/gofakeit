@@ -54,7 +54,7 @@ func addWordPrepositionLookup() {
 		Description: "Random preposition",
 		Example:     "other than",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return preposition(r), nil
 		},
 	})
@@ -65,7 +65,7 @@ func addWordPrepositionLookup() {
 		Description: "Random simple preposition",
 		Example:     "out",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return prepositionSimple(r), nil
 		},
 	})
@@ -76,7 +76,7 @@ func addWordPrepositionLookup() {
 		Description: "Random double preposition",
 		Example:     "before",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return prepositionDouble(r), nil
 		},
 	})
@@ -87,7 +87,7 @@ func addWordPrepositionLookup() {
 		Description: "Random compound preposition",
 		Example:     "according to",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return prepositionCompound(r), nil
 		},
 	})

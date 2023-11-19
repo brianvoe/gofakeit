@@ -65,7 +65,7 @@ func addColorLookup() {
 		Description: "Random color",
 		Example:     "MediumOrchid",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return color(r), nil
 		},
 	})
@@ -76,7 +76,7 @@ func addColorLookup() {
 		Description: "Random set of nice colors",
 		Example:     "[#5c323e #a82743 #e15e32 #c0d23e #e5f04c]",
 		Output:      "[]string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return color(r), nil
 		},
 	})
@@ -87,7 +87,7 @@ func addColorLookup() {
 		Description: "Random safe color",
 		Example:     "black",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return safeColor(r), nil
 		},
 	})
@@ -98,7 +98,7 @@ func addColorLookup() {
 		Description: "Random hex color",
 		Example:     "#a99fb4",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return hexColor(r), nil
 		},
 	})
@@ -109,7 +109,7 @@ func addColorLookup() {
 		Description: "Random rgb color",
 		Example:     "[152 23 53]",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return rgbColor(r), nil
 		},
 	})

@@ -9,13 +9,13 @@ import (
 
 type strTyp string
 
-func (t strTyp) Fake(faker *Faker) interface{} {
+func (t strTyp) Fake(faker *Faker) any {
 	return faker.FirstName()
 }
 
 type strTypPtr string
 
-func (t *strTypPtr) Fake(faker *Faker) interface{} {
+func (t *strTypPtr) Fake(faker *Faker) any {
 	return strTypPtr("hello test ptr")
 }
 
@@ -83,7 +83,7 @@ func ExampleFakeable() {
 
 type gammaFloat64 float64
 
-func (gammaFloat64) Fake(faker *Faker) interface{} {
+func (gammaFloat64) Fake(faker *Faker) any {
 	alpha := 2.0
 
 	// Generate a random value from the Gamma distribution
@@ -123,7 +123,7 @@ func ExampleGammaFloat64() {
 
 type poissonInt64 int64
 
-func (poissonInt64) Fake(faker *Faker) interface{} {
+func (poissonInt64) Fake(faker *Faker) any {
 	lambda := 15.0
 
 	// Generate a random value from the Poisson distribution

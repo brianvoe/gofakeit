@@ -6,17 +6,17 @@ import (
 )
 
 // Weighted will take in an array of options and weights and return a random selection based upon its indexed weight
-func Weighted(options []interface{}, weights []float32) (interface{}, error) {
+func Weighted(options []any, weights []float32) (any, error) {
 	return weighted(globalFaker.Rand, options, weights)
 }
 
 // Weighted will take in an array of options and weights and return a random selection based upon its indexed weight
-func (f *Faker) Weighted(options []interface{}, weights []float32) (interface{}, error) {
+func (f *Faker) Weighted(options []any, weights []float32) (any, error) {
 	return weighted(f.Rand, options, weights)
 }
 
 // Weighted will take in an array of options and weights and return a random selection based upon its indexed weight
-func weighted(r *rand.Rand, options []interface{}, weights []float32) (interface{}, error) {
+func weighted(r *rand.Rand, options []any, weights []float32) (any, error) {
 	ol := len(options)
 	wl := len(weights)
 
@@ -85,7 +85,7 @@ func addWeightedLookup() {
 			{Field: "options", Display: "Options", Type: "[]string", Description: "Array of any values"},
 			{Field: "weights", Display: "Weights", Type: "[]float", Description: "Array of weights"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			options, err := info.GetStringArray(m, "options")
 			if err != nil {
 				return nil, err
@@ -96,7 +96,7 @@ func addWeightedLookup() {
 				return nil, err
 			}
 
-			optionsInterface := make([]interface{}, len(options))
+			optionsInterface := make([]any, len(options))
 			for i, o := range options {
 				optionsInterface[i] = o
 			}

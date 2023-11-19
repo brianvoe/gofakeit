@@ -28,7 +28,7 @@ func addWordGrammerLookup() {
 		Description: "Random simple sentence",
 		Example:     "A tribe fly the lemony kitchen.",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return sentenceSimple(r), nil
 		},
 	})

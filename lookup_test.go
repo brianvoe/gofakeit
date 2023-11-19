@@ -16,7 +16,7 @@ func Example_custom() {
 		Description: "Random friend name",
 		Example:     "bill",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return RandomString([]string{"bill", "bob", "sally"}), nil
 		},
 	})
@@ -43,7 +43,7 @@ func Example_custom_with_params() {
 		Params: []Param{
 			{Field: "word", Type: "int", Description: "Word you want to jumble"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			word, err := info.GetString(m, "word")
 			if err != nil {
 				return nil, err
@@ -263,7 +263,7 @@ func TestLookupRemove(t *testing.T) {
 		Description: "Random friend name",
 		Example:     "bill",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return RandomString([]string{"bill", "bob", "sally"}), nil
 		},
 	})

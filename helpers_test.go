@@ -187,13 +187,13 @@ func TestEqualSlice(t *testing.T) {
 	}
 
 	// Interface Array
-	if equalSliceInterface([]interface{}{1, "b"}, []interface{}{1}) {
+	if equalSliceInterface([]any{1, "b"}, []any{1}) {
 		t.Fatalf("Should have returned false because the interface array are not the same")
 	}
-	if equalSliceInterface([]interface{}{1, "b"}, []interface{}{3, "d"}) {
+	if equalSliceInterface([]any{1, "b"}, []any{3, "d"}) {
 		t.Fatalf("Should have returned false because the interface array are not the same")
 	}
-	if !equalSliceInterface([]interface{}{1, "b", []int{1, 2}, []string{"a", "b"}}, []interface{}{1, "b", []int{1, 2}, []string{"a", "b"}}) {
+	if !equalSliceInterface([]any{1, "b", []int{1, 2}, []string{"a", "b"}}, []any{1, "b", []int{1, 2}, []string{"a", "b"}}) {
 		t.Fatalf("Should have returned true because the ints array are the same")
 	}
 }

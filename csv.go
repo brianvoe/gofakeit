@@ -71,7 +71,7 @@ func csvFunc(f *Faker, co *CSVOptions) ([]byte, error) {
 	for i := 1; i < co.RowCount+1; i++ {
 		vr := make([]string, len(co.Fields))
 
-		// Loop through fields and add to them to map[string]interface{}
+		// Loop through fields and add to them to map[string]any
 		for ii, field := range co.Fields {
 			if field.Function == "autoincrement" {
 				vr[ii] = fmt.Sprintf("%d", i)
@@ -91,7 +91,7 @@ func csvFunc(f *Faker, co *CSVOptions) ([]byte, error) {
 
 			if _, ok := value.([]byte); ok {
 				// If it's a slice of bytes or struct, unmarshal it into an interface
-				var v interface{}
+				var v any
 				if err := json.Unmarshal(value.([]byte), &v); err != nil {
 					return nil, err
 				}
@@ -142,7 +142,7 @@ func addFileCSVLookup() {
 			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function"},
 			{Field: "delimiter", Display: "Delimiter", Type: "string", Default: ",", Description: "Separator in between row values"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			co := CSVOptions{}
 
 			rowcount, err := info.GetInt(m, "rowcount")

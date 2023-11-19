@@ -225,7 +225,7 @@ func equalSliceInt(a, b []int) bool {
 	return true
 }
 
-func equalSliceInterface(a, b []interface{}) bool {
+func equalSliceInterface(a, b []any) bool {
 	sizeA, sizeB := len(a), len(b)
 	if sizeA != sizeB {
 		return false
@@ -377,7 +377,7 @@ func addSplitValsToMapParams(splitVals []string, info *Info, mapParams *MapParam
 }
 
 // function to base64 encode a string used to embed images in html
-func base64EncString(value interface{}) (string, error) {
+func base64EncString(value any) (string, error) {
 	switch v := value.(type) {
 	case []byte:
 		return b64.StdEncoding.EncodeToString(v), nil

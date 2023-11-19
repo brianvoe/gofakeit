@@ -119,7 +119,7 @@ func addCompanyLookup() {
 		Description: "Random company name",
 		Example:     "Moen, Pagac and Wuckert",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return company(r), nil
 		},
 	})
@@ -130,7 +130,7 @@ func addCompanyLookup() {
 		Description: "Random company name suffix",
 		Example:     "Inc",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return companySuffix(r), nil
 		},
 	})
@@ -141,7 +141,7 @@ func addCompanyLookup() {
 		Description: "Random bs company word",
 		Example:     "front-end",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return bs(r), nil
 		},
 	})
@@ -152,7 +152,7 @@ func addCompanyLookup() {
 		Description: "Random company blurb",
 		Example:     "word",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return blurb(r), nil
 		},
 	})
@@ -163,7 +163,7 @@ func addCompanyLookup() {
 		Description: "Random company buzzwords",
 		Example:     "disintermediate",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return buzzWord(r), nil
 		},
 	})
@@ -174,7 +174,7 @@ func addCompanyLookup() {
 		Description: "Random job data set",
 		Example:     `{company: "Moen, Pagac and Wuckert", title: "Director", descriptor: "Central", level: "Assurance"}`,
 		Output:      "map[string]string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return job(r), nil
 		},
 	})
@@ -185,7 +185,7 @@ func addCompanyLookup() {
 		Description: "Random job title",
 		Example:     "Director",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return jobTitle(r), nil
 		},
 	})
@@ -196,7 +196,7 @@ func addCompanyLookup() {
 		Description: "Random job descriptor",
 		Example:     "Central",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return jobDescriptor(r), nil
 		},
 	})
@@ -207,7 +207,7 @@ func addCompanyLookup() {
 		Description: "Random job level",
 		Example:     "Assurance",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return jobLevel(r), nil
 		},
 	})
@@ -218,7 +218,7 @@ func addCompanyLookup() {
 		Description: "Random company slogan",
 		Example:     "Universal seamless Focus, interactive.",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return slogan(r), nil
 		},
 	})

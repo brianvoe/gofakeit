@@ -296,13 +296,13 @@ func regexGenerate(ra *rand.Rand, re *syntax.Regexp, limit int) string {
 }
 
 // Map will generate a random set of map data
-func Map() map[string]interface{} { return mapFunc(globalFaker.Rand) }
+func Map() map[string]any { return mapFunc(globalFaker.Rand) }
 
 // Map will generate a random set of map data
-func (f *Faker) Map() map[string]interface{} { return mapFunc(f.Rand) }
+func (f *Faker) Map() map[string]any { return mapFunc(f.Rand) }
 
-func mapFunc(r *rand.Rand) map[string]interface{} {
-	m := map[string]interface{}{}
+func mapFunc(r *rand.Rand) map[string]any {
+	m := map[string]any{}
 
 	randWordType := func() string {
 		s := randomString(r, []string{"lorem", "bs", "job", "name", "address"})
@@ -339,7 +339,7 @@ func mapFunc(r *rand.Rand) map[string]interface{} {
 		case "slice":
 			m[word(r)] = randSlice()
 		case "map":
-			mm := map[string]interface{}{}
+			mm := map[string]any{}
 			tt := randomString(r, []string{"string", "int", "float", "slice"})
 			switch tt {
 			case "string":
@@ -368,7 +368,7 @@ func addGenerateLookup() {
 		Params: []Param{
 			{Field: "str", Display: "String", Type: "string", Description: "String value to generate from"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			str, err := info.GetString(m, "str")
 			if err != nil {
 				return nil, err
@@ -392,7 +392,7 @@ func addGenerateLookup() {
 		Params: []Param{
 			{Field: "str", Display: "String", Type: "string", Description: "Regex RE2 syntax string"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			str, err := info.GetString(m, "str")
 			if err != nil {
 				return nil, err
@@ -412,9 +412,9 @@ func addGenerateLookup() {
 		Category:    "generate",
 		Description: "Random map of generated data",
 		Example:     `map[consult:respond context:9285735]`,
-		Output:      "map[string]interface{}",
+		Output:      "map[string]any",
 		ContentType: "application/json",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return mapFunc(r), nil
 		},
 	})

@@ -30,7 +30,7 @@ func phraseNoun(r *rand.Rand) string {
 	}
 
 	// Add determiner from weighted list
-	prob, _ := weighted(r, []interface{}{1, 2, 3}, []float32{2, 1.5, 1})
+	prob, _ := weighted(r, []any{1, 2, 3}, []float32{2, 1.5, 1})
 	if prob == 1 {
 		str = getArticle(str) + " " + str
 	} else if prob == 2 {
@@ -112,7 +112,7 @@ func addWordPhraseLookup() {
 		Description: "Random phrase",
 		Example:     "time will tell",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return phrase(r), nil
 		},
 	})
@@ -123,7 +123,7 @@ func addWordPhraseLookup() {
 		Description: "Random noun phrase",
 		Example:     "a tribe",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return phraseNoun(r), nil
 		},
 	})
@@ -134,7 +134,7 @@ func addWordPhraseLookup() {
 		Description: "Random verb phrase",
 		Example:     "a tribe",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return phraseVerb(r), nil
 		},
 	})
@@ -145,7 +145,7 @@ func addWordPhraseLookup() {
 		Description: "Random adverb phrase",
 		Example:     "fully gladly",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return phraseAdverb(r), nil
 		},
 	})
@@ -156,7 +156,7 @@ func addWordPhraseLookup() {
 		Description: "Random preposition phrase",
 		Example:     "out the black thing",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return phrasePreposition(r), nil
 		},
 	})

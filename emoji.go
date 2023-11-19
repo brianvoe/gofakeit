@@ -49,7 +49,7 @@ func addEmojiLookup() {
 		Description: "Random emoji",
 		Example:     "🤣",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return emoji(r), nil
 		},
 	})
@@ -60,7 +60,7 @@ func addEmojiLookup() {
 		Description: "Random emoji description",
 		Example:     "face vomiting",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return emojiDescription(r), nil
 		},
 	})
@@ -71,7 +71,7 @@ func addEmojiLookup() {
 		Description: "Random emoji category",
 		Example:     "Smileys & Emotion",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return emojiCategory(r), nil
 		},
 	})
@@ -82,7 +82,7 @@ func addEmojiLookup() {
 		Description: "Random emoji alias",
 		Example:     "smile",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return emojiAlias(r), nil
 		},
 	})
@@ -93,7 +93,7 @@ func addEmojiLookup() {
 		Description: "Random emoji tag",
 		Example:     "happy",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return emojiTag(r), nil
 		},
 	})

@@ -15,91 +15,91 @@ var (
 
 type CustomString string
 
-func (c CustomString) Fake(faker *gofakeit.Faker) interface{} {
+func (c CustomString) Fake(faker *gofakeit.Faker) any {
 	return CustomString("hello test")
 }
 
 type CustomBool bool
 
-func (c CustomBool) Fake(faker *gofakeit.Faker) interface{} {
+func (c CustomBool) Fake(faker *gofakeit.Faker) any {
 	return CustomBool(true)
 }
 
 type CustomInt int
 
-func (c CustomInt) Fake(faker *gofakeit.Faker) interface{} {
+func (c CustomInt) Fake(faker *gofakeit.Faker) any {
 	return CustomInt(-42)
 }
 
 type CustomInt8 int8
 
-func (c CustomInt8) Fake(faker *gofakeit.Faker) interface{} {
+func (c CustomInt8) Fake(faker *gofakeit.Faker) any {
 	return CustomInt8(-42)
 }
 
 type CustomInt16 int16
 
-func (c CustomInt16) Fake(faker *gofakeit.Faker) interface{} {
+func (c CustomInt16) Fake(faker *gofakeit.Faker) any {
 	return CustomInt16(-42)
 }
 
 type CustomInt32 int32
 
-func (c CustomInt32) Fake(faker *gofakeit.Faker) interface{} {
+func (c CustomInt32) Fake(faker *gofakeit.Faker) any {
 	return CustomInt32(-42)
 }
 
 type CustomInt64 int64
 
-func (c CustomInt64) Fake(faker *gofakeit.Faker) interface{} {
+func (c CustomInt64) Fake(faker *gofakeit.Faker) any {
 	return CustomInt64(-42)
 }
 
 type CustomUint uint
 
-func (c CustomUint) Fake(faker *gofakeit.Faker) interface{} {
+func (c CustomUint) Fake(faker *gofakeit.Faker) any {
 	return CustomUint(42)
 }
 
 type CustomUint8 uint8
 
-func (c CustomUint8) Fake(faker *gofakeit.Faker) interface{} {
+func (c CustomUint8) Fake(faker *gofakeit.Faker) any {
 	return CustomUint8(42)
 }
 
 type CustomUint16 uint16
 
-func (c CustomUint16) Fake(faker *gofakeit.Faker) interface{} {
+func (c CustomUint16) Fake(faker *gofakeit.Faker) any {
 	return CustomUint16(42)
 }
 
 type CustomUint32 uint32
 
-func (c CustomUint32) Fake(faker *gofakeit.Faker) interface{} {
+func (c CustomUint32) Fake(faker *gofakeit.Faker) any {
 	return CustomUint32(42)
 }
 
 type CustomUint64 uint64
 
-func (c CustomUint64) Fake(faker *gofakeit.Faker) interface{} {
+func (c CustomUint64) Fake(faker *gofakeit.Faker) any {
 	return CustomUint64(42)
 }
 
 type CustomFloat32 float32
 
-func (c CustomFloat32) Fake(faker *gofakeit.Faker) interface{} {
+func (c CustomFloat32) Fake(faker *gofakeit.Faker) any {
 	return CustomFloat32(42.123)
 }
 
 type CustomFloat64 float64
 
-func (c CustomFloat64) Fake(faker *gofakeit.Faker) interface{} {
+func (c CustomFloat64) Fake(faker *gofakeit.Faker) any {
 	return CustomFloat64(42.123)
 }
 
 type CustomTime time.Time
 
-func (c *CustomTime) Fake(faker *gofakeit.Faker) interface{} {
+func (c *CustomTime) Fake(faker *gofakeit.Faker) any {
 	return CustomTime(testTimeValue)
 }
 
@@ -109,13 +109,13 @@ func (c CustomTime) String() string {
 
 type CustomSlice []string
 
-func (c CustomSlice) Fake(faker *gofakeit.Faker) interface{} {
+func (c CustomSlice) Fake(faker *gofakeit.Faker) any {
 	return CustomSlice([]string{"hello", "test"})
 }
 
 type CustomMap map[string]string
 
-func (c CustomMap) Fake(faker *gofakeit.Faker) interface{} {
+func (c CustomMap) Fake(faker *gofakeit.Faker) any {
 	return CustomMap(map[string]string{"hello": "1", "test": "2"})
 }
 
@@ -124,7 +124,7 @@ type CustomStruct struct {
 	Int int
 }
 
-func (c CustomStruct) Fake(faker *gofakeit.Faker) interface{} {
+func (c CustomStruct) Fake(faker *gofakeit.Faker) any {
 	return CustomStruct{
 		Str: "hello test",
 		Int: 42,
@@ -566,7 +566,7 @@ func TestNestedOverrideCustom(t *testing.T) {
 				Description: "Raw date time.Time object",
 			},
 		},
-		Generate: func(r *rand.Rand, m *gofakeit.MapParams, info *gofakeit.Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
 			return gofakeit.Date(), nil
 		},
 	})
@@ -707,7 +707,7 @@ func ExampleCustomInt() {
 
 type EvenInt int
 
-func (e EvenInt) Fake(faker *gofakeit.Faker) interface{} {
+func (e EvenInt) Fake(faker *gofakeit.Faker) any {
 	return EvenInt(faker.Int8() * 2)
 }
 

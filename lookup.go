@@ -20,7 +20,7 @@ var internalFuncLookups map[string]Info = map[string]Info{
 	"internal_exampleFields": {
 		Description: "Example fields for generating csv, json and xml",
 		Output:      "gofakeit.Field",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			name, _ := getRandomFuncLookup(r, excludeWithParams,
 				validTypes("string", "int", "[]string", "[]int"))
 			return Field{
@@ -76,14 +76,14 @@ type MapParamsValue []string
 
 // Info structures fields to better break down what each one generates
 type Info struct {
-	Display     string                                                            `json:"display"`
-	Category    string                                                            `json:"category"`
-	Description string                                                            `json:"description"`
-	Example     string                                                            `json:"example"`
-	Output      string                                                            `json:"output"`
-	ContentType string                                                            `json:"content_type"`
-	Params      []Param                                                           `json:"params"`
-	Generate    func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) `json:"-"`
+	Display     string                                                    `json:"display"`
+	Category    string                                                    `json:"category"`
+	Description string                                                    `json:"description"`
+	Example     string                                                    `json:"example"`
+	Output      string                                                    `json:"output"`
+	ContentType string                                                    `json:"content_type"`
+	Params      []Param                                                   `json:"params"`
+	Generate    func(r *rand.Rand, m *MapParams, info *Info) (any, error) `json:"-"`
 }
 
 // Param is a breakdown of param requirements and type definition
@@ -196,7 +196,7 @@ func (m *MapParamsValue) UnmarshalJSON(data []byte) error {
 	// check if the data is an array
 	// if so, marshal it into m
 	if data[0] == '[' {
-		var values []interface{}
+		var values []any
 		err := json.Unmarshal(data, &values)
 		if err != nil {
 			return err
@@ -220,7 +220,7 @@ func (m *MapParamsValue) UnmarshalJSON(data []byte) error {
 	}
 
 	// if not, then convert into a string and add it to m
-	var s interface{}
+	var s any
 	if err := json.Unmarshal(data, &s); err != nil {
 		return err
 	}

@@ -57,7 +57,7 @@ func TestSQLJSON(t *testing.T) {
 		Description: "random JSON of a person",
 		Example:     `{"first_name":"Bob", "last_name":"Jones"}`,
 		Output:      "[]byte",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 
 			v, _ := JSON(&JSONOptions{
 				Type: "object",

@@ -12,7 +12,7 @@ import (
 
 // interface for template options
 type iOptions interface {
-	GetData() interface{}
+	GetData() any
 	GetFuncs() *template.FuncMap
 	SetFuncs(f *template.FuncMap)
 }
@@ -20,11 +20,11 @@ type iOptions interface {
 // baseTemplateOptions implements iOptions interface Funcs accessors
 type baseTemplateOptions struct {
 	funcs template.FuncMap
-	Data  interface{} //Data to be used in template
+	Data  any //Data to be used in template
 }
 
 // getValue returns the data interface
-func (b baseTemplateOptions) GetData() interface{} {
+func (b baseTemplateOptions) GetData() any {
 	return b.Data
 }
 
@@ -40,12 +40,12 @@ func (b *baseTemplateOptions) SetFuncs(f *template.FuncMap) {
 
 // TemplateOptions defines values needed for template document generation
 type TemplateOptions struct {
-	Data interface{} `json:"data" xml:"data" fake:"-"` // custom data to pass to the template engine
+	Data any `json:"data" xml:"data" fake:"-"` // custom data to pass to the template engine
 	baseTemplateOptions
 }
 
 // GetData returns the data interface
-func (f TemplateOptions) GetData() interface{} {
+func (f TemplateOptions) GetData() any {
 	return f.Data
 }
 
@@ -56,7 +56,7 @@ type EmailOptions struct {
 }
 
 // EmailOptions.GetData returns the number of sections to generate
-func (f EmailOptions) GetData() interface{} {
+func (f EmailOptions) GetData() any {
 	return f.Sections_count
 }
 
@@ -67,7 +67,7 @@ type MarkdownOptions struct {
 }
 
 // MarkdownOptions.GetData returns the number of sections to generate
-func (f MarkdownOptions) GetData() interface{} {
+func (f MarkdownOptions) GetData() any {
 	return f.Sections_count
 }
 
@@ -234,7 +234,7 @@ func templateFuncMap(fm template.FuncMap) *template.FuncMap {
 	funcMap["LCase"] = strings.ToLower
 
 	// function to enable passing slice of interface to functions
-	funcMap["ListI"] = func(args ...interface{}) []interface{} {
+	funcMap["ListI"] = func(args ...any) []any {
 		return args
 	}
 
@@ -259,7 +259,7 @@ func templateFuncMap(fm template.FuncMap) *template.FuncMap {
 	}
 
 	// function to enable passing slice of int to functions
-	funcMap["Int"] = func(args interface{}) (int, error) {
+	funcMap["Int"] = func(args any) (int, error) {
 		switch v := args.(type) {
 		case string:
 			i, err := strconv.Atoi(v)
@@ -289,7 +289,7 @@ func templateFuncMap(fm template.FuncMap) *template.FuncMap {
 }
 
 // function to check if the input is nil
-func isNil(input interface{}) bool {
+func isNil(input any) bool {
 	if input == nil {
 		return true
 	}
@@ -354,7 +354,7 @@ func addTemplateLookup() {
 			{Field: "template", Display: "Template", Type: "string", Description: "Golang template to generate the document from"},
 			{Field: "data", Display: "Custom Data", Type: "string", Default: "", Optional: true, Description: "Custom data to pass to the template"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			co := TemplateOptions{}
 
 			//template to use
@@ -389,7 +389,7 @@ func addTemplateLookup() {
 		Params: []Param{
 			{Field: "sections_count", Display: "Body Sections", Type: "int", Default: "1", Optional: true, Description: "Number of content sections to generate"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			sections, err := info.GetInt(m, "sections_count")
 			if err != nil {
 				sections = 1
@@ -408,7 +408,7 @@ func addTemplateLookup() {
 		Params: []Param{
 			{Field: "sections_count", Display: "Body Sections", Type: "int", Default: "1", Optional: true, Description: "Number of content sections to generate"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			sections, err := info.GetInt(m, "sections_count")
 			if err != nil {
 				sections = 1

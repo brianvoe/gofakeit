@@ -118,7 +118,7 @@ func addWordNounLookup() {
 		Description: "Random noun",
 		Example:     "aunt",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return noun(r), nil
 		},
 	})
@@ -129,7 +129,7 @@ func addWordNounLookup() {
 		Description: "Random common noun",
 		Example:     "part",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return nounCommon(r), nil
 		},
 	})
@@ -140,7 +140,7 @@ func addWordNounLookup() {
 		Description: "Random concrete noun",
 		Example:     "snowman",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return nounConcrete(r), nil
 		},
 	})
@@ -151,7 +151,7 @@ func addWordNounLookup() {
 		Description: "Random abstract noun",
 		Example:     "confusion",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return nounAbstract(r), nil
 		},
 	})
@@ -162,7 +162,7 @@ func addWordNounLookup() {
 		Description: "Random collective noun person",
 		Example:     "body",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return nounCollectivePeople(r), nil
 		},
 	})
@@ -173,7 +173,7 @@ func addWordNounLookup() {
 		Description: "Random collective noun animal",
 		Example:     "party",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return nounCollectiveAnimal(r), nil
 		},
 	})
@@ -184,7 +184,7 @@ func addWordNounLookup() {
 		Description: "Random collective noun thing",
 		Example:     "hand",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return nounCollectiveThing(r), nil
 		},
 	})
@@ -195,7 +195,7 @@ func addWordNounLookup() {
 		Description: "Random countable noun",
 		Example:     "neck",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return nounCountable(r), nil
 		},
 	})
@@ -206,7 +206,7 @@ func addWordNounLookup() {
 		Description: "Random uncountable noun",
 		Example:     "seafood",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return nounUncountable(r), nil
 		},
 	})
@@ -217,7 +217,7 @@ func addWordNounLookup() {
 		Description: "Random proper noun",
 		Example:     "John",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return nounProper(r), nil
 		},
 	})

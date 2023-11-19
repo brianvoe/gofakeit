@@ -104,8 +104,8 @@ func fixeWidthFunc(f *Faker, co *FixedWidthOptions) ([]byte, error) {
 	var err error
 	column_spacing := make([]int, len(co.Fields))  //tmp store the spacing for each column
 	column_align := make([]string, len(co.Fields)) //tmp store the align for each column
-	var custom_data map[string]interface{}
-	var value interface{}
+	var custom_data map[string]any
+	var value any
 	column_data := ""
 	header_data := ""
 	//footer_data := ""
@@ -149,7 +149,7 @@ func fixeWidthFunc(f *Faker, co *FixedWidthOptions) ([]byte, error) {
 	for r := range rows {
 		rows[r] = ""
 
-		// Loop through fields and add to them to map[string]interface{}
+		// Loop through fields and add to them to map[string]any
 		for k, field := range co.Fields {
 			if strings.Contains(field.Function, "{{") {
 				// Get function info
@@ -189,7 +189,7 @@ func fixeWidthFunc(f *Faker, co *FixedWidthOptions) ([]byte, error) {
 		}
 	}
 	// build a map of the custom data to pass to the template engine
-	custom_data = map[string]interface{}{
+	custom_data = map[string]any{
 		"column_sizes": column_sizes,
 		"column_align": column_align,
 	}
@@ -215,7 +215,7 @@ func fixeWidthFunc(f *Faker, co *FixedWidthOptions) ([]byte, error) {
 }
 
 // Run a faker function and return the value
-func runFunction(f *Faker, field Field, function string) (interface{}, error) {
+func runFunction(f *Faker, field Field, function string) (any, error) {
 
 	funcInfo := GetFuncLookup(function)
 	if funcInfo == nil {
@@ -230,7 +230,7 @@ func runFunction(f *Faker, field Field, function string) (interface{}, error) {
 
 	if _, ok := value.([]byte); ok {
 		// If it's a slice of bytes or struct, unmarshal it into an interface
-		var v interface{}
+		var v any
 		if err := json.Unmarshal(value.([]byte), &v); err != nil {
 			return nil, err
 		}
@@ -268,7 +268,7 @@ func addFixedWidthLookup() {
 			{Field: "rowcount", Display: "Row Count", Type: "int", Default: "100", Description: "Number of rows"},
 			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			co := FixedWidthOptions{}
 
 			rowcount, err := info.GetInt(m, "rowcount")

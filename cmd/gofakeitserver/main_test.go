@@ -258,7 +258,7 @@ func TestPostLookupWithParams(t *testing.T) {
 		Testing: t,
 		Method:  "POST",
 		Path:    "/password",
-		Body: map[string]interface{}{
+		Body: map[string]any{
 			"space":  true,
 			"length": "500",
 		},
@@ -290,7 +290,7 @@ func TestPostLookupWithParamsArray(t *testing.T) {
 		Testing: t,
 		Method:  "POST",
 		Path:    "/shufflestrings",
-		Body: map[string]interface{}{
+		Body: map[string]any{
 			"strs": []string{"a", "b", "c", "d", "e", "f"},
 		},
 		Response:   &response,

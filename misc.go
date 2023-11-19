@@ -57,12 +57,12 @@ func uuid(r *rand.Rand) string {
 }
 
 // ShuffleAnySlice takes in a slice and outputs it in a random order
-func ShuffleAnySlice(v interface{}) { shuffleAnySlice(globalFaker.Rand, v) }
+func ShuffleAnySlice(v any) { shuffleAnySlice(globalFaker.Rand, v) }
 
 // ShuffleAnySlice takes in a slice and outputs it in a random order
-func (f *Faker) ShuffleAnySlice(v interface{}) { shuffleAnySlice(f.Rand, v) }
+func (f *Faker) ShuffleAnySlice(v any) { shuffleAnySlice(f.Rand, v) }
 
-func shuffleAnySlice(r *rand.Rand, v interface{}) {
+func shuffleAnySlice(r *rand.Rand, v any) {
 	if v == nil {
 		return
 	}
@@ -109,12 +109,12 @@ func flipACoin(r *rand.Rand) string {
 }
 
 // RandomMapKey will return a random key from a map
-func RandomMapKey(mapI interface{}) interface{} { return randomMapKey(globalFaker.Rand, mapI) }
+func RandomMapKey(mapI any) any { return randomMapKey(globalFaker.Rand, mapI) }
 
 // RandomMapKey will return a random key from a map
-func (f *Faker) RandomMapKey(mapI interface{}) interface{} { return randomMapKey(f.Rand, mapI) }
+func (f *Faker) RandomMapKey(mapI any) any { return randomMapKey(f.Rand, mapI) }
 
-func randomMapKey(r *rand.Rand, mapI interface{}) interface{} {
+func randomMapKey(r *rand.Rand, mapI any) any {
 	keys := reflect.ValueOf(mapI).MapKeys()
 	return keys[r.Intn(len(keys))].Interface()
 }
@@ -139,7 +139,7 @@ func addMiscLookup() {
 		Description: "Random uuid",
 		Example:     "590c1440-9888-45b0-bd51-a817ee07c3f2",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return uuid(r), nil
 		},
 	})
@@ -150,7 +150,7 @@ func addMiscLookup() {
 		Description: "Random boolean",
 		Example:     "true",
 		Output:      "bool",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return boolFunc(r), nil
 		},
 	})
@@ -161,7 +161,7 @@ func addMiscLookup() {
 		Description: "Random Heads or Tails outcome",
 		Example:     "Tails",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return flipACoin(r), nil
 		},
 	})

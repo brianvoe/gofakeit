@@ -145,8 +145,8 @@ func TestXMLSingle(t *testing.T) {
 		Description: "",
 		Example:     "",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
-			return map[string]interface{}{
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+			return map[string]any{
 				"string": "string value",
 				"int":    123456789,
 				"float":  123.456,
@@ -186,8 +186,8 @@ func TestXMLArray(t *testing.T) {
 		Description: "",
 		Example:     "",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
-			return map[string]interface{}{
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+			return map[string]any{
 				"string": "string value",
 				"int":    123456789,
 				"float":  123.456,

@@ -184,14 +184,14 @@ For example, this is useful when it is not possible to modify the struct that yo
 // or just return a static value
 type CustomString string
 
-func (c *CustomString) Fake(faker *gofakeit.Faker) interface{} {
+func (c *CustomString) Fake(faker *gofakeit.Faker) any {
 	return CustomString("my custom string")
 }
 
 // Imagine a CustomTime type that is needed to support a custom JSON Marshaler
 type CustomTime time.Time
 
-func (c *CustomTime) Fake(faker *gofakeit.Faker) interface{} {
+func (c *CustomTime) Fake(faker *gofakeit.Faker) any {
 	return CustomTime(time.Now())
 }
 
@@ -228,7 +228,7 @@ gofakeit.AddFuncLookup("friendname", gofakeit.Info{
 	Description: "Random friend name",
 	Example:     "bill",
 	Output:      "string",
-	Generate: func(r *rand.Rand, m *gofakeit.MapParams, info *gofakeit.Info) (interface{}, error) {
+	Generate: func(r *rand.Rand, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
 		return gofakeit.RandomString([]string{"bill", "bob", "sally"}), nil
 	},
 })
@@ -242,7 +242,7 @@ gofakeit.AddFuncLookup("jumbleword", gofakeit.Info{
 	Params: []gofakeit.Param{
 		{Field: "word", Type: "string", Description: "Word you want to jumble"},
 	},
-	Generate: func(r *rand.Rand, m *gofakeit.MapParams, info *gofakeit.Info) (interface{}, error) {
+	Generate: func(r *rand.Rand, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
 		word, err := info.GetString(m, "word")
 		if err != nil {
 			return nil, err
@@ -305,9 +305,9 @@ Teams(peopleArray []string, teamsArray []string) map[string][]string
 ### Generate
 
 ```go
-Struct(v interface{})
-Slice(v interface{})
-Map() map[string]interface{}
+Struct(v any)
+Slice(v any)
+Map() map[string]any
 Generate(value string) string
 Regex(value string) string
 ```
@@ -492,10 +492,10 @@ Dessert() string
 ```go
 Bool() bool
 UUID() string
-Weighted(options []interface{}, weights []float32)
+Weighted(options []any, weights []float32)
 FlipACoin() string
-RandomMapKey(mapI interface{}) interface{}
-ShuffleAnySlice(v interface{})
+RandomMapKey(mapI any) any
+ShuffleAnySlice(v any)
 ```
 
 ### Colors
@@ -804,7 +804,7 @@ To help with formatting and using Gofakeit function there are some template help
   <summary>2. Slice Functions</summary>
 
 ```go
-- ListI(args ...interface{}) []interface{} // Build a slice of interfaces, used with Weighted
+- ListI(args ...any) []any // Build a slice of interfaces, used with Weighted
 - ListS(args ...string) []string // Build a slice of strings, used with Teams and RandomString
 - ListUInt(args ...uint) []uint // Build a slice of uint, used with Dice and RandomUint
 - ListInt(args ...int) []int // Build a slice of int, used with RandomInt
@@ -818,12 +818,12 @@ To help with formatting and using Gofakeit function there are some template help
 The following Gofakeit function are not available to use in templates
 
 ```go
-- RandomMapKey(mapI interface{}) interface{}
-- ShuffleAnySlice(v interface{})
+- RandomMapKey(mapI any) any
+- ShuffleAnySlice(v any)
 - ShuffleInts(a []int)
 - ShuffleStrings(a []string)
-- Struct(v interface{})
-- Slice(v interface{})
+- Struct(v any)
+- Slice(v any)
 - Svg(options *SVGOptions) string
 ```
 

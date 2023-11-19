@@ -269,7 +269,7 @@ func addInternetLookup() {
 		Description: "Random url",
 		Example:     "http://www.principalproductize.biz/target",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return url(r), nil
 		},
 	})
@@ -280,7 +280,7 @@ func addInternetLookup() {
 		Description: "Random domain name",
 		Example:     "centraltarget.biz",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return domainName(r), nil
 		},
 	})
@@ -291,7 +291,7 @@ func addInternetLookup() {
 		Description: "Random domain suffix",
 		Example:     "org",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return domainSuffix(r), nil
 		},
 	})
@@ -302,7 +302,7 @@ func addInternetLookup() {
 		Description: "Random ip address v4",
 		Example:     "222.83.191.222",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return ipv4Address(r), nil
 		},
 	})
@@ -313,7 +313,7 @@ func addInternetLookup() {
 		Description: "Random ip address v6",
 		Example:     "2001:cafe:8898:ee17:bc35:9064:5866:d019",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return ipv6Address(r), nil
 		},
 	})
@@ -324,7 +324,7 @@ func addInternetLookup() {
 		Description: "Random http method",
 		Example:     "HEAD",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return httpMethod(r), nil
 		},
 	})
@@ -335,7 +335,7 @@ func addInternetLookup() {
 		Description: "Random log level",
 		Example:     "error",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return logLevel(r, ""), nil
 		},
 	})
@@ -346,7 +346,7 @@ func addInternetLookup() {
 		Description: "Random browser user agent",
 		Example:     "Mozilla/5.0 (Windows NT 5.0) AppleWebKit/5362 (KHTML, like Gecko) Chrome/37.0.834.0 Mobile Safari/5362",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return userAgent(r), nil
 		},
 	})
@@ -357,7 +357,7 @@ func addInternetLookup() {
 		Description: "Random chrome user agent",
 		Example:     "Mozilla/5.0 (X11; Linux i686) AppleWebKit/5312 (KHTML, like Gecko) Chrome/39.0.836.0 Mobile Safari/5312",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return chromeUserAgent(r), nil
 		},
 	})
@@ -368,7 +368,7 @@ func addInternetLookup() {
 		Description: "Random browser user agent",
 		Example:     "Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_8_3 rv:7.0) Gecko/1900-07-01 Firefox/37.0",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return firefoxUserAgent(r), nil
 		},
 	})
@@ -379,7 +379,7 @@ func addInternetLookup() {
 		Description: "Random browser user agent",
 		Example:     "Opera/8.39 (Macintosh; U; PPC Mac OS X 10_8_7; en-US) Presto/2.9.335 Version/10.00",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return operaUserAgent(r), nil
 		},
 	})
@@ -390,7 +390,7 @@ func addInternetLookup() {
 		Description: "Random safari user agent",
 		Example:     "Mozilla/5.0 (iPad; CPU OS 8_3_2 like Mac OS X; en-US) AppleWebKit/531.15.6 (KHTML, like Gecko) Version/4.0.5 Mobile/8B120 Safari/6531.15.6",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return safariUserAgent(r), nil
 		},
 	})
@@ -401,7 +401,7 @@ func addInternetLookup() {
 		Description: "Random http status code",
 		Example:     "200",
 		Output:      "int",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return httpStatusCode(r), nil
 		},
 	})
@@ -412,7 +412,7 @@ func addInternetLookup() {
 		Description: "Random http status code within more general usage codes",
 		Example:     "404",
 		Output:      "int",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return httpStatusCodeSimple(r), nil
 		},
 	})
@@ -423,7 +423,7 @@ func addInternetLookup() {
 		Description: "Random http version",
 		Example:     "HTTP/1.1",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return httpVersion(r), nil
 		},
 	})
@@ -434,7 +434,7 @@ func addInternetLookup() {
 		Description: "Random MAC address",
 		Example:     "cb:ce:06:94:22:e9",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return macAddress(r), nil
 		},
 	})

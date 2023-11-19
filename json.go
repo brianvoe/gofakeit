@@ -20,7 +20,7 @@ type JSONOptions struct {
 
 type jsonKeyVal struct {
 	Key   string
-	Value interface{}
+	Value any
 }
 
 type jsonOrderedKeyVal []*jsonKeyVal
@@ -87,7 +87,7 @@ func jsonFunc(f *Faker, jo *JSONOptions) ([]byte, error) {
 	if jo.Type == "object" {
 		v := make(jsonOrderedKeyVal, len(jo.Fields))
 
-		// Loop through fields and add to them to map[string]interface{}
+		// Loop through fields and add to them to map[string]any
 		for i, field := range jo.Fields {
 			if field.Function == "autoincrement" {
 				// Object only has one
@@ -109,7 +109,7 @@ func jsonFunc(f *Faker, jo *JSONOptions) ([]byte, error) {
 
 			if _, ok := value.([]byte); ok {
 				// If it's a slice, unmarshal it into an interface
-				var val interface{}
+				var val any
 				err := json.Unmarshal(value.([]byte), &val)
 				if err != nil {
 					return nil, err
@@ -142,7 +142,7 @@ func jsonFunc(f *Faker, jo *JSONOptions) ([]byte, error) {
 		for i := 0; i < int(jo.RowCount); i++ {
 			vr := make(jsonOrderedKeyVal, len(jo.Fields))
 
-			// Loop through fields and add to them to map[string]interface{}
+			// Loop through fields and add to them to map[string]any
 			for ii, field := range jo.Fields {
 				if field.Function == "autoincrement" {
 					vr[ii] = &jsonKeyVal{Key: field.Name, Value: i + 1} // +1 because index starts with 0
@@ -163,7 +163,7 @@ func jsonFunc(f *Faker, jo *JSONOptions) ([]byte, error) {
 
 				if _, ok := value.([]byte); ok {
 					// If it's a slice, unmarshal it into an interface
-					var val interface{}
+					var val any
 					err := json.Unmarshal(value.([]byte), &val)
 					if err != nil {
 						return nil, err
@@ -208,7 +208,7 @@ func addFileJSONLookup() {
 			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function to run in json format"},
 			{Field: "indent", Display: "Indent", Type: "bool", Default: "false", Description: "Whether or not to add indents and newlines"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			jo := JSONOptions{}
 
 			typ, err := info.GetString(m, "type")

@@ -21,7 +21,7 @@ func addSchoolLookup() {
 		Description: "School names, education places. Such as uni, High School etc.",
 		Example:     `Harborview State Academy`,
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return school(r), nil
 		},
 	})

@@ -70,7 +70,7 @@ func addGameLookup() {
 		Description: "Random gamertag",
 		Example:     "footinterpret63",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return gamertag(r), nil
 		},
 	})
@@ -85,7 +85,7 @@ func addGameLookup() {
 			{Field: "numdice", Display: "Number of Dice", Type: "uint", Default: "1", Description: "Number of dice to roll"},
 			{Field: "sides", Display: "Number of Sides", Type: "[]uint", Default: "[6]", Description: "Number of sides on each dice"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			numDice, err := info.GetUint(m, "numdice")
 			if err != nil {
 				return nil, err
