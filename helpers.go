@@ -2,9 +2,7 @@ package gofakeit
 
 import (
 	crand "crypto/rand"
-	b64 "encoding/base64"
 	"encoding/binary"
-	"fmt"
 	"math"
 	"math/rand"
 	"reflect"
@@ -374,16 +372,4 @@ func addSplitValsToMapParams(splitVals []string, info *Info, mapParams *MapParam
 		}
 	}
 	return mapParams
-}
-
-// function to base64 encode a string used to embed images in html
-func base64EncString(value any) (string, error) {
-	switch v := value.(type) {
-	case []byte:
-		return b64.StdEncoding.EncodeToString(v), nil
-	case string:
-		return b64.StdEncoding.EncodeToString([]byte(v)), nil
-	default:
-		return "", fmt.Errorf("value must be a string or []byte")
-	}
 }
