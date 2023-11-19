@@ -28,9 +28,9 @@ var Data = map[string]map[string][]string{
 	"celebrity": Celebrity,
 	"error":     Error,
 	"html":      Html,
-	"book":		   Books,
+	"book":      Books,
 	"movie":     Movies,
-	"school":	School,
+	"school":    School,
 }
 
 func List() map[string][]string {
