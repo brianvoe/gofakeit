@@ -12,12 +12,10 @@ func ExampleFixedWidth() {
 	value, err := FixedWidth(&FixedWidthOptions{
 		RowCount: 3,
 		Fields: []Field{
-			{Name: "name", Function: "{{FirstName}} {{LastName}}", Params: MapParams{"spacing": {"15"}}},
-			{Name: "last_name", Function: "lastname", Params: MapParams{"spacing": {"15"}}},
-			{Name: "Email", Function: "email", Params: MapParams{"spacing": {"30"}}},
-			{Name: "password", Function: "password", Params: MapParams{"special": {"false"}, "spacing": {"20"}}},
-			{Name: "Account No.", Function: "{{AchAccount}}", Params: MapParams{"spacing": {"20"}}},
-			{Name: "Money", Function: "{{Number 1 100}}", Params: MapParams{"spacing": {"10"}, "align": {">"}}},
+			{Name: "Name", Function: "{firstname} {lastname}"},
+			{Name: "Email", Function: "email"},
+			{Name: "Password", Function: "password", Params: MapParams{"special": {"false"}}},
+			{Name: "Age", Function: "{number:1,100}"},
 		},
 	})
 	if err != nil {
@@ -27,27 +25,61 @@ func ExampleFixedWidth() {
 	fmt.Println(string(value))
 
 	// Output:
-	// name           last_name      Email                         password            Account No.              Money
-	// Markus Moen    Pagac          anibalkozey@lockman.name      X3ZoWoYkWA6L        302320202761                62
-	// Estell Fay     Marvin         hardyhintz@crooks.io          wWq8lxcb4woV        389344090143                17
-	// Lillie Kuhn    Homenick       hannakassulke@prosacco.name   lJKBT6Pcs9tr        614968021002                87
+	// Name               Email                          Password         Age
+	// Markus Moen        sylvanmraz@murphy.net          6VlvH6qqXc7g     13
+	// Alayna Wuckert     santinostanton@carroll.biz     g7sLrS0gEwLO     46
+	// Lura Lockman       zacherykuhic@feil.name         S8gV7Z64KlHG     12
+}
 
+func ExampleFixedWidth_default() {
+	Seed(11)
+
+	value, err := FixedWidth(nil)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(string(value))
+
+	// Output:
+	// Name             Email                        Password
+	// Marcel Pagac     anibalkozey@lockman.name     X3ZoWoYkWA6L
+}
+
+func ExampleFixedWidth_noHeader() {
+	Seed(11)
+
+	value, err := FixedWidth(&FixedWidthOptions{
+		RowCount: 3,
+		Fields: []Field{
+			{Name: "", Function: "{firstname} {lastname}"},
+			{Name: "", Function: "email"},
+			{Name: "", Function: "password", Params: MapParams{"special": {"false"}}},
+			{Name: "", Function: "{number:1,100}"},
+		},
+	})
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(value)
+
+	// Output:
+	// Markus Moen        sylvanmraz@murphy.net          6VlvH6qqXc7g     13
+	// Alayna Wuckert     santinostanton@carroll.biz     g7sLrS0gEwLO     46
+	// Lura Lockman       zacherykuhic@feil.name         S8gV7Z64KlHG     12
 }
 
 func ExampleFaker_FixedWidth() {
-
 	f := New(11)
-	globalFaker.Rand.Seed(11)
 
 	value, err := f.FixedWidth(&FixedWidthOptions{
 		RowCount: 3,
 		Fields: []Field{
-			{Name: "name", Function: "{{FirstName}} {{LastName}}", Params: MapParams{"spacing": {"-1"}}},
-			{Name: "last_name", Function: "lastname", Params: MapParams{"spacing": {"-1"}}},
-			{Name: "Email", Function: "email", Params: MapParams{"spacing": {"-1"}}},
-			{Name: "password", Function: "password", Params: MapParams{"special": {"false"}, "spacing": {"-1"}}},
-			{Name: "Account No.", Function: "{{AchAccount}}", Params: MapParams{"spacing": {"-1"}}},
-			{Name: "Money", Function: "{{Number 1 100}}", Params: MapParams{"spacing": {"-1"}, "align": {">"}}},
+			{Name: "Name", Function: "{firstname} {lastname}"},
+			{Name: "Email", Function: "email"},
+			{Name: "Password", Function: "password", Params: MapParams{"special": {"false"}}},
+			{Name: "Age", Function: "{number:1,100}"},
 		},
 	})
 	if err != nil {
@@ -57,11 +89,10 @@ func ExampleFaker_FixedWidth() {
 	fmt.Println(string(value))
 
 	// Output:
-	// name            last_nameEmail                    password    Account No. Money
-	// Markus Moen     Daniel   marcelpagac@wuckert.biz  W8DAkpLjYoBW364599489953   35
-	// Amie Feil       Kuvalis  trystangislason@pagac.net9G9rOTgd3vDs635300425914   16
-	// Trystan GislasonKeebler  gabriellehuels@borer.io  J41S7H76KwYZ323202027613   61
-
+	// Name               Email                          Password         Age
+	// Markus Moen        sylvanmraz@murphy.net          6VlvH6qqXc7g     13
+	// Alayna Wuckert     santinostanton@carroll.biz     g7sLrS0gEwLO     46
+	// Lura Lockman       zacherykuhic@feil.name         S8gV7Z64KlHG     12
 }
 
 func TestFixedWidthLookup(t *testing.T) {
@@ -72,15 +103,10 @@ func TestFixedWidthLookup(t *testing.T) {
 	m := MapParams{
 		"rowcount": {"10"},
 		"fields": {
-			`{"name":"Name","function":"{{FirstName}} {{LastName}}"}`,
-			`{"name":"Last Name","function":"lastname"}`,
+			`{"name":"Name","function":"{firstname} {lastname}"}`,
+			`{"name":"Email","function":"email"}`,
 			`{"name":"Password","function":"password","params":{"special":["false"],"length":["20"]}}`,
-			`{"name":"Account No.","function":"{{AchAccount}}"}`,
-			`{"name":"Money","function":"{{Number 1 100}}",   
-				"params":{
-					"align": ">"
-				}
-			}`,
+			`{"name":"Age","function":"{number:1,100}"}`,
 		},
 	}
 
@@ -89,10 +115,10 @@ func TestFixedWidthLookup(t *testing.T) {
 		t.Fatal(err.Error())
 	}
 
-	value := string(output.([]byte))
+	value := string(output.(string))
 
-	// Check that value has the correct number of rows via new line characters plus 1 for the header
-	if strings.Count(value, "\n") != 11 {
+	// Check the rumber of rows by counting the newlines, end of file has no newline
+	if strings.Count(value, "\n") != 10 {
 		t.Error("Expected 10+1(header row footer) rows, got", strings.Count(value, "\n"))
 	}
 
@@ -101,7 +127,6 @@ func TestFixedWidthLookup(t *testing.T) {
 func TestFixedWidthNoOptions(t *testing.T) {
 	Seed(11)
 
-	// if CSVOptions is nil -> get a random CSVOptions
 	_, err := FixedWidth(nil)
 
 	if err != nil {
@@ -118,15 +143,10 @@ func BenchmarkFixedWidthLookup100(b *testing.B) {
 		m := MapParams{
 			"rowcount": {"100"},
 			"fields": {
-				`{"name":"Name","function":"{{FirstName}} {{LastName}}"}`,
-				`{"name":"Last Name","function":"lastname"}`,
+				`{"name":"Name","function":"{firstname} {lastname}"}"}`,
+				`{"name":"Email","function":"email"}`,
 				`{"name":"Password","function":"password","params":{"special":["false"],"length":["20"]}}`,
-				`{"name":"Account No.","function":"{{AchAccount}}"}`,
-				`{"name":"Money","function":"{{Number 1 100}}",   
-					"params":{
-						"align": ">"
-					}
-				}`,
+				`{"name":"Age","function":"{number:1,100}"}`,
 			},
 		}
 		_, err := info.Generate(faker.Rand, &m, info)
@@ -144,15 +164,10 @@ func BenchmarkFixedWidthLookup1000(b *testing.B) {
 		m := MapParams{
 			"rowcount": {"1000"},
 			"fields": {
-				`{"name":"Name","function":"{{FirstName}} {{LastName}}"}`,
-				`{"name":"Last Name","function":"lastname"}`,
+				`{"name":"Name","function":"{firstname} {lastname}"}"}`,
+				`{"name":"Email","function":"email"}`,
 				`{"name":"Password","function":"password","params":{"special":["false"],"length":["20"]}}`,
-				`{"name":"Account No.","function":"{{AchAccount}}"}`,
-				`{"name":"Money","function":"{{Number 1 100}}",   
-					"params":{
-						"align": ">"
-					}
-				}`,
+				`{"name":"Age","function":"{number:1,100}"}`,
 			},
 		}
 		_, err := info.Generate(faker.Rand, &m, info)
@@ -170,15 +185,10 @@ func BenchmarkFixedWidthLookup10000(b *testing.B) {
 		m := MapParams{
 			"rowcount": {"10000"},
 			"fields": {
-				`{"name":"Name","function":"{{FirstName}} {{LastName}}"}`,
-				`{"name":"Last Name","function":"lastname"}`,
+				`{"name":"Name","function":"{firstname} {lastname}"}"}`,
+				`{"name":"Email","function":"email"}`,
 				`{"name":"Password","function":"password","params":{"special":["false"],"length":["20"]}}`,
-				`{"name":"Account No.","function":"{{AchAccount}}"}`,
-				`{"name":"Money","function":"{{Number 1 100}}",   
-					"params":{
-						"align": ">"
-					}
-				}`,
+				`{"name":"Age","function":"{number:1,100}"}`,
 			},
 		}
 		_, err := info.Generate(faker.Rand, &m, info)
