@@ -128,7 +128,6 @@ func initLookup() {
 	addFileLookup()
 	addFileXMLLookup()
 	addFinanceLookup()
-	addFixedWidthLookup()
 	addFoodLookup()
 	addGameLookup()
 	addGenerateLookup()
