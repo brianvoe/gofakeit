@@ -6,14 +6,52 @@ import (
 	"testing"
 )
 
-// Misc tests
+func ExampleTemplate() {
+	Seed(11)
+
+	template := `{{range $y := IntRange 1 .}}{{FirstName}} {{LastName}}\n{{end}}`
+
+	value, err := Template(template, &TemplateOptions{Data: 4})
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(string(value))
+
+	// Output:
+	// Markus Moen
+	// Alayna Wuckert
+	// Lura Lockman
+	// Sylvan Mraz
+
+}
+
+func ExampleFaker_Template() {
+	f := New(11)
+
+	template := `{{range $y := IntRange 1 .}}{{FirstName}} {{LastName}}\n{{end}}`
+
+	value, err := f.Template(template, &TemplateOptions{Data: 4})
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(string(value))
+
+	// Output:
+	// Markus Moen
+	// Alayna Wuckert
+	// Lura Lockman
+	// Sylvan Mraz
+}
+
 func TestTemplateFunctionsWithSlices(t *testing.T) {
 	f := New(11)
-	globalFaker.Rand.Seed(11)
+
 	test := map[string]string{
 		"Weighted":     "{{Weighted (ListI `hello` 2 6.9) (ListF32 1 2 3)}}",
-		"Dice":         "{{ Dice 3 (ListUInt 1 5 3) }}",
-		"RandomInt":    "{{ RandomInt (ListInt 1 5 3) }}",
+		"Dice":         "{{Dice 3 (ListUInt 1 5 3) }}",
+		"RandomInt":    "{{RandomInt (ListInt 1 5 3) }}",
 		"RandomString": "{{RandomString (ListS `key1` `key2` `key3`)}}",
 		"RandomUint":   "{{RandomUint (ListUInt 2 6 9)}}",
 		"Teams":        "{{Teams (ListS `person_a` `person_b` `person_c`) (ListS `team_a` `team_b` `team_c`)}}",
@@ -32,58 +70,17 @@ func TestTemplateFunctionsWithSlices(t *testing.T) {
 	}
 }
 
-// Template examples and tests
-
-func ExampleTemplate() {
-	// Make sure we get the same results every time
-	Seed(11)
-	globalFaker.Rand.Seed(11)
-
-	value, err := Template("{{range $y := IntRange 1 .Data}}\n{{FirstName}} {{LastName}}{{end}}", &TemplateOptions{Data: 4})
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	fmt.Println(string(value))
-
-	// Output:
-	// Markus Moen
-	// Alayna Wuckert
-	// Lura Lockman
-	// Sylvan Mraz
-
-}
-
-func ExampleFaker_Template() {
-	// Make sure we get the same results every time
-	f := New(11)
-	globalFaker.Rand.Seed(11)
-	value, err := f.Template("{{range $y := IntRange 1 .Data}}\n{{FirstName}} {{LastName}}{{end}}", &TemplateOptions{Data: 4})
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	fmt.Println(string(value))
-
-	// Output:
-	// Markus Moen
-	// Alayna Wuckert
-	// Lura Lockman
-	// Sylvan Mraz
-}
-
 func TestTemplateLookup(t *testing.T) {
-	// Make sure we get the same results every time
-	faker := New(11)
-	globalFaker.Rand.Seed(11)
+	f := New(11)
+
 	info := GetFuncLookup("template")
 
 	m := MapParams{
-		"template": {"{{range $y := IntRange 1 (Int (.Data))}}{{FirstName}} {{LastName}}\n{{end}}"},
+		"template": {"{{range $y := IntRange 1 (Int (.))}}{{FirstName}} {{LastName}}\n{{end}}"},
 		"data":     {"5"},
 	}
 
-	value, err := info.Generate(faker.Rand, &m, info)
+	value, err := info.Generate(f.Rand, &m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -95,9 +92,8 @@ func TestTemplateLookup(t *testing.T) {
 }
 
 func TestTemplateNoTemplateParam(t *testing.T) {
-	// Make sure we get the same results every time
 	f := New(11)
-	globalFaker.Rand.Seed(11)
+
 	value, err := f.Template("", nil)
 
 	if err == nil {
@@ -109,11 +105,9 @@ func TestTemplateNoTemplateParam(t *testing.T) {
 }
 
 func ExampleEmailText() {
-	// Make sure we get the same results every time
 	Seed(11)
-	globalFaker.Rand.Seed(11)
 
-	value, err := EmailText(&EmailOptions{Sections_count: 5})
+	value, err := EmailText(&EmailOptions{SectionsCount: 5})
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -148,10 +142,9 @@ func ExampleEmailText() {
 }
 
 func ExampleFaker_EmailText() {
-	// Make sure we get the same results every time
 	f := New(11)
-	globalFaker.Rand.Seed(11)
-	value, err := f.EmailText(&EmailOptions{Sections_count: 5})
+
+	value, err := f.EmailText(&EmailOptions{SectionsCount: 5})
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -185,16 +178,15 @@ func ExampleFaker_EmailText() {
 }
 
 func TestEmailTextLookup(t *testing.T) {
-	// Make sure we get the same results every time
-	faker := New(6)
-	globalFaker.Rand.Seed(6)
+	f := New(11)
+
 	info := GetFuncLookup("email_text")
 
 	m := MapParams{
 		"sections_count": {"3"},
 	}
 
-	value, err := info.Generate(faker.Rand, &m, info)
+	value, err := info.Generate(f.Rand, &m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -206,10 +198,9 @@ func TestEmailTextLookup(t *testing.T) {
 }
 
 func TestEmailText(t *testing.T) {
-	// Make sure we get the same results every time
-	f := New(5)
-	globalFaker.Rand.Seed(5)
-	value, err := f.EmailText(&EmailOptions{Sections_count: 6})
+	f := New(11)
+
+	value, err := f.EmailText(&EmailOptions{SectionsCount: 6})
 	if err != nil {
 		t.Error(err)
 	}
@@ -222,11 +213,9 @@ func TestEmailText(t *testing.T) {
 // TemplateMarkdown examples and tests
 
 func ExampleMarkdown() {
-	// Make sure we get the same results every time
-	Seed(5)
-	globalFaker.Rand.Seed(5)
+	Seed(11)
 
-	value, err := Markdown(&MarkdownOptions{Sections_count: 3})
+	value, err := Markdown(&MarkdownOptions{SectionsCount: 3})
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -300,10 +289,9 @@ func ExampleMarkdown() {
 }
 
 func ExampleFaker_Markdown() {
-	// Make sure we get the same results every time
-	f := New(5)
-	globalFaker.Rand.Seed(5)
-	value, err := f.Markdown(&MarkdownOptions{Sections_count: 2})
+	f := New(11)
+
+	value, err := f.Markdown(&MarkdownOptions{SectionsCount: 2})
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -351,9 +339,7 @@ func ExampleFaker_Markdown() {
 }
 
 func TestMarkdownLookup(t *testing.T) {
-	// Make sure we get the same results every time
-	faker := New(9)
-	globalFaker.Rand.Seed(9)
+	f := New(11)
 
 	info := GetFuncLookup("markdown")
 
@@ -361,7 +347,7 @@ func TestMarkdownLookup(t *testing.T) {
 		"sections_count": {"2"},
 	}
 
-	value, err := info.Generate(faker.Rand, &m, info)
+	value, err := info.Generate(f.Rand, &m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -373,11 +359,9 @@ func TestMarkdownLookup(t *testing.T) {
 }
 
 func TestMarkdown(t *testing.T) {
-	// Make sure we get the same results every time
-	f := New(3)
-	globalFaker.Rand.Seed(1)
+	f := New(11)
 
-	value, err := f.Markdown(&MarkdownOptions{Sections_count: 1})
+	value, err := f.Markdown(&MarkdownOptions{SectionsCount: 1})
 	if err != nil {
 		t.Error(err)
 	}
@@ -391,7 +375,6 @@ func TestMarkdown(t *testing.T) {
 
 func BenchmarkTemplate100(b *testing.B) {
 	f := New(11)
-	globalFaker.Rand.Seed(11)
 
 	for i := 0; i < 100; i++ {
 		_, err := f.Template("{{range $y := IntRange 1 .Data}}{{FirstName}} {{LastName}}\n{{end}}", &TemplateOptions{Data: 5})
@@ -403,7 +386,6 @@ func BenchmarkTemplate100(b *testing.B) {
 
 func BenchmarkTemplateLookup1000(b *testing.B) {
 	f := New(11)
-	globalFaker.Rand.Seed(11)
 
 	for i := 0; i < 1000; i++ {
 		_, err := f.Template("{{range $y := IntRange 1 .Data}}{{FirstName}} {{LastName}}\n{{end}}", &TemplateOptions{Data: 5})
@@ -416,7 +398,6 @@ func BenchmarkTemplateLookup1000(b *testing.B) {
 
 func BenchmarkTemplateLookup10000(b *testing.B) {
 	f := New(11)
-	globalFaker.Rand.Seed(11)
 
 	for i := 0; i < 10000; i++ {
 		_, err := f.Template("{{range $y := IntRange 1 .Data}}{{FirstName}} {{LastName}}\n{{end}}", &TemplateOptions{Data: 5})
@@ -429,7 +410,6 @@ func BenchmarkTemplateLookup10000(b *testing.B) {
 
 func BenchmarkTemplateLookup100000(b *testing.B) {
 	f := New(11)
-	globalFaker.Rand.Seed(11)
 
 	for i := 0; i < 100000; i++ {
 		_, err := f.Template("{{range $y := IntRange 1 .Data}}{{FirstName}} {{LastName}}\n{{end}}", &TemplateOptions{Data: 5})
