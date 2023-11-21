@@ -13,7 +13,7 @@ import (
 // TemplateOptions defines values needed for template document generation
 type TemplateOptions struct {
 	Funcs template.FuncMap
-	Data  any
+	Data  any `json:"data" xml:"data" fake:"-"`
 }
 
 // Used with CreateListResult ListResult
@@ -35,8 +35,8 @@ func (f *Faker) Template(template string, co *TemplateOptions) (string, error) {
 // MarkdownOptions defines values needed for markdown document generation
 type MarkdownOptions struct {
 	Funcs         template.FuncMap
-	Data          any
-	SectionsCount int `fake:"{number:1,10}"` // number of lines to generate this is passed to the template
+	Data          any `json:"data" xml:"data" fake:"-"`
+	SectionsCount int `json:"sections" xml:"sections" fake:"{number:1,10}"`
 }
 
 // Template for Markdown
@@ -62,8 +62,8 @@ func (f *Faker) Markdown(co *MarkdownOptions) (string, error) {
 // EmailOptions defines values needed for email document generation
 type EmailOptions struct {
 	Funcs         template.FuncMap
-	Data          any
-	SectionsCount int `fake:"{number:1,10}"` // number of sections to generate this is passed to the template
+	Data          any `json:"data" xml:"data" fake:"-"`
+	SectionsCount int `json:"sections" xml:"sections" fake:"{number:1,10}"`
 }
 
 // Template for email text
