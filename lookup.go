@@ -284,13 +284,35 @@ func RemoveFuncLookup(functionName string) {
 }
 
 // GetAny will retrieve Any field from Info
-func (i *Info) GetAny() any {
-	return i.Any
+func (i *Info) GetAny(m *MapParams, field string) (any, error) {
+	_, value, err := i.GetField(m, field)
+	if err != nil {
+		return nil, err
+	}
+
+	var anyValue any
+	err = json.Unmarshal([]byte(value[0]), &anyValue)
+	if err != nil {
+		return nil, fmt.Errorf("%s field could not parse to any", field)
+	}
+
+	return anyValue, nil
 }
 
-// SetAny will set Any field from Info
-func (i *Info) SetAny(any any) {
-	i.Any = any
+// GetMap will retrieve map[string]interface{} field from data
+func (i *Info) GetMap(m *MapParams, field string) (map[string]interface{}, error) {
+	_, value, err := i.GetField(m, field)
+	if err != nil {
+		return nil, err
+	}
+
+	var mapValue map[string]interface{}
+	err = json.Unmarshal([]byte(value[0]), &mapValue)
+	if err != nil {
+		return nil, fmt.Errorf("%s field could not parse to map[string]interface{}", field)
+	}
+
+	return mapValue, nil
 }
 
 // GetField will retrieve field from data

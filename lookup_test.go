@@ -462,24 +462,3 @@ func TestLookupCallsErrorParams(t *testing.T) {
 	// Reset lookup functions back
 	initLookup()
 }
-
-func TestLookupAny(t *testing.T) {
-	// Get a random lookup
-	info := GetFuncLookup("json")
-
-	// Set random value into any
-	info.SetAny("test")
-
-	// Make sure any is set
-	if info.Any == nil {
-		t.Fatal("Any is not set")
-	}
-
-	// Get any and make sure it is set to test
-	if info.GetAny().(string) != "test" {
-		t.Fatal("Any is not set to test")
-	}
-
-	// Reset lookup functions back
-	initLookup()
-}
