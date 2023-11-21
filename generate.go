@@ -489,7 +489,7 @@ func addGenerateLookup() {
 
 			// Limit the length of the string passed
 			if len(str) > 1000 {
-				return nil, errors.New("string length is too large. Limit to 1000 characters")
+				return nil, errors.New("string length is too large. limit to 1000 characters")
 			}
 
 			return generate(r, str), nil
@@ -561,7 +561,7 @@ func addGenerateLookup() {
 
 			// Limit the length of the string passed
 			if len(str) > 500 {
-				return nil, errors.New("string length is too large. Limit to 500 characters")
+				return nil, errors.New("string length is too large. limit to 500 characters")
 			}
 
 			return regex(r, str), nil
