@@ -17,7 +17,7 @@ const (
 	numberMax   int64 = -1 ^ (-1 << numberBits) // Maximum value for sequence number (4095)
 	timeShift   uint8 = workerBits + numberBits // Offset for timestamp
 	workerShift uint8 = numberBits              // Offset for worker ID
-	epoch       int64 = 1656856144640           // Start constant timestamp (in milliseconds), chosen as 2023-11-23 00:00:00
+	epoch       int64 = 1671849600000           // Start constant timestamp (in milliseconds), chosen as 2023-11-23 00:00:00
 )
 
 type SFWorker struct {
