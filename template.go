@@ -49,14 +49,12 @@ const template_markdown = `{{$res:=CreateListResult 1 5}}
 
 // Markdown will return a single random Markdown template document
 func Markdown(co *MarkdownOptions) (string, error) {
-	template_result, err := templateFunc(globalFaker.Rand, template_markdown, &co.Funcs, co.Data)
-	return string(template_result), err
+	return templateFunc(globalFaker.Rand, template_markdown, &co.Funcs, co.Data)
 }
 
 // Markdown will return a single random Markdown template document
 func (f *Faker) Markdown(co *MarkdownOptions) (string, error) {
-	template_result, err := templateFunc(f.Rand, template_markdown, &co.Funcs, co.Data)
-	return string(template_result), err
+	return templateFunc(f.Rand, template_markdown, &co.Funcs, co.Data)
 }
 
 // EmailOptions defines values needed for email document generation
