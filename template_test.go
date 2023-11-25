@@ -341,6 +341,7 @@ func ExampleFaker_EmailText() {
 	// State: Ohio
 	// Zip: 99001Phone: 7871591604
 	// Email: winstonhartmann@sauer.biz
+
 }
 
 func TestEmailTextLookup(t *testing.T) {
