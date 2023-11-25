@@ -63,8 +63,7 @@ func Markdown(co *MarkdownOptions) (string, error) {
 		co = &MarkdownOptions{}
 		globalFaker.Struct(co)
 	}
-	template_result, err := templateFunc(template_markdown, templateFuncMap(globalFaker.Rand, &co.Funcs), co)
-	return string(template_result), err
+	return templateFunc(template_markdown, templateFuncMap(globalFaker.Rand, &co.Funcs), co)
 }
 
 // Markdown will return a single random Markdown template document
@@ -73,8 +72,7 @@ func (f *Faker) Markdown(co *MarkdownOptions) (string, error) {
 		co = &MarkdownOptions{}
 		f.Struct(co)
 	}
-	template_result, err := templateFunc(template_markdown, templateFuncMap(f.Rand, &co.Funcs), co)
-	return string(template_result), err
+	return templateFunc(template_markdown, templateFuncMap(f.Rand, &co.Funcs), co)
 }
 
 // EmailOptions defines values needed for email document generation
@@ -99,8 +97,7 @@ func EmailText(co *EmailOptions) (string, error) {
 		co = &EmailOptions{}
 		globalFaker.Struct(co)
 	}
-	template_result, err := templateFunc(template_email_text, templateFuncMap(globalFaker.Rand, &co.Funcs), co)
-	return string(template_result), err
+	return templateFunc(template_email_text, templateFuncMap(globalFaker.Rand, &co.Funcs), co)
 }
 
 // EmailText will return a single random text email template document
@@ -109,8 +106,7 @@ func (f *Faker) EmailText(co *EmailOptions) (string, error) {
 		co = &EmailOptions{}
 		f.Struct(co)
 	}
-	template_result, err := templateFunc(template_email_text, templateFuncMap(f.Rand, &co.Funcs), co)
-	return string(template_result), err
+	return templateFunc(template_email_text, templateFuncMap(f.Rand, &co.Funcs), co)
 }
 
 // functions that wont work with template engine
