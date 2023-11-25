@@ -38,7 +38,7 @@ func ConnectiveComparative() string { return connectiveComparative(globalFaker.R
 func (f *Faker) ConnectiveComparative() string { return connectiveComparative(f.Rand) }
 
 func connectiveComparative(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "connective_comparitive"})
+	return getRandValue(r, []string{"word", "connective_comparative"})
 }
 
 // ConnectiveComplaint will generate a random complaint connective
