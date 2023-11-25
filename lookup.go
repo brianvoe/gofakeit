@@ -291,12 +291,36 @@ func (i *Info) GetAny(m *MapParams, field string) (any, error) {
 	}
 
 	var anyValue any
-	err = json.Unmarshal([]byte(value[0]), &anyValue)
-	if err != nil {
-		return nil, fmt.Errorf("%s field could not parse to any", field)
+
+	// Try to convert to int
+	valueInt, err := strconv.ParseInt(value[0], 10, 64)
+	if err == nil {
+		return int(valueInt), nil
 	}
 
-	return anyValue, nil
+	// Try to convert to float
+	valueFloat, err := strconv.ParseFloat(value[0], 64)
+	if err == nil {
+		return valueFloat, nil
+	}
+
+	// Try to convert to boolean
+	valueBool, err := strconv.ParseBool(value[0])
+	if err == nil {
+		return valueBool, nil
+	}
+
+	err = json.Unmarshal([]byte(value[0]), &anyValue)
+	if err == nil {
+		return valueBool, nil
+	}
+
+	return value[0], nil
+	/*if err != nil {
+		return nil, fmt.Errorf("%s field could not parse to any", field)
+	}*/
+
+	//return anyValue, nil
 }
 
 // GetMap will retrieve map[string]interface{} field from data

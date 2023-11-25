@@ -793,12 +793,15 @@ To help with formatting and using Gofakeit function there are some template help
 
 ```go
 - Replace(s string, old string, new string) string // Replace a old string with new string
-- Concat(sep string,args ...string) string // concatenate strings together using a separator
-- Upper(s string) string // make string upper case
-- Lower(s string) string // make string lower case
+- Concat(sep string,args ...string) string // Concatenate strings together using a separator
+- Upper(s string) string // Make string upper case
+- Lower(s string) string // Make string lower case
+- String(s interface{}) //Convert to string
+- DateS(s string) time.Time //Convert string to date
+
 ```
 
-</details>
+</details>	
 
 <details>
   <summary>2. Slice Functions</summary>
@@ -818,13 +821,30 @@ To help with formatting and using Gofakeit function there are some template help
 The following Gofakeit function are not available to use in templates
 
 ```go
+// Not available to use in templates
+- Template(co *TemplateOptions) ([]byte, error) 
 - RandomMapKey(mapI any) any
 - ShuffleAnySlice(v any)
 - ShuffleInts(a []int)
 - ShuffleStrings(a []string)
 - Struct(v any)
 - Slice(v any)
+
+// Can only use with null options
 - Svg(options *SVGOptions) string
+- XML(options *XMLOptions) string
+- JSON(options *JSONOptions) string
+- CSV(options *CSVOptions) string
+- Markdown(co *MarkdownOptions) (string, error) 
+- EmailText(co *EmailOptions) (string, error) 
+- FixedWidth(co *FixedWidthOptions) ([]byte, error)
+
+//Example 
+// {{Svg  nil}}
+// {{FixedWidth  nil}}
+// {{String (XML  nil)}}
+// {{String (JSON  nil)}}
+// {{String (CSV  nil)}}
 ```
 
 </details>
@@ -869,25 +889,16 @@ fmt.Println(string(value))
 ```go
 import "github.com/brianvoe/gofakeit/v6"
 
+	Seed(11)
 	value, err := gofakeit.FixedWidth(&FixedWidthOptions{
 		RowCount: 3,
 		Fields: []Field{
-			{Name: "name", //Column title
-			Function: "{{FirstName}} {{LastName}}", // Template function call
-				Params: MapParams{
-					"spacing":    {"15"},// Specify the column width
-					"align":      {"<"}}},// Align content left
-			{Name: "last_name", 
-			Function: "lastname", // faker function call
-				Params: MapParams{
-					"spacing":    {"-1"},}},// auto the column width
-			{Name: "Money", Function: "{{Number 1 100}}",
-				Params: MapParams{
-					"spacing":    {"10"},
-					"align":      {">"},}},// Align content right		
+			{Name: "Name", Function: "{firstname} {lastname}"},
+			{Name: "Email", Function: "email"},
+			{Name: "Password", Function: "password", Params: MapParams{"special": {"false"}}},
+			{Name: "Age", Function: "{number:1,100}"},
 		},
 	})
-	
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -895,10 +906,10 @@ import "github.com/brianvoe/gofakeit/v6"
 	fmt.Println(string(value))
 
 	// Output:
-	// name           last_name     Money
-	// Markus Moen    Daniel           40
-	// Anibal Kozey   Moen             16
-	// Sylvan Mraz    Pagac            62
+	// Name               Email                          Password         Age
+	// Markus Moen        sylvanmraz@murphy.net          6VlvH6qqXc7g     13
+	// Alayna Wuckert     santinostanton@carroll.biz     g7sLrS0gEwLO     46
+	// Lura Lockman       zacherykuhic@feil.name         S8gV7Z64KlHG     12
 
 ```
 </details>

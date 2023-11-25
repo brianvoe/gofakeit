@@ -515,17 +515,18 @@ func addGenerateLookup() {
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			co := FixedWidthOptions{}
 
-			rowcount, err := info.GetInt(m, "rowcount")
-			if err == nil {
-				co.RowCount = rowcount
+			rowCount, err := info.GetInt(m, "rowcount")
+			if err != nil {
+				return nil, err
 			}
+
+			co.RowCount = rowCount
 
 			fields, _ := info.GetStringArray(m, "fields")
 
 			// Check to make sure fields has length
 			if len(fields) > 0 {
 				co.Fields = make([]Field, len(fields))
-
 				for i, f := range fields {
 					// Unmarshal fields string into fields array
 					err = json.Unmarshal([]byte(f), &co.Fields[i])
@@ -533,6 +534,8 @@ func addGenerateLookup() {
 						return nil, err
 					}
 				}
+			} else {
+				return nil, errors.New("missing fields")
 			}
 
 			out, err := fixeWidthFunc(r, &co)
