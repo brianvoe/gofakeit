@@ -288,9 +288,9 @@ func ExampleEmailText() {
 	// Hi, Marcel
 	//
 	// you have look now that regularly Happens tonight
-	// Gentrify pitchfork stumptown mlkshk umami chambray blue bottle 3 wolf moon swag &#43;1 biodiesel knausgaard semiotics taxidermy meh artisan. Hoodie &#43;1 blue bottle fashion axe forage mixtape Thundercats pork belly whatever 90&#39;s beard selfies chambray cred mlkshk shabby chic. Typewriter VHS readymade lo-fi bitters PBR&amp;B gentrify lomo raw denim freegan put a bird on it raw denim cliche dreamcatcher pug fixie.
+	// Gentrify pitchfork stumptown mlkshk umami chambray blue bottle 3 wolf moon swag +1 biodiesel knausgaard semiotics taxidermy meh artisan. Hoodie +1 blue bottle fashion axe forage mixtape Thundercats pork belly whatever 90's beard selfies chambray cred mlkshk shabby chic. Typewriter VHS readymade lo-fi bitters PBR&B gentrify lomo raw denim freegan put a bird on it raw denim cliche dreamcatcher pug fixie.
 	//
-	// Park trust fund migas fingerstache sriracha &#43;1 mustache tilde shoreditch kickstarter franzen dreamcatcher green juice mustache neutra polaroid. Stumptown organic schlitz flexitarian ramps chicharrones kogi lo-fi mustache tilde forage street church-key williamsburg taxidermy chia. Mustache plaid mumblecore squid slow-carb disrupt Thundercats goth shoreditch master direct trade deep v green juice keffiyeh carry poutine.
+	// Park trust fund migas fingerstache sriracha +1 mustache tilde shoreditch kickstarter franzen dreamcatcher green juice mustache neutra polaroid. Stumptown organic schlitz flexitarian ramps chicharrones kogi lo-fi mustache tilde forage street church-key williamsburg taxidermy chia. Mustache plaid mumblecore squid slow-carb disrupt Thundercats goth shoreditch master direct trade deep v green juice keffiyeh carry poutine.
 	//
 	// Flannel direct trade keffiyeh cold-pressed tilde plaid keytar tilde bespoke waistcoat cornhole everyday taxidermy humblebrag bespoke kitsch. Hella venmo umami retro five dollar toast twee bitters microdosing cold-pressed street chambray distillery kale chips disrupt actually typewriter. Lomo kinfolk tilde heirloom normcore farm-to-table master readymade schlitz shoreditch bitters kitsch marfa beard roof butcher.
 	// Pinterest semiotics photo booth taxidermy offal tofu whatever schlitz meh?
@@ -323,9 +323,9 @@ func ExampleFaker_EmailText() {
 	// Hi, Marcel
 	//
 	// you have look now that regularly Happens tonight
-	// Gentrify pitchfork stumptown mlkshk umami chambray blue bottle 3 wolf moon swag &#43;1 biodiesel knausgaard semiotics taxidermy meh artisan. Hoodie &#43;1 blue bottle fashion axe forage mixtape Thundercats pork belly whatever 90&#39;s beard selfies chambray cred mlkshk shabby chic. Typewriter VHS readymade lo-fi bitters PBR&amp;B gentrify lomo raw denim freegan put a bird on it raw denim cliche dreamcatcher pug fixie.
+	// Gentrify pitchfork stumptown mlkshk umami chambray blue bottle 3 wolf moon swag +1 biodiesel knausgaard semiotics taxidermy meh artisan. Hoodie +1 blue bottle fashion axe forage mixtape Thundercats pork belly whatever 90's beard selfies chambray cred mlkshk shabby chic. Typewriter VHS readymade lo-fi bitters PBR&B gentrify lomo raw denim freegan put a bird on it raw denim cliche dreamcatcher pug fixie.
 	//
-	// Park trust fund migas fingerstache sriracha &#43;1 mustache tilde shoreditch kickstarter franzen dreamcatcher green juice mustache neutra polaroid. Stumptown organic schlitz flexitarian ramps chicharrones kogi lo-fi mustache tilde forage street church-key williamsburg taxidermy chia. Mustache plaid mumblecore squid slow-carb disrupt Thundercats goth shoreditch master direct trade deep v green juice keffiyeh carry poutine.
+	// Park trust fund migas fingerstache sriracha +1 mustache tilde shoreditch kickstarter franzen dreamcatcher green juice mustache neutra polaroid. Stumptown organic schlitz flexitarian ramps chicharrones kogi lo-fi mustache tilde forage street church-key williamsburg taxidermy chia. Mustache plaid mumblecore squid slow-carb disrupt Thundercats goth shoreditch master direct trade deep v green juice keffiyeh carry poutine.
 	//
 	// Flannel direct trade keffiyeh cold-pressed tilde plaid keytar tilde bespoke waistcoat cornhole everyday taxidermy humblebrag bespoke kitsch. Hella venmo umami retro five dollar toast twee bitters microdosing cold-pressed street chambray distillery kale chips disrupt actually typewriter. Lomo kinfolk tilde heirloom normcore farm-to-table master readymade schlitz shoreditch bitters kitsch marfa beard roof butcher.
 	// Pinterest semiotics photo booth taxidermy offal tofu whatever schlitz meh?

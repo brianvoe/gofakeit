@@ -3,7 +3,7 @@ package gofakeit
 import (
 	"bytes"
 	"fmt"
-	"html/template"
+
 	"math/rand"
 	"reflect"
 	"strconv"
@@ -303,7 +303,7 @@ func templateFunc(temp string, funcs *template_engine.FuncMap, data any) (string
 	}
 
 	// Create a new template and parse
-	template_gen, err := template.New("CodeRun").Funcs(*funcs).Parse(temp)
+	template_gen, err := template_engine.New("CodeRun").Funcs(*funcs).Parse(temp)
 	if err != nil {
 		return "", err
 	}
