@@ -15,7 +15,7 @@ import (
 type CSVOptions struct {
 	Delimiter string  `json:"delimiter" xml:"delimiter" fake:"{randomstring:[,,tab]}"`
 	RowCount  int     `json:"row_count" xml:"row_count" fake:"{number:1,10}"`
-	Fields    []Field `json:"fields" xml:"fields" fake:"{internal_exampleFields}"`
+	Fields    []Field `json:"fields" xml:"fields" fake:"{fields}"`
 }
 
 // CSV generates an object or an array of objects in json format

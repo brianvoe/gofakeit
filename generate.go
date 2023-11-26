@@ -155,7 +155,7 @@ func generate(r *rand.Rand, dataVal string) string {
 // FixedWidthOptions defines values needed for csv generation
 type FixedWidthOptions struct {
 	RowCount int     `json:"row_count" xml:"row_count" fake:"{number:1,10}"`
-	Fields   []Field `json:"fields" xml:"fields" fake:"{internal_exampleFields}"`
+	Fields   []Field `json:"fields" xml:"fields" fake:"{fields}"`
 }
 
 // FixedWidth generates an table of random data in fixed width format

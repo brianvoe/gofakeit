@@ -106,6 +106,21 @@ func initLookup() {
 	addWordVerbLookup()
 }
 
+// internalFuncLookups is the internal map array with mapping to all available data
+var internalFuncLookups map[string]Info = map[string]Info{
+	"fields": {
+		Description: "Example fields for generating csv, json, xml, etc",
+		Output:      "gofakeit.Field",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+			function, _ := GetRandomSimpleFunc(r)
+			return Field{
+				Name:     function,
+				Function: function,
+			}, nil
+		},
+	},
+}
+
 // NewMapParams will create a new MapParams
 func NewMapParams() *MapParams {
 	return &MapParams{}
@@ -174,11 +189,14 @@ func (m *MapParamsValue) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func GetRandomFunc(r *rand.Rand) (string, Info) {
+func GetRandomSimpleFunc(r *rand.Rand) (string, Info) {
 	// Loop through all the functions and add them to a slice
 	var keys []string
-	for k := range FuncLookups {
-		keys = append(keys, k)
+	for k, info := range FuncLookups {
+		// Only grab simple functions
+		if info.Params == nil {
+			keys = append(keys, k)
+		}
 	}
 
 	// Randomly grab a function from the slice
@@ -206,7 +224,16 @@ func AddFuncLookup(functionName string, info Info) {
 
 // GetFuncLookup will lookup
 func GetFuncLookup(functionName string) *Info {
-	info, ok := FuncLookups[functionName]
+	var info Info
+	var ok bool
+
+	// Check internal functions first
+	info, ok = internalFuncLookups[functionName]
+	if ok {
+		return &info
+	}
+
+	info, ok = FuncLookups[functionName]
 	if ok {
 		return &info
 	}
