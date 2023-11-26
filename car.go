@@ -79,7 +79,7 @@ func addCarLookup() {
 		Output:      "map[string]interface",
 		ContentType: "application/json",
 		Example:     `{type: "Passenger car mini", fuel: "Gasoline", transmission: "Automatic", brand: "Fiat", model: "Freestyle Fwd", year: "1972"}`,
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return car(r), nil
 		},
 	})
@@ -90,7 +90,7 @@ func addCarLookup() {
 		Description: "Random car type",
 		Example:     "Passenger car mini",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return carType(r), nil
 		},
 	})
@@ -101,7 +101,7 @@ func addCarLookup() {
 		Description: "Random car fuel type",
 		Example:     "CNG",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return carFuelType(r), nil
 		},
 	})
@@ -112,7 +112,7 @@ func addCarLookup() {
 		Description: "Random car transmission type",
 		Example:     "Manual",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return carTransmissionType(r), nil
 		},
 	})
@@ -123,7 +123,7 @@ func addCarLookup() {
 		Description: "Random car maker",
 		Example:     "Nissan",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return carMaker(r), nil
 		},
 	})
@@ -134,7 +134,7 @@ func addCarLookup() {
 		Description: "Random car model",
 		Example:     "Aveo",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return carModel(r), nil
 		},
 	})

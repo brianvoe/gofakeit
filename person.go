@@ -246,7 +246,7 @@ func addPersonLookup() {
 		}`,
 		Output:      "map[string]interface",
 		ContentType: "application/json",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return person(r), nil
 		},
 	})
@@ -257,7 +257,7 @@ func addPersonLookup() {
 		Description: "Random name",
 		Example:     "Markus Moen",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return name(r), nil
 		},
 	})
@@ -268,7 +268,7 @@ func addPersonLookup() {
 		Description: "Random name prefix",
 		Example:     "Mr.",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return namePrefix(r), nil
 		},
 	})
@@ -279,7 +279,7 @@ func addPersonLookup() {
 		Description: "Random name suffix",
 		Example:     "Jr.",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return nameSuffix(r), nil
 		},
 	})
@@ -290,7 +290,7 @@ func addPersonLookup() {
 		Description: "Random first name",
 		Example:     "Markus",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return firstName(r), nil
 		},
 	})
@@ -301,7 +301,7 @@ func addPersonLookup() {
 		Description: "Random middle name",
 		Example:     "Belinda",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return middleName(r), nil
 		},
 	})
@@ -312,7 +312,7 @@ func addPersonLookup() {
 		Description: "Random last name",
 		Example:     "Daniel",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return lastName(r), nil
 		},
 	})
@@ -323,7 +323,7 @@ func addPersonLookup() {
 		Description: "Random gender",
 		Example:     "male",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return gender(r), nil
 		},
 	})
@@ -334,7 +334,7 @@ func addPersonLookup() {
 		Description: "Random social security number",
 		Example:     "296446360",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return ssn(r), nil
 		},
 	})
@@ -345,7 +345,7 @@ func addPersonLookup() {
 		Description: "Random hobby activity",
 		Example:     "Swimming",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return hobby(r), nil
 		},
 	})
@@ -356,7 +356,7 @@ func addPersonLookup() {
 		Description: "Random email",
 		Example:     "markusmoen@pagac.net",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return email(r), nil
 		},
 	})
@@ -367,7 +367,7 @@ func addPersonLookup() {
 		Description: "Random phone number",
 		Example:     "6136459948",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return phone(r), nil
 		},
 	})
@@ -378,7 +378,7 @@ func addPersonLookup() {
 		Description: "Random formatted phone number",
 		Example:     "136-459-9489",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return phoneFormatted(r), nil
 		},
 	})
@@ -393,7 +393,7 @@ func addPersonLookup() {
 			{Field: "people", Display: "Strings", Type: "[]string", Description: "Array of people"},
 			{Field: "teams", Display: "Strings", Type: "[]string", Description: "Array of teams"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			people, err := info.GetStringArray(m, "people")
 			if err != nil {
 				return nil, err

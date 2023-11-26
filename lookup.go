@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"math/rand"
 	"reflect"
-	"sort"
 	"strconv"
 	"strings"
 	"sync"
@@ -15,60 +14,6 @@ import (
 var FuncLookups map[string]Info
 var lockFuncLookups sync.Mutex
 
-// internalFuncLookups is the internal map array with mapping to all available data
-var internalFuncLookups map[string]Info = map[string]Info{
-	"internal_exampleFields": {
-		Description: "Example fields for generating csv, json and xml",
-		Output:      "gofakeit.Field",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
-			name, _ := getRandomFuncLookup(r, excludeWithParams,
-				validTypes("string", "int", "[]string", "[]int"))
-			return Field{
-				Name:     name,
-				Function: name,
-			}, nil
-		},
-	},
-}
-
-// filterFuncLookup returns true when the lookup should be accepted
-type filterFuncLookup func(Info) bool
-
-var (
-	excludeWithParams filterFuncLookup = func(info Info) bool {
-		return len(info.Params) == 0
-	}
-
-	validTypes = func(acceptedTypes ...string) filterFuncLookup {
-		return func(info Info) bool {
-			for _, t := range acceptedTypes {
-				if info.Output == t {
-					return true
-				}
-			}
-			return false
-		}
-	}
-)
-
-func getRandomFuncLookup(r *rand.Rand, filters ...filterFuncLookup) (string, Info) {
-	var keys []string
-	for k, v := range FuncLookups {
-		isValid := true
-		for _, filter := range filters {
-			isValid = isValid && filter(v)
-		}
-		if isValid {
-			keys = append(keys, k)
-		}
-	}
-
-	sort.Stable(sort.StringSlice(keys))
-
-	selected := keys[r.Intn(len(keys))]
-	return selected, FuncLookups[selected]
-}
-
 // MapParams is the values to pass into a lookup generate
 type MapParams map[string]MapParamsValue
 
@@ -76,14 +21,15 @@ type MapParamsValue []string
 
 // Info structures fields to better break down what each one generates
 type Info struct {
-	Display     string                                                            `json:"display"`
-	Category    string                                                            `json:"category"`
-	Description string                                                            `json:"description"`
-	Example     string                                                            `json:"example"`
-	Output      string                                                            `json:"output"`
-	ContentType string                                                            `json:"content_type"`
-	Params      []Param                                                           `json:"params"`
-	Generate    func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) `json:"-"`
+	Display     string                                                    `json:"display"`
+	Category    string                                                    `json:"category"`
+	Description string                                                    `json:"description"`
+	Example     string                                                    `json:"example"`
+	Output      string                                                    `json:"output"`
+	ContentType string                                                    `json:"content_type"`
+	Params      []Param                                                   `json:"params"`
+	Any         any                                                       `json:"any"`
+	Generate    func(r *rand.Rand, m *MapParams, info *Info) (any, error) `json:"-"`
 }
 
 // Param is a breakdown of param requirements and type definition
@@ -108,54 +54,71 @@ func init() { initLookup() }
 
 // init will add all the functions to MapLookups
 func initLookup() {
-	addAuthLookup()
 	addAddressLookup()
+	addAnimalLookup()
+	addAppLookup()
+	addAuthLookup()
 	addBeerLookup()
+	addBookLookup()
 	addCarLookup()
-	addPersonLookup()
-	addWordGeneralLookup()
-	addWordNounLookup()
-	addWordVerbLookup()
-	addWordAdverbLookup()
-	addWordPrepositionLookup()
-	addWordAdjectiveLookup()
-	addWordPronounLookup()
-	addWordConnectiveLookup()
-	addWordPhraseLookup()
-	addWordSentenceLookup()
-	addWordGrammerLookup()
-	addLoremLookup()
-	addGenerateLookup()
-	addMiscLookup()
+	addCelebrityLookup()
 	addColorLookup()
-	addInternetLookup()
-	addDateTimeLookup()
-	addPaymentLookup()
 	addCompanyLookup()
+	addDatabaseSQLLookup()
+	addDateTimeLookup()
+	addEmojiLookup()
+	addErrorLookup()
+	addFileCSVLookup()
+	addFileJSONLookup()
+	addFileLookup()
+	addFileXMLLookup()
+	addFinanceLookup()
+	addFoodLookup()
+	addGameLookup()
+	addGenerateLookup()
 	addHackerLookup()
 	addHipsterLookup()
-	addLanguagesLookup()
-	addFileLookup()
-	addFileJSONLookup()
-	addFileXMLLookup()
-	addFileCSVLookup()
-	addEmojiLookup()
-	addImageLookup()
-	addNumberLookup()
-	addStringLookup()
-	addAnimalLookup()
-	addGameLookup()
-	addFoodLookup()
-	addAppLookup()
-	addWeightedLookup()
-	addMinecraftLookup()
-	addCelebrityLookup()
-	addDatabaseSQLLookup()
-	addErrorLookup()
 	addHtmlLookup()
-	addFinanceLookup()
-	addBookLookup()
+	addImageLookup()
+	addInternetLookup()
+	addLanguagesLookup()
+	addLoremLookup()
+	addMinecraftLookup()
+	addMiscLookup()
 	addMovieLookup()
+	addNumberLookup()
+	addPaymentLookup()
+	addPersonLookup()
+	addSchoolLookup()
+	addStringLookup()
+	addTemplateLookup()
+	addWeightedLookup()
+	addWordAdjectiveLookup()
+	addWordAdverbLookup()
+	addWordConnectiveLookup()
+	addWordGeneralLookup()
+	addWordGrammerLookup()
+	addWordNounLookup()
+	addWordPhraseLookup()
+	addWordPrepositionLookup()
+	addWordPronounLookup()
+	addWordSentenceLookup()
+	addWordVerbLookup()
+}
+
+// internalFuncLookups is the internal map array with mapping to all available data
+var internalFuncLookups map[string]Info = map[string]Info{
+	"fields": {
+		Description: "Example fields for generating csv, json, xml, etc",
+		Output:      "gofakeit.Field",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+			function, _ := GetRandomSimpleFunc(r)
+			return Field{
+				Name:     function,
+				Function: function,
+			}, nil
+		},
+	},
 }
 
 // NewMapParams will create a new MapParams
@@ -193,7 +156,7 @@ func (m *MapParamsValue) UnmarshalJSON(data []byte) error {
 	// check if the data is an array
 	// if so, marshal it into m
 	if data[0] == '[' {
-		var values []interface{}
+		var values []any
 		err := json.Unmarshal(data, &values)
 		if err != nil {
 			return err
@@ -217,7 +180,7 @@ func (m *MapParamsValue) UnmarshalJSON(data []byte) error {
 	}
 
 	// if not, then convert into a string and add it to m
-	var s interface{}
+	var s any
 	if err := json.Unmarshal(data, &s); err != nil {
 		return err
 	}
@@ -226,12 +189,25 @@ func (m *MapParamsValue) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// AddFuncLookup takes a field and adds it to map
-func AddFuncLookup(functionName string, info Info) {
-	if _, ok := internalFuncLookups[functionName]; ok {
-		panic(fmt.Sprintf("Function %s is used internally and cannot be overwritten", functionName))
+func GetRandomSimpleFunc(r *rand.Rand) (string, Info) {
+	// Loop through all the functions and add them to a slice
+	var keys []string
+	for k, info := range FuncLookups {
+		// Only grab simple functions
+		if info.Params == nil {
+			keys = append(keys, k)
+		}
 	}
 
+	// Randomly grab a function from the slice
+	randomKey := randomString(r, keys)
+
+	// Return the function name and info
+	return randomKey, FuncLookups[randomKey]
+}
+
+// AddFuncLookup takes a field and adds it to map
+func AddFuncLookup(functionName string, info Info) {
 	if FuncLookups == nil {
 		FuncLookups = make(map[string]Info)
 	}
@@ -251,6 +227,7 @@ func GetFuncLookup(functionName string) *Info {
 	var info Info
 	var ok bool
 
+	// Check internal functions first
 	info, ok = internalFuncLookups[functionName]
 	if ok {
 		return &info
@@ -266,10 +243,6 @@ func GetFuncLookup(functionName string) *Info {
 
 // RemoveFuncLookup will remove a function from lookup
 func RemoveFuncLookup(functionName string) {
-	if _, ok := internalFuncLookups[functionName]; ok {
-		panic(fmt.Sprintf("Function %s is used internally and cannot be overwritten", functionName))
-	}
-
 	_, ok := FuncLookups[functionName]
 	if !ok {
 		return
@@ -278,6 +251,62 @@ func RemoveFuncLookup(functionName string) {
 	lockFuncLookups.Lock()
 	delete(FuncLookups, functionName)
 	lockFuncLookups.Unlock()
+}
+
+// GetAny will retrieve Any field from Info
+func (i *Info) GetAny(m *MapParams, field string) (any, error) {
+	_, value, err := i.GetField(m, field)
+	if err != nil {
+		return nil, err
+	}
+
+	var anyValue any
+
+	// Try to convert to int
+	valueInt, err := strconv.ParseInt(value[0], 10, 64)
+	if err == nil {
+		return int(valueInt), nil
+	}
+
+	// Try to convert to float
+	valueFloat, err := strconv.ParseFloat(value[0], 64)
+	if err == nil {
+		return valueFloat, nil
+	}
+
+	// Try to convert to boolean
+	valueBool, err := strconv.ParseBool(value[0])
+	if err == nil {
+		return valueBool, nil
+	}
+
+	err = json.Unmarshal([]byte(value[0]), &anyValue)
+	if err == nil {
+		return valueBool, nil
+	}
+
+	return value[0], nil
+	/*if err != nil {
+		return nil, fmt.Errorf("%s field could not parse to any", field)
+	}*/
+
+	//return anyValue, nil
+}
+
+// GetMap will retrieve map[string]interface{} field from data
+func (i *Info) GetMap(m *MapParams, field string) (map[string]interface{}, error) {
+	_, value, err := i.GetField(m, field)
+	if err != nil {
+		return nil, err
+	}
+
+	var mapValue map[string]interface{}
+	err = json.Unmarshal([]byte(value[0]), &mapValue)
+	if err != nil {
+		return nil, fmt.Errorf("%s field could not parse to map[string]interface{}", field)
+	}
+
+	return mapValue, nil
 }
 
 // GetField will retrieve field from data

@@ -107,7 +107,7 @@ func addAnimalLookup() {
 		Description: "Random pet name",
 		Example:     "Ozzy Pawsborne",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return petName(r), nil
 		},
 	})
@@ -118,7 +118,7 @@ func addAnimalLookup() {
 		Description: "Random animal",
 		Example:     "elk",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return animal(r), nil
 		},
 	})
@@ -129,7 +129,7 @@ func addAnimalLookup() {
 		Description: "Random animal type",
 		Example:     "amphibians",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return animalType(r), nil
 		},
 	})
@@ -140,7 +140,7 @@ func addAnimalLookup() {
 		Description: "Random farm animal",
 		Example:     "Chicken",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return farmAnimal(r), nil
 		},
 	})
@@ -151,7 +151,7 @@ func addAnimalLookup() {
 		Description: "Random cat type",
 		Example:     "Chausie",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return cat(r), nil
 		},
 	})
@@ -162,7 +162,7 @@ func addAnimalLookup() {
 		Description: "Random dog type",
 		Example:     "Norwich Terrier",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return dog(r), nil
 		},
 	})
@@ -173,7 +173,7 @@ func addAnimalLookup() {
 		Description: "Random bird type",
 		Example:     "goose",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return bird(r), nil
 		},
 	})

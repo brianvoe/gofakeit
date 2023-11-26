@@ -23,7 +23,7 @@ func bookGenre(r *rand.Rand) string { return getRandValue(r, []string{"book", "g
 type BookInfo struct {
 	Title  string `json:"title" xml:"name"`
 	Author string `json:"author" xml:"author"`
-	Genre string `json:"genre" xml:"genre"`
+	Genre  string `json:"genre" xml:"genre"`
 }
 
 func Book() *BookInfo { return book(globalFaker.Rand) }
@@ -34,7 +34,7 @@ func book(r *rand.Rand) *BookInfo {
 	return &BookInfo{
 		Title:  bookTitle(r),
 		Author: bookAuthor(r),
-		Genre: bookGenre(r),
+		Genre:  bookGenre(r),
 	}
 }
 
@@ -45,7 +45,7 @@ func addBookLookup() {
 		Description: "Random Book data set",
 		Example:     `{title: "Hamlet", author: "Mark Twain", genre: "Adventure"}`,
 		Output:      "map[string]string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return book(r), nil
 		},
 	})
@@ -56,7 +56,7 @@ func addBookLookup() {
 		Description: "Random Book title",
 		Example:     "Hamlet",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return bookTitle(r), nil
 		},
 	})
@@ -67,7 +67,7 @@ func addBookLookup() {
 		Description: "Random Book author",
 		Example:     "Mark Twain",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return bookAuthor(r), nil
 		},
 	})
@@ -78,7 +78,7 @@ func addBookLookup() {
 		Description: "Random Book genre",
 		Example:     "Adventure",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return bookGenre(r), nil
 		},
 	})

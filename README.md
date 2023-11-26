@@ -4,6 +4,8 @@
 
 Random data generator written in go
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/G2G0R5EJT)
+
 <a href="https://www.buymeacoffee.com/brianvoe" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 
 ## Features
@@ -13,6 +15,7 @@ Random data generator written in go
 - [Global Rand](#global-rand-set)
 - [Struct Generator](#struct)
 - [Custom Functions](#custom-functions)
+- [Templates](#templates)
 - [Http Server](https://github.com/brianvoe/gofakeit/tree/master/cmd/gofakeitserver)
 - [Command Line Tool](https://github.com/brianvoe/gofakeit/tree/master/cmd/gofakeit)
 - Zero dependencies
@@ -182,14 +185,14 @@ For example, this is useful when it is not possible to modify the struct that yo
 // or just return a static value
 type CustomString string
 
-func (c *CustomString) Fake(faker *gofakeit.Faker) interface{} {
+func (c *CustomString) Fake(faker *gofakeit.Faker) any {
 	return CustomString("my custom string")
 }
 
 // Imagine a CustomTime type that is needed to support a custom JSON Marshaler
 type CustomTime time.Time
 
-func (c *CustomTime) Fake(faker *gofakeit.Faker) interface{} {
+func (c *CustomTime) Fake(faker *gofakeit.Faker) any {
 	return CustomTime(time.Now())
 }
 
@@ -226,7 +229,7 @@ gofakeit.AddFuncLookup("friendname", gofakeit.Info{
 	Description: "Random friend name",
 	Example:     "bill",
 	Output:      "string",
-	Generate: func(r *rand.Rand, m *gofakeit.MapParams, info *gofakeit.Info) (interface{}, error) {
+	Generate: func(r *rand.Rand, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
 		return gofakeit.RandomString([]string{"bill", "bob", "sally"}), nil
 	},
 })
@@ -240,7 +243,7 @@ gofakeit.AddFuncLookup("jumbleword", gofakeit.Info{
 	Params: []gofakeit.Param{
 		{Field: "word", Type: "string", Description: "Word you want to jumble"},
 	},
-	Generate: func(r *rand.Rand, m *gofakeit.MapParams, info *gofakeit.Info) (interface{}, error) {
+	Generate: func(r *rand.Rand, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
 		word, err := info.GetString(m, "word")
 		if err != nil {
 			return nil, err
@@ -263,13 +266,96 @@ fmt.Printf("%s", f.FriendName) // bill
 fmt.Printf("%s", f.JumbleWord) // loredlowlh
 ```
 
+
+
+## Templates
+
+Generate custom outputs using golang's template engine [https://pkg.go.dev/text/template](https://pkg.go.dev/text/template).
+
+We have added all the available functions to the template engine as well as some additional ones that are useful for template building.
+
+Additional Available Functions
+```go
+- ToUpper(s string) string   // Make string upper case
+- ToLower(s string) string   // Make string lower case
+- ToString(s any)            // Convert to string
+- ToDate(s string) time.Time // Convert string to date
+- SpliceAny(args ...any) []any // Build a slice of interfaces, used with Weighted
+- SpliceString(args ...string) []string // Build a slice of strings, used with Teams and RandomString
+- SpliceUInt(args ...uint) []uint // Build a slice of uint, used with Dice and RandomUint
+- SpliceInt(args ...int) []int // Build a slice of int, used with RandomInt
+```
+
+<details>
+  <summary>Unavailable Gofakeit functions</summary>
+
+```go
+// Any functions that dont have a return value
+- AnythingThatReturnsVoid(): void
+
+// Not available to use in templates
+- Template(co *TemplateOptions) ([]byte, error)
+- RandomMapKey(mapI any) any
+```
+</details>
+
+
+### Example Usages
+
+```go
+import "github.com/brianvoe/gofakeit/v6"
+
+func main() {
+	// Accessing the Lines variable from within the template.
+	template := `
+	Subject: {{RandomString (SliceString "Greetings" "Hello" "Hi")}}
+
+	Dear {{LastName}},
+
+	{{RandomString (SliceString "Greetings!" "Hello there!" "Hi, how are you?")}}
+
+	{{Paragraph 1 5 10 "\n\n"}}
+
+	{{RandomString (SliceString "Warm regards" "Best wishes" "Sincerely")}}
+	{{$person:=Person}}
+	{{$person.FirstName}} {{$person.LastName}}
+	{{$person.Email}}
+	{{$person.Phone}}
+	`
+
+	value, err := gofakeit.Template(template, &TemplateOptions{Data: 5})
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(string(value))
+}
+```
+
+Output:
+```text
+Subject: Hello
+
+Dear Krajcik,
+
+Greetings!
+
+Quia voluptatem voluptatem voluptatem. Quia voluptatem voluptatem voluptatem. Quia voluptatem voluptatem voluptatem.
+
+Warm regards
+Kaitlyn Krajcik
+kaitlynkrajcik@krajcik
+570-245-7485
+```
+
 ## Functions
 
 All functions also exist as methods on the Faker struct
 
 ### File
 
-Passing `nil` to `CSV`, `JSON` or `XML` it will auto generate data using a random set of generators.
+Passing `nil` to `CSV`, `JSON` or `XML` will auto generate data using a random set of generators.
 
 ```go
 CSV(co *CSVOptions) ([]byte, error)
@@ -278,6 +364,7 @@ XML(xo *XMLOptions) ([]byte, error)
 FileExtension() string
 FileMimeType() string
 ```
+
 
 ### Person
 
@@ -302,9 +389,9 @@ Teams(peopleArray []string, teamsArray []string) map[string][]string
 ### Generate
 
 ```go
-Struct(v interface{})
-Slice(v interface{})
-Map() map[string]interface{}
+Struct(v any)
+Slice(v any)
+Map() map[string]any
 Generate(value string) string
 Regex(value string) string
 ```
@@ -489,9 +576,10 @@ Dessert() string
 ```go
 Bool() bool
 UUID() string
+Weighted(options []any, weights []float32)
 FlipACoin() string
-RandomMapKey(mapI interface{}) interface{}
-ShuffleAnySlice(v interface{})
+RandomMapKey(mapI any) any
+ShuffleAnySlice(v any)
 ```
 
 ### Colors
@@ -750,8 +838,6 @@ MovieGenre() string
 
 ### Error
 
-Unlike most `gofakeit` methods which return a `string`, the error methods return a Go `error`. Access the error message as a string by chaining the `.Error()` method.
-
 ```go
 Error() error
 ErrorDatabase() error
@@ -761,4 +847,19 @@ ErrorHTTPClient() error
 ErrorHTTPServer() error
 ErrorInput() error
 ErrorRuntime() error
+```
+
+### School
+
+```go
+school() string
+```
+
+## Template
+
+```go
+Template(co *TemplateOptions) (string, error) // Generates custom documents
+Markdown(co *MarkdownOptions) (string, error) // Generates markdown documents
+EmailText(co *EmailOptions) (string, error)  // Generates email documents
+FixedWidth(co *FixedWidthOptions) (string, error)  // Generates fixed width documents
 ```

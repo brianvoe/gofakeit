@@ -126,7 +126,7 @@ func addStringLookup() {
 		Description: "Generate a single random lower case ASCII letter",
 		Example:     "g",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return letter(r), nil
 		},
 	})
@@ -140,7 +140,7 @@ func addStringLookup() {
 		Params: []Param{
 			{Field: "count", Display: "Count", Type: "uint", Description: "Number of digits to generate"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			ui, err := info.GetUint(m, "count")
 			if err != nil {
 				return nil, err
@@ -156,7 +156,7 @@ func addStringLookup() {
 		Description: "Generate a single random lower case vowel",
 		Example:     "a",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return vowel(r), nil
 		},
 	})
@@ -167,7 +167,7 @@ func addStringLookup() {
 		Description: "Generate a single ASCII digit",
 		Example:     "0",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return digit(r), nil
 		},
 	})
@@ -181,7 +181,7 @@ func addStringLookup() {
 		Params: []Param{
 			{Field: "count", Display: "Count", Type: "uint", Description: "Number of digits to generate"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			ui, err := info.GetUint(m, "count")
 			if err != nil {
 				return nil, err
@@ -200,7 +200,7 @@ func addStringLookup() {
 		Params: []Param{
 			{Field: "str", Display: "String", Type: "string", Description: "String value to replace #'s"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			str, err := info.GetString(m, "str")
 			if err != nil {
 				return nil, err
@@ -219,7 +219,7 @@ func addStringLookup() {
 		Params: []Param{
 			{Field: "str", Display: "String", Type: "string", Description: "String value to replace ?'s"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			str, err := info.GetString(m, "str")
 			if err != nil {
 				return nil, err
@@ -239,7 +239,7 @@ func addStringLookup() {
 		Params: []Param{
 			{Field: "strs", Display: "Strings", Type: "[]string", Description: "Delimited separated strings"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			strs, err := info.GetStringArray(m, "strs")
 			if err != nil {
 				return nil, err
@@ -260,7 +260,7 @@ func addStringLookup() {
 		Params: []Param{
 			{Field: "strs", Display: "Strings", Type: "[]string", Description: "Delimited separated strings"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			strs, err := info.GetStringArray(m, "strs")
 			if err != nil {
 				return nil, err

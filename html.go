@@ -100,7 +100,7 @@ func addHtmlLookup() {
 		Description: "Random HTML input field name",
 		Example:     "first_name",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return inputName(r), nil
 		},
 	})
@@ -118,7 +118,7 @@ func addHtmlLookup() {
 			{Field: "type", Display: "Type", Type: "string", Optional: true, Options: data.GetSubData("html", "svg"), Description: "Sub child element type"},
 			{Field: "colors", Display: "Colors", Type: "[]string", Optional: true, Description: "Hex or RGB array of colors to use"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			// Setup new options
 			options := SVGOptions{}
 			var err error

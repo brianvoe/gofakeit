@@ -38,7 +38,7 @@ func ConnectiveComparative() string { return connectiveComparative(globalFaker.R
 func (f *Faker) ConnectiveComparative() string { return connectiveComparative(f.Rand) }
 
 func connectiveComparative(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "connective_comparitive"})
+	return getRandValue(r, []string{"word", "connective_comparative"})
 }
 
 // ConnectiveComplaint will generate a random complaint connective
@@ -88,7 +88,7 @@ func addWordConnectiveLookup() {
 		Description: "Random connective word",
 		Example:     "such as",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return connective(r), nil
 		},
 	})
@@ -99,7 +99,7 @@ func addWordConnectiveLookup() {
 		Description: "Random connective time word",
 		Example:     "finally",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return connectiveTime(r), nil
 		},
 	})
@@ -110,7 +110,7 @@ func addWordConnectiveLookup() {
 		Description: "Random connective comparative word",
 		Example:     "in addition",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return connectiveComparative(r), nil
 		},
 	})
@@ -121,7 +121,7 @@ func addWordConnectiveLookup() {
 		Description: "Random connective complaint word",
 		Example:     "besides",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return connectiveComplaint(r), nil
 		},
 	})
@@ -132,7 +132,7 @@ func addWordConnectiveLookup() {
 		Description: "Random connective listing word",
 		Example:     "firstly",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return connectiveListing(r), nil
 		},
 	})
@@ -143,7 +143,7 @@ func addWordConnectiveLookup() {
 		Description: "Random connective casual word",
 		Example:     "an outcome of",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return connectiveCasual(r), nil
 		},
 	})
@@ -154,7 +154,7 @@ func addWordConnectiveLookup() {
 		Description: "Random connective examplify word",
 		Example:     "then",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return connectiveExamplify(r), nil
 		},
 	})

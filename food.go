@@ -94,7 +94,7 @@ func addFoodLookup() {
 		Description: "Random fruit",
 		Example:     "Peach",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return fruit(r), nil
 		},
 	})
@@ -105,7 +105,7 @@ func addFoodLookup() {
 		Description: "Random vegetable",
 		Example:     "Amaranth Leaves",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return vegetable(r), nil
 		},
 	})
@@ -116,7 +116,7 @@ func addFoodLookup() {
 		Description: "Random breakfast",
 		Example:     "Blueberry banana happy face pancakes",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return breakfast(r), nil
 		},
 	})
@@ -127,7 +127,7 @@ func addFoodLookup() {
 		Description: "Random lunch",
 		Example:     "No bake hersheys bar pie",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return lunch(r), nil
 		},
 	})
@@ -138,7 +138,7 @@ func addFoodLookup() {
 		Description: "Random dinner",
 		Example:     "Wild addicting dip",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return dinner(r), nil
 		},
 	})
@@ -149,7 +149,7 @@ func addFoodLookup() {
 		Description: "Random drink",
 		Example:     "Soda",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return drink(r), nil
 		},
 	})
@@ -160,7 +160,7 @@ func addFoodLookup() {
 		Description: "Random snack",
 		Example:     "Hoisin marinated wing pieces",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return snack(r), nil
 		},
 	})
@@ -171,7 +171,7 @@ func addFoodLookup() {
 		Description: "Random dessert",
 		Example:     "French napoleons",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return dessert(r), nil
 		},
 	})

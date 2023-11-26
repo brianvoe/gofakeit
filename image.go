@@ -78,7 +78,7 @@ func addImageLookup() {
 			{Field: "width", Display: "Width", Type: "int", Default: "500", Description: "Image width in px"},
 			{Field: "height", Display: "Height", Type: "int", Default: "500", Description: "Image height in px"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			width, err := info.GetInt(m, "width")
 			if err != nil {
 				return nil, err
@@ -110,7 +110,7 @@ func addImageLookup() {
 			{Field: "width", Display: "Width", Type: "int", Default: "500", Description: "Image width in px"},
 			{Field: "height", Display: "Height", Type: "int", Default: "500", Description: "Image height in px"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			width, err := info.GetInt(m, "width")
 			if err != nil {
 				return nil, err
@@ -142,7 +142,7 @@ func addImageLookup() {
 			{Field: "width", Display: "Width", Type: "int", Default: "500", Description: "Image width in px"},
 			{Field: "height", Display: "Height", Type: "int", Default: "500", Description: "Image height in px"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			width, err := info.GetInt(m, "width")
 			if err != nil {
 				return nil, err

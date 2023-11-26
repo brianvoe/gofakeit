@@ -16,7 +16,7 @@ func Example_custom() {
 		Description: "Random friend name",
 		Example:     "bill",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return RandomString([]string{"bill", "bob", "sally"}), nil
 		},
 	})
@@ -43,7 +43,7 @@ func Example_custom_with_params() {
 		Params: []Param{
 			{Field: "word", Type: "int", Description: "Word you want to jumble"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			word, err := info.GetString(m, "word")
 			if err != nil {
 				return nil, err
@@ -207,6 +207,10 @@ func TestLookupChecking(t *testing.T) {
 					mapData[p.Field] = []string{fmt.Sprintf("%v", Float32()), fmt.Sprintf("%v", Float32()), fmt.Sprintf("%v", Float32()), fmt.Sprintf("%v", Float32())}
 				case "[]Field":
 					mapData[p.Field] = []string{`{"name":"first_name","function":"firstname"}`}
+				case "interface":
+					mapData[p.Field] = []string{Letter()}
+				case "any":
+					mapData[p.Field] = []string{Letter()}
 				default:
 					t.Fatalf("Looking for %s but switch case doesnt have it", p.Type)
 				}
@@ -261,7 +265,7 @@ func TestLookupRemove(t *testing.T) {
 		Description: "Random friend name",
 		Example:     "bill",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return RandomString([]string{"bill", "bob", "sally"}), nil
 		},
 	})
@@ -346,6 +350,8 @@ func TestLookupCalls(t *testing.T) {
 					mapData.Add(p.Field, fmt.Sprintf("%v", Float32()))
 				case "[]Field":
 					mapData.Add(p.Field, `{"name":"first_name","function":"firstname"}`)
+				case "any":
+					mapData[p.Field] = []string{Letter()}
 				default:
 					t.Fatalf("Looking for %s but switch case doesnt have it", p.Type)
 				}
@@ -370,6 +376,7 @@ func TestLookupCallsErrorParams(t *testing.T) {
 				params = append(params, p)
 			}
 			info.Params = params
+
 			AddFuncLookup(funcName, info)
 		}
 	}

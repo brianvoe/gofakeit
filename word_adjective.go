@@ -98,7 +98,7 @@ func addWordAdjectiveLookup() {
 		Description: "Random adjective",
 		Example:     "genuine",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return adjective(r), nil
 		},
 	})
@@ -109,7 +109,7 @@ func addWordAdjectiveLookup() {
 		Description: "Random descriptive adjective",
 		Example:     "brave",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return adjectiveDescriptive(r), nil
 		},
 	})
@@ -120,7 +120,7 @@ func addWordAdjectiveLookup() {
 		Description: "Random quantitative adjective",
 		Example:     "a little",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return adjectiveQuantitative(r), nil
 		},
 	})
@@ -131,7 +131,7 @@ func addWordAdjectiveLookup() {
 		Description: "Random proper adjective",
 		Example:     "Afghan",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return adjectiveProper(r), nil
 		},
 	})
@@ -142,7 +142,7 @@ func addWordAdjectiveLookup() {
 		Description: "Random demonstrative adjective",
 		Example:     "this",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return adjectiveDemonstrative(r), nil
 		},
 	})
@@ -153,7 +153,7 @@ func addWordAdjectiveLookup() {
 		Description: "Random possessive adjective",
 		Example:     "my",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return adjectivePossessive(r), nil
 		},
 	})
@@ -164,7 +164,7 @@ func addWordAdjectiveLookup() {
 		Description: "Random interrogative adjective",
 		Example:     "what",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return adjectiveInterrogative(r), nil
 		},
 	})
@@ -175,7 +175,7 @@ func addWordAdjectiveLookup() {
 		Description: "Random indefinite adjective",
 		Example:     "few",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return adjectiveIndefinite(r), nil
 		},
 	})

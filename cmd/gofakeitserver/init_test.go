@@ -34,9 +34,9 @@ type testRequestStruct struct {
 	ContentType string
 	QueryParams url.Values
 	Headers     map[string]string
-	Body        interface{}
+	Body        any
 
-	Response   interface{}
+	Response   any
 	StatusCode *int
 }
 

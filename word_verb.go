@@ -66,7 +66,7 @@ func addWordVerbLookup() {
 		Description: "Random verb",
 		Example:     "release",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return verb(r), nil
 		},
 	})
@@ -77,7 +77,7 @@ func addWordVerbLookup() {
 		Description: "Random action verb",
 		Example:     "close",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return verbAction(r), nil
 		},
 	})
@@ -88,7 +88,7 @@ func addWordVerbLookup() {
 		Description: "Random transitive verb",
 		Example:     "follow",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return verbTransitive(r), nil
 		},
 	})
@@ -99,7 +99,7 @@ func addWordVerbLookup() {
 		Description: "Random intransitive verb",
 		Example:     "laugh",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return verbIntransitive(r), nil
 		},
 	})
@@ -110,7 +110,7 @@ func addWordVerbLookup() {
 		Description: "Random linking verb",
 		Example:     "was",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return verbLinking(r), nil
 		},
 	})
@@ -121,7 +121,7 @@ func addWordVerbLookup() {
 		Description: "Random helping verb",
 		Example:     "be",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return verbHelping(r), nil
 		},
 	})

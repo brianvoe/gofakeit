@@ -365,7 +365,7 @@ func TestCustomArrayType(t *testing.T) {
 		Description: "Random int array",
 		Example:     "[1]",
 		Output:      "CustomType",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			data := make([]int, 1)
 			data[0] = 42
 			return data, nil
@@ -378,7 +378,7 @@ func TestCustomArrayType(t *testing.T) {
 		Description: "Random byte",
 		Example:     "[1]",
 		Output:      "byte",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			data := byte(42)
 			return data, nil
 		},
@@ -611,7 +611,7 @@ func TestStructToDateTime(t *testing.T) {
 		Description: "A static date time",
 		Example:     "2021-11-26 15:22:00",
 		Output:      "time.Time",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			// Create new static date time
 			return time.Date(2021, 11, 26, 15, 22, 0, 0, time.UTC), nil
 		},
@@ -727,7 +727,7 @@ func TestStructSetSubStruct(t *testing.T) {
 	}
 
 	AddFuncLookup("setstruct", Info{
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return Sub{Str: "string", Num: 123, Flo: 123.456}, nil
 		},
 	})
@@ -762,7 +762,7 @@ func TestStructMap(t *testing.T) {
 		MapInt       map[int]int
 		MapFloat     map[float32]float32
 		MapStrPtr    map[string]*string
-		MapPtr       *map[string]interface{}
+		MapPtr       *map[string]any
 		MapStruct    map[string]Bar
 		MapArray     map[string][]Bar
 		MapSize      map[string]string `fakesize:"20"`
@@ -857,7 +857,7 @@ func TestExternalCustomType(t *testing.T) {
 		Description: "Random IPv4 Address of type net.IP",
 		Example:     "1.1.1.1",
 		Output:      "net.IP",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			data := net.IPv4(byte(r.Intn(256)), byte(r.Intn(256)), byte(r.Intn(256)), byte(r.Intn(256)))
 			return data, nil
 		},
@@ -876,7 +876,7 @@ func TestStructArrayWithInvalidCustomFunc(t *testing.T) {
 		Description: "Random int array",
 		Example:     "[1]",
 		Output:      "CustomType",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			data := make([]int, 1)
 			data[0] = 42
 			return data, nil
@@ -890,5 +890,32 @@ func TestStructArrayWithInvalidCustomFunc(t *testing.T) {
 	err := Struct(&invalidCustomTag)
 	if err.Error() != `strconv.ParseInt: parsing "[42]": invalid syntax` {
 		t.Error(err)
+	}
+}
+
+func TestStructMapWithCustomFunction(t *testing.T) {
+	AddFuncLookup("custom_map", Info{
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+			return map[string]string{"abc": "123"}, nil
+		},
+	})
+	defer RemoveFuncLookup("custom_map")
+
+	type StructMap struct {
+		MapCustomFun map[string]string `fake:"{custom_map}"`
+	}
+	var f StructMap
+
+	err := Struct(&f)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if v, ok := f.MapCustomFun["abc"]; ok {
+		if v != "123" {
+			t.Errorf("value didnt equal 123, got %v", v)
+		}
+	} else {
+		t.Errorf("map didnt contain 'abc'.")
 	}
 }

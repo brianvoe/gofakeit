@@ -173,7 +173,7 @@ func addMinecraftLookup() {
 		Description: "Random Minecraft ore",
 		Example:     "coal",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return minecraftOre(r), nil
 		},
 	})
@@ -184,7 +184,7 @@ func addMinecraftLookup() {
 		Description: "Random Minecraft wood",
 		Example:     "oak",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return minecraftWood(r), nil
 		},
 	})
@@ -195,7 +195,7 @@ func addMinecraftLookup() {
 		Description: "Random Minecraft armor tier",
 		Example:     "iron",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return minecraftArmorTier(r), nil
 		},
 	})
@@ -206,7 +206,7 @@ func addMinecraftLookup() {
 		Description: "Random Minecraft armor part",
 		Example:     "helmet",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return minecraftArmorPart(r), nil
 		},
 	})
@@ -217,7 +217,7 @@ func addMinecraftLookup() {
 		Description: "Random Minecraft weapon",
 		Example:     "bow",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return minecraftWeapon(r), nil
 		},
 	})
@@ -228,7 +228,7 @@ func addMinecraftLookup() {
 		Description: "Random Minecraft tool",
 		Example:     "shovel",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return minecraftTool(r), nil
 		},
 	})
@@ -239,7 +239,7 @@ func addMinecraftLookup() {
 		Description: "Random Minecraft dye",
 		Example:     "white",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return minecraftDye(r), nil
 		},
 	})
@@ -250,7 +250,7 @@ func addMinecraftLookup() {
 		Description: "Random Minecraft food",
 		Example:     "apple",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return minecraftFood(r), nil
 		},
 	})
@@ -261,7 +261,7 @@ func addMinecraftLookup() {
 		Description: "Random Minecraft animal",
 		Example:     "chicken",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return minecraftAnimal(r), nil
 		},
 	})
@@ -272,7 +272,7 @@ func addMinecraftLookup() {
 		Description: "Random Minecraft villager job",
 		Example:     "farmer",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return minecraftVillagerJob(r), nil
 		},
 	})
@@ -283,7 +283,7 @@ func addMinecraftLookup() {
 		Description: "Random Minecraft villager station",
 		Example:     "furnace",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return minecraftVillagerStation(r), nil
 		},
 	})
@@ -294,7 +294,7 @@ func addMinecraftLookup() {
 		Description: "Random Minecraft villager level",
 		Example:     "master",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return minecraftVillagerLevel(r), nil
 		},
 	})
@@ -305,7 +305,7 @@ func addMinecraftLookup() {
 		Description: "Random Minecraft mob passive",
 		Example:     "cow",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return minecraftMobPassive(r), nil
 		},
 	})
@@ -316,7 +316,7 @@ func addMinecraftLookup() {
 		Description: "Random Minecraft mob neutral",
 		Example:     "bee",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return minecraftMobNeutral(r), nil
 		},
 	})
@@ -327,7 +327,7 @@ func addMinecraftLookup() {
 		Description: "Random Minecraft mob hostile",
 		Example:     "spider",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return minecraftMobHostile(r), nil
 		},
 	})
@@ -338,7 +338,7 @@ func addMinecraftLookup() {
 		Description: "Random Minecraft mob boss",
 		Example:     "ender dragon",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return minecraftMobBoss(r), nil
 		},
 	})
@@ -349,7 +349,7 @@ func addMinecraftLookup() {
 		Description: "Random Minecraft biome",
 		Example:     "forest",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return minecraftBiome(r), nil
 		},
 	})
@@ -360,7 +360,7 @@ func addMinecraftLookup() {
 		Description: "Random Minecraft weather",
 		Example:     "rain",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return minecraftWeather(r), nil
 		},
 	})

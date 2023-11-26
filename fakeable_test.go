@@ -9,14 +9,14 @@ import (
 
 type strTyp string
 
-func (t strTyp) Fake(faker *Faker) interface{} {
-	return faker.FirstName()
+func (t strTyp) Fake(faker *Faker) (any, error) {
+	return faker.FirstName(), nil
 }
 
 type strTypPtr string
 
-func (t *strTypPtr) Fake(faker *Faker) interface{} {
-	return strTypPtr("hello test ptr")
+func (t *strTypPtr) Fake(faker *Faker) (any, error) {
+	return strTypPtr("hello test ptr"), nil
 }
 
 type testStruct1 struct {
@@ -83,7 +83,7 @@ func ExampleFakeable() {
 
 type gammaFloat64 float64
 
-func (gammaFloat64) Fake(faker *Faker) interface{} {
+func (gammaFloat64) Fake(faker *Faker) (any, error) {
 	alpha := 2.0
 
 	// Generate a random value from the Gamma distribution
@@ -98,7 +98,7 @@ func (gammaFloat64) Fake(faker *Faker) interface{} {
 			r = x
 		}
 	}
-	return gammaFloat64(r)
+	return gammaFloat64(r), nil
 }
 
 func ExampleGammaFloat64() {
@@ -123,7 +123,7 @@ func ExampleGammaFloat64() {
 
 type poissonInt64 int64
 
-func (poissonInt64) Fake(faker *Faker) interface{} {
+func (poissonInt64) Fake(faker *Faker) (any, error) {
 	lambda := 15.0
 
 	// Generate a random value from the Poisson distribution
@@ -135,7 +135,7 @@ func (poissonInt64) Fake(faker *Faker) interface{} {
 		p *= u
 		k++
 	}
-	return poissonInt64(k - 1)
+	return poissonInt64(k - 1), nil
 }
 
 type customerSupportEmployee struct {

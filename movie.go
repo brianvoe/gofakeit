@@ -37,7 +37,7 @@ func addMovieLookup() {
 		Description: "Random Movie data set",
 		Example:     `{name: "The Matrix", genre: "Action"}`,
 		Output:      "map[string]string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return movie(r), nil
 		},
 	})
@@ -48,7 +48,7 @@ func addMovieLookup() {
 		Description: "Random movie name",
 		Example:     "The Matrix",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return movieName(r), nil
 		},
 	})
@@ -59,7 +59,7 @@ func addMovieLookup() {
 		Description: "Random movie genre",
 		Example:     "Action",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return movieGenre(r), nil
 		},
 	})

@@ -35,7 +35,7 @@ func addCelebrityLookup() {
 		Description: "Random celebrity actor",
 		Example:     "Brad Pitt",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return celebrityActor(r), nil
 		},
 	})
@@ -46,7 +46,7 @@ func addCelebrityLookup() {
 		Description: "Random celebrity business person",
 		Example:     "Elon Musk",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return celebrityBusiness(r), nil
 		},
 	})
@@ -57,7 +57,7 @@ func addCelebrityLookup() {
 		Description: "Random celebrity sport person",
 		Example:     "Michael Phelps",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return celebritySport(r), nil
 		},
 	})

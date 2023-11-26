@@ -118,8 +118,8 @@ func TestShuffleAnySlice(t *testing.T) {
 		t.Errorf("shuffle ints resulted in the same permutation, the odds are slim")
 	}
 
-	i := []interface{}{"a", 1, "c", 3, []string{"a", "b", "c"}, -555, []byte{1, 5}, "h"}
-	ii := make([]interface{}, len(i))
+	i := []any{"a", 1, "c", 3, []string{"a", "b", "c"}, -555, []byte{1, 5}, "h"}
+	ii := make([]any, len(i))
 	copy(ii, i)
 	ShuffleAnySlice(i)
 	if equalSliceInterface(i, ii) {
@@ -159,14 +159,14 @@ func ExampleFaker_ShuffleAnySlice() {
 
 func BenchmarkShuffleAnySlice(b *testing.B) {
 	b.Run("package", func(b *testing.B) {
-		a := []interface{}{"a", 1, "c", 3, []string{"a", "b", "c"}, -555, []byte{1, 5}, "h"}
+		a := []any{"a", 1, "c", 3, []string{"a", "b", "c"}, -555, []byte{1, 5}, "h"}
 		for i := 0; i < b.N; i++ {
 			ShuffleAnySlice(a)
 		}
 	})
 
 	b.Run("Faker math", func(b *testing.B) {
-		a := []interface{}{"a", 1, "c", 3, []string{"a", "b", "c"}, -555, []byte{1, 5}, "h"}
+		a := []any{"a", 1, "c", 3, []string{"a", "b", "c"}, -555, []byte{1, 5}, "h"}
 		f := New(0)
 
 		for i := 0; i < b.N; i++ {
@@ -175,7 +175,7 @@ func BenchmarkShuffleAnySlice(b *testing.B) {
 	})
 
 	b.Run("Faker crypto", func(b *testing.B) {
-		a := []interface{}{"a", 1, "c", 3, []string{"a", "b", "c"}, -555, []byte{1, 5}, "h"}
+		a := []any{"a", 1, "c", 3, []string{"a", "b", "c"}, -555, []byte{1, 5}, "h"}
 		f := NewCrypto()
 
 		for i := 0; i < b.N; i++ {

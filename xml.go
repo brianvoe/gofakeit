@@ -15,7 +15,7 @@ type XMLOptions struct {
 	RootElement   string  `json:"root_element" xml:"root_element"`
 	RecordElement string  `json:"record_element" xml:"record_element"`
 	RowCount      int     `json:"row_count" xml:"row_count" fake:"{number:1,10}"`
-	Fields        []Field `json:"fields" xml:"fields" fake:"{internal_exampleFields}"`
+	Fields        []Field `json:"fields" xml:"fields" fake:"{fields}"`
 	Indent        bool    `json:"indent" xml:"indent"`
 }
 
@@ -27,12 +27,12 @@ type xmlArray struct {
 type xmlMap struct {
 	XMLName  xml.Name
 	KeyOrder []string
-	Map      map[string]interface{} `xml:",chardata"`
+	Map      map[string]any `xml:",chardata"`
 }
 
 type xmlEntry struct {
 	XMLName xml.Name
-	Value   interface{} `xml:",chardata"`
+	Value   any `xml:",chardata"`
 }
 
 func (m xmlMap) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -97,15 +97,15 @@ func xmlMapLoop(e *xml.Encoder, m *xmlMap) error {
 		case reflect.Map:
 			err = e.Encode(xmlMap{
 				XMLName: xml.Name{Local: key},
-				Map:     m.Map[key].(map[string]interface{}),
+				Map:     m.Map[key].(map[string]any),
 			})
 			if err != nil {
 				return err
 			}
 		case reflect.Struct:
-			// Convert struct to map[string]interface{}
+			// Convert struct to map[string]any
 			// So we can rewrap element
-			var inInterface map[string]interface{}
+			var inInterface map[string]any
 			inrec, _ := json.Marshal(m.Map[key])
 			json.Unmarshal(inrec, &inInterface)
 
@@ -174,10 +174,10 @@ func xmlFunc(f *Faker, xo *XMLOptions) ([]byte, error) {
 		v := xmlMap{
 			XMLName:  xml.Name{Local: xo.RootElement},
 			KeyOrder: keyOrder,
-			Map:      make(map[string]interface{}),
+			Map:      make(map[string]any),
 		}
 
-		// Loop through fields and add to them to map[string]interface{}
+		// Loop through fields and add to them to map[string]any
 		for _, field := range xo.Fields {
 			// Get function info
 			funcInfo := GetFuncLookup(field.Function)
@@ -222,10 +222,10 @@ func xmlFunc(f *Faker, xo *XMLOptions) ([]byte, error) {
 			v := xmlMap{
 				XMLName:  xml.Name{Local: xo.RecordElement},
 				KeyOrder: keyOrder,
-				Map:      make(map[string]interface{}),
+				Map:      make(map[string]any),
 			}
 
-			// Loop through fields and add to them to map[string]interface{}
+			// Loop through fields and add to them to map[string]any
 			for _, field := range xo.Fields {
 				if field.Function == "autoincrement" {
 					v.Map[field.Name] = i
@@ -295,7 +295,7 @@ func addFileXMLLookup() {
 			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function to run in json format"},
 			{Field: "indent", Display: "Indent", Type: "bool", Default: "false", Description: "Whether or not to add indents and newlines"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			xo := XMLOptions{}
 
 			typ, err := info.GetString(m, "type")

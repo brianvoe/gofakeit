@@ -1,6 +1,7 @@
 package gofakeit
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -187,13 +188,13 @@ func TestEqualSlice(t *testing.T) {
 	}
 
 	// Interface Array
-	if equalSliceInterface([]interface{}{1, "b"}, []interface{}{1}) {
+	if equalSliceInterface([]any{1, "b"}, []any{1}) {
 		t.Fatalf("Should have returned false because the interface array are not the same")
 	}
-	if equalSliceInterface([]interface{}{1, "b"}, []interface{}{3, "d"}) {
+	if equalSliceInterface([]any{1, "b"}, []any{3, "d"}) {
 		t.Fatalf("Should have returned false because the interface array are not the same")
 	}
-	if !equalSliceInterface([]interface{}{1, "b", []int{1, 2}, []string{"a", "b"}}, []interface{}{1, "b", []int{1, 2}, []string{"a", "b"}}) {
+	if !equalSliceInterface([]any{1, "b", []int{1, 2}, []string{"a", "b"}}, []any{1, "b", []int{1, 2}, []string{"a", "b"}}) {
 		t.Fatalf("Should have returned true because the ints array are the same")
 	}
 }
@@ -204,6 +205,71 @@ func TestStringInSlice(t *testing.T) {
 	}
 	if !stringInSlice("a", []string{"a", "b", "c"}) {
 		t.Fatalf("Should have returned true because the string is in the slice")
+	}
+}
+
+func TestAnyToString(t *testing.T) {
+	tests := []struct {
+		input any
+		want  string
+	}{
+		{input: 42, want: "42"},
+		{input: "Hello, Go!", want: "Hello, Go!"},
+		{input: 3.14, want: "3.14"},
+		{input: true, want: "true"},
+		{input: struct{ Name string }{Name: "John"}, want: `{"Name":"John"}`},
+		{input: []int{1, 2, 3}, want: "[1,2,3]"},
+		{input: map[string]int{"a": 1, "b": 2}, want: `{"a":1,"b":2}`},
+		{input: []byte("hello world"), want: "hello world"},
+		{input: nil, want: ""},
+	}
+
+	for _, test := range tests {
+		t.Run(fmt.Sprintf("Input: %v", test.input), func(t *testing.T) {
+			got := anyToString(test.input)
+
+			if got != test.want {
+				t.Errorf("got %v, want %v", got, test.want)
+			}
+		})
+	}
+
+	// Additional tests for edge cases
+	t.Run("Edge case: empty byte slice", func(t *testing.T) {
+		emptyByteSlice := []byte{}
+		got := anyToString(emptyByteSlice)
+		want := ""
+
+		if got != want {
+			t.Errorf("got %v, want %v", got, want)
+		}
+	})
+}
+
+func TestAnyToStringEdgeCases(t *testing.T) {
+	// Additional tests for edge cases
+
+	// Test with a struct containing an unexported field
+	type unexportedFieldStruct struct {
+		unexportedField int
+		ExportedField   string
+	}
+	unexportedStruct := unexportedFieldStruct{unexportedField: 42, ExportedField: "Hello"}
+	want := `{"ExportedField":"Hello"}`
+	got := anyToString(unexportedStruct)
+	if got != want {
+		t.Errorf("got %v, want %v", got, want)
+	}
+
+	// Test with a struct containing a nil interface field
+	type nilInterfaceFieldStruct struct {
+		Data interface{}
+	}
+	nilInterfaceStruct := nilInterfaceFieldStruct{}
+	want = `{"Data":null}`
+	got = anyToString(nilInterfaceStruct)
+	if got != want {
+		t.Errorf("got %v, want %v", got, want)
 	}
 }
 

@@ -92,7 +92,7 @@ func addWordAdverbLookup() {
 		Description: "Random adverb",
 		Example:     "smoothly",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return adverb(r), nil
 		},
 	})
@@ -103,7 +103,7 @@ func addWordAdverbLookup() {
 		Description: "Random manner adverb",
 		Example:     "stupidly",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return adverbManner(r), nil
 		},
 	})
@@ -114,7 +114,7 @@ func addWordAdverbLookup() {
 		Description: "Random degree adverb",
 		Example:     "intensely",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return adverbDegree(r), nil
 		},
 	})
@@ -125,7 +125,7 @@ func addWordAdverbLookup() {
 		Description: "Random place adverb",
 		Example:     "east",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return adverbPlace(r), nil
 		},
 	})
@@ -136,7 +136,7 @@ func addWordAdverbLookup() {
 		Description: "Random time definite adverb",
 		Example:     "now",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return adverbTimeDefinite(r), nil
 		},
 	})
@@ -147,7 +147,7 @@ func addWordAdverbLookup() {
 		Description: "Random time indefinite adverb",
 		Example:     "already",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return adverbTimeIndefinite(r), nil
 		},
 	})
@@ -158,7 +158,7 @@ func addWordAdverbLookup() {
 		Description: "Random frequency definite adverb",
 		Example:     "hourly",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return adverbFrequencyDefinite(r), nil
 		},
 	})
@@ -169,7 +169,7 @@ func addWordAdverbLookup() {
 		Description: "Random frequency indefinite adverb",
 		Example:     "occasionally",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return adverbFrequencyIndefinite(r), nil
 		},
 	})

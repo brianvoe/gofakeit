@@ -31,7 +31,7 @@ func addWordGeneralLookup() {
 		Description: "Random word",
 		Example:     "man",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return word(r), nil
 		},
 	})

@@ -3,6 +3,8 @@ package gofakeit
 import (
 	crand "crypto/rand"
 	"encoding/binary"
+	"encoding/json"
+	"fmt"
 	"math"
 	"math/rand"
 	"reflect"
@@ -223,7 +225,7 @@ func equalSliceInt(a, b []int) bool {
 	return true
 }
 
-func equalSliceInterface(a, b []interface{}) bool {
+func equalSliceInterface(a, b []any) bool {
 	sizeA, sizeB := len(a), len(b)
 	if sizeA != sizeB {
 		return false
@@ -244,6 +246,28 @@ func stringInSlice(a string, list []string) bool {
 		}
 	}
 	return false
+}
+
+func anyToString(a any) string {
+	if a == nil {
+		return ""
+	}
+
+	// If it's a slice of bytes or struct, unmarshal it into an interface
+	if bytes, ok := a.([]byte); ok {
+		return string(bytes)
+	}
+
+	// If it's a struct, map, or slice, convert to JSON
+	switch reflect.TypeOf(a).Kind() {
+	case reflect.Struct, reflect.Map, reflect.Slice:
+		b, err := json.Marshal(a)
+		if err == nil {
+			return string(b)
+		}
+	}
+
+	return fmt.Sprintf("%v", a)
 }
 
 // Title returns a copy of the string s with all Unicode letters that begin words

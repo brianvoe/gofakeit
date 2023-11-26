@@ -8,7 +8,7 @@ import (
 func ExampleWeighted() {
 	Seed(11)
 
-	options := []interface{}{"hello", 2, 6.9}
+	options := []any{"hello", 2, 6.9}
 	weights := []float32{1, 2, 3}
 	option, _ := Weighted(options, weights)
 
@@ -17,7 +17,7 @@ func ExampleWeighted() {
 }
 
 func TestWeighted(t *testing.T) {
-	percOfValue := func(options []interface{}, option interface{}) float32 {
+	percOfValue := func(options []any, option any) float32 {
 		var count float32 = 0
 		for _, o := range options {
 			if option == o {
@@ -29,10 +29,10 @@ func TestWeighted(t *testing.T) {
 	}
 
 	Seed(11)
-	options := []interface{}{"hello", 2, 6.9}
+	options := []any{"hello", 2, 6.9}
 	weights := []float32{1, 2, 3}
 
-	foundOptions := []interface{}{}
+	foundOptions := []any{}
 	for i := 0; i < 100000; i++ {
 		o, _ := Weighted(options, weights)
 		foundOptions = append(foundOptions, o)
@@ -67,7 +67,7 @@ func TestWeightedStruct(t *testing.T) {
 }
 
 func BenchmarkWeighted(b *testing.B) {
-	options := []interface{}{"hello", 2, 6.9}
+	options := []any{"hello", 2, 6.9}
 	weights := []float32{1, 2, 3}
 
 	Seed(11)
