@@ -3,17 +3,19 @@ package gofakeit
 import (
 	"bytes"
 	"fmt"
+
 	"math/rand"
 	"reflect"
 	"strconv"
 	"strings"
-	"text/template"
+	template_engine "text/template"
+	"time"
 )
 
 // TemplateOptions defines values needed for template document generation
 type TemplateOptions struct {
-	Funcs template.FuncMap
-	Data  any `json:"data" xml:"data" fake:"-"`
+	Funcs template_engine.FuncMap `fake:"-"`
+	Data  any                     `json:"data" xml:"data" fake:"-"`
 }
 
 // Used with CreateListResult ListResult
@@ -24,24 +26,32 @@ type intRangeResult struct {
 
 // Template generates an document based on the the supplied template
 func Template(template string, co *TemplateOptions) (string, error) {
-	return templateFunc(globalFaker.Rand, template, templateFuncMap(globalFaker.Rand, &co.Funcs), co.Data)
+	if co == nil {
+		co = &TemplateOptions{}
+		globalFaker.Struct(co)
+	}
+	return templateFunc(template, templateFuncMap(globalFaker.Rand, &co.Funcs), co)
 }
 
 // Template generates an document based on the the supplied template
 func (f *Faker) Template(template string, co *TemplateOptions) (string, error) {
-	return templateFunc(f.Rand, template, templateFuncMap(f.Rand, &co.Funcs), co.Data)
+	if co == nil {
+		co = &TemplateOptions{}
+		f.Struct(co)
+	}
+	return templateFunc(template, templateFuncMap(f.Rand, &co.Funcs), co)
 }
 
 // MarkdownOptions defines values needed for markdown document generation
 type MarkdownOptions struct {
-	Funcs         template.FuncMap
-	Data          any `json:"data" xml:"data" fake:"-"`
+	Funcs template_engine.FuncMap `fake:"-"`
+	//Data          any `json:"data" xml:"data"  fake:"-"`
 	SectionsCount int `json:"sections" xml:"sections" fake:"{number:1,10}"`
 }
 
 // Template for Markdown
 const template_markdown = `{{$res:=CreateListResult 1 5}}
-{{range $y := IntRange 1 (.GetData)}}{{$res = ListResult ($res) 1 5 true}}{{if eq $res.Value 1}}# Paragraph\n\n{{Paragraph (Number 1 5) (Number 1 5) (Number 1 30) "\n\n"}}\n\n---
+{{range $y := IntRange 1 (.SectionsCount)}}{{$res = ListResult ($res) 1 5 true}}{{if eq $res.Value 1}}# Paragraph\n\n{{Paragraph (Number 1 5) (Number 1 5) (Number 1 30) "\n\n"}}\n\n---
 {{end}}{{if eq $res.Value 2}}# Block Quote\n\n{{Paragraph (Number 1 5) (Number 1 5) (Number 1 30) "\n\n"}}\n\n---
 {{end}}{{if eq $res.Value 3}}## Details\n\n{{Paragraph (Number 1 5) (Number 1 5) (Number 1 30) "\n\n"}}\n\n<details>\n<summary>{{SentenceSimple}} </summary>\n\n{{Paragraph (Number 3 5) (Number 1 5) (Number 1 30) "\n\n"}}.\n\n</details>\n\n---
 {{end}}{{if eq $res.Value 4}}## Url\n\nGolang you will need to install\n\n{{range $y := IntRange 1 (Number 1 10)}}[{{$saved_url:=URL}}{{$saved_url}}]({{$saved_url}})\n{{end}}\n---
@@ -49,24 +59,32 @@ const template_markdown = `{{$res:=CreateListResult 1 5}}
 
 // Markdown will return a single random Markdown template document
 func Markdown(co *MarkdownOptions) (string, error) {
-	return templateFunc(globalFaker.Rand, template_markdown, &co.Funcs, co.Data)
+	if co == nil {
+		co = &MarkdownOptions{}
+		globalFaker.Struct(co)
+	}
+	return templateFunc(template_markdown, templateFuncMap(globalFaker.Rand, &co.Funcs), co)
 }
 
 // Markdown will return a single random Markdown template document
 func (f *Faker) Markdown(co *MarkdownOptions) (string, error) {
-	return templateFunc(f.Rand, template_markdown, &co.Funcs, co.Data)
+	if co == nil {
+		co = &MarkdownOptions{}
+		f.Struct(co)
+	}
+	return templateFunc(template_markdown, templateFuncMap(f.Rand, &co.Funcs), co)
 }
 
 // EmailOptions defines values needed for email document generation
 type EmailOptions struct {
-	Funcs         template.FuncMap
-	Data          any `json:"data" xml:"data" fake:"-"`
+	Funcs template_engine.FuncMap `fake:"-"`
+	//Data          any `json:"data" xml:"data" fake:"-"`
 	SectionsCount int `json:"sections" xml:"sections" fake:"{number:1,10}"`
 }
 
 // Template for email text
 const template_email_text = `{{RandomString (ListS "Hi" "Hello" "Dear" "Good morning" "Good afternoon" "Good evening" )}}, {{$saved_to:=Person}}{{$saved_to.FirstName}}\n
-{{$res:=CreateListResult 1 7}}{{range $y := IntRange 1 (.GetData)}}{{$res = ListResult ($res) 1 7 true}}{{if eq $res.Value 1}}{{Paragraph (Number 1 3) (Number 3 5) (Number 10 20) "\n\n"}}
+{{$res:=CreateListResult 1 7}}{{range $y := IntRange 1 (.SectionsCount)}}{{$res = ListResult ($res) 1 7 true}}{{if eq $res.Value 1}}{{Paragraph (Number 1 3) (Number 3 5) (Number 10 20) "\n\n"}}
 {{end}}{{if eq $res.Value 2}}{{Question}}\n{{end}}{{if eq $res.Value 3}}{{Quote}}\n{{end}}{{if eq $res.Value 4}}{{HipsterParagraph (Number 1 3) (Number 3 5) (Number 10 20) "\n\n"}}
 {{end}}{{if eq $res.Value 5}}{{RandomString (ListS (Concat " " "Have you seen" (MovieName) "it is" (AdjectiveDescriptive)) (Concat " " "Have you seen the" (MovieName) "?") (Concat "Do you want to watch" (MovieName) (AdverbTimeDefinite) "?") )}}
 {{end}}{{if eq $res.Value 6}}{{Concat " " (PronounPersonal) (VerbHelping) (VerbIntransitive) (AdverbTimeDefinite) (PronounDemonstrative) (AdverbFrequencyIndefinite) "Happens" (AdverbTimeDefinite)}}\n{{end}}{{if eq $res.Value 7}}{{HipsterSentence (Number 10 20)}}{{end}}{{end}}
@@ -75,14 +93,20 @@ const template_email_text = `{{RandomString (ListS "Hi" "Hello" "Dear" "Good mor
 
 // EmailText will return a single random text email template document
 func EmailText(co *EmailOptions) (string, error) {
-	template_result, err := templateFunc(globalFaker.Rand, template_email_text, &co.Funcs, co.Data)
-	return string(template_result), err
+	if co == nil {
+		co = &EmailOptions{}
+		globalFaker.Struct(co)
+	}
+	return templateFunc(template_email_text, templateFuncMap(globalFaker.Rand, &co.Funcs), co)
 }
 
 // EmailText will return a single random text email template document
 func (f *Faker) EmailText(co *EmailOptions) (string, error) {
-	template_result, err := templateFunc(f.Rand, template_email_text, &co.Funcs, co.Data)
-	return string(template_result), err
+	if co == nil {
+		co = &EmailOptions{}
+		f.Struct(co)
+	}
+	return templateFunc(template_email_text, templateFuncMap(f.Rand, &co.Funcs), co)
 }
 
 // functions that wont work with template engine
@@ -91,16 +115,19 @@ var templateExclusion = []string{
 	"Slice",
 	"Struct",
 	"SQL",
-	"SVG",
+	"Generate",
+	"Template",
 }
 
-// Build the template.FuncMap for the template engine
-func templateFuncMap(r *rand.Rand, fm *template.FuncMap) *template.FuncMap {
+// Build the template_engine.FuncMap for the template engine
+func templateFuncMap(r *rand.Rand, fm *template_engine.FuncMap) *template_engine.FuncMap {
+
 	// create a new function map
-	funcMap := template.FuncMap{}
+	funcMap := template_engine.FuncMap{}
 
 	// build the function map from a faker using their rand
 	f := &Faker{Rand: r}
+
 	v := reflect.ValueOf(f)
 
 	// loop through the methods
@@ -120,18 +147,10 @@ func templateFuncMap(r *rand.Rand, fm *template.FuncMap) *template.FuncMap {
 		funcMap[v.Type().Method(i).Name] = v.Method(i).Interface()
 	}
 
-	// // Loop through lookup functions and add to the function map
-	// for name, info := range FuncLookups {
-	// 	funcMap[name] = func(params ...any) (any, error) {
-	// 		// Loop through params and set into
-
-	// 		// TODO: trying to figure out how to pass the params to the function
-
-	// 		return info.Generate(r, &MapParams{}, &info)
-	// 	}
-	// }
-
 	// add the custom functions
+	funcMap["String"] = func(value interface{}) string {
+		return fmt.Sprintf("%s", value)
+	}
 
 	// function to generate a range of integers
 	funcMap["IntRange"] = func(start, end int) []int { // function to generate a range of integers
@@ -154,20 +173,20 @@ func templateFuncMap(r *rand.Rand, fm *template.FuncMap) *template.FuncMap {
 	}
 
 	// function to remove value from list
-	funcMap["ListResult"] = func(r intRangeResult, min int, max int, shuffle bool) intRangeResult {
+	funcMap["ListResult"] = func(rng intRangeResult, min int, max int, shuffle bool) intRangeResult {
 		var new_list []int
 
 		// if the remove value is in the list remove it
-		if len(r.Range) > 0 {
-			for _, v := range r.Range {
-				if v != r.Value {
+		if len(rng.Range) > 0 {
+			for _, v := range rng.Range {
+				if v != rng.Value {
 					new_list = append(new_list, v)
 				}
 			}
 		}
 
 		// see if the list is empty
-		if len(r.Range) == 0 {
+		if len(rng.Range) == 0 {
 			// create a new slice of ints
 			n := max - min + 1
 			for i := 0; i < n; i++ {
@@ -177,7 +196,7 @@ func templateFuncMap(r *rand.Rand, fm *template.FuncMap) *template.FuncMap {
 
 		// randomize the slice
 		if shuffle {
-			shuffleInts(globalFaker.Rand, new_list)
+			shuffleInts(r, new_list)
 		}
 		// return the first value and the rest of the list
 		return intRangeResult{Value: new_list[0], Range: new_list[1:]}
@@ -190,6 +209,16 @@ func templateFuncMap(r *rand.Rand, fm *template.FuncMap) *template.FuncMap {
 	funcMap["Concat"] = func(sep string, args ...string) string {
 		return strings.Join(args, sep)
 	}
+
+	// function to concatenate strings
+	funcMap["DateS"] = func(date_string string) time.Time {
+		date, err := time.Parse("2006-01-02", date_string)
+		if err != nil {
+			return time.Now()
+		}
+		return date
+	}
+
 	// function to make string upper case
 	funcMap["Upper"] = strings.ToUpper
 
@@ -231,8 +260,13 @@ func templateFuncMap(r *rand.Rand, fm *template.FuncMap) *template.FuncMap {
 				return 0, err
 			}
 			return i, nil
+		case float64:
+			return int(v), nil
+		case float32:
+			return int(v), nil
 		case int:
 			return v, nil
+
 		// Add whatever other types you need
 		default:
 			return 0, fmt.Errorf("int: unsupported type %T", v)
@@ -242,6 +276,9 @@ func templateFuncMap(r *rand.Rand, fm *template.FuncMap) *template.FuncMap {
 	// add custom functions
 	// override the function if it is passed in
 	if fm != nil {
+		if reflect.ValueOf(fm).IsNil() {
+			return &funcMap
+		}
 		for k, v := range *fm {
 			funcMap[k] = v
 		}
@@ -251,7 +288,7 @@ func templateFuncMap(r *rand.Rand, fm *template.FuncMap) *template.FuncMap {
 }
 
 // function to build the function map for the template engine from the global faker
-func templateFunc(r *rand.Rand, temp string, funcs *template.FuncMap, data any) (string, error) {
+func templateFunc(temp string, funcs *template_engine.FuncMap, data any) (string, error) {
 	if temp == "" {
 		return "", fmt.Errorf("template parameter is empty")
 	}
@@ -262,7 +299,7 @@ func templateFunc(r *rand.Rand, temp string, funcs *template.FuncMap, data any) 
 	}
 
 	// Create a new template and parse
-	template_gen, err := template.New("CodeRun").Funcs(*funcs).Parse(temp)
+	template_gen, err := template_engine.New("CodeRun").Funcs(*funcs).Parse(temp)
 	if err != nil {
 		return "", err
 	}
@@ -307,7 +344,7 @@ func addTemplateLookup() {
 				return nil, err
 			}
 
-			templateOut, err := templateFunc(r, tpl, templateFuncMap(r, nil), data)
+			templateOut, err := templateFunc(tpl, templateFuncMap(r, nil), &TemplateOptions{Data: data})
 			if err != nil {
 				return nil, err
 			}
@@ -331,7 +368,7 @@ func addTemplateLookup() {
 				sections = 1
 			}
 
-			template_result, err := templateFunc(r, template_markdown, templateFuncMap(r, nil), &MarkdownOptions{SectionsCount: sections})
+			template_result, err := templateFunc(template_markdown, templateFuncMap(r, nil), &MarkdownOptions{SectionsCount: sections})
 			return string(template_result), err
 		},
 	})
@@ -351,7 +388,7 @@ func addTemplateLookup() {
 				sections = 1
 			}
 
-			template_result, err := templateFunc(r, template_email_text, templateFuncMap(r, nil), &EmailOptions{SectionsCount: sections})
+			template_result, err := templateFunc(template_email_text, templateFuncMap(r, nil), &EmailOptions{SectionsCount: sections})
 			return string(template_result), err
 		},
 	})
