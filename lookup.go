@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"math/rand"
 	"reflect"
-	"sort"
 	"strconv"
 	"strings"
 	"sync"
@@ -14,60 +13,6 @@ import (
 // FuncLookups is the primary map array with mapping to all available data
 var FuncLookups map[string]Info
 var lockFuncLookups sync.Mutex
-
-// internalFuncLookups is the internal map array with mapping to all available data
-var internalFuncLookups map[string]Info = map[string]Info{
-	"internal_exampleFields": {
-		Description: "Example fields for generating csv, json and xml",
-		Output:      "gofakeit.Field",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			name, _ := getRandomFuncLookup(r, excludeWithParams,
-				validTypes("string", "int", "[]string", "[]int"))
-			return Field{
-				Name:     name,
-				Function: name,
-			}, nil
-		},
-	},
-}
-
-// filterFuncLookup returns true when the lookup should be accepted
-type filterFuncLookup func(Info) bool
-
-var (
-	excludeWithParams filterFuncLookup = func(info Info) bool {
-		return len(info.Params) == 0
-	}
-
-	validTypes = func(acceptedTypes ...string) filterFuncLookup {
-		return func(info Info) bool {
-			for _, t := range acceptedTypes {
-				if info.Output == t {
-					return true
-				}
-			}
-			return false
-		}
-	}
-)
-
-func getRandomFuncLookup(r *rand.Rand, filters ...filterFuncLookup) (string, Info) {
-	var keys []string
-	for k, v := range FuncLookups {
-		isValid := true
-		for _, filter := range filters {
-			isValid = isValid && filter(v)
-		}
-		if isValid {
-			keys = append(keys, k)
-		}
-	}
-
-	sort.Stable(sort.StringSlice(keys))
-
-	selected := keys[r.Intn(len(keys))]
-	return selected, FuncLookups[selected]
-}
 
 // MapParams is the values to pass into a lookup generate
 type MapParams map[string]MapParamsValue
@@ -229,12 +174,22 @@ func (m *MapParamsValue) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// AddFuncLookup takes a field and adds it to map
-func AddFuncLookup(functionName string, info Info) {
-	if _, ok := internalFuncLookups[functionName]; ok {
-		panic(fmt.Sprintf("Function %s is used internally and cannot be overwritten", functionName))
+func GetRandomFunc(r *rand.Rand) (string, Info) {
+	// Loop through all the functions and add them to a slice
+	var keys []string
+	for k := range FuncLookups {
+		keys = append(keys, k)
 	}
 
+	// Randomly grab a function from the slice
+	randomKey := randomString(r, keys)
+
+	// Return the function name and info
+	return randomKey, FuncLookups[randomKey]
+}
+
+// AddFuncLookup takes a field and adds it to map
+func AddFuncLookup(functionName string, info Info) {
 	if FuncLookups == nil {
 		FuncLookups = make(map[string]Info)
 	}
@@ -251,15 +206,7 @@ func AddFuncLookup(functionName string, info Info) {
 
 // GetFuncLookup will lookup
 func GetFuncLookup(functionName string) *Info {
-	var info Info
-	var ok bool
-
-	info, ok = internalFuncLookups[functionName]
-	if ok {
-		return &info
-	}
-
-	info, ok = FuncLookups[functionName]
+	info, ok := FuncLookups[functionName]
 	if ok {
 		return &info
 	}
@@ -269,10 +216,6 @@ func GetFuncLookup(functionName string) *Info {
 
 // RemoveFuncLookup will remove a function from lookup
 func RemoveFuncLookup(functionName string) {
-	if _, ok := internalFuncLookups[functionName]; ok {
-		panic(fmt.Sprintf("Function %s is used internally and cannot be overwritten", functionName))
-	}
-
 	_, ok := FuncLookups[functionName]
 	if !ok {
 		return
