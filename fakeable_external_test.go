@@ -15,92 +15,92 @@ var (
 
 type CustomString string
 
-func (c CustomString) Fake(faker *gofakeit.Faker) any {
-	return CustomString("hello test")
+func (c CustomString) Fake(faker *gofakeit.Faker) (any, error) {
+	return CustomString("hello test"), nil
 }
 
 type CustomBool bool
 
-func (c CustomBool) Fake(faker *gofakeit.Faker) any {
-	return CustomBool(true)
+func (c CustomBool) Fake(faker *gofakeit.Faker) (any, error) {
+	return CustomBool(true), nil
 }
 
 type CustomInt int
 
-func (c CustomInt) Fake(faker *gofakeit.Faker) any {
-	return CustomInt(-42)
+func (c CustomInt) Fake(faker *gofakeit.Faker) (any, error) {
+	return CustomInt(-42), nil
 }
 
 type CustomInt8 int8
 
-func (c CustomInt8) Fake(faker *gofakeit.Faker) any {
-	return CustomInt8(-42)
+func (c CustomInt8) Fake(faker *gofakeit.Faker) (any, error) {
+	return CustomInt8(-42), nil
 }
 
 type CustomInt16 int16
 
-func (c CustomInt16) Fake(faker *gofakeit.Faker) any {
-	return CustomInt16(-42)
+func (c CustomInt16) Fake(faker *gofakeit.Faker) (any, error) {
+	return CustomInt16(-42), nil
 }
 
 type CustomInt32 int32
 
-func (c CustomInt32) Fake(faker *gofakeit.Faker) any {
-	return CustomInt32(-42)
+func (c CustomInt32) Fake(faker *gofakeit.Faker) (any, error) {
+	return CustomInt32(-42), nil
 }
 
 type CustomInt64 int64
 
-func (c CustomInt64) Fake(faker *gofakeit.Faker) any {
-	return CustomInt64(-42)
+func (c CustomInt64) Fake(faker *gofakeit.Faker) (any, error) {
+	return CustomInt64(-42), nil
 }
 
 type CustomUint uint
 
-func (c CustomUint) Fake(faker *gofakeit.Faker) any {
-	return CustomUint(42)
+func (c CustomUint) Fake(faker *gofakeit.Faker) (any, error) {
+	return CustomUint(42), nil
 }
 
 type CustomUint8 uint8
 
-func (c CustomUint8) Fake(faker *gofakeit.Faker) any {
-	return CustomUint8(42)
+func (c CustomUint8) Fake(faker *gofakeit.Faker) (any, error) {
+	return CustomUint8(42), nil
 }
 
 type CustomUint16 uint16
 
-func (c CustomUint16) Fake(faker *gofakeit.Faker) any {
-	return CustomUint16(42)
+func (c CustomUint16) Fake(faker *gofakeit.Faker) (any, error) {
+	return CustomUint16(42), nil
 }
 
 type CustomUint32 uint32
 
-func (c CustomUint32) Fake(faker *gofakeit.Faker) any {
-	return CustomUint32(42)
+func (c CustomUint32) Fake(faker *gofakeit.Faker) (any, error) {
+	return CustomUint32(42), nil
 }
 
 type CustomUint64 uint64
 
-func (c CustomUint64) Fake(faker *gofakeit.Faker) any {
-	return CustomUint64(42)
+func (c CustomUint64) Fake(faker *gofakeit.Faker) (any, error) {
+	return CustomUint64(42), nil
 }
 
 type CustomFloat32 float32
 
-func (c CustomFloat32) Fake(faker *gofakeit.Faker) any {
-	return CustomFloat32(42.123)
+func (c CustomFloat32) Fake(faker *gofakeit.Faker) (any, error) {
+	return CustomFloat32(42.123), nil
 }
 
 type CustomFloat64 float64
 
-func (c CustomFloat64) Fake(faker *gofakeit.Faker) any {
-	return CustomFloat64(42.123)
+func (c CustomFloat64) Fake(faker *gofakeit.Faker) (any, error) {
+	return CustomFloat64(42.123), nil
 }
 
 type CustomTime time.Time
 
-func (c *CustomTime) Fake(faker *gofakeit.Faker) any {
-	return CustomTime(testTimeValue)
+func (c *CustomTime) Fake(faker *gofakeit.Faker) (any, error) {
+	return CustomTime(testTimeValue), nil
 }
 
 func (c CustomTime) String() string {
@@ -109,14 +109,14 @@ func (c CustomTime) String() string {
 
 type CustomSlice []string
 
-func (c CustomSlice) Fake(faker *gofakeit.Faker) any {
-	return CustomSlice([]string{"hello", "test"})
+func (c CustomSlice) Fake(faker *gofakeit.Faker) (any, error) {
+	return CustomSlice([]string{"hello", "test"}), nil
 }
 
 type CustomMap map[string]string
 
-func (c CustomMap) Fake(faker *gofakeit.Faker) any {
-	return CustomMap(map[string]string{"hello": "1", "test": "2"})
+func (c CustomMap) Fake(faker *gofakeit.Faker) (any, error) {
+	return CustomMap(map[string]string{"hello": "1", "test": "2"}), nil
 }
 
 type CustomStruct struct {
@@ -124,11 +124,11 @@ type CustomStruct struct {
 	Int int
 }
 
-func (c CustomStruct) Fake(faker *gofakeit.Faker) any {
+func (c CustomStruct) Fake(faker *gofakeit.Faker) (any, error) {
 	return CustomStruct{
 		Str: "hello test",
 		Int: 42,
-	}
+	}, nil
 }
 
 type NestedCustom struct {
@@ -707,8 +707,8 @@ func ExampleCustomInt() {
 
 type EvenInt int
 
-func (e EvenInt) Fake(faker *gofakeit.Faker) any {
-	return EvenInt(faker.Int8() * 2)
+func (e EvenInt) Fake(faker *gofakeit.Faker) (any, error) {
+	return EvenInt(faker.Int8() * 2), nil
 }
 
 func ExampleEvenInt() {

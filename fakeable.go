@@ -9,7 +9,7 @@ import (
 // Fakeable is an interface that can be implemented by a type to provide a custom fake value.
 type Fakeable interface {
 	// Fake returns a fake value for the type.
-	Fake(faker *Faker) any
+	Fake(faker *Faker) (any, error)
 }
 
 func isFakeable(t reflect.Type) bool {
@@ -24,7 +24,10 @@ func callFake(faker *Faker, v reflect.Value, possibleKinds ...reflect.Kind) (any
 		return nil, errors.New("not a Fakeable type")
 	}
 
-	fakedValue := f.Fake(faker)
+	fakedValue, err := f.Fake(faker)
+	if err != nil {
+		return nil, fmt.Errorf("error calling Fake: %w", err)
+	}
 	k := reflect.TypeOf(fakedValue).Kind()
 	if !containsKind(possibleKinds, k) {
 		return nil, fmt.Errorf("returned value kind %q is not amongst the valid ones: %v", k, possibleKinds)
