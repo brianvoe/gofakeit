@@ -15,6 +15,7 @@ Random data generator written in go
 - [Global Rand](#global-rand-set)
 - [Struct Generator](#struct)
 - [Custom Functions](#custom-functions)
+- [Templates](#templates)
 - [Http Server](https://github.com/brianvoe/gofakeit/tree/master/cmd/gofakeitserver)
 - [Command Line Tool](https://github.com/brianvoe/gofakeit/tree/master/cmd/gofakeit)
 - Zero dependencies
@@ -263,6 +264,89 @@ var f Foo
 gofakeit.Struct(&f)
 fmt.Printf("%s", f.FriendName) // bill
 fmt.Printf("%s", f.JumbleWord) // loredlowlh
+```
+
+
+
+## Templates
+
+Generate custom outputs using golang's template engine [https://pkg.go.dev/text/template](https://pkg.go.dev/text/template).
+
+We have added all the available functions to the template engine as well as some additional ones that are useful for template building.
+
+Additional Available Functions
+```go
+- ToUpper(s string) string   // Make string upper case
+- ToLower(s string) string   // Make string lower case
+- ToString(s any)            // Convert to string
+- ToDate(s string) time.Time // Convert string to date
+- SpliceAny(args ...any) []any // Build a slice of interfaces, used with Weighted
+- SpliceString(args ...string) []string // Build a slice of strings, used with Teams and RandomString
+- SpliceUInt(args ...uint) []uint // Build a slice of uint, used with Dice and RandomUint
+- SpliceInt(args ...int) []int // Build a slice of int, used with RandomInt
+```
+
+<details>
+  <summary>Unavailable Gofakeit functions</summary>
+
+```go
+// Any functions that dont have a return value
+- AnythingThatReturnsVoid(): void
+
+// Not available to use in templates
+- Template(co *TemplateOptions) ([]byte, error)
+- RandomMapKey(mapI any) any
+```
+</details>
+
+
+### Example Usages
+
+```go
+import "github.com/brianvoe/gofakeit/v6"
+
+func main() {
+	// Accessing the Lines variable from within the template.
+	template := `
+	Subject: {{RandomString (SliceString "Greetings" "Hello" "Hi")}}
+
+	Dear {{LastName}},
+
+	{{RandomString (SliceString "Greetings!" "Hello there!" "Hi, how are you?")}}
+
+	{{Paragraph 1 5 10 "\n\n"}}
+
+	{{RandomString (SliceString "Warm regards" "Best wishes" "Sincerely")}}
+	{{$person:=Person}}
+	{{$person.FirstName}} {{$person.LastName}}
+	{{$person.Email}}
+	{{$person.Phone}}
+	`
+
+	value, err := gofakeit.Template(template, &TemplateOptions{Data: 5})
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(string(value))
+}
+```
+
+Output:
+```text
+Subject: Hello
+
+Dear Krajcik,
+
+Greetings!
+
+Quia voluptatem voluptatem voluptatem. Quia voluptatem voluptatem voluptatem. Quia voluptatem voluptatem voluptatem.
+
+Warm regards
+Kaitlyn Krajcik
+kaitlynkrajcik@krajcik
+570-245-7485
 ```
 
 ## Functions
@@ -754,8 +838,6 @@ MovieGenre() string
 
 ### Error
 
-Unlike most `gofakeit` methods which return a `string`, the error methods return a Go `error`. Access the error message as a string by chaining the `.Error()` method.
-
 ```go
 Error() error
 ErrorDatabase() error
@@ -773,144 +855,11 @@ ErrorRuntime() error
 school() string
 ```
 
-### Template
-
-Generate custom documents using golang's template engine [https://pkg.go.dev/text/template](https://pkg.go.dev/text/template).
+## Template
 
 ```go
-Template(co *TemplateOptions) ([]byte, error) // Generates custom documents
+Template(co *TemplateOptions) (string, error) // Generates custom documents
 Markdown(co *MarkdownOptions) (string, error) // Generates markdown documents
 EmailText(co *EmailOptions) (string, error)  // Generates email documents
-FixedWidth(co *FixedWidthOptions) ([]byte, error)  // Generates fixed width documents
+FixedWidth(co *FixedWidthOptions) (string, error)  // Generates fixed width documents
 ```
-
-#### Template Helper Functions
-
-To help with formatting and using Gofakeit function there are some template helper functions available.
-
-<details>
-  <summary>1. String Functions</summary>
-
-```go
-- Replace(s string, old string, new string) string // Replace a old string with new string
-- Concat(sep string,args ...string) string // Concatenate strings together using a separator
-- Upper(s string) string // Make string upper case
-- Lower(s string) string // Make string lower case
-- String(s interface{}) //Convert to string
-- DateS(s string) time.Time //Convert string to date
-
-```
-
-</details>	
-
-<details>
-  <summary>2. Slice Functions</summary>
-
-```go
-- ListI(args ...any) []any // Build a slice of interfaces, used with Weighted
-- ListS(args ...string) []string // Build a slice of strings, used with Teams and RandomString
-- ListUInt(args ...uint) []uint // Build a slice of uint, used with Dice and RandomUint
-- ListInt(args ...int) []int // Build a slice of int, used with RandomInt
-```
-
-</details>
-
-<details>
-  <summary>3. Unavailable Gofakeit functions</summary>
-
-The following Gofakeit function are not available to use in templates
-
-```go
-// Not available to use in templates
-- Template(co *TemplateOptions) ([]byte, error) 
-- RandomMapKey(mapI any) any
-- ShuffleAnySlice(v any)
-- ShuffleInts(a []int)
-- ShuffleStrings(a []string)
-- Struct(v any)
-- Slice(v any)
-
-// Can only use with null options
-- Svg(options *SVGOptions) string
-- XML(options *XMLOptions) string
-- JSON(options *JSONOptions) string
-- CSV(options *CSVOptions) string
-- Markdown(co *MarkdownOptions) (string, error) 
-- EmailText(co *EmailOptions) (string, error) 
-- FixedWidth(co *FixedWidthOptions) ([]byte, error)
-
-//Example 
-// {{Svg  nil}}
-// {{FixedWidth  nil}}
-// {{String (XML  nil)}}
-// {{String (JSON  nil)}}
-// {{String (CSV  nil)}}
-```
-
-</details>
-
-
-#### Example Usages
-
-<details>
-<summary>1. Custom document using Template</summary>
-
-```go
-import "github.com/brianvoe/gofakeit/v6"
-
-// Accessing the Lines variable from within the template.
-template := `{{range $y := IntRange 1 .Data}}`
-
-// Example of using a helper functions to build a List of strings and pass it to a gofakeit function, Nested function need to be wrapped in ().
-template += `{{RandomString (ListS "Contact Details" "Customers Details")}}{{$p:=Person}}\n`
-
-// Displaying values from a variable, and using Upper helper function to format Company name.
-template += `Name: {{$p.FirstName}} {{$p.LastName}}\nCompany: {{Upper ($p.Job.Company)}}\nContact: {{$p.Contact.Email}}{{end}}`
-
-value, err := gofakeit.Template(template, &TemplateOptions{Data: 5})
-
-if err != nil {
-	fmt.Println(err)
-}
-
-fmt.Println(string(value))
-
-//Output:
-// Customers Details
-// Name: Philip Casper
-// Company: POSSIBILITYU
-// Contact: jerodhilll@tillman.name
-```
-</details>
-
-<details>
-<summary>2. Generate FixedWidth document</summary>
-
-```go
-import "github.com/brianvoe/gofakeit/v6"
-
-	Seed(11)
-	value, err := gofakeit.FixedWidth(&FixedWidthOptions{
-		RowCount: 3,
-		Fields: []Field{
-			{Name: "Name", Function: "{firstname} {lastname}"},
-			{Name: "Email", Function: "email"},
-			{Name: "Password", Function: "password", Params: MapParams{"special": {"false"}}},
-			{Name: "Age", Function: "{number:1,100}"},
-		},
-	})
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	fmt.Println(string(value))
-
-	// Output:
-	// Name               Email                          Password         Age
-	// Markus Moen        sylvanmraz@murphy.net          6VlvH6qqXc7g     13
-	// Alayna Wuckert     santinostanton@carroll.biz     g7sLrS0gEwLO     46
-	// Lura Lockman       zacherykuhic@feil.name         S8gV7Z64KlHG     12
-
-```
-</details>
-
