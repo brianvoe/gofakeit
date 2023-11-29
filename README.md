@@ -852,7 +852,7 @@ ErrorRuntime() error
 ### School
 
 ```go
-school() string
+School() string
 ```
 
 ## Template
