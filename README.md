@@ -185,14 +185,14 @@ For example, this is useful when it is not possible to modify the struct that yo
 // or just return a static value
 type CustomString string
 
-func (c *CustomString) Fake(faker *gofakeit.Faker) any {
+func (c *CustomString) Fake(faker *gofakeit.Faker) (any, error) {
 	return CustomString("my custom string")
 }
 
 // Imagine a CustomTime type that is needed to support a custom JSON Marshaler
 type CustomTime time.Time
 
-func (c *CustomTime) Fake(faker *gofakeit.Faker) any {
+func (c *CustomTime) Fake(faker *gofakeit.Faker) (any, error) {
 	return CustomTime(time.Now())
 }
 
