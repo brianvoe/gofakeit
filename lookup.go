@@ -89,6 +89,7 @@ func initLookup() {
 	addNumberLookup()
 	addPaymentLookup()
 	addPersonLookup()
+	addProductLookup()
 	addSchoolLookup()
 	addStringLookup()
 	addTemplateLookup()
@@ -293,17 +294,17 @@ func (i *Info) GetAny(m *MapParams, field string) (any, error) {
 	//return anyValue, nil
 }
 
-// GetMap will retrieve map[string]interface{} field from data
-func (i *Info) GetMap(m *MapParams, field string) (map[string]interface{}, error) {
+// GetMap will retrieve map[string]any field from data
+func (i *Info) GetMap(m *MapParams, field string) (map[string]any, error) {
 	_, value, err := i.GetField(m, field)
 	if err != nil {
 		return nil, err
 	}
 
-	var mapValue map[string]interface{}
+	var mapValue map[string]any
 	err = json.Unmarshal([]byte(value[0]), &mapValue)
 	if err != nil {
-		return nil, fmt.Errorf("%s field could not parse to map[string]interface{}", field)
+		return nil, fmt.Errorf("%s field could not parse to map[string]any", field)
 	}
 
 	return mapValue, nil

@@ -14,8 +14,8 @@ import (
 type JSONOptions struct {
 	Type     string  `json:"type" xml:"type" fake:"{randomstring:[array,object]}"` // array or object
 	RowCount int     `json:"row_count" xml:"row_count" fake:"{number:1,10}"`
-	Fields   []Field `json:"fields" xml:"fields" fake:"{fields}"`
 	Indent   bool    `json:"indent" xml:"indent"`
+	Fields   []Field `json:"fields" xml:"fields" fake:"{fields}"`
 }
 
 type jsonKeyVal struct {
@@ -205,8 +205,8 @@ func addFileJSONLookup() {
 		Params: []Param{
 			{Field: "type", Display: "Type", Type: "string", Default: "object", Options: []string{"object", "array"}, Description: "Type of JSON, object or array"},
 			{Field: "rowcount", Display: "Row Count", Type: "int", Default: "100", Description: "Number of rows in JSON array"},
-			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function to run in json format"},
 			{Field: "indent", Display: "Indent", Type: "bool", Default: "false", Description: "Whether or not to add indents and newlines"},
+			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function to run in json format"},
 		},
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			jo := JSONOptions{}
@@ -222,6 +222,12 @@ func addFileJSONLookup() {
 				return nil, err
 			}
 			jo.RowCount = rowcount
+
+			indent, err := info.GetBool(m, "indent")
+			if err != nil {
+				return nil, err
+			}
+			jo.Indent = indent
 
 			fieldsStr, err := info.GetStringArray(m, "fields")
 			if err != nil {
@@ -240,12 +246,6 @@ func addFileJSONLookup() {
 					}
 				}
 			}
-
-			indent, err := info.GetBool(m, "indent")
-			if err != nil {
-				return nil, err
-			}
-			jo.Indent = indent
 
 			f := &Faker{Rand: r}
 			return jsonFunc(f, &jo)

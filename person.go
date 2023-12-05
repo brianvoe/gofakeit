@@ -244,7 +244,7 @@ func addPersonLookup() {
 				cvv: "353"
 			}
 		}`,
-		Output:      "map[string]interface",
+		Output:      "map[string]any",
 		ContentType: "application/json",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return person(r), nil

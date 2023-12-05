@@ -304,7 +304,7 @@ func addPaymentLookup() {
 		Category:    "payment",
 		Description: "Random credit card data set",
 		Example:     `{type: "Visa", number: "4136459948995369", exp: "01/21", cvv: "513"}`,
-		Output:      "map[string]interface",
+		Output:      "map[string]any",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return creditCard(r), nil
 		},

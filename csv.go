@@ -138,12 +138,18 @@ func addFileCSVLookup() {
 		Output:      "[]byte",
 		ContentType: "text/csv",
 		Params: []Param{
+			{Field: "delimiter", Display: "Delimiter", Type: "string", Default: ",", Description: "Separator in between row values"},
 			{Field: "rowcount", Display: "Row Count", Type: "int", Default: "100", Description: "Number of rows"},
 			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function"},
-			{Field: "delimiter", Display: "Delimiter", Type: "string", Default: ",", Description: "Separator in between row values"},
 		},
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			co := CSVOptions{}
+
+			delimiter, err := info.GetString(m, "delimiter")
+			if err != nil {
+				return nil, err
+			}
+			co.Delimiter = delimiter
 
 			rowcount, err := info.GetInt(m, "rowcount")
 			if err != nil {
@@ -168,12 +174,6 @@ func addFileCSVLookup() {
 					}
 				}
 			}
-
-			delimiter, err := info.GetString(m, "delimiter")
-			if err != nil {
-				return nil, err
-			}
-			co.Delimiter = delimiter
 
 			f := &Faker{Rand: r}
 			csvOut, err := csvFunc(f, &co)

@@ -263,7 +263,7 @@ func TestAnyToStringEdgeCases(t *testing.T) {
 
 	// Test with a struct containing a nil interface field
 	type nilInterfaceFieldStruct struct {
-		Data interface{}
+		Data any
 	}
 	nilInterfaceStruct := nilInterfaceFieldStruct{}
 	want = `{"Data":null}`

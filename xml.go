@@ -15,8 +15,8 @@ type XMLOptions struct {
 	RootElement   string  `json:"root_element" xml:"root_element"`
 	RecordElement string  `json:"record_element" xml:"record_element"`
 	RowCount      int     `json:"row_count" xml:"row_count" fake:"{number:1,10}"`
-	Fields        []Field `json:"fields" xml:"fields" fake:"{fields}"`
 	Indent        bool    `json:"indent" xml:"indent"`
+	Fields        []Field `json:"fields" xml:"fields" fake:"{fields}"`
 }
 
 type xmlArray struct {
@@ -292,8 +292,8 @@ func addFileXMLLookup() {
 			{Field: "rootelement", Display: "Root Element", Type: "string", Default: "xml", Description: "Root element wrapper name"},
 			{Field: "recordelement", Display: "Record Element", Type: "string", Default: "record", Description: "Record element for each record row"},
 			{Field: "rowcount", Display: "Row Count", Type: "int", Default: "100", Description: "Number of rows in JSON array"},
-			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function to run in json format"},
 			{Field: "indent", Display: "Indent", Type: "bool", Default: "false", Description: "Whether or not to add indents and newlines"},
+			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function to run in json format"},
 		},
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			xo := XMLOptions{}
@@ -327,6 +327,12 @@ func addFileXMLLookup() {
 				return nil, err
 			}
 
+			indent, err := info.GetBool(m, "indent")
+			if err != nil {
+				return nil, err
+			}
+			xo.Indent = indent
+
 			// Check to make sure fields has length
 			if len(fieldsStr) > 0 {
 				xo.Fields = make([]Field, len(fieldsStr))
@@ -339,12 +345,6 @@ func addFileXMLLookup() {
 					}
 				}
 			}
-
-			indent, err := info.GetBool(m, "indent")
-			if err != nil {
-				return nil, err
-			}
-			xo.Indent = indent
 
 			f := &Faker{Rand: r}
 			return xmlFunc(f, &xo)

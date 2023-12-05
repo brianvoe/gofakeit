@@ -156,7 +156,7 @@ func TestTemplateNoOptions(t *testing.T) {
 func ExampleEmailText() {
 	Seed(11)
 
-	value, err := EmailText(&EmailOptions{SectionsCount: 3})
+	value, err := EmailText(&EmailOptions{})
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -193,7 +193,7 @@ func ExampleEmailText() {
 func ExampleFaker_EmailText() {
 	f := New(11)
 
-	value, err := f.EmailText(&EmailOptions{SectionsCount: 3})
+	value, err := f.EmailText(&EmailOptions{})
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -231,7 +231,7 @@ func ExampleFaker_EmailText() {
 func ExampleMarkdown() {
 	Seed(11)
 
-	value, err := Markdown(&MarkdownOptions{SectionsCount: 3})
+	value, err := Markdown(&MarkdownOptions{})
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -270,7 +270,7 @@ func ExampleMarkdown() {
 func ExampleFaker_Markdown() {
 	f := New(11)
 
-	value, err := f.Markdown(&MarkdownOptions{SectionsCount: 2})
+	value, err := f.Markdown(&MarkdownOptions{})
 	if err != nil {
 		fmt.Println(err)
 	}

@@ -19,7 +19,7 @@ func ExampleFaker_School() {
 	// Harborview State Academy
 }
 
-func BenchmarkExampleFaker_SchoolGen(b *testing.B) {
+func BenchmarkSchool(b *testing.B) {
 	b.Run("package", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			School()
