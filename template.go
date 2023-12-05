@@ -38,7 +38,6 @@ func (f *Faker) Template(template string, co *TemplateOptions) (string, error) {
 
 // MarkdownOptions defines values needed for markdown document generation
 type MarkdownOptions struct {
-	SectionsCount int `json:"sections" xml:"sections" fake:"{number:1,10}"`
 }
 
 // Template for Markdown
@@ -109,7 +108,6 @@ func (f *Faker) Markdown(co *MarkdownOptions) (string, error) {
 
 // EmailOptions defines values needed for email document generation
 type EmailOptions struct {
-	SectionsCount int `json:"sections" xml:"sections" fake:"{number:1,10}"`
 }
 
 // Template for email text
@@ -349,16 +347,8 @@ func addTemplateLookup() {
 		Description: "Generates random markdown document",
 		Example:     "",
 		Output:      "string",
-		Params: []Param{
-			{Field: "sections_count", Display: "Body Sections", Type: "int", Default: "1", Optional: true, Description: "Number of content sections to generate"},
-		},
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			sections, err := info.GetInt(m, "sections_count")
-			if err != nil {
-				sections = 1
-			}
-
-			template_result, err := templateFunc(templateMarkdown, templateFuncMap(r, nil), &MarkdownOptions{SectionsCount: sections})
+			template_result, err := templateFunc(templateMarkdown, templateFuncMap(r, nil), &MarkdownOptions{})
 			return string(template_result), err
 		},
 	})
@@ -369,16 +359,8 @@ func addTemplateLookup() {
 		Description: "Generates random email document.",
 		Example:     "",
 		Output:      "string",
-		Params: []Param{
-			{Field: "sections_count", Display: "Body Sections", Type: "int", Default: "1", Optional: true, Description: "Number of content sections to generate"},
-		},
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			sections, err := info.GetInt(m, "sections_count")
-			if err != nil {
-				sections = 1
-			}
-
-			template_result, err := templateFunc(templateEmail, templateFuncMap(r, nil), &EmailOptions{SectionsCount: sections})
+			template_result, err := templateFunc(templateEmail, templateFuncMap(r, nil), &EmailOptions{})
 			return string(template_result), err
 		},
 	})
