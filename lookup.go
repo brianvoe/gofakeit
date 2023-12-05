@@ -89,6 +89,7 @@ func initLookup() {
 	addNumberLookup()
 	addPaymentLookup()
 	addPersonLookup()
+	addProductLookup()
 	addSchoolLookup()
 	addStringLookup()
 	addTemplateLookup()
