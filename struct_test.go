@@ -895,7 +895,7 @@ func TestStructArrayWithInvalidCustomFunc(t *testing.T) {
 
 func TestStructMapWithCustomFunction(t *testing.T) {
 	AddFuncLookup("custom_map", Info{
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (interface{}, error) {
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return map[string]string{"abc": "123"}, nil
 		},
 	})
