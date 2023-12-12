@@ -244,7 +244,10 @@ func addPaymentLookup() {
 		Display:     "Currency",
 		Category:    "payment",
 		Description: "Random currency data set",
-		Example:     `{short: "USD", long: "United States Dollar"}`,
+		Example: `{
+			"short": "IQD",
+			"long": "Iraq Dinar"
+		}`,
 		Output:      "map[string]string",
 		ContentType: "application/json",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -303,8 +306,14 @@ func addPaymentLookup() {
 		Display:     "Credit Card",
 		Category:    "payment",
 		Description: "Random credit card data set",
-		Example:     `{type: "Visa", number: "4136459948995369", exp: "01/21", cvv: "513"}`,
+		Example: `{
+			"type": "UnionPay",
+			"number": "4364599489953698",
+			"exp": "02/24",
+			"cvv": "300"
+		}`,
 		Output:      "map[string]any",
+		ContentType: "application/json",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return creditCard(r), nil
 		},
@@ -326,7 +335,7 @@ func addPaymentLookup() {
 		Category:    "payment",
 		Description: "Random credit card number",
 		Example:     "4136459948995369",
-		Output:      "int",
+		Output:      "string",
 		Params: []Param{
 			{
 				Field: "types", Display: "Types", Type: "[]string", Default: "all",

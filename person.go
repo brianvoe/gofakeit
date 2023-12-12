@@ -211,37 +211,37 @@ func addPersonLookup() {
 		Category:    "person",
 		Description: "Random set of person info",
 		Example: `{
-			first_name: "Markus",
-			last_name: "Moen",
-			gender: "male",
-			ssn: "420776036",
-			image: "https://picsum.photos/300/300/people",
-			hobby: "Swimming",
-			job: {
-				company: "Lockman and Sons",
-				title: "Developer",
-				descriptor: "Global",
-				level: "Brand"
-			}, 
-			address: {
-				address: "5369 Streamville, Rossieview, Hawaii 42591",
-				street: "5369 Streamville",
-				city: "Rossieview",
-				state: "Hawaii",
-				zip: "42591",
-				country: "Burkina Faso",
-				latitude: "-6.662594491850811",
-				longitude: "23.921575244414612"
+			"first_name": "Markus",
+			"last_name": "Moen",
+			"gender": "male",
+			"ssn": "275413589",
+			"image": "https://picsum.photos/208/500",
+			"hobby": "Lacrosse",
+			"job": {
+				"company": "Intermap Technologies",
+				"title": "Developer",
+				"descriptor": "Direct",
+				"level": "Paradigm"
 			},
-			contact: {
-				phone: "6136459948",
-				email: "carolecarroll@bosco.com"
+			"address": {
+				"address": "369 North Cornerbury, Miami, North Dakota 24259",
+				"street": "369 North Cornerbury",
+				"city": "Miami",
+				"state": "North Dakota",
+				"zip": "24259",
+				"country": "Ghana",
+				"latitude": -6.662595,
+				"longitude": 23.921575
 			},
-			credit_card: {
-				type: "Visa",
-				number: "6536459948995369",
-				exp: "03/27",
-				cvv: "353"
+			"contact": {
+				"phone": "3023202027",
+				"email": "lamarkoelpin@heaney.biz"
+			},
+			"credit_card": {
+				"type": "Maestro",
+				"number": "39800889982276",
+				"exp": "01/29",
+				"cvv": "932"
 			}
 		}`,
 		Output:      "map[string]any",
@@ -387,8 +387,24 @@ func addPersonLookup() {
 		Display:     "Teams",
 		Category:    "person",
 		Description: "Randomly split people into teams",
-		Example:     `{"Team 1": ["Sharon","Jeff"], "Team 2": ["Billy","Connor"]}`,
+		Example: `{
+			"Team 1": [
+				"Justin",
+				"Connor",
+				"Jeff"
+			],
+			"Team 2": [
+				"Sharon",
+				"Fabian",
+				"Billy"
+			],
+			"Team 3": [
+				"Steve",
+				"Robert"
+			]
+		}`,
 		Output:      "map[string][]string",
+		ContentType: "application/json",
 		Params: []Param{
 			{Field: "people", Display: "Strings", Type: "[]string", Description: "Array of people"},
 			{Field: "teams", Display: "Strings", Type: "[]string", Description: "Array of teams"},

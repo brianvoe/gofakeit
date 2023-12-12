@@ -172,8 +172,14 @@ func addCompanyLookup() {
 		Display:     "Job",
 		Category:    "company",
 		Description: "Random job data set",
-		Example:     `{company: "Moen, Pagac and Wuckert", title: "Director", descriptor: "Central", level: "Assurance"}`,
+		Example: `{
+			"company": "ClearHealthCosts",
+			"title": "Agent",
+			"descriptor": "Future",
+			"level": "Tactics"
+		}`,
 		Output:      "map[string]string",
+		ContentType: "application/json",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return job(r), nil
 		},
