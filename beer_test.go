@@ -8,12 +8,14 @@ import (
 func ExampleBeerName() {
 	Seed(11)
 	fmt.Println(BeerName())
+
 	// Output: Duvel
 }
 
 func ExampleFaker_BeerName() {
 	f := New(11)
 	fmt.Println(f.BeerName())
+
 	// Output: Duvel
 }
 
@@ -44,12 +46,14 @@ func BenchmarkBeerName(b *testing.B) {
 func ExampleBeerStyle() {
 	Seed(11)
 	fmt.Println(BeerStyle())
+
 	// Output: European Amber Lager
 }
 
 func ExampleFaker_BeerStyle() {
 	f := New(11)
 	fmt.Println(f.BeerStyle())
+
 	// Output: European Amber Lager
 }
 
@@ -80,12 +84,14 @@ func BenchmarkBeerStyle(b *testing.B) {
 func ExampleBeerHop() {
 	Seed(11)
 	fmt.Println(BeerHop())
+
 	// Output: Glacier
 }
 
 func ExampleFaker_BeerHop() {
 	f := New(11)
 	fmt.Println(f.BeerHop())
+
 	// Output: Glacier
 }
 
@@ -116,12 +122,14 @@ func BenchmarkBeerHop(b *testing.B) {
 func ExampleBeerYeast() {
 	Seed(11)
 	fmt.Println(BeerYeast())
+
 	// Output: 1388 - Belgian Strong Ale
 }
 
 func ExampleFaker_BeerYeast() {
 	f := New(11)
 	fmt.Println(f.BeerYeast())
+
 	// Output: 1388 - Belgian Strong Ale
 }
 
@@ -152,12 +160,14 @@ func BenchmarkBeerYeast(b *testing.B) {
 func ExampleBeerMalt() {
 	Seed(11)
 	fmt.Println(BeerMalt())
+
 	// Output: Munich
 }
 
 func ExampleFaker_BeerMalt() {
 	f := New(11)
 	fmt.Println(f.BeerMalt())
+
 	// Output: Munich
 }
 
@@ -188,12 +198,14 @@ func BenchmarkBeerMalt(b *testing.B) {
 func ExampleBeerIbu() {
 	Seed(11)
 	fmt.Println(BeerIbu())
+
 	// Output: 47 IBU
 }
 
 func ExampleFaker_BeerIbu() {
 	f := New(11)
 	fmt.Println(f.BeerIbu())
+
 	// Output: 47 IBU
 }
 
@@ -224,12 +236,14 @@ func BenchmarkBeerIbu(b *testing.B) {
 func ExampleBeerAlcohol() {
 	Seed(11)
 	fmt.Println(BeerAlcohol())
+
 	// Output: 2.7%
 }
 
 func ExampleFaker_BeerAlcohol() {
 	f := New(11)
 	fmt.Println(f.BeerAlcohol())
+
 	// Output: 2.7%
 }
 
@@ -260,12 +274,14 @@ func BenchmarkBeerAlcohol(b *testing.B) {
 func ExampleBeerBlg() {
 	Seed(11)
 	fmt.Println(BeerBlg())
+
 	// Output: 6.4°Blg
 }
 
 func ExampleFaker_BeerBlg() {
 	f := New(11)
 	fmt.Println(f.BeerBlg())
+
 	// Output: 6.4°Blg
 }
 

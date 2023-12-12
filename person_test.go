@@ -8,12 +8,14 @@ import (
 func ExampleName() {
 	Seed(11)
 	fmt.Println(Name())
+
 	// Output: Markus Moen
 }
 
 func ExampleFaker_Name() {
 	f := New(11)
 	fmt.Println(f.Name())
+
 	// Output: Markus Moen
 }
 
@@ -26,12 +28,14 @@ func BenchmarkName(b *testing.B) {
 func ExampleFirstName() {
 	Seed(11)
 	fmt.Println(FirstName())
+
 	// Output: Markus
 }
 
 func ExampleFaker_FirstName() {
 	f := New(11)
 	fmt.Println(f.FirstName())
+
 	// Output: Markus
 }
 
@@ -44,12 +48,14 @@ func BenchmarkFirstName(b *testing.B) {
 func ExampleMiddleName() {
 	Seed(11)
 	fmt.Println(MiddleName())
+
 	// Output: Belinda
 }
 
 func ExampleFaker_MiddleName() {
 	f := New(11)
 	fmt.Println(f.MiddleName())
+
 	// Output: Belinda
 }
 
@@ -62,12 +68,14 @@ func BenchmarkMiddleName(b *testing.B) {
 func ExampleLastName() {
 	Seed(11)
 	fmt.Println(LastName())
+
 	// Output: Daniel
 }
 
 func ExampleFaker_LastName() {
 	f := New(11)
 	fmt.Println(f.LastName())
+
 	// Output: Daniel
 }
 
@@ -80,12 +88,14 @@ func BenchmarkLastName(b *testing.B) {
 func ExampleNamePrefix() {
 	Seed(11)
 	fmt.Println(NamePrefix())
+
 	// Output: Mr.
 }
 
 func ExampleFaker_NamePrefix() {
 	f := New(11)
 	fmt.Println(f.NamePrefix())
+
 	// Output: Mr.
 }
 
@@ -98,12 +108,14 @@ func BenchmarkNamePrefix(b *testing.B) {
 func ExampleNameSuffix() {
 	Seed(11)
 	fmt.Println(NameSuffix())
+
 	// Output: Jr.
 }
 
 func ExampleFaker_NameSuffix() {
 	f := New(11)
 	fmt.Println(f.NameSuffix())
+
 	// Output: Jr.
 }
 
@@ -116,12 +128,14 @@ func BenchmarkNameSuffix(b *testing.B) {
 func ExampleSSN() {
 	Seed(11)
 	fmt.Println(SSN())
+
 	// Output: 493298265
 }
 
 func ExampleFaker_SSN() {
 	f := New(11)
 	fmt.Println(f.SSN())
+
 	// Output: 493298265
 }
 
@@ -134,12 +148,14 @@ func BenchmarkSSN(b *testing.B) {
 func ExampleGender() {
 	Seed(11)
 	fmt.Println(Gender())
+
 	// Output: male
 }
 
 func ExampleFaker_Gender() {
 	f := New(11)
 	fmt.Println(f.Gender())
+
 	// Output: male
 }
 
@@ -152,12 +168,14 @@ func BenchmarkGender(b *testing.B) {
 func ExampleHobby() {
 	Seed(11)
 	fmt.Println(Hobby())
+
 	// Output: Transit map collecting
 }
 
 func ExampleFaker_Hobby() {
 	f := New(11)
 	fmt.Println(f.Hobby())
+
 	// Output: Transit map collecting
 }
 
@@ -306,6 +324,7 @@ func ExampleContact() {
 	contact := Contact()
 	fmt.Println(contact.Phone)
 	fmt.Println(contact.Email)
+
 	// Output: 6136459948
 	// carolecarroll@bosco.com
 }
@@ -315,6 +334,7 @@ func ExampleFaker_Contact() {
 	contact := f.Contact()
 	fmt.Println(contact.Phone)
 	fmt.Println(contact.Email)
+
 	// Output: 6136459948
 	// carolecarroll@bosco.com
 }
@@ -328,12 +348,14 @@ func BenchmarkContact(b *testing.B) {
 func ExamplePhone() {
 	Seed(11)
 	fmt.Println(Phone())
+
 	// Output: 6136459948
 }
 
 func ExampleFaker_Phone() {
 	f := New(11)
 	fmt.Println(f.Phone())
+
 	// Output: 6136459948
 }
 
@@ -346,12 +368,14 @@ func BenchmarkPhone(b *testing.B) {
 func ExamplePhoneFormatted() {
 	Seed(11)
 	fmt.Println(PhoneFormatted())
+
 	// Output: 136-459-9489
 }
 
 func ExampleFaker_PhoneFormatted() {
 	f := New(11)
 	fmt.Println(f.PhoneFormatted())
+
 	// Output: 136-459-9489
 }
 
@@ -364,12 +388,14 @@ func BenchmarkPhoneFormatted(b *testing.B) {
 func ExampleEmail() {
 	Seed(11)
 	fmt.Println(Email())
+
 	// Output: markusmoen@pagac.net
 }
 
 func ExampleFaker_Email() {
 	f := New(11)
 	fmt.Println(f.Email())
+
 	// Output: markusmoen@pagac.net
 }
 
@@ -385,6 +411,7 @@ func ExampleTeams() {
 		[]string{"Billy", "Sharon", "Jeff", "Connor", "Steve", "Justin", "Fabian", "Robert"},
 		[]string{"Team 1", "Team 2", "Team 3"},
 	))
+
 	// Output: map[Team 1:[Fabian Connor Steve] Team 2:[Jeff Sharon Justin] Team 3:[Robert Billy]]
 }
 
@@ -394,6 +421,7 @@ func ExampleFaker_Teams() {
 		[]string{"Billy", "Sharon", "Jeff", "Connor", "Steve", "Justin", "Fabian", "Robert"},
 		[]string{"Team 1", "Team 2", "Team 3"},
 	))
+
 	// Output: map[Team 1:[Fabian Connor Steve] Team 2:[Jeff Sharon Justin] Team 3:[Robert Billy]]
 }
 

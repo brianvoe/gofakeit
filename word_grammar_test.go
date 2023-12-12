@@ -8,12 +8,14 @@ import (
 func ExampleSentenceSimple() {
 	Seed(11)
 	fmt.Println(SentenceSimple())
+
 	// Output: The purple tribe indeed swiftly laugh.
 }
 
 func ExampleFaker_SentenceSimple() {
 	f := New(11)
 	fmt.Println(f.SentenceSimple())
+
 	// Output: The purple tribe indeed swiftly laugh.
 }
 

@@ -76,9 +76,16 @@ func addCarLookup() {
 		Display:     "Car",
 		Category:    "car",
 		Description: "Random car set of data",
+		Example: `{
+			"type": "Passenger car mini",
+			"fuel": "Gasoline",
+			"transmission": "Automatic",
+			"brand": "Fiat",
+			"model": "Freestyle Fwd",
+			"year": 1991
+		}`,
 		Output:      "map[string]any",
 		ContentType: "application/json",
-		Example:     `{type: "Passenger car mini", fuel: "Gasoline", transmission: "Automatic", brand: "Fiat", model: "Freestyle Fwd", year: "1972"}`,
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return car(r), nil
 		},

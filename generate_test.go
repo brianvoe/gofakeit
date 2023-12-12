@@ -49,6 +49,7 @@ func ExampleGenerate() {
 	fmt.Println(Generate("{randomuint:[1,2,3,4]}"))
 	fmt.Println(Generate("{number:1,50}"))
 	fmt.Println(Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}"))
+
 	// Output: Markus Moen ssn is 526643139 and lives at 599 Daleton
 	// Niche backwards caused.
 	// [1 3 2]
@@ -68,6 +69,7 @@ func ExampleFaker_Generate() {
 	fmt.Println(f.Generate("{randomuint:[1,2,3,4]}"))
 	fmt.Println(f.Generate("{number:1,50}"))
 	fmt.Println(f.Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}"))
+
 	// Output: Markus Moen ssn is 526643139 and lives at 599 Daleton
 	// Niche backwards caused.
 	// [1 3 2]
@@ -306,6 +308,7 @@ func ExampleRegex() {
 	fmt.Println(Regex("[[:upper:]]{5}"))
 	fmt.Println(Regex("(hello|world|whats|up)"))
 	fmt.Println(Regex(`^[a-z]{5,10}@[a-z]{5,10}\.(com|net|org)$`))
+
 	// Output: affec
 	// RXHKI
 	// world
@@ -319,6 +322,7 @@ func ExampleFaker_Regex() {
 	fmt.Println(f.Regex("[[:upper:]]{5}"))
 	fmt.Println(f.Regex("(hello|world|whats|up)"))
 	fmt.Println(f.Regex(`^[a-z]{5,10}@[a-z]{5,10}\.(com|net|org)$`))
+
 	// Output: affec
 	// RXHKI
 	// world
@@ -475,12 +479,14 @@ func BenchmarkRegexEmail(b *testing.B) {
 func ExampleMap() {
 	Seed(11)
 	fmt.Println(Map())
+
 	// Output: map[contrast:Associate gauva:map[jump:scale] generally:8504801 him:[them whomever ours hence here his] its:8335564 table:map[did:[these delay these]] therefore:map[nearly:784141.8] thing:map[everything:[where caused why week hourly]]]
 }
 
 func ExampleFaker_Map() {
 	f := New(11)
 	fmt.Println(f.Map())
+
 	// Output: map[contrast:Associate gauva:map[jump:scale] generally:8504801 him:[them whomever ours hence here his] its:8335564 table:map[did:[these delay these]] therefore:map[nearly:784141.8] thing:map[everything:[where caused why week hourly]]]
 }
 

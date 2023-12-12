@@ -9,12 +9,14 @@ import (
 func ExampleDate() {
 	Seed(11)
 	fmt.Println(Date())
+
 	// Output: 1953-01-24 13:00:35.820738079 +0000 UTC
 }
 
 func ExampleFaker_Date() {
 	f := New(11)
 	fmt.Println(f.Date())
+
 	// Output: 1953-01-24 13:00:35.820738079 +0000 UTC
 }
 
@@ -135,12 +137,14 @@ func BenchmarkDateRange(b *testing.B) {
 func ExampleMonth() {
 	Seed(11)
 	fmt.Println(Month())
+
 	// Output: 6
 }
 
 func ExampleFaker_Month() {
 	f := New(11)
 	fmt.Println(f.Month())
+
 	// Output: 6
 }
 
@@ -171,12 +175,14 @@ func BenchmarkMonth(b *testing.B) {
 func ExampleMonthString() {
 	Seed(11)
 	fmt.Println(MonthString())
+
 	// Output: June
 }
 
 func ExampleFaker_MonthString() {
 	f := New(11)
 	fmt.Println(f.MonthString())
+
 	// Output: June
 }
 
@@ -207,12 +213,14 @@ func BenchmarkMonthString(b *testing.B) {
 func ExampleWeekDay() {
 	Seed(11)
 	fmt.Println(WeekDay())
+
 	// Output: Tuesday
 }
 
 func ExampleFaker_WeekDay() {
 	f := New(11)
 	fmt.Println(f.WeekDay())
+
 	// Output: Tuesday
 }
 
@@ -243,12 +251,14 @@ func BenchmarkWeekDay(b *testing.B) {
 func ExampleDay() {
 	Seed(11)
 	fmt.Println(Day())
+
 	// Output: 23
 }
 
 func ExampleFaker_Day() {
 	f := New(11)
 	fmt.Println(f.Day())
+
 	// Output: 23
 }
 
@@ -279,12 +289,14 @@ func BenchmarkDay(b *testing.B) {
 func ExampleYear() {
 	Seed(11)
 	fmt.Println(Year())
+
 	// Output: 1953
 }
 
 func ExampleFaker_Year() {
 	f := New(11)
 	fmt.Println(f.Year())
+
 	// Output: 1953
 }
 
@@ -315,12 +327,14 @@ func BenchmarkYear(b *testing.B) {
 func ExampleHour() {
 	Seed(11)
 	fmt.Println(Hour())
+
 	// Output: 17
 }
 
 func ExampleFaker_Hour() {
 	f := New(11)
 	fmt.Println(f.Hour())
+
 	// Output: 17
 }
 
@@ -351,12 +365,14 @@ func BenchmarkHour(b *testing.B) {
 func ExampleMinute() {
 	Seed(11)
 	fmt.Println(Minute())
+
 	// Output: 5
 }
 
 func ExampleFaker_Minute() {
 	f := New(11)
 	fmt.Println(f.Minute())
+
 	// Output: 5
 }
 
@@ -387,12 +403,14 @@ func BenchmarkMinute(b *testing.B) {
 func ExampleSecond() {
 	Seed(11)
 	fmt.Println(Second())
+
 	// Output: 5
 }
 
 func ExampleFaker_Second() {
 	f := New(11)
 	fmt.Println(f.Second())
+
 	// Output: 5
 }
 
@@ -423,12 +441,14 @@ func BenchmarkSecond(b *testing.B) {
 func ExampleNanoSecond() {
 	Seed(11)
 	fmt.Println(NanoSecond())
+
 	// Output: 693298265
 }
 
 func ExampleFaker_NanoSecond() {
 	f := New(11)
 	fmt.Println(f.NanoSecond())
+
 	// Output: 693298265
 }
 
@@ -459,12 +479,14 @@ func BenchmarkNanoSecond(b *testing.B) {
 func ExampleTimeZone() {
 	Seed(11)
 	fmt.Println(TimeZone())
+
 	// Output: Kaliningrad Standard Time
 }
 
 func ExampleFaker_TimeZone() {
 	f := New(11)
 	fmt.Println(f.TimeZone())
+
 	// Output: Kaliningrad Standard Time
 }
 
@@ -495,12 +517,14 @@ func BenchmarkTimeZone(b *testing.B) {
 func ExampleTimeZoneFull() {
 	Seed(11)
 	fmt.Println(TimeZoneFull())
+
 	// Output: (UTC+03:00) Kaliningrad, Minsk
 }
 
 func ExampleFaker_TimeZoneFull() {
 	f := New(11)
 	fmt.Println(f.TimeZoneFull())
+
 	// Output: (UTC+03:00) Kaliningrad, Minsk
 }
 
@@ -531,12 +555,14 @@ func BenchmarkTimeZoneFull(b *testing.B) {
 func ExampleTimeZoneAbv() {
 	Seed(11)
 	fmt.Println(TimeZoneAbv())
+
 	// Output: KST
 }
 
 func ExampleFaker_TimeZoneAbv() {
 	f := New(11)
 	fmt.Println(f.TimeZoneAbv())
+
 	// Output: KST
 }
 
@@ -567,12 +593,14 @@ func BenchmarkTimeZoneAbv(b *testing.B) {
 func ExampleTimeZoneOffset() {
 	Seed(11)
 	fmt.Println(TimeZoneOffset())
+
 	// Output: 3
 }
 
 func ExampleFaker_TimeZoneOffset() {
 	f := New(11)
 	fmt.Println(f.TimeZoneOffset())
+
 	// Output: 3
 }
 
@@ -603,12 +631,14 @@ func BenchmarkTimeZoneOffset(b *testing.B) {
 func ExampleTimeZoneRegion() {
 	Seed(11)
 	fmt.Println(TimeZoneRegion())
+
 	// Output: America/Vancouver
 }
 
 func ExampleFaker_TimeZoneRegion() {
 	f := New(11)
 	fmt.Println(f.TimeZoneRegion())
+
 	// Output: America/Vancouver
 }
 

@@ -8,12 +8,14 @@ import (
 func ExampleNumber() {
 	Seed(11)
 	fmt.Println(Number(50, 23456))
+
 	// Output: 12583
 }
 
 func ExampleFaker_Number() {
 	f := New(11)
 	fmt.Println(f.Number(50, 23456))
+
 	// Output: 12583
 }
 
@@ -44,12 +46,14 @@ func BenchmarkNumber(b *testing.B) {
 func ExampleUint8() {
 	Seed(11)
 	fmt.Println(Uint8())
+
 	// Output: 152
 }
 
 func ExampleFaker_Uint8() {
 	f := New(11)
 	fmt.Println(f.Uint8())
+
 	// Output: 152
 }
 
@@ -80,12 +84,14 @@ func BenchmarkUint8(b *testing.B) {
 func ExampleUint16() {
 	Seed(11)
 	fmt.Println(Uint16())
+
 	// Output: 34968
 }
 
 func ExampleFaker_Uint16() {
 	f := New(11)
 	fmt.Println(f.Uint16())
+
 	// Output: 34968
 }
 
@@ -116,12 +122,14 @@ func BenchmarkUint16(b *testing.B) {
 func ExampleUint32() {
 	Seed(11)
 	fmt.Println(Uint32())
+
 	// Output: 1075055705
 }
 
 func ExampleFaker_Uint32() {
 	f := New(11)
 	fmt.Println(f.Uint32())
+
 	// Output: 1075055705
 }
 
@@ -152,12 +160,14 @@ func BenchmarkUint32(b *testing.B) {
 func ExampleUint64() {
 	Seed(11)
 	fmt.Println(Uint64())
+
 	// Output: 10067102729548074073
 }
 
 func ExampleFaker_Uint64() {
 	f := New(11)
 	fmt.Println(f.Uint64())
+
 	// Output: 10067102729548074073
 }
 
@@ -188,12 +198,14 @@ func BenchmarkUint64(b *testing.B) {
 func ExampleUintRange() {
 	Seed(11)
 	fmt.Println(UintRange(1, 10))
+
 	// Output: 1
 }
 
 func ExampleFaker_UintRange() {
 	f := New(11)
 	fmt.Println(f.UintRange(1, 10))
+
 	// Output: 1
 }
 
@@ -226,12 +238,14 @@ func BenchmarkUintRange(b *testing.B) {
 func ExampleInt8() {
 	Seed(11)
 	fmt.Println(Int8())
+
 	// Output: -39
 }
 
 func ExampleFaker_Int8() {
 	f := New(11)
 	fmt.Println(f.Int8())
+
 	// Output: -39
 }
 
@@ -262,12 +276,14 @@ func BenchmarkInt8(b *testing.B) {
 func ExampleInt16() {
 	Seed(11)
 	fmt.Println(Int16())
+
 	// Output: -29607
 }
 
 func ExampleFaker_Int16() {
 	f := New(11)
 	fmt.Println(f.Int16())
+
 	// Output: -29607
 }
 
@@ -298,12 +314,14 @@ func BenchmarkInt16(b *testing.B) {
 func ExampleInt32() {
 	Seed(11)
 	fmt.Println(Int32())
+
 	// Output: -1072427943
 }
 
 func ExampleFaker_Int32() {
 	f := New(11)
 	fmt.Println(f.Int32())
+
 	// Output: -1072427943
 }
 
@@ -334,12 +352,14 @@ func BenchmarkInt32(b *testing.B) {
 func ExampleInt64() {
 	Seed(11)
 	fmt.Println(Int64())
+
 	// Output: -8379641344161477543
 }
 
 func ExampleFaker_Int64() {
 	f := New(11)
 	fmt.Println(f.Int64())
+
 	// Output: -8379641344161477543
 }
 
@@ -370,12 +390,14 @@ func BenchmarkInt64(b *testing.B) {
 func ExampleIntRange() {
 	Seed(11)
 	fmt.Println(IntRange(1, 10))
+
 	// Output: 6
 }
 
 func ExampleFaker_IntRange() {
 	f := New(11)
 	fmt.Println(f.IntRange(1, 10))
+
 	// Output: 6
 }
 
@@ -408,12 +430,14 @@ func BenchmarkIntRange(b *testing.B) {
 func ExampleFloat32() {
 	Seed(11)
 	fmt.Println(Float32())
+
 	// Output: 3.1128167e+37
 }
 
 func ExampleFaker_Float32() {
 	f := New(11)
 	fmt.Println(f.Float32())
+
 	// Output: 3.1128167e+37
 }
 
@@ -444,12 +468,14 @@ func BenchmarkFloat32(b *testing.B) {
 func ExampleFloat32Range() {
 	Seed(11)
 	fmt.Println(Float32Range(0, 9999999))
+
 	// Output: 914774.6
 }
 
 func ExampleFaker_Float32Range() {
 	f := New(11)
 	fmt.Println(f.Float32Range(0, 9999999))
+
 	// Output: 914774.6
 }
 
@@ -486,12 +512,14 @@ func TestFloat32RangeSame(t *testing.T) {
 func ExampleFloat64() {
 	Seed(11)
 	fmt.Println(Float64())
+
 	// Output: 1.644484108270445e+307
 }
 
 func ExampleFaker_Float64() {
 	f := New(11)
 	fmt.Println(f.Float64())
+
 	// Output: 1.644484108270445e+307
 }
 
@@ -522,12 +550,14 @@ func BenchmarkFloat64(b *testing.B) {
 func ExampleFloat64Range() {
 	Seed(11)
 	fmt.Println(Float64Range(0, 9999999))
+
 	// Output: 914774.5585333086
 }
 
 func ExampleFaker_Float64Range() {
 	f := New(11)
 	fmt.Println(f.Float64Range(0, 9999999))
+
 	// Output: 914774.5585333086
 }
 
@@ -567,6 +597,7 @@ func ExampleShuffleInts() {
 	ints := []int{52, 854, 941, 74125, 8413, 777, 89416, 841657}
 	ShuffleInts(ints)
 	fmt.Println(ints)
+
 	// Output: [74125 777 941 89416 8413 854 52 841657]
 }
 
@@ -576,6 +607,7 @@ func ExampleFaker_ShuffleInts() {
 	ints := []int{52, 854, 941, 74125, 8413, 777, 89416, 841657}
 	f.ShuffleInts(ints)
 	fmt.Println(ints)
+
 	// Output: [74125 777 941 89416 8413 854 52 841657]
 }
 
@@ -608,6 +640,7 @@ func ExampleRandomInt() {
 
 	ints := []int{52, 854, 941, 74125, 8413, 777, 89416, 841657}
 	fmt.Println(RandomInt(ints))
+
 	// Output: 52
 }
 
@@ -616,6 +649,7 @@ func ExampleFaker_RandomInt() {
 
 	ints := []int{52, 854, 941, 74125, 8413, 777, 89416, 841657}
 	fmt.Println(f.RandomInt(ints))
+
 	// Output: 52
 }
 
@@ -638,6 +672,7 @@ func ExampleRandomUint() {
 
 	ints := []uint{52, 854, 941, 74125, 8413, 777, 89416, 841657}
 	fmt.Println(RandomUint(ints))
+
 	// Output: 52
 }
 
@@ -646,6 +681,7 @@ func ExampleFaker_RandomUint() {
 
 	ints := []uint{52, 854, 941, 74125, 8413, 777, 89416, 841657}
 	fmt.Println(f.RandomUint(ints))
+
 	// Output: 52
 }
 
@@ -684,12 +720,14 @@ func BenchmarkRandomUint(b *testing.B) {
 func ExampleHexUint8() {
 	Seed(11)
 	fmt.Println(HexUint8())
+
 	// Output: 0x87
 }
 
 func ExampleFaker_HexUint8() {
 	f := New(11)
 	fmt.Println(f.HexUint8())
+
 	// Output: 0x87
 }
 
@@ -720,12 +758,14 @@ func BenchmarkHexUint8(b *testing.B) {
 func ExampleHexUint16() {
 	Seed(11)
 	fmt.Println(HexUint16())
+
 	// Output: 0x8754
 }
 
 func ExampleFaker_HexUint16() {
 	f := New(11)
 	fmt.Println(f.HexUint16())
+
 	// Output: 0x8754
 }
 
@@ -756,12 +796,14 @@ func BenchmarkHexUint16(b *testing.B) {
 func ExampleHexUint32() {
 	Seed(11)
 	fmt.Println(HexUint32())
+
 	// Output: 0x87546957
 }
 
 func ExampleFaker_HexUint32() {
 	f := New(11)
 	fmt.Println(f.HexUint32())
+
 	// Output: 0x87546957
 }
 
@@ -792,12 +834,14 @@ func BenchmarkHexUint32(b *testing.B) {
 func ExampleHexUint64() {
 	Seed(11)
 	fmt.Println(HexUint64())
+
 	// Output: 0x875469578e51b5e5
 }
 
 func ExampleFaker_HexUint64() {
 	f := New(11)
 	fmt.Println(f.HexUint64())
+
 	// Output: 0x875469578e51b5e5
 }
 
@@ -828,12 +872,14 @@ func BenchmarkHexUint64(b *testing.B) {
 func ExampleHexUint128() {
 	Seed(11)
 	fmt.Println(HexUint128())
+
 	// Output: 0x875469578e51b5e56c95b64681d147a1
 }
 
 func ExampleFaker_HexUint128() {
 	f := New(11)
 	fmt.Println(f.HexUint128())
+
 	// Output: 0x875469578e51b5e56c95b64681d147a1
 }
 
@@ -864,12 +910,14 @@ func BenchmarkHexUint128(b *testing.B) {
 func ExampleHexUint256() {
 	Seed(11)
 	fmt.Println(HexUint256())
+
 	// Output: 0x875469578e51b5e56c95b64681d147a12cde48a4f417231b0c486abbc263e48d
 }
 
 func ExampleFaker_HexUint256() {
 	f := New(11)
 	fmt.Println(f.HexUint256())
+
 	// Output: 0x875469578e51b5e56c95b64681d147a12cde48a4f417231b0c486abbc263e48d
 }
 

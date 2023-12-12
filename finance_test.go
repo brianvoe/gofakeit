@@ -9,12 +9,14 @@ import (
 func ExampleCusip() {
 	Seed(11)
 	fmt.Println(Cusip())
+
 	// Output: MLRQCZBX0
 }
 
 func ExampleFaker_Cusip() {
 	f := New(11)
 	fmt.Println(f.Cusip())
+
 	// Output: MLRQCZBX0
 }
 
@@ -79,12 +81,14 @@ func BenchmarkCusip(b *testing.B) {
 func ExampleIsin() {
 	Seed(11)
 	fmt.Println(Isin())
+
 	// Output: CVLRQCZBXQ97
 }
 
 func ExampleFaker_Isin() {
 	f := New(11)
 	fmt.Println(f.Isin())
+
 	// Output: AMMLRQCZBX03
 }
 

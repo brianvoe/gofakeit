@@ -8,12 +8,14 @@ import (
 func ExampleUsername() {
 	Seed(11)
 	fmt.Println(Username())
+
 	// Output: Daniel1364
 }
 
 func ExampleFaker_Username() {
 	f := New(11)
 	fmt.Println(f.Username())
+
 	// Output: Daniel1364
 }
 
@@ -65,6 +67,7 @@ func ExamplePassword() {
 	fmt.Println(Password(false, false, false, true, false, 32))
 	fmt.Println(Password(true, true, true, true, true, 32))
 	fmt.Println(Password(true, true, true, true, true, 4))
+
 	// Output: vodnqxzsuptgehrzylximvylxzoywexw
 	// ZSRQWJFJWCSTVGXKYKWMLIAFGFELFJRG
 	// 61718615932495608398906260648432
@@ -81,6 +84,7 @@ func ExampleFaker_Password() {
 	fmt.Println(f.Password(false, false, false, true, false, 32))
 	fmt.Println(f.Password(true, true, true, true, true, 32))
 	fmt.Println(f.Password(true, true, true, true, true, 4))
+
 	// Output: vodnqxzsuptgehrzylximvylxzoywexw
 	// ZSRQWJFJWCSTVGXKYKWMLIAFGFELFJRG
 	// 61718615932495608398906260648432

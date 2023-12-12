@@ -700,6 +700,7 @@ func ExampleCustomInt() {
 
 	fmt.Println(A1)
 	fmt.Println(A2)
+
 	// Output:
 	// -42
 	// -42
@@ -723,6 +724,7 @@ func ExampleEvenInt() {
 
 	fmt.Println(E1)
 	fmt.Println(E2)
+
 	// Output:
 	// 6
 	// -92

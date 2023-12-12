@@ -200,14 +200,14 @@ func addAddressLookup() {
 		Category:    "address",
 		Description: "Random set of address info",
 		Example: `{
-			address: "364 East Rapidsborough, Rutherfordstad, New Jersey 36906",
-			street: "364 East Rapidsborough",
-			city: "Rutherfordstad",
-			state: "New Jersey",
-			zip: "36906",
-			country: "South Africa",
-			latitude: "23.058758",
-			longitude: "89.022594"
+			"address": "364 Unionsville, Norfolk, Ohio 99536",
+			"street": "364 Unionsville",
+			"city": "Norfolk",
+			"state": "Ohio",
+			"zip": "99536",
+			"country": "Lesotho",
+			"latitude": 88.792592,
+			"longitude": 174.504681
 		}`,
 		Output:      "map[string]any",
 		ContentType: "application/json",

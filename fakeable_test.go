@@ -115,6 +115,7 @@ func ExampleGammaFloat64() {
 	fmt.Println(A1)
 	fmt.Println(A2)
 	fmt.Println(A3)
+
 	// Output:
 	// 10.300651760129734
 	// 5.391434877284098
@@ -157,6 +158,7 @@ func ExamplecustomerSupportEmployee() {
 	fmt.Printf("%#v\n", A1)
 	fmt.Printf("%#v\n", A2)
 	fmt.Printf("%#v\n", A3)
+
 	// Output:
 	// gofakeit.customerSupportEmployee{Name:"Pearline Rippin", CallCountPerHour:12}
 	// gofakeit.customerSupportEmployee{Name:"Sammie Renner", CallCountPerHour:23}
