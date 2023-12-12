@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func EnableBook() {
+func ExampleBook() {
 	Seed(11)
 	book := Book()
 	fmt.Println(book.Title)

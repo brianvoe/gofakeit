@@ -1,11 +1,12 @@
 package gofakeit
 
 import (
+	"encoding/json"
 	"fmt"
 	"testing"
 )
 
-func EnableMovie() {
+func ExampleMovie() {
 	Seed(11)
 	movie := Movie()
 	fmt.Println(movie.Name)
