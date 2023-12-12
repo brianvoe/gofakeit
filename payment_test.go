@@ -8,17 +8,23 @@ import (
 func ExampleCurrency() {
 	Seed(11)
 	currency := Currency()
-	fmt.Printf("%s - %s", currency.Short, currency.Long)
+	fmt.Println(currency.Short)
+	fmt.Println(currency.Long)
 
-	// Output: IQD - Iraq Dinar
+	// Output:
+	// IQD
+	// Iraq Dinar
 }
 
 func ExampleFaker_Currency() {
 	f := New(11)
 	currency := f.Currency()
-	fmt.Printf("%s - %s", currency.Short, currency.Long)
+	fmt.Println(currency.Short)
+	fmt.Println(currency.Long)
 
-	// Output: IQD - Iraq Dinar
+	// Output:
+	// IQD
+	// Iraq Dinar
 }
 
 func BenchmarkCurrency(b *testing.B) {
