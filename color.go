@@ -74,8 +74,9 @@ func addColorLookup() {
 		Display:     "Nice Colors",
 		Category:    "color",
 		Description: "Random set of nice colors",
-		Example:     "[#5c323e #a82743 #e15e32 #c0d23e #e5f04c]",
+		Example:     `["#cfffdd","#b4dec1","#5c5863","#a85163","#ff1f4c"]`,
 		Output:      "[]string",
+		ContentType: "application/json",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return color(r), nil
 		},
@@ -107,8 +108,9 @@ func addColorLookup() {
 		Display:     "RGB Color",
 		Category:    "color",
 		Description: "Random rgb color",
-		Example:     "[152 23 53]",
-		Output:      "string",
+		Example:     "[85, 224, 195]",
+		Output:      "[]int",
+		ContentType: "application/json",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return rgbColor(r), nil
 		},

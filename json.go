@@ -196,9 +196,9 @@ func addFileJSONLookup() {
 		Category:    "file",
 		Description: "Generates an object or an array of objects in json format",
 		Example: `[
-			{ "id": 1, "first_name": "Markus", "last_name": "Moen" },
-			{ "id": 2, "first_name": "Alayna", "last_name": "Wuckert" },
-			{ "id": 3, "first_name": "Lura", "last_name": "Lockman" }
+			{ "first_name": "Markus", "last_name": "Moen", "password": "Dc0VYXjkWABx" },
+			{ "first_name": "Osborne", "last_name": "Hilll", "password": "XPJ9OVNbs5lm" },
+			{ "first_name": "Mertie", "last_name": "Halvorson", "password": "eyl3bhwfV8wA" }
 		]`,
 		Output:      "[]byte",
 		ContentType: "application/json",

@@ -5,26 +5,28 @@ import (
 	"testing"
 )
 
-func EnableBook() {
+func ExampleBook() {
 	Seed(11)
 	book := Book()
 	fmt.Println(book.Title)
 	fmt.Println(book.Author)
-    fmt.Println(book.Genre)
+	fmt.Println(book.Genre)
+
 	// Output: Anna Karenina
 	// Toni Morrison
-    // Thriller
+	// Thriller
 }
 
 func ExampleFaker_Book() {
 	f := New(11)
 	book := f.Book()
-    fmt.Println(book.Title)
+	fmt.Println(book.Title)
 	fmt.Println(book.Author)
-    fmt.Println(book.Genre)
+	fmt.Println(book.Genre)
+
 	// Output: Anna Karenina
 	// Toni Morrison
-    // Thriller
+	// Thriller
 }
 
 func BenchmarkBook(b *testing.B) {
@@ -60,12 +62,14 @@ func TestBook(t *testing.T) {
 func ExampleBookTitle() {
 	Seed(11)
 	fmt.Println(BookTitle())
+
 	// Output: Anna Karenina
 }
 
 func ExampleFaker_BookTitle() {
 	f := New(11)
 	fmt.Println(f.BookTitle())
+
 	// Output: Anna Karenina
 }
 
@@ -96,12 +100,14 @@ func BenchmarkBookTitle(b *testing.B) {
 func ExampleBookAuthor() {
 	Seed(11)
 	fmt.Println(BookAuthor())
+
 	// Output: James Joyce
 }
 
 func ExampleFaker_BookAuthor() {
 	f := New(11)
 	fmt.Println(f.BookAuthor())
+
 	// Output: James Joyce
 }
 
@@ -129,16 +135,17 @@ func BenchmarkBookAuthor(b *testing.B) {
 	})
 }
 
-
 func ExampleBookGenre() {
 	Seed(11)
 	fmt.Println(BookGenre())
+
 	// Output: Crime
 }
 
 func ExampleFaker_BookGenre() {
 	f := New(11)
 	fmt.Println(f.BookGenre())
+
 	// Output: Crime
 }
 

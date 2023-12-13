@@ -20,6 +20,7 @@ func Example() {
 	fmt.Println("Hacker Phrase:", HackerPhrase())
 	fmt.Println("Job Title:", JobTitle())
 	fmt.Println("Password:", Password(true, true, true, true, false, 32))
+
 	// Output:
 	// Name: Markus Moen
 	// Email: alaynawuckert@kozey.biz
@@ -43,6 +44,7 @@ func ExampleNew() {
 	fmt.Println("Name:", fake.Name())
 	fmt.Println("Email:", fake.Email())
 	fmt.Println("Phone:", fake.Phone())
+
 	// Output:
 	// Name: Markus Moen
 	// Email: alaynawuckert@kozey.biz
@@ -56,6 +58,7 @@ func ExampleNewUnlocked() {
 	fmt.Println("Name:", fake.Name())
 	fmt.Println("Email:", fake.Email())
 	fmt.Println("Phone:", fake.Phone())
+
 	// Output:
 	// Name: Markus Moen
 	// Email: alaynawuckert@kozey.biz
@@ -115,6 +118,7 @@ func ExampleNewCustom() {
 	fmt.Println("Name:", fake.Name())
 	fmt.Println("Email:", fake.Email())
 	fmt.Println("Phone:", fake.Phone())
+
 	// Output:
 	// Name: Aaliyah Abbott
 	// Email: aaliyahabbott@abbott.com

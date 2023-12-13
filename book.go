@@ -43,8 +43,13 @@ func addBookLookup() {
 		Display:     "Book",
 		Category:    "book",
 		Description: "Random Book data set",
-		Example:     `{title: "Hamlet", author: "Mark Twain", genre: "Adventure"}`,
+		Example: `{
+			"title": "Anna Karenina",
+			"author": "Toni Morrison",
+			"genre": "Thriller"
+		}`,
 		Output:      "map[string]string",
+		ContentType: "application/json",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return book(r), nil
 		},

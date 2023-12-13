@@ -9,12 +9,14 @@ import (
 func ExampleSentence() {
 	Seed(11)
 	fmt.Println(Sentence(5))
+
 	// Output: There had result everything niche.
 }
 
 func ExampleFaker_Sentence() {
 	f := New(11)
 	fmt.Println(f.Sentence(5))
+
 	// Output: There had result everything niche.
 }
 
@@ -42,6 +44,7 @@ func BenchmarkSentence(b *testing.B) {
 func ExampleParagraph() {
 	Seed(11)
 	fmt.Println(Paragraph(3, 5, 12, "\n"))
+
 	// Output: There had result everything niche backwards caused quarterly without week it hungry. Thing someone him regularly today whomever this revolt hence from his timing. As quantity us these yours live these frantic not may another how. This ours his them those whose them batch its Iraqi most that. Few abroad cheese this whereas next how there gorgeous genetics time choir.
 	// Fiction therefore yourselves am those infrequently heap software quarterly rather punctuation yellow. Where several his orchard to frequently hence victorious boxers each does auspicious. Yourselves first soup tomorrow this that must conclude anyway some yearly who. Cough laugh himself both yet rarely me dolphin intensely block would leap. Plane us first then down them eager would hundred super throughout animal.
 	// Yet themselves been group flock shake part purchase up usually it her. None it hers boat what their there Turkmen moreover one Lebanese to. Brace these shower in it everybody should whatever those uninterested several nobody. Yours thankful innocent power to any from its few luxury none boy. Religion themselves it there might must near theirs mine thing tonight outside.
@@ -50,6 +53,7 @@ func ExampleParagraph() {
 func ExampleFaker_Paragraph() {
 	f := New(11)
 	fmt.Println(f.Paragraph(3, 5, 12, "\n"))
+
 	// Output: There had result everything niche backwards caused quarterly without week it hungry. Thing someone him regularly today whomever this revolt hence from his timing. As quantity us these yours live these frantic not may another how. This ours his them those whose them batch its Iraqi most that. Few abroad cheese this whereas next how there gorgeous genetics time choir.
 	// Fiction therefore yourselves am those infrequently heap software quarterly rather punctuation yellow. Where several his orchard to frequently hence victorious boxers each does auspicious. Yourselves first soup tomorrow this that must conclude anyway some yearly who. Cough laugh himself both yet rarely me dolphin intensely block would leap. Plane us first then down them eager would hundred super throughout animal.
 	// Yet themselves been group flock shake part purchase up usually it her. None it hers boat what their there Turkmen moreover one Lebanese to. Brace these shower in it everybody should whatever those uninterested several nobody. Yours thankful innocent power to any from its few luxury none boy. Religion themselves it there might must near theirs mine thing tonight outside.
@@ -80,12 +84,14 @@ func BenchmarkParagraph(b *testing.B) {
 func ExampleQuestion() {
 	Seed(11)
 	fmt.Println(Question())
+
 	// Output: Roof chia echo pickled?
 }
 
 func ExampleFaker_Question() {
 	f := New(11)
 	fmt.Println(f.Question())
+
 	// Output: Roof chia echo pickled?
 }
 
@@ -98,12 +104,14 @@ func BenchmarkQuestion(b *testing.B) {
 func ExampleQuote() {
 	Seed(11)
 	fmt.Println(Quote())
+
 	// Output: "Roof chia echo pickled." - Marques Jakubowski
 }
 
 func ExampleFaker_Quote() {
 	f := New(11)
 	fmt.Println(f.Quote())
+
 	// Output: "Roof chia echo pickled." - Marques Jakubowski
 }
 

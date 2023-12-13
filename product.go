@@ -162,19 +162,24 @@ func addProductLookup() {
 	AddFuncLookup("product", Info{
 		Display:     "Product Info",
 		Category:    "product",
-		Description: "Random project info",
-		Output:      "map[string]any",
-		ContentType: "application/json",
+		Description: "Random product info",
 		Example: `{
 			"name": "olive copper monitor",
 			"description": "Backwards caused quarterly without week it hungry thing someone him regularly. Whomever this revolt hence from his timing as quantity us these yours.",
-			"categories": ["clothing", "tools and hardware"],
+			"categories": [
+				"clothing",
+				"tools and hardware"
+			],
 			"price": 7.61,
-			"features": ["ultra-lightweight"],
+			"features": [
+				"ultra-lightweight"
+			],
 			"color": "navy",
 			"material": "brass",
 			"upc": "012780949980"
 		}`,
+		Output:      "map[string]any",
+		ContentType: "application/json",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return product(r), nil
 		},

@@ -8,12 +8,14 @@ import (
 func ExampleGamertag() {
 	Seed(11)
 	fmt.Println(Gamertag())
+
 	// Output: PurpleSheep5
 }
 
 func ExampleFaker_Gamertag() {
 	f := New(11)
 	fmt.Println(f.Gamertag())
+
 	// Output: PurpleSheep5
 }
 
@@ -53,12 +55,14 @@ func BenchmarkGamertag(b *testing.B) {
 func ExampleDice() {
 	Seed(11)
 	fmt.Println(Dice(1, []uint{6}))
+
 	// Output: [6]
 }
 
 func ExampleFaker_Dice() {
 	f := New(11)
 	fmt.Println(f.Dice(1, []uint{6}))
+
 	// Output: [6]
 }
 

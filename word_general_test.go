@@ -8,12 +8,14 @@ import (
 func ExampleWord() {
 	Seed(11)
 	fmt.Println(Word())
+
 	// Output: there
 }
 
 func ExampleFaker_Word() {
 	f := New(11)
 	fmt.Println(f.Word())
+
 	// Output: there
 }
 

@@ -8,12 +8,14 @@ import (
 func ExampleEmoji() {
 	Seed(11)
 	fmt.Println(Emoji())
+
 	// Output: 🧛
 }
 
 func ExampleFaker_Emoji() {
 	f := New(11)
 	fmt.Println(f.Emoji())
+
 	// Output: 🧛
 }
 
@@ -44,12 +46,14 @@ func BenchmarkEmoji(b *testing.B) {
 func ExampleEmojiDescription() {
 	Seed(11)
 	fmt.Println(EmojiDescription())
+
 	// Output: confetti ball
 }
 
 func ExampleFaker_EmojiDescription() {
 	f := New(11)
 	fmt.Println(f.EmojiDescription())
+
 	// Output: confetti ball
 }
 
@@ -80,12 +84,14 @@ func BenchmarkEmojiDescription(b *testing.B) {
 func ExampleEmojiCategory() {
 	Seed(11)
 	fmt.Println(EmojiCategory())
+
 	// Output: Food & Drink
 }
 
 func ExampleFaker_EmojiCategory() {
 	f := New(11)
 	fmt.Println(f.EmojiCategory())
+
 	// Output: Food & Drink
 }
 
@@ -116,12 +122,14 @@ func BenchmarkEmojiCategory(b *testing.B) {
 func ExampleEmojiAlias() {
 	Seed(11)
 	fmt.Println(EmojiAlias())
+
 	// Output: deaf_person
 }
 
 func ExampleFaker_EmojiAlias() {
 	f := New(11)
 	fmt.Println(f.EmojiAlias())
+
 	// Output: deaf_person
 }
 
@@ -152,12 +160,14 @@ func BenchmarkEmojiAlias(b *testing.B) {
 func ExampleEmojiTag() {
 	Seed(11)
 	fmt.Println(EmojiTag())
+
 	// Output: strong
 }
 
 func ExampleFaker_EmojiTag() {
 	f := New(11)
 	fmt.Println(f.EmojiTag())
+
 	// Output: strong
 }
 

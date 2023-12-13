@@ -8,12 +8,14 @@ import (
 func ExampleDomainName() {
 	Seed(11)
 	fmt.Println(DomainName())
+
 	// Output: centraltarget.biz
 }
 
 func ExampleFaker_DomainName() {
 	f := New(11)
 	fmt.Println(f.DomainName())
+
 	// Output: centraltarget.biz
 }
 
@@ -44,12 +46,14 @@ func BenchmarkDomainName(b *testing.B) {
 func ExampleDomainSuffix() {
 	Seed(11)
 	fmt.Println(DomainSuffix())
+
 	// Output: org
 }
 
 func ExampleFaker_DomainSuffix() {
 	f := New(11)
 	fmt.Println(f.DomainSuffix())
+
 	// Output: org
 }
 
@@ -80,12 +84,14 @@ func BenchmarkDomainSuffix(b *testing.B) {
 func ExampleURL() {
 	Seed(11)
 	fmt.Println(URL())
+
 	// Output: https://www.dynamiciterate.name/target/seamless
 }
 
 func ExampleFaker_URL() {
 	f := New(11)
 	fmt.Println(f.URL())
+
 	// Output: https://www.dynamiciterate.name/target/seamless
 }
 
@@ -116,24 +122,28 @@ func BenchmarkURL(b *testing.B) {
 func ExampleHTTPMethod() {
 	Seed(11)
 	fmt.Println(HTTPMethod())
+
 	// Output: HEAD
 }
 
 func ExampleHTTPVersion() {
 	Seed(11)
 	fmt.Println(HTTPVersion())
+
 	// Output: HTTP/1.0
 }
 
 func ExampleFaker_HTTPMethod() {
 	f := New(11)
 	fmt.Println(f.HTTPMethod())
+
 	// Output: HEAD
 }
 
 func ExampleFaker_HTTPVersion() {
 	f := New(11)
 	fmt.Println(f.HTTPVersion())
+
 	// Output: HTTP/1.0
 }
 
@@ -164,12 +174,14 @@ func BenchmarkHTTPMethod(b *testing.B) {
 func ExampleIPv4Address() {
 	Seed(11)
 	fmt.Println(IPv4Address())
+
 	// Output: 152.23.53.100
 }
 
 func ExampleFaker_IPv4Address() {
 	f := New(11)
 	fmt.Println(f.IPv4Address())
+
 	// Output: 152.23.53.100
 }
 
@@ -200,12 +212,14 @@ func BenchmarkIPv4Address(b *testing.B) {
 func ExampleIPv6Address() {
 	Seed(11)
 	fmt.Println(IPv6Address())
+
 	// Output: 8898:ee17:bc35:9064:5866:d019:3b95:7857
 }
 
 func ExampleFaker_IPv6Address() {
 	f := New(11)
 	fmt.Println(f.IPv6Address())
+
 	// Output: 8898:ee17:bc35:9064:5866:d019:3b95:7857
 }
 
@@ -236,12 +250,14 @@ func BenchmarkIPv6Address(b *testing.B) {
 func ExampleMacAddress() {
 	Seed(11)
 	fmt.Println(MacAddress())
+
 	// Output: e1:74:cb:01:77:91
 }
 
 func ExampleFaker_MacAddress() {
 	f := New(11)
 	fmt.Println(f.MacAddress())
+
 	// Output: e1:74:cb:01:77:91
 }
 
@@ -272,12 +288,14 @@ func BenchmarkMacAddress(b *testing.B) {
 func ExampleHTTPStatusCode() {
 	Seed(11)
 	fmt.Println(HTTPStatusCode())
+
 	// Output: 404
 }
 
 func ExampleFaker_HTTPStatusCode() {
 	f := New(11)
 	fmt.Println(f.HTTPStatusCode())
+
 	// Output: 404
 }
 
@@ -308,12 +326,14 @@ func BenchmarkHTTPStatusCode(b *testing.B) {
 func ExampleHTTPStatusCodeSimple() {
 	Seed(11)
 	fmt.Println(HTTPStatusCodeSimple())
+
 	// Output: 200
 }
 
 func ExampleFaker_HTTPStatusCodeSimple() {
 	f := New(11)
 	fmt.Println(f.HTTPStatusCodeSimple())
+
 	// Output: 200
 }
 
@@ -346,6 +366,7 @@ func ExampleLogLevel() {
 	fmt.Println(LogLevel("")) // This will also use general
 	fmt.Println(LogLevel("syslog"))
 	fmt.Println(LogLevel("apache"))
+
 	// Output: error
 	// debug
 	// trace1-8
@@ -356,6 +377,7 @@ func ExampleFaker_LogLevel() {
 	fmt.Println(f.LogLevel("")) // This will also use general
 	fmt.Println(f.LogLevel("syslog"))
 	fmt.Println(f.LogLevel("apache"))
+
 	// Output: error
 	// debug
 	// trace1-8
@@ -388,12 +410,14 @@ func BenchmarkLogLevel(b *testing.B) {
 func ExampleUserAgent() {
 	Seed(11)
 	fmt.Println(UserAgent())
+
 	// Output: Mozilla/5.0 (Windows NT 5.0) AppleWebKit/5312 (KHTML, like Gecko) Chrome/40.0.800.0 Mobile Safari/5312
 }
 
 func ExampleFaker_UserAgent() {
 	f := New(11)
 	fmt.Println(f.UserAgent())
+
 	// Output: Mozilla/5.0 (Windows NT 5.0) AppleWebKit/5312 (KHTML, like Gecko) Chrome/40.0.800.0 Mobile Safari/5312
 }
 
@@ -430,12 +454,14 @@ func TestUserAgent(t *testing.T) {
 func ExampleChromeUserAgent() {
 	Seed(11)
 	fmt.Println(ChromeUserAgent())
+
 	// Output: Mozilla/5.0 (X11; Linux i686) AppleWebKit/5360 (KHTML, like Gecko) Chrome/40.0.889.0 Mobile Safari/5360
 }
 
 func ExampleFaker_ChromeUserAgent() {
 	f := New(11)
 	fmt.Println(f.ChromeUserAgent())
+
 	// Output: Mozilla/5.0 (X11; Linux i686) AppleWebKit/5360 (KHTML, like Gecko) Chrome/40.0.889.0 Mobile Safari/5360
 }
 
@@ -466,12 +492,14 @@ func BenchmarkChromeUserAgent(b *testing.B) {
 func ExampleFirefoxUserAgent() {
 	Seed(11)
 	fmt.Println(FirefoxUserAgent())
+
 	// Output: Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_9_10 rv:7.0) Gecko/1953-01-24 Firefox/36.0
 }
 
 func ExampleFaker_FirefoxUserAgent() {
 	f := New(11)
 	fmt.Println(f.FirefoxUserAgent())
+
 	// Output: Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_9_10 rv:7.0) Gecko/1953-01-24 Firefox/36.0
 }
 
@@ -502,12 +530,14 @@ func BenchmarkFirefoxUserAgent(b *testing.B) {
 func ExampleSafariUserAgent() {
 	Seed(11)
 	fmt.Println(SafariUserAgent())
+
 	// Output: Mozilla/5.0 (iPad; CPU OS 7_0_2 like Mac OS X; en-US) AppleWebKit/536.4.4 (KHTML, like Gecko) Version/3.0.5 Mobile/8B120 Safari/6536.4.4
 }
 
 func ExampleFaker_SafariUserAgent() {
 	f := New(11)
 	fmt.Println(f.SafariUserAgent())
+
 	// Output: Mozilla/5.0 (iPad; CPU OS 7_0_2 like Mac OS X; en-US) AppleWebKit/536.4.4 (KHTML, like Gecko) Version/3.0.5 Mobile/8B120 Safari/6536.4.4
 }
 
@@ -538,12 +568,14 @@ func BenchmarkSafariUserAgent(b *testing.B) {
 func ExampleOperaUserAgent() {
 	Seed(11)
 	fmt.Println(OperaUserAgent())
+
 	// Output: Opera/8.20 (Macintosh; U; PPC Mac OS X 10_9_10; en-US) Presto/2.9.198 Version/11.00
 }
 
 func ExampleFaker_OperaUserAgent() {
 	f := New(11)
 	fmt.Println(f.OperaUserAgent())
+
 	// Output: Opera/8.20 (Macintosh; U; PPC Mac OS X 10_9_10; en-US) Presto/2.9.198 Version/11.00
 }
 

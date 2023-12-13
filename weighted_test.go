@@ -13,6 +13,7 @@ func ExampleWeighted() {
 	option, _ := Weighted(options, weights)
 
 	fmt.Println(option)
+
 	// Output: hello
 }
 
