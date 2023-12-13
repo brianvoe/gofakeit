@@ -160,7 +160,7 @@ func productUPC(r *rand.Rand) string {
 
 func addProductLookup() {
 	AddFuncLookup("product", Info{
-		Display:     "Product Info",
+		Display:     "Product",
 		Category:    "product",
 		Description: "Random product info",
 		Example: `{
