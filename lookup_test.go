@@ -235,6 +235,9 @@ func TestLookupCheckFields(t *testing.T) {
 		if info.Category == "" {
 			t.Fatalf("%s is missing a category", field)
 		}
+		if info.Example == "" {
+			t.Fatalf("%s is missing an example", field)
+		}
 		if info.Output == "" {
 			t.Fatalf("%s is misssing output", field)
 		}

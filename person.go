@@ -211,39 +211,39 @@ func addPersonLookup() {
 		Category:    "person",
 		Description: "Random set of person info",
 		Example: `{
-			"first_name": "Markus",
-			"last_name": "Moen",
-			"gender": "male",
-			"ssn": "275413589",
-			"image": "https://picsum.photos/208/500",
-			"hobby": "Lacrosse",
-			"job": {
-				"company": "Intermap Technologies",
-				"title": "Developer",
-				"descriptor": "Direct",
-				"level": "Paradigm"
-			},
-			"address": {
-				"address": "369 North Cornerbury, Miami, North Dakota 24259",
-				"street": "369 North Cornerbury",
-				"city": "Miami",
-				"state": "North Dakota",
-				"zip": "24259",
-				"country": "Ghana",
-				"latitude": -6.662595,
-				"longitude": 23.921575
-			},
-			"contact": {
-				"phone": "3023202027",
-				"email": "lamarkoelpin@heaney.biz"
-			},
-			"credit_card": {
-				"type": "Maestro",
-				"number": "39800889982276",
-				"exp": "01/29",
-				"cvv": "932"
-			}
-		}`,
+	"first_name": "Markus",
+	"last_name": "Moen",
+	"gender": "male",
+	"ssn": "275413589",
+	"image": "https://picsum.photos/208/500",
+	"hobby": "Lacrosse",
+	"job": {
+		"company": "Intermap Technologies",
+		"title": "Developer",
+		"descriptor": "Direct",
+		"level": "Paradigm"
+	},
+	"address": {
+		"address": "369 North Cornerbury, Miami, North Dakota 24259",
+		"street": "369 North Cornerbury",
+		"city": "Miami",
+		"state": "North Dakota",
+		"zip": "24259",
+		"country": "Ghana",
+		"latitude": -6.662595,
+		"longitude": 23.921575
+	},
+	"contact": {
+		"phone": "3023202027",
+		"email": "lamarkoelpin@heaney.biz"
+	},
+	"credit_card": {
+		"type": "Maestro",
+		"number": "39800889982276",
+		"exp": "01/29",
+		"cvv": "932"
+	}
+}`,
 		Output:      "map[string]any",
 		ContentType: "application/json",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -388,21 +388,21 @@ func addPersonLookup() {
 		Category:    "person",
 		Description: "Randomly split people into teams",
 		Example: `{
-			"Team 1": [
-				"Justin",
-				"Connor",
-				"Jeff"
-			],
-			"Team 2": [
-				"Sharon",
-				"Fabian",
-				"Billy"
-			],
-			"Team 3": [
-				"Steve",
-				"Robert"
-			]
-		}`,
+	"Team 1": [
+		"Justin",
+		"Connor",
+		"Jeff"
+	],
+	"Team 2": [
+		"Sharon",
+		"Fabian",
+		"Billy"
+	],
+	"Team 3": [
+		"Steve",
+		"Robert"
+	]
+}`,
 		Output:      "map[string][]string",
 		ContentType: "application/json",
 		Params: []Param{

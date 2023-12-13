@@ -130,6 +130,45 @@ func TestTemplateLookup(t *testing.T) {
 	}
 }
 
+func TestTemplateInternalFunctions(t *testing.T) {
+	Seed(11)
+
+	type test struct {
+		template string
+		expected string
+	}
+
+	tests := []test{
+		// ToInt
+		{
+			template: `{{ ToInt 55 }}`,
+			expected: "55",
+		},
+
+		// ToFloat
+		{
+			template: `{{ ToFloat 55.55 }}`,
+			expected: "55.55",
+		},
+
+		// ToString
+		{
+			template: `{{ ToString 3.55 }}`,
+			expected: "3.55",
+		},
+	}
+
+	for k, v := range tests {
+		value, err := Template(v.template, nil)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if value != v.expected {
+			t.Errorf("Test: %v expected `%s`, got `%s`", k, v.expected, value)
+		}
+	}
+}
+
 func TestTemplateNoOptions(t *testing.T) {
 	Seed(11)
 
