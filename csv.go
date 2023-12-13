@@ -130,11 +130,9 @@ func addFileCSVLookup() {
 		Display:     "CSV",
 		Category:    "file",
 		Description: "Generates array of rows in csv format",
-		Example: `
-			id,first_name,last_name,password
-			1,Markus,Moen,Dc0VYXjkWABx
-			2,Osborne,Hilll,XPJ9OVNbs5lm
-		`,
+		Example: `id,first_name,last_name,password
+1,Markus,Moen,Dc0VYXjkWABx
+2,Osborne,Hilll,XPJ9OVNbs5lm`,
 		Output:      "[]byte",
 		ContentType: "text/csv",
 		Params: []Param{

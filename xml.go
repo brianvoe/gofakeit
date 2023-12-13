@@ -271,20 +271,18 @@ func addFileXMLLookup() {
 		Display:     "XML",
 		Category:    "file",
 		Description: "Generates an single or an array of elements in xml format",
-		Example: `
-			<xml>
-				<record>
-					<first_name>Markus</first_name>
-					<last_name>Moen</last_name>
-					<password>Dc0VYXjkWABx</password>
-				</record>
-				<record>
-					<first_name>Osborne</first_name>
-					<last_name>Hilll</last_name>
-					<password>XPJ9OVNbs5lm</password>
-				</record>
-			</xml>
-		`,
+		Example: `<xml>
+	<record>
+		<first_name>Markus</first_name>
+		<last_name>Moen</last_name>
+		<password>Dc0VYXjkWABx</password>
+	</record>
+	<record>
+		<first_name>Osborne</first_name>
+		<last_name>Hilll</last_name>
+		<password>XPJ9OVNbs5lm</password>
+	</record>
+</xml>`,
 		Output:      "[]byte",
 		ContentType: "application/xml",
 		Params: []Param{

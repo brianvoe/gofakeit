@@ -36,9 +36,9 @@ func addMovieLookup() {
 		Category:    "movie",
 		Description: "Random Movie data set",
 		Example: `{
-			"name": "Psycho",
-			"genre": "Mystery"
-		}`,
+	"name": "Psycho",
+	"genre": "Mystery"
+}`,
 		Output:      "map[string]string",
 		ContentType: "application/json",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
