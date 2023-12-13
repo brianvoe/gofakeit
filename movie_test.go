@@ -1,7 +1,6 @@
 package gofakeit
 
 import (
-	"encoding/json"
 	"fmt"
 	"testing"
 )
