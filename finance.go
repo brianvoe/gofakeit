@@ -119,7 +119,7 @@ func addFinanceLookup() {
 		Display:     "ISIN",
 		Category:    "finance",
 		Description: "Random ISIN",
-		Example:     "",
+		Example:     "CVLRQCZBXQ97",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return isin(r), nil
