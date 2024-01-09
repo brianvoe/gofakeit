@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 	"testing"
+	"text/template"
 )
 
 func ExampleTemplate() {
@@ -43,6 +44,33 @@ func ExampleFaker_Template() {
 	// Alayna Wuckert
 	// Lura Lockman
 	// Sylvan Mraz
+}
+
+func TestPassedInFunctionMap(t *testing.T) {
+	f := New(11)
+
+	funcMap := template.FuncMap{
+		"title": func(s string) string {
+			words := strings.Fields(s)
+			for i, word := range words {
+				letters := strings.Split(word, "")
+				letters[0] = strings.ToUpper(letters[0])
+				words[i] = strings.Join(letters, "")
+			}
+			return strings.Join(words, " ")
+		},
+	}
+
+	s := `{{printf "%q" (title .Data)}}`
+
+	value, err := f.Template(s, &TemplateOptions{Funcs: funcMap, Data: "the go programming language"})
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(value)
+	if value != "\"The Go Programming Language\"" {
+		t.Error("Expected \"The Go Programming Language\", got ", value)
+	}
 }
 
 func TestTemplate_misc(t *testing.T) {

@@ -493,14 +493,14 @@ func ExampleFirefoxUserAgent() {
 	Seed(11)
 	fmt.Println(FirefoxUserAgent())
 
-	// Output: Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_9_10 rv:7.0) Gecko/1953-01-24 Firefox/36.0
+	// Output: Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_9_10 rv:7.0) Gecko/1915-01-24 Firefox/36.0
 }
 
 func ExampleFaker_FirefoxUserAgent() {
 	f := New(11)
 	fmt.Println(f.FirefoxUserAgent())
 
-	// Output: Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_9_10 rv:7.0) Gecko/1953-01-24 Firefox/36.0
+	// Output: Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_9_10 rv:7.0) Gecko/1915-01-24 Firefox/36.0
 }
 
 func BenchmarkFirefoxUserAgent(b *testing.B) {
