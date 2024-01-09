@@ -301,13 +301,6 @@ func templateFuncMap(r *rand.Rand, fm *template.FuncMap) *template.FuncMap {
 		return args
 	}
 
-	// Fix merge the user function maps with the template function map
-	if fm != nil {
-		for k, v := range *fm {
-			funcMap[k] = v
-		}
-	}
-
 	return &funcMap
 }
 
