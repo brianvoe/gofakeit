@@ -245,7 +245,7 @@ func ExamplePerson() {
 	// lamarkoelpin@heaney.biz
 	// Maestro
 	// 39800889982276
-	// 01/29
+	// 01/30
 	// 932
 }
 
@@ -309,7 +309,7 @@ func ExampleFaker_Person() {
 	// lamarkoelpin@heaney.biz
 	// Maestro
 	// 39800889982276
-	// 01/29
+	// 01/30
 	// 932
 }
 
