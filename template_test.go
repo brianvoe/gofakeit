@@ -46,12 +46,21 @@ func ExampleFaker_Template() {
 	// Sylvan Mraz
 }
 
-func TestUserFunctionMap(t *testing.T) {
+func TestPassedInFunctionMap(t *testing.T) {
 	f := New(11)
 
 	funcMap := template.FuncMap{
-		"title": strings.Title,
+		"title": func(s string) string {
+			words := strings.Fields(s)
+			for i, word := range words {
+				letters := strings.Split(word, "")
+				letters[0] = strings.ToUpper(letters[0])
+				words[i] = strings.Join(letters, "")
+			}
+			return strings.Join(words, " ")
+		},
 	}
+
 	s := `{{printf "%q" (title .Data)}}`
 
 	value, err := f.Template(s, &TemplateOptions{Funcs: funcMap, Data: "the go programming language"})
