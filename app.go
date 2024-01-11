@@ -65,7 +65,7 @@ func addAppLookup() {
 	AddFuncLookup("appname", Info{
 		Display:     "App Name",
 		Category:    "app",
-		Description: "Generates a random name for an application",
+		Description: "Name for an application",
 		Example:     "Parkrespond",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -76,7 +76,7 @@ func addAppLookup() {
 	AddFuncLookup("appversion", Info{
 		Display:     "App Version",
 		Category:    "app",
-		Description: "Generates a random version number for an app, following Semantic versioning format",
+		Description: "Version number for an app, following Semantic versioning format",
 		Example:     "1.12.14",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -87,7 +87,7 @@ func addAppLookup() {
 	AddFuncLookup("appauthor", Info{
 		Display:     "App Author",
 		Category:    "app",
-		Description: "Generates a random name for an app developer or authoring entity",
+		Description: "Name for an app developer or authoring entity",
 		Example:     "Qado Energy, Inc.",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
