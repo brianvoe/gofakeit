@@ -75,7 +75,7 @@ func addCarLookup() {
 	AddFuncLookup("car", Info{
 		Display:     "Car",
 		Category:    "car",
-		Description: "A set of car data including essential information like type, fuel type, transmission, brand, model, and production year of a vehicle",
+		Description: "Complete set of car data including essential information like type, fuel type, transmission, brand, model, and production year of a vehicle",
 		Example: `{
 	"type": "Passenger car mini",
 	"fuel": "Gasoline",
@@ -94,7 +94,7 @@ func addCarLookup() {
 	AddFuncLookup("cartype", Info{
 		Display:     "Car Type",
 		Category:    "car",
-		Description: "Various car types, including sedans, SUVs, and hatchbacks",
+		Description: "Category of vehicle, like sedan, SUV, truck, or sports car, based on design",
 		Example:     "Passenger car mini",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -105,7 +105,7 @@ func addCarLookup() {
 	AddFuncLookup("carfueltype", Info{
 		Display:     "Car Fuel Type",
 		Category:    "car",
-		Description: "Car fuel types, including gasoline, diesel, electric, hybrid, etc.",
+		Description: "Type of energy source for vehicles, such as gasoline, diesel, electric, or hybrid",
 		Example:     "CNG",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -116,7 +116,7 @@ func addCarLookup() {
 	AddFuncLookup("cartransmissiontype", Info{
 		Display:     "Car Transmission Type",
 		Category:    "car",
-		Description: "car transmission types, such as manual, automatic, etc.",
+		Description: "Mechanism controlling vehicle's power, like manual, automatic, etc.",
 		Example:     "Manual",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -127,7 +127,7 @@ func addCarLookup() {
 	AddFuncLookup("carmaker", Info{
 		Display:     "Car Maker",
 		Category:    "car",
-		Description: "A large industrial facility with assembly lines for producing cars",
+		Description: "Company name specializing in designing, manufacturing, and selling cars",
 		Example:     "Nissan",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -138,7 +138,7 @@ func addCarLookup() {
 	AddFuncLookup("carmodel", Info{
 		Display:     "Car Model",
 		Category:    "car",
-		Description: "A specific model from a car manufacturer or car line",
+		Description: "Specific design or version of a vehicle produced by a car manufacturer",
 		Example:     "Aveo",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
