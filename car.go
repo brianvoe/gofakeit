@@ -75,7 +75,7 @@ func addCarLookup() {
 	AddFuncLookup("car", Info{
 		Display:     "Car",
 		Category:    "car",
-		Description: "Random car set of data",
+		Description: "Generates a complete set of random car data, including type, fuel, transmission, brand, model, and year",
 		Example: `{
 	"type": "Passenger car mini",
 	"fuel": "Gasoline",
@@ -94,7 +94,7 @@ func addCarLookup() {
 	AddFuncLookup("cartype", Info{
 		Display:     "Car Type",
 		Category:    "car",
-		Description: "Random car type",
+		Description: "Generates a random car type, such as sedans, SUVs, hatchbacks",
 		Example:     "Passenger car mini",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -105,7 +105,7 @@ func addCarLookup() {
 	AddFuncLookup("carfueltype", Info{
 		Display:     "Car Fuel Type",
 		Category:    "car",
-		Description: "Random car fuel type",
+		Description: "Generates a random car fuel type, such as gasoline, diesel, electric, or hybrid",
 		Example:     "CNG",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -116,7 +116,7 @@ func addCarLookup() {
 	AddFuncLookup("cartransmissiontype", Info{
 		Display:     "Car Transmission Type",
 		Category:    "car",
-		Description: "Random car transmission type",
+		Description: "Generates a random car transmission type, such as manual, automatic, etc.",
 		Example:     "Manual",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -127,7 +127,7 @@ func addCarLookup() {
 	AddFuncLookup("carmaker", Info{
 		Display:     "Car Maker",
 		Category:    "car",
-		Description: "Random car maker",
+		Description: "Generates the name of a random car manufacturer",
 		Example:     "Nissan",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -138,7 +138,7 @@ func addCarLookup() {
 	AddFuncLookup("carmodel", Info{
 		Display:     "Car Model",
 		Category:    "car",
-		Description: "Random car model",
+		Description: "Generates a random car model name, excluding the manufacturer name",
 		Example:     "Aveo",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
