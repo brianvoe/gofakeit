@@ -46,7 +46,7 @@ func addEmojiLookup() {
 	AddFuncLookup("emoji", Info{
 		Display:     "Emoji",
 		Category:    "emoji",
-		Description: "digital symbol expressing feelings or ideas in text messages and online chats",
+		Description: "Digital symbol expressing feelings or ideas in text messages and online chats",
 		Example:     "🤣",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
