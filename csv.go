@@ -129,7 +129,7 @@ func addFileCSVLookup() {
 	AddFuncLookup("csv", Info{
 		Display:     "CSV",
 		Category:    "file",
-		Description: "Generates array of rows in csv format",
+		Description: "Individual lines or data entries within a CSV (Comma-Separated Values) format",
 		Example: `id,first_name,last_name,password
 1,Markus,Moen,Dc0VYXjkWABx
 2,Osborne,Hilll,XPJ9OVNbs5lm`,
