@@ -62,7 +62,7 @@ func addColorLookup() {
 	AddFuncLookup("color", Info{
 		Display:     "Color",
 		Category:    "color",
-		Description: "Random color",
+		Description: "Hue seen by the eye, returns the name of the color like red or blue",
 		Example:     "MediumOrchid",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -73,7 +73,7 @@ func addColorLookup() {
 	AddFuncLookup("nicecolors", Info{
 		Display:     "Nice Colors",
 		Category:    "color",
-		Description: "Random set of nice colors",
+		Description: "Attractive and appealing combinations of colors, returns an list of color hex codes",
 		Example:     `["#cfffdd","#b4dec1","#5c5863","#a85163","#ff1f4c"]`,
 		Output:      "[]string",
 		ContentType: "application/json",
@@ -85,7 +85,7 @@ func addColorLookup() {
 	AddFuncLookup("safecolor", Info{
 		Display:     "Safe Color",
 		Category:    "color",
-		Description: "Random safe color",
+		Description: "Colors displayed consistently on different web browsers and devices",
 		Example:     "black",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -96,7 +96,7 @@ func addColorLookup() {
 	AddFuncLookup("hexcolor", Info{
 		Display:     "Hex Color",
 		Category:    "color",
-		Description: "Random hex color",
+		Description: "Six-digit code representing a color in the color model",
 		Example:     "#a99fb4",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -107,7 +107,7 @@ func addColorLookup() {
 	AddFuncLookup("rgbcolor", Info{
 		Display:     "RGB Color",
 		Category:    "color",
-		Description: "Random rgb color",
+		Description: "Color defined by red, green, and blue light values",
 		Example:     "[85, 224, 195]",
 		Output:      "[]int",
 		ContentType: "application/json",
