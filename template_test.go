@@ -67,7 +67,7 @@ func TestPassedInFunctionMap(t *testing.T) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(value)
+
 	if value != "\"The Go Programming Language\"" {
 		t.Error("Expected \"The Go Programming Language\", got ", value)
 	}

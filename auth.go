@@ -33,51 +33,70 @@ func password(r *rand.Rand, lower bool, upper bool, numeric bool, special bool, 
 	if num < 5 {
 		num = 5
 	}
-	i := 0
-	b := make([]byte, num)
-	var passString string
 
+	// Setup weights
+	items := make([]any, 0)
+	weights := make([]float32, 0)
 	if lower {
-		passString += lowerStr
-		b[i] = lowerStr[r.Int63()%int64(len(lowerStr))]
-		i++
+		items = append(items, "lower")
+		weights = append(weights, 4)
 	}
 	if upper {
-		passString += upperStr
-		b[i] = upperStr[r.Int63()%int64(len(upperStr))]
-		i++
+		items = append(items, "upper")
+		weights = append(weights, 4)
 	}
 	if numeric {
-		passString += numericStr
-		b[i] = numericStr[r.Int63()%int64(len(numericStr))]
-		i++
+		items = append(items, "numeric")
+		weights = append(weights, 3)
 	}
 	if special {
-		passString += specialStr
-		b[i] = specialStr[r.Int63()%int64(len(specialStr))]
-		i++
+		items = append(items, "special")
+		weights = append(weights, 2)
 	}
 	if space {
-		passString += spaceStr
-		b[i] = spaceStr[r.Int63()%int64(len(spaceStr))]
-		i++
+		items = append(items, "space")
+		weights = append(weights, 1)
 	}
 
-	// Set default if empty
-	if passString == "" {
-		passString = lowerStr + numericStr
+	// If no items are selected then default to lower, upper, numeric
+	if len(items) == 0 {
+		items = append(items, "lower", "upper", "numeric")
+		weights = append(weights, 4, 4, 3)
 	}
 
-	// Loop through and add it up
-	for i <= num-1 {
-		b[i] = passString[r.Int63()%int64(len(passString))]
-		i++
+	// Create byte slice
+	b := make([]byte, num)
+
+	for i := 0; i <= num-1; i++ {
+		// Run weighted
+		weight, _ := weighted(r, items, weights)
+
+		switch weight.(string) {
+		case "lower":
+			b[i] = lowerStr[r.Int63()%int64(len(lowerStr))]
+		case "upper":
+			b[i] = upperStr[r.Int63()%int64(len(upperStr))]
+		case "numeric":
+			b[i] = numericStr[r.Int63()%int64(len(numericStr))]
+		case "special":
+			b[i] = specialSafeStr[r.Int63()%int64(len(specialSafeStr))]
+		case "space":
+			b[i] = spaceStr[r.Int63()%int64(len(spaceStr))]
+		}
 	}
 
 	// Shuffle bytes
 	for i := range b {
 		j := r.Intn(i + 1)
 		b[i], b[j] = b[j], b[i]
+	}
+
+	// Replace first or last character if it's a space, and other options are available
+	if b[0] == ' ' {
+		b[0] = password(r, lower, upper, numeric, special, false, 1)[0]
+	}
+	if b[len(b)-1] == ' ' {
+		b[len(b)-1] = password(r, lower, upper, numeric, special, false, 1)[0]
 	}
 
 	return string(b)
