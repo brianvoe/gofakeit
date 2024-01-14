@@ -17,10 +17,10 @@ func date(r *rand.Rand) time.Time {
 	return time.Date(year(r), time.Month(month(r)), day(r), hour(r), minute(r), second(r), nanoSecond(r), time.UTC)
 }
 
-// FutureDate will generate a random future time.Time struct
+// FutureDate will generate a random past time.Time struct
 func PastDate() time.Time { return pastDate(globalFaker.Rand) }
 
-// FutureDate will generate a random future time.Time struct
+// FutureDate will generate a random past time.Time struct
 func (f *Faker) PastDate() time.Time { return pastDate(f.Rand) }
 
 func pastDate(r *rand.Rand) time.Time {
