@@ -79,7 +79,7 @@ func addGameLookup() {
 		Display:     "Dice",
 		Category:    "game",
 		Description: "Random dice outputs",
-		Example:     "footinterpret63",
+		Example:     "[5, 2, 3]",
 		Output:      "[]uint",
 		Params: []Param{
 			{Field: "numdice", Display: "Number of Dice", Type: "uint", Default: "1", Description: "Number of dice to roll"},
