@@ -321,6 +321,28 @@ func addDateTimeLookup() {
 		},
 	})
 
+	AddFuncLookup("pasttime", Info{
+		Display:     "PastTime",
+		Category:    "time",
+		Description: "Random past date",
+		Example:     "2007-01-24 13:00:35.820738079 +0000 UTC",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+			return pastDate(r), nil
+		},
+	})
+
+	AddFuncLookup("futuretime", Info{
+		Display:     "FutureTime",
+		Category:    "time",
+		Description: "Random past date",
+		Example:     "2107-01-24 13:00:35.820738079 +0000 UTC",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+			return futureDate(r), nil
+		},
+	})
+
 	AddFuncLookup("nanosecond", Info{
 		Display:     "Nanosecond",
 		Category:    "time",
