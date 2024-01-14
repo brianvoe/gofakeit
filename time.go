@@ -18,6 +18,16 @@ func date(r *rand.Rand) time.Time {
 }
 
 // FutureDate will generate a random future time.Time struct
+func PastDate() time.Time { return pastDate(globalFaker.Rand) }
+
+// FutureDate will generate a random future time.Time struct
+func (f *Faker) PastDate() time.Time { return pastDate(f.Rand) }
+
+func pastDate(r *rand.Rand) time.Time {
+	return time.Now().Add(time.Hour * -time.Duration(number(r, 1, 12)))
+}
+
+// FutureDate will generate a random future time.Time struct
 func FutureDate() time.Time { return futureDate(globalFaker.Rand) }
 
 // FutureDate will generate a random future time.Time struct
