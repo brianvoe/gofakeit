@@ -67,7 +67,7 @@ func addGameLookup() {
 	AddFuncLookup("gamertag", Info{
 		Display:     "Gamertag",
 		Category:    "game",
-		Description: "Random gamertag",
+		Description: "User-selected online username or alias used for identification in games",
 		Example:     "footinterpret63",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -78,7 +78,7 @@ func addGameLookup() {
 	AddFuncLookup("dice", Info{
 		Display:     "Dice",
 		Category:    "game",
-		Description: "Random dice outputs",
+		Description: "Small, cube-shaped objects used in games of chance for random outcomes",
 		Example:     "[5, 2, 3]",
 		Output:      "[]uint",
 		Params: []Param{
