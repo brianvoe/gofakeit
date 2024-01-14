@@ -56,6 +56,48 @@ func BenchmarkDate(b *testing.B) {
 	})
 }
 
+func ExamplePastDate() {
+	Seed(11)
+	fmt.Println(PastDate())
+}
+
+func ExampleFaker_PastDate() {
+	f := New(11)
+	fmt.Println(f.PastDate())
+}
+
+func TestPastDate(t *testing.T) {
+	now := time.Now()
+	pastDate := PastDate()
+	if now.Before(pastDate) {
+		t.Error("Expected time from past, got: ", pastDate)
+	}
+}
+
+func BenchmarkPastDate(b *testing.B) {
+	b.Run("package", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			PastDate()
+		}
+	})
+
+	b.Run("Faker math", func(b *testing.B) {
+		f := New(0)
+
+		for i := 0; i < b.N; i++ {
+			f.PastDate()
+		}
+	})
+
+	b.Run("Faker crypto", func(b *testing.B) {
+		f := NewCrypto()
+
+		for i := 0; i < b.N; i++ {
+			f.PastDate()
+		}
+	})
+}
+
 func ExampleFutureDate() {
 	Seed(11)
 	fmt.Println(FutureDate())
