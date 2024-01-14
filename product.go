@@ -63,35 +63,35 @@ func productName(r *rand.Rand) string {
 	switch number(r, 0, 9) {
 	case 1:
 		// Name + Adjective + Feature
-		return fmt.Sprintf("%s %s %s", name, getRandValue(r, []string{"product", "adjective"}), productFeature(r))
+		return title(fmt.Sprintf("%s %s %s", name, getRandValue(r, []string{"product", "adjective"}), productFeature(r)))
 	case 2:
 		// Adjective + Material + Name
-		return fmt.Sprintf("%s %s %s", getRandValue(r, []string{"product", "adjective"}), productMaterial(r), name)
+		return title(fmt.Sprintf("%s %s %s", getRandValue(r, []string{"product", "adjective"}), productMaterial(r), name))
 	case 3:
 		// Color + Name + Suffix
-		return fmt.Sprintf("%s %s %s", safeColor(r), name, getRandValue(r, []string{"product", "suffix"}))
+		return title(fmt.Sprintf("%s %s %s", safeColor(r), name, getRandValue(r, []string{"product", "suffix"})))
 	case 4:
 		// Feature + Name + Adjective
-		return fmt.Sprintf("%s %s %s", productFeature(r), name, getRandValue(r, []string{"product", "adjective"}))
+		return title(fmt.Sprintf("%s %s %s", productFeature(r), name, getRandValue(r, []string{"product", "adjective"})))
 	case 5:
 		// Material + Color + Name
-		return fmt.Sprintf("%s %s %s", productMaterial(r), safeColor(r), name)
+		return title(fmt.Sprintf("%s %s %s", productMaterial(r), safeColor(r), name))
 	case 6:
 		// Name + Suffix + Material
-		return fmt.Sprintf("%s %s %s", name, getRandValue(r, []string{"product", "suffix"}), productMaterial(r))
+		return title(fmt.Sprintf("%s %s %s", name, getRandValue(r, []string{"product", "suffix"}), productMaterial(r)))
 	case 7:
 		// Adjective + Feature + Name
-		return fmt.Sprintf("%s %s %s", getRandValue(r, []string{"product", "adjective"}), productFeature(r), name)
+		return title(fmt.Sprintf("%s %s %s", getRandValue(r, []string{"product", "adjective"}), productFeature(r), name))
 	case 8:
 		// Color + Material + Name
-		return fmt.Sprintf("%s %s %s", safeColor(r), productMaterial(r), name)
+		return title(fmt.Sprintf("%s %s %s", safeColor(r), productMaterial(r), name))
 	case 9:
 		// Suffix + Adjective + Name
-		return fmt.Sprintf("%s %s %s", getRandValue(r, []string{"product", "suffix"}), getRandValue(r, []string{"product", "adjective"}), name)
+		return title(fmt.Sprintf("%s %s %s", getRandValue(r, []string{"product", "suffix"}), getRandValue(r, []string{"product", "adjective"}), name))
 	}
 
 	// case: 0 - Adjective + Name + Suffix
-	return fmt.Sprintf("%s %s %s", getRandValue(r, []string{"product", "adjective"}), name, getRandValue(r, []string{"product", "suffix"}))
+	return title(fmt.Sprintf("%s %s %s", getRandValue(r, []string{"product", "adjective"}), name, getRandValue(r, []string{"product", "suffix"})))
 }
 
 // ProductDescription will generate a random product description

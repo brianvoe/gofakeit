@@ -31,7 +31,7 @@ func ExampleXML_single() {
 	// <xml>
 	//     <first_name>Markus</first_name>
 	//     <last_name>Moen</last_name>
-	//     <password>Dc0VYXjkWABx</password>
+	//     <password>856Y5wPZevX9</password>
 	// </xml>
 }
 
@@ -60,7 +60,7 @@ func ExampleFaker_XML_single() {
 	// <xml>
 	//     <first_name>Markus</first_name>
 	//     <last_name>Moen</last_name>
-	//     <password>Dc0VYXjkWABx</password>
+	//     <password>856Y5wPZevX9</password>
 	// </xml>
 }
 
@@ -90,12 +90,12 @@ func ExampleXML_array() {
 	//     <record>
 	//         <first_name>Markus</first_name>
 	//         <last_name>Moen</last_name>
-	//         <password>Dc0VYXjkWABx</password>
+	//         <password>856Y5wPZevX9</password>
 	//     </record>
 	//     <record>
-	//         <first_name>Osborne</first_name>
-	//         <last_name>Hilll</last_name>
-	//         <password>XPJ9OVNbs5lm</password>
+	//         <first_name>Jalon</first_name>
+	//         <last_name>Rolfson</last_name>
+	//         <password>64wz4EAS0Hl0</password>
 	//     </record>
 	// </xml>
 }
@@ -126,12 +126,12 @@ func ExampleFaker_XML_array() {
 	//     <record>
 	//         <first_name>Markus</first_name>
 	//         <last_name>Moen</last_name>
-	//         <password>Dc0VYXjkWABx</password>
+	//         <password>856Y5wPZevX9</password>
 	//     </record>
 	//     <record>
-	//         <first_name>Osborne</first_name>
-	//         <last_name>Hilll</last_name>
-	//         <password>XPJ9OVNbs5lm</password>
+	//         <first_name>Jalon</first_name>
+	//         <last_name>Rolfson</last_name>
+	//         <password>64wz4EAS0Hl0</password>
 	//     </record>
 	// </xml>
 }

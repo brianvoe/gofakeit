@@ -302,14 +302,14 @@ func ExampleBitcoinAddress() {
 	Seed(11)
 	fmt.Println(BitcoinAddress())
 
-	// Output: 1lYcxjqWkJWv7cLADX0q6BIXbVXHo6jV
+	// Output: 1zXE46Al58w4vS0459PHl6YwElXZH09e
 }
 
 func ExampleFaker_BitcoinAddress() {
 	f := New(11)
 	fmt.Println(f.BitcoinAddress())
 
-	// Output: 1lYcxjqWkJWv7cLADX0q6BIXbVXHo6jV
+	// Output: 1zXE46Al58w4vS0459PHl6YwElXZH09e
 }
 
 func BenchmarkBitcoinAddress(b *testing.B) {
