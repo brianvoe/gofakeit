@@ -499,7 +499,7 @@ func addGenerateLookup() {
 	AddFuncLookup("fixed_width", Info{
 		Display:     "Fixed Width",
 		Category:    "generate",
-		Description: "Generates fixed width output",
+		Description: "Fixed width rows of output data based on input fields",
 		Example: `Name               Email                          Password         Age
 Markus Moen        sylvanmraz@murphy.net          6VlvH6qqXc7g     13
 Alayna Wuckert     santinostanton@carroll.biz     g7sLrS0gEwLO     46
@@ -548,7 +548,7 @@ Lura Lockman       zacherykuhic@feil.name         S8gV7Z64KlHG     12`,
 	AddFuncLookup("regex", Info{
 		Display:     "Regex",
 		Category:    "generate",
-		Description: "Random string generated from regex RE2 syntax string",
+		Description: "Pattern-matching tool used in text processing to search and manipulate strings",
 		Example:     "[abcdef]{5} - affec",
 		Output:      "string",
 		Params: []Param{
@@ -572,7 +572,7 @@ Lura Lockman       zacherykuhic@feil.name         S8gV7Z64KlHG     12`,
 	AddFuncLookup("map", Info{
 		Display:     "Map",
 		Category:    "generate",
-		Description: "Random map of generated data",
+		Description: "Data structure that stores key-value pairs",
 		Example: `{
 	"software": 7518355,
 	"that": ["despite", "pack", "whereas", "recently", "there", "anyone", "time", "read"],
