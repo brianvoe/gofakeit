@@ -220,7 +220,7 @@ func addCompanyLookup() {
 
 	AddFuncLookup("slogan", Info{
 		Display:     "Slogan",
-		Category:    "comapny",
+		Category:    "company",
 		Description: "Catchphrase or motto used by a company to represent its brand or values",
 		Example:     "Universal seamless Focus, interactive.",
 		Output:      "string",
