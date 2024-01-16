@@ -243,7 +243,7 @@ func addPaymentLookup() {
 	AddFuncLookup("currency", Info{
 		Display:     "Currency",
 		Category:    "payment",
-		Description: "Random currency data set",
+		Description: "Medium of exchange, often in the form of paper money or coins, used for trade and transactions",
 		Example: `{
 	"short": "IQD",
 	"long": "Iraq Dinar"
@@ -258,7 +258,7 @@ func addPaymentLookup() {
 	AddFuncLookup("currencyshort", Info{
 		Display:     "Currency Short",
 		Category:    "payment",
-		Description: "Random currency abbreviated",
+		Description: "Short 3-letter word used to represent a specific currency",
 		Example:     "USD",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -269,7 +269,7 @@ func addPaymentLookup() {
 	AddFuncLookup("currencylong", Info{
 		Display:     "Currency Long",
 		Category:    "payment",
-		Description: "Random currency",
+		Description: "Complete name of a specific currency used for official identification in financial transactions",
 		Example:     "United States Dollar",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -280,7 +280,7 @@ func addPaymentLookup() {
 	AddFuncLookup("price", Info{
 		Display:     "Price",
 		Category:    "payment",
-		Description: "Random monitary price",
+		Description: "The amount of money or value assigned to a product, service, or asset in a transaction",
 		Example:     "92.26",
 		Output:      "float64",
 		Params: []Param{
@@ -305,7 +305,7 @@ func addPaymentLookup() {
 	AddFuncLookup("creditcard", Info{
 		Display:     "Credit Card",
 		Category:    "payment",
-		Description: "Random credit card data set",
+		Description: "Plastic card allowing users to make purchases on credit, with payment due at a later date",
 		Example: `{
 	"type": "UnionPay",
 	"number": "4364599489953698",
@@ -322,7 +322,7 @@ func addPaymentLookup() {
 	AddFuncLookup("creditcardtype", Info{
 		Display:     "Credit Card Type",
 		Category:    "payment",
-		Description: "Random credit card type",
+		Description: "Classification of credit cards based on the issuing company",
 		Example:     "Visa",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -333,7 +333,7 @@ func addPaymentLookup() {
 	AddFuncLookup("creditcardnumber", Info{
 		Display:     "Credit Card Number",
 		Category:    "payment",
-		Description: "Random credit card number",
+		Description: "Unique numerical identifier on a credit card used for making electronic payments and transactions",
 		Example:     "4136459948995369",
 		Output:      "string",
 		Params: []Param{
@@ -377,7 +377,7 @@ func addPaymentLookup() {
 	AddFuncLookup("creditcardexp", Info{
 		Display:     "Credit Card Exp",
 		Category:    "payment",
-		Description: "Random credit card expiraction date",
+		Description: "Date when a credit card becomes invalid and cannot be used for transactions",
 		Example:     "01/21",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -388,7 +388,7 @@ func addPaymentLookup() {
 	AddFuncLookup("creditcardcvv", Info{
 		Display:     "Credit Card CVV",
 		Category:    "payment",
-		Description: "Random credit card number",
+		Description: "Three or four-digit security code on a credit card used for online and remote transactions",
 		Example:     "513",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -399,7 +399,7 @@ func addPaymentLookup() {
 	AddFuncLookup("achrouting", Info{
 		Display:     "ACH Routing Number",
 		Category:    "payment",
-		Description: "Random 9 digit ach routing number",
+		Description: "Unique nine-digit code used in the U.S. for identifying the bank and processing electronic transactions",
 		Example:     "513715684",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -410,7 +410,7 @@ func addPaymentLookup() {
 	AddFuncLookup("achaccount", Info{
 		Display:     "ACH Account Number",
 		Category:    "payment",
-		Description: "Random 12 digit ach account number",
+		Description: "A bank account number used for Automated Clearing House transactions and electronic transfers",
 		Example:     "491527954328",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -421,7 +421,7 @@ func addPaymentLookup() {
 	AddFuncLookup("bitcoinaddress", Info{
 		Display:     "Bitcoin Address",
 		Category:    "payment",
-		Description: "Random 26-35 characters representing a bitcoin address",
+		Description: "Cryptographic identifier used to receive, store, and send Bitcoin cryptocurrency in a peer-to-peer network",
 		Example:     "1lWLbxojXq6BqWX7X60VkcDIvYA",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -432,7 +432,7 @@ func addPaymentLookup() {
 	AddFuncLookup("bitcoinprivatekey", Info{
 		Display:     "Bitcoin Private Key",
 		Category:    "payment",
-		Description: "Random 51 characters representing a bitcoin private key",
+		Description: "Secret, secure code that allows the owner to access and control their Bitcoin holdings",
 		Example:     "5vrbXTADWJ6sQBSYd6lLkG97jljNc0X9VPBvbVqsIH9lWOLcoqg",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
