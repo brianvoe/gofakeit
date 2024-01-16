@@ -194,7 +194,7 @@ func addFileJSONLookup() {
 	AddFuncLookup("json", Info{
 		Display:     "JSON",
 		Category:    "file",
-		Description: "Generates an object or an array of objects in json format",
+		Description: "Format for structured data interchange used in programming, returns an object or an array of objects",
 		Example: `[
 			{ "first_name": "Markus", "last_name": "Moen", "password": "Dc0VYXjkWABx" },
 			{ "first_name": "Osborne", "last_name": "Hilll", "password": "XPJ9OVNbs5lm" },

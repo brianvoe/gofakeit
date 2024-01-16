@@ -45,7 +45,7 @@ func addLoremLookup() {
 	AddFuncLookup("loremipsumword", Info{
 		Display:     "Lorem Ipsum Word",
 		Category:    "word",
-		Description: "Random lorem ipsum word",
+		Description: "Word of the Lorem Ipsum placeholder text used in design and publishing",
 		Example:     "quia",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -56,7 +56,7 @@ func addLoremLookup() {
 	AddFuncLookup("loremipsumsentence", Info{
 		Display:     "Lorem Ipsum Sentence",
 		Category:    "word",
-		Description: "Random lorem ipsum sentence",
+		Description: "Sentence of the Lorem Ipsum placeholder text used in design and publishing",
 		Example:     "Quia quae repellat consequatur quidem.",
 		Output:      "string",
 		Params: []Param{
@@ -78,7 +78,7 @@ func addLoremLookup() {
 	AddFuncLookup("loremipsumparagraph", Info{
 		Display:     "Lorem Ipsum Paragraph",
 		Category:    "word",
-		Description: "Random lorem ipsum paragraph",
+		Description: "Paragraph of the Lorem Ipsum placeholder text used in design and publishing",
 		Example: `Quia quae repellat consequatur quidem nisi quo qui voluptatum accusantium quisquam amet. Quas et ut non dolorem ipsam aut enim assumenda mollitia harum ut. Dicta similique veniam nulla voluptas at excepturi non ad maxime at non. Eaque hic repellat praesentium voluptatem qui consequuntur dolor iusto autem velit aut. Fugit tempore exercitationem harum consequatur voluptatum modi minima aut eaque et et.
 
 Aut ea voluptatem dignissimos expedita odit tempore quod aut beatae ipsam iste. Minus voluptatibus dolorem maiores eius sed nihil vel enim odio voluptatem accusamus. Natus quibusdam temporibus tenetur cumque sint necessitatibus dolorem ex ducimus iusto ex. Voluptatem neque dicta explicabo officiis et ducimus sit ut ut praesentium pariatur. Illum molestias nisi at dolore ut voluptatem accusantium et fugiat et ut.

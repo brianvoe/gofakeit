@@ -38,7 +38,7 @@ func ExampleJSON_object() {
 	//         "latitude": 23.058758,
 	//         "longitude": 89.022594
 	//     },
-	//     "password": "qjXy56JHcVlZ"
+	//     "password": "myZ1PgF9ThVL"
 	// }
 }
 
@@ -74,7 +74,7 @@ func ExampleFaker_JSON_object() {
 	//         "latitude": 23.058758,
 	//         "longitude": 89.022594
 	//     },
-	//     "password": "qjXy56JHcVlZ"
+	//     "password": "myZ1PgF9ThVL"
 	// }
 }
 
@@ -103,19 +103,19 @@ func ExampleJSON_array() {
 	//         "id": 1,
 	//         "first_name": "Markus",
 	//         "last_name": "Moen",
-	//         "password": "Dc0VYXjkWABx"
+	//         "password": "856Y5wPZevX9"
 	//     },
 	//     {
 	//         "id": 2,
-	//         "first_name": "Osborne",
-	//         "last_name": "Hilll",
-	//         "password": "XPJ9OVNbs5lm"
+	//         "first_name": "Jalon",
+	//         "last_name": "Rolfson",
+	//         "password": "64wz4EAS0Hl0"
 	//     },
 	//     {
 	//         "id": 3,
-	//         "first_name": "Mertie",
-	//         "last_name": "Halvorson",
-	//         "password": "eyl3bhwfV8wA"
+	//         "first_name": "Nestor",
+	//         "last_name": "Harris",
+	//         "password": "14GKq1j7Lx4T"
 	//     }
 	// ]
 }
@@ -145,19 +145,19 @@ func ExampleFaker_JSON_array() {
 	//         "id": 1,
 	//         "first_name": "Markus",
 	//         "last_name": "Moen",
-	//         "password": "Dc0VYXjkWABx"
+	//         "password": "856Y5wPZevX9"
 	//     },
 	//     {
 	//         "id": 2,
-	//         "first_name": "Osborne",
-	//         "last_name": "Hilll",
-	//         "password": "XPJ9OVNbs5lm"
+	//         "first_name": "Jalon",
+	//         "last_name": "Rolfson",
+	//         "password": "64wz4EAS0Hl0"
 	//     },
 	//     {
 	//         "id": 3,
-	//         "first_name": "Mertie",
-	//         "last_name": "Halvorson",
-	//         "password": "eyl3bhwfV8wA"
+	//         "first_name": "Nestor",
+	//         "last_name": "Harris",
+	//         "password": "14GKq1j7Lx4T"
 	//     }
 	// ]
 }
@@ -232,7 +232,7 @@ func TestJSONObjectLookupWithSubJSON(t *testing.T) {
 	if j.JStruct.LastName != "Moen" {
 		t.Errorf("LastName is incorrect got: %s", j.JStruct.LastName)
 	}
-	if j.JStruct.Password != "WWXYVxbjXckoID06qBLA" {
+	if j.JStruct.Password != "zPlYvZw9E8e49H5X6X5l" {
 		t.Errorf("Password is incorrect got: %s", j.JStruct.Password)
 	}
 }
@@ -298,10 +298,10 @@ func TestJSONArrayLookupWithSubJSON(t *testing.T) {
 	if j.JStruct[0].LastName != "Moen" {
 		t.Errorf("LastName is incorrect got: %s", j.JStruct[0].LastName)
 	}
-	if j.JStruct[0].Password != "WWXYVxbjXckoID06qBLA" {
+	if j.JStruct[0].Password != "zPlYvZw9E8e49H5X6X5l" {
 		t.Errorf("Password is incorrect got: %s", j.JStruct[0].Password)
 	}
-	if j.JStruct[0].Address.City != "San Antonio" {
+	if j.JStruct[0].Address.City != "Santa Ana" {
 		t.Errorf("City is incorrect got: %s", j.JStruct[0].Address.City)
 	}
 }

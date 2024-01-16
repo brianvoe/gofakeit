@@ -33,7 +33,7 @@ func Example() {
 	// Credit Card: 3821714800889989
 	// Hacker Phrase: Overriding the capacitor won't do anything, we need to compress the online SMTP protocol!
 	// Job Title: Supervisor
-	// Password: a8TyS<2l(pRLB4QU7V,O9nKUYcMD0(*g
+	// Password: #8L79W6s4E9jT2Q047??YkyD0xxnC2#u
 }
 
 func ExampleNew() {

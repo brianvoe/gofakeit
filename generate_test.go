@@ -129,9 +129,9 @@ func ExampleFixedWidth() {
 
 	// Output:
 	// Name               Email                          Password         Age
-	// Markus Moen        sylvanmraz@murphy.net          6VlvH6qqXc7g     13
-	// Alayna Wuckert     santinostanton@carroll.biz     g7sLrS0gEwLO     46
-	// Lura Lockman       zacherykuhic@feil.name         S8gV7Z64KlHG     12
+	// Markus Moen        sylvanmraz@murphy.net          46HX9elvE5zl     43
+	// Alayna Wuckert     santinostanton@carroll.biz     l6A0EVSC90w2     11
+	// Lura Lockman       zacherykuhic@feil.name         xxL47424u8Ts     4
 }
 
 func ExampleFixedWidth_default() {
@@ -146,7 +146,7 @@ func ExampleFixedWidth_default() {
 
 	// Output:
 	// Name             Email                        Password
-	// Marcel Pagac     anibalkozey@lockman.name     X3ZoWoYkWA6L
+	// Marcel Pagac     anibalkozey@lockman.name     ETZmouyV0q1W
 }
 
 func ExampleFixedWidth_noHeader() {
@@ -168,9 +168,9 @@ func ExampleFixedWidth_noHeader() {
 	fmt.Println(value)
 
 	// Output:
-	// Markus Moen        sylvanmraz@murphy.net          6VlvH6qqXc7g     13
-	// Alayna Wuckert     santinostanton@carroll.biz     g7sLrS0gEwLO     46
-	// Lura Lockman       zacherykuhic@feil.name         S8gV7Z64KlHG     12
+	// Markus Moen        sylvanmraz@murphy.net          46HX9elvE5zl     43
+	// Alayna Wuckert     santinostanton@carroll.biz     l6A0EVSC90w2     11
+	// Lura Lockman       zacherykuhic@feil.name         xxL47424u8Ts     4
 }
 
 func ExampleFaker_FixedWidth() {
@@ -193,9 +193,9 @@ func ExampleFaker_FixedWidth() {
 
 	// Output:
 	// Name               Email                          Password         Age
-	// Markus Moen        sylvanmraz@murphy.net          6VlvH6qqXc7g     13
-	// Alayna Wuckert     santinostanton@carroll.biz     g7sLrS0gEwLO     46
-	// Lura Lockman       zacherykuhic@feil.name         S8gV7Z64KlHG     12
+	// Markus Moen        sylvanmraz@murphy.net          46HX9elvE5zl     43
+	// Alayna Wuckert     santinostanton@carroll.biz     l6A0EVSC90w2     11
+	// Lura Lockman       zacherykuhic@feil.name         xxL47424u8Ts     4
 }
 
 func TestFixedWidthLookup(t *testing.T) {
@@ -390,14 +390,14 @@ func TestRegex_Struct(t *testing.T) {
 	if rg.Str1 != "16" {
 		t.Errorf("Str1 should be 16 got: %s", rg.Str1)
 	}
-	if rg.Str2 != "fP?" {
-		t.Errorf("Str2 should be fP? got: %s", rg.Str2)
+	if rg.Str2 != "fP}" {
+		t.Errorf("Str2 should be fP} got: %s", rg.Str2)
 	}
 	if rg.Str3 != "ZZ" {
 		t.Errorf("Str3 should be ZZ got: %s", rg.Str3)
 	}
-	if rg.Str4 != "$ z" {
-		t.Errorf("Str4 should be $ z got: %s", rg.Str4)
+	if rg.Str4 != "% z" {
+		t.Errorf("Str4 should be %s got: %s", "% z", rg.Str4)
 	}
 	if rg.Str5 != "abdef" {
 		t.Errorf("Str5 should be abdef got: %s", rg.Str5)
@@ -405,8 +405,8 @@ func TestRegex_Struct(t *testing.T) {
 	if rg.Str6 != "123a123a123a" {
 		t.Errorf("Str6 should be 123a123a123a got: %s", rg.Str6)
 	}
-	if rg.Str7 != ";,}(l" {
-		t.Errorf("Str7 should be ;,}(l got: %s", rg.Str7)
+	if rg.Str7 != ">=;-l" {
+		t.Errorf("Str7 should be >=;-l got: %s", rg.Str7)
 	}
 	if rg.Str8 != "nSMKgtlxwn" {
 		t.Errorf("Str8 should be nSMKgtlxwn got: %s", rg.Str8)
@@ -414,8 +414,8 @@ func TestRegex_Struct(t *testing.T) {
 	if rg.Str9 != "QHQCL" {
 		t.Errorf("Str9 should be QHQCL got: %s", rg.Str9)
 	}
-	if rg.Str10 != "-T?6X" {
-		t.Errorf("Str10 should be -T?6X got: %s", rg.Str10)
+	if rg.Str10 != "(T}6X" {
+		t.Errorf("Str10 should be (T}6X got: %s", rg.Str10)
 	}
 	if rg.Str11 != "123120aeD" {
 		t.Errorf("Str11 should be 123120aeD got: %s", rg.Str11)

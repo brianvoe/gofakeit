@@ -57,6 +57,14 @@ func TestPassword(t *testing.T) {
 	if pass == "" {
 		t.Error("Password should not be empty")
 	}
+
+	// Test it doesnt start or end with a space
+	for i := 0; i < 1000; i++ {
+		pass = Password(true, true, true, true, true, length)
+		if pass[0] == ' ' || pass[len(pass)-1] == ' ' {
+			t.Error("Password should not start or end with a space")
+		}
+	}
 }
 
 func ExamplePassword() {
@@ -71,9 +79,9 @@ func ExamplePassword() {
 	// Output: vodnqxzsuptgehrzylximvylxzoywexw
 	// ZSRQWJFJWCSTVGXKYKWMLIAFGFELFJRG
 	// 61718615932495608398906260648432
-	// @$,@#:,(,).{?:%?)>*..<=};#$(:{==
-	// CkF{wwb:?Kb},w?vdz{Zox C&>Prt99:
-	// j ;9X
+	// !*&#$$??_!&!#.@@-!_!!$$-?_$&.@-&
+	// d6UzSwXvJ81 7QPvlse@l ln VmvU5jd
+	// UKTn2
 }
 
 func ExampleFaker_Password() {
@@ -88,15 +96,15 @@ func ExampleFaker_Password() {
 	// Output: vodnqxzsuptgehrzylximvylxzoywexw
 	// ZSRQWJFJWCSTVGXKYKWMLIAFGFELFJRG
 	// 61718615932495608398906260648432
-	// @$,@#:,(,).{?:%?)>*..<=};#$(:{==
-	// CkF{wwb:?Kb},w?vdz{Zox C&>Prt99:
-	// j ;9X
+	// !*&#$$??_!&!#.@@-!_!!$$-?_$&.@-&
+	// d6UzSwXvJ81 7QPvlse@l ln VmvU5jd
+	// UKTn2
 }
 
 func BenchmarkPassword(b *testing.B) {
 	b.Run("package", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			Password(true, true, true, true, true, 8)
+			Password(true, true, true, true, true, 50)
 		}
 	})
 

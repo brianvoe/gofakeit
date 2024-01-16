@@ -627,6 +627,7 @@ Svg(options *SVGOptions) string
 
 ```go
 Date() time.Time
+PastDate() time.Time
 FutureDate() time.Time
 DateRange(start, end time.Time) time.Time
 NanoSecond() int

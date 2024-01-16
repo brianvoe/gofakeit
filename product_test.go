@@ -17,7 +17,7 @@ func ExampleProduct() {
 	fmt.Println(product.Material)
 	fmt.Println(product.UPC)
 
-	// Output: olive copper monitor
+	// Output: Olive Copper Monitor
 	// Backwards caused quarterly without week it hungry thing someone him regularly. Whomever this revolt hence from his timing as quantity us these yours.
 	// [clothing tools and hardware]
 	// 7.61
@@ -39,7 +39,7 @@ func ExampleFaker_Product() {
 	fmt.Println(product.Material)
 	fmt.Println(product.UPC)
 
-	// Output: olive copper monitor
+	// Output: Olive Copper Monitor
 	// Backwards caused quarterly without week it hungry thing someone him regularly. Whomever this revolt hence from his timing as quantity us these yours.
 	// [clothing tools and hardware]
 	// 7.61
@@ -114,14 +114,14 @@ func ExampleProductName() {
 	Seed(11)
 	fmt.Println(ProductName())
 
-	// Output: appliance pulse leather
+	// Output: Appliance Pulse Leather
 }
 
 func ExampleFaker_ProductName() {
 	f := New(11)
 	fmt.Println(f.ProductName())
 
-	// Output: appliance pulse leather
+	// Output: Appliance Pulse Leather
 }
 
 func BenchmarkProductName(b *testing.B) {
