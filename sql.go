@@ -105,7 +105,7 @@ func addDatabaseSQLLookup() {
 	AddFuncLookup("sql", Info{
 		Display:     "SQL",
 		Category:    "database",
-		Description: "Generates a SQL multi insert statement",
+		Description: "Command in SQL used to add new data records into a database table",
 		Example: `INSERT INTO people 
 	(id, first_name, price, age, created_at) 
 VALUES 
