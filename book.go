@@ -42,7 +42,7 @@ func addBookLookup() {
 	AddFuncLookup("book", Info{
 		Display:     "Book",
 		Category:    "book",
-		Description: "Generates a comprehensive book dataset, including title, author, and genre",
+		Description: "Written or printed work consisting of pages bound together, covering various subjects or stories",
 		Example: `{
 	"title": "Anna Karenina",
 	"author": "Toni Morrison",
@@ -58,7 +58,7 @@ func addBookLookup() {
 	AddFuncLookup("booktitle", Info{
 		Display:     "Title",
 		Category:    "book",
-		Description: "Generates a book title from a diverse range of genres and periods",
+		Description: "The specific name given to a book",
 		Example:     "Hamlet",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -69,7 +69,7 @@ func addBookLookup() {
 	AddFuncLookup("bookauthor", Info{
 		Display:     "Author",
 		Category:    "book",
-		Description: "Generates the name of a book author from various times and places",
+		Description: "The individual who wrote or created the content of a book",
 		Example:     "Mark Twain",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -80,7 +80,7 @@ func addBookLookup() {
 	AddFuncLookup("bookgenre", Info{
 		Display:     "Genre",
 		Category:    "book",
-		Description: "Generates a genre from a wide range of book categories",
+		Description: "Category or type of book defined by its content, style, or form",
 		Example:     "Adventure",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
