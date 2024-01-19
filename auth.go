@@ -106,7 +106,7 @@ func addAuthLookup() {
 	AddFuncLookup("username", Info{
 		Display:     "Username",
 		Category:    "auth",
-		Description: "Generates a random username",
+		Description: "Unique identifier assigned to a user for accessing an account or system",
 		Example:     "Daniel1364",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -117,7 +117,7 @@ func addAuthLookup() {
 	AddFuncLookup("password", Info{
 		Display:     "Password",
 		Category:    "auth",
-		Description: "Generates a random password",
+		Description: "Secret word or phrase used to authenticate access to a system or account",
 		Example:     "EEP+wwpk 4lU-eHNXlJZ4n K9%v&TZ9e",
 		Output:      "string",
 		Params: []Param{
