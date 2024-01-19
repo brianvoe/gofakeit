@@ -10,14 +10,14 @@ func ExampleSentence() {
 	Seed(11)
 	fmt.Println(Sentence(5))
 
-	// Output: There had result everything niche.
+	// Output: None how these keep trip.
 }
 
 func ExampleFaker_Sentence() {
 	f := New(11)
 	fmt.Println(f.Sentence(5))
 
-	// Output: There had result everything niche.
+	// Output: None how these keep trip.
 }
 
 func TestSentence(t *testing.T) {
@@ -45,18 +45,18 @@ func ExampleParagraph() {
 	Seed(11)
 	fmt.Println(Paragraph(3, 5, 12, "\n"))
 
-	// Output: There had result everything niche backwards caused quarterly without week it hungry. Thing someone him regularly today whomever this revolt hence from his timing. As quantity us these yours live these frantic not may another how. This ours his them those whose them batch its Iraqi most that. Few abroad cheese this whereas next how there gorgeous genetics time choir.
-	// Fiction therefore yourselves am those infrequently heap software quarterly rather punctuation yellow. Where several his orchard to frequently hence victorious boxers each does auspicious. Yourselves first soup tomorrow this that must conclude anyway some yearly who. Cough laugh himself both yet rarely me dolphin intensely block would leap. Plane us first then down them eager would hundred super throughout animal.
-	// Yet themselves been group flock shake part purchase up usually it her. None it hers boat what their there Turkmen moreover one Lebanese to. Brace these shower in it everybody should whatever those uninterested several nobody. Yours thankful innocent power to any from its few luxury none boy. Religion themselves it there might must near theirs mine thing tonight outside.
+	// Output: None how these keep trip Congolese choir computer still far unless army. Party riches theirs instead here mine whichever that those instance growth has. Ouch enough Swiss us since down he she aha us you to. Upon how this this furniture way no play towel that us to. Accordingly theirs purse enough so though election often until eek weekly yet.
+	// Oops until conclude his stay elsewhere such that galaxy clean that last. Each stack reluctantly theirs wisp aid firstly highly butter accordingly should already. Calm shake according fade neither kuban upon this he fortnightly occasionally bunch. On who elsewhere lastly hourly right there honesty we is how result. Out Shakespearean have whom yearly another packet are behind late lot finally.
+	// Time themselves goodness quizzical our therefore could fact cackle yourselves zebra for. Whose enormously all bowl out wandering secondly yellow another your hourly spit. Since tomorrow hers words little think will our by Polynesian write much. Of herself uptight these composer these any firstly stack you much terribly. Over pose place sprint it child is joyously that I whom mango.
 }
 
 func ExampleFaker_Paragraph() {
 	f := New(11)
 	fmt.Println(f.Paragraph(3, 5, 12, "\n"))
 
-	// Output: There had result everything niche backwards caused quarterly without week it hungry. Thing someone him regularly today whomever this revolt hence from his timing. As quantity us these yours live these frantic not may another how. This ours his them those whose them batch its Iraqi most that. Few abroad cheese this whereas next how there gorgeous genetics time choir.
-	// Fiction therefore yourselves am those infrequently heap software quarterly rather punctuation yellow. Where several his orchard to frequently hence victorious boxers each does auspicious. Yourselves first soup tomorrow this that must conclude anyway some yearly who. Cough laugh himself both yet rarely me dolphin intensely block would leap. Plane us first then down them eager would hundred super throughout animal.
-	// Yet themselves been group flock shake part purchase up usually it her. None it hers boat what their there Turkmen moreover one Lebanese to. Brace these shower in it everybody should whatever those uninterested several nobody. Yours thankful innocent power to any from its few luxury none boy. Religion themselves it there might must near theirs mine thing tonight outside.
+	// Output: None how these keep trip Congolese choir computer still far unless army. Party riches theirs instead here mine whichever that those instance growth has. Ouch enough Swiss us since down he she aha us you to. Upon how this this furniture way no play towel that us to. Accordingly theirs purse enough so though election often until eek weekly yet.
+	// Oops until conclude his stay elsewhere such that galaxy clean that last. Each stack reluctantly theirs wisp aid firstly highly butter accordingly should already. Calm shake according fade neither kuban upon this he fortnightly occasionally bunch. On who elsewhere lastly hourly right there honesty we is how result. Out Shakespearean have whom yearly another packet are behind late lot finally.
+	// Time themselves goodness quizzical our therefore could fact cackle yourselves zebra for. Whose enormously all bowl out wandering secondly yellow another your hourly spit. Since tomorrow hers words little think will our by Polynesian write much. Of herself uptight these composer these any firstly stack you much terribly. Over pose place sprint it child is joyously that I whom mango.
 }
 
 func TestParagraph(t *testing.T) {

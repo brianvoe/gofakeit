@@ -111,6 +111,14 @@ func nounProper(r *rand.Rand) string {
 	return getRandValue(r, []string{"person", "first"})
 }
 
+// NounDeterminer will generate a random noun determiner
+func NounDeterminer() string { return nounDeterminer(globalFaker.Rand) }
+
+// NounDeterminer will generate a random noun determiner
+func (f *Faker) NounDeterminer() string { return nounDeterminer(f.Rand) }
+
+func nounDeterminer(r *rand.Rand) string { return getRandValue(r, []string{"word", "noun_determiner"}) }
+
 func addWordNounLookup() {
 	AddFuncLookup("noun", Info{
 		Display:     "Noun",
@@ -219,6 +227,17 @@ func addWordNounLookup() {
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
 			return nounProper(r), nil
+		},
+	})
+
+	AddFuncLookup("noundeterminer", Info{
+		Display:     "Noun Determiner",
+		Category:    "word",
+		Description: "Word that introduces a noun and identifies it as a noun",
+		Example:     "your",
+		Output:      "string",
+		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+			return nounDeterminer(r), nil
 		},
 	})
 }

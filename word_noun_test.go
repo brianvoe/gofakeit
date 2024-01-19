@@ -213,3 +213,32 @@ func BenchmarkNounProper(b *testing.B) {
 		NounProper()
 	}
 }
+
+func ExampleNounDeterminer() {
+	Seed(11)
+	fmt.Println(NounDeterminer())
+
+	// Output: an
+}
+
+func ExampleFaker_NounDeterminer() {
+	f := New(11)
+	fmt.Println(f.NounDeterminer())
+
+	// Output: an
+}
+
+func TestNounDeterminer(t *testing.T) {
+	f := New(11)
+	for i := 0; i < 100; i++ {
+		if f.NounDeterminer() == "" {
+			t.Errorf("Expected a non-empty string, got nothing")
+		}
+	}
+}
+
+func BenchmarkNounDeterminer(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		NounDeterminer()
+	}
+}
