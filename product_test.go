@@ -18,13 +18,13 @@ func ExampleProduct() {
 	fmt.Println(product.UPC)
 
 	// Output: Olive Copper Monitor
-	// Backwards caused quarterly without week it hungry thing someone him regularly. Whomever this revolt hence from his timing as quantity us these yours.
+	// Choir computer still far unless army party riches theirs instead here. Whichever that those instance growth has ouch enough Swiss us since down he. Aha us you to upon how this this furniture way no play towel.
 	// [clothing tools and hardware]
-	// 7.61
+	// 41.61
 	// [ultra-lightweight]
-	// navy
-	// brass
-	// 012780949980
+	// olive
+	// stainless
+	// 074937734366
 }
 
 func ExampleFaker_Product() {
@@ -40,13 +40,13 @@ func ExampleFaker_Product() {
 	fmt.Println(product.UPC)
 
 	// Output: Olive Copper Monitor
-	// Backwards caused quarterly without week it hungry thing someone him regularly. Whomever this revolt hence from his timing as quantity us these yours.
+	// Choir computer still far unless army party riches theirs instead here. Whichever that those instance growth has ouch enough Swiss us since down he. Aha us you to upon how this this furniture way no play towel.
 	// [clothing tools and hardware]
-	// 7.61
+	// 41.61
 	// [ultra-lightweight]
-	// navy
-	// brass
-	// 012780949980
+	// olive
+	// stainless
+	// 074937734366
 }
 
 func TestProduct(t *testing.T) {
@@ -134,14 +134,14 @@ func ExampleProductDescription() {
 	Seed(11)
 	fmt.Println(ProductDescription())
 
-	// Output: Generally half where everything niche backwards caused quarterly without week it hungry thing someone him. Today whomever this revolt hence from his timing as quantity us these yours.
+	// Output: How these keep trip Congolese choir computer still far unless army party riches theirs instead. Mine whichever that those instance. Has ouch enough Swiss us since down.
 }
 
 func ExampleFaker_ProductDescription() {
 	f := New(11)
 	fmt.Println(f.ProductDescription())
 
-	// Output: Generally half where everything niche backwards caused quarterly without week it hungry thing someone him. Today whomever this revolt hence from his timing as quantity us these yours.
+	// Output: How these keep trip Congolese choir computer still far unless army party riches theirs instead. Mine whichever that those instance. Has ouch enough Swiss us since down.
 }
 
 func BenchmarkProductDescription(b *testing.B) {

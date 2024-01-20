@@ -2,7 +2,7 @@ package main
 
 import (
 	"errors"
-	"io/ioutil"
+	"io"
 	"os"
 	"strings"
 	"testing"
@@ -22,7 +22,7 @@ func TestMain(t *testing.T) {
 	main()
 
 	w.Close()
-	out, _ := ioutil.ReadAll(r)
+	out, _ := io.ReadAll(r)
 	os.Stdout = rescueStdout
 
 	// Get output string
@@ -56,7 +56,7 @@ func TestFunctionLoop(t *testing.T) {
 	main()
 
 	w.Close()
-	out, _ := ioutil.ReadAll(r)
+	out, _ := io.ReadAll(r)
 	os.Stdout = rescueStdout
 
 	// Get output string
@@ -211,7 +211,7 @@ func TestListCategoryFunction(t *testing.T) {
 	outStr = strings.ToLower(outStr)
 
 	// Make sure outStr contains random noun
-	if !strings.Contains(outStr, "random noun") {
+	if !strings.Contains(outStr, "noun") {
 		t.Errorf("list category function output does not contain random noun")
 	}
 }

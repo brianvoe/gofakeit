@@ -209,7 +209,7 @@ func addPersonLookup() {
 	AddFuncLookup("person", Info{
 		Display:     "Person",
 		Category:    "person",
-		Description: "Random set of person info",
+		Description: "Personal data, like name and contact details, used for identification and communication",
 		Example: `{
 	"first_name": "Markus",
 	"last_name": "Moen",
@@ -254,7 +254,7 @@ func addPersonLookup() {
 	AddFuncLookup("name", Info{
 		Display:     "Name",
 		Category:    "person",
-		Description: "Random name",
+		Description: "The given and family name of an individual",
 		Example:     "Markus Moen",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -265,7 +265,7 @@ func addPersonLookup() {
 	AddFuncLookup("nameprefix", Info{
 		Display:     "Name Prefix",
 		Category:    "person",
-		Description: "Random name prefix",
+		Description: "A title or honorific added before a person's name",
 		Example:     "Mr.",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -276,7 +276,7 @@ func addPersonLookup() {
 	AddFuncLookup("namesuffix", Info{
 		Display:     "Name Suffix",
 		Category:    "person",
-		Description: "Random name suffix",
+		Description: "A title or designation added after a person's name",
 		Example:     "Jr.",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -287,7 +287,7 @@ func addPersonLookup() {
 	AddFuncLookup("firstname", Info{
 		Display:     "First Name",
 		Category:    "person",
-		Description: "Random first name",
+		Description: "The name given to a person at birth",
 		Example:     "Markus",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -298,7 +298,7 @@ func addPersonLookup() {
 	AddFuncLookup("middlename", Info{
 		Display:     "Middle Name",
 		Category:    "person",
-		Description: "Random middle name",
+		Description: "Name between a person's first name and last name",
 		Example:     "Belinda",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -309,7 +309,7 @@ func addPersonLookup() {
 	AddFuncLookup("lastname", Info{
 		Display:     "Last Name",
 		Category:    "person",
-		Description: "Random last name",
+		Description: "The family name or surname of an individual",
 		Example:     "Daniel",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -320,7 +320,7 @@ func addPersonLookup() {
 	AddFuncLookup("gender", Info{
 		Display:     "Gender",
 		Category:    "person",
-		Description: "Random gender",
+		Description: "Classification based on social and cultural norms that identifies an individual",
 		Example:     "male",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -331,7 +331,7 @@ func addPersonLookup() {
 	AddFuncLookup("ssn", Info{
 		Display:     "SSN",
 		Category:    "person",
-		Description: "Random social security number",
+		Description: "Unique nine-digit identifier used for government and financial purposes in the United States",
 		Example:     "296446360",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -342,7 +342,7 @@ func addPersonLookup() {
 	AddFuncLookup("hobby", Info{
 		Display:     "Hobby",
 		Category:    "person",
-		Description: "Random hobby activity",
+		Description: "An activity pursued for leisure and pleasure",
 		Example:     "Swimming",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -353,7 +353,7 @@ func addPersonLookup() {
 	AddFuncLookup("email", Info{
 		Display:     "Email",
 		Category:    "person",
-		Description: "Random email",
+		Description: "Electronic mail used for sending digital messages and communication over the internet",
 		Example:     "markusmoen@pagac.net",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -364,7 +364,7 @@ func addPersonLookup() {
 	AddFuncLookup("phone", Info{
 		Display:     "Phone",
 		Category:    "person",
-		Description: "Random phone number",
+		Description: "Numerical sequence used to contact individuals via telephone or mobile devices",
 		Example:     "6136459948",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
@@ -375,7 +375,7 @@ func addPersonLookup() {
 	AddFuncLookup("phoneformatted", Info{
 		Display:     "Phone Formatted",
 		Category:    "person",
-		Description: "Random formatted phone number",
+		Description: "Formatted phone number of a person",
 		Example:     "136-459-9489",
 		Output:      "string",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {

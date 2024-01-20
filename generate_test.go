@@ -51,12 +51,12 @@ func ExampleGenerate() {
 	fmt.Println(Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}"))
 
 	// Output: Markus Moen ssn is 526643139 and lives at 599 Daleton
-	// Niche backwards caused.
-	// [1 3 2]
-	// -4
-	// 3
-	// 46
-	// [a:b int:string key:value 1:2]
+	// Congolese choir computer.
+	// [3 1 2]
+	// 2
+	// 4
+	// 17
+	// [int:string 1:2 a:b key:value]
 }
 
 func ExampleFaker_Generate() {
@@ -71,12 +71,12 @@ func ExampleFaker_Generate() {
 	fmt.Println(f.Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}"))
 
 	// Output: Markus Moen ssn is 526643139 and lives at 599 Daleton
-	// Niche backwards caused.
-	// [1 3 2]
-	// -4
-	// 3
-	// 46
-	// [a:b int:string key:value 1:2]
+	// Congolese choir computer.
+	// [3 1 2]
+	// 2
+	// 4
+	// 17
+	// [int:string 1:2 a:b key:value]
 }
 
 func BenchmarkGenerate(b *testing.B) {
@@ -480,14 +480,14 @@ func ExampleMap() {
 	Seed(11)
 	fmt.Println(Map())
 
-	// Output: map[contrast:Associate gauva:map[jump:scale] generally:8504801 him:[them whomever ours hence here his] its:8335564 table:map[did:[these delay these]] therefore:map[nearly:784141.8] thing:map[everything:[where caused why week hourly]]]
+	// Output: map[here:Manager herself:map[trip:[far computer was unless whom riches]] how:8504801 ouch:Keith Ullrich outstanding:1860846 that:web services]
 }
 
 func ExampleFaker_Map() {
 	f := New(11)
 	fmt.Println(f.Map())
 
-	// Output: map[contrast:Associate gauva:map[jump:scale] generally:8504801 him:[them whomever ours hence here his] its:8335564 table:map[did:[these delay these]] therefore:map[nearly:784141.8] thing:map[everything:[where caused why week hourly]]]
+	// Output: map[here:Manager herself:map[trip:[far computer was unless whom riches]] how:8504801 ouch:Keith Ullrich outstanding:1860846 that:web services]
 }
 
 func TestMap(t *testing.T) {

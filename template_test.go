@@ -231,7 +231,7 @@ func ExampleEmailText() {
 	fmt.Println(string(value))
 
 	// Output:
-	// Subject: Greetings from Marcel!
+	// 	Subject: Greetings from Marcel!
 	//
 	// Dear Pagac,
 	//
@@ -239,22 +239,22 @@ func ExampleEmailText() {
 	//
 	// I hope you're doing great. May your week be filled with joy.
 	//
-	// Virtually woman where team late quarterly without week it hungry. Thing someone him regularly today whomever this revolt hence from. His timing as quantity us these yours live these frantic. Not may another how this ours his them those whose. Them batch its Iraqi most that few abroad cheese this.
+	// This me far smile where was by army party riches. Theirs instead here mine whichever that those instance growth has. Ouch enough Swiss us since down he she aha us. You to upon how this this furniture way no play. Towel that us to accordingly theirs purse enough so though.
 	//
-	// Whereas next how there gorgeous genetics time choir fiction therefore. Yourselves am those infrequently heap software quarterly rather punctuation yellow. Where several his orchard to frequently hence victorious boxers each. Does auspicious yourselves first soup tomorrow this that must conclude. Anyway some yearly who cough laugh himself both yet rarely.
+	// Election often until eek weekly yet oops until conclude his. Stay elsewhere such that galaxy clean that last each stack. Reluctantly theirs wisp aid firstly highly butter accordingly should already. Calm shake according fade neither kuban upon this he fortnightly. Occasionally bunch on who elsewhere lastly hourly right there honesty.
 	//
-	// Me dolphin intensely block would leap plane us first then. Down them eager would hundred super throughout animal yet themselves. Been group flock shake part purchase up usually it her. None it hers boat what their there Turkmen moreover one. Lebanese to brace these shower in it everybody should whatever.
+	// We is how result out Shakespearean have whom yearly another. Packet are behind late lot finally time themselves goodness quizzical. Our therefore could fact cackle yourselves zebra for whose enormously. All bowl out wandering secondly yellow another your hourly spit. Since tomorrow hers words little think will our by Polynesian.
 	//
-	// I'm curious to know what you think about it. If you have a moment, please feel free to check out the project on Bitbucket
+	// I'm curious to know what you think about it. If you have a moment, please feel free to check out the project on GitLab
 	//
-	// I'm eager to hear what you think. Looking forward to your feedback!
+	// Your insights would be invaluable. Your thoughts matter to me.
 	//
-	// Thank you for your consideration! Thanks in advance for your time.
+	// I appreciate your attention to this matter. Your feedback is greatly appreciated.
 	//
-	// Kind regards
-	// Milford Johnston
-	// jamelhaag@king.org
-	// (507)096-3058
+	// Best wishes
+	// Daryl Leannon
+	// oceaneokuneva@roberts.org
+	// 1-816-608-2233
 }
 
 func ExampleFaker_EmailText() {
@@ -268,7 +268,7 @@ func ExampleFaker_EmailText() {
 	fmt.Println(string(value))
 
 	// Output:
-	// Subject: Greetings from Marcel!
+	// 	Subject: Greetings from Marcel!
 	//
 	// Dear Pagac,
 	//
@@ -276,22 +276,22 @@ func ExampleFaker_EmailText() {
 	//
 	// I hope you're doing great. May your week be filled with joy.
 	//
-	// Virtually woman where team late quarterly without week it hungry. Thing someone him regularly today whomever this revolt hence from. His timing as quantity us these yours live these frantic. Not may another how this ours his them those whose. Them batch its Iraqi most that few abroad cheese this.
+	// This me far smile where was by army party riches. Theirs instead here mine whichever that those instance growth has. Ouch enough Swiss us since down he she aha us. You to upon how this this furniture way no play. Towel that us to accordingly theirs purse enough so though.
 	//
-	// Whereas next how there gorgeous genetics time choir fiction therefore. Yourselves am those infrequently heap software quarterly rather punctuation yellow. Where several his orchard to frequently hence victorious boxers each. Does auspicious yourselves first soup tomorrow this that must conclude. Anyway some yearly who cough laugh himself both yet rarely.
+	// Election often until eek weekly yet oops until conclude his. Stay elsewhere such that galaxy clean that last each stack. Reluctantly theirs wisp aid firstly highly butter accordingly should already. Calm shake according fade neither kuban upon this he fortnightly. Occasionally bunch on who elsewhere lastly hourly right there honesty.
 	//
-	// Me dolphin intensely block would leap plane us first then. Down them eager would hundred super throughout animal yet themselves. Been group flock shake part purchase up usually it her. None it hers boat what their there Turkmen moreover one. Lebanese to brace these shower in it everybody should whatever.
+	// We is how result out Shakespearean have whom yearly another. Packet are behind late lot finally time themselves goodness quizzical. Our therefore could fact cackle yourselves zebra for whose enormously. All bowl out wandering secondly yellow another your hourly spit. Since tomorrow hers words little think will our by Polynesian.
 	//
-	// I'm curious to know what you think about it. If you have a moment, please feel free to check out the project on Bitbucket
+	// I'm curious to know what you think about it. If you have a moment, please feel free to check out the project on GitLab
 	//
-	// I'm eager to hear what you think. Looking forward to your feedback!
+	// Your insights would be invaluable. Your thoughts matter to me.
 	//
-	// Thank you for your consideration! Thanks in advance for your time.
+	// I appreciate your attention to this matter. Your feedback is greatly appreciated.
 	//
-	// Kind regards
-	// Milford Johnston
-	// jamelhaag@king.org
-	// (507)096-3058
+	// Best wishes
+	// Daryl Leannon
+	// oceaneokuneva@roberts.org
+	// 1-816-608-2233
 }
 
 // TemplateMarkdown examples and tests
@@ -306,13 +306,13 @@ func ExampleMarkdown() {
 	fmt.Println(string(value))
 
 	// Output:
-	// # PurpleSheep5
+	// 	# PurpleSheep5
 	//
 	// *Author: Amie Feil*
 	//
-	// Quarterly without week it hungry thing someone. Him regularly today whomever this revolt hence. From his timing as quantity us these. Yours live these frantic not may another. How this ours his them those whose.
+	// Was by army party riches theirs instead. Here mine whichever that those instance growth. Has ouch enough Swiss us since down. He she aha us you to upon. How this this furniture way no play.
 	//
-	// Them batch its Iraqi most that few. Abroad cheese this whereas next how there. Gorgeous genetics time choir fiction therefore yourselves. Am those infrequently heap software quarterly rather. Punctuation yellow where several his orchard to.
+	// Towel that us to accordingly theirs purse. Enough so though election often until eek. Weekly yet oops until conclude his stay. Elsewhere such that galaxy clean that last. Each stack reluctantly theirs wisp aid firstly.
 	//
 	// ## Table of Contents
 	// - [Installation](#installation)
@@ -345,13 +345,13 @@ func ExampleFaker_Markdown() {
 	fmt.Println(string(value))
 
 	// Output:
-	// # PurpleSheep5
+	// 	# PurpleSheep5
 	//
 	// *Author: Amie Feil*
 	//
-	// Quarterly without week it hungry thing someone. Him regularly today whomever this revolt hence. From his timing as quantity us these. Yours live these frantic not may another. How this ours his them those whose.
+	// Was by army party riches theirs instead. Here mine whichever that those instance growth. Has ouch enough Swiss us since down. He she aha us you to upon. How this this furniture way no play.
 	//
-	// Them batch its Iraqi most that few. Abroad cheese this whereas next how there. Gorgeous genetics time choir fiction therefore yourselves. Am those infrequently heap software quarterly rather. Punctuation yellow where several his orchard to.
+	// Towel that us to accordingly theirs purse. Enough so though election often until eek. Weekly yet oops until conclude his stay. Elsewhere such that galaxy clean that last. Each stack reluctantly theirs wisp aid firstly.
 	//
 	// ## Table of Contents
 	// - [Installation](#installation)
