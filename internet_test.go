@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -93,6 +94,17 @@ func ExampleFaker_URL() {
 	fmt.Println(f.URL())
 
 	// Output: https://www.dynamiciterate.name/target/seamless
+}
+
+func TestURLValid(t *testing.T) {
+	for i := 0; i < 10000; i++ {
+		url := URL()
+
+		// Check if url has spaces in it
+		if strings.Contains(url, " ") {
+			t.Error("URL has spaces")
+		}
+	}
 }
 
 func BenchmarkURL(b *testing.B) {
