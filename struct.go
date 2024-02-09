@@ -254,7 +254,7 @@ func rSlice(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) err
 			return nil
 		}
 	} else if isFakeable(t) {
-		value, err := callFake(f, v, reflect.Slice)
+		value, err := callFake(f, v, reflect.Slice, reflect.Array)
 		if err != nil {
 			return err
 		}

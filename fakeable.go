@@ -62,12 +62,13 @@ func callFake(faker *Faker, v reflect.Value, possibleKinds ...reflect.Kind) (any
 		return float32(reflect.ValueOf(fakedValue).Float()), nil
 	case reflect.Float64:
 		return float64(reflect.ValueOf(fakedValue).Float()), nil
-	case reflect.Slice:
+	case reflect.Slice, reflect.Array:
 		return reflect.ValueOf(fakedValue).Interface(), nil
 	case reflect.Map:
 		return reflect.ValueOf(fakedValue).Interface(), nil
 	case reflect.Struct:
 		return reflect.ValueOf(fakedValue).Interface(), nil
+
 	default:
 		return nil, fmt.Errorf("unsupported type %q", k)
 	}
