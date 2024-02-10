@@ -1,6 +1,6 @@
 package gofakeit
 
-import "math/rand"
+import "math/rand/v2"
 
 // Letter will generate a single random lower case ASCII letter
 func Letter() string { return letter(globalFaker.Rand) }

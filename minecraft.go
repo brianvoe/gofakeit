@@ -1,6 +1,6 @@
 package gofakeit
 
-import "math/rand"
+import "math/rand/v2"
 
 // MinecraftOre will generate a random Minecraft ore
 func MinecraftOre() string { return minecraftOre(globalFaker.Rand) }

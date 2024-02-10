@@ -2,7 +2,7 @@ package gofakeit
 
 import (
 	"math"
-	"math/rand"
+	"math/rand/v2"
 )
 
 // Number will generate a random number between given min And max

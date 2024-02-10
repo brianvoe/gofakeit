@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	"math/rand"
+	"math/rand/v2"
 	"reflect"
 	"strings"
 	"text/template"

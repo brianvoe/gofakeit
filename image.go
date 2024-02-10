@@ -7,7 +7,7 @@ import (
 	imgCol "image/color"
 	"image/jpeg"
 	"image/png"
-	"math/rand"
+	"math/rand/v2"
 	"strconv"
 )
 

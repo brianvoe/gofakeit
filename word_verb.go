@@ -1,6 +1,6 @@
 package gofakeit
 
-import "math/rand"
+import "math/rand/v2"
 
 // Verb will generate a random verb
 func Verb() string { return verb(globalFaker.Rand) }

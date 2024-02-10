@@ -1,6 +1,6 @@
 package gofakeit
 
-import "math/rand"
+import "math/rand/v2"
 
 // Emoji will return a random fun emoji
 func Emoji() string { return emoji(globalFaker.Rand) }

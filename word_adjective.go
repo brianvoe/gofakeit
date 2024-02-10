@@ -1,6 +1,6 @@
 package gofakeit
 
-import "math/rand"
+import "math/rand/v2"
 
 // Adjective will generate a random adjective
 func Adjective() string { return adjective(globalFaker.Rand) }

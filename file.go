@@ -1,6 +1,6 @@
 package gofakeit
 
-import "math/rand"
+import "math/rand/v2"
 
 // FileExtension will generate a random file extension
 func FileExtension() string { return fileExtension(globalFaker.Rand) }

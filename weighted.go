@@ -2,7 +2,7 @@ package gofakeit
 
 import (
 	"errors"
-	"math/rand"
+	"math/rand/v2"
 )
 
 // Weighted will take in an array of options and weights and return a random selection based upon its indexed weight

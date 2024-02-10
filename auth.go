@@ -1,6 +1,6 @@
 package gofakeit
 
-import "math/rand"
+import "math/rand/v2"
 
 // Username will generate a random username based upon picking a random lastname and random numbers at the end
 func Username() string {

@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
-	"math/rand"
+	"math/rand/v2"
 	"reflect"
 )
 

@@ -1,6 +1,6 @@
 package gofakeit
 
-import "math/rand"
+import "math/rand/v2"
 
 // Noun will generate a random noun
 func Noun() string { return noun(globalFaker.Rand) }

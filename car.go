@@ -1,6 +1,6 @@
 package gofakeit
 
-import "math/rand"
+import "math/rand/v2"
 
 // CarInfo is a struct dataset of all car information
 type CarInfo struct {

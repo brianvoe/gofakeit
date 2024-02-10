@@ -3,7 +3,7 @@ package gofakeit
 import (
 	"bytes"
 	"errors"
-	"math/rand"
+	"math/rand/v2"
 	"strings"
 	"unicode"
 )

@@ -1,6 +1,6 @@
 package gofakeit
 
-import "math/rand"
+import "math/rand/v2"
 
 func BookTitle() string { return bookTitle(globalFaker.Rand) }
 

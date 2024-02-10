@@ -83,10 +83,10 @@ If you want to use a more performant source please use NewUnlocked. Be aware tha
 ```go
 import "github.com/brianvoe/gofakeit/v6"
 
-// Uses math/rand(Pseudo) with mutex locking
+// Uses math/rand/v2(Pseudo) with mutex locking
 faker := gofakeit.New(0)
 
-// Uses math/rand(Pseudo) with NO mutext locking
+// Uses math/rand/v2(Pseudo) with NO mutext locking
 // More performant but not goroutine safe.
 faker := gofakeit.NewUnlocked(0)
 

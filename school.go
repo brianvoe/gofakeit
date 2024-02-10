@@ -1,6 +1,6 @@
 package gofakeit
 
-import "math/rand"
+import "math/rand/v2"
 
 // School will generate a random School type
 func School() string { return school(globalFaker.Rand) }

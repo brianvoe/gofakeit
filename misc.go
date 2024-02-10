@@ -2,7 +2,7 @@ package gofakeit
 
 import (
 	"encoding/hex"
-	"math/rand"
+	"math/rand/v2"
 	"reflect"
 
 	"github.com/brianvoe/gofakeit/v6/data"

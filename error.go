@@ -2,7 +2,7 @@ package gofakeit
 
 import (
 	"errors"
-	"math/rand"
+	"math/rand/v2"
 )
 
 // Error will return a random generic error

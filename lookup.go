@@ -3,7 +3,7 @@ package gofakeit
 import (
 	"encoding/json"
 	"fmt"
-	"math/rand"
+	"math/rand/v2"
 	"reflect"
 	"strconv"
 	"strings"

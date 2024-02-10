@@ -1,6 +1,6 @@
 package gofakeit
 
-import "math/rand"
+import "math/rand/v2"
 
 // Pronoun will generate a random pronoun
 func Pronoun() string { return pronoun(globalFaker.Rand) }

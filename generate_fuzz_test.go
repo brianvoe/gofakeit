@@ -5,7 +5,7 @@ package gofakeit
 
 import (
 	"encoding/binary"
-	"math/rand"
+	"math/rand/v2"
 	"regexp"
 	"strings"
 	"testing"

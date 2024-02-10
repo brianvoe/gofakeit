@@ -1,7 +1,7 @@
 package gofakeit
 
 import (
-	"math/rand"
+	"math/rand/v2"
 	"strings"
 
 	"github.com/brianvoe/gofakeit/v6/data"

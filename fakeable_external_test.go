@@ -2,7 +2,7 @@ package gofakeit_test
 
 import (
 	"fmt"
-	"math/rand"
+	"math/rand/v2"
 	"testing"
 	"time"
 

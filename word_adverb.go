@@ -1,6 +1,6 @@
 package gofakeit
 
-import "math/rand"
+import "math/rand/v2"
 
 // Adverb will generate a random adverb
 func Adverb() string { return adverb(globalFaker.Rand) }
