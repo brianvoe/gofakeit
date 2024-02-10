@@ -71,7 +71,7 @@ func IPv4Address() string { return ipv4Address(globalFaker.Rand) }
 func (f *Faker) IPv4Address() string { return ipv4Address(f.Rand) }
 
 func ipv4Address(r *rand.Rand) string {
-	num := func() int { return r.Intn(256) }
+	num := func() int { return r.IntN(256) }
 
 	return fmt.Sprintf("%d.%d.%d.%d", num(), num(), num(), num())
 }
@@ -83,7 +83,7 @@ func IPv6Address() string { return ipv6Address(globalFaker.Rand) }
 func (f *Faker) IPv6Address() string { return ipv6Address(f.Rand) }
 
 func ipv6Address(r *rand.Rand) string {
-	num := func() int { return r.Intn(65536) }
+	num := func() int { return r.IntN(65536) }
 
 	return fmt.Sprintf("%x:%x:%x:%x:%x:%x:%x:%x", num(), num(), num(), num(), num(), num(), num(), num())
 }
@@ -97,7 +97,7 @@ func (f *Faker) MacAddress() string { return macAddress(f.Rand) }
 func macAddress(r *rand.Rand) string {
 	num := 255
 
-	return fmt.Sprintf("%02x:%02x:%02x:%02x:%02x:%02x", r.Intn(num), r.Intn(num), r.Intn(num), r.Intn(num), r.Intn(num), r.Intn(num))
+	return fmt.Sprintf("%02x:%02x:%02x:%02x:%02x:%02x", r.IntN(num), r.IntN(num), r.IntN(num), r.IntN(num), r.IntN(num), r.IntN(num))
 }
 
 // HTTPStatusCode will generate a random status code

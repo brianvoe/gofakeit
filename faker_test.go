@@ -6,6 +6,10 @@ import (
 	"testing"
 )
 
+func TestSeed(t *testing.T) {
+	Seed(0)
+}
+
 func Example() {
 	Seed(11)
 	fmt.Println("Name:", Name())

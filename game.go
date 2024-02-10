@@ -27,7 +27,7 @@ func gamertag(r *rand.Rand) string {
 	}
 
 	// Randomly determine if we should add a number
-	if r.Intn(3) == 1 {
+	if r.IntN(3) == 1 {
 		str += digitN(r, uint(number(r, 1, 3)))
 	}
 

@@ -20,7 +20,7 @@ func (f *Faker) Cusip() string {
 func cusip(r *rand.Rand) string {
 	cusipBytes := make([]byte, 8)
 	for i := 0; i < len(cusipBytes); i++ {
-		cusipBytes[i] = byte(cusipStr[r.Intn(len(cusipStr))])
+		cusipBytes[i] = byte(cusipStr[r.IntN(len(cusipStr))])
 	}
 
 	baseCusip := string(cusipBytes)

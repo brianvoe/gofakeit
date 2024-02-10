@@ -175,7 +175,7 @@ func fixeWidthFunc(r *rand.Rand, co *FixedWidthOptions) (string, error) {
 
 	// Make sure you set a row count
 	if co.RowCount <= 0 {
-		co.RowCount = r.Intn(10) + 1
+		co.RowCount = r.IntN(10) + 1
 	}
 
 	// Check fields
@@ -331,11 +331,11 @@ func regexGenerate(ra *rand.Rand, re *syntax.Regexp, limit int) string {
 				}
 			}
 			if len(chars) > 0 {
-				return string([]byte{chars[ra.Intn(len(chars))]})
+				return string([]byte{chars[ra.IntN(len(chars))]})
 			}
 		}
 
-		r := ra.Intn(int(sum))
+		r := ra.IntN(int(sum))
 		var ru rune
 		sum = 0
 		for i := 0; i < len(re.Rune); i += 2 {
@@ -387,7 +387,7 @@ func regexGenerate(ra *rand.Rand, re *syntax.Regexp, limit int) string {
 		count := 0
 		re.Max = int(math.Min(float64(re.Max), float64(10)))
 		if re.Max > re.Min {
-			count = ra.Intn(re.Max - re.Min + 1)
+			count = ra.IntN(re.Max - re.Min + 1)
 		}
 		for i := 0; i < re.Min || i < (re.Min+count); i++ {
 			for _, rs := range re.Sub {

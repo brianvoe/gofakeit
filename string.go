@@ -97,7 +97,7 @@ func shuffleStrings(r *rand.Rand, a []string) {
 	//if size is > int32 probably it will never finish, or ran out of entropy
 	i := n - 1
 	for ; i > 0; i-- {
-		j := int(r.Int31n(int32(i + 1)))
+		j := int(r.Int32N(int32(i + 1)))
 		swap(i, j)
 	}
 }
@@ -116,7 +116,7 @@ func randomString(r *rand.Rand, a []string) string {
 	if size == 1 {
 		return a[0]
 	}
-	return a[r.Intn(size)]
+	return a[r.IntN(size)]
 }
 
 func addStringLookup() {

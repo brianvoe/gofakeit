@@ -5,10 +5,6 @@ import (
 	"testing"
 )
 
-func TestSeed(t *testing.T) {
-	Seed(0)
-}
-
 // Test taking in two random int values and making sure the output is within the range
 func TestRandIntRange(t *testing.T) {
 	// Create a set of structs to test

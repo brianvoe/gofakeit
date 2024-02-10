@@ -73,21 +73,21 @@ func password(r *rand.Rand, lower bool, upper bool, numeric bool, special bool, 
 
 		switch weight.(string) {
 		case "lower":
-			b[i] = lowerStr[r.Int63()%int64(len(lowerStr))]
+			b[i] = lowerStr[r.Int64()%int64(len(lowerStr))]
 		case "upper":
-			b[i] = upperStr[r.Int63()%int64(len(upperStr))]
+			b[i] = upperStr[r.Int64()%int64(len(upperStr))]
 		case "numeric":
-			b[i] = numericStr[r.Int63()%int64(len(numericStr))]
+			b[i] = numericStr[r.Int64()%int64(len(numericStr))]
 		case "special":
-			b[i] = specialSafeStr[r.Int63()%int64(len(specialSafeStr))]
+			b[i] = specialSafeStr[r.Int64()%int64(len(specialSafeStr))]
 		case "space":
-			b[i] = spaceStr[r.Int63()%int64(len(spaceStr))]
+			b[i] = spaceStr[r.Int64()%int64(len(spaceStr))]
 		}
 	}
 
 	// Shuffle bytes
 	for i := range b {
-		j := r.Intn(i + 1)
+		j := r.IntN(i + 1)
 		b[i], b[j] = b[j], b[i]
 	}
 

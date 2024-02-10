@@ -200,7 +200,7 @@ func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 						return err
 					}
 
-					size = f.Rand.Intn(sizeMax-sizeMin+1) + sizeMin
+					size = f.Rand.IntN(sizeMax-sizeMin+1) + sizeMin
 				}
 			} else {
 				size, err = strconv.Atoi(fs)

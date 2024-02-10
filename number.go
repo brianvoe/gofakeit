@@ -159,7 +159,7 @@ func (f *Faker) ShuffleInts(a []int) { shuffleInts(f.Rand, a) }
 
 func shuffleInts(r *rand.Rand, a []int) {
 	for i := range a {
-		j := r.Intn(i + 1)
+		j := r.IntN(i + 1)
 		a[i], a[j] = a[j], a[i]
 	}
 }
@@ -178,7 +178,7 @@ func randomInt(r *rand.Rand, i []int) int {
 	if size == 1 {
 		return i[0]
 	}
-	return i[r.Intn(size)]
+	return i[r.IntN(size)]
 }
 
 // RandomUint will take in a slice of uint and return a randomly selected value
@@ -195,7 +195,7 @@ func randomUint(r *rand.Rand, u []uint) uint {
 	if size == 1 {
 		return u[0]
 	}
-	return u[r.Intn(size)]
+	return u[r.IntN(size)]
 }
 
 // HexUint8 will generate a random uint8 hex value with "0x" prefix
@@ -244,7 +244,7 @@ func hexUint(r *rand.Rand, bitSize int) string {
 	s := make([]byte, hexLen)
 	s[0], s[1] = '0', 'x'
 	for i := 2; i < hexLen; i++ {
-		s[i] = digits[r.Intn(16)]
+		s[i] = digits[r.IntN(16)]
 	}
 	return string(s)
 }

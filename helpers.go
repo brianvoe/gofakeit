@@ -1,12 +1,10 @@
 package gofakeit
 
 import (
-	crand "crypto/rand"
-	"encoding/binary"
 	"encoding/json"
 	"fmt"
 	"math"
-	"math/rand"
+	"math/rand/v2"
 	"reflect"
 	"strings"
 	"unicode"
@@ -31,16 +29,6 @@ const maxUint = ^uint(0)
 const minInt = -maxInt - 1
 const maxInt = int(^uint(0) >> 1)
 
-// Seed will set the global random value. Setting seed to 0 will use crypto/rand
-func Seed(seed int64) {
-	if seed == 0 {
-		binary.Read(crand.Reader, binary.BigEndian, &seed)
-		globalFaker.Rand.Seed(seed)
-	} else {
-		globalFaker.Rand.Seed(seed)
-	}
-}
-
 // Check if in lib
 func dataCheck(dataVal []string) bool {
 	var checkOk bool
@@ -60,7 +48,7 @@ func getRandValue(r *rand.Rand, dataVal []string) string {
 	if !dataCheck(dataVal) {
 		return ""
 	}
-	return data.Data[dataVal[0]][dataVal[1]][r.Intn(len(data.Data[dataVal[0]][dataVal[1]]))]
+	return data.Data[dataVal[0]][dataVal[1]][r.IntN(len(data.Data[dataVal[0]][dataVal[1]]))]
 }
 
 // Replace # with numbers
@@ -75,7 +63,7 @@ func replaceWithNumbers(r *rand.Rand, str string) string {
 		}
 	}
 	if bytestr[0] == '0' {
-		bytestr[0] = byte(r.Intn(8)+1) + '0'
+		bytestr[0] = byte(r.IntN(8)+1) + '0'
 	}
 
 	return string(bytestr)
@@ -114,21 +102,21 @@ func replaceWithHexLetters(r *rand.Rand, str string) string {
 // Generate random lowercase ASCII letter
 func randLetter(r *rand.Rand) rune {
 	allLetters := upperStr + lowerStr
-	return rune(allLetters[r.Intn(len(allLetters))])
+	return rune(allLetters[r.IntN(len(allLetters))])
 }
 
 func randCharacter(r *rand.Rand, s string) string {
-	return string(s[r.Int63()%int64(len(s))])
+	return string(s[r.Int64()%int64(len(s))])
 }
 
 // Generate random lowercase ASCII letter between a and f
 func randHexLetter(r *rand.Rand) rune {
-	return rune(byte(r.Intn(6)) + 'a')
+	return rune(byte(r.IntN(6)) + 'a')
 }
 
 // Generate random ASCII digit
 func randDigit(r *rand.Rand) rune {
-	return rune(byte(r.Intn(10)) + '0')
+	return rune(byte(r.IntN(10)) + '0')
 }
 
 // Generate random integer between min and max
@@ -148,7 +136,7 @@ func randIntRange(r *rand.Rand, min, max int) int {
 	// Figure out if the min/max numbers calculation
 	// would cause a panic in the Int63() function.
 	if max-min+1 > 0 {
-		return min + int(r.Int63n(int64(max-min+1)))
+		return min + int(r.Int64N(int64(max-min+1)))
 	}
 
 	// Loop through the range until we find a number that fits
@@ -177,7 +165,7 @@ func randUintRange(r *rand.Rand, min, max uint) uint {
 	// Figure out if the min/max numbers calculation
 	// would cause a panic in the Int63() function.
 	if int(max)-int(min)+1 > 0 {
-		return uint(r.Intn(int(max)-int(min)+1) + int(min))
+		return uint(r.IntN(int(max)-int(min)+1) + int(min))
 	}
 
 	// Loop through the range until we find a number that fits

@@ -33,7 +33,7 @@ func uuid(r *rand.Rand) string {
 
 	// Read 16 random bytes
 	for i := 0; i < 16; i++ {
-		uuid[i] = byte(r.Intn(256))
+		uuid[i] = byte(r.IntN(256))
 	}
 
 	// Set version
@@ -89,7 +89,7 @@ func shuffleAnySlice(r *rand.Rand, v any) {
 	//if size is > int32 probably it will never finish, or ran out of entropy
 	i := n - 1
 	for ; i > 0; i-- {
-		j := int(r.Int31n(int32(i + 1)))
+		j := int(r.Int32N(int32(i + 1)))
 		swap(i, j)
 	}
 }
@@ -116,7 +116,7 @@ func (f *Faker) RandomMapKey(mapI any) any { return randomMapKey(f.Rand, mapI) }
 
 func randomMapKey(r *rand.Rand, mapI any) any {
 	keys := reflect.ValueOf(mapI).MapKeys()
-	return keys[r.Intn(len(keys))].Interface()
+	return keys[r.IntN(len(keys))].Interface()
 }
 
 // Categories will return a map string array of available data categories and sub categories

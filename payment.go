@@ -23,7 +23,7 @@ func Currency() *CurrencyInfo { return currency(globalFaker.Rand) }
 func (f *Faker) Currency() *CurrencyInfo { return currency(f.Rand) }
 
 func currency(r *rand.Rand) *CurrencyInfo {
-	index := r.Intn(len(data.Data["currency"]["short"]))
+	index := r.IntN(len(data.Data["currency"]["short"]))
 	return &CurrencyInfo{
 		Short: data.Data["currency"]["short"][index],
 		Long:  data.Data["currency"]["long"][index],

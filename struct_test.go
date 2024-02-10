@@ -858,7 +858,7 @@ func TestExternalCustomType(t *testing.T) {
 		Example:     "1.1.1.1",
 		Output:      "net.IP",
 		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			data := net.IPv4(byte(r.Intn(256)), byte(r.Intn(256)), byte(r.Intn(256)), byte(r.Intn(256)))
+			data := net.IPv4(byte(r.IntN(256)), byte(r.IntN(256)), byte(r.IntN(256)), byte(r.IntN(256)))
 			return data, nil
 		},
 	})

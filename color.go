@@ -42,7 +42,7 @@ func hexColor(r *rand.Rand) string {
 	color := make([]byte, 6)
 	hashQuestion := []byte("?#")
 	for i := 0; i < 6; i++ {
-		color[i] = hashQuestion[r.Intn(2)]
+		color[i] = hashQuestion[r.IntN(2)]
 	}
 
 	return "#" + replaceWithHexLetters(r, replaceWithNumbers(r, string(color)))
