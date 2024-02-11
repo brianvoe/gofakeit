@@ -27,6 +27,7 @@ const minUint = 0
 const maxUint = ^uint(0)
 const minInt = -maxInt - 1
 const maxInt = int(^uint(0) >> 1)
+const is32bit = ^uint(0)>>32 == 0
 
 // Check if in lib
 func dataCheck(dataVal []string) bool {
