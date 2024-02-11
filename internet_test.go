@@ -21,27 +21,9 @@ func ExampleFaker_DomainName() {
 }
 
 func BenchmarkDomainName(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			DomainName()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.DomainName()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.DomainName()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		DomainName()
+	}
 }
 
 func ExampleDomainSuffix() {
@@ -59,27 +41,9 @@ func ExampleFaker_DomainSuffix() {
 }
 
 func BenchmarkDomainSuffix(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			DomainSuffix()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.DomainSuffix()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.DomainSuffix()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		DomainSuffix()
+	}
 }
 
 func ExampleURL() {
@@ -108,27 +72,9 @@ func TestURLValid(t *testing.T) {
 }
 
 func BenchmarkURL(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			URL()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.URL()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.URL()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		URL()
+	}
 }
 
 func ExampleHTTPMethod() {
@@ -160,27 +106,9 @@ func ExampleFaker_HTTPVersion() {
 }
 
 func BenchmarkHTTPMethod(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			HTTPMethod()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.HTTPMethod()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.HTTPMethod()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		HTTPMethod()
+	}
 }
 
 func ExampleIPv4Address() {
@@ -198,27 +126,9 @@ func ExampleFaker_IPv4Address() {
 }
 
 func BenchmarkIPv4Address(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			IPv4Address()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.IPv4Address()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.IPv4Address()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		IPv4Address()
+	}
 }
 
 func ExampleIPv6Address() {
@@ -236,27 +146,9 @@ func ExampleFaker_IPv6Address() {
 }
 
 func BenchmarkIPv6Address(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			IPv6Address()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.IPv6Address()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.IPv6Address()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		IPv6Address()
+	}
 }
 
 func ExampleMacAddress() {
@@ -274,27 +166,9 @@ func ExampleFaker_MacAddress() {
 }
 
 func BenchmarkMacAddress(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			MacAddress()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.MacAddress()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.MacAddress()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		MacAddress()
+	}
 }
 
 func ExampleHTTPStatusCode() {
@@ -312,27 +186,9 @@ func ExampleFaker_HTTPStatusCode() {
 }
 
 func BenchmarkHTTPStatusCode(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			HTTPStatusCode()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.HTTPStatusCode()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.HTTPStatusCode()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		HTTPStatusCode()
+	}
 }
 
 func ExampleHTTPStatusCodeSimple() {
@@ -350,27 +206,9 @@ func ExampleFaker_HTTPStatusCodeSimple() {
 }
 
 func BenchmarkHTTPStatusCodeSimple(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			HTTPStatusCodeSimple()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.HTTPStatusCodeSimple()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.HTTPStatusCodeSimple()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		HTTPStatusCodeSimple()
+	}
 }
 
 func ExampleLogLevel() {
@@ -396,27 +234,9 @@ func ExampleFaker_LogLevel() {
 }
 
 func BenchmarkLogLevel(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			LogLevel("general")
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.LogLevel("general")
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.LogLevel("general")
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		LogLevel("general")
+	}
 }
 
 func ExampleUserAgent() {
@@ -434,27 +254,9 @@ func ExampleFaker_UserAgent() {
 }
 
 func BenchmarkUserAgent(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			UserAgent()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.UserAgent()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.UserAgent()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		UserAgent()
+	}
 }
 
 func TestUserAgent(t *testing.T) {
@@ -478,27 +280,9 @@ func ExampleFaker_ChromeUserAgent() {
 }
 
 func BenchmarkChromeUserAgent(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			ChromeUserAgent()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.ChromeUserAgent()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.ChromeUserAgent()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		ChromeUserAgent()
+	}
 }
 
 func ExampleFirefoxUserAgent() {
@@ -516,27 +300,9 @@ func ExampleFaker_FirefoxUserAgent() {
 }
 
 func BenchmarkFirefoxUserAgent(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			FirefoxUserAgent()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.FirefoxUserAgent()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.FirefoxUserAgent()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		FirefoxUserAgent()
+	}
 }
 
 func ExampleSafariUserAgent() {
@@ -554,27 +320,9 @@ func ExampleFaker_SafariUserAgent() {
 }
 
 func BenchmarkSafariUserAgent(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			SafariUserAgent()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.SafariUserAgent()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.SafariUserAgent()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		SafariUserAgent()
+	}
 }
 
 func ExampleOperaUserAgent() {
@@ -592,25 +340,7 @@ func ExampleFaker_OperaUserAgent() {
 }
 
 func BenchmarkOperaUserAgent(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			OperaUserAgent()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.OperaUserAgent()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.OperaUserAgent()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		OperaUserAgent()
+	}
 }

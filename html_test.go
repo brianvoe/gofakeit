@@ -23,27 +23,9 @@ func ExampleFaker_InputName() {
 }
 
 func BenchmarkInputName(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			InputName()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.InputName()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.InputName()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		InputName()
+	}
 }
 
 func TestSvg(t *testing.T) {
@@ -88,25 +70,7 @@ func ExampleFaker_Svg() {
 }
 
 func BenchmarkSvg(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Svg(nil)
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Svg(nil)
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Svg(nil)
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Svg(nil)
+	}
 }

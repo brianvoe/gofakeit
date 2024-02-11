@@ -50,27 +50,9 @@ func ExampleFaker_Address() {
 }
 
 func BenchmarkAddress(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Address()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Address()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Address()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Address()
+	}
 }
 
 func ExampleStreet() {
@@ -88,27 +70,9 @@ func ExampleFaker_Street() {
 }
 
 func BenchmarkStreet(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Street()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Street()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Street()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Street()
+	}
 }
 
 func ExampleStreetNumber() {
@@ -126,27 +90,9 @@ func ExampleFaker_StreetNumber() {
 }
 
 func BenchmarkStreetNumber(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			StreetNumber()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.StreetNumber()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.StreetNumber()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		StreetNumber()
+	}
 }
 
 func ExampleStreetPrefix() {
@@ -164,27 +110,9 @@ func ExampleFaker_StreetPrefix() {
 }
 
 func BenchmarkStreetPrefix(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			StreetPrefix()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.StreetPrefix()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.StreetPrefix()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		StreetPrefix()
+	}
 }
 
 func ExampleStreetName() {
@@ -202,27 +130,9 @@ func ExampleFaker_StreetName() {
 }
 
 func BenchmarkStreetName(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			StreetName()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.StreetName()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.StreetName()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		StreetName()
+	}
 }
 
 func ExampleStreetSuffix() {
@@ -240,27 +150,9 @@ func ExampleFaker_StreetSuffix() {
 }
 
 func BenchmarkStreetSuffix(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			StreetSuffix()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.StreetSuffix()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.StreetSuffix()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		StreetSuffix()
+	}
 }
 
 func ExampleCity() {
@@ -284,27 +176,9 @@ func TestCity(t *testing.T) {
 }
 
 func BenchmarkCity(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			City()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.City()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.City()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		City()
+	}
 }
 
 func ExampleState() {
@@ -322,27 +196,9 @@ func ExampleFaker_State() {
 }
 
 func BenchmarkState(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			State()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.State()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.State()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		State()
+	}
 }
 
 func ExampleStateAbr() {
@@ -360,27 +216,9 @@ func ExampleFaker_StateAbr() {
 }
 
 func BenchmarkStateAbr(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			StateAbr()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.StateAbr()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.StateAbr()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		StateAbr()
+	}
 }
 
 func ExampleZip() {
@@ -398,27 +236,9 @@ func ExampleFaker_Zip() {
 }
 
 func BenchmarkZip(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Zip()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Zip()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Zip()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Zip()
+	}
 }
 
 func ExampleCountry() {
@@ -436,27 +256,9 @@ func ExampleFaker_Country() {
 }
 
 func BenchmarkCountry(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Country()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Country()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Country()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Country()
+	}
 }
 
 func ExampleCountryAbr() {
@@ -474,27 +276,9 @@ func ExampleFaker_CountryAbr() {
 }
 
 func BenchmarkCountryAbr(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			CountryAbr()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.CountryAbr()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.CountryAbr()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		CountryAbr()
+	}
 }
 
 func ExampleLatitude() {
@@ -512,27 +296,9 @@ func ExampleFaker_Latitude() {
 }
 
 func BenchmarkLatitude(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Latitude()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Latitude()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Latitude()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Latitude()
+	}
 }
 
 func ExampleLongitude() {
@@ -550,27 +316,9 @@ func ExampleFaker_Longitude() {
 }
 
 func BenchmarkLongitude(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Longitude()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Longitude()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Longitude()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Longitude()
+	}
 }
 
 func TestLatitudeInRange(t *testing.T) {
@@ -612,27 +360,9 @@ func ExampleFaker_LatitudeInRange() {
 }
 
 func BenchmarkLatitudeInRange(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			LatitudeInRange(-90, 90)
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.LatitudeInRange(-90, 90)
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.LatitudeInRange(-90, 90)
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		LatitudeInRange(-90, 90)
+	}
 }
 
 func TestLongitudeInRange(t *testing.T) {
@@ -674,25 +404,7 @@ func ExampleFaker_LongitudeInRange() {
 }
 
 func BenchmarkLongitudeInRange(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			LongitudeInRange(-180, 180)
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.LongitudeInRange(-180, 180)
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.LongitudeInRange(-180, 180)
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		LongitudeInRange(-180, 180)
+	}
 }

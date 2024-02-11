@@ -20,27 +20,9 @@ func ExampleFaker_FileMimeType() {
 }
 
 func BenchmarkFileMimeType(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			FileMimeType()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.FileMimeType()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.FileMimeType()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		FileMimeType()
+	}
 }
 
 func ExampleFileExtension() {
@@ -58,25 +40,7 @@ func ExampleFaker_FileExtension() {
 }
 
 func BenchmarkFileExtension(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			FileExtension()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.FileExtension()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.FileExtension()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		FileExtension()
+	}
 }

@@ -24,27 +24,9 @@ func ExampleFaker_Bool() {
 }
 
 func BenchmarkBool(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Bool()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Bool()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Bool()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Bool()
+	}
 }
 
 func TestUUID(t *testing.T) {
@@ -78,27 +60,9 @@ func ExampleFaker_UUID() {
 }
 
 func BenchmarkUUID(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			UUID()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.UUID()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.UUID()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		UUID()
+	}
 }
 
 func TestShuffleAnySlice(t *testing.T) {
@@ -164,30 +128,10 @@ func ExampleFaker_ShuffleAnySlice() {
 }
 
 func BenchmarkShuffleAnySlice(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		a := []any{"a", 1, "c", 3, []string{"a", "b", "c"}, -555, []byte{1, 5}, "h"}
-		for i := 0; i < b.N; i++ {
-			ShuffleAnySlice(a)
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		a := []any{"a", 1, "c", 3, []string{"a", "b", "c"}, -555, []byte{1, 5}, "h"}
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.ShuffleAnySlice(a)
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		a := []any{"a", 1, "c", 3, []string{"a", "b", "c"}, -555, []byte{1, 5}, "h"}
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.ShuffleAnySlice(a)
-		}
-	})
+	a := []any{"a", 1, "c", 3, []string{"a", "b", "c"}, -555, []byte{1, 5}, "h"}
+	for i := 0; i < b.N; i++ {
+		ShuffleAnySlice(a)
+	}
 }
 
 func ExampleFlipACoin() {
@@ -211,27 +155,9 @@ func TestFlipACoin(t *testing.T) {
 }
 
 func BenchmarkFlipACoin(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			FlipACoin()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.FlipACoin()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.FlipACoin()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		FlipACoin()
+	}
 }
 
 func TestRandomMapKey(t *testing.T) {

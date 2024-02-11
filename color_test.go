@@ -20,27 +20,9 @@ func ExampleFaker_Color() {
 }
 
 func BenchmarkColor(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Color()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Color()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Color()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Color()
+	}
 }
 
 func ExampleNiceColors() {
@@ -58,27 +40,9 @@ func ExampleFaker_NiceColors() {
 }
 
 func BenchmarkNiceColors(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			NiceColors()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.NiceColors()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.NiceColors()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		NiceColors()
+	}
 }
 
 func ExampleSafeColor() {
@@ -96,27 +60,9 @@ func ExampleFaker_SafeColor() {
 }
 
 func BenchmarkSafeColor(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			SafeColor()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.SafeColor()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.SafeColor()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		SafeColor()
+	}
 }
 
 func ExampleHexColor() {
@@ -134,27 +80,9 @@ func ExampleFaker_HexColor() {
 }
 
 func BenchmarkHexColor(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			HexColor()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.HexColor()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.HexColor()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		HexColor()
+	}
 }
 
 func ExampleRGBColor() {
@@ -172,25 +100,7 @@ func ExampleFaker_RGBColor() {
 }
 
 func BenchmarkRGBColor(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			RGBColor()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.RGBColor()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.RGBColor()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		RGBColor()
+	}
 }

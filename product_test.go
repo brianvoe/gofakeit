@@ -87,27 +87,9 @@ func TestProduct(t *testing.T) {
 }
 
 func BenchmarkProduct(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Product()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Product()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Product()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Product()
+	}
 }
 
 func ExampleProductName() {

@@ -20,27 +20,9 @@ func ExampleFaker_Emoji() {
 }
 
 func BenchmarkEmoji(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Emoji()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Emoji()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Emoji()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Emoji()
+	}
 }
 
 func ExampleEmojiDescription() {
@@ -58,27 +40,9 @@ func ExampleFaker_EmojiDescription() {
 }
 
 func BenchmarkEmojiDescription(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			EmojiDescription()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.EmojiDescription()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.EmojiDescription()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		EmojiDescription()
+	}
 }
 
 func ExampleEmojiCategory() {
@@ -96,27 +60,9 @@ func ExampleFaker_EmojiCategory() {
 }
 
 func BenchmarkEmojiCategory(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			EmojiCategory()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.EmojiCategory()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.EmojiCategory()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		EmojiCategory()
+	}
 }
 
 func ExampleEmojiAlias() {
@@ -134,27 +80,9 @@ func ExampleFaker_EmojiAlias() {
 }
 
 func BenchmarkEmojiAlias(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			EmojiAlias()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.EmojiAlias()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.EmojiAlias()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		EmojiAlias()
+	}
 }
 
 func ExampleEmojiTag() {
@@ -172,25 +100,7 @@ func ExampleFaker_EmojiTag() {
 }
 
 func BenchmarkEmojiTag(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			EmojiTag()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.EmojiTag()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.EmojiTag()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		EmojiTag()
+	}
 }

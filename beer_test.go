@@ -20,27 +20,9 @@ func ExampleFaker_BeerName() {
 }
 
 func BenchmarkBeerName(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			BeerName()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.BeerName()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.BeerName()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		BeerName()
+	}
 }
 
 func ExampleBeerStyle() {
@@ -58,27 +40,9 @@ func ExampleFaker_BeerStyle() {
 }
 
 func BenchmarkBeerStyle(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			BeerStyle()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.BeerStyle()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.BeerStyle()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		BeerStyle()
+	}
 }
 
 func ExampleBeerHop() {
@@ -96,27 +60,9 @@ func ExampleFaker_BeerHop() {
 }
 
 func BenchmarkBeerHop(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			BeerHop()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.BeerHop()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.BeerHop()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		BeerHop()
+	}
 }
 
 func ExampleBeerYeast() {
@@ -134,27 +80,10 @@ func ExampleFaker_BeerYeast() {
 }
 
 func BenchmarkBeerYeast(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			BeerYeast()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		BeerYeast()
+	}
 
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.BeerYeast()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.BeerYeast()
-		}
-	})
 }
 
 func ExampleBeerMalt() {
@@ -172,27 +101,9 @@ func ExampleFaker_BeerMalt() {
 }
 
 func BenchmarkBeerMalt(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			BeerMalt()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.BeerMalt()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.BeerMalt()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		BeerMalt()
+	}
 }
 
 func ExampleBeerIbu() {
@@ -210,27 +121,9 @@ func ExampleFaker_BeerIbu() {
 }
 
 func BenchmarkBeerIbu(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			BeerIbu()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.BeerIbu()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.BeerIbu()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		BeerIbu()
+	}
 }
 
 func ExampleBeerAlcohol() {
@@ -248,27 +141,9 @@ func ExampleFaker_BeerAlcohol() {
 }
 
 func BenchmarkBeerAlcohol(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			BeerAlcohol()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.BeerAlcohol()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.BeerAlcohol()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		BeerAlcohol()
+	}
 }
 
 func ExampleBeerBlg() {
@@ -286,25 +161,7 @@ func ExampleFaker_BeerBlg() {
 }
 
 func BenchmarkBeerBlg(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			BeerBlg()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.BeerBlg()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.BeerBlg()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		BeerBlg()
+	}
 }

@@ -20,27 +20,9 @@ func ExampleFaker_Company() {
 }
 
 func BenchmarkCompany(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Company()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Company()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Company()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Company()
+	}
 }
 
 func TestCompany(t *testing.T) {
@@ -64,27 +46,9 @@ func ExampleFaker_CompanySuffix() {
 }
 
 func BenchmarkCompanySuffix(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			CompanySuffix()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.CompanySuffix()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.CompanySuffix()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		CompanySuffix()
+	}
 }
 
 func ExampleBlurb() {
@@ -102,27 +66,9 @@ func ExampleFaker_Blurb() {
 }
 
 func BenchmarkBlurb(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Blurb()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Blurb()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Blurb()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Blurb()
+	}
 }
 func ExampleBuzzWord() {
 	Seed(11)
@@ -139,27 +85,9 @@ func ExampleFaker_BuzzWord() {
 }
 
 func BenchmarkBuzzWord(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			BuzzWord()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.BuzzWord()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.BuzzWord()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		BuzzWord()
+	}
 }
 
 func ExampleBS() {
@@ -177,27 +105,9 @@ func ExampleFaker_BS() {
 }
 
 func BenchmarkBS(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			BS()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.BS()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.BS()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		BS()
+	}
 }
 
 func ExampleJob() {
@@ -229,27 +139,9 @@ func ExampleFaker_Job() {
 }
 
 func BenchmarkJob(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Job()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Job()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Job()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Job()
+	}
 }
 
 func ExampleJobTitle() {
@@ -267,27 +159,9 @@ func ExampleFaker_JobTitle() {
 }
 
 func BenchmarkJobTitle(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			JobTitle()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.JobTitle()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.JobTitle()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		JobTitle()
+	}
 }
 
 func ExampleJobDescriptor() {
@@ -305,27 +179,9 @@ func ExampleFaker_JobDescriptor() {
 }
 
 func BenchmarkJobDescriptor(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			JobDescriptor()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.JobDescriptor()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.JobDescriptor()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		JobDescriptor()
+	}
 }
 
 func ExampleJobLevel() {
@@ -343,27 +199,9 @@ func ExampleFaker_JobLevel() {
 }
 
 func BenchmarkJobLevel(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			JobLevel()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.JobLevel()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.JobLevel()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		JobLevel()
+	}
 }
 
 func ExampleSlogan() {
@@ -381,25 +219,7 @@ func ExampleFaker_Slogan() {
 }
 
 func BenchmarkSlogan(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Slogan()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Slogan()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Slogan()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Slogan()
+	}
 }

@@ -20,27 +20,9 @@ func ExampleFaker_Fruit() {
 }
 
 func BenchmarkFruit(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Fruit()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Fruit()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Fruit()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Fruit()
+	}
 }
 
 func ExampleVegetable() {
@@ -58,27 +40,9 @@ func ExampleFaker_Vegetable() {
 }
 
 func BenchmarkVegetable(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Vegetable()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Vegetable()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Vegetable()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Vegetable()
+	}
 }
 
 func ExampleBreakfast() {
@@ -96,27 +60,9 @@ func ExampleFaker_Breakfast() {
 }
 
 func BenchmarkBreakfast(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Breakfast()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Breakfast()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Breakfast()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Breakfast()
+	}
 }
 
 func ExampleLunch() {
@@ -134,27 +80,9 @@ func ExampleFaker_Lunch() {
 }
 
 func BenchmarkLunch(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Lunch()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Lunch()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Lunch()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Lunch()
+	}
 }
 
 func ExampleDinner() {
@@ -172,27 +100,9 @@ func ExampleFaker_Dinner() {
 }
 
 func BenchmarkDinner(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Dinner()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Dinner()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Dinner()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Dinner()
+	}
 }
 
 func ExampleDrink() {
@@ -210,27 +120,9 @@ func ExampleFaker_Drink() {
 }
 
 func BenchmarkDrink(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Drink()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Drink()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Drink()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Drink()
+	}
 }
 
 func ExampleSnack() {
@@ -248,27 +140,9 @@ func ExampleFaker_Snack() {
 }
 
 func BenchmarkSnack(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Snack()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Snack()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Snack()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Snack()
+	}
 }
 
 func ExampleDessert() {
@@ -286,25 +160,7 @@ func ExampleFaker_Dessert() {
 }
 
 func BenchmarkDessert(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Dessert()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Dessert()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Dessert()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Dessert()
+	}
 }

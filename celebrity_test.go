@@ -20,27 +20,9 @@ func ExampleFaker_CelebrityActor() {
 }
 
 func BenchmarkCelebrityActor(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			CelebrityActor()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.CelebrityActor()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.CelebrityActor()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		CelebrityActor()
+	}
 }
 
 func ExampleCelebrityBusiness() {
@@ -58,27 +40,9 @@ func ExampleFaker_CelebrityBusiness() {
 }
 
 func BenchmarkCelebrityBusiness(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			CelebrityBusiness()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.CelebrityBusiness()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.CelebrityBusiness()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		CelebrityBusiness()
+	}
 }
 
 func ExampleCelebritySport() {
@@ -96,25 +60,7 @@ func ExampleFaker_CelebritySport() {
 }
 
 func BenchmarkCelebritySport(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			CelebritySport()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.CelebritySport()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.CelebritySport()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		CelebritySport()
+	}
 }

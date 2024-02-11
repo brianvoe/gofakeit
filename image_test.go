@@ -20,27 +20,9 @@ func ExampleFaker_ImageURL() {
 }
 
 func BenchmarkImageURL(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			ImageURL(640, 480)
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.ImageURL(640, 480)
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.ImageURL(640, 480)
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		ImageURL(640, 480)
+	}
 }
 
 func ExampleImage() {
@@ -58,27 +40,9 @@ func ExampleFaker_Image() {
 }
 
 func BenchmarkImage(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Image(640, 480)
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Image(640, 480)
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Image(640, 480)
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Image(640, 480)
+	}
 }
 
 func ExampleImageJpeg() {
@@ -96,27 +60,9 @@ func ExampleFaker_ImageJpeg() {
 }
 
 func BenchmarkImageJpeg(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			ImageJpeg(640, 480)
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.ImageJpeg(640, 480)
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.ImageJpeg(640, 480)
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		ImageJpeg(640, 480)
+	}
 }
 
 func ExampleImagePng() {
@@ -134,25 +80,7 @@ func ExampleFaker_ImagePng() {
 }
 
 func BenchmarkImagePng(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			ImagePng(640, 480)
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.ImagePng(640, 480)
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.ImagePng(640, 480)
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		ImagePng(640, 480)
+	}
 }

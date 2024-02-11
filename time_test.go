@@ -33,27 +33,9 @@ func TestDateLookup(t *testing.T) {
 }
 
 func BenchmarkDate(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Date()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Date()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Date()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Date()
+	}
 }
 
 func ExamplePastDate() {
@@ -75,27 +57,9 @@ func TestPastDate(t *testing.T) {
 }
 
 func BenchmarkPastDate(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			PastDate()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.PastDate()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.PastDate()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		PastDate()
+	}
 }
 
 func ExampleFutureDate() {
@@ -117,27 +81,9 @@ func TestFutureDate(t *testing.T) {
 }
 
 func BenchmarkFutureDate(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			FutureDate()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.FutureDate()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.FutureDate()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		FutureDate()
+	}
 }
 
 func ExampleDateRange() {
@@ -153,27 +99,9 @@ func ExampleFaker_DateRange() {
 }
 
 func BenchmarkDateRange(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			DateRange(time.Now().AddDate(-30, 0, 0), time.Now())
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.DateRange(time.Now().AddDate(-30, 0, 0), time.Now())
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.DateRange(time.Now().AddDate(-30, 0, 0), time.Now())
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		DateRange(time.Now().AddDate(-30, 0, 0), time.Now())
+	}
 }
 
 func ExampleMonth() {
@@ -191,27 +119,9 @@ func ExampleFaker_Month() {
 }
 
 func BenchmarkMonth(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Month()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Month()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Month()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Month()
+	}
 }
 
 func ExampleMonthString() {
@@ -229,27 +139,9 @@ func ExampleFaker_MonthString() {
 }
 
 func BenchmarkMonthString(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			MonthString()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.MonthString()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.MonthString()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		MonthString()
+	}
 }
 
 func ExampleWeekDay() {
@@ -267,27 +159,9 @@ func ExampleFaker_WeekDay() {
 }
 
 func BenchmarkWeekDay(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			WeekDay()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.WeekDay()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.WeekDay()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		WeekDay()
+	}
 }
 
 func ExampleDay() {
@@ -305,27 +179,9 @@ func ExampleFaker_Day() {
 }
 
 func BenchmarkDay(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Day()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Day()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Day()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Day()
+	}
 }
 
 func ExampleYear() {
@@ -343,27 +199,9 @@ func ExampleFaker_Year() {
 }
 
 func BenchmarkYear(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Year()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Year()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Year()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Year()
+	}
 }
 
 func ExampleHour() {
@@ -381,27 +219,9 @@ func ExampleFaker_Hour() {
 }
 
 func BenchmarkHour(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Hour()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Hour()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Hour()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Hour()
+	}
 }
 
 func ExampleMinute() {
@@ -419,27 +239,9 @@ func ExampleFaker_Minute() {
 }
 
 func BenchmarkMinute(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Minute()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Minute()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Minute()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Minute()
+	}
 }
 
 func ExampleSecond() {
@@ -457,27 +259,9 @@ func ExampleFaker_Second() {
 }
 
 func BenchmarkSecond(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Second()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Second()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Second()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Second()
+	}
 }
 
 func ExampleNanoSecond() {
@@ -495,27 +279,9 @@ func ExampleFaker_NanoSecond() {
 }
 
 func BenchmarkNanoSecond(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			NanoSecond()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.NanoSecond()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.NanoSecond()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		NanoSecond()
+	}
 }
 
 func ExampleTimeZone() {
@@ -533,27 +299,9 @@ func ExampleFaker_TimeZone() {
 }
 
 func BenchmarkTimeZone(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			TimeZone()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.TimeZone()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.TimeZone()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		TimeZone()
+	}
 }
 
 func ExampleTimeZoneFull() {
@@ -571,27 +319,9 @@ func ExampleFaker_TimeZoneFull() {
 }
 
 func BenchmarkTimeZoneFull(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			TimeZoneFull()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.TimeZoneFull()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.TimeZoneFull()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		TimeZoneFull()
+	}
 }
 
 func ExampleTimeZoneAbv() {
@@ -609,27 +339,9 @@ func ExampleFaker_TimeZoneAbv() {
 }
 
 func BenchmarkTimeZoneAbv(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			TimeZoneAbv()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.TimeZoneAbv()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.TimeZoneAbv()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		TimeZoneAbv()
+	}
 }
 
 func ExampleTimeZoneOffset() {
@@ -647,27 +359,9 @@ func ExampleFaker_TimeZoneOffset() {
 }
 
 func BenchmarkTimeZoneOffset(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			TimeZoneOffset()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.TimeZoneOffset()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.TimeZoneOffset()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		TimeZoneOffset()
+	}
 }
 
 func ExampleTimeZoneRegion() {
@@ -685,25 +379,7 @@ func ExampleFaker_TimeZoneRegion() {
 }
 
 func BenchmarkTimeZoneRegion(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			TimeZoneRegion()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.TimeZoneRegion()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.TimeZoneRegion()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		TimeZoneRegion()
+	}
 }

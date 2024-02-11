@@ -20,27 +20,9 @@ func ExampleFaker_HackerPhrase() {
 }
 
 func BenchmarkHackerPhrase(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			HackerPhrase()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.HackerPhrase()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.HackerPhrase()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		HackerPhrase()
+	}
 }
 
 func ExampleHackerAbbreviation() {
@@ -58,27 +40,9 @@ func ExampleFaker_HackerAbbreviation() {
 }
 
 func BenchmarkHackerAbbreviation(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			HackerAbbreviation()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.HackerAbbreviation()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.HackerAbbreviation()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		HackerAbbreviation()
+	}
 }
 
 func ExampleHackerAdjective() {
@@ -96,27 +60,9 @@ func ExampleFaker_HackerAdjective() {
 }
 
 func BenchmarkHackerAdjective(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			HackerAdjective()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.HackerAdjective()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.HackerAdjective()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		HackerAdjective()
+	}
 }
 
 func ExampleHackerNoun() {
@@ -134,27 +80,9 @@ func ExampleFaker_HackerNoun() {
 }
 
 func BenchmarkHackerNoun(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			HackerNoun()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.HackerNoun()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.HackerNoun()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		HackerNoun()
+	}
 }
 
 func ExampleHackerVerb() {
@@ -172,27 +100,9 @@ func ExampleFaker_HackerVerb() {
 }
 
 func BenchmarkHackerVerb(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			HackerVerb()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.HackerVerb()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.HackerVerb()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		HackerVerb()
+	}
 }
 
 func ExampleHackeringVerb() {
@@ -210,25 +120,7 @@ func ExampleFaker_HackeringVerb() {
 }
 
 func BenchmarkHackeringVerb(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			HackeringVerb()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.HackeringVerb()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.HackeringVerb()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		HackeringVerb()
+	}
 }

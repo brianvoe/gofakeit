@@ -26,27 +26,9 @@ func ExampleFaker_Movie() {
 }
 
 func BenchmarkMovie(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Movie()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Movie()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Movie()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Movie()
+	}
 }
 
 func TestMovie(t *testing.T) {
@@ -70,27 +52,9 @@ func ExampleFaker_MovieName() {
 }
 
 func BenchmarkMovieName(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			MovieName()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.MovieName()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.MovieName()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		MovieName()
+	}
 }
 
 func ExampleMovieGenre() {
@@ -108,25 +72,7 @@ func ExampleFaker_MovieGenre() {
 }
 
 func BenchmarkMovieGenre(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			MovieGenre()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.MovieGenre()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.MovieGenre()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		MovieGenre()
+	}
 }

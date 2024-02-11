@@ -20,25 +20,7 @@ func ExampleFaker_School() {
 }
 
 func BenchmarkSchool(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			School()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.School()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.School()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		School()
+	}
 }

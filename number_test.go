@@ -20,27 +20,9 @@ func ExampleFaker_Number() {
 }
 
 func BenchmarkNumber(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Number(10, 999999)
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Number(10, 999999)
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Number(10, 999999)
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Number(10, 999999)
+	}
 }
 
 func ExampleUint8() {
@@ -58,27 +40,9 @@ func ExampleFaker_Uint8() {
 }
 
 func BenchmarkUint8(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Uint8()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Uint8()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Uint8()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Uint8()
+	}
 }
 
 func ExampleUint16() {
@@ -96,27 +60,9 @@ func ExampleFaker_Uint16() {
 }
 
 func BenchmarkUint16(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Uint16()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Uint16()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Uint16()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Uint16()
+	}
 }
 
 func ExampleUint32() {
@@ -134,27 +80,9 @@ func ExampleFaker_Uint32() {
 }
 
 func BenchmarkUint32(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Uint32()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Uint32()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Uint32()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Uint32()
+	}
 }
 
 func ExampleUint64() {
@@ -172,27 +100,9 @@ func ExampleFaker_Uint64() {
 }
 
 func BenchmarkUint64(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Uint64()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Uint64()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Uint64()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Uint64()
+	}
 }
 
 func ExampleUintRange() {
@@ -212,27 +122,10 @@ func ExampleFaker_UintRange() {
 func BenchmarkUintRange(b *testing.B) {
 	min := uint(1)
 	max := uint(10)
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			UintRange(min, max)
-		}
-	})
 
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.UintRange(min, max)
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.UintRange(min, max)
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		UintRange(min, max)
+	}
 }
 
 func ExampleInt8() {
@@ -250,27 +143,9 @@ func ExampleFaker_Int8() {
 }
 
 func BenchmarkInt8(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Int8()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Int8()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Int8()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Int8()
+	}
 }
 
 func ExampleInt16() {
@@ -288,27 +163,9 @@ func ExampleFaker_Int16() {
 }
 
 func BenchmarkInt16(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Int16()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Int16()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Int16()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Int16()
+	}
 }
 
 func ExampleInt32() {
@@ -326,27 +183,9 @@ func ExampleFaker_Int32() {
 }
 
 func BenchmarkInt32(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Int32()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Int32()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Int32()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Int32()
+	}
 }
 
 func ExampleInt64() {
@@ -364,27 +203,9 @@ func ExampleFaker_Int64() {
 }
 
 func BenchmarkInt64(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Int64()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Int64()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Int64()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Int64()
+	}
 }
 
 func ExampleIntRange() {
@@ -404,27 +225,10 @@ func ExampleFaker_IntRange() {
 func BenchmarkIntRange(b *testing.B) {
 	min := int(1)
 	max := int(10)
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			IntRange(min, max)
-		}
-	})
 
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.IntRange(min, max)
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.IntRange(min, max)
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		IntRange(min, max)
+	}
 }
 
 func ExampleFloat32() {
@@ -442,27 +246,9 @@ func ExampleFaker_Float32() {
 }
 
 func BenchmarkFloat32(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Float32()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Float32()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Float32()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Float32()
+	}
 }
 
 func ExampleFloat32Range() {
@@ -480,27 +266,9 @@ func ExampleFaker_Float32Range() {
 }
 
 func BenchmarkFloat32Range(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Float32Range(10, 999999)
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Float32Range(10, 999999)
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Float32Range(10, 999999)
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Float32Range(10, 999999)
+	}
 }
 
 func TestFloat32RangeSame(t *testing.T) {
@@ -524,27 +292,9 @@ func ExampleFaker_Float64() {
 }
 
 func BenchmarkFloat64(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Float64()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Float64()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Float64()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Float64()
+	}
 }
 
 func ExampleFloat64Range() {
@@ -562,27 +312,9 @@ func ExampleFaker_Float64Range() {
 }
 
 func BenchmarkFloat64Range(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Float64Range(0, 999999)
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Float64Range(0, 999999)
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Float64Range(0, 999999)
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Float64Range(0, 999999)
+	}
 }
 
 func TestRandFloat64RangeSame(t *testing.T) {
@@ -612,27 +344,9 @@ func ExampleFaker_ShuffleInts() {
 }
 
 func BenchmarkShuffleInts(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			ShuffleInts([]int{52, 854, 941, 74125, 8413, 777, 89416, 841657})
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.ShuffleInts([]int{52, 854, 941, 74125, 8413, 777, 89416, 841657})
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.ShuffleInts([]int{52, 854, 941, 74125, 8413, 777, 89416, 841657})
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		ShuffleInts([]int{52, 854, 941, 74125, 8413, 777, 89416, 841657})
+	}
 }
 
 func ExampleRandomInt() {
@@ -694,27 +408,9 @@ func TestRandomUint(t *testing.T) {
 }
 
 func BenchmarkRandomUint(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			RandomUint([]uint{52, 854, 941, 74125, 8413, 777, 89416, 841657})
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.RandomUint([]uint{52, 854, 941, 74125, 8413, 777, 89416, 841657})
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.RandomUint([]uint{52, 854, 941, 74125, 8413, 777, 89416, 841657})
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		RandomUint([]uint{52, 854, 941, 74125, 8413, 777, 89416, 841657})
+	}
 }
 
 func ExampleHexUint8() {
@@ -732,27 +428,9 @@ func ExampleFaker_HexUint8() {
 }
 
 func BenchmarkHexUint8(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			HexUint8()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.HexUint8()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.HexUint8()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		HexUint8()
+	}
 }
 
 func ExampleHexUint16() {
@@ -770,27 +448,9 @@ func ExampleFaker_HexUint16() {
 }
 
 func BenchmarkHexUint16(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			HexUint16()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.HexUint16()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.HexUint16()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		HexUint16()
+	}
 }
 
 func ExampleHexUint32() {
@@ -808,27 +468,9 @@ func ExampleFaker_HexUint32() {
 }
 
 func BenchmarkHexUint32(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			HexUint32()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.HexUint32()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.HexUint32()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		HexUint32()
+	}
 }
 
 func ExampleHexUint64() {
@@ -846,27 +488,9 @@ func ExampleFaker_HexUint64() {
 }
 
 func BenchmarkHexUint64(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			HexUint64()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.HexUint64()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.HexUint64()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		HexUint64()
+	}
 }
 
 func ExampleHexUint128() {
@@ -884,27 +508,9 @@ func ExampleFaker_HexUint128() {
 }
 
 func BenchmarkHexUint128(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			HexUint128()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.HexUint128()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.HexUint128()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		HexUint128()
+	}
 }
 
 func ExampleHexUint256() {
@@ -922,25 +528,7 @@ func ExampleFaker_HexUint256() {
 }
 
 func BenchmarkHexUint256(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			HexUint256()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.HexUint256()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.HexUint256()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		HexUint256()
+	}
 }

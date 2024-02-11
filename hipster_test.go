@@ -20,27 +20,9 @@ func ExampleFaker_HipsterWord() {
 }
 
 func BenchmarkHipsterWord(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			HipsterWord()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.HipsterWord()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.HipsterWord()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		HipsterWord()
+	}
 }
 
 func ExampleHipsterSentence() {
@@ -58,27 +40,9 @@ func ExampleFaker_HipsterSentence() {
 }
 
 func BenchmarkHipsterSentence(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			HipsterSentence(10)
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.HipsterSentence(10)
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.HipsterSentence(10)
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		HipsterSentence(10)
+	}
 }
 
 func ExampleHipsterParagraph() {
@@ -100,25 +64,7 @@ func ExampleFaker_HipsterParagraph() {
 }
 
 func BenchmarkHipsterParagraph(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			HipsterParagraph(3, 5, 12, "\n")
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.HipsterParagraph(3, 5, 12, "\n")
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.HipsterParagraph(3, 5, 12, "\n")
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		HipsterParagraph(3, 5, 12, "\n")
+	}
 }

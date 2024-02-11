@@ -42,27 +42,9 @@ func ExampleFaker_Car() {
 }
 
 func BenchmarkCar(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Car()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Car()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Car()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Car()
+	}
 }
 
 func ExampleCarType() {
@@ -80,27 +62,9 @@ func ExampleFaker_CarType() {
 }
 
 func BenchmarkCarType(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			CarType()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.CarType()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.CarType()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		CarType()
+	}
 }
 
 func ExampleCarFuelType() {
@@ -118,27 +82,9 @@ func ExampleFaker_CarFuelType() {
 }
 
 func BenchmarkCarFuelType(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			CarFuelType()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.CarFuelType()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.CarFuelType()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		CarFuelType()
+	}
 }
 
 func ExampleCarTransmissionType() {
@@ -156,27 +102,9 @@ func ExampleFaker_CarTransmissionType() {
 }
 
 func BenchmarkCarTransmissionType(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			CarTransmissionType()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.CarTransmissionType()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.CarTransmissionType()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		CarTransmissionType()
+	}
 }
 
 func ExampleCarMaker() {
@@ -194,27 +122,9 @@ func ExampleFaker_CarMaker() {
 }
 
 func BenchmarkCarMaker(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			CarMaker()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.CarMaker()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.CarMaker()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		CarMaker()
+	}
 }
 
 func ExampleCarModel() {
@@ -232,25 +142,7 @@ func ExampleFaker_CarModel() {
 }
 
 func BenchmarkCarModel(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			CarModel()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.CarModel()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.CarModel()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		CarModel()
+	}
 }

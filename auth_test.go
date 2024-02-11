@@ -20,27 +20,9 @@ func ExampleFaker_Username() {
 }
 
 func BenchmarkUsername(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Username()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Username()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Username()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Username()
+	}
 }
 
 func TestPassword(t *testing.T) {
@@ -102,25 +84,7 @@ func ExampleFaker_Password() {
 }
 
 func BenchmarkPassword(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Password(true, true, true, true, true, 50)
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Password(true, true, true, true, true, 8)
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Password(true, true, true, true, true, 8)
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Password(true, true, true, true, true, 50)
+	}
 }

@@ -54,27 +54,9 @@ func TestCusipCheckDigit(t *testing.T) {
 }
 
 func BenchmarkCusip(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Cusip()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Cusip()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Cusip()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Cusip()
+	}
 }
 
 // ISIN Tests
@@ -126,25 +108,7 @@ func TestIsinCheckDigit(t *testing.T) {
 }
 
 func BenchmarkIsin(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Isin()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Isin()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Isin()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Isin()
+	}
 }

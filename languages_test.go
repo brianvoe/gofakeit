@@ -20,27 +20,9 @@ func ExampleFaker_Language() {
 }
 
 func BenchmarkLanguage(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Language()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Language()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Language()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Language()
+	}
 }
 
 func ExampleLanguageAbbreviation() {
@@ -58,27 +40,9 @@ func ExampleFaker_LanguageAbbreviation() {
 }
 
 func BenchmarkLanguageAbbreviation(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			LanguageAbbreviation()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.LanguageAbbreviation()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.LanguageAbbreviation()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		LanguageAbbreviation()
+	}
 }
 
 func ExampleLanguageBCP() {
@@ -96,27 +60,9 @@ func ExampleFaker_LanguageBCP() {
 }
 
 func BenchmarkLanguageBCP(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			LanguageBCP()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.LanguageBCP()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.LanguageBCP()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		LanguageBCP()
+	}
 }
 
 func ExampleProgrammingLanguage() {
@@ -134,27 +80,9 @@ func ExampleFaker_ProgrammingLanguage() {
 }
 
 func BenchmarkProgrammingLanguage(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			ProgrammingLanguage()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.ProgrammingLanguage()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.ProgrammingLanguage()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		ProgrammingLanguage()
+	}
 }
 
 func ExampleProgrammingLanguageBest() {
@@ -172,25 +100,7 @@ func ExampleFaker_ProgrammingLanguageBest() {
 }
 
 func BenchmarkProgrammingLanguageBest(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			ProgrammingLanguageBest()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.ProgrammingLanguageBest()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.ProgrammingLanguageBest()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		ProgrammingLanguageBest()
+	}
 }
