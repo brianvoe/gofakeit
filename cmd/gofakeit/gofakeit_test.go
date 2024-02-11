@@ -69,7 +69,7 @@ func TestFunctionLoop(t *testing.T) {
 }
 
 func TestNotEnoughArgs(t *testing.T) {
-	seed := int64(11)
+	seed := uint64(11)
 	args := []string{}
 
 	_, err := mainFunc(seed, args, 1)
@@ -79,7 +79,7 @@ func TestNotEnoughArgs(t *testing.T) {
 }
 
 func TestNoFunction(t *testing.T) {
-	seed := int64(11)
+	seed := uint64(11)
 	args := []string{"notafunction"}
 
 	_, err := mainFunc(seed, args, 1)
@@ -89,7 +89,7 @@ func TestNoFunction(t *testing.T) {
 }
 
 func TestFunctionSimple(t *testing.T) {
-	seed := int64(11)
+	seed := uint64(11)
 	args := []string{"firstname"}
 
 	outStr, err := mainFunc(seed, args, 1)
@@ -114,7 +114,7 @@ func TestFunctionSimple(t *testing.T) {
 func TestFunctionWithParams(t *testing.T) {
 	strs := []string{"hello", "world", "whats", "up"}
 
-	seed := int64(11)
+	seed := uint64(11)
 	args := []string{"shufflestrings", strings.Join(strs, ",")}
 
 	outStr, err := mainFunc(seed, args, 1)
@@ -128,7 +128,7 @@ func TestFunctionWithParams(t *testing.T) {
 }
 
 func TestHelp(t *testing.T) {
-	seed := int64(11)
+	seed := uint64(11)
 	args := []string{"help"}
 
 	outStr, err := mainFunc(seed, args, 1)
@@ -149,7 +149,7 @@ func TestHelp(t *testing.T) {
 }
 
 func TestList(t *testing.T) {
-	seed := int64(11)
+	seed := uint64(11)
 	args := []string{"list"}
 
 	outStr, err := mainFunc(seed, args, 1)
@@ -176,7 +176,7 @@ func TestList(t *testing.T) {
 }
 
 func TestListCategory(t *testing.T) {
-	seed := int64(11)
+	seed := uint64(11)
 	args := []string{"list", "person"}
 
 	outStr, err := mainFunc(seed, args, 1)
@@ -200,7 +200,7 @@ func TestListCategory(t *testing.T) {
 }
 
 func TestListCategoryFunction(t *testing.T) {
-	seed := int64(11)
+	seed := uint64(11)
 	args := []string{"list", "word", "noun"}
 
 	outStr, err := mainFunc(seed, args, 1)

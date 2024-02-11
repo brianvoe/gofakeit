@@ -50,7 +50,7 @@ func main() {
 	fmt.Printf("%s", out)
 }
 
-func mainFunc(seed int64, args []string, loop int) (string, error) {
+func mainFunc(seed uint64, args []string, loop int) (string, error) {
 	faker := gofakeit.New(seed)
 
 	argsLen := len(args)
