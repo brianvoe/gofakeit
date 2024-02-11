@@ -6,7 +6,7 @@ import (
 )
 
 // Fruit will return a random fruit name
-func Fruit() string { return fruit(globalFaker.Rand) }
+func Fruit() string { return fruit(GlobalFaker.Rand) }
 
 // Fruit will return a random fruit name
 func (f *Faker) Fruit() string { return fruit(f.Rand) }
@@ -14,7 +14,7 @@ func (f *Faker) Fruit() string { return fruit(f.Rand) }
 func fruit(r *rand.Rand) string { return getRandValue(r, []string{"food", "fruit"}) }
 
 // Vegetable will return a random vegetable name
-func Vegetable() string { return vegetable(globalFaker.Rand) }
+func Vegetable() string { return vegetable(GlobalFaker.Rand) }
 
 // Vegetable will return a random vegetable name
 func (f *Faker) Vegetable() string { return vegetable(f.Rand) }
@@ -22,7 +22,7 @@ func (f *Faker) Vegetable() string { return vegetable(f.Rand) }
 func vegetable(r *rand.Rand) string { return getRandValue(r, []string{"food", "vegetable"}) }
 
 // Breakfast will return a random breakfast name
-func Breakfast() string { return breakfast(globalFaker.Rand) }
+func Breakfast() string { return breakfast(GlobalFaker.Rand) }
 
 // Breakfast will return a random breakfast name
 func (f *Faker) Breakfast() string { return breakfast(f.Rand) }
@@ -33,7 +33,7 @@ func breakfast(r *rand.Rand) string {
 }
 
 // Lunch will return a random lunch name
-func Lunch() string { return lunch(globalFaker.Rand) }
+func Lunch() string { return lunch(GlobalFaker.Rand) }
 
 // Lunch will return a random lunch name
 func (f *Faker) Lunch() string { return lunch(f.Rand) }
@@ -44,7 +44,7 @@ func lunch(r *rand.Rand) string {
 }
 
 // Dinner will return a random dinner name
-func Dinner() string { return dinner(globalFaker.Rand) }
+func Dinner() string { return dinner(GlobalFaker.Rand) }
 
 // Dinner will return a random dinner name
 func (f *Faker) Dinner() string { return dinner(f.Rand) }
@@ -55,7 +55,7 @@ func dinner(r *rand.Rand) string {
 }
 
 // Drink will return a random drink name
-func Drink() string { return drink(globalFaker.Rand) }
+func Drink() string { return drink(GlobalFaker.Rand) }
 
 // Drink will return a random drink name
 func (f *Faker) Drink() string { return drink(f.Rand) }
@@ -66,7 +66,7 @@ func drink(r *rand.Rand) string {
 }
 
 // Snack will return a random snack name
-func Snack() string { return snack(globalFaker.Rand) }
+func Snack() string { return snack(GlobalFaker.Rand) }
 
 // Snack will return a random snack name
 func (f *Faker) Snack() string { return snack(f.Rand) }
@@ -77,7 +77,7 @@ func snack(r *rand.Rand) string {
 }
 
 // Dessert will return a random dessert name
-func Dessert() string { return dessert(globalFaker.Rand) }
+func Dessert() string { return dessert(GlobalFaker.Rand) }
 
 // Dessert will return a random dessert name
 func (f *Faker) Dessert() string { return dessert(f.Rand) }

@@ -8,7 +8,7 @@ import (
 )
 
 // Word will generate a random word
-func Word() string { return word(globalFaker.Rand) }
+func Word() string { return word(GlobalFaker.Rand) }
 
 // Word will generate a random word
 func (f *Faker) Word() string { return word(f.Rand) }

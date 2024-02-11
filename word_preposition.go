@@ -3,7 +3,7 @@ package gofakeit
 import "math/rand/v2"
 
 // Preposition will generate a random preposition
-func Preposition() string { return preposition(globalFaker.Rand) }
+func Preposition() string { return preposition(GlobalFaker.Rand) }
 
 // Preposition will generate a random preposition
 func (f *Faker) Preposition() string { return preposition(f.Rand) }
@@ -18,7 +18,7 @@ func preposition(r *rand.Rand) string {
 }
 
 // PrepositionSimple will generate a random simple preposition
-func PrepositionSimple() string { return prepositionSimple(globalFaker.Rand) }
+func PrepositionSimple() string { return prepositionSimple(GlobalFaker.Rand) }
 
 // PrepositionSimple will generate a random simple preposition
 func (f *Faker) PrepositionSimple() string { return prepositionSimple(f.Rand) }
@@ -28,7 +28,7 @@ func prepositionSimple(r *rand.Rand) string {
 }
 
 // PrepositionDouble will generate a random double preposition
-func PrepositionDouble() string { return prepositionDouble(globalFaker.Rand) }
+func PrepositionDouble() string { return prepositionDouble(GlobalFaker.Rand) }
 
 // PrepositionDouble will generate a random double preposition
 func (f *Faker) PrepositionDouble() string { return prepositionDouble(f.Rand) }
@@ -38,7 +38,7 @@ func prepositionDouble(r *rand.Rand) string {
 }
 
 // PrepositionCompound will generate a random compound preposition
-func PrepositionCompound() string { return prepositionCompound(globalFaker.Rand) }
+func PrepositionCompound() string { return prepositionCompound(GlobalFaker.Rand) }
 
 // PrepositionCompound will generate a random compound preposition
 func (f *Faker) PrepositionCompound() string { return prepositionCompound(f.Rand) }

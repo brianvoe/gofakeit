@@ -18,7 +18,7 @@ type ProductInfo struct {
 }
 
 // Product will generate a random set of product information
-func Product() *ProductInfo { return product(globalFaker.Rand) }
+func Product() *ProductInfo { return product(GlobalFaker.Rand) }
 
 // Product will generate a random set of product information
 func (f *Faker) Product() *ProductInfo { return product(f.Rand) }
@@ -53,7 +53,7 @@ func product(r *rand.Rand) *ProductInfo {
 }
 
 // ProductName will generate a random product name
-func ProductName() string { return productName(globalFaker.Rand) }
+func ProductName() string { return productName(GlobalFaker.Rand) }
 
 // ProductName will generate a random product name
 func (f *Faker) ProductName() string { return productName(f.Rand) }
@@ -95,7 +95,7 @@ func productName(r *rand.Rand) string {
 }
 
 // ProductDescription will generate a random product description
-func ProductDescription() string { return productDescription(globalFaker.Rand) }
+func ProductDescription() string { return productDescription(GlobalFaker.Rand) }
 
 // ProductDescription will generate a random product description
 func (f *Faker) ProductDescription() string { return productDescription(f.Rand) }
@@ -110,7 +110,7 @@ func productDescription(r *rand.Rand) string {
 }
 
 // ProductCategory will generate a random product category
-func ProductCategory() string { return productCategory(globalFaker.Rand) }
+func ProductCategory() string { return productCategory(GlobalFaker.Rand) }
 
 // ProductCategory will generate a random product category
 func (f *Faker) ProductCategory() string { return productCategory(f.Rand) }
@@ -120,7 +120,7 @@ func productCategory(r *rand.Rand) string {
 }
 
 // ProductFeature will generate a random product feature
-func ProductFeature() string { return productFeature(globalFaker.Rand) }
+func ProductFeature() string { return productFeature(GlobalFaker.Rand) }
 
 // ProductFeature will generate a random product feature
 func (f *Faker) ProductFeature() string { return productFeature(f.Rand) }
@@ -130,7 +130,7 @@ func productFeature(r *rand.Rand) string {
 }
 
 // ProductMaterial will generate a random product material
-func ProductMaterial() string { return productMaterial(globalFaker.Rand) }
+func ProductMaterial() string { return productMaterial(GlobalFaker.Rand) }
 
 // ProductMaterial will generate a random product material
 func (f *Faker) ProductMaterial() string { return productMaterial(f.Rand) }
@@ -140,7 +140,7 @@ func productMaterial(r *rand.Rand) string {
 }
 
 // ProductUPC will generate a random product UPC
-func ProductUPC() string { return productUPC(globalFaker.Rand) }
+func ProductUPC() string { return productUPC(GlobalFaker.Rand) }
 
 // ProductUPC will generate a random product UPC
 func (f *Faker) ProductUPC() string { return productUPC(f.Rand) }

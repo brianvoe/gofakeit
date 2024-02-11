@@ -129,7 +129,7 @@ func xmlMapLoop(e *xml.Encoder, m *xmlMap) error {
 
 // XML generates an object or an array of objects in json format
 // A nil XMLOptions returns a randomly structured XML.
-func XML(xo *XMLOptions) ([]byte, error) { return xmlFunc(globalFaker, xo) }
+func XML(xo *XMLOptions) ([]byte, error) { return xmlFunc(GlobalFaker, xo) }
 
 // XML generates an object or an array of objects in json format
 // A nil XMLOptions returns a randomly structured XML.

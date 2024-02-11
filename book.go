@@ -2,19 +2,19 @@ package gofakeit
 
 import "math/rand/v2"
 
-func BookTitle() string { return bookTitle(globalFaker.Rand) }
+func BookTitle() string { return bookTitle(GlobalFaker.Rand) }
 
 func (f *Faker) BookTitle() string { return bookTitle(f.Rand) }
 
 func bookTitle(r *rand.Rand) string { return getRandValue(r, []string{"book", "title"}) }
 
-func BookAuthor() string { return bookAuthor(globalFaker.Rand) }
+func BookAuthor() string { return bookAuthor(GlobalFaker.Rand) }
 
 func (f *Faker) BookAuthor() string { return bookAuthor(f.Rand) }
 
 func bookAuthor(r *rand.Rand) string { return getRandValue(r, []string{"book", "author"}) }
 
-func BookGenre() string { return bookGenre(globalFaker.Rand) }
+func BookGenre() string { return bookGenre(GlobalFaker.Rand) }
 
 func (f *Faker) BookGenre() string { return bookGenre(f.Rand) }
 
@@ -26,7 +26,7 @@ type BookInfo struct {
 	Genre  string `json:"genre" xml:"genre"`
 }
 
-func Book() *BookInfo { return book(globalFaker.Rand) }
+func Book() *BookInfo { return book(GlobalFaker.Rand) }
 
 func (f *Faker) Book() *BookInfo { return book(f.Rand) }
 

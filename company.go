@@ -3,7 +3,7 @@ package gofakeit
 import "math/rand/v2"
 
 // Company will generate a random company name string
-func Company() string { return company(globalFaker.Rand) }
+func Company() string { return company(GlobalFaker.Rand) }
 
 // Company will generate a random company name string
 func (f *Faker) Company() string { return company(f.Rand) }
@@ -11,7 +11,7 @@ func (f *Faker) Company() string { return company(f.Rand) }
 func company(r *rand.Rand) string { return getRandValue(r, []string{"company", "name"}) }
 
 // CompanySuffix will generate a random company suffix string
-func CompanySuffix() string { return companySuffix(globalFaker.Rand) }
+func CompanySuffix() string { return companySuffix(GlobalFaker.Rand) }
 
 // CompanySuffix will generate a random company suffix string
 func (f *Faker) CompanySuffix() string { return companySuffix(f.Rand) }
@@ -19,14 +19,14 @@ func (f *Faker) CompanySuffix() string { return companySuffix(f.Rand) }
 func companySuffix(r *rand.Rand) string { return getRandValue(r, []string{"company", "suffix"}) }
 
 // Blurb will generate a random company blurb string
-func Blurb() string { return blurb(globalFaker.Rand) }
+func Blurb() string { return blurb(GlobalFaker.Rand) }
 
 func (f *Faker) Blurb() string { return blurb(f.Rand) }
 
 func blurb(r *rand.Rand) string { return getRandValue(r, []string{"company", "blurb"}) }
 
 // BuzzWord will generate a random company buzz word string
-func BuzzWord() string { return buzzWord(globalFaker.Rand) }
+func BuzzWord() string { return buzzWord(GlobalFaker.Rand) }
 
 // BuzzWord will generate a random company buzz word string
 func (f *Faker) BuzzWord() string { return buzzWord(f.Rand) }
@@ -34,7 +34,7 @@ func (f *Faker) BuzzWord() string { return buzzWord(f.Rand) }
 func buzzWord(r *rand.Rand) string { return getRandValue(r, []string{"company", "buzzwords"}) }
 
 // BS will generate a random company bs string
-func BS() string { return bs(globalFaker.Rand) }
+func BS() string { return bs(GlobalFaker.Rand) }
 
 // BS will generate a random company bs string
 func (f *Faker) BS() string { return bs(f.Rand) }
@@ -50,7 +50,7 @@ type JobInfo struct {
 }
 
 // Job will generate a struct with random job information
-func Job() *JobInfo { return job(globalFaker.Rand) }
+func Job() *JobInfo { return job(GlobalFaker.Rand) }
 
 // Job will generate a struct with random job information
 func (f *Faker) Job() *JobInfo { return job(f.Rand) }
@@ -65,7 +65,7 @@ func job(r *rand.Rand) *JobInfo {
 }
 
 // JobTitle will generate a random job title string
-func JobTitle() string { return jobTitle(globalFaker.Rand) }
+func JobTitle() string { return jobTitle(GlobalFaker.Rand) }
 
 // JobTitle will generate a random job title string
 func (f *Faker) JobTitle() string { return jobTitle(f.Rand) }
@@ -73,7 +73,7 @@ func (f *Faker) JobTitle() string { return jobTitle(f.Rand) }
 func jobTitle(r *rand.Rand) string { return getRandValue(r, []string{"job", "title"}) }
 
 // JobDescriptor will generate a random job descriptor string
-func JobDescriptor() string { return jobDescriptor(globalFaker.Rand) }
+func JobDescriptor() string { return jobDescriptor(GlobalFaker.Rand) }
 
 // JobDescriptor will generate a random job descriptor string
 func (f *Faker) JobDescriptor() string { return jobDescriptor(f.Rand) }
@@ -81,7 +81,7 @@ func (f *Faker) JobDescriptor() string { return jobDescriptor(f.Rand) }
 func jobDescriptor(r *rand.Rand) string { return getRandValue(r, []string{"job", "descriptor"}) }
 
 // JobLevel will generate a random job level string
-func JobLevel() string { return jobLevel(globalFaker.Rand) }
+func JobLevel() string { return jobLevel(GlobalFaker.Rand) }
 
 // JobLevel will generate a random job level string
 func (f *Faker) JobLevel() string { return jobLevel(f.Rand) }
@@ -89,7 +89,7 @@ func (f *Faker) JobLevel() string { return jobLevel(f.Rand) }
 func jobLevel(r *rand.Rand) string { return getRandValue(r, []string{"job", "level"}) }
 
 // Slogan will generate a random company slogan
-func Slogan() string { return slogan(globalFaker.Rand) }
+func Slogan() string { return slogan(GlobalFaker.Rand) }
 
 // Slogan will generate a random company slogan
 func (f *Faker) Slogan() string { return slogan(f.Rand) }

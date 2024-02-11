@@ -22,9 +22,9 @@ type TemplateOptions struct {
 func Template(template string, co *TemplateOptions) (string, error) {
 	if co == nil {
 		co = &TemplateOptions{}
-		globalFaker.Struct(co)
+		GlobalFaker.Struct(co)
 	}
-	return templateFunc(template, templateFuncMap(globalFaker.Rand, &co.Funcs), co)
+	return templateFunc(template, templateFuncMap(GlobalFaker.Rand, &co.Funcs), co)
 }
 
 // Template generates an document based on the the supplied template
@@ -92,9 +92,9 @@ console.log("{{ToLower $repo}} result:", "{{ToLower $result}}");
 func Markdown(co *MarkdownOptions) (string, error) {
 	if co == nil {
 		co = &MarkdownOptions{}
-		globalFaker.Struct(co)
+		GlobalFaker.Struct(co)
 	}
-	return templateFunc(templateMarkdown, templateFuncMap(globalFaker.Rand, nil), co)
+	return templateFunc(templateMarkdown, templateFuncMap(GlobalFaker.Rand, nil), co)
 }
 
 // Markdown will return a single random Markdown template document
@@ -138,9 +138,9 @@ Dear {{LastName}},
 func EmailText(co *EmailOptions) (string, error) {
 	if co == nil {
 		co = &EmailOptions{}
-		globalFaker.Struct(co)
+		GlobalFaker.Struct(co)
 	}
-	return templateFunc(templateEmail, templateFuncMap(globalFaker.Rand, nil), co)
+	return templateFunc(templateEmail, templateFuncMap(GlobalFaker.Rand, nil), co)
 }
 
 // EmailText will return a single random text email template document

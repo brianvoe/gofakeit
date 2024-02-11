@@ -3,7 +3,7 @@ package gofakeit
 import "math/rand/v2"
 
 // CelebrityActor will generate a random celebrity actor
-func CelebrityActor() string { return celebrityActor(globalFaker.Rand) }
+func CelebrityActor() string { return celebrityActor(GlobalFaker.Rand) }
 
 // CelebrityActor will generate a random celebrity actor
 func (f *Faker) CelebrityActor() string { return celebrityActor(f.Rand) }
@@ -11,7 +11,7 @@ func (f *Faker) CelebrityActor() string { return celebrityActor(f.Rand) }
 func celebrityActor(r *rand.Rand) string { return getRandValue(r, []string{"celebrity", "actor"}) }
 
 // CelebrityBusiness will generate a random celebrity business person
-func CelebrityBusiness() string { return celebrityBusiness(globalFaker.Rand) }
+func CelebrityBusiness() string { return celebrityBusiness(GlobalFaker.Rand) }
 
 // CelebrityBusiness will generate a random celebrity business person
 func (f *Faker) CelebrityBusiness() string { return celebrityBusiness(f.Rand) }
@@ -21,7 +21,7 @@ func celebrityBusiness(r *rand.Rand) string {
 }
 
 // CelebritySport will generate a random celebrity sport person
-func CelebritySport() string { return celebritySport(globalFaker.Rand) }
+func CelebritySport() string { return celebritySport(GlobalFaker.Rand) }
 
 // CelebritySport will generate a random celebrity sport person
 func (f *Faker) CelebritySport() string { return celebritySport(f.Rand) }

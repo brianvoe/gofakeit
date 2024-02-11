@@ -4,7 +4,7 @@ import "math/rand/v2"
 
 // Username will generate a random username based upon picking a random lastname and random numbers at the end
 func Username() string {
-	return username(globalFaker.Rand)
+	return username(GlobalFaker.Rand)
 }
 
 // Username will generate a random username based upon picking a random lastname and random numbers at the end
@@ -19,7 +19,7 @@ func username(r *rand.Rand) string {
 // Password will generate a random password.
 // Minimum number length of 5 if less than.
 func Password(lower bool, upper bool, numeric bool, special bool, space bool, num int) string {
-	return password(globalFaker.Rand, lower, upper, numeric, special, space, num)
+	return password(GlobalFaker.Rand, lower, upper, numeric, special, space, num)
 }
 
 // Password will generate a random password.

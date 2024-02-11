@@ -6,7 +6,7 @@ import (
 )
 
 // Comment will generate a random statement or remark expressing an opinion, observation, or reaction
-func Comment() string { return comment(globalFaker.Rand) }
+func Comment() string { return comment(GlobalFaker.Rand) }
 
 // Comment will generate a random statement or remark expressing an opinion, observation, or reaction
 func (f *Faker) Comment() string { return comment(f.Rand) }

@@ -3,7 +3,7 @@ package gofakeit
 import "math/rand/v2"
 
 // Verb will generate a random verb
-func Verb() string { return verb(globalFaker.Rand) }
+func Verb() string { return verb(GlobalFaker.Rand) }
 
 // Verb will generate a random verb
 func (f *Faker) Verb() string { return verb(f.Rand) }
@@ -18,7 +18,7 @@ func verb(r *rand.Rand) string {
 }
 
 // VerbAction will generate a random action verb
-func VerbAction() string { return verbAction(globalFaker.Rand) }
+func VerbAction() string { return verbAction(GlobalFaker.Rand) }
 
 // VerbAction will generate a random action verb
 func (f *Faker) VerbAction() string { return verbAction(f.Rand) }
@@ -26,7 +26,7 @@ func (f *Faker) VerbAction() string { return verbAction(f.Rand) }
 func verbAction(r *rand.Rand) string { return getRandValue(r, []string{"word", "verb_action"}) }
 
 // VerbTransitive will generate a random transitive verb
-func VerbTransitive() string { return verbTransitive(globalFaker.Rand) }
+func VerbTransitive() string { return verbTransitive(GlobalFaker.Rand) }
 
 // VerbTransitive will generate a random transitive verb
 func (f *Faker) VerbTransitive() string { return verbTransitive(f.Rand) }
@@ -34,7 +34,7 @@ func (f *Faker) VerbTransitive() string { return verbTransitive(f.Rand) }
 func verbTransitive(r *rand.Rand) string { return getRandValue(r, []string{"word", "verb_transitive"}) }
 
 // VerbIntransitive will generate a random intransitive verb
-func VerbIntransitive() string { return verbIntransitive(globalFaker.Rand) }
+func VerbIntransitive() string { return verbIntransitive(GlobalFaker.Rand) }
 
 // VerbIntransitive will generate a random intransitive verb
 func (f *Faker) VerbIntransitive() string { return verbIntransitive(f.Rand) }
@@ -44,7 +44,7 @@ func verbIntransitive(r *rand.Rand) string {
 }
 
 // VerbLinking will generate a random linking verb
-func VerbLinking() string { return verbLinking(globalFaker.Rand) }
+func VerbLinking() string { return verbLinking(GlobalFaker.Rand) }
 
 // VerbLinking will generate a random linking verb
 func (f *Faker) VerbLinking() string { return verbLinking(f.Rand) }
@@ -52,7 +52,7 @@ func (f *Faker) VerbLinking() string { return verbLinking(f.Rand) }
 func verbLinking(r *rand.Rand) string { return getRandValue(r, []string{"word", "verb_linking"}) }
 
 // VerbHelping will generate a random helping verb
-func VerbHelping() string { return verbHelping(globalFaker.Rand) }
+func VerbHelping() string { return verbHelping(GlobalFaker.Rand) }
 
 // VerbHelping will generate a random helping verb
 func (f *Faker) VerbHelping() string { return verbHelping(f.Rand) }

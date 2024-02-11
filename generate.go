@@ -24,7 +24,7 @@ import (
 // Ex: ??? - fda - random letters
 //
 // For a complete list of runnable functions use FuncsLookup
-func Generate(dataVal string) string { return generate(globalFaker.Rand, dataVal) }
+func Generate(dataVal string) string { return generate(GlobalFaker.Rand, dataVal) }
 
 // Generate fake information from given string.
 // Replaceable values should be within {}
@@ -160,7 +160,7 @@ type FixedWidthOptions struct {
 
 // FixedWidth generates an table of random data in fixed width format
 // A nil FixedWidthOptions returns a randomly structured FixedWidth.
-func FixedWidth(co *FixedWidthOptions) (string, error) { return fixeWidthFunc(globalFaker.Rand, co) }
+func FixedWidth(co *FixedWidthOptions) (string, error) { return fixeWidthFunc(GlobalFaker.Rand, co) }
 
 // FixedWidth generates an table of random data in fixed width format
 // A nil FixedWidthOptions returns a randomly structured FixedWidth.
@@ -265,7 +265,7 @@ func fixeWidthFunc(r *rand.Rand, co *FixedWidthOptions) (string, error) {
 }
 
 // Regex will generate a string based upon a RE2 syntax
-func Regex(regexStr string) string { return regex(globalFaker.Rand, regexStr) }
+func Regex(regexStr string) string { return regex(GlobalFaker.Rand, regexStr) }
 
 // Regex will generate a string based upon a RE2 syntax
 func (f *Faker) Regex(regexStr string) string { return regex(f.Rand, regexStr) }
@@ -409,7 +409,7 @@ func regexGenerate(ra *rand.Rand, re *syntax.Regexp, limit int) string {
 }
 
 // Map will generate a random set of map data
-func Map() map[string]any { return mapFunc(globalFaker.Rand) }
+func Map() map[string]any { return mapFunc(GlobalFaker.Rand) }
 
 // Map will generate a random set of map data
 func (f *Faker) Map() map[string]any { return mapFunc(f.Rand) }

@@ -3,7 +3,7 @@ package gofakeit
 import "math/rand/v2"
 
 // Adjective will generate a random adjective
-func Adjective() string { return adjective(globalFaker.Rand) }
+func Adjective() string { return adjective(GlobalFaker.Rand) }
 
 // Adjective will generate a random adjective
 func (f *Faker) Adjective() string { return adjective(f.Rand) }
@@ -22,7 +22,7 @@ func adjective(r *rand.Rand) string {
 }
 
 // AdjectiveDescriptive will generate a random descriptive adjective
-func AdjectiveDescriptive() string { return adjectiveDescriptive(globalFaker.Rand) }
+func AdjectiveDescriptive() string { return adjectiveDescriptive(GlobalFaker.Rand) }
 
 // AdjectiveDescriptive will generate a random descriptive adjective
 func (f *Faker) AdjectiveDescriptive() string { return adjectiveDescriptive(f.Rand) }
@@ -32,7 +32,7 @@ func adjectiveDescriptive(r *rand.Rand) string {
 }
 
 // AdjectiveQuantitative will generate a random quantitative adjective
-func AdjectiveQuantitative() string { return adjectiveQuantitative(globalFaker.Rand) }
+func AdjectiveQuantitative() string { return adjectiveQuantitative(GlobalFaker.Rand) }
 
 // AdjectiveQuantitative will generate a random quantitative adjective
 func (f *Faker) AdjectiveQuantitative() string { return adjectiveQuantitative(f.Rand) }
@@ -42,7 +42,7 @@ func adjectiveQuantitative(r *rand.Rand) string {
 }
 
 // AdjectiveProper will generate a random proper adjective
-func AdjectiveProper() string { return adjectiveProper(globalFaker.Rand) }
+func AdjectiveProper() string { return adjectiveProper(GlobalFaker.Rand) }
 
 // AdjectiveProper will generate a random proper adjective
 func (f *Faker) AdjectiveProper() string { return adjectiveProper(f.Rand) }
@@ -52,7 +52,7 @@ func adjectiveProper(r *rand.Rand) string {
 }
 
 // AdjectiveDemonstrative will generate a random demonstrative adjective
-func AdjectiveDemonstrative() string { return adjectiveDemonstrative(globalFaker.Rand) }
+func AdjectiveDemonstrative() string { return adjectiveDemonstrative(GlobalFaker.Rand) }
 
 // AdjectiveDemonstrative will generate a random demonstrative adjective
 func (f *Faker) AdjectiveDemonstrative() string { return adjectiveDemonstrative(f.Rand) }
@@ -62,7 +62,7 @@ func adjectiveDemonstrative(r *rand.Rand) string {
 }
 
 // AdjectivePossessive will generate a random possessive adjective
-func AdjectivePossessive() string { return adjectivePossessive(globalFaker.Rand) }
+func AdjectivePossessive() string { return adjectivePossessive(GlobalFaker.Rand) }
 
 // AdjectivePossessive will generate a random possessive adjective
 func (f *Faker) AdjectivePossessive() string { return adjectivePossessive(f.Rand) }
@@ -72,7 +72,7 @@ func adjectivePossessive(r *rand.Rand) string {
 }
 
 // AdjectiveInterrogative will generate a random interrogative adjective
-func AdjectiveInterrogative() string { return adjectiveInterrogative(globalFaker.Rand) }
+func AdjectiveInterrogative() string { return adjectiveInterrogative(GlobalFaker.Rand) }
 
 // AdjectiveInterrogative will generate a random interrogative adjective
 func (f *Faker) AdjectiveInterrogative() string { return adjectiveInterrogative(f.Rand) }
@@ -82,7 +82,7 @@ func adjectiveInterrogative(r *rand.Rand) string {
 }
 
 // AdjectiveIndefinite will generate a random indefinite adjective
-func AdjectiveIndefinite() string { return adjectiveIndefinite(globalFaker.Rand) }
+func AdjectiveIndefinite() string { return adjectiveIndefinite(GlobalFaker.Rand) }
 
 // AdjectiveIndefinite will generate a random indefinite adjective
 func (f *Faker) AdjectiveIndefinite() string { return adjectiveIndefinite(f.Rand) }

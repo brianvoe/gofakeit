@@ -9,7 +9,7 @@ import (
 )
 
 // Bool will generate a random boolean value
-func Bool() bool { return boolFunc(globalFaker.Rand) }
+func Bool() bool { return boolFunc(GlobalFaker.Rand) }
 
 // Bool will generate a random boolean value
 func (f *Faker) Bool() bool { return boolFunc(f.Rand) }
@@ -18,7 +18,7 @@ func boolFunc(r *rand.Rand) bool { return randIntRange(r, 0, 1) == 1 }
 
 // UUID (version 4) will generate a random unique identifier based upon random numbers
 // Format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-func UUID() string { return uuid(globalFaker.Rand) }
+func UUID() string { return uuid(GlobalFaker.Rand) }
 
 // UUID (version 4) will generate a random unique identifier based upon random numbers
 // Format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx 8-4-4-4-12
@@ -57,7 +57,7 @@ func uuid(r *rand.Rand) string {
 }
 
 // ShuffleAnySlice takes in a slice and outputs it in a random order
-func ShuffleAnySlice(v any) { shuffleAnySlice(globalFaker.Rand, v) }
+func ShuffleAnySlice(v any) { shuffleAnySlice(GlobalFaker.Rand, v) }
 
 // ShuffleAnySlice takes in a slice and outputs it in a random order
 func (f *Faker) ShuffleAnySlice(v any) { shuffleAnySlice(f.Rand, v) }
@@ -95,7 +95,7 @@ func shuffleAnySlice(r *rand.Rand, v any) {
 }
 
 // FlipACoin will return a random value of Heads or Tails
-func FlipACoin() string { return flipACoin(globalFaker.Rand) }
+func FlipACoin() string { return flipACoin(GlobalFaker.Rand) }
 
 // FlipACoin will return a random value of Heads or Tails
 func (f *Faker) FlipACoin() string { return flipACoin(f.Rand) }
@@ -109,7 +109,7 @@ func flipACoin(r *rand.Rand) string {
 }
 
 // RandomMapKey will return a random key from a map
-func RandomMapKey(mapI any) any { return randomMapKey(globalFaker.Rand, mapI) }
+func RandomMapKey(mapI any) any { return randomMapKey(GlobalFaker.Rand, mapI) }
 
 // RandomMapKey will return a random key from a map
 func (f *Faker) RandomMapKey(mapI any) any { return randomMapKey(f.Rand, mapI) }

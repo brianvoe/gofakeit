@@ -7,7 +7,7 @@ import (
 )
 
 // Gamertag will generate a random video game username
-func Gamertag() string { return gamertag(globalFaker.Rand) }
+func Gamertag() string { return gamertag(GlobalFaker.Rand) }
 
 // Gamertag will generate a random video game username
 func (f *Faker) Gamertag() string { return gamertag(f.Rand) }
@@ -38,7 +38,7 @@ func gamertag(r *rand.Rand) string {
 }
 
 // Dice will generate a random set of dice
-func Dice(numDice uint, sides []uint) []uint { return dice(globalFaker.Rand, numDice, sides) }
+func Dice(numDice uint, sides []uint) []uint { return dice(GlobalFaker.Rand, numDice, sides) }
 
 // Dice will generate a random set of dice
 func (f *Faker) Dice(numDice uint, sides []uint) []uint { return dice(f.Rand, numDice, sides) }

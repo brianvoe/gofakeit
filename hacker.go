@@ -6,7 +6,7 @@ import (
 )
 
 // HackerPhrase will return a random hacker sentence
-func HackerPhrase() string { return hackerPhrase(globalFaker.Rand) }
+func HackerPhrase() string { return hackerPhrase(GlobalFaker.Rand) }
 
 // HackerPhrase will return a random hacker sentence
 func (f *Faker) HackerPhrase() string { return hackerPhrase(f.Rand) }
@@ -18,7 +18,7 @@ func hackerPhrase(r *rand.Rand) string {
 }
 
 // HackerAbbreviation will return a random hacker abbreviation
-func HackerAbbreviation() string { return hackerAbbreviation(globalFaker.Rand) }
+func HackerAbbreviation() string { return hackerAbbreviation(GlobalFaker.Rand) }
 
 // HackerAbbreviation will return a random hacker abbreviation
 func (f *Faker) HackerAbbreviation() string { return hackerAbbreviation(f.Rand) }
@@ -28,7 +28,7 @@ func hackerAbbreviation(r *rand.Rand) string {
 }
 
 // HackerAdjective will return a random hacker adjective
-func HackerAdjective() string { return hackerAdjective(globalFaker.Rand) }
+func HackerAdjective() string { return hackerAdjective(GlobalFaker.Rand) }
 
 // HackerAdjective will return a random hacker adjective
 func (f *Faker) HackerAdjective() string { return hackerAdjective(f.Rand) }
@@ -38,7 +38,7 @@ func hackerAdjective(r *rand.Rand) string {
 }
 
 // HackerNoun will return a random hacker noun
-func HackerNoun() string { return hackerNoun(globalFaker.Rand) }
+func HackerNoun() string { return hackerNoun(GlobalFaker.Rand) }
 
 // HackerNoun will return a random hacker noun
 func (f *Faker) HackerNoun() string { return hackerNoun(f.Rand) }
@@ -48,7 +48,7 @@ func hackerNoun(r *rand.Rand) string {
 }
 
 // HackerVerb will return a random hacker verb
-func HackerVerb() string { return hackerVerb(globalFaker.Rand) }
+func HackerVerb() string { return hackerVerb(GlobalFaker.Rand) }
 
 // HackerVerb will return a random hacker verb
 func (f *Faker) HackerVerb() string { return hackerVerb(f.Rand) }
@@ -58,7 +58,7 @@ func hackerVerb(r *rand.Rand) string {
 }
 
 // HackeringVerb will return a random hacker ingverb
-func HackeringVerb() string { return hackeringVerb(globalFaker.Rand) }
+func HackeringVerb() string { return hackeringVerb(GlobalFaker.Rand) }
 
 // HackeringVerb will return a random hacker ingverb
 func (f *Faker) HackeringVerb() string { return hackeringVerb(f.Rand) }

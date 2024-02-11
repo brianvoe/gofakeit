@@ -3,7 +3,7 @@ package gofakeit
 import "math/rand/v2"
 
 // Emoji will return a random fun emoji
-func Emoji() string { return emoji(globalFaker.Rand) }
+func Emoji() string { return emoji(GlobalFaker.Rand) }
 
 // Emoji will return a random fun emoji
 func (f *Faker) Emoji() string { return emoji(f.Rand) }
@@ -11,7 +11,7 @@ func (f *Faker) Emoji() string { return emoji(f.Rand) }
 func emoji(r *rand.Rand) string { return getRandValue(r, []string{"emoji", "emoji"}) }
 
 // EmojiDescription will return a random fun emoji description
-func EmojiDescription() string { return emojiDescription(globalFaker.Rand) }
+func EmojiDescription() string { return emojiDescription(GlobalFaker.Rand) }
 
 // EmojiDescription will return a random fun emoji description
 func (f *Faker) EmojiDescription() string { return emojiDescription(f.Rand) }
@@ -19,7 +19,7 @@ func (f *Faker) EmojiDescription() string { return emojiDescription(f.Rand) }
 func emojiDescription(r *rand.Rand) string { return getRandValue(r, []string{"emoji", "description"}) }
 
 // EmojiCategory will return a random fun emoji category
-func EmojiCategory() string { return emojiCategory(globalFaker.Rand) }
+func EmojiCategory() string { return emojiCategory(GlobalFaker.Rand) }
 
 // EmojiCategory will return a random fun emoji category
 func (f *Faker) EmojiCategory() string { return emojiCategory(f.Rand) }
@@ -27,7 +27,7 @@ func (f *Faker) EmojiCategory() string { return emojiCategory(f.Rand) }
 func emojiCategory(r *rand.Rand) string { return getRandValue(r, []string{"emoji", "category"}) }
 
 // EmojiAlias will return a random fun emoji alias
-func EmojiAlias() string { return emojiAlias(globalFaker.Rand) }
+func EmojiAlias() string { return emojiAlias(GlobalFaker.Rand) }
 
 // EmojiAlias will return a random fun emoji alias
 func (f *Faker) EmojiAlias() string { return emojiAlias(f.Rand) }
@@ -35,7 +35,7 @@ func (f *Faker) EmojiAlias() string { return emojiAlias(f.Rand) }
 func emojiAlias(r *rand.Rand) string { return getRandValue(r, []string{"emoji", "alias"}) }
 
 // EmojiTag will return a random fun emoji tag
-func EmojiTag() string { return emojiTag(globalFaker.Rand) }
+func EmojiTag() string { return emojiTag(GlobalFaker.Rand) }
 
 // EmojiTag will return a random fun emoji tag
 func (f *Faker) EmojiTag() string { return emojiTag(f.Rand) }

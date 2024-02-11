@@ -21,7 +21,7 @@ type sentenceGenerator func(r *rand.Rand, wordCount int) string
 type wordGenerator func(r *rand.Rand) string
 
 // Sentence will generate a random sentence
-func Sentence(wordCount int) string { return sentence(globalFaker.Rand, wordCount) }
+func Sentence(wordCount int) string { return sentence(GlobalFaker.Rand, wordCount) }
 
 // Sentence will generate a random sentence
 func (f *Faker) Sentence(wordCount int) string { return sentence(f.Rand, wordCount) }
@@ -32,7 +32,7 @@ func sentence(r *rand.Rand, wordCount int) string {
 
 // Paragraph will generate a random paragraphGenerator
 func Paragraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return paragraph(globalFaker.Rand, paragraphCount, sentenceCount, wordCount, separator)
+	return paragraph(GlobalFaker.Rand, paragraphCount, sentenceCount, wordCount, separator)
 }
 
 // Paragraph will generate a random paragraphGenerator
@@ -98,7 +98,7 @@ func paragraphGen(r *rand.Rand, opts paragrapOptions, sentecer sentenceGenerator
 
 // Question will return a random question
 func Question() string {
-	return question(globalFaker.Rand)
+	return question(GlobalFaker.Rand)
 }
 
 // Question will return a random question
@@ -111,7 +111,7 @@ func question(r *rand.Rand) string {
 }
 
 // Quote will return a random quote from a random person
-func Quote() string { return quote(globalFaker.Rand) }
+func Quote() string { return quote(GlobalFaker.Rand) }
 
 // Quote will return a random quote from a random person
 func (f *Faker) Quote() string { return quote(f.Rand) }

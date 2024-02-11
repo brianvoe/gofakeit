@@ -3,7 +3,7 @@ package gofakeit
 import "math/rand/v2"
 
 // Language will return a random language
-func Language() string { return language(globalFaker.Rand) }
+func Language() string { return language(GlobalFaker.Rand) }
 
 // Language will return a random language
 func (f *Faker) Language() string { return language(f.Rand) }
@@ -11,7 +11,7 @@ func (f *Faker) Language() string { return language(f.Rand) }
 func language(r *rand.Rand) string { return getRandValue(r, []string{"language", "long"}) }
 
 // LanguageAbbreviation will return a random language abbreviation
-func LanguageAbbreviation() string { return languageAbbreviation(globalFaker.Rand) }
+func LanguageAbbreviation() string { return languageAbbreviation(GlobalFaker.Rand) }
 
 // LanguageAbbreviation will return a random language abbreviation
 func (f *Faker) LanguageAbbreviation() string { return languageAbbreviation(f.Rand) }
@@ -19,7 +19,7 @@ func (f *Faker) LanguageAbbreviation() string { return languageAbbreviation(f.Ra
 func languageAbbreviation(r *rand.Rand) string { return getRandValue(r, []string{"language", "short"}) }
 
 // LanguageBCP will return a random language BCP (Best Current Practices)
-func LanguageBCP() string { return languageBCP(globalFaker.Rand) }
+func LanguageBCP() string { return languageBCP(GlobalFaker.Rand) }
 
 // LanguageBCP will return a random language BCP (Best Current Practices)
 func (f *Faker) LanguageBCP() string { return languageBCP(f.Rand) }
@@ -27,7 +27,7 @@ func (f *Faker) LanguageBCP() string { return languageBCP(f.Rand) }
 func languageBCP(r *rand.Rand) string { return getRandValue(r, []string{"language", "bcp"}) }
 
 // ProgrammingLanguage will return a random programming language
-func ProgrammingLanguage() string { return programmingLanguage(globalFaker.Rand) }
+func ProgrammingLanguage() string { return programmingLanguage(GlobalFaker.Rand) }
 
 // ProgrammingLanguage will return a random programming language
 func (f *Faker) ProgrammingLanguage() string { return programmingLanguage(f.Rand) }
@@ -37,7 +37,7 @@ func programmingLanguage(r *rand.Rand) string {
 }
 
 // ProgrammingLanguageBest will return a random programming language
-func ProgrammingLanguageBest() string { return programmingLanguageBest(globalFaker.Rand) }
+func ProgrammingLanguageBest() string { return programmingLanguageBest(GlobalFaker.Rand) }
 
 // ProgrammingLanguageBest will return a random programming language
 func (f *Faker) ProgrammingLanguageBest() string { return programmingLanguageBest(f.Rand) }

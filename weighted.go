@@ -7,7 +7,7 @@ import (
 
 // Weighted will take in an array of options and weights and return a random selection based upon its indexed weight
 func Weighted(options []any, weights []float32) (any, error) {
-	return weighted(globalFaker.Rand, options, weights)
+	return weighted(GlobalFaker.Rand, options, weights)
 }
 
 // Weighted will take in an array of options and weights and return a random selection based upon its indexed weight

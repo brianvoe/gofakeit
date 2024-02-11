@@ -11,7 +11,7 @@ import (
 
 // InputName will return a random input field name
 func InputName() string {
-	return inputName(globalFaker.Rand)
+	return inputName(GlobalFaker.Rand)
 }
 
 // InputName will return a random input field name
@@ -31,7 +31,7 @@ type SVGOptions struct {
 }
 
 // Generate a random svg generator
-func Svg(options *SVGOptions) string { return svg(globalFaker.Rand, options) }
+func Svg(options *SVGOptions) string { return svg(GlobalFaker.Rand, options) }
 
 // Generate a random svg generator
 func (f *Faker) Svg(options *SVGOptions) string { return svg(f.Rand, options) }

@@ -14,7 +14,7 @@ type SQLOptions struct {
 	Fields []Field `json:"fields" xml:"fields"` // The fields to be generated
 }
 
-func SQL(so *SQLOptions) (string, error) { return sqlFunc(globalFaker.Rand, so) }
+func SQL(so *SQLOptions) (string, error) { return sqlFunc(GlobalFaker.Rand, so) }
 
 func (f *Faker) SQL(so *SQLOptions) (string, error) { return sqlFunc(f.Rand, so) }
 

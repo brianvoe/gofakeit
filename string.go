@@ -3,7 +3,7 @@ package gofakeit
 import "math/rand/v2"
 
 // Letter will generate a single random lower case ASCII letter
-func Letter() string { return letter(globalFaker.Rand) }
+func Letter() string { return letter(GlobalFaker.Rand) }
 
 // Letter will generate a single random lower case ASCII letter
 func (f *Faker) Letter() string { return letter(f.Rand) }
@@ -11,7 +11,7 @@ func (f *Faker) Letter() string { return letter(f.Rand) }
 func letter(r *rand.Rand) string { return string(randLetter(r)) }
 
 // LetterN will generate a random ASCII string with length N. Note that this function returns a string with a length of 1 when 0 is passed.
-func LetterN(n uint) string { return letterN(globalFaker.Rand, n) }
+func LetterN(n uint) string { return letterN(GlobalFaker.Rand, n) }
 
 // LetterN will generate a random ASCII string with length N. Note that this function returns a string with a length of 1 when 0 is passed.
 func (f *Faker) LetterN(n uint) string { return letterN(f.Rand, n) }
@@ -29,7 +29,7 @@ func letterN(r *rand.Rand, n uint) string {
 }
 
 // Vowel will generate a single random lower case vowel
-func Vowel() string { return vowel(globalFaker.Rand) }
+func Vowel() string { return vowel(GlobalFaker.Rand) }
 
 // Vowel will generate a single random lower case vowel
 func (f *Faker) Vowel() string { return vowel(f.Rand) }
@@ -37,7 +37,7 @@ func (f *Faker) Vowel() string { return vowel(f.Rand) }
 func vowel(r *rand.Rand) string { return string(randCharacter(r, vowels)) }
 
 // Digit will generate a single ASCII digit
-func Digit() string { return digit(globalFaker.Rand) }
+func Digit() string { return digit(GlobalFaker.Rand) }
 
 // Digit will generate a single ASCII digit
 func (f *Faker) Digit() string { return digit(f.Rand) }
@@ -45,7 +45,7 @@ func (f *Faker) Digit() string { return digit(f.Rand) }
 func digit(r *rand.Rand) string { return string(randDigit(r)) }
 
 // DigitN will generate a random string of length N consists of ASCII digits. Note that the string generated can start with 0 and this function returns a string with a length of 1 when 0 is passed.
-func DigitN(n uint) string { return digitN(globalFaker.Rand, n) }
+func DigitN(n uint) string { return digitN(GlobalFaker.Rand, n) }
 
 // DigitN will generate a random string of length N consists of ASCII digits. Note that the string generated can start with 0 and this function returns a string with a length of 1 when 0 is passed.
 func (f *Faker) DigitN(n uint) string { return digitN(f.Rand, n) }
@@ -63,7 +63,7 @@ func digitN(r *rand.Rand, n uint) string {
 }
 
 // Numerify will replace # with random numerical values
-func Numerify(str string) string { return numerify(globalFaker.Rand, str) }
+func Numerify(str string) string { return numerify(GlobalFaker.Rand, str) }
 
 // Numerify will replace # with random numerical values
 func (f *Faker) Numerify(str string) string { return numerify(f.Rand, str) }
@@ -71,7 +71,7 @@ func (f *Faker) Numerify(str string) string { return numerify(f.Rand, str) }
 func numerify(r *rand.Rand, str string) string { return replaceWithNumbers(r, str) }
 
 // Lexify will replace ? with random generated letters
-func Lexify(str string) string { return lexify(globalFaker.Rand, str) }
+func Lexify(str string) string { return lexify(GlobalFaker.Rand, str) }
 
 // Lexify will replace ? with random generated letters
 func (f *Faker) Lexify(str string) string { return lexify(f.Rand, str) }
@@ -79,7 +79,7 @@ func (f *Faker) Lexify(str string) string { return lexify(f.Rand, str) }
 func lexify(r *rand.Rand, str string) string { return replaceWithLetters(r, str) }
 
 // ShuffleStrings will randomize a slice of strings
-func ShuffleStrings(a []string) { shuffleStrings(globalFaker.Rand, a) }
+func ShuffleStrings(a []string) { shuffleStrings(GlobalFaker.Rand, a) }
 
 // ShuffleStrings will randomize a slice of strings
 func (f *Faker) ShuffleStrings(a []string) { shuffleStrings(f.Rand, a) }
@@ -103,7 +103,7 @@ func shuffleStrings(r *rand.Rand, a []string) {
 }
 
 // RandomString will take in a slice of string and return a randomly selected value
-func RandomString(a []string) string { return randomString(globalFaker.Rand, a) }
+func RandomString(a []string) string { return randomString(GlobalFaker.Rand, a) }
 
 // RandomString will take in a slice of string and return a randomly selected value
 func (f *Faker) RandomString(a []string) string { return randomString(f.Rand, a) }

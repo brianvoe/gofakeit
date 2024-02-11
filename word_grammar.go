@@ -6,7 +6,7 @@ import (
 )
 
 // SentenceSimple will generate a random simple sentence
-func SentenceSimple() string { return sentenceSimple(globalFaker.Rand) }
+func SentenceSimple() string { return sentenceSimple(GlobalFaker.Rand) }
 
 // SentenceSimple will generate a random simple sentence
 func (f *Faker) SentenceSimple() string { return sentenceSimple(f.Rand) }

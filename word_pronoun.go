@@ -3,7 +3,7 @@ package gofakeit
 import "math/rand/v2"
 
 // Pronoun will generate a random pronoun
-func Pronoun() string { return pronoun(globalFaker.Rand) }
+func Pronoun() string { return pronoun(GlobalFaker.Rand) }
 
 // Pronoun will generate a random pronoun
 func (f *Faker) Pronoun() string { return pronoun(f.Rand) }
@@ -23,7 +23,7 @@ func pronoun(r *rand.Rand) string {
 }
 
 // PronounPersonal will generate a random personal pronoun
-func PronounPersonal() string { return pronounPersonal(globalFaker.Rand) }
+func PronounPersonal() string { return pronounPersonal(GlobalFaker.Rand) }
 
 // PronounPersonal will generate a random personal pronoun
 func (f *Faker) PronounPersonal() string { return pronounPersonal(f.Rand) }
@@ -33,7 +33,7 @@ func pronounPersonal(r *rand.Rand) string {
 }
 
 // PronounObject will generate a random object pronoun
-func PronounObject() string { return pronounObject(globalFaker.Rand) }
+func PronounObject() string { return pronounObject(GlobalFaker.Rand) }
 
 // PronounObject will generate a random object pronoun
 func (f *Faker) PronounObject() string { return pronounObject(f.Rand) }
@@ -43,7 +43,7 @@ func pronounObject(r *rand.Rand) string {
 }
 
 // PronounPossessive will generate a random possessive pronoun
-func PronounPossessive() string { return pronounPossessive(globalFaker.Rand) }
+func PronounPossessive() string { return pronounPossessive(GlobalFaker.Rand) }
 
 // PronounPossessive will generate a random possessive pronoun
 func (f *Faker) PronounPossessive() string { return pronounPossessive(f.Rand) }
@@ -53,7 +53,7 @@ func pronounPossessive(r *rand.Rand) string {
 }
 
 // PronounReflective will generate a random reflective pronoun
-func PronounReflective() string { return pronounReflective(globalFaker.Rand) }
+func PronounReflective() string { return pronounReflective(GlobalFaker.Rand) }
 
 // PronounReflective will generate a random reflective pronoun
 func (f *Faker) PronounReflective() string { return pronounReflective(f.Rand) }
@@ -63,7 +63,7 @@ func pronounReflective(r *rand.Rand) string {
 }
 
 // PronounIndefinite will generate a random indefinite pronoun
-func PronounIndefinite() string { return pronounIndefinite(globalFaker.Rand) }
+func PronounIndefinite() string { return pronounIndefinite(GlobalFaker.Rand) }
 
 // PronounIndefinite will generate a random indefinite pronoun
 func (f *Faker) PronounIndefinite() string { return pronounIndefinite(f.Rand) }
@@ -73,7 +73,7 @@ func pronounIndefinite(r *rand.Rand) string {
 }
 
 // PronounDemonstrative will generate a random demonstrative pronoun
-func PronounDemonstrative() string { return pronounDemonstrative(globalFaker.Rand) }
+func PronounDemonstrative() string { return pronounDemonstrative(GlobalFaker.Rand) }
 
 // PronounDemonstrative will generate a random demonstrative pronoun
 func (f *Faker) PronounDemonstrative() string { return pronounDemonstrative(f.Rand) }
@@ -83,7 +83,7 @@ func pronounDemonstrative(r *rand.Rand) string {
 }
 
 // PronounInterrogative will generate a random interrogative pronoun
-func PronounInterrogative() string { return pronounInterrogative(globalFaker.Rand) }
+func PronounInterrogative() string { return pronounInterrogative(GlobalFaker.Rand) }
 
 // PronounInterrogative will generate a random interrogative pronoun
 func (f *Faker) PronounInterrogative() string { return pronounInterrogative(f.Rand) }
@@ -93,7 +93,7 @@ func pronounInterrogative(r *rand.Rand) string {
 }
 
 // PronounRelative will generate a random relative pronoun
-func PronounRelative() string { return pronounRelative(globalFaker.Rand) }
+func PronounRelative() string { return pronounRelative(GlobalFaker.Rand) }
 
 // PronounRelative will generate a random relative pronoun
 func (f *Faker) PronounRelative() string { return pronounRelative(f.Rand) }

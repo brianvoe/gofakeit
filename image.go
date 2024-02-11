@@ -12,7 +12,7 @@ import (
 )
 
 // ImageURL will generate a random Image Based Upon Height And Width. https://picsum.photos/
-func ImageURL(width int, height int) string { return imageURL(globalFaker.Rand, width, height) }
+func ImageURL(width int, height int) string { return imageURL(GlobalFaker.Rand, width, height) }
 
 // ImageURL will generate a random Image Based Upon Height And Width. https://picsum.photos/
 func (f *Faker) ImageURL(width int, height int) string { return imageURL(f.Rand, width, height) }
@@ -22,7 +22,7 @@ func imageURL(r *rand.Rand, width int, height int) string {
 }
 
 // Image generates a random rgba image
-func Image(width int, height int) *img.RGBA { return image(globalFaker.Rand, width, height) }
+func Image(width int, height int) *img.RGBA { return image(GlobalFaker.Rand, width, height) }
 
 // Image generates a random rgba image
 func (f *Faker) Image(width int, height int) *img.RGBA { return image(f.Rand, width, height) }
@@ -44,7 +44,7 @@ func image(r *rand.Rand, width int, height int) *img.RGBA {
 }
 
 // ImageJpeg generates a random rgba jpeg image
-func ImageJpeg(width int, height int) []byte { return imageJpeg(globalFaker.Rand, width, height) }
+func ImageJpeg(width int, height int) []byte { return imageJpeg(GlobalFaker.Rand, width, height) }
 
 // ImageJpeg generates a random rgba jpeg image
 func (f *Faker) ImageJpeg(width int, height int) []byte { return imageJpeg(f.Rand, width, height) }
@@ -56,7 +56,7 @@ func imageJpeg(r *rand.Rand, width int, height int) []byte {
 }
 
 // ImagePng generates a random rgba png image
-func ImagePng(width int, height int) []byte { return imagePng(globalFaker.Rand, width, height) }
+func ImagePng(width int, height int) []byte { return imagePng(GlobalFaker.Rand, width, height) }
 
 // ImagePng generates a random rgba png image
 func (f *Faker) ImagePng(width int, height int) []byte { return imagePng(f.Rand, width, height) }

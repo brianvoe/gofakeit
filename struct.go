@@ -16,7 +16,7 @@ import (
 // Use `fake:"skip"` to explicitly skip an element.
 // All built-in types are supported, with templating support
 // for string types.
-func Struct(v any) error { return structFunc(globalFaker, v) }
+func Struct(v any) error { return structFunc(GlobalFaker, v) }
 
 // Struct fills in exported fields of a struct with random data
 // based on the value of `fake` tag of exported fields.

@@ -3,7 +3,7 @@ package gofakeit
 import "math/rand/v2"
 
 // Interjection will generate a random word expressing emotion
-func Interjection() string { return interjection(globalFaker.Rand) }
+func Interjection() string { return interjection(GlobalFaker.Rand) }
 
 // Interjection will generate a random word expressing emotion
 func (f *Faker) Interjection() string { return interjection(f.Rand) }

@@ -4,7 +4,7 @@ import "math/rand/v2"
 
 // PetName will return a random fun pet name
 func PetName() string {
-	return petName(globalFaker.Rand)
+	return petName(GlobalFaker.Rand)
 }
 
 // PetName will return a random fun pet name
@@ -18,7 +18,7 @@ func petName(r *rand.Rand) string {
 
 // Animal will return a random animal
 func Animal() string {
-	return animal(globalFaker.Rand)
+	return animal(GlobalFaker.Rand)
 }
 
 // Animal will return a random animal
@@ -32,7 +32,7 @@ func animal(r *rand.Rand) string {
 
 // AnimalType will return a random animal type
 func AnimalType() string {
-	return animalType(globalFaker.Rand)
+	return animalType(GlobalFaker.Rand)
 }
 
 // AnimalType will return a random animal type
@@ -46,7 +46,7 @@ func animalType(r *rand.Rand) string {
 
 // FarmAnimal will return a random animal that usually lives on a farm
 func FarmAnimal() string {
-	return farmAnimal(globalFaker.Rand)
+	return farmAnimal(GlobalFaker.Rand)
 }
 
 // FarmAnimal will return a random animal that usually lives on a farm
@@ -60,7 +60,7 @@ func farmAnimal(r *rand.Rand) string {
 
 // Cat will return a random cat breed
 func Cat() string {
-	return cat(globalFaker.Rand)
+	return cat(GlobalFaker.Rand)
 }
 
 // Cat will return a random cat breed
@@ -74,7 +74,7 @@ func cat(r *rand.Rand) string {
 
 // Dog will return a random dog breed
 func Dog() string {
-	return dog(globalFaker.Rand)
+	return dog(GlobalFaker.Rand)
 }
 
 // Dog will return a random dog breed
@@ -88,7 +88,7 @@ func dog(r *rand.Rand) string {
 
 // Bird will return a random bird species
 func Bird() string {
-	return bird(globalFaker.Rand)
+	return bird(GlobalFaker.Rand)
 }
 
 // Bird will return a random bird species

@@ -3,7 +3,7 @@ package gofakeit
 import "math/rand/v2"
 
 // Noun will generate a random noun
-func Noun() string { return noun(globalFaker.Rand) }
+func Noun() string { return noun(GlobalFaker.Rand) }
 
 // Noun will generate a random noun
 func (f *Faker) Noun() string { return noun(f.Rand) }
@@ -23,7 +23,7 @@ func noun(r *rand.Rand) string {
 }
 
 // NounCommon will generate a random common noun
-func NounCommon() string { return nounCommon(globalFaker.Rand) }
+func NounCommon() string { return nounCommon(GlobalFaker.Rand) }
 
 // NounCommon will generate a random common noun
 func (f *Faker) NounCommon() string { return nounCommon(f.Rand) }
@@ -31,7 +31,7 @@ func (f *Faker) NounCommon() string { return nounCommon(f.Rand) }
 func nounCommon(r *rand.Rand) string { return getRandValue(r, []string{"word", "noun_common"}) }
 
 // NounConcrete will generate a random concrete noun
-func NounConcrete() string { return nounConcrete(globalFaker.Rand) }
+func NounConcrete() string { return nounConcrete(GlobalFaker.Rand) }
 
 // NounConcrete will generate a random concrete noun
 func (f *Faker) NounConcrete() string { return nounConcrete(f.Rand) }
@@ -39,7 +39,7 @@ func (f *Faker) NounConcrete() string { return nounConcrete(f.Rand) }
 func nounConcrete(r *rand.Rand) string { return getRandValue(r, []string{"word", "noun_concrete"}) }
 
 // NounAbstract will generate a random abstract noun
-func NounAbstract() string { return nounAbstract(globalFaker.Rand) }
+func NounAbstract() string { return nounAbstract(GlobalFaker.Rand) }
 
 // NounAbstract will generate a random abstract noun
 func (f *Faker) NounAbstract() string { return nounAbstract(f.Rand) }
@@ -47,7 +47,7 @@ func (f *Faker) NounAbstract() string { return nounAbstract(f.Rand) }
 func nounAbstract(r *rand.Rand) string { return getRandValue(r, []string{"word", "noun_abstract"}) }
 
 // NounCollectivePeople will generate a random collective noun person
-func NounCollectivePeople() string { return nounCollectivePeople(globalFaker.Rand) }
+func NounCollectivePeople() string { return nounCollectivePeople(GlobalFaker.Rand) }
 
 // NounCollectivePeople will generate a random collective noun person
 func (f *Faker) NounCollectivePeople() string { return nounCollectivePeople(f.Rand) }
@@ -57,7 +57,7 @@ func nounCollectivePeople(r *rand.Rand) string {
 }
 
 // NounCollectiveAnimal will generate a random collective noun animal
-func NounCollectiveAnimal() string { return nounCollectiveAnimal(globalFaker.Rand) }
+func NounCollectiveAnimal() string { return nounCollectiveAnimal(GlobalFaker.Rand) }
 
 // NounCollectiveAnimal will generate a random collective noun animal
 func (f *Faker) NounCollectiveAnimal() string { return nounCollectiveAnimal(f.Rand) }
@@ -67,7 +67,7 @@ func nounCollectiveAnimal(r *rand.Rand) string {
 }
 
 // NounCollectiveThing will generate a random collective noun thing
-func NounCollectiveThing() string { return nounCollectiveThing(globalFaker.Rand) }
+func NounCollectiveThing() string { return nounCollectiveThing(GlobalFaker.Rand) }
 
 // NounCollectiveThing will generate a random collective noun thing
 func (f *Faker) NounCollectiveThing() string { return nounCollectiveThing(f.Rand) }
@@ -77,7 +77,7 @@ func nounCollectiveThing(r *rand.Rand) string {
 }
 
 // NounCountable will generate a random countable noun
-func NounCountable() string { return nounCountable(globalFaker.Rand) }
+func NounCountable() string { return nounCountable(GlobalFaker.Rand) }
 
 // NounCountable will generate a random countable noun
 func (f *Faker) NounCountable() string { return nounCountable(f.Rand) }
@@ -85,7 +85,7 @@ func (f *Faker) NounCountable() string { return nounCountable(f.Rand) }
 func nounCountable(r *rand.Rand) string { return getRandValue(r, []string{"word", "noun_countable"}) }
 
 // NounUncountable will generate a random uncountable noun
-func NounUncountable() string { return nounUncountable(globalFaker.Rand) }
+func NounUncountable() string { return nounUncountable(GlobalFaker.Rand) }
 
 // NounUncountable will generate a random uncountable noun
 func (f *Faker) NounUncountable() string { return nounUncountable(f.Rand) }
@@ -95,7 +95,7 @@ func nounUncountable(r *rand.Rand) string {
 }
 
 // NounProper will generate a random proper noun
-func NounProper() string { return nounProper(globalFaker.Rand) }
+func NounProper() string { return nounProper(GlobalFaker.Rand) }
 
 // NounProper will generate a random proper noun
 func (f *Faker) NounProper() string { return nounProper(f.Rand) }
@@ -112,7 +112,7 @@ func nounProper(r *rand.Rand) string {
 }
 
 // NounDeterminer will generate a random noun determiner
-func NounDeterminer() string { return nounDeterminer(globalFaker.Rand) }
+func NounDeterminer() string { return nounDeterminer(GlobalFaker.Rand) }
 
 // NounDeterminer will generate a random noun determiner
 func (f *Faker) NounDeterminer() string { return nounDeterminer(f.Rand) }

@@ -2,13 +2,13 @@ package gofakeit
 
 import "math/rand/v2"
 
-func MovieName() string { return movieName(globalFaker.Rand) }
+func MovieName() string { return movieName(GlobalFaker.Rand) }
 
 func (f *Faker) MovieName() string { return movieName(f.Rand) }
 
 func movieName(r *rand.Rand) string { return getRandValue(r, []string{"movie", "name"}) }
 
-func MovieGenre() string { return movieGenre(globalFaker.Rand) }
+func MovieGenre() string { return movieGenre(GlobalFaker.Rand) }
 
 func (f *Faker) MovieGenre() string { return movieGenre(f.Rand) }
 
@@ -19,7 +19,7 @@ type MovieInfo struct {
 	Genre string `json:"genre" xml:"genre"`
 }
 
-func Movie() *MovieInfo { return movie(globalFaker.Rand) }
+func Movie() *MovieInfo { return movie(GlobalFaker.Rand) }
 
 func (f *Faker) Movie() *MovieInfo { return movie(f.Rand) }
 

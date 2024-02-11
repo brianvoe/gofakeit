@@ -3,7 +3,7 @@ package gofakeit
 import "math/rand/v2"
 
 // School will generate a random School type
-func School() string { return school(globalFaker.Rand) }
+func School() string { return school(GlobalFaker.Rand) }
 
 func (f *Faker) School() string { return school(f.Rand) }
 

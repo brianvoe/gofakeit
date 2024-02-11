@@ -25,7 +25,7 @@ func TestDateLookup(t *testing.T) {
 	for _, o := range info.Params[0].Options {
 		mapParams := NewMapParams()
 		mapParams.Add("format", o)
-		val, _ := info.Generate(globalFaker.Rand, mapParams, info)
+		val, _ := info.Generate(GlobalFaker.Rand, mapParams, info)
 		if val == "" {
 			t.Error("value was empty")
 		}

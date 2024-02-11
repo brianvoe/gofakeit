@@ -6,7 +6,7 @@ import (
 )
 
 // LoremIpsumWord will generate a random word
-func LoremIpsumWord() string { return loremIpsumWord(globalFaker.Rand) }
+func LoremIpsumWord() string { return loremIpsumWord(GlobalFaker.Rand) }
 
 // LoremIpsumWord will generate a random word
 func (f *Faker) LoremIpsumWord() string { return loremIpsumWord(f.Rand) }
@@ -15,7 +15,7 @@ func loremIpsumWord(r *rand.Rand) string { return getRandValue(r, []string{"lore
 
 // LoremIpsumSentence will generate a random sentence
 func LoremIpsumSentence(wordCount int) string {
-	return loremIpsumSentence(globalFaker.Rand, wordCount)
+	return loremIpsumSentence(GlobalFaker.Rand, wordCount)
 }
 
 // LoremIpsumSentence will generate a random sentence
@@ -29,7 +29,7 @@ func loremIpsumSentence(r *rand.Rand, wordCount int) string {
 
 // LoremIpsumParagraph will generate a random paragraphGenerator
 func LoremIpsumParagraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return loremIpsumParagraph(globalFaker.Rand, paragraphCount, sentenceCount, wordCount, separator)
+	return loremIpsumParagraph(GlobalFaker.Rand, paragraphCount, sentenceCount, wordCount, separator)
 }
 
 // LoremIpsumParagraph will generate a random paragraphGenerator

@@ -7,7 +7,7 @@ import (
 
 // AppName will generate a random app name
 func AppName() string {
-	return appName(globalFaker.Rand)
+	return appName(GlobalFaker.Rand)
 }
 
 // AppName will generate a random app name
@@ -31,7 +31,7 @@ func appName(r *rand.Rand) string {
 
 // AppVersion will generate a random app version
 func AppVersion() string {
-	return appVersion(globalFaker.Rand)
+	return appVersion(GlobalFaker.Rand)
 }
 
 // AppVersion will generate a random app version
@@ -45,7 +45,7 @@ func appVersion(r *rand.Rand) string {
 
 // AppAuthor will generate a random company or person name
 func AppAuthor() string {
-	return appAuthor(globalFaker.Rand)
+	return appAuthor(GlobalFaker.Rand)
 }
 
 // AppAuthor will generate a random company or person name

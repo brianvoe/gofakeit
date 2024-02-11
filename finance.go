@@ -10,7 +10,7 @@ const cusipStr = upperStr + numericStr
 
 // CUSIP
 func Cusip() string {
-	return cusip(globalFaker.Rand)
+	return cusip(GlobalFaker.Rand)
 }
 
 func (f *Faker) Cusip() string {
@@ -31,7 +31,7 @@ func cusip(r *rand.Rand) string {
 
 // ISIN
 func Isin() string {
-	return isin(globalFaker.Rand)
+	return isin(GlobalFaker.Rand)
 }
 
 func (f *Faker) Isin() string {

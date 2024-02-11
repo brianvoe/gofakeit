@@ -7,7 +7,7 @@ import (
 )
 
 // Color will generate a random color string
-func Color() string { return color(globalFaker.Rand) }
+func Color() string { return color(GlobalFaker.Rand) }
 
 // Color will generate a random color string
 func (f *Faker) Color() string { return color(f.Rand) }
@@ -15,7 +15,7 @@ func (f *Faker) Color() string { return color(f.Rand) }
 func color(r *rand.Rand) string { return getRandValue(r, []string{"color", "full"}) }
 
 // NiceColor will generate a random safe color string
-func NiceColors() []string { return niceColors(globalFaker.Rand) }
+func NiceColors() []string { return niceColors(GlobalFaker.Rand) }
 
 // NiceColor will generate a random safe color string
 func (f *Faker) NiceColors() []string { return niceColors(f.Rand) }
@@ -25,7 +25,7 @@ func niceColors(r *rand.Rand) []string {
 }
 
 // SafeColor will generate a random safe color string
-func SafeColor() string { return safeColor(globalFaker.Rand) }
+func SafeColor() string { return safeColor(GlobalFaker.Rand) }
 
 // SafeColor will generate a random safe color string
 func (f *Faker) SafeColor() string { return safeColor(f.Rand) }
@@ -33,7 +33,7 @@ func (f *Faker) SafeColor() string { return safeColor(f.Rand) }
 func safeColor(r *rand.Rand) string { return getRandValue(r, []string{"color", "safe"}) }
 
 // HexColor will generate a random hexadecimal color string
-func HexColor() string { return hexColor(globalFaker.Rand) }
+func HexColor() string { return hexColor(GlobalFaker.Rand) }
 
 // HexColor will generate a random hexadecimal color string
 func (f *Faker) HexColor() string { return hexColor(f.Rand) }
@@ -49,7 +49,7 @@ func hexColor(r *rand.Rand) string {
 }
 
 // RGBColor will generate a random int slice color
-func RGBColor() []int { return rgbColor(globalFaker.Rand) }
+func RGBColor() []int { return rgbColor(GlobalFaker.Rand) }
 
 // RGBColor will generate a random int slice color
 func (f *Faker) RGBColor() []int { return rgbColor(f.Rand) }

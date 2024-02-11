@@ -59,7 +59,7 @@ func (okv jsonOrderedKeyVal) MarshalJSON() ([]byte, error) {
 
 // JSON generates an object or an array of objects in json format.
 // A nil JSONOptions returns a randomly structured JSON.
-func JSON(jo *JSONOptions) ([]byte, error) { return jsonFunc(globalFaker, jo) }
+func JSON(jo *JSONOptions) ([]byte, error) { return jsonFunc(GlobalFaker, jo) }
 
 // JSON generates an object or an array of objects in json format.
 // A nil JSONOptions returns a randomly structured JSON.

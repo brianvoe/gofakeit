@@ -3,7 +3,7 @@ package gofakeit
 import "math/rand/v2"
 
 // Connective will generate a random connective
-func Connective() string { return connective(globalFaker.Rand) }
+func Connective() string { return connective(GlobalFaker.Rand) }
 
 // Connective will generate a random connective
 func (f *Faker) Connective() string { return connective(f.Rand) }
@@ -21,7 +21,7 @@ func connective(r *rand.Rand) string {
 }
 
 // ConnectiveTime will generate a random connective time
-func ConnectiveTime() string { return connectiveTime(globalFaker.Rand) }
+func ConnectiveTime() string { return connectiveTime(GlobalFaker.Rand) }
 
 // ConnectiveTime will generate a random connective time
 
@@ -32,7 +32,7 @@ func connectiveTime(r *rand.Rand) string {
 }
 
 // ConnectiveComparative will generate a random comparative connective
-func ConnectiveComparative() string { return connectiveComparative(globalFaker.Rand) }
+func ConnectiveComparative() string { return connectiveComparative(GlobalFaker.Rand) }
 
 // ConnectiveComparative will generate a random comparative connective
 func (f *Faker) ConnectiveComparative() string { return connectiveComparative(f.Rand) }
@@ -42,7 +42,7 @@ func connectiveComparative(r *rand.Rand) string {
 }
 
 // ConnectiveComplaint will generate a random complaint connective
-func ConnectiveComplaint() string { return connectiveComplaint(globalFaker.Rand) }
+func ConnectiveComplaint() string { return connectiveComplaint(GlobalFaker.Rand) }
 
 // ConnectiveComplaint will generate a random complaint connective
 func (f *Faker) ConnectiveComplaint() string { return connectiveComplaint(f.Rand) }
@@ -52,7 +52,7 @@ func connectiveComplaint(r *rand.Rand) string {
 }
 
 // ConnectiveListing will generate a random listing connective
-func ConnectiveListing() string { return connectiveListing(globalFaker.Rand) }
+func ConnectiveListing() string { return connectiveListing(GlobalFaker.Rand) }
 
 // ConnectiveListing will generate a random listing connective
 func (f *Faker) ConnectiveListing() string { return connectiveListing(f.Rand) }
@@ -62,7 +62,7 @@ func connectiveListing(r *rand.Rand) string {
 }
 
 // ConnectiveCasual will generate a random casual connective
-func ConnectiveCasual() string { return connectiveCasual(globalFaker.Rand) }
+func ConnectiveCasual() string { return connectiveCasual(GlobalFaker.Rand) }
 
 // ConnectiveCasual will generate a random casual connective
 func (f *Faker) ConnectiveCasual() string { return connectiveCasual(f.Rand) }
@@ -72,7 +72,7 @@ func connectiveCasual(r *rand.Rand) string {
 }
 
 // ConnectiveExamplify will generate a random examplify connective
-func ConnectiveExamplify() string { return connectiveExamplify(globalFaker.Rand) }
+func ConnectiveExamplify() string { return connectiveExamplify(GlobalFaker.Rand) }
 
 // ConnectiveExamplify will generate a random examplify connective
 func (f *Faker) ConnectiveExamplify() string { return connectiveExamplify(f.Rand) }

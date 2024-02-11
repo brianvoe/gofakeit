@@ -17,7 +17,7 @@ type CurrencyInfo struct {
 }
 
 // Currency will generate a struct with random currency information
-func Currency() *CurrencyInfo { return currency(globalFaker.Rand) }
+func Currency() *CurrencyInfo { return currency(GlobalFaker.Rand) }
 
 // Currency will generate a struct with random currency information
 func (f *Faker) Currency() *CurrencyInfo { return currency(f.Rand) }
@@ -31,7 +31,7 @@ func currency(r *rand.Rand) *CurrencyInfo {
 }
 
 // CurrencyShort will generate a random short currency value
-func CurrencyShort() string { return currencyShort(globalFaker.Rand) }
+func CurrencyShort() string { return currencyShort(GlobalFaker.Rand) }
 
 // CurrencyShort will generate a random short currency value
 func (f *Faker) CurrencyShort() string { return currencyShort(f.Rand) }
@@ -39,7 +39,7 @@ func (f *Faker) CurrencyShort() string { return currencyShort(f.Rand) }
 func currencyShort(r *rand.Rand) string { return getRandValue(r, []string{"currency", "short"}) }
 
 // CurrencyLong will generate a random long currency name
-func CurrencyLong() string { return currencyLong(globalFaker.Rand) }
+func CurrencyLong() string { return currencyLong(GlobalFaker.Rand) }
 
 // CurrencyLong will generate a random long currency name
 func (f *Faker) CurrencyLong() string { return currencyLong(f.Rand) }
@@ -47,7 +47,7 @@ func (f *Faker) CurrencyLong() string { return currencyLong(f.Rand) }
 func currencyLong(r *rand.Rand) string { return getRandValue(r, []string{"currency", "long"}) }
 
 // Price will take in a min and max value and return a formatted price
-func Price(min, max float64) float64 { return price(globalFaker.Rand, min, max) }
+func Price(min, max float64) float64 { return price(GlobalFaker.Rand, min, max) }
 
 // Price will take in a min and max value and return a formatted price
 func (f *Faker) Price(min, max float64) float64 { return price(f.Rand, min, max) }
@@ -65,7 +65,7 @@ type CreditCardInfo struct {
 }
 
 // CreditCard will generate a struct full of credit card information
-func CreditCard() *CreditCardInfo { return creditCard(globalFaker.Rand) }
+func CreditCard() *CreditCardInfo { return creditCard(GlobalFaker.Rand) }
 
 // CreditCard will generate a struct full of credit card information
 func (f *Faker) CreditCard() *CreditCardInfo { return creditCard(f.Rand) }
@@ -81,7 +81,7 @@ func creditCard(r *rand.Rand) *CreditCardInfo {
 }
 
 // CreditCardType will generate a random credit card type string
-func CreditCardType() string { return creditCardType(globalFaker.Rand) }
+func CreditCardType() string { return creditCardType(GlobalFaker.Rand) }
 
 // CreditCardType will generate a random credit card type string
 func (f *Faker) CreditCardType() string { return creditCardType(f.Rand) }
@@ -98,7 +98,7 @@ type CreditCardOptions struct {
 }
 
 // CreditCardNumber will generate a random luhn credit card number
-func CreditCardNumber(cco *CreditCardOptions) string { return creditCardNumber(globalFaker.Rand, cco) }
+func CreditCardNumber(cco *CreditCardOptions) string { return creditCardNumber(GlobalFaker.Rand, cco) }
 
 // CreditCardNumber will generate a random luhn credit card number
 func (f *Faker) CreditCardNumber(cco *CreditCardOptions) string { return creditCardNumber(f.Rand, cco) }
@@ -155,7 +155,7 @@ func creditCardNumber(r *rand.Rand, cco *CreditCardOptions) string {
 
 // CreditCardExp will generate a random credit card expiration date string
 // Exp date will always be a future date
-func CreditCardExp() string { return creditCardExp(globalFaker.Rand) }
+func CreditCardExp() string { return creditCardExp(GlobalFaker.Rand) }
 
 // CreditCardExp will generate a random credit card expiration date string
 // Exp date will always be a future date
@@ -173,7 +173,7 @@ func creditCardExp(r *rand.Rand) string {
 
 // CreditCardCvv will generate a random CVV number
 // Its a string because you could have 017 as an exp date
-func CreditCardCvv() string { return creditCardCvv(globalFaker.Rand) }
+func CreditCardCvv() string { return creditCardCvv(GlobalFaker.Rand) }
 
 // CreditCardCvv will generate a random CVV number
 // Its a string because you could have 017 as an exp date
@@ -200,7 +200,7 @@ func isLuhn(s string) bool {
 }
 
 // AchRouting will generate a 9 digit routing number
-func AchRouting() string { return achRouting(globalFaker.Rand) }
+func AchRouting() string { return achRouting(GlobalFaker.Rand) }
 
 // AchRouting will generate a 9 digit routing number
 func (f *Faker) AchRouting() string { return achRouting(f.Rand) }
@@ -208,7 +208,7 @@ func (f *Faker) AchRouting() string { return achRouting(f.Rand) }
 func achRouting(r *rand.Rand) string { return numerify(r, "#########") }
 
 // AchAccount will generate a 12 digit account number
-func AchAccount() string { return achAccount(globalFaker.Rand) }
+func AchAccount() string { return achAccount(GlobalFaker.Rand) }
 
 // AchAccount will generate a 12 digit account number
 func (f *Faker) AchAccount() string { return achAccount(f.Rand) }
@@ -216,7 +216,7 @@ func (f *Faker) AchAccount() string { return achAccount(f.Rand) }
 func achAccount(r *rand.Rand) string { return numerify(r, "############") }
 
 // BitcoinAddress will generate a random bitcoin address consisting of numbers, upper and lower characters
-func BitcoinAddress() string { return bitcoinAddress(globalFaker.Rand) }
+func BitcoinAddress() string { return bitcoinAddress(GlobalFaker.Rand) }
 
 // BitcoinAddress will generate a random bitcoin address consisting of numbers, upper and lower characters
 func (f *Faker) BitcoinAddress() string { return bitcoinAddress(f.Rand) }
@@ -226,7 +226,7 @@ func bitcoinAddress(r *rand.Rand) string {
 }
 
 // BitcoinPrivateKey will generate a random bitcoin private key base58 consisting of numbers, upper and lower characters
-func BitcoinPrivateKey() string { return bitcoinPrivateKey(globalFaker.Rand) }
+func BitcoinPrivateKey() string { return bitcoinPrivateKey(GlobalFaker.Rand) }
 
 // BitcoinPrivateKey will generate a random bitcoin private key base58 consisting of numbers, upper and lower characters
 func (f *Faker) BitcoinPrivateKey() string { return bitcoinPrivateKey(f.Rand) }

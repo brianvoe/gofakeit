@@ -7,7 +7,7 @@ import (
 
 // Error will return a random generic error
 func Error() error {
-	return err(globalFaker.Rand)
+	return err(GlobalFaker.Rand)
 }
 
 // Error will return a random generic error
@@ -21,7 +21,7 @@ func err(r *rand.Rand) error {
 
 // ErrorObject will return a random error object word
 func ErrorObject() error {
-	return errorObject(globalFaker.Rand)
+	return errorObject(GlobalFaker.Rand)
 }
 
 // ErrorObject will return a random error object word
@@ -35,7 +35,7 @@ func errorObject(r *rand.Rand) error {
 
 // ErrorDatabase will return a random database error
 func ErrorDatabase() error {
-	return errorDatabase(globalFaker.Rand)
+	return errorDatabase(GlobalFaker.Rand)
 }
 
 // ErrorDatabase will return a random database error
@@ -49,7 +49,7 @@ func errorDatabase(r *rand.Rand) error {
 
 // ErrorGRPC will return a random gRPC error
 func ErrorGRPC() error {
-	return errorGRPC(globalFaker.Rand)
+	return errorGRPC(GlobalFaker.Rand)
 }
 
 // ErrorGRPC will return a random gRPC error
@@ -63,7 +63,7 @@ func errorGRPC(r *rand.Rand) error {
 
 // ErrorHTTP will return a random HTTP error
 func ErrorHTTP() error {
-	return errorHTTP(globalFaker.Rand)
+	return errorHTTP(GlobalFaker.Rand)
 }
 
 // ErrorHTTP will return a random HTTP error
@@ -77,7 +77,7 @@ func errorHTTP(r *rand.Rand) error {
 
 // ErrorHTTPClient will return a random HTTP client error response (400-418)
 func ErrorHTTPClient() error {
-	return errorHTTPClient(globalFaker.Rand)
+	return errorHTTPClient(GlobalFaker.Rand)
 }
 
 // ErrorHTTPClient will return a random HTTP client error response (400-418)
@@ -91,7 +91,7 @@ func errorHTTPClient(r *rand.Rand) error {
 
 // ErrorHTTPServer will return a random HTTP server error response (500-511)
 func ErrorHTTPServer() error {
-	return errorHTTPServer(globalFaker.Rand)
+	return errorHTTPServer(GlobalFaker.Rand)
 }
 
 // ErrorHTTPServer will return a random HTTP server error response (500-511)
@@ -105,7 +105,7 @@ func errorHTTPServer(r *rand.Rand) error {
 
 // ErrorRuntime will return a random runtime error
 func ErrorRuntime() error {
-	return errorRuntime(globalFaker.Rand)
+	return errorRuntime(GlobalFaker.Rand)
 }
 
 // ErrorRuntime will return a random runtime error
@@ -119,7 +119,7 @@ func errorRuntime(r *rand.Rand) error {
 
 // ErrorValidation will return a random validation error
 func ErrorValidation() error {
-	return errorValidation(globalFaker.Rand)
+	return errorValidation(GlobalFaker.Rand)
 }
 
 // ErrorValidation will return a random validation error

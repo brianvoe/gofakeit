@@ -6,7 +6,7 @@ import (
 )
 
 // Phrase will return a random phrase
-func Phrase() string { return phrase(globalFaker.Rand) }
+func Phrase() string { return phrase(GlobalFaker.Rand) }
 
 // Phrase will return a random phrase
 func (f *Faker) Phrase() string { return phrase(f.Rand) }
@@ -14,7 +14,7 @@ func (f *Faker) Phrase() string { return phrase(f.Rand) }
 func phrase(r *rand.Rand) string { return getRandValue(r, []string{"sentence", "phrase"}) }
 
 // PhraseNoun will return a random noun phrase
-func PhraseNoun() string { return phraseNoun(globalFaker.Rand) }
+func PhraseNoun() string { return phraseNoun(GlobalFaker.Rand) }
 
 // PhraseNoun will return a random noun phrase
 func (f *Faker) PhraseNoun() string { return phraseNoun(f.Rand) }
@@ -41,7 +41,7 @@ func phraseNoun(r *rand.Rand) string {
 }
 
 // PhraseVerb will return a random preposition phrase
-func PhraseVerb() string { return phraseVerb(globalFaker.Rand) }
+func PhraseVerb() string { return phraseVerb(GlobalFaker.Rand) }
 
 // PhraseVerb will return a random preposition phrase
 func (f *Faker) PhraseVerb() string { return phraseVerb(f.Rand) }
@@ -82,7 +82,7 @@ func phraseVerb(r *rand.Rand) string {
 }
 
 // PhraseAdverb will return a random adverb phrase
-func PhraseAdverb() string { return phraseAdverb(globalFaker.Rand) }
+func PhraseAdverb() string { return phraseAdverb(GlobalFaker.Rand) }
 
 // PhraseAdverb will return a random adverb phrase
 func (f *Faker) PhraseAdverb() string { return phraseAdverb(f.Rand) }
@@ -96,7 +96,7 @@ func phraseAdverb(r *rand.Rand) string {
 }
 
 // PhrasePreposition will return a random preposition phrase
-func PhrasePreposition() string { return phrasePreposition(globalFaker.Rand) }
+func PhrasePreposition() string { return phrasePreposition(GlobalFaker.Rand) }
 
 // PhrasePreposition will return a random preposition phrase
 func (f *Faker) PhrasePreposition() string { return phrasePreposition(f.Rand) }

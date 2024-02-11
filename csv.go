@@ -20,7 +20,7 @@ type CSVOptions struct {
 
 // CSV generates an object or an array of objects in json format
 // A nil CSVOptions returns a randomly structured CSV.
-func CSV(co *CSVOptions) ([]byte, error) { return csvFunc(globalFaker, co) }
+func CSV(co *CSVOptions) ([]byte, error) { return csvFunc(GlobalFaker, co) }
 
 // CSV generates an object or an array of objects in json format
 // A nil CSVOptions returns a randomly structured CSV.

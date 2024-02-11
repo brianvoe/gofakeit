@@ -22,7 +22,7 @@ type PersonInfo struct {
 }
 
 // Person will generate a struct with person information
-func Person() *PersonInfo { return person(globalFaker.Rand) }
+func Person() *PersonInfo { return person(GlobalFaker.Rand) }
 
 // Person will generate a struct with person information
 func (f *Faker) Person() *PersonInfo { return person(f.Rand) }
@@ -43,7 +43,7 @@ func person(r *rand.Rand) *PersonInfo {
 }
 
 // Name will generate a random First and Last Name
-func Name() string { return name(globalFaker.Rand) }
+func Name() string { return name(GlobalFaker.Rand) }
 
 // Name will generate a random First and Last Name
 func (f *Faker) Name() string { return name(f.Rand) }
@@ -53,7 +53,7 @@ func name(r *rand.Rand) string {
 }
 
 // FirstName will generate a random first name
-func FirstName() string { return firstName(globalFaker.Rand) }
+func FirstName() string { return firstName(GlobalFaker.Rand) }
 
 // FirstName will generate a random first name
 func (f *Faker) FirstName() string { return firstName(f.Rand) }
@@ -61,7 +61,7 @@ func (f *Faker) FirstName() string { return firstName(f.Rand) }
 func firstName(r *rand.Rand) string { return getRandValue(r, []string{"person", "first"}) }
 
 // MiddleName will generate a random middle name
-func MiddleName() string { return middleName(globalFaker.Rand) }
+func MiddleName() string { return middleName(GlobalFaker.Rand) }
 
 // MiddleName will generate a random middle name
 func (f *Faker) MiddleName() string { return middleName(f.Rand) }
@@ -69,7 +69,7 @@ func (f *Faker) MiddleName() string { return middleName(f.Rand) }
 func middleName(r *rand.Rand) string { return getRandValue(r, []string{"person", "middle"}) }
 
 // LastName will generate a random last name
-func LastName() string { return lastName(globalFaker.Rand) }
+func LastName() string { return lastName(GlobalFaker.Rand) }
 
 // LastName will generate a random last name
 func (f *Faker) LastName() string { return lastName(f.Rand) }
@@ -77,7 +77,7 @@ func (f *Faker) LastName() string { return lastName(f.Rand) }
 func lastName(r *rand.Rand) string { return getRandValue(r, []string{"person", "last"}) }
 
 // NamePrefix will generate a random name prefix
-func NamePrefix() string { return namePrefix(globalFaker.Rand) }
+func NamePrefix() string { return namePrefix(GlobalFaker.Rand) }
 
 // NamePrefix will generate a random name prefix
 func (f *Faker) NamePrefix() string { return namePrefix(f.Rand) }
@@ -85,7 +85,7 @@ func (f *Faker) NamePrefix() string { return namePrefix(f.Rand) }
 func namePrefix(r *rand.Rand) string { return getRandValue(r, []string{"person", "prefix"}) }
 
 // NameSuffix will generate a random name suffix
-func NameSuffix() string { return nameSuffix(globalFaker.Rand) }
+func NameSuffix() string { return nameSuffix(GlobalFaker.Rand) }
 
 // NameSuffix will generate a random name suffix
 func (f *Faker) NameSuffix() string { return nameSuffix(f.Rand) }
@@ -93,7 +93,7 @@ func (f *Faker) NameSuffix() string { return nameSuffix(f.Rand) }
 func nameSuffix(r *rand.Rand) string { return getRandValue(r, []string{"person", "suffix"}) }
 
 // SSN will generate a random Social Security Number
-func SSN() string { return ssn(globalFaker.Rand) }
+func SSN() string { return ssn(GlobalFaker.Rand) }
 
 // SSN will generate a random Social Security Number
 func (f *Faker) SSN() string { return ssn(f.Rand) }
@@ -101,7 +101,7 @@ func (f *Faker) SSN() string { return ssn(f.Rand) }
 func ssn(r *rand.Rand) string { return strconv.Itoa(randIntRange(r, 100000000, 999999999)) }
 
 // Gender will generate a random gender string
-func Gender() string { return gender(globalFaker.Rand) }
+func Gender() string { return gender(GlobalFaker.Rand) }
 
 // Gender will generate a random gender string
 func (f *Faker) Gender() string { return gender(f.Rand) }
@@ -115,7 +115,7 @@ func gender(r *rand.Rand) string {
 }
 
 // Hobby will generate a random hobby string
-func Hobby() string { return hobby(globalFaker.Rand) }
+func Hobby() string { return hobby(GlobalFaker.Rand) }
 
 // Hobby will generate a random hobby string
 func (f *Faker) Hobby() string { return hobby(f.Rand) }
@@ -129,7 +129,7 @@ type ContactInfo struct {
 }
 
 // Contact will generate a struct with information randomly populated contact information
-func Contact() *ContactInfo { return contact(globalFaker.Rand) }
+func Contact() *ContactInfo { return contact(GlobalFaker.Rand) }
 
 // Contact will generate a struct with information randomly populated contact information
 func (f *Faker) Contact() *ContactInfo { return contact(f.Rand) }
@@ -142,7 +142,7 @@ func contact(r *rand.Rand) *ContactInfo {
 }
 
 // Phone will generate a random phone number string
-func Phone() string { return phone(globalFaker.Rand) }
+func Phone() string { return phone(GlobalFaker.Rand) }
 
 // Phone will generate a random phone number string
 func (f *Faker) Phone() string { return phone(f.Rand) }
@@ -150,7 +150,7 @@ func (f *Faker) Phone() string { return phone(f.Rand) }
 func phone(r *rand.Rand) string { return replaceWithNumbers(r, "##########") }
 
 // PhoneFormatted will generate a random phone number string
-func PhoneFormatted() string { return phoneFormatted(globalFaker.Rand) }
+func PhoneFormatted() string { return phoneFormatted(GlobalFaker.Rand) }
 
 // PhoneFormatted will generate a random phone number string
 func (f *Faker) PhoneFormatted() string { return phoneFormatted(f.Rand) }
@@ -160,7 +160,7 @@ func phoneFormatted(r *rand.Rand) string {
 }
 
 // Email will generate a random email string
-func Email() string { return email(globalFaker.Rand) }
+func Email() string { return email(GlobalFaker.Rand) }
 
 // Email will generate a random email string
 func (f *Faker) Email() string { return email(f.Rand) }
@@ -175,7 +175,7 @@ func email(r *rand.Rand) string {
 
 // Teams takes in an array of people and team names and randomly places the people into teams as evenly as possible
 func Teams(peopleArray []string, teamsArray []string) map[string][]string {
-	return teams(globalFaker.Rand, peopleArray, teamsArray)
+	return teams(GlobalFaker.Rand, peopleArray, teamsArray)
 }
 
 // Teams takes in an array of people and team names and randomly places the people into teams as evenly as possible

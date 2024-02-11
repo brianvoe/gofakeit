@@ -7,7 +7,7 @@ import (
 
 // BeerName will return a random beer name
 func BeerName() string {
-	return beerName(globalFaker.Rand)
+	return beerName(GlobalFaker.Rand)
 }
 
 // BeerName will return a random beer name
@@ -21,7 +21,7 @@ func beerName(r *rand.Rand) string {
 
 // BeerStyle will return a random beer style
 func BeerStyle() string {
-	return beerStyle(globalFaker.Rand)
+	return beerStyle(GlobalFaker.Rand)
 }
 
 // BeerStyle will return a random beer style
@@ -35,7 +35,7 @@ func beerStyle(r *rand.Rand) string {
 
 // BeerHop will return a random beer hop
 func BeerHop() string {
-	return beerHop(globalFaker.Rand)
+	return beerHop(GlobalFaker.Rand)
 }
 
 // BeerHop will return a random beer hop
@@ -49,7 +49,7 @@ func beerHop(r *rand.Rand) string {
 
 // BeerYeast will return a random beer yeast
 func BeerYeast() string {
-	return beerYeast(globalFaker.Rand)
+	return beerYeast(GlobalFaker.Rand)
 }
 
 // BeerYeast will return a random beer yeast
@@ -63,7 +63,7 @@ func beerYeast(r *rand.Rand) string {
 
 // BeerMalt will return a random beer malt
 func BeerMalt() string {
-	return beerMalt(globalFaker.Rand)
+	return beerMalt(GlobalFaker.Rand)
 }
 
 // BeerMalt will return a random beer malt
@@ -77,7 +77,7 @@ func beerMalt(r *rand.Rand) string {
 
 // BeerAlcohol will return a random beer alcohol level between 2.0 and 10.0
 func BeerAlcohol() string {
-	return beerAlcohol(globalFaker.Rand)
+	return beerAlcohol(GlobalFaker.Rand)
 }
 
 // BeerAlcohol will return a random beer alcohol level between 2.0 and 10.0
@@ -91,7 +91,7 @@ func beerAlcohol(r *rand.Rand) string {
 
 // BeerIbu will return a random beer ibu value between 10 and 100
 func BeerIbu() string {
-	return beerIbu(globalFaker.Rand)
+	return beerIbu(GlobalFaker.Rand)
 }
 
 // BeerIbu will return a random beer ibu value between 10 and 100
@@ -105,7 +105,7 @@ func beerIbu(r *rand.Rand) string {
 
 // BeerBlg will return a random beer blg between 5.0 and 20.0
 func BeerBlg() string {
-	return beerBlg(globalFaker.Rand)
+	return beerBlg(GlobalFaker.Rand)
 }
 
 // BeerBlg will return a random beer blg between 5.0 and 20.0
