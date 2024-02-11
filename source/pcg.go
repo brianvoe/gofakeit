@@ -15,6 +15,14 @@ type PCG struct {
 
 // NewPCG creates and returns a new PCG pseudo-random number generator seeded with a given seed.
 func NewPCG(seed1, seed2 uint64, lock bool) *PCG {
+	// If seed1 is 0, then randomly set from a crypto/rand source
+	if seed1 == 0 {
+		seed1 = rand.New(NewCrypto(false)).Uint64()
+	}
+	if seed2 == 0 {
+		seed2 = rand.New(NewCrypto(false)).Uint64()
+	}
+
 	return &PCG{
 		PCG:  *rand.NewPCG(seed1, seed2),
 		lock: lock,
