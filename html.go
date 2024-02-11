@@ -2,7 +2,6 @@ package gofakeit
 
 import (
 	"errors"
-	"math/rand/v2"
 	"strconv"
 	"strings"
 
@@ -11,16 +10,16 @@ import (
 
 // InputName will return a random input field name
 func InputName() string {
-	return inputName(GlobalFaker.Rand)
+	return inputName(GlobalFaker)
 }
 
 // InputName will return a random input field name
 func (f *Faker) InputName() string {
-	return inputName(f.Rand)
+	return inputName(f)
 }
 
-func inputName(r *rand.Rand) string {
-	return getRandValue(r, []string{"html", "input_name"})
+func inputName(f *Faker) string {
+	return getRandValue(f, []string{"html", "input_name"})
 }
 
 type SVGOptions struct {
@@ -31,12 +30,12 @@ type SVGOptions struct {
 }
 
 // Generate a random svg generator
-func Svg(options *SVGOptions) string { return svg(GlobalFaker.Rand, options) }
+func Svg(options *SVGOptions) string { return svg(GlobalFaker, options) }
 
 // Generate a random svg generator
-func (f *Faker) Svg(options *SVGOptions) string { return svg(f.Rand, options) }
+func (f *Faker) Svg(options *SVGOptions) string { return svg(f, options) }
 
-func svg(r *rand.Rand, options *SVGOptions) string {
+func svg(f *Faker, options *SVGOptions) string {
 	// If options is nil, set it to empty struct
 	if options == nil {
 		options = &SVGOptions{}
@@ -44,46 +43,46 @@ func svg(r *rand.Rand, options *SVGOptions) string {
 
 	// If options height and weight is not set, set it to random number between 100 and 500
 	if options.Width == 0 {
-		options.Width = number(r, 100, 500)
+		options.Width = number(f, 100, 500)
 	}
 	widthStr := strconv.Itoa(options.Width)
 	if options.Height == 0 {
-		options.Height = number(r, 100, 500)
+		options.Height = number(f, 100, 500)
 	}
 	heightStr := strconv.Itoa(options.Height)
 
 	// Check if type is set, if not set to random type
 	if options.Type == "" {
-		options.Type = randomString(r, data.GetSubData("html", "svg"))
+		options.Type = randomString(f, data.GetSubData("html", "svg"))
 	}
 
 	// If the colors are not set, set it to a set of nice colors
 	if len(options.Colors) == 0 {
-		options.Colors = niceColors(r)
+		options.Colors = niceColors(f)
 	}
 
 	// Start svg string
 	svgStr := `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ` + widthStr + ` ` + heightStr + `" width="` + widthStr + `" height="` + heightStr + `">`
 
 	// Add a rect for the background
-	svgStr += `<rect x="0" y="0" width="100%" height="100%" fill="` + randomString(r, options.Colors) + `" />`
+	svgStr += `<rect x="0" y="0" width="100%" height="100%" fill="` + randomString(f, options.Colors) + `" />`
 
 	// Add a random number of shapes
-	for i := 0; i < number(r, 10, 20); i++ {
+	for i := 0; i < number(f, 10, 20); i++ {
 		// Add a random shape
 		switch options.Type {
 		case "rect":
-			svgStr += `<rect x="` + strconv.Itoa(number(r, 0, options.Width)) + `" y="` + strconv.Itoa(number(r, 0, options.Height)) + `" width="` + strconv.Itoa(number(r, 0, options.Width)) + `" height="` + strconv.Itoa(number(r, 0, options.Height)) + `" fill="` + randomString(r, options.Colors) + `" />`
+			svgStr += `<rect x="` + strconv.Itoa(number(f, 0, options.Width)) + `" y="` + strconv.Itoa(number(f, 0, options.Height)) + `" width="` + strconv.Itoa(number(f, 0, options.Width)) + `" height="` + strconv.Itoa(number(f, 0, options.Height)) + `" fill="` + randomString(f, options.Colors) + `" />`
 		case "circle":
-			svgStr += `<circle cx="` + strconv.Itoa(number(r, 0, options.Width)) + `" cy="` + strconv.Itoa(number(r, 0, options.Height)) + `" r="` + strconv.Itoa(number(r, 0, options.Width)) + `" fill="` + randomString(r, options.Colors) + `" />`
+			svgStr += `<circle cx="` + strconv.Itoa(number(f, 0, options.Width)) + `" cy="` + strconv.Itoa(number(f, 0, options.Height)) + `" r="` + strconv.Itoa(number(f, 0, options.Width)) + `" fill="` + randomString(f, options.Colors) + `" />`
 		case "ellipse":
-			svgStr += `<ellipse cx="` + strconv.Itoa(number(r, 0, options.Width)) + `" cy="` + strconv.Itoa(number(r, 0, options.Height)) + `" rx="` + strconv.Itoa(number(r, 0, options.Width)) + `" ry="` + strconv.Itoa(number(r, 0, options.Height)) + `" fill="` + randomString(r, options.Colors) + `" />`
+			svgStr += `<ellipse cx="` + strconv.Itoa(number(f, 0, options.Width)) + `" cy="` + strconv.Itoa(number(f, 0, options.Height)) + `" rx="` + strconv.Itoa(number(f, 0, options.Width)) + `" ry="` + strconv.Itoa(number(f, 0, options.Height)) + `" fill="` + randomString(f, options.Colors) + `" />`
 		case "line":
-			svgStr += `<line x1="` + strconv.Itoa(number(r, 0, options.Width)) + `" y1="` + strconv.Itoa(number(r, 0, options.Height)) + `" x2="` + strconv.Itoa(number(r, 0, options.Width)) + `" y2="` + strconv.Itoa(number(r, 0, options.Height)) + `" stroke="` + randomString(r, options.Colors) + `" />`
+			svgStr += `<line x1="` + strconv.Itoa(number(f, 0, options.Width)) + `" y1="` + strconv.Itoa(number(f, 0, options.Height)) + `" x2="` + strconv.Itoa(number(f, 0, options.Width)) + `" y2="` + strconv.Itoa(number(f, 0, options.Height)) + `" stroke="` + randomString(f, options.Colors) + `" />`
 		case "polyline":
-			svgStr += `<polyline points="` + strconv.Itoa(number(r, 0, options.Width)) + `,` + strconv.Itoa(number(r, 0, options.Height)) + ` ` + strconv.Itoa(number(r, 0, options.Width)) + `,` + strconv.Itoa(number(r, 0, options.Height)) + ` ` + strconv.Itoa(number(r, 0, options.Width)) + `,` + strconv.Itoa(number(r, 0, options.Height)) + `" fill="` + randomString(r, options.Colors) + `" />`
+			svgStr += `<polyline points="` + strconv.Itoa(number(f, 0, options.Width)) + `,` + strconv.Itoa(number(f, 0, options.Height)) + ` ` + strconv.Itoa(number(f, 0, options.Width)) + `,` + strconv.Itoa(number(f, 0, options.Height)) + ` ` + strconv.Itoa(number(f, 0, options.Width)) + `,` + strconv.Itoa(number(f, 0, options.Height)) + `" fill="` + randomString(f, options.Colors) + `" />`
 		case "polygon":
-			svgStr += `<polygon points="` + strconv.Itoa(number(r, 0, options.Width)) + `,` + strconv.Itoa(number(r, 0, options.Height)) + ` ` + strconv.Itoa(number(r, 0, options.Width)) + `,` + strconv.Itoa(number(r, 0, options.Height)) + ` ` + strconv.Itoa(number(r, 0, options.Width)) + `,` + strconv.Itoa(number(r, 0, options.Height)) + `" fill="` + randomString(r, options.Colors) + `" />`
+			svgStr += `<polygon points="` + strconv.Itoa(number(f, 0, options.Width)) + `,` + strconv.Itoa(number(f, 0, options.Height)) + ` ` + strconv.Itoa(number(f, 0, options.Width)) + `,` + strconv.Itoa(number(f, 0, options.Height)) + ` ` + strconv.Itoa(number(f, 0, options.Width)) + `,` + strconv.Itoa(number(f, 0, options.Height)) + `" fill="` + randomString(f, options.Colors) + `" />`
 		}
 	}
 
@@ -100,8 +99,8 @@ func addHtmlLookup() {
 		Description: "Attribute used to define the name of an input element in web forms",
 		Example:     "first_name",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return inputName(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return inputName(f), nil
 		},
 	})
 
@@ -121,7 +120,7 @@ func addHtmlLookup() {
 			{Field: "type", Display: "Type", Type: "string", Optional: true, Options: data.GetSubData("html", "svg"), Description: "Sub child element type"},
 			{Field: "colors", Display: "Colors", Type: "[]string", Optional: true, Description: "Hex or RGB array of colors to use"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			// Setup new options
 			options := SVGOptions{}
 			var err error
@@ -150,7 +149,7 @@ func addHtmlLookup() {
 
 			// If type is empty, set with random type
 			if options.Type == "" {
-				options.Type = randomString(r, svgData)
+				options.Type = randomString(f, svgData)
 			}
 
 			// If not in date html svg type array, return error
@@ -166,10 +165,10 @@ func addHtmlLookup() {
 
 			// If colors is empty, set with random colors
 			if len(options.Colors) == 0 {
-				options.Colors = niceColors(r)
+				options.Colors = niceColors(f)
 			}
 
-			return svg(r, &options), nil
+			return svg(f, &options), nil
 		},
 	})
 }

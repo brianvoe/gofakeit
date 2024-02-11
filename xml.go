@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
-	"math/rand/v2"
 	"reflect"
 )
 
@@ -185,7 +184,7 @@ func xmlFunc(f *Faker, xo *XMLOptions) ([]byte, error) {
 				return nil, errors.New("invalid function, " + field.Function + " does not exist")
 			}
 
-			value, err := funcInfo.Generate(f.Rand, &field.Params, funcInfo)
+			value, err := funcInfo.Generate(f, &field.Params, funcInfo)
 			if err != nil {
 				return nil, err
 			}
@@ -238,7 +237,7 @@ func xmlFunc(f *Faker, xo *XMLOptions) ([]byte, error) {
 					return nil, errors.New("invalid function, " + field.Function + " does not exist")
 				}
 
-				value, err := funcInfo.Generate(f.Rand, &field.Params, funcInfo)
+				value, err := funcInfo.Generate(f, &field.Params, funcInfo)
 				if err != nil {
 					return nil, err
 				}
@@ -293,7 +292,7 @@ func addFileXMLLookup() {
 			{Field: "indent", Display: "Indent", Type: "bool", Default: "false", Description: "Whether or not to add indents and newlines"},
 			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function to run in json format"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			xo := XMLOptions{}
 
 			typ, err := info.GetString(m, "type")
@@ -344,7 +343,6 @@ func addFileXMLLookup() {
 				}
 			}
 
-			f := &Faker{Rand: r}
 			return xmlFunc(f, &xo)
 		},
 	})

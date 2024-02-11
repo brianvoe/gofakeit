@@ -4,14 +4,22 @@ import (
 	"fmt"
 	"sync"
 	"testing"
+
+	"github.com/brianvoe/gofakeit/v6/source"
 )
 
 func TestSeed(t *testing.T) {
-	Seed(0)
+	// Test crypto that has no parameters in Seed
+	GlobalFaker = New(0)
+	Seed(11)
+
+	// Will panic if Seed couldn't be called
+	t.Fatal("Seed failed")
 }
 
 func Example() {
 	Seed(11)
+
 	fmt.Println("Name:", Name())
 	fmt.Println("Email:", Email())
 	fmt.Println("Phone:", Phone())
@@ -41,8 +49,14 @@ func Example() {
 }
 
 func ExampleNew() {
-	// Create new pseudo random faker struct and set initial seed
-	fake := New(11)
+	// Get new faker with default settings
+	fake := New(0)
+
+	// or
+
+	// Create new faker with ChaCha8
+	chacha := source.NewChaCha8([32]byte{5, 4, 3, 2, 1, 0}, true)
+	fake = NewFaker(chacha)
 
 	// All global functions are also available in the structs methods
 	fmt.Println("Name:", fake.Name())
@@ -53,98 +67,21 @@ func ExampleNew() {
 	// Name: Markus Moen
 	// Email: alaynawuckert@kozey.biz
 	// Phone: 9948995369
-}
-
-func ExampleNewUnlocked() {
-	fake := NewUnlocked(11)
-
-	// All global functions are also available in the structs methods
-	fmt.Println("Name:", fake.Name())
-	fmt.Println("Email:", fake.Email())
-	fmt.Println("Phone:", fake.Phone())
-
-	// Output:
-	// Name: Markus Moen
-	// Email: alaynawuckert@kozey.biz
-	// Phone: 9948995369
-}
-
-func TestNewUnlocked(t *testing.T) {
-	fake := NewUnlocked(0)
-	if fake.Name() == "" {
-		t.Error("Name was empty")
-	}
-}
-
-func ExampleNewCrypto() {
-	// Create new crypto faker struct
-	fake := NewCrypto()
-
-	// All global functions are also available in the structs methods
-	fmt.Println("Name:", fake.Name())
-	fmt.Println("Email:", fake.Email())
-	fmt.Println("Phone:", fake.Phone())
-
-	// Cannot output example as crypto/rand cant be predicted
-}
-
-func TestNewCrypto(t *testing.T) {
-	// Create new crypto faker struct
-	fake := NewCrypto()
-
-	// All global functions are also available in the structs methods
-	name := fake.Name()
-	email := fake.Email()
-	phone := fake.Phone()
-
-	if name == "" || email == "" || phone == "" {
-		t.Error("One of the values was empty")
-	}
-}
-
-type customRand struct{}
-
-func (c *customRand) Seed(seed int64) {}
-func (c *customRand) Uint64() uint64  { return 8675309 }
-func (c *customRand) Int63() int64    { return int64(c.Uint64() & ^uint64(1<<63)) }
-
-func ExampleNewCustom() {
-	// Setup stuct and methods required to meet interface needs
-	// type customRand struct {}
-	// func (c *customRand) Seed(seed int64) {}
-	// func (c *customRand) Uint64() uint64 { return 8675309 }
-	// func (c *customRand) Int63() int64 { return int64(c.Uint64() & ^uint64(1<<63)) }
-
-	// Create new custom faker struct
-	fake := NewCustom(&customRand{})
-
-	// All global functions are also available in the structs methods
-	fmt.Println("Name:", fake.Name())
-	fmt.Println("Email:", fake.Email())
-	fmt.Println("Phone:", fake.Phone())
-
-	// Output:
-	// Name: Aaliyah Abbott
-	// Email: aaliyahabbott@abbott.com
-	// Phone: 1000000000
-}
-
-func ExampleSetGlobalFaker() {
-	cryptoFaker := NewCrypto()
-	SetGlobalFaker(cryptoFaker)
 }
 
 func TestSetGlobalFaker(t *testing.T) {
-	cryptoFaker := NewCrypto()
-	SetGlobalFaker(cryptoFaker)
+	// Set global to crypto
+	cryptoFaker := source.NewCrypto(true)
+	GlobalFaker = NewFaker(cryptoFaker)
 
+	// Test a simple function
 	name := Name()
 	if name == "" {
 		t.Error("Name was empty")
 	}
 
-	// Set global back to psuedo
-	SetGlobalFaker(New(0))
+	// Set global back to default
+	GlobalFaker = New(0)
 }
 
 func TestConcurrency(t *testing.T) {
@@ -152,7 +89,7 @@ func TestConcurrency(t *testing.T) {
 	setupComplete.Add(1)
 
 	var wg sync.WaitGroup
-	for i := 0; i < 10000; i++ {
+	for i := 0; i < 100000; i++ {
 		wg.Add(1)
 		go func() {
 			setupComplete.Wait()

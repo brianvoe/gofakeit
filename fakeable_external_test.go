@@ -2,7 +2,6 @@ package gofakeit_test
 
 import (
 	"fmt"
-	"math/rand/v2"
 	"testing"
 	"time"
 
@@ -596,7 +595,7 @@ func TestNestedOverrideCustom(t *testing.T) {
 				Description: "Raw date time.Time object",
 			},
 		},
-		Generate: func(r *rand.Rand, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
+		Generate: func(f *gofakeit.Faker, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
 			return gofakeit.Date(), nil
 		},
 	})

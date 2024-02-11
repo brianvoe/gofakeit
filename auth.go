@@ -1,34 +1,32 @@
 package gofakeit
 
-import "math/rand/v2"
-
 // Username will generate a random username based upon picking a random lastname and random numbers at the end
 func Username() string {
-	return username(GlobalFaker.Rand)
+	return username(GlobalFaker)
 }
 
 // Username will generate a random username based upon picking a random lastname and random numbers at the end
 func (f *Faker) Username() string {
-	return username(f.Rand)
+	return username(f)
 }
 
-func username(r *rand.Rand) string {
-	return getRandValue(r, []string{"person", "last"}) + replaceWithNumbers(r, "####")
+func username(f *Faker) string {
+	return getRandValue(f, []string{"person", "last"}) + replaceWithNumbers(f, "####")
 }
 
 // Password will generate a random password.
 // Minimum number length of 5 if less than.
 func Password(lower bool, upper bool, numeric bool, special bool, space bool, num int) string {
-	return password(GlobalFaker.Rand, lower, upper, numeric, special, space, num)
+	return password(GlobalFaker, lower, upper, numeric, special, space, num)
 }
 
 // Password will generate a random password.
 // Minimum number length of 5 if less than.
 func (f *Faker) Password(lower bool, upper bool, numeric bool, special bool, space bool, num int) string {
-	return password(f.Rand, lower, upper, numeric, special, space, num)
+	return password(f, lower, upper, numeric, special, space, num)
 }
 
-func password(r *rand.Rand, lower bool, upper bool, numeric bool, special bool, space bool, num int) string {
+func password(f *Faker, lower bool, upper bool, numeric bool, special bool, space bool, num int) string {
 	// Make sure the num minimum is at least 5
 	if num < 5 {
 		num = 5
@@ -69,34 +67,34 @@ func password(r *rand.Rand, lower bool, upper bool, numeric bool, special bool, 
 
 	for i := 0; i <= num-1; i++ {
 		// Run weighted
-		weight, _ := weighted(r, items, weights)
+		weight, _ := weighted(f, items, weights)
 
 		switch weight.(string) {
 		case "lower":
-			b[i] = lowerStr[r.Int64()%int64(len(lowerStr))]
+			b[i] = lowerStr[f.Int64()%int64(len(lowerStr))]
 		case "upper":
-			b[i] = upperStr[r.Int64()%int64(len(upperStr))]
+			b[i] = upperStr[f.Int64()%int64(len(upperStr))]
 		case "numeric":
-			b[i] = numericStr[r.Int64()%int64(len(numericStr))]
+			b[i] = numericStr[f.Int64()%int64(len(numericStr))]
 		case "special":
-			b[i] = specialSafeStr[r.Int64()%int64(len(specialSafeStr))]
+			b[i] = specialSafeStr[f.Int64()%int64(len(specialSafeStr))]
 		case "space":
-			b[i] = spaceStr[r.Int64()%int64(len(spaceStr))]
+			b[i] = spaceStr[f.Int64()%int64(len(spaceStr))]
 		}
 	}
 
 	// Shuffle bytes
 	for i := range b {
-		j := r.IntN(i + 1)
+		j := f.IntN(i + 1)
 		b[i], b[j] = b[j], b[i]
 	}
 
 	// Replace first or last character if it's a space, and other options are available
 	if b[0] == ' ' {
-		b[0] = password(r, lower, upper, numeric, special, false, 1)[0]
+		b[0] = password(f, lower, upper, numeric, special, false, 1)[0]
 	}
 	if b[len(b)-1] == ' ' {
-		b[len(b)-1] = password(r, lower, upper, numeric, special, false, 1)[0]
+		b[len(b)-1] = password(f, lower, upper, numeric, special, false, 1)[0]
 	}
 
 	return string(b)
@@ -109,8 +107,8 @@ func addAuthLookup() {
 		Description: "Unique identifier assigned to a user for accessing an account or system",
 		Example:     "Daniel1364",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return username(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return username(f), nil
 		},
 	})
 
@@ -128,7 +126,7 @@ func addAuthLookup() {
 			{Field: "space", Display: "Space", Type: "bool", Default: "false", Description: "Whether or not to add spaces"},
 			{Field: "length", Display: "Length", Type: "int", Default: "12", Description: "Number of characters in password"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			lower, err := info.GetBool(m, "lower")
 			if err != nil {
 				return nil, err
@@ -159,7 +157,7 @@ func addAuthLookup() {
 				return nil, err
 			}
 
-			return password(r, lower, upper, numeric, special, space, length), nil
+			return password(f, lower, upper, numeric, special, space, length), nil
 		},
 	})
 }

@@ -1,24 +1,22 @@
 package gofakeit
 
-import "math/rand/v2"
+func BookTitle() string { return bookTitle(GlobalFaker) }
 
-func BookTitle() string { return bookTitle(GlobalFaker.Rand) }
+func (f *Faker) BookTitle() string { return bookTitle(f) }
 
-func (f *Faker) BookTitle() string { return bookTitle(f.Rand) }
+func bookTitle(f *Faker) string { return getRandValue(f, []string{"book", "title"}) }
 
-func bookTitle(r *rand.Rand) string { return getRandValue(r, []string{"book", "title"}) }
+func BookAuthor() string { return bookAuthor(GlobalFaker) }
 
-func BookAuthor() string { return bookAuthor(GlobalFaker.Rand) }
+func (f *Faker) BookAuthor() string { return bookAuthor(f) }
 
-func (f *Faker) BookAuthor() string { return bookAuthor(f.Rand) }
+func bookAuthor(f *Faker) string { return getRandValue(f, []string{"book", "author"}) }
 
-func bookAuthor(r *rand.Rand) string { return getRandValue(r, []string{"book", "author"}) }
+func BookGenre() string { return bookGenre(GlobalFaker) }
 
-func BookGenre() string { return bookGenre(GlobalFaker.Rand) }
+func (f *Faker) BookGenre() string { return bookGenre(f) }
 
-func (f *Faker) BookGenre() string { return bookGenre(f.Rand) }
-
-func bookGenre(r *rand.Rand) string { return getRandValue(r, []string{"book", "genre"}) }
+func bookGenre(f *Faker) string { return getRandValue(f, []string{"book", "genre"}) }
 
 type BookInfo struct {
 	Title  string `json:"title" xml:"name"`
@@ -26,15 +24,15 @@ type BookInfo struct {
 	Genre  string `json:"genre" xml:"genre"`
 }
 
-func Book() *BookInfo { return book(GlobalFaker.Rand) }
+func Book() *BookInfo { return book(GlobalFaker) }
 
-func (f *Faker) Book() *BookInfo { return book(f.Rand) }
+func (f *Faker) Book() *BookInfo { return book(f) }
 
-func book(r *rand.Rand) *BookInfo {
+func book(f *Faker) *BookInfo {
 	return &BookInfo{
-		Title:  bookTitle(r),
-		Author: bookAuthor(r),
-		Genre:  bookGenre(r),
+		Title:  bookTitle(f),
+		Author: bookAuthor(f),
+		Genre:  bookGenre(f),
 	}
 }
 
@@ -50,8 +48,8 @@ func addBookLookup() {
 }`,
 		Output:      "map[string]string",
 		ContentType: "application/json",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return book(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return book(f), nil
 		},
 	})
 
@@ -61,8 +59,8 @@ func addBookLookup() {
 		Description: "The specific name given to a book",
 		Example:     "Hamlet",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return bookTitle(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return bookTitle(f), nil
 		},
 	})
 
@@ -72,8 +70,8 @@ func addBookLookup() {
 		Description: "The individual who wrote or created the content of a book",
 		Example:     "Mark Twain",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return bookAuthor(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return bookAuthor(f), nil
 		},
 	})
 
@@ -83,8 +81,8 @@ func addBookLookup() {
 		Description: "Category or type of book defined by its content, style, or form",
 		Example:     "Adventure",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return bookGenre(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return bookGenre(f), nil
 		},
 	})
 }

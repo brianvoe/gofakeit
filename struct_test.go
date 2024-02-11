@@ -2,7 +2,6 @@ package gofakeit
 
 import (
 	"fmt"
-	"math/rand/v2"
 	"net"
 	"testing"
 	"time"
@@ -365,7 +364,7 @@ func TestCustomArrayType(t *testing.T) {
 		Description: "Random int array",
 		Example:     "[1]",
 		Output:      "CustomType",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			data := make([]int, 1)
 			data[0] = 42
 			return data, nil
@@ -378,7 +377,7 @@ func TestCustomArrayType(t *testing.T) {
 		Description: "Random byte",
 		Example:     "[1]",
 		Output:      "byte",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			data := byte(42)
 			return data, nil
 		},
@@ -611,7 +610,7 @@ func TestStructToDateTime(t *testing.T) {
 		Description: "A static date time",
 		Example:     "2021-11-26 15:22:00",
 		Output:      "time.Time",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			// Create new static date time
 			return time.Date(2021, 11, 26, 15, 22, 0, 0, time.UTC), nil
 		},
@@ -727,7 +726,7 @@ func TestStructSetSubStruct(t *testing.T) {
 	}
 
 	AddFuncLookup("setstruct", Info{
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return Sub{Str: "string", Num: 123, Flo: 123.456}, nil
 		},
 	})
@@ -857,8 +856,8 @@ func TestExternalCustomType(t *testing.T) {
 		Description: "Random IPv4 Address of type net.IP",
 		Example:     "1.1.1.1",
 		Output:      "net.IP",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			data := net.IPv4(byte(r.IntN(256)), byte(r.IntN(256)), byte(r.IntN(256)), byte(r.IntN(256)))
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			data := net.IPv4(byte(f.IntN(256)), byte(f.IntN(256)), byte(f.IntN(256)), byte(f.IntN(256)))
 			return data, nil
 		},
 	})
@@ -876,7 +875,7 @@ func TestStructArrayWithInvalidCustomFunc(t *testing.T) {
 		Description: "Random int array",
 		Example:     "[1]",
 		Output:      "CustomType",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			data := make([]int, 1)
 			data[0] = 42
 			return data, nil
@@ -895,7 +894,7 @@ func TestStructArrayWithInvalidCustomFunc(t *testing.T) {
 
 func TestStructMapWithCustomFunction(t *testing.T) {
 	AddFuncLookup("custom_map", Info{
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return map[string]string{"abc": "123"}, nil
 		},
 	})

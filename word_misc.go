@@ -1,14 +1,12 @@
 package gofakeit
 
-import "math/rand/v2"
+// Interjection will generate a random word expressing emotion
+func Interjection() string { return interjection(GlobalFaker) }
 
 // Interjection will generate a random word expressing emotion
-func Interjection() string { return interjection(GlobalFaker.Rand) }
+func (f *Faker) Interjection() string { return interjection(f) }
 
-// Interjection will generate a random word expressing emotion
-func (f *Faker) Interjection() string { return interjection(f.Rand) }
-
-func interjection(r *rand.Rand) string { return getRandValue(r, []string{"word", "interjection"}) }
+func interjection(f *Faker) string { return getRandValue(f, []string{"word", "interjection"}) }
 
 func addWordMiscLookup() {
 	AddFuncLookup("interjection", Info{
@@ -17,8 +15,8 @@ func addWordMiscLookup() {
 		Description: "Word expressing emotion",
 		Example:     "wow",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return interjection(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return interjection(f), nil
 		},
 	})
 }

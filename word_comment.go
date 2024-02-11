@@ -1,17 +1,16 @@
 package gofakeit
 
 import (
-	"math/rand/v2"
 	"strings"
 )
 
 // Comment will generate a random statement or remark expressing an opinion, observation, or reaction
-func Comment() string { return comment(GlobalFaker.Rand) }
+func Comment() string { return comment(GlobalFaker) }
 
 // Comment will generate a random statement or remark expressing an opinion, observation, or reaction
-func (f *Faker) Comment() string { return comment(f.Rand) }
+func (f *Faker) Comment() string { return comment(f) }
 
-func comment(r *rand.Rand) string {
+func comment(f *Faker) string {
 	structures := [][]string{
 		{"interjection", "adjective", "noun", "verb", "adverb"},
 		{"noun", "verb", "preposition", "determiner", "adjective", "noun"},
@@ -21,26 +20,26 @@ func comment(r *rand.Rand) string {
 	}
 
 	// Randomly select a structure
-	structure := structures[number(r, 0, len(structures)-1)]
+	structure := structures[number(f, 0, len(structures)-1)]
 
 	// Build the sentence
 	var commentParts []string
 	for _, wordType := range structure {
 		switch wordType {
 		case "noun":
-			commentParts = append(commentParts, noun(r))
+			commentParts = append(commentParts, noun(f))
 		case "verb":
-			commentParts = append(commentParts, verb(r))
+			commentParts = append(commentParts, verb(f))
 		case "adjective":
-			commentParts = append(commentParts, adjective(r))
+			commentParts = append(commentParts, adjective(f))
 		case "adverb":
-			commentParts = append(commentParts, adverb(r))
+			commentParts = append(commentParts, adverb(f))
 		case "interjection":
-			commentParts = append(commentParts, interjection(r))
+			commentParts = append(commentParts, interjection(f))
 		case "preposition":
-			commentParts = append(commentParts, preposition(r))
+			commentParts = append(commentParts, preposition(f))
 		case "determiner":
-			commentParts = append(commentParts, nounDeterminer(r))
+			commentParts = append(commentParts, nounDeterminer(f))
 		default:
 			// Should never hit
 			panic("Invalid word type")
@@ -66,8 +65,8 @@ func addWordCommentLookup() {
 		Description: "Statement or remark expressing an opinion, observation, or reaction",
 		Example:     "wow",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return interjection(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return interjection(f), nil
 		},
 	})
 }

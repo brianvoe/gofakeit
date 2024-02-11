@@ -154,7 +154,7 @@ fmt.Println(f.Int)      		// -7825289004089916589
 fmt.Println(*f.Pointer) 		// -343806609094473732
 fmt.Println(f.Name)     		// fred
 fmt.Println(f.Sentence) 		// Record river mind.
-fmt.Println(f.RandStr)  		// world
+fmt.Println(fStr)  		// world
 fmt.Println(f.Number)   		// 4
 fmt.Println(f.Regex)    		// cbdfc
 fmt.Println(f.Map)    			// map[PxLIo:52 lxwnqhqc:846]
@@ -229,7 +229,7 @@ gofakeit.AddFuncLookup("friendname", gofakeit.Info{
 	Description: "Random friend name",
 	Example:     "bill",
 	Output:      "string",
-	Generate: func(r *rand.Rand, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
+	Generate: func(f *Faker, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
 		return gofakeit.RandomString([]string{"bill", "bob", "sally"}), nil
 	},
 })
@@ -243,7 +243,7 @@ gofakeit.AddFuncLookup("jumbleword", gofakeit.Info{
 	Params: []gofakeit.Param{
 		{Field: "word", Type: "string", Description: "Word you want to jumble"},
 	},
-	Generate: func(r *rand.Rand, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
+	Generate: func(f *Faker, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
 		word, err := info.GetString(m, "word")
 		if err != nil {
 			return nil, err

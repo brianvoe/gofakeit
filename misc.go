@@ -2,38 +2,37 @@ package gofakeit
 
 import (
 	"encoding/hex"
-	"math/rand/v2"
 	"reflect"
 
 	"github.com/brianvoe/gofakeit/v6/data"
 )
 
 // Bool will generate a random boolean value
-func Bool() bool { return boolFunc(GlobalFaker.Rand) }
+func Bool() bool { return boolFunc(GlobalFaker) }
 
 // Bool will generate a random boolean value
-func (f *Faker) Bool() bool { return boolFunc(f.Rand) }
+func (f *Faker) Bool() bool { return boolFunc(f) }
 
-func boolFunc(r *rand.Rand) bool { return randIntRange(r, 0, 1) == 1 }
+func boolFunc(f *Faker) bool { return randIntRange(f, 0, 1) == 1 }
 
 // UUID (version 4) will generate a random unique identifier based upon random numbers
 // Format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-func UUID() string { return uuid(GlobalFaker.Rand) }
+func UUID() string { return uuid(GlobalFaker) }
 
 // UUID (version 4) will generate a random unique identifier based upon random numbers
 // Format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx 8-4-4-4-12
-func (f *Faker) UUID() string { return uuid(f.Rand) }
+func (f *Faker) UUID() string { return uuid(f) }
 
-func uuid(r *rand.Rand) string {
+func uuid(f *Faker) string {
 	version := byte(4)
 	uuid := make([]byte, 16)
 
 	// Commented out due to io.ReadFull not being race condition safe
-	// io.ReadFull(r, uuid[:])
+	// io.ReadFull(f, uuid[:])
 
 	// Read 16 random bytes
 	for i := 0; i < 16; i++ {
-		uuid[i] = byte(r.IntN(256))
+		uuid[i] = byte(f.IntN(256))
 	}
 
 	// Set version
@@ -57,12 +56,12 @@ func uuid(r *rand.Rand) string {
 }
 
 // ShuffleAnySlice takes in a slice and outputs it in a random order
-func ShuffleAnySlice(v any) { shuffleAnySlice(GlobalFaker.Rand, v) }
+func ShuffleAnySlice(v any) { shuffleAnySlice(GlobalFaker, v) }
 
 // ShuffleAnySlice takes in a slice and outputs it in a random order
-func (f *Faker) ShuffleAnySlice(v any) { shuffleAnySlice(f.Rand, v) }
+func (f *Faker) ShuffleAnySlice(v any) { shuffleAnySlice(f, v) }
 
-func shuffleAnySlice(r *rand.Rand, v any) {
+func shuffleAnySlice(f *Faker, v any) {
 	if v == nil {
 		return
 	}
@@ -89,19 +88,19 @@ func shuffleAnySlice(r *rand.Rand, v any) {
 	//if size is > int32 probably it will never finish, or ran out of entropy
 	i := n - 1
 	for ; i > 0; i-- {
-		j := int(r.Int32N(int32(i + 1)))
+		j := int(f.Int32N(int32(i + 1)))
 		swap(i, j)
 	}
 }
 
 // FlipACoin will return a random value of Heads or Tails
-func FlipACoin() string { return flipACoin(GlobalFaker.Rand) }
+func FlipACoin() string { return flipACoin(GlobalFaker) }
 
 // FlipACoin will return a random value of Heads or Tails
-func (f *Faker) FlipACoin() string { return flipACoin(f.Rand) }
+func (f *Faker) FlipACoin() string { return flipACoin(f) }
 
-func flipACoin(r *rand.Rand) string {
-	if boolFunc(r) {
+func flipACoin(f *Faker) string {
+	if boolFunc(f) {
 		return "Heads"
 	}
 
@@ -109,14 +108,14 @@ func flipACoin(r *rand.Rand) string {
 }
 
 // RandomMapKey will return a random key from a map
-func RandomMapKey(mapI any) any { return randomMapKey(GlobalFaker.Rand, mapI) }
+func RandomMapKey(mapI any) any { return randomMapKey(GlobalFaker, mapI) }
 
 // RandomMapKey will return a random key from a map
-func (f *Faker) RandomMapKey(mapI any) any { return randomMapKey(f.Rand, mapI) }
+func (f *Faker) RandomMapKey(mapI any) any { return randomMapKey(f, mapI) }
 
-func randomMapKey(r *rand.Rand, mapI any) any {
+func randomMapKey(f *Faker, mapI any) any {
 	keys := reflect.ValueOf(mapI).MapKeys()
-	return keys[r.IntN(len(keys))].Interface()
+	return keys[f.IntN(len(keys))].Interface()
 }
 
 // Categories will return a map string array of available data categories and sub categories
@@ -139,8 +138,8 @@ func addMiscLookup() {
 		Description: "128-bit identifier used to uniquely identify objects or entities in computer systems",
 		Example:     "590c1440-9888-45b0-bd51-a817ee07c3f2",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return uuid(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return uuid(f), nil
 		},
 	})
 
@@ -150,8 +149,8 @@ func addMiscLookup() {
 		Description: "Data type that represents one of two possible values, typically true or false",
 		Example:     "true",
 		Output:      "bool",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return boolFunc(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return boolFunc(f), nil
 		},
 	})
 
@@ -161,8 +160,8 @@ func addMiscLookup() {
 		Description: "Decision-making method involving the tossing of a coin to determine outcomes",
 		Example:     "Tails",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return flipACoin(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return flipACoin(f), nil
 		},
 	})
 }

@@ -2,133 +2,132 @@ package gofakeit
 
 import (
 	"errors"
-	"math/rand/v2"
 )
 
 // Error will return a random generic error
 func Error() error {
-	return err(GlobalFaker.Rand)
+	return err(GlobalFaker)
 }
 
 // Error will return a random generic error
 func (f *Faker) Error() error {
-	return err(f.Rand)
+	return err(f)
 }
 
-func err(r *rand.Rand) error {
-	return errors.New(generate(r, getRandValue(r, []string{"error", "generic"})))
+func err(f *Faker) error {
+	return errors.New(generate(f, getRandValue(f, []string{"error", "generic"})))
 }
 
 // ErrorObject will return a random error object word
 func ErrorObject() error {
-	return errorObject(GlobalFaker.Rand)
+	return errorObject(GlobalFaker)
 }
 
 // ErrorObject will return a random error object word
 func (f *Faker) ErrorObject() error {
-	return errorObject(f.Rand)
+	return errorObject(f)
 }
 
-func errorObject(r *rand.Rand) error {
-	return errors.New(generate(r, getRandValue(r, []string{"error", "object"})))
+func errorObject(f *Faker) error {
+	return errors.New(generate(f, getRandValue(f, []string{"error", "object"})))
 }
 
 // ErrorDatabase will return a random database error
 func ErrorDatabase() error {
-	return errorDatabase(GlobalFaker.Rand)
+	return errorDatabase(GlobalFaker)
 }
 
 // ErrorDatabase will return a random database error
 func (f *Faker) ErrorDatabase() error {
-	return errorDatabase(f.Rand)
+	return errorDatabase(f)
 }
 
-func errorDatabase(r *rand.Rand) error {
-	return errors.New(generate(r, getRandValue(r, []string{"error", "database"})))
+func errorDatabase(f *Faker) error {
+	return errors.New(generate(f, getRandValue(f, []string{"error", "database"})))
 }
 
 // ErrorGRPC will return a random gRPC error
 func ErrorGRPC() error {
-	return errorGRPC(GlobalFaker.Rand)
+	return errorGRPC(GlobalFaker)
 }
 
 // ErrorGRPC will return a random gRPC error
 func (f *Faker) ErrorGRPC() error {
-	return errorGRPC(f.Rand)
+	return errorGRPC(f)
 }
 
-func errorGRPC(r *rand.Rand) error {
-	return errors.New(generate(r, getRandValue(r, []string{"error", "grpc"})))
+func errorGRPC(f *Faker) error {
+	return errors.New(generate(f, getRandValue(f, []string{"error", "grpc"})))
 }
 
 // ErrorHTTP will return a random HTTP error
 func ErrorHTTP() error {
-	return errorHTTP(GlobalFaker.Rand)
+	return errorHTTP(GlobalFaker)
 }
 
 // ErrorHTTP will return a random HTTP error
 func (f *Faker) ErrorHTTP() error {
-	return errorHTTP(f.Rand)
+	return errorHTTP(f)
 }
 
-func errorHTTP(r *rand.Rand) error {
-	return errors.New(generate(r, getRandValue(r, []string{"error", "http"})))
+func errorHTTP(f *Faker) error {
+	return errors.New(generate(f, getRandValue(f, []string{"error", "http"})))
 }
 
 // ErrorHTTPClient will return a random HTTP client error response (400-418)
 func ErrorHTTPClient() error {
-	return errorHTTPClient(GlobalFaker.Rand)
+	return errorHTTPClient(GlobalFaker)
 }
 
 // ErrorHTTPClient will return a random HTTP client error response (400-418)
 func (f *Faker) ErrorHTTPClient() error {
-	return errorHTTPClient(f.Rand)
+	return errorHTTPClient(f)
 }
 
-func errorHTTPClient(r *rand.Rand) error {
-	return errors.New(generate(r, getRandValue(r, []string{"error", "http_client"})))
+func errorHTTPClient(f *Faker) error {
+	return errors.New(generate(f, getRandValue(f, []string{"error", "http_client"})))
 }
 
 // ErrorHTTPServer will return a random HTTP server error response (500-511)
 func ErrorHTTPServer() error {
-	return errorHTTPServer(GlobalFaker.Rand)
+	return errorHTTPServer(GlobalFaker)
 }
 
 // ErrorHTTPServer will return a random HTTP server error response (500-511)
 func (f *Faker) ErrorHTTPServer() error {
-	return errorHTTPServer(f.Rand)
+	return errorHTTPServer(f)
 }
 
-func errorHTTPServer(r *rand.Rand) error {
-	return errors.New(generate(r, getRandValue(r, []string{"error", "http_server"})))
+func errorHTTPServer(f *Faker) error {
+	return errors.New(generate(f, getRandValue(f, []string{"error", "http_server"})))
 }
 
 // ErrorRuntime will return a random runtime error
 func ErrorRuntime() error {
-	return errorRuntime(GlobalFaker.Rand)
+	return errorRuntime(GlobalFaker)
 }
 
 // ErrorRuntime will return a random runtime error
 func (f *Faker) ErrorRuntime() error {
-	return errorRuntime(f.Rand)
+	return errorRuntime(f)
 }
 
-func errorRuntime(r *rand.Rand) error {
-	return errors.New(generate(r, getRandValue(r, []string{"error", "runtime"})))
+func errorRuntime(f *Faker) error {
+	return errors.New(generate(f, getRandValue(f, []string{"error", "runtime"})))
 }
 
 // ErrorValidation will return a random validation error
 func ErrorValidation() error {
-	return errorValidation(GlobalFaker.Rand)
+	return errorValidation(GlobalFaker)
 }
 
 // ErrorValidation will return a random validation error
 func (f *Faker) ErrorValidation() error {
-	return errorValidation(f.Rand)
+	return errorValidation(f)
 }
 
-func errorValidation(r *rand.Rand) error {
-	return errors.New(generate(r, getRandValue(r, []string{"error", "validation"})))
+func errorValidation(f *Faker) error {
+	return errors.New(generate(f, getRandValue(f, []string{"error", "validation"})))
 }
 
 func addErrorLookup() {
@@ -138,8 +137,8 @@ func addErrorLookup() {
 		Description: "Message displayed by a computer or software when a problem or mistake is encountered",
 		Example:     "syntax error",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return err(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return err(f), nil
 		},
 	})
 
@@ -149,8 +148,8 @@ func addErrorLookup() {
 		Description: "Various categories conveying details about encountered errors",
 		Example:     "protocol",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return errorObject(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return errorObject(f), nil
 		},
 	})
 
@@ -160,8 +159,8 @@ func addErrorLookup() {
 		Description: "A problem or issue encountered while accessing or managing a database",
 		Example:     "sql error",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return errorDatabase(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return errorDatabase(f), nil
 		},
 	})
 
@@ -171,8 +170,8 @@ func addErrorLookup() {
 		Description: "Communication failure in the high-performance, open-source universal RPC framework",
 		Example:     "client protocol error",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return errorGRPC(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return errorGRPC(f), nil
 		},
 	})
 
@@ -182,8 +181,8 @@ func addErrorLookup() {
 		Description: "A problem with a web http request",
 		Example:     "invalid method",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return errorHTTP(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return errorHTTP(f), nil
 		},
 	})
 
@@ -193,8 +192,8 @@ func addErrorLookup() {
 		Description: "Failure or issue occurring within a client software that sends requests to web servers",
 		Example:     "request timeout",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return errorHTTPClient(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return errorHTTPClient(f), nil
 		},
 	})
 
@@ -204,8 +203,8 @@ func addErrorLookup() {
 		Description: "Failure or issue occurring within a server software that recieves requests from clients",
 		Example:     "internal server error",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return errorHTTPServer(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return errorHTTPServer(f), nil
 		},
 	})
 
@@ -215,8 +214,8 @@ func addErrorLookup() {
 		Description: "Malfunction occuring during program execution, often causing abrupt termination or unexpected behavior",
 		Example:     "address out of bounds",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return errorRuntime(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return errorRuntime(f), nil
 		},
 	})
 
@@ -226,8 +225,8 @@ func addErrorLookup() {
 		Description: "Occurs when input data fails to meet required criteria or format specifications",
 		Example:     "missing required field",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return errorValidation(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return errorValidation(f), nil
 		},
 	})
 }

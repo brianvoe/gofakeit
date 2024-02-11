@@ -1,32 +1,30 @@
 package gofakeit
 
-import "math/rand/v2"
+func MovieName() string { return movieName(GlobalFaker) }
 
-func MovieName() string { return movieName(GlobalFaker.Rand) }
+func (f *Faker) MovieName() string { return movieName(f) }
 
-func (f *Faker) MovieName() string { return movieName(f.Rand) }
+func movieName(f *Faker) string { return getRandValue(f, []string{"movie", "name"}) }
 
-func movieName(r *rand.Rand) string { return getRandValue(r, []string{"movie", "name"}) }
+func MovieGenre() string { return movieGenre(GlobalFaker) }
 
-func MovieGenre() string { return movieGenre(GlobalFaker.Rand) }
+func (f *Faker) MovieGenre() string { return movieGenre(f) }
 
-func (f *Faker) MovieGenre() string { return movieGenre(f.Rand) }
-
-func movieGenre(r *rand.Rand) string { return getRandValue(r, []string{"movie", "genre"}) }
+func movieGenre(f *Faker) string { return getRandValue(f, []string{"movie", "genre"}) }
 
 type MovieInfo struct {
 	Name  string `json:"name" xml:"name"`
 	Genre string `json:"genre" xml:"genre"`
 }
 
-func Movie() *MovieInfo { return movie(GlobalFaker.Rand) }
+func Movie() *MovieInfo { return movie(GlobalFaker) }
 
-func (f *Faker) Movie() *MovieInfo { return movie(f.Rand) }
+func (f *Faker) Movie() *MovieInfo { return movie(f) }
 
-func movie(r *rand.Rand) *MovieInfo {
+func movie(f *Faker) *MovieInfo {
 	return &MovieInfo{
-		Name:  movieName(r),
-		Genre: movieGenre(r),
+		Name:  movieName(f),
+		Genre: movieGenre(f),
 	}
 }
 
@@ -41,8 +39,8 @@ func addMovieLookup() {
 }`,
 		Output:      "map[string]string",
 		ContentType: "application/json",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return movie(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return movie(f), nil
 		},
 	})
 
@@ -52,8 +50,8 @@ func addMovieLookup() {
 		Description: "Title or name of a specific film used for identification and reference",
 		Example:     "The Matrix",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return movieName(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return movieName(f), nil
 		},
 	})
 
@@ -63,8 +61,8 @@ func addMovieLookup() {
 		Description: "Category that classifies movies based on common themes, styles, and storytelling approaches",
 		Example:     "Action",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return movieGenre(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return movieGenre(f), nil
 		},
 	})
 }

@@ -1,14 +1,12 @@
 package gofakeit
 
-import "math/rand/v2"
+// Adjective will generate a random adjective
+func Adjective() string { return adjective(GlobalFaker) }
 
 // Adjective will generate a random adjective
-func Adjective() string { return adjective(GlobalFaker.Rand) }
+func (f *Faker) Adjective() string { return adjective(f) }
 
-// Adjective will generate a random adjective
-func (f *Faker) Adjective() string { return adjective(f.Rand) }
-
-func adjective(r *rand.Rand) string {
+func adjective(f *Faker) string {
 	var adjType = map[int]string{
 		0: "adjective_descriptive",
 		1: "adjective_quantitative",
@@ -18,77 +16,77 @@ func adjective(r *rand.Rand) string {
 		5: "adjective_interrogative",
 		6: "adjective_indefinite",
 	}
-	return getRandValue(r, []string{"word", adjType[number(r, 0, 6)]})
+	return getRandValue(f, []string{"word", adjType[number(f, 0, 6)]})
 }
 
 // AdjectiveDescriptive will generate a random descriptive adjective
-func AdjectiveDescriptive() string { return adjectiveDescriptive(GlobalFaker.Rand) }
+func AdjectiveDescriptive() string { return adjectiveDescriptive(GlobalFaker) }
 
 // AdjectiveDescriptive will generate a random descriptive adjective
-func (f *Faker) AdjectiveDescriptive() string { return adjectiveDescriptive(f.Rand) }
+func (f *Faker) AdjectiveDescriptive() string { return adjectiveDescriptive(f) }
 
-func adjectiveDescriptive(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "adjective_descriptive"})
+func adjectiveDescriptive(f *Faker) string {
+	return getRandValue(f, []string{"word", "adjective_descriptive"})
 }
 
 // AdjectiveQuantitative will generate a random quantitative adjective
-func AdjectiveQuantitative() string { return adjectiveQuantitative(GlobalFaker.Rand) }
+func AdjectiveQuantitative() string { return adjectiveQuantitative(GlobalFaker) }
 
 // AdjectiveQuantitative will generate a random quantitative adjective
-func (f *Faker) AdjectiveQuantitative() string { return adjectiveQuantitative(f.Rand) }
+func (f *Faker) AdjectiveQuantitative() string { return adjectiveQuantitative(f) }
 
-func adjectiveQuantitative(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "adjective_quantitative"})
+func adjectiveQuantitative(f *Faker) string {
+	return getRandValue(f, []string{"word", "adjective_quantitative"})
 }
 
 // AdjectiveProper will generate a random proper adjective
-func AdjectiveProper() string { return adjectiveProper(GlobalFaker.Rand) }
+func AdjectiveProper() string { return adjectiveProper(GlobalFaker) }
 
 // AdjectiveProper will generate a random proper adjective
-func (f *Faker) AdjectiveProper() string { return adjectiveProper(f.Rand) }
+func (f *Faker) AdjectiveProper() string { return adjectiveProper(f) }
 
-func adjectiveProper(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "adjective_proper"})
+func adjectiveProper(f *Faker) string {
+	return getRandValue(f, []string{"word", "adjective_proper"})
 }
 
 // AdjectiveDemonstrative will generate a random demonstrative adjective
-func AdjectiveDemonstrative() string { return adjectiveDemonstrative(GlobalFaker.Rand) }
+func AdjectiveDemonstrative() string { return adjectiveDemonstrative(GlobalFaker) }
 
 // AdjectiveDemonstrative will generate a random demonstrative adjective
-func (f *Faker) AdjectiveDemonstrative() string { return adjectiveDemonstrative(f.Rand) }
+func (f *Faker) AdjectiveDemonstrative() string { return adjectiveDemonstrative(f) }
 
-func adjectiveDemonstrative(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "adjective_demonstrative"})
+func adjectiveDemonstrative(f *Faker) string {
+	return getRandValue(f, []string{"word", "adjective_demonstrative"})
 }
 
 // AdjectivePossessive will generate a random possessive adjective
-func AdjectivePossessive() string { return adjectivePossessive(GlobalFaker.Rand) }
+func AdjectivePossessive() string { return adjectivePossessive(GlobalFaker) }
 
 // AdjectivePossessive will generate a random possessive adjective
-func (f *Faker) AdjectivePossessive() string { return adjectivePossessive(f.Rand) }
+func (f *Faker) AdjectivePossessive() string { return adjectivePossessive(f) }
 
-func adjectivePossessive(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "adjective_possessive"})
+func adjectivePossessive(f *Faker) string {
+	return getRandValue(f, []string{"word", "adjective_possessive"})
 }
 
 // AdjectiveInterrogative will generate a random interrogative adjective
-func AdjectiveInterrogative() string { return adjectiveInterrogative(GlobalFaker.Rand) }
+func AdjectiveInterrogative() string { return adjectiveInterrogative(GlobalFaker) }
 
 // AdjectiveInterrogative will generate a random interrogative adjective
-func (f *Faker) AdjectiveInterrogative() string { return adjectiveInterrogative(f.Rand) }
+func (f *Faker) AdjectiveInterrogative() string { return adjectiveInterrogative(f) }
 
-func adjectiveInterrogative(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "adjective_interrogative"})
+func adjectiveInterrogative(f *Faker) string {
+	return getRandValue(f, []string{"word", "adjective_interrogative"})
 }
 
 // AdjectiveIndefinite will generate a random indefinite adjective
-func AdjectiveIndefinite() string { return adjectiveIndefinite(GlobalFaker.Rand) }
+func AdjectiveIndefinite() string { return adjectiveIndefinite(GlobalFaker) }
 
 // AdjectiveIndefinite will generate a random indefinite adjective
-func (f *Faker) AdjectiveIndefinite() string { return adjectiveIndefinite(f.Rand) }
+func (f *Faker) AdjectiveIndefinite() string { return adjectiveIndefinite(f) }
 
-func adjectiveIndefinite(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "adjective_indefinite"})
+func adjectiveIndefinite(f *Faker) string {
+	return getRandValue(f, []string{"word", "adjective_indefinite"})
 }
 
 func addWordAdjectiveLookup() {
@@ -98,8 +96,8 @@ func addWordAdjectiveLookup() {
 		Description: "Word describing or modifying a noun",
 		Example:     "genuine",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return adjective(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return adjective(f), nil
 		},
 	})
 
@@ -109,8 +107,8 @@ func addWordAdjectiveLookup() {
 		Description: "Adjective that provides detailed characteristics about a noun",
 		Example:     "brave",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return adjectiveDescriptive(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return adjectiveDescriptive(f), nil
 		},
 	})
 
@@ -120,8 +118,8 @@ func addWordAdjectiveLookup() {
 		Description: "Adjective that indicates the quantity or amount of something",
 		Example:     "a little",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return adjectiveQuantitative(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return adjectiveQuantitative(f), nil
 		},
 	})
 
@@ -131,8 +129,8 @@ func addWordAdjectiveLookup() {
 		Description: "Adjective derived from a proper noun, often used to describe nationality or origin",
 		Example:     "Afghan",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return adjectiveProper(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return adjectiveProper(f), nil
 		},
 	})
 
@@ -142,8 +140,8 @@ func addWordAdjectiveLookup() {
 		Description: "Adjective used to point out specific things",
 		Example:     "this",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return adjectiveDemonstrative(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return adjectiveDemonstrative(f), nil
 		},
 	})
 
@@ -153,8 +151,8 @@ func addWordAdjectiveLookup() {
 		Description: "Adjective indicating ownership or possession",
 		Example:     "my",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return adjectivePossessive(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return adjectivePossessive(f), nil
 		},
 	})
 
@@ -164,8 +162,8 @@ func addWordAdjectiveLookup() {
 		Description: "Adjective used to ask questions",
 		Example:     "what",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return adjectiveInterrogative(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return adjectiveInterrogative(f), nil
 		},
 	})
 
@@ -175,8 +173,8 @@ func addWordAdjectiveLookup() {
 		Description: "Adjective describing a non-specific noun",
 		Example:     "few",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return adjectiveIndefinite(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return adjectiveIndefinite(f), nil
 		},
 	})
 }

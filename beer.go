@@ -1,120 +1,119 @@
 package gofakeit
 
 import (
-	"math/rand/v2"
 	"strconv"
 )
 
 // BeerName will return a random beer name
 func BeerName() string {
-	return beerName(GlobalFaker.Rand)
+	return beerName(GlobalFaker)
 }
 
 // BeerName will return a random beer name
 func (f *Faker) BeerName() string {
-	return beerName(f.Rand)
+	return beerName(f)
 }
 
-func beerName(r *rand.Rand) string {
-	return getRandValue(r, []string{"beer", "name"})
+func beerName(f *Faker) string {
+	return getRandValue(f, []string{"beer", "name"})
 }
 
 // BeerStyle will return a random beer style
 func BeerStyle() string {
-	return beerStyle(GlobalFaker.Rand)
+	return beerStyle(GlobalFaker)
 }
 
 // BeerStyle will return a random beer style
 func (f *Faker) BeerStyle() string {
-	return beerStyle(f.Rand)
+	return beerStyle(f)
 }
 
-func beerStyle(r *rand.Rand) string {
-	return getRandValue(r, []string{"beer", "style"})
+func beerStyle(f *Faker) string {
+	return getRandValue(f, []string{"beer", "style"})
 }
 
 // BeerHop will return a random beer hop
 func BeerHop() string {
-	return beerHop(GlobalFaker.Rand)
+	return beerHop(GlobalFaker)
 }
 
 // BeerHop will return a random beer hop
 func (f *Faker) BeerHop() string {
-	return beerHop(f.Rand)
+	return beerHop(f)
 }
 
-func beerHop(r *rand.Rand) string {
-	return getRandValue(r, []string{"beer", "hop"})
+func beerHop(f *Faker) string {
+	return getRandValue(f, []string{"beer", "hop"})
 }
 
 // BeerYeast will return a random beer yeast
 func BeerYeast() string {
-	return beerYeast(GlobalFaker.Rand)
+	return beerYeast(GlobalFaker)
 }
 
 // BeerYeast will return a random beer yeast
 func (f *Faker) BeerYeast() string {
-	return beerYeast(f.Rand)
+	return beerYeast(f)
 }
 
-func beerYeast(r *rand.Rand) string {
-	return getRandValue(r, []string{"beer", "yeast"})
+func beerYeast(f *Faker) string {
+	return getRandValue(f, []string{"beer", "yeast"})
 }
 
 // BeerMalt will return a random beer malt
 func BeerMalt() string {
-	return beerMalt(GlobalFaker.Rand)
+	return beerMalt(GlobalFaker)
 }
 
 // BeerMalt will return a random beer malt
 func (f *Faker) BeerMalt() string {
-	return beerMalt(f.Rand)
+	return beerMalt(f)
 }
 
-func beerMalt(r *rand.Rand) string {
-	return getRandValue(r, []string{"beer", "malt"})
+func beerMalt(f *Faker) string {
+	return getRandValue(f, []string{"beer", "malt"})
 }
 
 // BeerAlcohol will return a random beer alcohol level between 2.0 and 10.0
 func BeerAlcohol() string {
-	return beerAlcohol(GlobalFaker.Rand)
+	return beerAlcohol(GlobalFaker)
 }
 
 // BeerAlcohol will return a random beer alcohol level between 2.0 and 10.0
 func (f *Faker) BeerAlcohol() string {
-	return beerAlcohol(f.Rand)
+	return beerAlcohol(f)
 }
 
-func beerAlcohol(r *rand.Rand) string {
-	return strconv.FormatFloat(float64Range(r, 2.0, 10.0), 'f', 1, 64) + "%"
+func beerAlcohol(f *Faker) string {
+	return strconv.FormatFloat(float64Range(f, 2.0, 10.0), 'f', 1, 64) + "%"
 }
 
 // BeerIbu will return a random beer ibu value between 10 and 100
 func BeerIbu() string {
-	return beerIbu(GlobalFaker.Rand)
+	return beerIbu(GlobalFaker)
 }
 
 // BeerIbu will return a random beer ibu value between 10 and 100
 func (f *Faker) BeerIbu() string {
-	return beerIbu(f.Rand)
+	return beerIbu(f)
 }
 
-func beerIbu(r *rand.Rand) string {
-	return strconv.Itoa(randIntRange(r, 10, 100)) + " IBU"
+func beerIbu(f *Faker) string {
+	return strconv.Itoa(randIntRange(f, 10, 100)) + " IBU"
 }
 
 // BeerBlg will return a random beer blg between 5.0 and 20.0
 func BeerBlg() string {
-	return beerBlg(GlobalFaker.Rand)
+	return beerBlg(GlobalFaker)
 }
 
 // BeerBlg will return a random beer blg between 5.0 and 20.0
 func (f *Faker) BeerBlg() string {
-	return beerBlg(f.Rand)
+	return beerBlg(f)
 }
 
-func beerBlg(r *rand.Rand) string {
-	return strconv.FormatFloat(float64Range(r, 5.0, 20.0), 'f', 1, 64) + "°Blg"
+func beerBlg(f *Faker) string {
+	return strconv.FormatFloat(float64Range(f, 5.0, 20.0), 'f', 1, 64) + "°Blg"
 }
 
 func addBeerLookup() {
@@ -124,8 +123,8 @@ func addBeerLookup() {
 		Description: "Specific brand or variety of beer",
 		Example:     "Duvel",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return beerName(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return beerName(f), nil
 		},
 	})
 
@@ -135,8 +134,8 @@ func addBeerLookup() {
 		Description: "Distinct characteristics and flavors of beer",
 		Example:     "European Amber Lager",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return beerStyle(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return beerStyle(f), nil
 		},
 	})
 
@@ -146,8 +145,8 @@ func addBeerLookup() {
 		Description: "The flower used in brewing to add flavor, aroma, and bitterness to beer",
 		Example:     "Glacier",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return beerHop(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return beerHop(f), nil
 		},
 	})
 
@@ -157,8 +156,8 @@ func addBeerLookup() {
 		Description: "Microorganism used in brewing to ferment sugars, producing alcohol and carbonation in beer",
 		Example:     "1388 - Belgian Strong Ale",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return beerYeast(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return beerYeast(f), nil
 		},
 	})
 
@@ -168,8 +167,8 @@ func addBeerLookup() {
 		Description: "Processed barley or other grains, provides sugars for fermentation and flavor to beer",
 		Example:     "Munich",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return beerMalt(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return beerMalt(f), nil
 		},
 	})
 
@@ -179,8 +178,8 @@ func addBeerLookup() {
 		Description: "Measures the alcohol content in beer",
 		Example:     "2.7%",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return beerAlcohol(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return beerAlcohol(f), nil
 		},
 	})
 
@@ -190,8 +189,8 @@ func addBeerLookup() {
 		Description: "Scale measuring bitterness of beer from hops",
 		Example:     "29 IBU",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return beerIbu(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return beerIbu(f), nil
 		},
 	})
 
@@ -201,8 +200,8 @@ func addBeerLookup() {
 		Description: "Scale indicating the concentration of extract in worts",
 		Example:     "6.4°Blg",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return beerBlg(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return beerBlg(f), nil
 		},
 	})
 }

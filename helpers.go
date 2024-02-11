@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"math"
-	"math/rand/v2"
 	"reflect"
 	"strings"
 	"unicode"
@@ -44,40 +43,40 @@ func dataCheck(dataVal []string) bool {
 }
 
 // Get Random Value
-func getRandValue(r *rand.Rand, dataVal []string) string {
+func getRandValue(f *Faker, dataVal []string) string {
 	if !dataCheck(dataVal) {
 		return ""
 	}
-	return data.Data[dataVal[0]][dataVal[1]][r.IntN(len(data.Data[dataVal[0]][dataVal[1]]))]
+	return data.Data[dataVal[0]][dataVal[1]][f.IntN(len(data.Data[dataVal[0]][dataVal[1]]))]
 }
 
 // Replace # with numbers
-func replaceWithNumbers(r *rand.Rand, str string) string {
+func replaceWithNumbers(f *Faker, str string) string {
 	if str == "" {
 		return str
 	}
 	bytestr := []byte(str)
 	for i := 0; i < len(bytestr); i++ {
 		if bytestr[i] == hashtag {
-			bytestr[i] = byte(randDigit(r))
+			bytestr[i] = byte(randDigit(f))
 		}
 	}
 	if bytestr[0] == '0' {
-		bytestr[0] = byte(r.IntN(8)+1) + '0'
+		bytestr[0] = byte(f.IntN(8)+1) + '0'
 	}
 
 	return string(bytestr)
 }
 
 // Replace ? with ASCII lowercase letters
-func replaceWithLetters(r *rand.Rand, str string) string {
+func replaceWithLetters(f *Faker, str string) string {
 	if str == "" {
 		return str
 	}
 	bytestr := []byte(str)
 	for i := 0; i < len(bytestr); i++ {
 		if bytestr[i] == questionmark {
-			bytestr[i] = byte(randLetter(r))
+			bytestr[i] = byte(randLetter(f))
 		}
 	}
 
@@ -85,14 +84,14 @@ func replaceWithLetters(r *rand.Rand, str string) string {
 }
 
 // Replace ? with ASCII lowercase letters between a and f
-func replaceWithHexLetters(r *rand.Rand, str string) string {
+func replaceWithHexLetters(f *Faker, str string) string {
 	if str == "" {
 		return str
 	}
 	bytestr := []byte(str)
 	for i := 0; i < len(bytestr); i++ {
 		if bytestr[i] == questionmark {
-			bytestr[i] = byte(randHexLetter(r))
+			bytestr[i] = byte(randHexLetter(f))
 		}
 	}
 
@@ -100,27 +99,27 @@ func replaceWithHexLetters(r *rand.Rand, str string) string {
 }
 
 // Generate random lowercase ASCII letter
-func randLetter(r *rand.Rand) rune {
+func randLetter(f *Faker) rune {
 	allLetters := upperStr + lowerStr
-	return rune(allLetters[r.IntN(len(allLetters))])
+	return rune(allLetters[f.IntN(len(allLetters))])
 }
 
-func randCharacter(r *rand.Rand, s string) string {
-	return string(s[r.Int64()%int64(len(s))])
+func randCharacter(f *Faker, s string) string {
+	return string(s[f.Int64()%int64(len(s))])
 }
 
 // Generate random lowercase ASCII letter between a and f
-func randHexLetter(r *rand.Rand) rune {
-	return rune(byte(r.IntN(6)) + 'a')
+func randHexLetter(f *Faker) rune {
+	return rune(byte(f.IntN(6)) + 'a')
 }
 
 // Generate random ASCII digit
-func randDigit(r *rand.Rand) rune {
-	return rune(byte(r.IntN(10)) + '0')
+func randDigit(f *Faker) rune {
+	return rune(byte(f.IntN(10)) + '0')
 }
 
 // Generate random integer between min and max
-func randIntRange(r *rand.Rand, min, max int) int {
+func randIntRange(f *Faker, min, max int) int {
 	// If they pass in the same number, just return that number
 	if min == max {
 		return min
@@ -136,7 +135,7 @@ func randIntRange(r *rand.Rand, min, max int) int {
 	// Figure out if the min/max numbers calculation
 	// would cause a panic in the Int63() function.
 	if max-min+1 > 0 {
-		return min + int(r.Int64N(int64(max-min+1)))
+		return min + int(f.Int64N(int64(max-min+1)))
 	}
 
 	// Loop through the range until we find a number that fits
@@ -149,7 +148,7 @@ func randIntRange(r *rand.Rand, min, max int) int {
 }
 
 // Generate random uint between min and max
-func randUintRange(r *rand.Rand, min, max uint) uint {
+func randUintRange(f *Faker, min, max uint) uint {
 	// If they pass in the same number, just return that number
 	if min == max {
 		return min
@@ -165,7 +164,7 @@ func randUintRange(r *rand.Rand, min, max uint) uint {
 	// Figure out if the min/max numbers calculation
 	// would cause a panic in the Int63() function.
 	if int(max)-int(min)+1 > 0 {
-		return uint(r.IntN(int(max)-int(min)+1) + int(min))
+		return uint(f.IntN(int(max)-int(min)+1) + int(min))
 	}
 
 	// Loop through the range until we find a number that fits
@@ -280,12 +279,12 @@ func title(s string) string {
 		}
 
 		// Letters and digits are not separators
-		if unicode.IsLetter(r) || unicode.IsDigit(r) {
+		if unicode.IsLetter(f) || unicode.IsDigit(f) {
 			return false
 		}
 
 		// Otherwise, all we can do for now is treat spaces as separators.
-		return unicode.IsSpace(r)
+		return unicode.IsSpace(f)
 	}
 
 	prev := ' '
@@ -293,7 +292,7 @@ func title(s string) string {
 		func(r rune) rune {
 			if isSeparator(prev) {
 				prev = r
-				return unicode.ToTitle(r)
+				return unicode.ToTitle(f)
 			}
 			prev = r
 			return r

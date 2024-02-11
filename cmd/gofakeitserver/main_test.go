@@ -38,7 +38,7 @@ func TestGetAllRequests(t *testing.T) {
 			for _, p := range info.Params {
 				// If default is empty and has options randomly pick one
 				if p.Default == "" && len(p.Options) != 0 {
-					mapData.Add(p.Field, p.Options[faker.Rand.IntN(len(p.Options))])
+					mapData.Add(p.Field, p.Options[faker.IntN(len(p.Options))])
 					continue
 				} else if p.Default != "" {
 					// If p.Type is []uint, then we need to convert it to []string

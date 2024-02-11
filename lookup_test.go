@@ -16,7 +16,7 @@ func Example_custom() {
 		Description: "Random friend name",
 		Example:     "bill",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return RandomString([]string{"bill", "bob", "sally"}), nil
 		},
 	})
@@ -44,7 +44,7 @@ func Example_custom_with_params() {
 		Params: []Param{
 			{Field: "word", Type: "int", Description: "Word you want to jumble"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			word, err := info.GetString(m, "word")
 			if err != nil {
 				return nil, err
@@ -219,7 +219,7 @@ func TestLookupChecking(t *testing.T) {
 			}
 		}
 
-		_, err := info.Generate(faker.Rand, &mapData, &info)
+		_, err := info.Generate(faker, &mapData, &info)
 		if err != nil {
 			t.Fatalf("%s failed - Err: %s - Data: %v", field, err, mapData)
 		}
@@ -270,7 +270,7 @@ func TestLookupRemove(t *testing.T) {
 		Description: "Random friend name",
 		Example:     "bill",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return RandomString([]string{"bill", "bob", "sally"}), nil
 		},
 	})
@@ -300,7 +300,7 @@ func TestLookupCalls(t *testing.T) {
 			for _, p := range info.Params {
 				// If default is empty and has options randomly pick one
 				if p.Default == "" && len(p.Options) != 0 {
-					mapData.Add(p.Field, p.Options[faker.Rand.IntN(len(p.Options))])
+					mapData.Add(p.Field, p.Options[faker.IntN(len(p.Options))])
 					continue
 				} else if p.Default != "" {
 					// If p.Type is []uint, then we need to convert it to []string
@@ -363,7 +363,7 @@ func TestLookupCalls(t *testing.T) {
 			}
 		}
 
-		_, err := info.Generate(faker.Rand, &mapData, &info)
+		_, err := info.Generate(faker, &mapData, &info)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -460,7 +460,7 @@ func TestLookupCallsErrorParams(t *testing.T) {
 			}
 
 			if !skip {
-				_, err := info.Generate(faker.Rand, mapData, &info)
+				_, err := info.Generate(faker, mapData, &info)
 				if err == nil {
 					t.Error(funcName+" should have failed on param", currentEmptyParam)
 				}

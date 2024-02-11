@@ -1,45 +1,43 @@
 package gofakeit
 
-import "math/rand/v2"
+// Company will generate a random company name string
+func Company() string { return company(GlobalFaker) }
 
 // Company will generate a random company name string
-func Company() string { return company(GlobalFaker.Rand) }
+func (f *Faker) Company() string { return company(f) }
 
-// Company will generate a random company name string
-func (f *Faker) Company() string { return company(f.Rand) }
-
-func company(r *rand.Rand) string { return getRandValue(r, []string{"company", "name"}) }
+func company(f *Faker) string { return getRandValue(f, []string{"company", "name"}) }
 
 // CompanySuffix will generate a random company suffix string
-func CompanySuffix() string { return companySuffix(GlobalFaker.Rand) }
+func CompanySuffix() string { return companySuffix(GlobalFaker) }
 
 // CompanySuffix will generate a random company suffix string
-func (f *Faker) CompanySuffix() string { return companySuffix(f.Rand) }
+func (f *Faker) CompanySuffix() string { return companySuffix(f) }
 
-func companySuffix(r *rand.Rand) string { return getRandValue(r, []string{"company", "suffix"}) }
+func companySuffix(f *Faker) string { return getRandValue(f, []string{"company", "suffix"}) }
 
 // Blurb will generate a random company blurb string
-func Blurb() string { return blurb(GlobalFaker.Rand) }
+func Blurb() string { return blurb(GlobalFaker) }
 
-func (f *Faker) Blurb() string { return blurb(f.Rand) }
+func (f *Faker) Blurb() string { return blurb(f) }
 
-func blurb(r *rand.Rand) string { return getRandValue(r, []string{"company", "blurb"}) }
-
-// BuzzWord will generate a random company buzz word string
-func BuzzWord() string { return buzzWord(GlobalFaker.Rand) }
+func blurb(f *Faker) string { return getRandValue(f, []string{"company", "blurb"}) }
 
 // BuzzWord will generate a random company buzz word string
-func (f *Faker) BuzzWord() string { return buzzWord(f.Rand) }
+func BuzzWord() string { return buzzWord(GlobalFaker) }
 
-func buzzWord(r *rand.Rand) string { return getRandValue(r, []string{"company", "buzzwords"}) }
+// BuzzWord will generate a random company buzz word string
+func (f *Faker) BuzzWord() string { return buzzWord(f) }
+
+func buzzWord(f *Faker) string { return getRandValue(f, []string{"company", "buzzwords"}) }
 
 // BS will generate a random company bs string
-func BS() string { return bs(GlobalFaker.Rand) }
+func BS() string { return bs(GlobalFaker) }
 
 // BS will generate a random company bs string
-func (f *Faker) BS() string { return bs(f.Rand) }
+func (f *Faker) BS() string { return bs(f) }
 
-func bs(r *rand.Rand) string { return getRandValue(r, []string{"company", "bs"}) }
+func bs(f *Faker) string { return getRandValue(f, []string{"company", "bs"}) }
 
 // JobInfo is a struct of job information
 type JobInfo struct {
@@ -50,64 +48,64 @@ type JobInfo struct {
 }
 
 // Job will generate a struct with random job information
-func Job() *JobInfo { return job(GlobalFaker.Rand) }
+func Job() *JobInfo { return job(GlobalFaker) }
 
 // Job will generate a struct with random job information
-func (f *Faker) Job() *JobInfo { return job(f.Rand) }
+func (f *Faker) Job() *JobInfo { return job(f) }
 
-func job(r *rand.Rand) *JobInfo {
+func job(f *Faker) *JobInfo {
 	return &JobInfo{
-		Company:    company(r),
-		Title:      jobTitle(r),
-		Descriptor: jobDescriptor(r),
-		Level:      jobLevel(r),
+		Company:    company(f),
+		Title:      jobTitle(f),
+		Descriptor: jobDescriptor(f),
+		Level:      jobLevel(f),
 	}
 }
 
 // JobTitle will generate a random job title string
-func JobTitle() string { return jobTitle(GlobalFaker.Rand) }
+func JobTitle() string { return jobTitle(GlobalFaker) }
 
 // JobTitle will generate a random job title string
-func (f *Faker) JobTitle() string { return jobTitle(f.Rand) }
+func (f *Faker) JobTitle() string { return jobTitle(f) }
 
-func jobTitle(r *rand.Rand) string { return getRandValue(r, []string{"job", "title"}) }
-
-// JobDescriptor will generate a random job descriptor string
-func JobDescriptor() string { return jobDescriptor(GlobalFaker.Rand) }
+func jobTitle(f *Faker) string { return getRandValue(f, []string{"job", "title"}) }
 
 // JobDescriptor will generate a random job descriptor string
-func (f *Faker) JobDescriptor() string { return jobDescriptor(f.Rand) }
+func JobDescriptor() string { return jobDescriptor(GlobalFaker) }
 
-func jobDescriptor(r *rand.Rand) string { return getRandValue(r, []string{"job", "descriptor"}) }
+// JobDescriptor will generate a random job descriptor string
+func (f *Faker) JobDescriptor() string { return jobDescriptor(f) }
+
+func jobDescriptor(f *Faker) string { return getRandValue(f, []string{"job", "descriptor"}) }
 
 // JobLevel will generate a random job level string
-func JobLevel() string { return jobLevel(GlobalFaker.Rand) }
+func JobLevel() string { return jobLevel(GlobalFaker) }
 
 // JobLevel will generate a random job level string
-func (f *Faker) JobLevel() string { return jobLevel(f.Rand) }
+func (f *Faker) JobLevel() string { return jobLevel(f) }
 
-func jobLevel(r *rand.Rand) string { return getRandValue(r, []string{"job", "level"}) }
-
-// Slogan will generate a random company slogan
-func Slogan() string { return slogan(GlobalFaker.Rand) }
+func jobLevel(f *Faker) string { return getRandValue(f, []string{"job", "level"}) }
 
 // Slogan will generate a random company slogan
-func (f *Faker) Slogan() string { return slogan(f.Rand) }
+func Slogan() string { return slogan(GlobalFaker) }
 
 // Slogan will generate a random company slogan
-func slogan(r *rand.Rand) string {
+func (f *Faker) Slogan() string { return slogan(f) }
+
+// Slogan will generate a random company slogan
+func slogan(f *Faker) string {
 	slogan := ""
-	var sloganStyle = number(r, 0, 2)
+	var sloganStyle = number(f, 0, 2)
 	switch sloganStyle {
 	// Noun. Buzzword!
 	case 0:
-		slogan = getRandValue(r, []string{"company", "blurb"}) + ". " + getRandValue(r, []string{"company", "buzzwords"}) + "!"
+		slogan = getRandValue(f, []string{"company", "blurb"}) + ". " + getRandValue(f, []string{"company", "buzzwords"}) + "!"
 	// Buzzword Noun, Buzzword Noun.
 	case 1:
-		slogan = getRandValue(r, []string{"company", "buzzwords"}) + " " + getRandValue(r, []string{"company", "blurb"}) + ", " + getRandValue(r, []string{"company", "buzzwords"}) + " " + getRandValue(r, []string{"company", "blurb"}) + "."
+		slogan = getRandValue(f, []string{"company", "buzzwords"}) + " " + getRandValue(f, []string{"company", "blurb"}) + ", " + getRandValue(f, []string{"company", "buzzwords"}) + " " + getRandValue(f, []string{"company", "blurb"}) + "."
 	// Buzzword bs Noun, Buzzword.
 	case 2:
-		slogan = getRandValue(r, []string{"company", "buzzwords"}) + " " + getRandValue(r, []string{"company", "bs"}) + " " + getRandValue(r, []string{"company", "blurb"}) + ", " + getRandValue(r, []string{"company", "buzzwords"}) + "."
+		slogan = getRandValue(f, []string{"company", "buzzwords"}) + " " + getRandValue(f, []string{"company", "bs"}) + " " + getRandValue(f, []string{"company", "blurb"}) + ", " + getRandValue(f, []string{"company", "buzzwords"}) + "."
 	}
 	return slogan
 }
@@ -119,8 +117,8 @@ func addCompanyLookup() {
 		Description: "Designated official name of a business or organization",
 		Example:     "Moen, Pagac and Wuckert",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return company(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return company(f), nil
 		},
 	})
 
@@ -130,8 +128,8 @@ func addCompanyLookup() {
 		Description: "Suffix at the end of a company name, indicating business structure, like 'Inc.' or 'LLC'",
 		Example:     "Inc",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return companySuffix(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return companySuffix(f), nil
 		},
 	})
 
@@ -141,8 +139,8 @@ func addCompanyLookup() {
 		Description: "Random bs company word",
 		Example:     "front-end",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return bs(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return bs(f), nil
 		},
 	})
 
@@ -152,8 +150,8 @@ func addCompanyLookup() {
 		Description: "Brief description or summary of a company's purpose, products, or services",
 		Example:     "word",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return blurb(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return blurb(f), nil
 		},
 	})
 
@@ -163,8 +161,8 @@ func addCompanyLookup() {
 		Description: "Trendy or overused term often used in business to sound impressive",
 		Example:     "disintermediate",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return buzzWord(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return buzzWord(f), nil
 		},
 	})
 
@@ -180,8 +178,8 @@ func addCompanyLookup() {
 }`,
 		Output:      "map[string]string",
 		ContentType: "application/json",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return job(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return job(f), nil
 		},
 	})
 
@@ -191,8 +189,8 @@ func addCompanyLookup() {
 		Description: "Specific title for a position or role within a company or organization",
 		Example:     "Director",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return jobTitle(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return jobTitle(f), nil
 		},
 	})
 
@@ -202,8 +200,8 @@ func addCompanyLookup() {
 		Description: "Word used to describe the duties, requirements, and nature of a job",
 		Example:     "Central",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return jobDescriptor(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return jobDescriptor(f), nil
 		},
 	})
 
@@ -213,8 +211,8 @@ func addCompanyLookup() {
 		Description: "Random job level",
 		Example:     "Assurance",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return jobLevel(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return jobLevel(f), nil
 		},
 	})
 
@@ -224,8 +222,8 @@ func addCompanyLookup() {
 		Description: "Catchphrase or motto used by a company to represent its brand or values",
 		Example:     "Universal seamless Focus, interactive.",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return slogan(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return slogan(f), nil
 		},
 	})
 }

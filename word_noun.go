@@ -1,14 +1,12 @@
 package gofakeit
 
-import "math/rand/v2"
+// Noun will generate a random noun
+func Noun() string { return noun(GlobalFaker) }
 
 // Noun will generate a random noun
-func Noun() string { return noun(GlobalFaker.Rand) }
+func (f *Faker) Noun() string { return noun(f) }
 
-// Noun will generate a random noun
-func (f *Faker) Noun() string { return noun(f.Rand) }
-
-func noun(r *rand.Rand) string {
+func noun(f *Faker) string {
 	var nounType = map[int]string{
 		0: "noun_common",
 		1: "noun_concrete",
@@ -19,105 +17,105 @@ func noun(r *rand.Rand) string {
 		6: "noun_countable",
 		7: "noun_uncountable",
 	}
-	return getRandValue(r, []string{"word", nounType[number(r, 0, 7)]})
+	return getRandValue(f, []string{"word", nounType[number(f, 0, 7)]})
 }
 
 // NounCommon will generate a random common noun
-func NounCommon() string { return nounCommon(GlobalFaker.Rand) }
+func NounCommon() string { return nounCommon(GlobalFaker) }
 
 // NounCommon will generate a random common noun
-func (f *Faker) NounCommon() string { return nounCommon(f.Rand) }
+func (f *Faker) NounCommon() string { return nounCommon(f) }
 
-func nounCommon(r *rand.Rand) string { return getRandValue(r, []string{"word", "noun_common"}) }
-
-// NounConcrete will generate a random concrete noun
-func NounConcrete() string { return nounConcrete(GlobalFaker.Rand) }
+func nounCommon(f *Faker) string { return getRandValue(f, []string{"word", "noun_common"}) }
 
 // NounConcrete will generate a random concrete noun
-func (f *Faker) NounConcrete() string { return nounConcrete(f.Rand) }
+func NounConcrete() string { return nounConcrete(GlobalFaker) }
 
-func nounConcrete(r *rand.Rand) string { return getRandValue(r, []string{"word", "noun_concrete"}) }
+// NounConcrete will generate a random concrete noun
+func (f *Faker) NounConcrete() string { return nounConcrete(f) }
+
+func nounConcrete(f *Faker) string { return getRandValue(f, []string{"word", "noun_concrete"}) }
 
 // NounAbstract will generate a random abstract noun
-func NounAbstract() string { return nounAbstract(GlobalFaker.Rand) }
+func NounAbstract() string { return nounAbstract(GlobalFaker) }
 
 // NounAbstract will generate a random abstract noun
-func (f *Faker) NounAbstract() string { return nounAbstract(f.Rand) }
+func (f *Faker) NounAbstract() string { return nounAbstract(f) }
 
-func nounAbstract(r *rand.Rand) string { return getRandValue(r, []string{"word", "noun_abstract"}) }
-
-// NounCollectivePeople will generate a random collective noun person
-func NounCollectivePeople() string { return nounCollectivePeople(GlobalFaker.Rand) }
+func nounAbstract(f *Faker) string { return getRandValue(f, []string{"word", "noun_abstract"}) }
 
 // NounCollectivePeople will generate a random collective noun person
-func (f *Faker) NounCollectivePeople() string { return nounCollectivePeople(f.Rand) }
+func NounCollectivePeople() string { return nounCollectivePeople(GlobalFaker) }
 
-func nounCollectivePeople(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "noun_collective_people"})
+// NounCollectivePeople will generate a random collective noun person
+func (f *Faker) NounCollectivePeople() string { return nounCollectivePeople(f) }
+
+func nounCollectivePeople(f *Faker) string {
+	return getRandValue(f, []string{"word", "noun_collective_people"})
 }
 
 // NounCollectiveAnimal will generate a random collective noun animal
-func NounCollectiveAnimal() string { return nounCollectiveAnimal(GlobalFaker.Rand) }
+func NounCollectiveAnimal() string { return nounCollectiveAnimal(GlobalFaker) }
 
 // NounCollectiveAnimal will generate a random collective noun animal
-func (f *Faker) NounCollectiveAnimal() string { return nounCollectiveAnimal(f.Rand) }
+func (f *Faker) NounCollectiveAnimal() string { return nounCollectiveAnimal(f) }
 
-func nounCollectiveAnimal(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "noun_collective_animal"})
+func nounCollectiveAnimal(f *Faker) string {
+	return getRandValue(f, []string{"word", "noun_collective_animal"})
 }
 
 // NounCollectiveThing will generate a random collective noun thing
-func NounCollectiveThing() string { return nounCollectiveThing(GlobalFaker.Rand) }
+func NounCollectiveThing() string { return nounCollectiveThing(GlobalFaker) }
 
 // NounCollectiveThing will generate a random collective noun thing
-func (f *Faker) NounCollectiveThing() string { return nounCollectiveThing(f.Rand) }
+func (f *Faker) NounCollectiveThing() string { return nounCollectiveThing(f) }
 
-func nounCollectiveThing(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "noun_collective_thing"})
+func nounCollectiveThing(f *Faker) string {
+	return getRandValue(f, []string{"word", "noun_collective_thing"})
 }
 
 // NounCountable will generate a random countable noun
-func NounCountable() string { return nounCountable(GlobalFaker.Rand) }
+func NounCountable() string { return nounCountable(GlobalFaker) }
 
 // NounCountable will generate a random countable noun
-func (f *Faker) NounCountable() string { return nounCountable(f.Rand) }
+func (f *Faker) NounCountable() string { return nounCountable(f) }
 
-func nounCountable(r *rand.Rand) string { return getRandValue(r, []string{"word", "noun_countable"}) }
-
-// NounUncountable will generate a random uncountable noun
-func NounUncountable() string { return nounUncountable(GlobalFaker.Rand) }
+func nounCountable(f *Faker) string { return getRandValue(f, []string{"word", "noun_countable"}) }
 
 // NounUncountable will generate a random uncountable noun
-func (f *Faker) NounUncountable() string { return nounUncountable(f.Rand) }
+func NounUncountable() string { return nounUncountable(GlobalFaker) }
 
-func nounUncountable(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "noun_uncountable"})
+// NounUncountable will generate a random uncountable noun
+func (f *Faker) NounUncountable() string { return nounUncountable(f) }
+
+func nounUncountable(f *Faker) string {
+	return getRandValue(f, []string{"word", "noun_uncountable"})
 }
 
 // NounProper will generate a random proper noun
-func NounProper() string { return nounProper(GlobalFaker.Rand) }
+func NounProper() string { return nounProper(GlobalFaker) }
 
 // NounProper will generate a random proper noun
-func (f *Faker) NounProper() string { return nounProper(f.Rand) }
+func (f *Faker) NounProper() string { return nounProper(f) }
 
-func nounProper(r *rand.Rand) string {
-	switch randInt := randIntRange(r, 1, 3); randInt {
+func nounProper(f *Faker) string {
+	switch randInt := randIntRange(f, 1, 3); randInt {
 	case 1:
-		return getRandValue(r, []string{"celebrity", "actor"})
+		return getRandValue(f, []string{"celebrity", "actor"})
 	case 2:
-		return generate(r, getRandValue(r, []string{"address", "city"}))
+		return generate(f, getRandValue(f, []string{"address", "city"}))
 	}
 
-	return getRandValue(r, []string{"person", "first"})
+	return getRandValue(f, []string{"person", "first"})
 }
 
 // NounDeterminer will generate a random noun determiner
-func NounDeterminer() string { return nounDeterminer(GlobalFaker.Rand) }
+func NounDeterminer() string { return nounDeterminer(GlobalFaker) }
 
 // NounDeterminer will generate a random noun determiner
-func (f *Faker) NounDeterminer() string { return nounDeterminer(f.Rand) }
+func (f *Faker) NounDeterminer() string { return nounDeterminer(f) }
 
-func nounDeterminer(r *rand.Rand) string { return getRandValue(r, []string{"word", "noun_determiner"}) }
+func nounDeterminer(f *Faker) string { return getRandValue(f, []string{"word", "noun_determiner"}) }
 
 func addWordNounLookup() {
 	AddFuncLookup("noun", Info{
@@ -126,8 +124,8 @@ func addWordNounLookup() {
 		Description: "Person, place, thing, or idea, named or referred to in a sentence",
 		Example:     "aunt",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return noun(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return noun(f), nil
 		},
 	})
 
@@ -137,8 +135,8 @@ func addWordNounLookup() {
 		Description: "General name for people, places, or things, not specific or unique",
 		Example:     "part",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return nounCommon(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return nounCommon(f), nil
 		},
 	})
 
@@ -148,8 +146,8 @@ func addWordNounLookup() {
 		Description: "Names for physical entities experienced through senses like sight, touch, smell, or taste",
 		Example:     "snowman",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return nounConcrete(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return nounConcrete(f), nil
 		},
 	})
 
@@ -159,8 +157,8 @@ func addWordNounLookup() {
 		Description: "Ideas, qualities, or states that cannot be perceived with the five senses",
 		Example:     "confusion",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return nounAbstract(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return nounAbstract(f), nil
 		},
 	})
 
@@ -170,8 +168,8 @@ func addWordNounLookup() {
 		Description: "Group of people or things regarded as a unit",
 		Example:     "body",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return nounCollectivePeople(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return nounCollectivePeople(f), nil
 		},
 	})
 
@@ -181,8 +179,8 @@ func addWordNounLookup() {
 		Description: "Group of animals, like a 'pack' of wolves or a 'flock' of birds",
 		Example:     "party",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return nounCollectiveAnimal(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return nounCollectiveAnimal(f), nil
 		},
 	})
 
@@ -192,8 +190,8 @@ func addWordNounLookup() {
 		Description: "Group of objects or items, such as a 'bundle' of sticks or a 'cluster' of grapes",
 		Example:     "hand",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return nounCollectiveThing(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return nounCollectiveThing(f), nil
 		},
 	})
 
@@ -203,8 +201,8 @@ func addWordNounLookup() {
 		Description: "Items that can be counted individually",
 		Example:     "neck",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return nounCountable(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return nounCountable(f), nil
 		},
 	})
 
@@ -214,8 +212,8 @@ func addWordNounLookup() {
 		Description: "Items that can't be counted individually",
 		Example:     "seafood",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return nounUncountable(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return nounUncountable(f), nil
 		},
 	})
 
@@ -225,8 +223,8 @@ func addWordNounLookup() {
 		Description: "Specific name for a particular person, place, or organization",
 		Example:     "John",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return nounProper(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return nounProper(f), nil
 		},
 	})
 
@@ -236,8 +234,8 @@ func addWordNounLookup() {
 		Description: "Word that introduces a noun and identifies it as a noun",
 		Example:     "your",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return nounDeterminer(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return nounDeterminer(f), nil
 		},
 	})
 }

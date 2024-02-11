@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"math/rand/v2"
 	"reflect"
 	"strings"
 )
@@ -84,7 +83,7 @@ func csvFunc(f *Faker, co *CSVOptions) ([]byte, error) {
 				return nil, errors.New("invalid function, " + field.Function + " does not exist")
 			}
 
-			value, err := funcInfo.Generate(f.Rand, &field.Params, funcInfo)
+			value, err := funcInfo.Generate(f, &field.Params, funcInfo)
 			if err != nil {
 				return nil, err
 			}
@@ -140,7 +139,7 @@ func addFileCSVLookup() {
 			{Field: "rowcount", Display: "Row Count", Type: "int", Default: "100", Description: "Number of rows"},
 			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			co := CSVOptions{}
 
 			delimiter, err := info.GetString(m, "delimiter")
@@ -173,7 +172,6 @@ func addFileCSVLookup() {
 				}
 			}
 
-			f := &Faker{Rand: r}
 			csvOut, err := csvFunc(f, &co)
 			if err != nil {
 				return nil, err

@@ -1,22 +1,20 @@
 package gofakeit
 
-import "math/rand/v2"
+// FileExtension will generate a random file extension
+func FileExtension() string { return fileExtension(GlobalFaker) }
 
 // FileExtension will generate a random file extension
-func FileExtension() string { return fileExtension(GlobalFaker.Rand) }
+func (f *Faker) FileExtension() string { return fileExtension(f) }
 
-// FileExtension will generate a random file extension
-func (f *Faker) FileExtension() string { return fileExtension(f.Rand) }
-
-func fileExtension(r *rand.Rand) string { return getRandValue(r, []string{"file", "extension"}) }
+func fileExtension(f *Faker) string { return getRandValue(f, []string{"file", "extension"}) }
 
 // FileMimeType will generate a random mime file type
-func FileMimeType() string { return fileMimeType(GlobalFaker.Rand) }
+func FileMimeType() string { return fileMimeType(GlobalFaker) }
 
 // FileMimeType will generate a random mime file type
-func (f *Faker) FileMimeType() string { return fileMimeType(f.Rand) }
+func (f *Faker) FileMimeType() string { return fileMimeType(f) }
 
-func fileMimeType(r *rand.Rand) string { return getRandValue(r, []string{"file", "mime_type"}) }
+func fileMimeType(f *Faker) string { return getRandValue(f, []string{"file", "mime_type"}) }
 
 func addFileLookup() {
 	AddFuncLookup("fileextension", Info{
@@ -25,8 +23,8 @@ func addFileLookup() {
 		Description: "Suffix appended to a filename indicating its format or type",
 		Example:     "nes",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return fileExtension(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return fileExtension(f), nil
 		},
 	})
 
@@ -36,8 +34,8 @@ func addFileLookup() {
 		Description: "Defines file format and nature for browsers and email clients using standardized identifiers",
 		Example:     "application/json",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return fileMimeType(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return fileMimeType(f), nil
 		},
 	})
 }

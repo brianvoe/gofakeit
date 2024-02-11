@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"math/rand/v2"
 	"reflect"
 	"strconv"
 )
@@ -102,7 +101,7 @@ func jsonFunc(f *Faker, jo *JSONOptions) ([]byte, error) {
 			}
 
 			// Call function value
-			value, err := funcInfo.Generate(f.Rand, &field.Params, funcInfo)
+			value, err := funcInfo.Generate(f, &field.Params, funcInfo)
 			if err != nil {
 				return nil, err
 			}
@@ -156,7 +155,7 @@ func jsonFunc(f *Faker, jo *JSONOptions) ([]byte, error) {
 				}
 
 				// Call function value
-				value, err := funcInfo.Generate(f.Rand, &field.Params, funcInfo)
+				value, err := funcInfo.Generate(f, &field.Params, funcInfo)
 				if err != nil {
 					return nil, err
 				}
@@ -208,7 +207,7 @@ func addFileJSONLookup() {
 			{Field: "indent", Display: "Indent", Type: "bool", Default: "false", Description: "Whether or not to add indents and newlines"},
 			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function to run in json format"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			jo := JSONOptions{}
 
 			typ, err := info.GetString(m, "type")
@@ -276,7 +275,7 @@ func rJsonNumber(f *Faker, t reflect.Type, v reflect.Value, tag string, size int
 	var numberType string
 
 	if tag == "" {
-		numberType = f.RandomString([]string{"int", "float"})
+		numberType = fomString([]string{"int", "float"})
 
 		switch numberType {
 		case "int":
@@ -296,7 +295,7 @@ func rJsonNumber(f *Faker, t reflect.Type, v reflect.Value, tag string, size int
 		// Parse map params
 		mapParams := parseMapParams(info, fParams)
 
-		valueIface, err := info.Generate(f.Rand, mapParams, info)
+		valueIface, err := info.Generate(f, mapParams, info)
 		if err != nil {
 			return err
 		}

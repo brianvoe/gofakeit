@@ -24,21 +24,21 @@ func TestRandIntRange(t *testing.T) {
 	// Add 10000 random values to the test set
 	for i := 0; i < 5000; i++ {
 		tests = append(tests, testStruct{
-			min: randIntRange(GlobalFaker.Rand, 0, maxInt),
-			max: randIntRange(GlobalFaker.Rand, 0, maxInt),
+			min: randIntRange(GlobalFaker, 0, maxInt),
+			max: randIntRange(GlobalFaker, 0, maxInt),
 		})
 	}
 	for i := 0; i < 5000; i++ {
 		tests = append(tests, testStruct{
-			min: randIntRange(GlobalFaker.Rand, minInt, 0),
-			max: randIntRange(GlobalFaker.Rand, 0, maxInt),
+			min: randIntRange(GlobalFaker, minInt, 0),
+			max: randIntRange(GlobalFaker, 0, maxInt),
 		})
 	}
 
 	// Loop through the tests
 	for _, test := range tests {
 		// Get the result
-		result := randIntRange(GlobalFaker.Rand, test.min, test.max)
+		result := randIntRange(GlobalFaker, test.min, test.max)
 
 		// Check the result
 		if test.min > test.max {
@@ -70,21 +70,21 @@ func TestRandUintRange(t *testing.T) {
 	// Add 10000 random values to the test set
 	for i := 0; i < 5000; i++ {
 		tests = append(tests, testStruct{
-			min: randUintRange(GlobalFaker.Rand, 0, maxUint),
-			max: randUintRange(GlobalFaker.Rand, 0, maxUint),
+			min: randUintRange(GlobalFaker, 0, maxUint),
+			max: randUintRange(GlobalFaker, 0, maxUint),
 		})
 	}
 	for i := 0; i < 5000; i++ {
 		tests = append(tests, testStruct{
-			min: randUintRange(GlobalFaker.Rand, 0, maxUint/2),
-			max: randUintRange(GlobalFaker.Rand, maxUint/2, maxUint),
+			min: randUintRange(GlobalFaker, 0, maxUint/2),
+			max: randUintRange(GlobalFaker, maxUint/2, maxUint),
 		})
 	}
 
 	// Loop through the tests
 	for _, test := range tests {
 		// Get the result
-		result := randUintRange(GlobalFaker.Rand, test.min, test.max)
+		result := randUintRange(GlobalFaker, test.min, test.max)
 
 		// Check the result
 		if test.min > test.max {
@@ -100,14 +100,14 @@ func TestRandUintRange(t *testing.T) {
 
 func TestGetRandValueFail(t *testing.T) {
 	for _, test := range [][]string{nil, {}, {"not", "found"}, {"person", "notfound"}} {
-		if getRandValue(GlobalFaker.Rand, test) != "" {
+		if getRandValue(GlobalFaker, test) != "" {
 			t.Error("You should have gotten no value back")
 		}
 	}
 }
 
 func TestReplaceWithNumbers(t *testing.T) {
-	if replaceWithNumbers(GlobalFaker.Rand, "") != "" {
+	if replaceWithNumbers(GlobalFaker, "") != "" {
 		t.Error("You should have gotten an empty string")
 	}
 }
@@ -115,7 +115,7 @@ func TestReplaceWithNumbers(t *testing.T) {
 func BenchmarkReplaceWithNumbers(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		Seed(42)
-		replaceWithNumbers(GlobalFaker.Rand, "###☺#☻##☹##")
+		replaceWithNumbers(GlobalFaker, "###☺#☻##☹##")
 	}
 }
 
@@ -126,7 +126,7 @@ func TestReplaceWithNumbersUnicode(t *testing.T) {
 		{"\x80#¼#語", "\x805¼7語"},
 	} {
 		Seed(42)
-		got := replaceWithNumbers(GlobalFaker.Rand, test.in)
+		got := replaceWithNumbers(GlobalFaker, test.in)
 		if got == test.should {
 			continue
 		}
@@ -136,13 +136,13 @@ func TestReplaceWithNumbersUnicode(t *testing.T) {
 }
 
 func TestReplaceWithLetters(t *testing.T) {
-	if replaceWithLetters(GlobalFaker.Rand, "") != "" {
+	if replaceWithLetters(GlobalFaker, "") != "" {
 		t.Error("You should have gotten an empty string")
 	}
 }
 
 func TestReplaceWithHexLetters(t *testing.T) {
-	if replaceWithHexLetters(GlobalFaker.Rand, "") != "" {
+	if replaceWithHexLetters(GlobalFaker, "") != "" {
 		t.Error("You should have gotten an empty string")
 	}
 }

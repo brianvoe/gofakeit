@@ -142,7 +142,7 @@ func runFunction(faker *gofakeit.Faker, function string, args []string) (string,
 		}
 	}
 
-	value, err := info.Generate(faker.Rand, params, info)
+	value, err := info.Generate(faker, params, info)
 	if err != nil {
 		return "", err
 	}

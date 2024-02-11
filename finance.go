@@ -1,7 +1,6 @@
 package gofakeit
 
 import (
-	"math/rand/v2"
 	"strconv"
 	"unicode"
 )
@@ -10,17 +9,17 @@ const cusipStr = upperStr + numericStr
 
 // CUSIP
 func Cusip() string {
-	return cusip(GlobalFaker.Rand)
+	return cusip(GlobalFaker)
 }
 
 func (f *Faker) Cusip() string {
-	return cusip(f.Rand)
+	return cusip(f)
 }
 
-func cusip(r *rand.Rand) string {
+func cusip(f *Faker) string {
 	cusipBytes := make([]byte, 8)
 	for i := 0; i < len(cusipBytes); i++ {
-		cusipBytes[i] = byte(cusipStr[r.IntN(len(cusipStr))])
+		cusipBytes[i] = byte(cusipStr[f.IntN(len(cusipStr))])
 	}
 
 	baseCusip := string(cusipBytes)
@@ -31,16 +30,16 @@ func cusip(r *rand.Rand) string {
 
 // ISIN
 func Isin() string {
-	return isin(GlobalFaker.Rand)
+	return isin(GlobalFaker)
 }
 
 func (f *Faker) Isin() string {
-	return isin(f.Rand)
+	return isin(f)
 }
 
-func isin(r *rand.Rand) string {
+func isin(f *Faker) string {
 	countryCode := CountryAbr()
-	nsin := cusip(r)
+	nsin := cusip(f)
 	isinChkDig := isinChecksumDigit(countryCode + nsin)
 	return countryCode + nsin + isinChkDig
 }
@@ -111,8 +110,8 @@ func addFinanceLookup() {
 		Description: "Unique identifier for securities, especially bonds, in the United States and Canada",
 		Example:     "38259P508",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return cusip(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return cusip(f), nil
 		},
 	})
 	AddFuncLookup("isin", Info{
@@ -121,8 +120,8 @@ func addFinanceLookup() {
 		Description: "International standard code for uniquely identifying securities worldwide",
 		Example:     "CVLRQCZBXQ97",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return isin(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return isin(f), nil
 		},
 	})
 }

@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"math/rand/v2"
 	"strings"
 )
 
@@ -14,11 +13,11 @@ type SQLOptions struct {
 	Fields []Field `json:"fields" xml:"fields"` // The fields to be generated
 }
 
-func SQL(so *SQLOptions) (string, error) { return sqlFunc(GlobalFaker.Rand, so) }
+func SQL(so *SQLOptions) (string, error) { return sqlFunc(GlobalFaker, so) }
 
-func (f *Faker) SQL(so *SQLOptions) (string, error) { return sqlFunc(f.Rand, so) }
+func (f *Faker) SQL(so *SQLOptions) (string, error) { return sqlFunc(f, so) }
 
-func sqlFunc(r *rand.Rand, so *SQLOptions) (string, error) {
+func sqlFunc(f *Faker, so *SQLOptions) (string, error) {
 	if so.Table == "" {
 		return "", errors.New("must provide table name to generate SQL")
 	}
@@ -66,7 +65,7 @@ func sqlFunc(r *rand.Rand, so *SQLOptions) (string, error) {
 			}
 
 			// Generate the value
-			val, err := funcInfo.Generate(r, &field.Params, funcInfo)
+			val, err := funcInfo.Generate(f, &field.Params, funcInfo)
 			if err != nil {
 				return "", err
 			}
@@ -118,7 +117,7 @@ VALUES
 			{Field: "count", Display: "Count", Type: "int", Default: "100", Description: "Number of inserts to generate"},
 			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields containing key name and function to run in json format"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			so := SQLOptions{}
 
 			table, err := info.GetString(m, "table")
@@ -151,7 +150,7 @@ VALUES
 				}
 			}
 
-			return sqlFunc(r, &so)
+			return sqlFunc(f, &so)
 		},
 	})
 }

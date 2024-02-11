@@ -83,14 +83,14 @@ func ExampleFakeable() {
 
 type gammaFloat64 float64
 
-func (gammaFloat64) Fake(faker *Faker) (any, error) {
+func (gammaFloat64) Fake(f *Faker) (any, error) {
 	alpha := 2.0
 
 	// Generate a random value from the Gamma distribution
 	var r float64
 	for r == 0 {
-		u := faker.Float64Range(0, 1)
-		v := faker.Float64Range(0, 1)
+		u := f.Float64Range(0, 1)
+		v := f.Float64Range(0, 1)
 		w := u * (1 - u)
 		y := math.Sqrt(-2 * math.Log(w) / w)
 		x := alpha * (y*v + u - 0.5)

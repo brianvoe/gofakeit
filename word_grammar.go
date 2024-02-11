@@ -1,19 +1,18 @@
 package gofakeit
 
 import (
-	"math/rand/v2"
 	"unicode"
 )
 
 // SentenceSimple will generate a random simple sentence
-func SentenceSimple() string { return sentenceSimple(GlobalFaker.Rand) }
+func SentenceSimple() string { return sentenceSimple(GlobalFaker) }
 
 // SentenceSimple will generate a random simple sentence
-func (f *Faker) SentenceSimple() string { return sentenceSimple(f.Rand) }
+func (f *Faker) SentenceSimple() string { return sentenceSimple(f) }
 
-func sentenceSimple(r *rand.Rand) string {
+func sentenceSimple(f *Faker) string {
 	// simple sentence consists of a noun phrase and a verb phrase
-	str := phraseNoun(r) + " " + phraseVerb(r) + "."
+	str := phraseNoun(f) + " " + phraseVerb(f) + "."
 
 	// capitalize the first letter
 	strR := []rune(str)
@@ -28,8 +27,8 @@ func addWordGrammerLookup() {
 		Description: "Group of words that expresses a complete thought",
 		Example:     "A tribe fly the lemony kitchen.",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return sentenceSimple(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return sentenceSimple(f), nil
 		},
 	})
 }

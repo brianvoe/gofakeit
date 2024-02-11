@@ -2,7 +2,6 @@ package gofakeit
 
 import (
 	"fmt"
-	"math/rand/v2"
 	"testing"
 )
 
@@ -145,7 +144,7 @@ func TestXMLSingle(t *testing.T) {
 		Description: "",
 		Example:     "",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return map[string]any{
 				"string": "string value",
 				"int":    123456789,
@@ -186,7 +185,7 @@ func TestXMLArray(t *testing.T) {
 		Description: "",
 		Example:     "",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return map[string]any{
 				"string": "string value",
 				"int":    123456789,
@@ -233,7 +232,7 @@ func TestXMLLookup(t *testing.T) {
 	m.Add("fields", `{"name":"first_name","function":"firstname"}`)
 	m.Add("fields", `{"name":"password","function":"password","params":{"special":["false"],"length":["20"]}}`)
 
-	_, err := info.Generate(faker.Rand, m, info)
+	_, err := info.Generate(faker, m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -265,7 +264,7 @@ func BenchmarkXMLLookup100(b *testing.B) {
 		m.Add("fields", `{"name":"description","function":"paragraph"}`)
 		m.Add("fields", `{"name":"created_at","function":"date"}`)
 
-		_, err := info.Generate(faker.Rand, m, info)
+		_, err := info.Generate(faker, m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
@@ -288,7 +287,7 @@ func BenchmarkXMLLookup1000(b *testing.B) {
 		m.Add("fields", `{"name":"description","function":"paragraph"}`)
 		m.Add("fields", `{"name":"created_at","function":"date"}`)
 
-		_, err := info.Generate(faker.Rand, m, info)
+		_, err := info.Generate(faker, m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
@@ -311,7 +310,7 @@ func BenchmarkXMLLookup10000(b *testing.B) {
 		m.Add("fields", `{"name":"description","function":"paragraph"}`)
 		m.Add("fields", `{"name":"created_at","function":"date"}`)
 
-		_, err := info.Generate(faker.Rand, m, info)
+		_, err := info.Generate(faker, m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
@@ -333,7 +332,7 @@ func BenchmarkXMLLookup100000(b *testing.B) {
 		m.Add("fields", `{"name":"description","function":"paragraph"}`)
 		m.Add("fields", `{"name":"created_at","function":"date"}`)
 
-		_, err := info.Generate(faker.Rand, m, info)
+		_, err := info.Generate(faker, m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}

@@ -3,7 +3,6 @@ package gofakeit
 import (
 	"bytes"
 	"errors"
-	"math/rand/v2"
 	"strings"
 	"unicode"
 )
@@ -17,34 +16,34 @@ type paragrapOptions struct {
 
 const bytesPerWordEstimation = 6
 
-type sentenceGenerator func(r *rand.Rand, wordCount int) string
-type wordGenerator func(r *rand.Rand) string
+type sentenceGenerator func(f *Faker, wordCount int) string
+type wordGenerator func(f *Faker) string
 
 // Sentence will generate a random sentence
-func Sentence(wordCount int) string { return sentence(GlobalFaker.Rand, wordCount) }
+func Sentence(wordCount int) string { return sentence(GlobalFaker, wordCount) }
 
 // Sentence will generate a random sentence
-func (f *Faker) Sentence(wordCount int) string { return sentence(f.Rand, wordCount) }
+func (f *Faker) Sentence(wordCount int) string { return sentence(f, wordCount) }
 
-func sentence(r *rand.Rand, wordCount int) string {
-	return sentenceGen(r, wordCount, word)
+func sentence(f *Faker, wordCount int) string {
+	return sentenceGen(f, wordCount, word)
 }
 
 // Paragraph will generate a random paragraphGenerator
 func Paragraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return paragraph(GlobalFaker.Rand, paragraphCount, sentenceCount, wordCount, separator)
+	return paragraph(GlobalFaker, paragraphCount, sentenceCount, wordCount, separator)
 }
 
 // Paragraph will generate a random paragraphGenerator
 func (f *Faker) Paragraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return paragraph(f.Rand, paragraphCount, sentenceCount, wordCount, separator)
+	return paragraph(f, paragraphCount, sentenceCount, wordCount, separator)
 }
 
-func paragraph(r *rand.Rand, paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return paragraphGen(r, paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, sentence)
+func paragraph(f *Faker, paragraphCount int, sentenceCount int, wordCount int, separator string) string {
+	return paragraphGen(f, paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, sentence)
 }
 
-func sentenceGen(r *rand.Rand, wordCount int, word wordGenerator) string {
+func sentenceGen(f *Faker, wordCount int, word wordGenerator) string {
 	if wordCount <= 0 {
 		return ""
 	}
@@ -54,7 +53,7 @@ func sentenceGen(r *rand.Rand, wordCount int, word wordGenerator) string {
 	sentence.Grow(wordCount * bytesPerWordEstimation)
 
 	for i := 0; i < wordCount; i++ {
-		word := word(r)
+		word := word(f)
 		if i == 0 {
 			runes := []rune(word)
 			runes[0] = unicode.ToTitle(runes[0])
@@ -69,7 +68,7 @@ func sentenceGen(r *rand.Rand, wordCount int, word wordGenerator) string {
 	return sentence.String()
 }
 
-func paragraphGen(r *rand.Rand, opts paragrapOptions, sentecer sentenceGenerator) string {
+func paragraphGen(f *Faker, opts paragrapOptions, sentecer sentenceGenerator) string {
 	if opts.paragraphCount <= 0 || opts.sentenceCount <= 0 || opts.wordCount <= 0 {
 		return ""
 	}
@@ -82,7 +81,7 @@ func paragraphGen(r *rand.Rand, opts paragrapOptions, sentecer sentenceGenerator
 
 	for i := 0; i < opts.paragraphCount; i++ {
 		for e := 0; e < opts.sentenceCount; e++ {
-			paragraphs.WriteString(sentecer(r, opts.wordCount))
+			paragraphs.WriteString(sentecer(f, opts.wordCount))
 			if e < opts.sentenceCount-1 {
 				paragraphs.WriteRune(wordSeparator)
 			}
@@ -98,26 +97,26 @@ func paragraphGen(r *rand.Rand, opts paragrapOptions, sentecer sentenceGenerator
 
 // Question will return a random question
 func Question() string {
-	return question(GlobalFaker.Rand)
+	return question(GlobalFaker)
 }
 
 // Question will return a random question
 func (f *Faker) Question() string {
-	return question(f.Rand)
+	return question(f)
 }
 
-func question(r *rand.Rand) string {
-	return strings.Replace(hipsterSentence(r, number(r, 3, 10)), ".", "?", 1)
+func question(f *Faker) string {
+	return strings.Replace(hipsterSentence(f, number(f, 3, 10)), ".", "?", 1)
 }
 
 // Quote will return a random quote from a random person
-func Quote() string { return quote(GlobalFaker.Rand) }
+func Quote() string { return quote(GlobalFaker) }
 
 // Quote will return a random quote from a random person
-func (f *Faker) Quote() string { return quote(f.Rand) }
+func (f *Faker) Quote() string { return quote(f) }
 
-func quote(r *rand.Rand) string {
-	return `"` + hipsterSentence(r, number(r, 3, 10)) + `" - ` + firstName(r) + " " + lastName(r)
+func quote(f *Faker) string {
+	return `"` + hipsterSentence(f, number(f, 3, 10)) + `" - ` + firstName(f) + " " + lastName(f)
 }
 
 func addWordSentenceLookup() {
@@ -130,7 +129,7 @@ func addWordSentenceLookup() {
 		Params: []Param{
 			{Field: "wordcount", Display: "Word Count", Type: "int", Default: "5", Description: "Number of words in a sentence"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			wordCount, err := info.GetInt(m, "wordcount")
 			if err != nil {
 				return nil, err
@@ -139,7 +138,7 @@ func addWordSentenceLookup() {
 				return nil, errors.New("invalid word count, must be greater than 0, less than 50")
 			}
 
-			return sentence(r, wordCount), nil
+			return sentence(f, wordCount), nil
 		},
 	})
 
@@ -155,7 +154,7 @@ func addWordSentenceLookup() {
 			{Field: "wordcount", Display: "Word Count", Type: "int", Default: "5", Description: "Number of words in a sentence"},
 			{Field: "paragraphseparator", Display: "Paragraph Separator", Type: "string", Default: "<br />", Description: "String value to add between paragraphs"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			paragraphCount, err := info.GetInt(m, "paragraphcount")
 			if err != nil {
 				return nil, err
@@ -185,7 +184,7 @@ func addWordSentenceLookup() {
 				return nil, err
 			}
 
-			return paragraph(r, paragraphCount, sentenceCount, wordCount, paragraphSeparator), nil
+			return paragraph(f, paragraphCount, sentenceCount, wordCount, paragraphSeparator), nil
 		},
 	})
 
@@ -195,8 +194,8 @@ func addWordSentenceLookup() {
 		Description: "Statement formulated to inquire or seek clarification",
 		Example:     "Roof chia echo?",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return question(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return question(f), nil
 		},
 	})
 
@@ -206,8 +205,8 @@ func addWordSentenceLookup() {
 		Description: "Direct repetition of someone else's words",
 		Example:     `"Roof chia echo." - Lura Lockman`,
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return quote(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return quote(f), nil
 		},
 	})
 }

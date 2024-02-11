@@ -90,7 +90,7 @@ func rCustom(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	mapParams := parseMapParams(info, fParams)
 
 	// Call function
-	fValue, err := info.Generate(f.Rand, mapParams, info)
+	fValue, err := info.Generate(f, mapParams, info)
 	if err != nil {
 		return err
 	}
@@ -200,7 +200,7 @@ func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 						return err
 					}
 
-					size = f.Rand.IntN(sizeMax-sizeMin+1) + sizeMin
+					size = f.IntN(sizeMax-sizeMin+1) + sizeMin
 				}
 			} else {
 				size, err = strconv.Atoi(fs)
@@ -270,7 +270,7 @@ func rSlice(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) err
 	// use that instead of the requested size
 	elemLen := v.Len()
 	if elemLen == 0 && size == -1 {
-		size = number(f.Rand, 1, 10)
+		size = number(f, 1, 10)
 	} else if elemLen != 0 && (size == -1 || elemLen < size) {
 		size = elemLen
 	}
@@ -321,7 +321,7 @@ func rMap(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error
 	// Set a size
 	newSize := size
 	if newSize == -1 {
-		newSize = number(f.Rand, 1, 10)
+		newSize = number(f, 1, 10)
 	}
 
 	// Create new map based upon map key value type
@@ -358,7 +358,7 @@ func rMap(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error
 
 func rString(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
-		v.SetString(generate(f.Rand, tag))
+		v.SetString(generate(f, tag))
 	} else if isFakeable(t) {
 		value, err := callFake(f, v, reflect.String)
 		if err != nil {
@@ -371,7 +371,7 @@ func rString(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 		}
 		v.SetString(valueStr)
 	} else {
-		v.SetString(generate(f.Rand, strings.Repeat("?", number(f.Rand, 4, 10))))
+		v.SetString(generate(f, strings.Repeat("?", number(f, 4, 10))))
 	}
 
 	return nil
@@ -379,7 +379,7 @@ func rString(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 
 func rInt(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
-		i, err := strconv.ParseInt(generate(f.Rand, tag), 10, 64)
+		i, err := strconv.ParseInt(generate(f, tag), 10, 64)
 		if err != nil {
 			return err
 		}
@@ -409,15 +409,15 @@ func rInt(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 		// If no tag or error converting to int, set with random value
 		switch t.Kind() {
 		case reflect.Int:
-			v.SetInt(int64Func(f.Rand))
+			v.SetInt(int64Func(f))
 		case reflect.Int8:
-			v.SetInt(int64(int8Func(f.Rand)))
+			v.SetInt(int64(int8Func(f)))
 		case reflect.Int16:
-			v.SetInt(int64(int16Func(f.Rand)))
+			v.SetInt(int64(int16Func(f)))
 		case reflect.Int32:
-			v.SetInt(int64(int32Func(f.Rand)))
+			v.SetInt(int64(int32Func(f)))
 		case reflect.Int64:
-			v.SetInt(int64Func(f.Rand))
+			v.SetInt(int64Func(f))
 		}
 	}
 
@@ -426,7 +426,7 @@ func rInt(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 
 func rUint(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
-		u, err := strconv.ParseUint(generate(f.Rand, tag), 10, 64)
+		u, err := strconv.ParseUint(generate(f, tag), 10, 64)
 		if err != nil {
 			return err
 		}
@@ -456,15 +456,15 @@ func rUint(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 		// If no tag or error converting to uint, set with random value
 		switch t.Kind() {
 		case reflect.Uint:
-			v.SetUint(uint64Func(f.Rand))
+			v.SetUint(f.Uint64())
 		case reflect.Uint8:
-			v.SetUint(uint64(uint8Func(f.Rand)))
+			v.SetUint(uint64(uint8Func(f)))
 		case reflect.Uint16:
-			v.SetUint(uint64(uint16Func(f.Rand)))
+			v.SetUint(uint64(uint16Func(f)))
 		case reflect.Uint32:
-			v.SetUint(uint64(uint32Func(f.Rand)))
+			v.SetUint(uint64(uint32Func(f)))
 		case reflect.Uint64:
-			v.SetUint(uint64Func(f.Rand))
+			v.SetUint(f.Uint64())
 		}
 	}
 
@@ -473,7 +473,7 @@ func rUint(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 
 func rFloat(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
-		f, err := strconv.ParseFloat(generate(f.Rand, tag), 64)
+		f, err := strconv.ParseFloat(generate(f, tag), 64)
 		if err != nil {
 			return err
 		}
@@ -497,9 +497,9 @@ func rFloat(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 		// If no tag or error converting to float, set with random value
 		switch t.Kind() {
 		case reflect.Float64:
-			v.SetFloat(float64Func(f.Rand))
+			v.SetFloat(float64Func(f))
 		case reflect.Float32:
-			v.SetFloat(float64(float32Func(f.Rand)))
+			v.SetFloat(float64(float32Func(f)))
 		}
 	}
 
@@ -508,7 +508,7 @@ func rFloat(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 
 func rBool(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
-		b, err := strconv.ParseBool(generate(f.Rand, tag))
+		b, err := strconv.ParseBool(generate(f, tag))
 		if err != nil {
 			return err
 		}
@@ -528,7 +528,7 @@ func rBool(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 		}
 	} else {
 		// If no tag or error converting to boolean, set with random value
-		v.SetBool(boolFunc(f.Rand))
+		v.SetBool(boolFunc(f))
 	}
 
 	return nil
@@ -538,7 +538,7 @@ func rBool(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 func rTime(f *Faker, t reflect.StructField, v reflect.Value, tag string) error {
 	if tag != "" {
 		// Generate time
-		timeOutput := generate(f.Rand, tag)
+		timeOutput := generate(f, tag)
 
 		// Check to see if timeOutput has monotonic clock reading
 		// if so, remove it. This is because time.Parse() does not
@@ -578,6 +578,6 @@ func rTime(f *Faker, t reflect.StructField, v reflect.Value, tag string) error {
 		return nil
 	}
 
-	v.Set(reflect.ValueOf(date(f.Rand)))
+	v.Set(reflect.ValueOf(date(f)))
 	return nil
 }

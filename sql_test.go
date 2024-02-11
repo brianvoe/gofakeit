@@ -2,7 +2,6 @@ package gofakeit
 
 import (
 	"fmt"
-	"math/rand/v2"
 	"strings"
 	"testing"
 )
@@ -57,7 +56,7 @@ func TestSQLJSON(t *testing.T) {
 		Description: "random JSON of a person",
 		Example:     `{"first_name":"Bob", "last_name":"Jones"}`,
 		Output:      "[]byte",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 
 			v, _ := JSON(&JSONOptions{
 				Type: "object",

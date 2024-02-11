@@ -272,7 +272,7 @@ func BenchmarkFloat32Range(b *testing.B) {
 }
 
 func TestFloat32RangeSame(t *testing.T) {
-	if float32Range(GlobalFaker.Rand, 5.0, 5.0) != 5.0 {
+	if float32Range(GlobalFaker, 5.0, 5.0) != 5.0 {
 		t.Error("You should have gotten 5.0 back")
 	}
 }
@@ -318,7 +318,7 @@ func BenchmarkFloat64Range(b *testing.B) {
 }
 
 func TestRandFloat64RangeSame(t *testing.T) {
-	if float64Range(GlobalFaker.Rand, 5.0, 5.0) != 5.0 {
+	if float64Range(GlobalFaker, 5.0, 5.0) != 5.0 {
 		t.Error("You should have gotten 5.0 back")
 	}
 }

@@ -148,7 +148,7 @@ func TestTemplateLookup(t *testing.T) {
 		"data":     {"5"},
 	}
 
-	value, err := info.Generate(f.Rand, &m, info)
+	value, err := info.Generate(f, &m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}

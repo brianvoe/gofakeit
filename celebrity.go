@@ -1,32 +1,30 @@
 package gofakeit
 
-import "math/rand/v2"
+// CelebrityActor will generate a random celebrity actor
+func CelebrityActor() string { return celebrityActor(GlobalFaker) }
 
 // CelebrityActor will generate a random celebrity actor
-func CelebrityActor() string { return celebrityActor(GlobalFaker.Rand) }
+func (f *Faker) CelebrityActor() string { return celebrityActor(f) }
 
-// CelebrityActor will generate a random celebrity actor
-func (f *Faker) CelebrityActor() string { return celebrityActor(f.Rand) }
-
-func celebrityActor(r *rand.Rand) string { return getRandValue(r, []string{"celebrity", "actor"}) }
+func celebrityActor(f *Faker) string { return getRandValue(f, []string{"celebrity", "actor"}) }
 
 // CelebrityBusiness will generate a random celebrity business person
-func CelebrityBusiness() string { return celebrityBusiness(GlobalFaker.Rand) }
+func CelebrityBusiness() string { return celebrityBusiness(GlobalFaker) }
 
 // CelebrityBusiness will generate a random celebrity business person
-func (f *Faker) CelebrityBusiness() string { return celebrityBusiness(f.Rand) }
+func (f *Faker) CelebrityBusiness() string { return celebrityBusiness(f) }
 
-func celebrityBusiness(r *rand.Rand) string {
-	return getRandValue(r, []string{"celebrity", "business"})
+func celebrityBusiness(f *Faker) string {
+	return getRandValue(f, []string{"celebrity", "business"})
 }
 
 // CelebritySport will generate a random celebrity sport person
-func CelebritySport() string { return celebritySport(GlobalFaker.Rand) }
+func CelebritySport() string { return celebritySport(GlobalFaker) }
 
 // CelebritySport will generate a random celebrity sport person
-func (f *Faker) CelebritySport() string { return celebritySport(f.Rand) }
+func (f *Faker) CelebritySport() string { return celebritySport(f) }
 
-func celebritySport(r *rand.Rand) string { return getRandValue(r, []string{"celebrity", "sport"}) }
+func celebritySport(f *Faker) string { return getRandValue(f, []string{"celebrity", "sport"}) }
 
 func addCelebrityLookup() {
 	AddFuncLookup("celebrityactor", Info{
@@ -35,8 +33,8 @@ func addCelebrityLookup() {
 		Description: "Famous person known for acting in films, television, or theater",
 		Example:     "Brad Pitt",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return celebrityActor(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return celebrityActor(f), nil
 		},
 	})
 
@@ -46,8 +44,8 @@ func addCelebrityLookup() {
 		Description: "High-profile individual known for significant achievements in business or entrepreneurship",
 		Example:     "Elon Musk",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return celebrityBusiness(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return celebrityBusiness(f), nil
 		},
 	})
 
@@ -57,8 +55,8 @@ func addCelebrityLookup() {
 		Description: "Famous athlete known for achievements in a particular sport",
 		Example:     "Michael Phelps",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return celebritySport(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return celebritySport(f), nil
 		},
 	})
 }

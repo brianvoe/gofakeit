@@ -1,164 +1,163 @@
 package gofakeit
 
 import (
-	"math/rand/v2"
 	"strconv"
 	"strings"
 	"time"
 )
 
 // Date will generate a random time.Time struct
-func Date() time.Time { return date(GlobalFaker.Rand) }
+func Date() time.Time { return date(GlobalFaker) }
 
 // Date will generate a random time.Time struct
-func (f *Faker) Date() time.Time { return date(f.Rand) }
+func (f *Faker) Date() time.Time { return date(f) }
 
-func date(r *rand.Rand) time.Time {
-	return time.Date(year(r), time.Month(month(r)), day(r), hour(r), minute(r), second(r), nanoSecond(r), time.UTC)
+func date(f *Faker) time.Time {
+	return time.Date(year(f), time.Month(month(f)), day(f), hour(f), minute(f), second(f), nanoSecond(f), time.UTC)
 }
 
 // FutureDate will generate a random past time.Time struct
-func PastDate() time.Time { return pastDate(GlobalFaker.Rand) }
+func PastDate() time.Time { return pastDate(GlobalFaker) }
 
 // FutureDate will generate a random past time.Time struct
-func (f *Faker) PastDate() time.Time { return pastDate(f.Rand) }
+func (f *Faker) PastDate() time.Time { return pastDate(f) }
 
-func pastDate(r *rand.Rand) time.Time {
-	return time.Now().Add(time.Hour * -time.Duration(number(r, 1, 12)))
+func pastDate(f *Faker) time.Time {
+	return time.Now().Add(time.Hour * -time.Duration(number(f, 1, 12)))
 }
 
 // FutureDate will generate a random future time.Time struct
-func FutureDate() time.Time { return futureDate(GlobalFaker.Rand) }
+func FutureDate() time.Time { return futureDate(GlobalFaker) }
 
 // FutureDate will generate a random future time.Time struct
-func (f *Faker) FutureDate() time.Time { return futureDate(f.Rand) }
+func (f *Faker) FutureDate() time.Time { return futureDate(f) }
 
-func futureDate(r *rand.Rand) time.Time {
-	return time.Now().Add(time.Hour * time.Duration(number(r, 1, 12)))
+func futureDate(f *Faker) time.Time {
+	return time.Now().Add(time.Hour * time.Duration(number(f, 1, 12)))
 }
 
 // DateRange will generate a random time.Time struct between a start and end date
-func DateRange(start, end time.Time) time.Time { return dateRange(GlobalFaker.Rand, start, end) }
+func DateRange(start, end time.Time) time.Time { return dateRange(GlobalFaker, start, end) }
 
 // DateRange will generate a random time.Time struct between a start and end date
-func (f *Faker) DateRange(start, end time.Time) time.Time { return dateRange(f.Rand, start, end) }
+func (f *Faker) DateRange(start, end time.Time) time.Time { return dateRange(f, start, end) }
 
-func dateRange(r *rand.Rand, start time.Time, end time.Time) time.Time {
-	return time.Unix(0, int64(number(r, int(start.UnixNano()), int(end.UnixNano())))).UTC()
+func dateRange(f *Faker, start time.Time, end time.Time) time.Time {
+	return time.Unix(0, int64(number(f, int(start.UnixNano()), int(end.UnixNano())))).UTC()
 }
 
 // NanoSecond will generate a random nano second
-func NanoSecond() int { return nanoSecond(GlobalFaker.Rand) }
+func NanoSecond() int { return nanoSecond(GlobalFaker) }
 
 // NanoSecond will generate a random nano second
-func (f *Faker) NanoSecond() int { return nanoSecond(f.Rand) }
+func (f *Faker) NanoSecond() int { return nanoSecond(f) }
 
-func nanoSecond(r *rand.Rand) int { return number(r, 0, 999999999) }
-
-// Second will generate a random second
-func Second() int { return second(GlobalFaker.Rand) }
+func nanoSecond(f *Faker) int { return number(f, 0, 999999999) }
 
 // Second will generate a random second
-func (f *Faker) Second() int { return second(f.Rand) }
+func Second() int { return second(GlobalFaker) }
 
-func second(r *rand.Rand) int { return number(r, 0, 59) }
+// Second will generate a random second
+func (f *Faker) Second() int { return second(f) }
+
+func second(f *Faker) int { return number(f, 0, 59) }
 
 // Minute will generate a random minute
-func Minute() int { return minute(GlobalFaker.Rand) }
+func Minute() int { return minute(GlobalFaker) }
 
 // Minute will generate a random minute
-func (f *Faker) Minute() int { return minute(f.Rand) }
+func (f *Faker) Minute() int { return minute(f) }
 
-func minute(r *rand.Rand) int { return number(r, 0, 59) }
-
-// Hour will generate a random hour - in military time
-func Hour() int { return hour(GlobalFaker.Rand) }
+func minute(f *Faker) int { return number(f, 0, 59) }
 
 // Hour will generate a random hour - in military time
-func (f *Faker) Hour() int { return hour(f.Rand) }
+func Hour() int { return hour(GlobalFaker) }
 
-func hour(r *rand.Rand) int { return number(r, 0, 23) }
+// Hour will generate a random hour - in military time
+func (f *Faker) Hour() int { return hour(f) }
+
+func hour(f *Faker) int { return number(f, 0, 23) }
 
 // Day will generate a random day between 1 - 31
-func Day() int { return day(GlobalFaker.Rand) }
+func Day() int { return day(GlobalFaker) }
 
 // Day will generate a random day between 1 - 31
-func (f *Faker) Day() int { return day(f.Rand) }
+func (f *Faker) Day() int { return day(f) }
 
-func day(r *rand.Rand) int { return number(r, 1, 31) }
-
-// WeekDay will generate a random weekday string (Monday-Sunday)
-func WeekDay() string { return weekDay(GlobalFaker.Rand) }
+func day(f *Faker) int { return number(f, 1, 31) }
 
 // WeekDay will generate a random weekday string (Monday-Sunday)
-func (f *Faker) WeekDay() string { return weekDay(f.Rand) }
+func WeekDay() string { return weekDay(GlobalFaker) }
 
-func weekDay(r *rand.Rand) string { return time.Weekday(number(r, 0, 6)).String() }
+// WeekDay will generate a random weekday string (Monday-Sunday)
+func (f *Faker) WeekDay() string { return weekDay(f) }
+
+func weekDay(f *Faker) string { return time.Weekday(number(f, 0, 6)).String() }
 
 // Month will generate a random month int
-func Month() int { return month(GlobalFaker.Rand) }
+func Month() int { return month(GlobalFaker) }
 
 // Month will generate a random month int
-func (f *Faker) Month() int { return month(f.Rand) }
+func (f *Faker) Month() int { return month(f) }
 
-func month(r *rand.Rand) int { return number(r, 1, 12) }
-
-// MonthString will generate a random month string
-func MonthString() string { return monthString(GlobalFaker.Rand) }
+func month(f *Faker) int { return number(f, 1, 12) }
 
 // MonthString will generate a random month string
-func (f *Faker) MonthString() string { return monthString(f.Rand) }
+func MonthString() string { return monthString(GlobalFaker) }
 
-func monthString(r *rand.Rand) string { return time.Month(number(r, 1, 12)).String() }
+// MonthString will generate a random month string
+func (f *Faker) MonthString() string { return monthString(f) }
+
+func monthString(f *Faker) string { return time.Month(number(f, 1, 12)).String() }
 
 // Year will generate a random year between 1900 - current year
-func Year() int { return year(GlobalFaker.Rand) }
+func Year() int { return year(GlobalFaker) }
 
 // Year will generate a random year between 1900 - current year
-func (f *Faker) Year() int { return year(f.Rand) }
+func (f *Faker) Year() int { return year(f) }
 
-func year(r *rand.Rand) int { return number(r, 1900, time.Now().Year()) }
-
-// TimeZone will select a random timezone string
-func TimeZone() string { return timeZone(GlobalFaker.Rand) }
+func year(f *Faker) int { return number(f, 1900, time.Now().Year()) }
 
 // TimeZone will select a random timezone string
-func (f *Faker) TimeZone() string { return timeZone(f.Rand) }
+func TimeZone() string { return timeZone(GlobalFaker) }
 
-func timeZone(r *rand.Rand) string { return getRandValue(r, []string{"timezone", "text"}) }
+// TimeZone will select a random timezone string
+func (f *Faker) TimeZone() string { return timeZone(f) }
+
+func timeZone(f *Faker) string { return getRandValue(f, []string{"timezone", "text"}) }
 
 // TimeZoneFull will select a random full timezone string
-func TimeZoneFull() string { return timeZoneFull(GlobalFaker.Rand) }
+func TimeZoneFull() string { return timeZoneFull(GlobalFaker) }
 
 // TimeZoneFull will select a random full timezone string
-func (f *Faker) TimeZoneFull() string { return timeZoneFull(f.Rand) }
+func (f *Faker) TimeZoneFull() string { return timeZoneFull(f) }
 
-func timeZoneFull(r *rand.Rand) string { return getRandValue(r, []string{"timezone", "full"}) }
-
-// TimeZoneRegion will select a random region style timezone string, e.g. "America/Chicago"
-func TimeZoneRegion() string { return timeZoneRegion(GlobalFaker.Rand) }
+func timeZoneFull(f *Faker) string { return getRandValue(f, []string{"timezone", "full"}) }
 
 // TimeZoneRegion will select a random region style timezone string, e.g. "America/Chicago"
-func (f *Faker) TimeZoneRegion() string { return timeZoneRegion(f.Rand) }
+func TimeZoneRegion() string { return timeZoneRegion(GlobalFaker) }
 
-func timeZoneRegion(r *rand.Rand) string { return getRandValue(r, []string{"timezone", "region"}) }
+// TimeZoneRegion will select a random region style timezone string, e.g. "America/Chicago"
+func (f *Faker) TimeZoneRegion() string { return timeZoneRegion(f) }
+
+func timeZoneRegion(f *Faker) string { return getRandValue(f, []string{"timezone", "region"}) }
 
 // TimeZoneAbv will select a random timezone abbreviation string
-func TimeZoneAbv() string { return timeZoneAbv(GlobalFaker.Rand) }
+func TimeZoneAbv() string { return timeZoneAbv(GlobalFaker) }
 
 // TimeZoneAbv will select a random timezone abbreviation string
-func (f *Faker) TimeZoneAbv() string { return timeZoneAbv(f.Rand) }
+func (f *Faker) TimeZoneAbv() string { return timeZoneAbv(f) }
 
-func timeZoneAbv(r *rand.Rand) string { return getRandValue(r, []string{"timezone", "abr"}) }
-
-// TimeZoneOffset will select a random timezone offset
-func TimeZoneOffset() float32 { return timeZoneOffset(GlobalFaker.Rand) }
+func timeZoneAbv(f *Faker) string { return getRandValue(f, []string{"timezone", "abr"}) }
 
 // TimeZoneOffset will select a random timezone offset
-func (f *Faker) TimeZoneOffset() float32 { return timeZoneOffset(f.Rand) }
+func TimeZoneOffset() float32 { return timeZoneOffset(GlobalFaker) }
 
-func timeZoneOffset(r *rand.Rand) float32 {
-	value, _ := strconv.ParseFloat(getRandValue(r, []string{"timezone", "offset"}), 32)
+// TimeZoneOffset will select a random timezone offset
+func (f *Faker) TimeZoneOffset() float32 { return timeZoneOffset(f) }
+
+func timeZoneOffset(f *Faker) float32 {
+	value, _ := strconv.ParseFloat(getRandValue(f, []string{"timezone", "offset"}), 32)
 	return float32(value)
 }
 
@@ -226,7 +225,7 @@ func addDateTimeLookup() {
 				Description: "Date time string format output. You may also use golang time format or java time format",
 			},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			format, err := info.GetString(m, "format")
 			if err != nil {
 				return nil, err
@@ -292,7 +291,7 @@ func addDateTimeLookup() {
 				Description: "Date time string format",
 			},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			format, err := info.GetString(m, "format")
 			if err != nil {
 				return nil, err
@@ -327,8 +326,8 @@ func addDateTimeLookup() {
 		Description: "Date that has occurred before the current moment in time",
 		Example:     "2007-01-24 13:00:35.820738079 +0000 UTC",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return pastDate(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return pastDate(f), nil
 		},
 	})
 
@@ -338,8 +337,8 @@ func addDateTimeLookup() {
 		Description: "Date that has occurred after the current moment in time",
 		Example:     "2107-01-24 13:00:35.820738079 +0000 UTC",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return futureDate(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return futureDate(f), nil
 		},
 	})
 
@@ -349,8 +348,8 @@ func addDateTimeLookup() {
 		Description: "Unit of time equal to One billionth (10^-9) of a second",
 		Example:     "196446360",
 		Output:      "int",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return nanoSecond(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return nanoSecond(f), nil
 		},
 	})
 
@@ -360,8 +359,8 @@ func addDateTimeLookup() {
 		Description: "Unit of time equal to 1/60th of a minute",
 		Example:     "43",
 		Output:      "int",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return second(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return second(f), nil
 		},
 	})
 
@@ -371,8 +370,8 @@ func addDateTimeLookup() {
 		Description: "Unit of time equal to 60 seconds",
 		Example:     "34",
 		Output:      "int",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return minute(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return minute(f), nil
 		},
 	})
 
@@ -382,8 +381,8 @@ func addDateTimeLookup() {
 		Description: "Unit of time equal to 60 minutes",
 		Example:     "8",
 		Output:      "int",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return hour(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return hour(f), nil
 		},
 	})
 
@@ -393,8 +392,8 @@ func addDateTimeLookup() {
 		Description: "24-hour period equivalent to one rotation of Earth on its axis",
 		Example:     "12",
 		Output:      "int",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return day(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return day(f), nil
 		},
 	})
 
@@ -404,8 +403,8 @@ func addDateTimeLookup() {
 		Description: "Day of the week excluding the weekend",
 		Example:     "Friday",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return weekDay(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return weekDay(f), nil
 		},
 	})
 
@@ -415,8 +414,8 @@ func addDateTimeLookup() {
 		Description: "Division of the year, typically 30 or 31 days long",
 		Example:     "1",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return month(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return month(f), nil
 		},
 	})
 
@@ -426,8 +425,8 @@ func addDateTimeLookup() {
 		Description: "String Representation of a month name",
 		Example:     "September",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return monthString(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return monthString(f), nil
 		},
 	})
 
@@ -437,8 +436,8 @@ func addDateTimeLookup() {
 		Description: "Period of 365 days, the time Earth takes to orbit the Sun",
 		Example:     "1900",
 		Output:      "int",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return year(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return year(f), nil
 		},
 	})
 
@@ -448,8 +447,8 @@ func addDateTimeLookup() {
 		Description: "Region where the same standard time is used, based on longitudinal divisions of the Earth",
 		Example:     "Kaliningrad Standard Time",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return timeZone(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return timeZone(f), nil
 		},
 	})
 
@@ -459,8 +458,8 @@ func addDateTimeLookup() {
 		Description: "Abbreviated 3-letter word of a timezone",
 		Example:     "KST",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return timeZoneAbv(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return timeZoneAbv(f), nil
 		},
 	})
 
@@ -470,8 +469,8 @@ func addDateTimeLookup() {
 		Description: "Full name of a timezone",
 		Example:     "(UTC+03:00) Kaliningrad, Minsk",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return timeZoneFull(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return timeZoneFull(f), nil
 		},
 	})
 
@@ -481,8 +480,8 @@ func addDateTimeLookup() {
 		Description: "The difference in hours from Coordinated Universal Time (UTC) for a specific region",
 		Example:     "3",
 		Output:      "float32",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return timeZoneOffset(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return timeZoneOffset(f), nil
 		},
 	})
 
@@ -492,8 +491,8 @@ func addDateTimeLookup() {
 		Description: "Geographic area sharing the same standard time",
 		Example:     "America/Alaska",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return timeZoneRegion(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return timeZoneRegion(f), nil
 		},
 	})
 
