@@ -246,7 +246,6 @@ func addFileJSONLookup() {
 				}
 			}
 
-			f := &Faker{Rand: r}
 			return jsonFunc(f, &jo)
 		},
 	})
@@ -275,7 +274,7 @@ func rJsonNumber(f *Faker, t reflect.Type, v reflect.Value, tag string, size int
 	var numberType string
 
 	if tag == "" {
-		numberType = fomString([]string{"int", "float"})
+		numberType = f.RandomString([]string{"int", "float"})
 
 		switch numberType {
 		case "int":

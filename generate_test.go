@@ -197,7 +197,7 @@ func TestFixedWidthLookup(t *testing.T) {
 		},
 	}
 
-	output, err := info.Generate(faker.Rand, &m, info)
+	output, err := info.Generate(faker, &m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -236,7 +236,7 @@ func BenchmarkFixedWidthLookup100(b *testing.B) {
 				`{"name":"Age","function":"{number:1,100}"}`,
 			},
 		}
-		_, err := info.Generate(faker.Rand, &m, info)
+		_, err := info.Generate(faker, &m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
@@ -257,7 +257,7 @@ func BenchmarkFixedWidthLookup1000(b *testing.B) {
 				`{"name":"Age","function":"{number:1,100}"}`,
 			},
 		}
-		_, err := info.Generate(faker.Rand, &m, info)
+		_, err := info.Generate(faker, &m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
@@ -278,7 +278,7 @@ func BenchmarkFixedWidthLookup10000(b *testing.B) {
 				`{"name":"Age","function":"{number:1,100}"}`,
 			},
 		}
-		_, err := info.Generate(faker.Rand, &m, info)
+		_, err := info.Generate(faker, &m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}

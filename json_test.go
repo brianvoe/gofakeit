@@ -173,7 +173,7 @@ func TestJSONLookup(t *testing.T) {
 	m.Add("fields", `{"name":"first_name","function":"firstname"}`)
 	m.Add("fields", `{"name":"password","function":"password","params":{"special":["false"],"length":["20"]}}`)
 
-	_, err := info.Generate(faker.Rand, m, info)
+	_, err := info.Generate(faker, m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -199,7 +199,7 @@ func TestJSONObjectLookupWithSubJSON(t *testing.T) {
 		}
 	}`)
 
-	output, err := info.Generate(faker.Rand, m, info)
+	output, err := info.Generate(faker, m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -259,7 +259,7 @@ func TestJSONArrayLookupWithSubJSON(t *testing.T) {
 		}
 	}`)
 
-	output, err := info.Generate(faker.Rand, m, info)
+	output, err := info.Generate(faker, m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -496,7 +496,7 @@ func BenchmarkJSONLookup100(b *testing.B) {
 		m.Add("fields", `{"name":"description","function":"paragraph"}`)
 		m.Add("fields", `{"name":"created_at","function":"date"}`)
 
-		_, err := info.Generate(faker.Rand, m, info)
+		_, err := info.Generate(faker, m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
@@ -520,7 +520,7 @@ func BenchmarkJSONLookup1000(b *testing.B) {
 				`{"name":"created_at","function":"date"}`,
 			},
 		}
-		_, err := info.Generate(faker.Rand, &m, info)
+		_, err := info.Generate(faker, &m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
@@ -544,7 +544,7 @@ func BenchmarkJSONLookup10000(b *testing.B) {
 				`{"name":"created_at","function":"date"}`,
 			},
 		}
-		_, err := info.Generate(faker.Rand, &m, info)
+		_, err := info.Generate(faker, &m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}
@@ -568,7 +568,7 @@ func BenchmarkJSONLookup100000(b *testing.B) {
 				`{"name":"created_at","function":"date"}`,
 			},
 		}
-		_, err := info.Generate(faker.Rand, &m, info)
+		_, err := info.Generate(faker, &m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}

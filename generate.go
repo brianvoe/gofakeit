@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"math"
-	"math/rand/v2"
 	"regexp/syntax"
 	"strings"
 )
@@ -288,7 +287,7 @@ func regex(f *Faker, regexStr string) (gen string) {
 	return regexGenerate(f, re, len(regexStr)*100)
 }
 
-func regexGenerate(ra *rand.Rand, re *syntax.Regexp, limit int) string {
+func regexGenerate(f *Faker, re *syntax.Regexp, limit int) string {
 	if limit <= 0 {
 		panic("Length limit reached when generating output")
 	}
@@ -331,11 +330,11 @@ func regexGenerate(ra *rand.Rand, re *syntax.Regexp, limit int) string {
 				}
 			}
 			if len(chars) > 0 {
-				return string([]byte{chars[ra.IntN(len(chars))]})
+				return string([]byte{chars[f.IntN(len(chars))]})
 			}
 		}
 
-		r := ra.IntN(int(sum))
+		r := f.IntN(int(sum))
 		var ru rune
 		sum = 0
 		for i := 0; i < len(re.Rune); i += 2 {
@@ -349,7 +348,7 @@ func regexGenerate(ra *rand.Rand, re *syntax.Regexp, limit int) string {
 
 		return string(ru)
 	case syntax.OpAnyCharNotNL, syntax.OpAnyChar: // matches any character(and except newline)
-		return randCharacter(ra, allStr)
+		return randCharacter(f, allStr)
 	case syntax.OpBeginLine: // matches empty string at beginning of line
 	case syntax.OpEndLine: // matches empty string at end of line
 	case syntax.OpBeginText: // matches empty string at beginning of text
@@ -357,28 +356,28 @@ func regexGenerate(ra *rand.Rand, re *syntax.Regexp, limit int) string {
 	case syntax.OpWordBoundary: // matches word boundary `\b`
 	case syntax.OpNoWordBoundary: // matches word non-boundary `\B`
 	case syntax.OpCapture: // capturing subexpression with index Cap, optional name Name
-		return regexGenerate(ra, re.Sub0[0], limit)
+		return regexGenerate(f, re.Sub0[0], limit)
 	case syntax.OpStar: // matches Sub[0] zero or more times
 		var b strings.Builder
-		for i := 0; i < number(ra, 0, 10); i++ {
+		for i := 0; i < number(f, 0, 10); i++ {
 			for _, rs := range re.Sub {
-				b.WriteString(regexGenerate(ra, rs, limit-b.Len()))
+				b.WriteString(regexGenerate(f, rs, limit-b.Len()))
 			}
 		}
 		return b.String()
 	case syntax.OpPlus: // matches Sub[0] one or more times
 		var b strings.Builder
-		for i := 0; i < number(ra, 1, 10); i++ {
+		for i := 0; i < number(f, 1, 10); i++ {
 			for _, rs := range re.Sub {
-				b.WriteString(regexGenerate(ra, rs, limit-b.Len()))
+				b.WriteString(regexGenerate(f, rs, limit-b.Len()))
 			}
 		}
 		return b.String()
 	case syntax.OpQuest: // matches Sub[0] zero or one times
 		var b strings.Builder
-		for i := 0; i < number(ra, 0, 1); i++ {
+		for i := 0; i < number(f, 0, 1); i++ {
 			for _, rs := range re.Sub {
-				b.WriteString(regexGenerate(ra, rs, limit-b.Len()))
+				b.WriteString(regexGenerate(f, rs, limit-b.Len()))
 			}
 		}
 		return b.String()
@@ -387,22 +386,22 @@ func regexGenerate(ra *rand.Rand, re *syntax.Regexp, limit int) string {
 		count := 0
 		re.Max = int(math.Min(float64(re.Max), float64(10)))
 		if re.Max > re.Min {
-			count = ra.IntN(re.Max - re.Min + 1)
+			count = f.IntN(re.Max - re.Min + 1)
 		}
 		for i := 0; i < re.Min || i < (re.Min+count); i++ {
 			for _, rs := range re.Sub {
-				b.WriteString(regexGenerate(ra, rs, limit-b.Len()))
+				b.WriteString(regexGenerate(f, rs, limit-b.Len()))
 			}
 		}
 		return b.String()
 	case syntax.OpConcat: // matches concatenation of Subs
 		var b strings.Builder
 		for _, rs := range re.Sub {
-			b.WriteString(regexGenerate(ra, rs, limit-b.Len()))
+			b.WriteString(regexGenerate(f, rs, limit-b.Len()))
 		}
 		return b.String()
 	case syntax.OpAlternate: // matches alternation of Subs
-		return regexGenerate(ra, re.Sub[number(ra, 0, len(re.Sub)-1)], limit)
+		return regexGenerate(f, re.Sub[number(f, 0, len(re.Sub)-1)], limit)
 	}
 
 	return ""

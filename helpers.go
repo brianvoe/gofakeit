@@ -141,7 +141,7 @@ func randIntRange(f *Faker, min, max int) int {
 
 	// Loop through the range until we find a number that fits
 	for {
-		v := int(r.Uint64())
+		v := int(f.Uint64())
 		if (v >= min) && (v <= max) {
 			return v
 		}
@@ -170,7 +170,7 @@ func randUintRange(f *Faker, min, max uint) uint {
 
 	// Loop through the range until we find a number that fits
 	for {
-		v := uint(r.Uint64())
+		v := uint(f.Uint64())
 		if (v >= min) && (v <= max) {
 			return v
 		}
@@ -280,12 +280,12 @@ func title(s string) string {
 		}
 
 		// Letters and digits are not separators
-		if unicode.IsLetter(f) || unicode.IsDigit(f) {
+		if unicode.IsLetter(r) || unicode.IsDigit(r) {
 			return false
 		}
 
 		// Otherwise, all we can do for now is treat spaces as separators.
-		return unicode.IsSpace(f)
+		return unicode.IsSpace(r)
 	}
 
 	prev := ' '
@@ -293,7 +293,7 @@ func title(s string) string {
 		func(r rune) rune {
 			if isSeparator(prev) {
 				prev = r
-				return unicode.ToTitle(f)
+				return unicode.ToTitle(r)
 			}
 			prev = r
 			return r
