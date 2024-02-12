@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"math"
+	"math/bits"
 )
 
 // Number will generate a random number between given min and max
@@ -20,13 +21,26 @@ func (f *Faker) Uint() uint { return uintFunc(f) }
 
 func uintFunc(f *Faker) uint { return uint(f.Uint64()) }
 
+// UintN will generate a random uint value between 0 and n
+func UintN(n uint) uint { return uintNFunc(GlobalFaker, n) }
+
+// UintN will generate a random uint value between 0 and n
+func (f *Faker) UintN(n uint) uint { return uintNFunc(f, n) }
+
+func uintNFunc(f *Faker, n uint) uint {
+	if n == 0 {
+		panic("invalid argument to UintN")
+	}
+	return uint(uint64NFunc(f, uint64(n)))
+}
+
 // Uint8 will generate a random uint8 value
 func Uint8() uint8 { return uint8Func(GlobalFaker) }
 
 // Uint8 will generate a random uint8 value
 func (f *Faker) Uint8() uint8 { return uint8Func(f) }
 
-func uint8Func(f *Faker) uint8 { return uint8(randUintRange(f, minUint, math.MaxUint8)) }
+func uint8Func(f *Faker) uint8 { return uint8(f.Uint64() >> 56) }
 
 // Uint16 will generate a random uint16 value
 func Uint16() uint16 { return uint16Func(GlobalFaker) }
@@ -34,7 +48,7 @@ func Uint16() uint16 { return uint16Func(GlobalFaker) }
 // Uint16 will generate a random uint16 value
 func (f *Faker) Uint16() uint16 { return uint16Func(f) }
 
-func uint16Func(f *Faker) uint16 { return uint16(randUintRange(f, minUint, math.MaxUint16)) }
+func uint16Func(f *Faker) uint16 { return uint16(f.Uint64() >> 48) }
 
 // Uint32 will generate a random uint32 value
 func Uint32() uint32 { return uint32Func(GlobalFaker) }
@@ -50,7 +64,32 @@ func Uint32N(n uint32) uint32 { return uint32NFunc(GlobalFaker, n) }
 // Uint32N will generate a random uint32 value between 0 and n
 func (f *Faker) Uint32N(n uint32) uint32 { return uint32NFunc(f, n) }
 
-func uint32NFunc(f *Faker, n uint32) uint32 { return uint32(f.uint64n(uint64(n))) }
+// uint32n is an identical computation to uint64n
+// but optimized for 32-bit systems.
+// See https://cs.opensource.google/go/go/+/refs/tags/go1.22.0:src/math/rand/v2/rand.go;l=128
+func uint32NFunc(f *Faker, n uint32) uint32 {
+	if n&(n-1) == 0 { // n is power of two, can mask
+		return uint32(f.Uint64()) & (n - 1)
+	}
+
+	x := f.Uint64()
+	lo1a, lo0 := bits.Mul32(uint32(x), n)
+	hi, lo1b := bits.Mul32(uint32(x>>32), n)
+	lo1, c := bits.Add32(lo1a, lo1b, 0)
+	hi += c
+	if lo1 == 0 && lo0 < uint32(n) {
+		n64 := uint64(n)
+		thresh := uint32(-n64 % n64)
+		for lo1 == 0 && lo0 < thresh {
+			x := f.Uint64()
+			lo1a, lo0 = bits.Mul32(uint32(x), n)
+			hi, lo1b = bits.Mul32(uint32(x>>32), n)
+			lo1, c = bits.Add32(lo1a, lo1b, 0)
+			hi += c
+		}
+	}
+	return hi
+}
 
 // Uint64 will generate a random uint64 value
 func Uint64() uint64 { return uint64Func(GlobalFaker) }
@@ -59,6 +98,32 @@ func Uint64() uint64 { return uint64Func(GlobalFaker) }
 func (f *Faker) Uint64() uint64 { return uint64Func(f) }
 
 func uint64Func(f *Faker) uint64 { return f.Uint64() }
+
+// Uint64N will generate a random uint64 value between 0 and n
+func Uint64N(n uint64) uint64 { return uint64NFunc(GlobalFaker, n) }
+
+// Uint64N will generate a random uint64 value between 0 and n
+func (f *Faker) Uint64N(n uint64) uint64 { return uint64NFunc(f, n) }
+
+// uint64n is the no-bounds-checks version of Uint64N.
+// See https://cs.opensource.google/go/go/+/refs/tags/go1.22.0:src/math/rand/v2/rand.go;l=78
+func uint64NFunc(f *Faker, n uint64) uint64 {
+	if is32bit && uint64(uint32(n)) == n {
+		return uint64(uint32NFunc(f, uint32(n)))
+	}
+	if n&(n-1) == 0 { // n is power of two, can mask
+		return f.Uint64() & (n - 1)
+	}
+
+	hi, lo := bits.Mul64(f.Uint64(), n)
+	if lo < n {
+		thresh := -n % n
+		for lo < thresh {
+			hi, lo = bits.Mul64(f.Uint64(), n)
+		}
+	}
+	return hi
+}
 
 // UintRange will generate a random uint value between min and max
 func UintRange(min, max uint) uint { return uintRangeFunc(GlobalFaker, min, max) }
@@ -86,7 +151,7 @@ func intNFunc(f *Faker, n int) int {
 	if n <= 0 {
 		panic("invalid argument to IntN")
 	}
-	return int(f.uint64n(uint64(n)))
+	return int(uint64NFunc(f, uint64(n)))
 }
 
 // Int8 will generate a random Int8 value
@@ -113,6 +178,19 @@ func (f *Faker) Int32() int32 { return int32Func(f) }
 
 func int32Func(f *Faker) int32 { return int32(f.Uint64() >> 33) }
 
+// Int32N will generate a random int32 value between 0 and n
+func Int32N(n int32) int32 { return int32NFunc(GlobalFaker, n) }
+
+// Int32N will generate a random int32 value between 0 and n
+func (f *Faker) Int32N(n int32) int32 { return int32NFunc(f, n) }
+
+func int32NFunc(f *Faker, n int32) int32 {
+	if n <= 0 {
+		panic("invalid argument to Int32N")
+	}
+	return int32(uint64NFunc(f, uint64(n)))
+}
+
 // Int64 will generate a random int64 value
 func Int64() int64 { return int64Func(GlobalFaker) }
 
@@ -120,6 +198,19 @@ func Int64() int64 { return int64Func(GlobalFaker) }
 func (f *Faker) Int64() int64 { return int64Func(f) }
 
 func int64Func(f *Faker) int64 { return int64(f.Uint64() &^ (1 << 63)) }
+
+// Int64N will generate a random int64 value between 0 and n
+func Int64N(n int64) int64 { return int64NFunc(GlobalFaker, n) }
+
+// Int64N will generate a random int64 value between 0 and n
+func (f *Faker) Int64N(n int64) int64 { return int64NFunc(f, n) }
+
+func int64NFunc(f *Faker, n int64) int64 {
+	if n <= 0 {
+		panic("invalid argument to Int64N")
+	}
+	return int64(uint64NFunc(f, uint64(n)))
+}
 
 // IntRange will generate a random int value between min and max
 func IntRange(min, max int) int { return intRangeFunc(GlobalFaker, min, max) }
