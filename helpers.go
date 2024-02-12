@@ -136,7 +136,7 @@ func randIntRange(f *Faker, min, max int) int {
 	// Figure out if the min/max numbers calculation
 	// would cause a panic in the Int63() function.
 	if max-min+1 > 0 {
-		return min + int(f.Int64N(int64(max-min+1)))
+		return min + int(int64NFunc(f, int64(max-min+1)))
 	}
 
 	// Loop through the range until we find a number that fits

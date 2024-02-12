@@ -88,7 +88,7 @@ func shuffleAnySlice(f *Faker, v any) {
 	//if size is > int32 probably it will never finish, or ran out of entropy
 	i := n - 1
 	for ; i > 0; i-- {
-		j := int(f.Int32N(int32(i + 1)))
+		j := int(int32NFunc(f, int32(i+1)))
 		swap(i, j)
 	}
 }
