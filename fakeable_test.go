@@ -74,7 +74,8 @@ func ExampleFakeable() {
 	fmt.Printf("%#v\n", t2)
 	fmt.Printf("%#v\n", t3)
 	fmt.Printf("%#v\n", t4)
-	// Expected Output:
+
+	// Output:
 	// gofakeit.testStruct1{B:"Margarette"}
 	// gofakeit.testStruct1{B:"Margarette"}
 	// gofakeit.testStruct2{B:"Margarette"}
@@ -101,7 +102,7 @@ func (gammaFloat64) Fake(f *Faker) (any, error) {
 	return gammaFloat64(r), nil
 }
 
-func ExampleGammaFloat64() {
+func ExampleFakeable_gammaFloat64() {
 	f1 := New(100)
 
 	// Fakes random values from the Gamma distribution
@@ -139,18 +140,18 @@ func (poissonInt64) Fake(faker *Faker) (any, error) {
 	return poissonInt64(k - 1), nil
 }
 
-type customerSupportEmployee struct {
+type employee struct {
 	Name             string `fake:"{firstname} {lastname}"`
 	CallCountPerHour poissonInt64
 }
 
-func ExamplecustomerSupportEmployee() {
+func ExampleFakeable_employee() {
 	f1 := New(100)
 
 	// Fakes random values from the Gamma distribution
-	var A1 customerSupportEmployee
-	var A2 customerSupportEmployee
-	var A3 customerSupportEmployee
+	var A1 employee
+	var A2 employee
+	var A3 employee
 	f1.Struct(&A1)
 	f1.Struct(&A2)
 	f1.Struct(&A3)
@@ -160,7 +161,7 @@ func ExamplecustomerSupportEmployee() {
 	fmt.Printf("%#v\n", A3)
 
 	// Output:
-	// gofakeit.customerSupportEmployee{Name:"Pearline Rippin", CallCountPerHour:12}
-	// gofakeit.customerSupportEmployee{Name:"Sammie Renner", CallCountPerHour:23}
-	// gofakeit.customerSupportEmployee{Name:"Katlyn Runte", CallCountPerHour:8}
+	// gofakeit.employee{Name:"Pearline Rippin", CallCountPerHour:12}
+	// gofakeit.employee{Name:"Sammie Renner", CallCountPerHour:23}
+	// gofakeit.employee{Name:"Katlyn Runte", CallCountPerHour:8}
 }
