@@ -61,6 +61,7 @@ func uint32Func(f *Faker) uint32 { return uint32(f.Uint64() >> 32) }
 // uint32n is an identical computation to uint64n
 // but optimized for 32-bit systems.
 // See https://cs.opensource.google/go/go/+/refs/tags/go1.22.0:src/math/rand/v2/rand.go;l=128
+// hidden as to not clutter with additional N functions
 func uint32NFunc(f *Faker, n uint32) uint32 {
 	if n&(n-1) == 0 { // n is power of two, can mask
 		return uint32(f.Uint64()) & (n - 1)
@@ -95,6 +96,7 @@ func uint64Func(f *Faker) uint64 { return f.Uint64() }
 
 // uint64n is the no-bounds-checks version of Uint64N.
 // See https://cs.opensource.google/go/go/+/refs/tags/go1.22.0:src/math/rand/v2/rand.go;l=78
+// hidden as to not clutter with additional N functions
 func uint64NFunc(f *Faker, n uint64) uint64 {
 	if is32bit && uint64(uint32(n)) == n {
 		return uint64(uint32NFunc(f, uint32(n)))
@@ -166,6 +168,8 @@ func (f *Faker) Int32() int32 { return int32Func(f) }
 
 func int32Func(f *Faker) int32 { return int32(f.Uint64() >> 33) }
 
+// int32n is an identical computation to int64n
+// hidden as to not clutter with additional N functions
 func int32NFunc(f *Faker, n int32) int32 {
 	if n <= 0 {
 		return 0
@@ -181,6 +185,8 @@ func (f *Faker) Int64() int64 { return int64Func(f) }
 
 func int64Func(f *Faker) int64 { return int64(f.Uint64() &^ (1 << 63)) }
 
+// int64n is the no-bounds-checks version of Int64N
+// hidden as to not clutter with additional N functions
 func int64NFunc(f *Faker, n int64) int64 {
 	if n <= 0 {
 		return 0
