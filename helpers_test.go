@@ -63,8 +63,8 @@ func TestRandUintRange(t *testing.T) {
 	tests := []testStruct{
 		{0, 0},
 		{100000, 100},
-		{0, maxUint},
-		{0 + 10000, maxUint - 10000},
+		{minUint, maxUint},
+		{minUint + 10000, maxUint - 10000},
 	}
 
 	// Add 10000 random values to the test set
