@@ -2,20 +2,10 @@ package gofakeit
 
 import (
 	"fmt"
+	"math/rand/v2"
 	"sync"
 	"testing"
-
-	"github.com/brianvoe/gofakeit/v6/source"
 )
-
-func TestSeed(t *testing.T) {
-	// Test crypto that has no parameters in Seed
-	GlobalFaker = New(0)
-	Seed(11)
-
-	// Will panic if Seed couldn't be called
-	t.Fatal("Seed failed")
-}
 
 func Example() {
 	Seed(11)
@@ -50,13 +40,7 @@ func Example() {
 
 func ExampleNew() {
 	// Get new faker with default settings
-	fake := New(0)
-
-	// or
-
-	// Create new faker with ChaCha8
-	chacha := source.NewChaCha8([32]byte{5, 4, 3, 2, 1, 0}, true)
-	fake = NewFaker(chacha)
+	fake := New(11)
 
 	// All global functions are also available in the structs methods
 	fmt.Println("Name:", fake.Name())
@@ -64,15 +48,51 @@ func ExampleNew() {
 	fmt.Println("Phone:", fake.Phone())
 
 	// Output:
-	// Name: Markus Moen
-	// Email: alaynawuckert@kozey.biz
-	// Phone: 9948995369
+	// Name: Sonny Stiedemann
+	// Email: codydonnelly@leannon.biz
+	// Phone: 7598907999
+}
+
+func ExampleNewFaker() {
+	// Create new faker with ChaCha8, cryptographically secure
+	chacha := rand.NewChaCha8([32]byte{5, 4, 3, 2, 1, 0})
+	fake := NewFaker(chacha, true)
+
+	// or
+
+	// Create new faker with PCG, pseudo-random
+	pcg := rand.NewPCG(0, 0)
+	fake = NewFaker(pcg, false)
+
+	fmt.Println("Name:", fake.Name())
+
+	// Output:
+	// Name: Damian Pagac
+}
+
+func TestSeed(t *testing.T) {
+	// Test crypto that has no parameters in Seed
+	GlobalFaker = New(11)
+
+	// Test a simple function
+	name := Name()
+
+	// Seed
+	err := Seed(11)
+	if err != nil {
+		t.Error(err)
+	}
+
+	// Make sure name is the same
+	if name != Name() {
+		t.Error("Name was different after seed")
+	}
 }
 
 func TestSetGlobalFaker(t *testing.T) {
 	// Set global to crypto
-	cryptoFaker := source.NewCrypto(true)
-	GlobalFaker = NewFaker(cryptoFaker)
+	crypto := rand.NewPCG(11, 11)
+	GlobalFaker = NewFaker(crypto, true)
 
 	// Test a simple function
 	name := Name()
