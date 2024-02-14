@@ -1,9 +1,8 @@
 package source
 
 import (
-	crand "crypto/rand"
+	"crypto/rand"
 	"encoding/binary"
-	"sync"
 )
 
 // Package source implements a cryptographically secure pseudo-random number generator (CSPRNG)
@@ -22,30 +21,32 @@ import (
 //   limitation in scenarios where deterministic pseudo-randomness is desired.
 
 type Crypto struct {
-	buf []byte
-
-	// Lock to make reading thread safe
-	sync.Mutex
-	lock bool
+	buffer [64]byte // Buffer to hold a block of random data
+	offset int      // Current offset in the buffer
 }
 
-// NewCrypto will utilize crypto/rand for concurrent random usage.
-func NewCrypto(lock bool) *Crypto {
-	return &Crypto{
-		lock: lock,
-		buf:  make([]byte, 8),
-	}
+// NewCrypto creates a new instance of Crypto.
+func NewCrypto() *Crypto {
+	return &Crypto{}
 }
 
-func (c *Crypto) Seed() {}
+// refillBuffer fills the buffer with random data from crypto/rand.
+func (s *Crypto) refillBuffer() {
+	if _, err := rand.Read(s.buffer[:]); err != nil {
+		panic("crypto/rand failed: " + err.Error()) // Handle the error appropriately for your application
+	}
+	s.offset = 0 // Reset offset after refilling
+}
 
-func (c *Crypto) Uint64() uint64 {
-	// Lock to make reading thread safe
-	if c.lock {
-		c.Lock()
-		defer c.Unlock()
+// Uint64 generates a pseudo-random 64-bit value using crypto/rand, served from a buffered block of data.
+func (s *Crypto) Uint64() uint64 {
+	if s.offset+8 > len(s.buffer) { // Check if we need to refill the buffer
+		s.refillBuffer()
 	}
 
-	crand.Read(c.buf)
-	return binary.BigEndian.Uint64(c.buf)
+	// Extract a uint64 value from the current position in the buffer
+	val := binary.BigEndian.Uint64(s.buffer[s.offset:])
+	s.offset += 8 // Move the offset for the next call
+
+	return val
 }

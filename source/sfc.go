@@ -1,8 +1,6 @@
 package source
 
-import "sync"
-
-// The SimpleFastCounter algorithm is designed for fast and efficient generation of pseudo-random numbers,
+// The SFC(Simple Fast Counter) algorithm is designed for fast and efficient generation of pseudo-random numbers,
 // utilizing arithmetic and bitwise operations across state variables and a counter to ensure
 // good randomness quality. It is particularly well-suited for applications requiring rapid
 // number generation without the need for cryptographic security.
@@ -16,35 +14,24 @@ import "sync"
 // - Not designed for cryptographic applications due to its level of randomness.
 // - Initial seeding mechanism is basic; may require enhancement for more complex use cases.
 
-type SimpleFastCounter struct {
+type SFC struct {
 	a, b, c, counter uint64
-
-	// Lock to make reading thread safe
-	sync.Mutex
-	lock bool
 }
 
-// NewSimpleFastCounter creates and returns a new SimpleFastCounter pseudo-random number generator seeded with a given seed.
-func NewSimpleFastCounter(seed uint64, lock bool) *SimpleFastCounter {
+// NewSFC creates and returns a new SFC pseudo-random number generator seeded with a given seed.
+func NewSFC(seed uint64) *SFC {
 	// Initialize the state with a seed. Here, we use a simple seeding method,
 	// but you might consider a more sophisticated approach.
-	return &SimpleFastCounter{
+	return &SFC{
 		a:       seed,
 		b:       seed,
 		c:       seed,
 		counter: 1, // Start the counter at 1 to avoid an all-zero state
-		lock:    lock,
 	}
 }
 
-// Uint64 generates a pseudo-random 64-bit value using the SimpleFastCounter algorithm.
-func (s *SimpleFastCounter) Uint64() uint64 {
-	// If locking is enabled, lock the generator to make it thread-safe
-	if s.lock {
-		s.Lock()
-		defer s.Unlock()
-	}
-
+// Uint64 generates a pseudo-random 64-bit value using the SFC algorithm.
+func (s *SFC) Uint64() uint64 {
 	s.a += s.b + s.counter
 	s.b ^= s.c
 	s.c -= s.a
@@ -52,15 +39,9 @@ func (s *SimpleFastCounter) Uint64() uint64 {
 	return s.c + s.b
 }
 
-// Seed sets the seed of the SimpleFastCounter. This implementation can be enhanced to
+// Seed sets the seed of the SFC. This implementation can be enhanced to
 // provide a more distributed seeding process across the state variables.
-func (s *SimpleFastCounter) Seed(seed int64) {
-	// If locking is enabled, lock the generator to make it thread-safe
-	if s.lock {
-		s.Lock()
-		defer s.Unlock()
-	}
-
+func (s *SFC) Seed(seed int64) {
 	s.a = uint64(seed)
 	s.b = uint64(seed)
 	s.c = uint64(seed)

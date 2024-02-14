@@ -1,8 +1,6 @@
 package source
 
-import "sync"
-
-// Package implements the Jenkins Small Fast pseudo-random number generator.
+// The JSF(Jenkins Small Fast) pseudo-random number generator.
 // Developed by Bob Jenkins, JSF is known for its speed and efficiency, making it suitable
 // for applications requiring fast, non-cryptographic quality random numbers. This implementation
 // offers seamless integration with Go's math/rand package and includes an improved seeding mechanism.
@@ -14,31 +12,21 @@ import "sync"
 
 // Cons:
 // - Not suitable for cryptographic purposes due to its non-cryptographic security level.
-// - Quality of randomness may not match that of more complex algorithms like Mersenne Twister.
+// - Quality of randomness may not match that of more complex algorithms.
 
-type JenkinsSmallFast struct {
+type JSF struct {
 	a, b, c, d uint32
-
-	// Lock to make reading thread safe
-	sync.Mutex
-	lock bool
 }
 
-// NewJenkinsSmallFast creates and returns a new JSF pseudo-random number generator.
-func NewJenkinsSmallFast(seed uint64, lock bool) *JenkinsSmallFast {
-	jsf := &JenkinsSmallFast{lock: lock}
+// NewJSF creates and returns a new JSF pseudo-random number generator.
+func NewJSF(seed uint64) *JSF {
+	jsf := &JSF{}
 	jsf.Seed(seed)
 	return jsf
 }
 
 // Seed sets the seed of the JSF with an improved seeding mechanism.
-func (jsf *JenkinsSmallFast) Seed(seed uint64) {
-	// If locking is enabled, lock the generator to make it thread-safe
-	if jsf.lock {
-		jsf.Lock()
-		defer jsf.Unlock()
-	}
-
+func (jsf *JSF) Seed(seed uint64) {
 	// Use the seed to derive initial values for a, b, c, d with better distribution
 	// Splitting the 64-bit seed into parts and using different operations to diversify
 	s1 := uint32(seed)
@@ -50,13 +38,7 @@ func (jsf *JenkinsSmallFast) Seed(seed uint64) {
 }
 
 // Uint64 generates a pseudo-random 64-bit value using the improved JSF algorithm.
-func (jsf *JenkinsSmallFast) Uint64() uint64 {
-	// If locking is enabled, lock the generator to make it thread-safe
-	if jsf.lock {
-		jsf.Lock()
-		defer jsf.Unlock()
-	}
-
+func (jsf *JSF) Uint64() uint64 {
 	e := jsf.a - (jsf.b<<27 | jsf.b>>(32-27))
 	f := jsf.b ^ (jsf.c << 17)
 	jsf.c += jsf.d
