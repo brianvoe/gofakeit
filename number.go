@@ -58,47 +58,53 @@ func (f *Faker) Uint32() uint32 { return uint32Func(f) }
 
 func uint32Func(f *Faker) uint32 { return uint32(f.Uint64() >> 32) }
 
-// uint32n is an identical computation to uint64n
-// but optimized for 32-bit systems.
-// See https://cs.opensource.google/go/go/+/refs/tags/go1.22.0:src/math/rand/v2/rand.go;l=128
-// hidden as to not clutter with additional N functions
-func uint32NFunc(f *Faker, n uint32) uint32 {
-	if n&(n-1) == 0 { // n is power of two, can mask
-		return uint32(f.Uint64()) & (n - 1)
+// Uint64 will generate a random uint64 value
+func Uint64() uint64 { return GlobalFaker.Uint64() }
+
+// Uint64 will generate a random uint64 value
+// This is the primary location in which the random number is generated.
+// This will be the only location in which reading from Rand.Uint64() is lockable
+func (f *Faker) Uint64() uint64 {
+	// Check if the source is locked
+	if f.Locked {
+		// Lock the source
+		f.mu.Lock()
+		defer f.mu.Unlock()
 	}
 
-	x := f.Uint64()
-	lo1a, lo0 := bits.Mul32(uint32(x), n)
-	hi, lo1b := bits.Mul32(uint32(x>>32), n)
-	lo1, c := bits.Add32(lo1a, lo1b, 0)
-	hi += c
-	if lo1 == 0 && lo0 < uint32(n) {
-		n64 := uint64(n)
-		thresh := uint32(-n64 % n64)
-		for lo1 == 0 && lo0 < thresh {
-			x := f.Uint64()
-			lo1a, lo0 = bits.Mul32(uint32(x), n)
-			hi, lo1b = bits.Mul32(uint32(x>>32), n)
-			lo1, c = bits.Add32(lo1a, lo1b, 0)
-			hi += c
-		}
-	}
-	return hi
+	return f.Rand.Uint64()
 }
-
-// Uint64 will generate a random uint64 value
-func Uint64() uint64 { return uint64Func(GlobalFaker) }
-
-// Uint64 will generate a random uint64 value
-func (f *Faker) Uint64() uint64 { return uint64Func(f) }
-
-func uint64Func(f *Faker) uint64 { return f.Uint64() }
 
 // uint64n is the no-bounds-checks version of Uint64N.
 // See https://cs.opensource.google/go/go/+/refs/tags/go1.22.0:src/math/rand/v2/rand.go;l=78
 // hidden as to not clutter with additional N functions
 func uint64NFunc(f *Faker, n uint64) uint64 {
 	if is32bit && uint64(uint32(n)) == n {
+		// create reusable function here
+		uint32NFunc := func(f *Faker, n uint32) uint32 {
+			if n&(n-1) == 0 { // n is power of two, can mask
+				return uint32(f.Uint64()) & (n - 1)
+			}
+
+			x := f.Uint64()
+			lo1a, lo0 := bits.Mul32(uint32(x), n)
+			hi, lo1b := bits.Mul32(uint32(x>>32), n)
+			lo1, c := bits.Add32(lo1a, lo1b, 0)
+			hi += c
+			if lo1 == 0 && lo0 < uint32(n) {
+				n64 := uint64(n)
+				thresh := uint32(-n64 % n64)
+				for lo1 == 0 && lo0 < thresh {
+					x := f.Uint64()
+					lo1a, lo0 = bits.Mul32(uint32(x), n)
+					hi, lo1b = bits.Mul32(uint32(x>>32), n)
+					lo1, c = bits.Add32(lo1a, lo1b, 0)
+					hi += c
+				}
+			}
+			return hi
+		}
+
 		return uint64(uint32NFunc(f, uint32(n)))
 	}
 	if n&(n-1) == 0 { // n is power of two, can mask
@@ -386,6 +392,36 @@ func addNumberLookup() {
 		},
 	})
 
+	AddFuncLookup("uint", Info{
+		Display:     "Uint",
+		Category:    "number",
+		Description: "Unsigned integer",
+		Example:     "14866",
+		Output:      "uint",
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return uintFunc(f), nil
+		},
+	})
+
+	AddFuncLookup("uintn", Info{
+		Display:     "UintN",
+		Category:    "number",
+		Description: "Unsigned integer between 0 and n",
+		Example:     "32783",
+		Output:      "uint",
+		Params: []Param{
+			{Field: "n", Display: "N", Type: "uint", Description: "Maximum uint value"},
+		},
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			n, err := info.GetUint(m, "n")
+			if err != nil {
+				return nil, err
+			}
+
+			return uintNFunc(f, n), nil
+		},
+	})
+
 	AddFuncLookup("uint8", Info{
 		Display:     "Uint8",
 		Category:    "number",
@@ -426,7 +462,7 @@ func addNumberLookup() {
 		Example:     "843730692693298265",
 		Output:      "uint64",
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return uint64Func(f), nil
+			return f.Uint64(), nil
 		},
 	})
 
@@ -452,6 +488,36 @@ func addNumberLookup() {
 			}
 
 			return uintRangeFunc(f, min, max), nil
+		},
+	})
+
+	AddFuncLookup("int", Info{
+		Display:     "Int",
+		Category:    "number",
+		Description: "Signed integer",
+		Example:     "14866",
+		Output:      "int",
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return intFunc(f), nil
+		},
+	})
+
+	AddFuncLookup("intn", Info{
+		Display:     "IntN",
+		Category:    "number",
+		Description: "Integer value between 0 and n",
+		Example:     "32783",
+		Output:      "int",
+		Params: []Param{
+			{Field: "n", Display: "N", Type: "int", Description: "Maximum int value"},
+		},
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			n, err := info.GetInt(m, "n")
+			if err != nil {
+				return nil, err
+			}
+
+			return intNFunc(f, n), nil
 		},
 	})
 

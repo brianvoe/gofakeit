@@ -748,10 +748,14 @@ ProgrammingLanguageBest() string
 
 ```go
 Number(min int, max int) int
+Int() int
+IntN(n int) int
 Int8() int8
 Int16() int16
 Int32() int32
 Int64() int64
+Uint() uint
+UintN(n uint) uint
 Uint8() uint8
 Uint16() uint16
 Uint32() uint32
