@@ -20,14 +20,18 @@ type SFC struct {
 
 // NewSFC creates and returns a new SFC pseudo-random number generator seeded with a given seed.
 func NewSFC(seed uint64) *SFC {
-	// Initialize the state with a seed. Here, we use a simple seeding method,
-	// but you might consider a more sophisticated approach.
-	return &SFC{
-		a:       seed,
-		b:       seed,
-		c:       seed,
-		counter: 1, // Start the counter at 1 to avoid an all-zero state
-	}
+	s := &SFC{}
+	s.Seed(seed)
+	return s
+}
+
+// Seed sets the seed of the SFC. This implementation can be enhanced to
+// provide a more distributed seeding process across the state variables.
+func (s *SFC) Seed(seed uint64) {
+	s.a = seed
+	s.b = seed
+	s.c = seed
+	s.counter = 1 // Reset counter with new seed
 }
 
 // Uint64 generates a pseudo-random 64-bit value using the SFC algorithm.
@@ -37,13 +41,4 @@ func (s *SFC) Uint64() uint64 {
 	s.c -= s.a
 	s.counter++
 	return s.c + s.b
-}
-
-// Seed sets the seed of the SFC. This implementation can be enhanced to
-// provide a more distributed seeding process across the state variables.
-func (s *SFC) Seed(seed int64) {
-	s.a = uint64(seed)
-	s.b = uint64(seed)
-	s.c = uint64(seed)
-	s.counter = 1 // Reset counter with new seed
 }
