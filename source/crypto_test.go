@@ -7,7 +7,7 @@ func TestCrypto(t *testing.T) {
 
 	// test for duplicates
 	m := make(map[uint64]bool)
-	for i := 0; i < 10000; i++ {
+	for i := 0; i < 100000; i++ {
 		v := crypto.Uint64()
 		if m[v] {
 			t.Errorf("Duplicate value: %v", v)

@@ -27,7 +27,10 @@ type Crypto struct {
 
 // NewCrypto creates a new instance of Crypto.
 func NewCrypto() *Crypto {
-	return &Crypto{}
+	return &Crypto{
+		buffer: [64]byte{}, // Initialize buffer with zeros
+		offset: 64,         // Set offset to the end of the buffer to trigger a refill on the first call
+	}
 }
 
 // refillBuffer fills the buffer with random data from crypto/rand.
