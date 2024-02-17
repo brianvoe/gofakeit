@@ -40,7 +40,7 @@ func Uint8() uint8 { return uint8Func(GlobalFaker) }
 // Uint8 will generate a random uint8 value
 func (f *Faker) Uint8() uint8 { return uint8Func(f) }
 
-func uint8Func(f *Faker) uint8 { return uint8(f.Uint64() >> 56) }
+func uint8Func(f *Faker) uint8 { return uint8(randIntRange(f, minUint, math.MaxUint8)) }
 
 // Uint16 will generate a random uint16 value
 func Uint16() uint16 { return uint16Func(GlobalFaker) }
@@ -48,7 +48,7 @@ func Uint16() uint16 { return uint16Func(GlobalFaker) }
 // Uint16 will generate a random uint16 value
 func (f *Faker) Uint16() uint16 { return uint16Func(f) }
 
-func uint16Func(f *Faker) uint16 { return uint16(f.Uint64() >> 48) }
+func uint16Func(f *Faker) uint16 { return uint16(randIntRange(f, minUint, math.MaxUint16)) }
 
 // Uint32 will generate a random uint32 value
 func Uint32() uint32 { return uint32Func(GlobalFaker) }
@@ -190,15 +190,6 @@ func Int64() int64 { return int64Func(GlobalFaker) }
 func (f *Faker) Int64() int64 { return int64Func(f) }
 
 func int64Func(f *Faker) int64 { return int64(f.Uint64() &^ (1 << 63)) }
-
-// int64n is the no-bounds-checks version of Int64N
-// hidden as to not clutter with additional N functions
-func int64NFunc(f *Faker, n int64) int64 {
-	if n <= 0 {
-		return 0
-	}
-	return int64(uint64NFunc(f, uint64(n)))
-}
 
 // IntRange will generate a random int value between min and max
 func IntRange(min, max int) int { return intRangeFunc(GlobalFaker, min, max) }

@@ -29,14 +29,14 @@ func ExampleUint8() {
 	Seed(11)
 	fmt.Println(Uint8())
 
-	// Output: 229
+	// Output: 180
 }
 
 func ExampleFaker_Uint8() {
 	f := New(11)
 	fmt.Println(f.Uint8())
 
-	// Output: 229
+	// Output: 180
 }
 
 func BenchmarkUint8(b *testing.B) {
@@ -49,14 +49,14 @@ func ExampleUint16() {
 	Seed(11)
 	fmt.Println(Uint16())
 
-	// Output: 58712
+	// Output: 56756
 }
 
 func ExampleFaker_Uint16() {
 	f := New(11)
 	fmt.Println(f.Uint16())
 
-	// Output: 58712
+	// Output: 56756
 }
 
 func BenchmarkUint16(b *testing.B) {
