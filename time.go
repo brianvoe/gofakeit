@@ -327,7 +327,7 @@ func addDateTimeLookup() {
 		Category:    "time",
 		Description: "Date that has occurred before the current moment in time",
 		Example:     "2007-01-24 13:00:35.820738079 +0000 UTC",
-		Output:      "string",
+		Output:      "time",
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return pastDate(f), nil
 		},
@@ -338,7 +338,7 @@ func addDateTimeLookup() {
 		Category:    "time",
 		Description: "Date that has occurred after the current moment in time",
 		Example:     "2107-01-24 13:00:35.820738079 +0000 UTC",
-		Output:      "string",
+		Output:      "time",
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return futureDate(f), nil
 		},
