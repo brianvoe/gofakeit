@@ -6,6 +6,8 @@ import (
 	"time"
 )
 
+var currentYear = time.Now().Year()
+
 // Date will generate a random time.Time struct
 func Date() time.Time { return date(GlobalFaker) }
 
@@ -116,7 +118,7 @@ func Year() int { return year(GlobalFaker) }
 // Year will generate a random year between 1900 - current year
 func (f *Faker) Year() int { return year(f) }
 
-func year(f *Faker) int { return number(f, 1900, time.Now().Year()) }
+func year(f *Faker) int { return number(f, 1900, currentYear) }
 
 // TimeZone will select a random timezone string
 func TimeZone() string { return timeZone(GlobalFaker) }
@@ -233,31 +235,31 @@ func addDateTimeLookup() {
 
 			switch format {
 			case "ANSIC":
-				return Date().Format(time.ANSIC), nil
+				return f.Date().Format(time.ANSIC), nil
 			case "UnixDate":
-				return Date().Format(time.UnixDate), nil
+				return f.Date().Format(time.UnixDate), nil
 			case "RubyDate":
-				return Date().Format(time.RubyDate), nil
+				return f.Date().Format(time.RubyDate), nil
 			case "RFC822":
-				return Date().Format(time.RFC822), nil
+				return f.Date().Format(time.RFC822), nil
 			case "RFC822Z":
-				return Date().Format(time.RFC822Z), nil
+				return f.Date().Format(time.RFC822Z), nil
 			case "RFC850":
-				return Date().Format(time.RFC850), nil
+				return f.Date().Format(time.RFC850), nil
 			case "RFC1123":
-				return Date().Format(time.RFC1123), nil
+				return f.Date().Format(time.RFC1123), nil
 			case "RFC1123Z":
-				return Date().Format(time.RFC1123Z), nil
+				return f.Date().Format(time.RFC1123Z), nil
 			case "RFC3339":
-				return Date().Format(time.RFC3339), nil
+				return f.Date().Format(time.RFC3339), nil
 			case "RFC3339Nano":
-				return Date().Format(time.RFC3339Nano), nil
+				return f.Date().Format(time.RFC3339Nano), nil
 			default:
 				if format == "" {
-					return Date().Format(time.RFC3339), nil
+					return f.Date().Format(time.RFC3339), nil
 				}
 
-				return Date().Format(javaDateFormatToGolangDateFormat(format)), nil
+				return f.Date().Format(javaDateFormatToGolangDateFormat(format)), nil
 			}
 		},
 	})
