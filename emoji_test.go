@@ -9,14 +9,14 @@ func ExampleEmoji() {
 	Seed(11)
 	fmt.Println(Emoji())
 
-	// Output: 🇬🇦
+	// Output: 🇫🇴
 }
 
 func ExampleFaker_Emoji() {
 	f := New(11)
 	fmt.Println(f.Emoji())
 
-	// Output: 🇬🇦
+	// Output: 🇫🇴
 }
 
 func BenchmarkEmoji(b *testing.B) {
