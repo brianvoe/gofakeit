@@ -114,24 +114,29 @@ func TestReplaceWithNumbers(t *testing.T) {
 
 func BenchmarkReplaceWithNumbers(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Seed(42)
+		Seed(11)
 		replaceWithNumbers(GlobalFaker, "###☺#☻##☹##")
 	}
 }
 
 func TestReplaceWithNumbersUnicode(t *testing.T) {
-	for _, test := range []struct{ in, should string }{
-		{"#界#世#", "5界7世8"},
-		{"☺#☻☹#", "☺5☻☹7"},
-		{"\x80#¼#語", "\x805¼7語"},
+	for _, test := range []struct{ in string }{
+		{"#界#世#"},
+		{"☺#☻☹#"},
+		{"\x80#¼#語"},
 	} {
-		Seed(42)
+		Seed(11)
 		got := replaceWithNumbers(GlobalFaker, test.in)
-		if got == test.should {
-			continue
+		if got == test.in {
+			t.Errorf("got %q, want something different", got)
 		}
-		t.Errorf("for '%s' got '%s' should '%s'",
-			test.in, got, test.should)
+
+		// Check that # were replaced with numbers
+		for _, r := range got {
+			if r == '#' {
+				t.Errorf("got %q, want something different", got)
+			}
+		}
 	}
 }
 

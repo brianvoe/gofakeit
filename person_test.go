@@ -9,14 +9,14 @@ func ExampleName() {
 	Seed(11)
 	fmt.Println(Name())
 
-	// Output: Markus Moen
+	// Output: Sonny Stiedemann
 }
 
 func ExampleFaker_Name() {
 	f := New(11)
 	fmt.Println(f.Name())
 
-	// Output: Markus Moen
+	// Output: Sonny Stiedemann
 }
 
 func BenchmarkName(b *testing.B) {
@@ -29,14 +29,14 @@ func ExampleFirstName() {
 	Seed(11)
 	fmt.Println(FirstName())
 
-	// Output: Markus
+	// Output: Sonny
 }
 
 func ExampleFaker_FirstName() {
 	f := New(11)
 	fmt.Println(f.FirstName())
 
-	// Output: Markus
+	// Output: Sonny
 }
 
 func BenchmarkFirstName(b *testing.B) {
@@ -49,14 +49,14 @@ func ExampleMiddleName() {
 	Seed(11)
 	fmt.Println(MiddleName())
 
-	// Output: Belinda
+	// Output: Star
 }
 
 func ExampleFaker_MiddleName() {
 	f := New(11)
 	fmt.Println(f.MiddleName())
 
-	// Output: Belinda
+	// Output: Star
 }
 
 func BenchmarkMiddleName(b *testing.B) {
@@ -69,14 +69,14 @@ func ExampleLastName() {
 	Seed(11)
 	fmt.Println(LastName())
 
-	// Output: Daniel
+	// Output: Treutel
 }
 
 func ExampleFaker_LastName() {
 	f := New(11)
 	fmt.Println(f.LastName())
 
-	// Output: Daniel
+	// Output: Treutel
 }
 
 func BenchmarkLastName(b *testing.B) {
@@ -89,14 +89,14 @@ func ExampleNamePrefix() {
 	Seed(11)
 	fmt.Println(NamePrefix())
 
-	// Output: Mr.
+	// Output: Dr.
 }
 
 func ExampleFaker_NamePrefix() {
 	f := New(11)
 	fmt.Println(f.NamePrefix())
 
-	// Output: Mr.
+	// Output: Dr.
 }
 
 func BenchmarkNamePrefix(b *testing.B) {
@@ -109,14 +109,14 @@ func ExampleNameSuffix() {
 	Seed(11)
 	fmt.Println(NameSuffix())
 
-	// Output: Jr.
+	// Output: PhD
 }
 
 func ExampleFaker_NameSuffix() {
 	f := New(11)
 	fmt.Println(f.NameSuffix())
 
-	// Output: Jr.
+	// Output: PhD
 }
 
 func BenchmarkNameSuffix(b *testing.B) {
@@ -129,14 +129,14 @@ func ExampleSSN() {
 	Seed(11)
 	fmt.Println(SSN())
 
-	// Output: 493298265
+	// Output: 906295542
 }
 
 func ExampleFaker_SSN() {
 	f := New(11)
 	fmt.Println(f.SSN())
 
-	// Output: 493298265
+	// Output: 906295542
 }
 
 func BenchmarkSSN(b *testing.B) {
@@ -149,14 +149,14 @@ func ExampleGender() {
 	Seed(11)
 	fmt.Println(Gender())
 
-	// Output: male
+	// Output: female
 }
 
 func ExampleFaker_Gender() {
 	f := New(11)
 	fmt.Println(f.Gender())
 
-	// Output: male
+	// Output: female
 }
 
 func BenchmarkGender(b *testing.B) {
@@ -169,14 +169,14 @@ func ExampleHobby() {
 	Seed(11)
 	fmt.Println(Hobby())
 
-	// Output: Transit map collecting
+	// Output: Marching band
 }
 
 func ExampleFaker_Hobby() {
 	f := New(11)
 	fmt.Println(f.Hobby())
 
-	// Output: Transit map collecting
+	// Output: Marching band
 }
 
 func BenchmarkHobby(b *testing.B) {
@@ -222,31 +222,30 @@ func ExamplePerson() {
 	fmt.Println(creditCard.Exp)
 	fmt.Println(creditCard.Cvv)
 
-	// Output:
-	// Markus
-	// Moen
+	// Output: Sonny
+	// Stiedemann
 	// male
-	// 275413589
-	// https://picsum.photos/208/500
-	// Lacrosse
-	// Intermap Technologies
-	// Developer
-	// Direct
-	// Paradigm
-	// 369 North Cornerbury, Miami, North Dakota 24259
-	// 369 North Cornerbury
-	// Miami
-	// North Dakota
-	// 24259
-	// Ghana
-	// -6.662595
-	// 23.921575
-	// 3023202027
-	// lamarkoelpin@heaney.biz
+	// 280254464
+	// https://picsum.photos/311/192
+	// Sea glass collecting
+	// Mango Transit
+	// Supervisor
+	// National
+	// Solutions
+	// 999 West Lanebury, Lincoln, Kansas 93050
+	// 999 West Lanebury
+	// Lincoln
+	// Kansas
+	// 93050
+	// Uganda
+	// -0.729058
+	// -53.873895
+	// 6268940591
+	// hopeprohaska@metz.io
 	// Maestro
-	// 39800889982276
-	// 01/30
-	// 932
+	// 4205257093875723
+	// 02/32
+	// 782
 }
 
 func ExampleFaker_Person() {
@@ -286,31 +285,30 @@ func ExampleFaker_Person() {
 	fmt.Println(creditCard.Exp)
 	fmt.Println(creditCard.Cvv)
 
-	// Output:
-	// Markus
-	// Moen
+	// Output: Sonny
+	// Stiedemann
 	// male
-	// 275413589
-	// https://picsum.photos/208/500
-	// Lacrosse
-	// Intermap Technologies
-	// Developer
-	// Direct
-	// Paradigm
-	// 369 North Cornerbury, Miami, North Dakota 24259
-	// 369 North Cornerbury
-	// Miami
-	// North Dakota
-	// 24259
-	// Ghana
-	// -6.662595
-	// 23.921575
-	// 3023202027
-	// lamarkoelpin@heaney.biz
+	// 280254464
+	// https://picsum.photos/311/192
+	// Sea glass collecting
+	// Mango Transit
+	// Supervisor
+	// National
+	// Solutions
+	// 999 West Lanebury, Lincoln, Kansas 93050
+	// 999 West Lanebury
+	// Lincoln
+	// Kansas
+	// 93050
+	// Uganda
+	// -0.729058
+	// -53.873895
+	// 6268940591
+	// hopeprohaska@metz.io
 	// Maestro
-	// 39800889982276
-	// 01/30
-	// 932
+	// 4205257093875723
+	// 02/32
+	// 782
 }
 
 func BenchmarkPerson(b *testing.B) {
@@ -325,8 +323,8 @@ func ExampleContact() {
 	fmt.Println(contact.Phone)
 	fmt.Println(contact.Email)
 
-	// Output: 6136459948
-	// carolecarroll@bosco.com
+	// Output: 8812527598
+	// stevebins@robel.io
 }
 
 func ExampleFaker_Contact() {
@@ -335,8 +333,8 @@ func ExampleFaker_Contact() {
 	fmt.Println(contact.Phone)
 	fmt.Println(contact.Email)
 
-	// Output: 6136459948
-	// carolecarroll@bosco.com
+	// Output: 8812527598
+	// stevebins@robel.io
 }
 
 func BenchmarkContact(b *testing.B) {
@@ -349,14 +347,14 @@ func ExamplePhone() {
 	Seed(11)
 	fmt.Println(Phone())
 
-	// Output: 6136459948
+	// Output: 8812527598
 }
 
 func ExampleFaker_Phone() {
 	f := New(11)
 	fmt.Println(f.Phone())
 
-	// Output: 6136459948
+	// Output: 8812527598
 }
 
 func BenchmarkPhone(b *testing.B) {
@@ -369,14 +367,14 @@ func ExamplePhoneFormatted() {
 	Seed(11)
 	fmt.Println(PhoneFormatted())
 
-	// Output: 136-459-9489
+	// Output: 812-527-5989
 }
 
 func ExampleFaker_PhoneFormatted() {
 	f := New(11)
 	fmt.Println(f.PhoneFormatted())
 
-	// Output: 136-459-9489
+	// Output: 812-527-5989
 }
 
 func BenchmarkPhoneFormatted(b *testing.B) {
@@ -389,14 +387,14 @@ func ExampleEmail() {
 	Seed(11)
 	fmt.Println(Email())
 
-	// Output: markusmoen@pagac.net
+	// Output: sonnystiedemann@donnelly.biz
 }
 
 func ExampleFaker_Email() {
 	f := New(11)
 	fmt.Println(f.Email())
 
-	// Output: markusmoen@pagac.net
+	// Output: sonnystiedemann@donnelly.biz
 }
 
 func BenchmarkEmail(b *testing.B) {
@@ -412,7 +410,7 @@ func ExampleTeams() {
 		[]string{"Team 1", "Team 2", "Team 3"},
 	))
 
-	// Output: map[Team 1:[Fabian Connor Steve] Team 2:[Jeff Sharon Justin] Team 3:[Robert Billy]]
+	// Output: map[Team 1:[Jeff Robert Billy] Team 2:[Connor Fabian Sharon] Team 3:[Justin Steve]]
 }
 
 func ExampleFaker_Teams() {
@@ -422,7 +420,7 @@ func ExampleFaker_Teams() {
 		[]string{"Team 1", "Team 2", "Team 3"},
 	))
 
-	// Output: map[Team 1:[Fabian Connor Steve] Team 2:[Jeff Sharon Justin] Team 3:[Robert Billy]]
+	// Output: map[Team 1:[Jeff Robert Billy] Team 2:[Connor Fabian Sharon] Team 3:[Justin Steve]]
 }
 
 func BenchmarkTeams(b *testing.B) {

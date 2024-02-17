@@ -9,14 +9,14 @@ func ExampleGamertag() {
 	Seed(11)
 	fmt.Println(Gamertag())
 
-	// Output: PurpleSheep5
+	// Output: TurkeyThinker
 }
 
 func ExampleFaker_Gamertag() {
 	f := New(11)
 	fmt.Println(f.Gamertag())
 
-	// Output: PurpleSheep5
+	// Output: TurkeyThinker
 }
 
 func TestGamertag(t *testing.T) {

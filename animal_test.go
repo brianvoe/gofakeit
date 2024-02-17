@@ -9,14 +9,14 @@ func ExamplePetName() {
 	Seed(11)
 	fmt.Println(PetName())
 
-	// Output: Ozzy Pawsborne
+	// Output: The Notorious D.O.G.
 }
 
 func ExampleFaker_PetName() {
 	f := New(11)
 	fmt.Println(f.PetName())
 
-	// Output: Ozzy Pawsborne
+	// Output: The Notorious D.O.G.
 }
 
 func BenchmarkPetName(b *testing.B) {
@@ -29,14 +29,14 @@ func ExampleAnimal() {
 	Seed(11)
 	fmt.Println(Animal())
 
-	// Output: elk
+	// Output: turtle
 }
 
 func ExampleFaker_Animal() {
 	f := New(11)
 	fmt.Println(f.Animal())
 
-	// Output: elk
+	// Output: turtle
 }
 
 func BenchmarkAnimal(b *testing.B) {
@@ -49,14 +49,14 @@ func ExampleAnimalType() {
 	Seed(11)
 	fmt.Println(AnimalType())
 
-	// Output: amphibians
+	// Output: reptiles
 }
 
 func ExampleFaker_AnimalType() {
 	f := New(11)
 	fmt.Println(f.AnimalType())
 
-	// Output: amphibians
+	// Output: reptiles
 }
 
 func BenchmarkAnimalType(b *testing.B) {
@@ -69,14 +69,14 @@ func ExampleFarmAnimal() {
 	Seed(11)
 	fmt.Println(FarmAnimal())
 
-	// Output: Chicken
+	// Output: Sheep
 }
 
 func ExampleFaker_FarmAnimal() {
 	f := New(11)
 	fmt.Println(f.FarmAnimal())
 
-	// Output: Chicken
+	// Output: Sheep
 }
 
 func BenchmarkFarmAnimal(b *testing.B) {
@@ -109,14 +109,14 @@ func ExampleDog() {
 	Seed(11)
 	fmt.Println(Dog())
 
-	// Output: Norwich Terrier
+	// Output: Rat Terrier
 }
 
 func ExampleFaker_Dog() {
 	f := New(11)
 	fmt.Println(f.Dog())
 
-	// Output: Norwich Terrier
+	// Output: Rat Terrier
 }
 
 func BenchmarkDog(b *testing.B) {
@@ -129,14 +129,14 @@ func ExampleBird() {
 	Seed(11)
 	fmt.Println(Bird())
 
-	// Output: goose
+	// Output: toucan
 }
 
 func ExampleFaker_Bird() {
 	f := New(11)
 	fmt.Println(f.Bird())
 
-	// Output: goose
+	// Output: toucan
 }
 
 func BenchmarkBird(b *testing.B) {

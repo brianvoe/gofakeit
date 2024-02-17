@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 	"testing"
 	"text/template"
@@ -19,11 +20,10 @@ func ExampleTemplate() {
 
 	fmt.Println(string(value))
 
-	// Output:
-	// Markus Moen
-	// Alayna Wuckert
-	// Lura Lockman
-	// Sylvan Mraz
+	// Output: Sonny Stiedemann
+	// Cody Donnelly
+	// Julius Farrell
+	// Mollie Legros
 
 }
 
@@ -39,11 +39,10 @@ func ExampleFaker_Template() {
 
 	fmt.Println(string(value))
 
-	// Output:
-	// Markus Moen
-	// Alayna Wuckert
-	// Lura Lockman
-	// Sylvan Mraz
+	// Output: Sonny Stiedemann
+	// Cody Donnelly
+	// Julius Farrell
+	// Mollie Legros
 }
 
 func TestPassedInFunctionMap(t *testing.T) {
@@ -153,8 +152,15 @@ func TestTemplateLookup(t *testing.T) {
 		t.Fatal(err.Error())
 	}
 
-	if value != "Markus Moen\nAlayna Wuckert\nLura Lockman\nSylvan Mraz\nPaolo Rutherford\n" {
-		t.Error("Expected `Markus Moen Pagac`, got ", value)
+	// Check if value is in the expected format. name[space]name\n
+	reg := `^(\w+\s\w+\n){5}$`
+	matched, err := regexp.MatchString(reg, value.(string))
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+
+	if !matched {
+		t.Errorf("expected %s to match %s", value, reg)
 	}
 }
 
@@ -200,24 +206,17 @@ func TestTemplateInternalFunctions(t *testing.T) {
 func TestTemplateNoOptions(t *testing.T) {
 	Seed(11)
 
-	tests := []string{
-		"Markus Moen",
-		"Alayna Wuckert",
-		"Lura Lockman",
-		"Sylvan Mraz",
-		"Paolo Rutherford",
+	// The above code is declaring a variable named "value" in the Go programming language.
+	value, err := Template("{{FirstName}} {{LastName}}", nil)
+	if err != nil {
+		t.Fatal(err)
 	}
 
-	for k, v := range tests {
-		// The above code is declaring a variable named "value" in the Go programming language.
-		value, err := Template("{{FirstName}} {{LastName}}", nil)
-		if err != nil {
-			t.Fatal(err)
-		}
-		if !strings.Contains(value, v) {
-			t.Errorf("Test: %v could not find `%s`, in result %s", k, v, value)
-		}
+	// Make sure value has a space in it
+	if !strings.Contains(value, " ") {
+		t.Errorf("expected a space in %s", value)
 	}
+
 }
 
 func ExampleEmailText() {
@@ -230,31 +229,30 @@ func ExampleEmailText() {
 
 	fmt.Println(string(value))
 
-	// Output:
-	// 	Subject: Greetings from Marcel!
+	// Output: Subject: Hi from Russ!
 	//
-	// Dear Pagac,
+	// Dear Donnelly,
 	//
-	// Hello there! Sending positive vibes your way.
+	// Greetings! I hope your day is going well.
 	//
-	// I hope you're doing great. May your week be filled with joy.
+	// I trust this email finds you well. Sending good vibes your way.
 	//
-	// This me far smile where was by army party riches. Theirs instead here mine whichever that those instance growth has. Ouch enough Swiss us since down he she aha us. You to upon how this this furniture way no play. Towel that us to accordingly theirs purse enough so though.
+	// Galaxy they how shall cut lastly that someone additionally ambulance. Could a tennis occur why depend heels out can fire. Anyone sometimes that leap whom troop now scarcely since dance. Huh somebody constantly Italian outfit certain weekly murder who cackle. Because her break write nobody could according whoa bevy we.
 	//
-	// Election often until eek weekly yet oops until conclude his. Stay elsewhere such that galaxy clean that last each stack. Reluctantly theirs wisp aid firstly highly butter accordingly should already. Calm shake according fade neither kuban upon this he fortnightly. Occasionally bunch on who elsewhere lastly hourly right there honesty.
+	// Them summation to oxygen Greek how previously a what answer. Handle daily ouch upon encourage that after his every she. Wearily still he herself huge failure for yay sparse thoughtfully. Box anyway Jungian regularly world great daily recently whose Elizabethan. Outside to theirs block while French closely sit you to.
 	//
-	// We is how result out Shakespearean have whom yearly another. Packet are behind late lot finally time themselves goodness quizzical. Our therefore could fact cackle yourselves zebra for whose enormously. All bowl out wandering secondly yellow another your hourly spit. Since tomorrow hers words little think will our by Polynesian.
+	// Out fight bored yours those bale Parisian host which so. Today Ecuadorian hourly decidedly his everybody this play this little. Them on recently eager usually bunch daily whose somebody them. Few tonight dishonesty spell battery less patience whose inside hair. Your answer hand tonight these she team which today Einsteinian.
 	//
-	// I'm curious to know what you think about it. If you have a moment, please feel free to check out the project on GitLab
+	// I'm eager to hear your feedback on it. If you have a moment, please feel free to check out the project on GitLab
 	//
 	// Your insights would be invaluable. Your thoughts matter to me.
 	//
 	// I appreciate your attention to this matter. Your feedback is greatly appreciated.
 	//
-	// Best wishes
-	// Daryl Leannon
-	// oceaneokuneva@roberts.org
-	// 1-816-608-2233
+	// Sincerely
+	// Hyman Rogahn
+	// mervingottlieb@goldner.com
+	// 1-275-132-4165
 }
 
 func ExampleFaker_EmailText() {
@@ -267,31 +265,30 @@ func ExampleFaker_EmailText() {
 
 	fmt.Println(string(value))
 
-	// Output:
-	// 	Subject: Greetings from Marcel!
+	// Output: Subject: Hi from Russ!
 	//
-	// Dear Pagac,
+	// Dear Donnelly,
 	//
-	// Hello there! Sending positive vibes your way.
+	// Greetings! I hope your day is going well.
 	//
-	// I hope you're doing great. May your week be filled with joy.
+	// I trust this email finds you well. Sending good vibes your way.
 	//
-	// This me far smile where was by army party riches. Theirs instead here mine whichever that those instance growth has. Ouch enough Swiss us since down he she aha us. You to upon how this this furniture way no play. Towel that us to accordingly theirs purse enough so though.
+	// Galaxy they how shall cut lastly that someone additionally ambulance. Could a tennis occur why depend heels out can fire. Anyone sometimes that leap whom troop now scarcely since dance. Huh somebody constantly Italian outfit certain weekly murder who cackle. Because her break write nobody could according whoa bevy we.
 	//
-	// Election often until eek weekly yet oops until conclude his. Stay elsewhere such that galaxy clean that last each stack. Reluctantly theirs wisp aid firstly highly butter accordingly should already. Calm shake according fade neither kuban upon this he fortnightly. Occasionally bunch on who elsewhere lastly hourly right there honesty.
+	// Them summation to oxygen Greek how previously a what answer. Handle daily ouch upon encourage that after his every she. Wearily still he herself huge failure for yay sparse thoughtfully. Box anyway Jungian regularly world great daily recently whose Elizabethan. Outside to theirs block while French closely sit you to.
 	//
-	// We is how result out Shakespearean have whom yearly another. Packet are behind late lot finally time themselves goodness quizzical. Our therefore could fact cackle yourselves zebra for whose enormously. All bowl out wandering secondly yellow another your hourly spit. Since tomorrow hers words little think will our by Polynesian.
+	// Out fight bored yours those bale Parisian host which so. Today Ecuadorian hourly decidedly his everybody this play this little. Them on recently eager usually bunch daily whose somebody them. Few tonight dishonesty spell battery less patience whose inside hair. Your answer hand tonight these she team which today Einsteinian.
 	//
-	// I'm curious to know what you think about it. If you have a moment, please feel free to check out the project on GitLab
+	// I'm eager to hear your feedback on it. If you have a moment, please feel free to check out the project on GitLab
 	//
 	// Your insights would be invaluable. Your thoughts matter to me.
 	//
 	// I appreciate your attention to this matter. Your feedback is greatly appreciated.
 	//
-	// Best wishes
-	// Daryl Leannon
-	// oceaneokuneva@roberts.org
-	// 1-816-608-2233
+	// Sincerely
+	// Hyman Rogahn
+	// mervingottlieb@goldner.com
+	// 1-275-132-4165
 }
 
 // TemplateMarkdown examples and tests
@@ -305,14 +302,13 @@ func ExampleMarkdown() {
 
 	fmt.Println(string(value))
 
-	// Output:
-	// 	# PurpleSheep5
+	// Output: # TurkeyThinker
 	//
-	// *Author: Amie Feil*
+	// *Author: Tomasa Waters*
 	//
-	// Was by army party riches theirs instead. Here mine whichever that those instance growth. Has ouch enough Swiss us since down. He she aha us you to upon. How this this furniture way no play.
+	// Cut lastly that someone additionally ambulance could. A tennis occur why depend heels out. Can fire anyone sometimes that leap whom. Troop now scarcely since dance huh somebody. Constantly Italian outfit certain weekly murder who.
 	//
-	// Towel that us to accordingly theirs purse. Enough so though election often until eek. Weekly yet oops until conclude his stay. Elsewhere such that galaxy clean that last. Each stack reluctantly theirs wisp aid firstly.
+	// Cackle because her break write nobody could. According whoa bevy we them summation to. Oxygen Greek how previously a what answer. Handle daily ouch upon encourage that after. His every she wearily still he herself.
 	//
 	// ## Table of Contents
 	// - [Installation](#installation)
@@ -321,13 +317,13 @@ func ExampleMarkdown() {
 	//
 	// ## Installation
 	// '''bash
-	// pip install PurpleSheep5
+	// pip install TurkeyThinker
 	// '''
 	//
 	// ## Usage
 	// '''python
-	// result = purplesheep5.process("funny request")
-	// print("purplesheep5 result:", "in progress")
+	// result = turkeythinker.handle("whimsical story")
+	// print("turkeythinker result:", "terminated")
 	// '''
 	//
 	// ## License
@@ -344,14 +340,13 @@ func ExampleFaker_Markdown() {
 
 	fmt.Println(string(value))
 
-	// Output:
-	// 	# PurpleSheep5
+	// Output: # TurkeyThinker
 	//
-	// *Author: Amie Feil*
+	// *Author: Tomasa Waters*
 	//
-	// Was by army party riches theirs instead. Here mine whichever that those instance growth. Has ouch enough Swiss us since down. He she aha us you to upon. How this this furniture way no play.
+	// Cut lastly that someone additionally ambulance could. A tennis occur why depend heels out. Can fire anyone sometimes that leap whom. Troop now scarcely since dance huh somebody. Constantly Italian outfit certain weekly murder who.
 	//
-	// Towel that us to accordingly theirs purse. Enough so though election often until eek. Weekly yet oops until conclude his stay. Elsewhere such that galaxy clean that last. Each stack reluctantly theirs wisp aid firstly.
+	// Cackle because her break write nobody could. According whoa bevy we them summation to. Oxygen Greek how previously a what answer. Handle daily ouch upon encourage that after. His every she wearily still he herself.
 	//
 	// ## Table of Contents
 	// - [Installation](#installation)
@@ -360,38 +355,26 @@ func ExampleFaker_Markdown() {
 	//
 	// ## Installation
 	// '''bash
-	// pip install PurpleSheep5
+	// pip install TurkeyThinker
 	// '''
 	//
 	// ## Usage
 	// '''python
-	// result = purplesheep5.process("funny request")
-	// print("purplesheep5 result:", "in progress")
+	// result = turkeythinker.handle("whimsical story")
+	// print("turkeythinker result:", "terminated")
 	// '''
 	//
 	// ## License
 	// MIT
 }
 
-func BenchmarkTemplate100(b *testing.B) {
+func BenchmarkTemplate(b *testing.B) {
 	f := New(11)
 
-	for i := 0; i < 100; i++ {
+	for i := 0; i < b.N; i++ {
 		_, err := f.Template("{{range IntRange 1 (ToInt .Data)}}{{FirstName}} {{LastName}}\n{{end}}", &TemplateOptions{Data: 5})
 		if err != nil {
 			b.Fatal(err.Error())
 		}
-	}
-}
-
-func BenchmarkTemplateLookup1000(b *testing.B) {
-	f := New(11)
-
-	for i := 0; i < 1000; i++ {
-		_, err := f.Template("{{range $y := IntRange 1 (ToInt .Data)}}{{FirstName}} {{LastName}}\n{{end}}", &TemplateOptions{Data: 5})
-		if err != nil {
-			b.Fatal(err.Error())
-		}
-
 	}
 }

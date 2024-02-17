@@ -9,14 +9,14 @@ func ExampleFruit() {
 	Seed(11)
 	fmt.Println(Fruit())
 
-	// Output: Peach
+	// Output: Redcurrant
 }
 
 func ExampleFaker_Fruit() {
 	f := New(11)
 	fmt.Println(f.Fruit())
 
-	// Output: Peach
+	// Output: Redcurrant
 }
 
 func BenchmarkFruit(b *testing.B) {
@@ -29,14 +29,14 @@ func ExampleVegetable() {
 	Seed(11)
 	fmt.Println(Vegetable())
 
-	// Output: Amaranth Leaves
+	// Output: Sweet Potato
 }
 
 func ExampleFaker_Vegetable() {
 	f := New(11)
 	fmt.Println(f.Vegetable())
 
-	// Output: Amaranth Leaves
+	// Output: Sweet Potato
 }
 
 func BenchmarkVegetable(b *testing.B) {
@@ -49,14 +49,14 @@ func ExampleBreakfast() {
 	Seed(11)
 	fmt.Println(Breakfast())
 
-	// Output: Blueberry banana happy face pancakes
+	// Output: Purple cow
 }
 
 func ExampleFaker_Breakfast() {
 	f := New(11)
 	fmt.Println(f.Breakfast())
 
-	// Output: Blueberry banana happy face pancakes
+	// Output: Purple cow
 }
 
 func BenchmarkBreakfast(b *testing.B) {
@@ -69,14 +69,14 @@ func ExampleLunch() {
 	Seed(11)
 	fmt.Println(Lunch())
 
-	// Output: No bake hersheys bar pie
+	// Output: Quick chile relleno casserole
 }
 
 func ExampleFaker_Lunch() {
 	f := New(11)
 	fmt.Println(f.Lunch())
 
-	// Output: No bake hersheys bar pie
+	// Output: Quick chile relleno casserole
 }
 
 func BenchmarkLunch(b *testing.B) {
@@ -89,14 +89,14 @@ func ExampleDinner() {
 	Seed(11)
 	fmt.Println(Dinner())
 
-	// Output: Wild addicting dip
+	// Output: German apple cake with cream cheese frosting
 }
 
 func ExampleFaker_Dinner() {
 	f := New(11)
 	fmt.Println(f.Dinner())
 
-	// Output: Wild addicting dip
+	// Output: German apple cake with cream cheese frosting
 }
 
 func BenchmarkDinner(b *testing.B) {
@@ -109,14 +109,14 @@ func ExampleDrink() {
 	Seed(11)
 	fmt.Println(Drink())
 
-	// Output: Juice
+	// Output: Wine
 }
 
 func ExampleFaker_Drink() {
 	f := New(11)
 	fmt.Println(f.Drink())
 
-	// Output: Juice
+	// Output: Wine
 }
 
 func BenchmarkDrink(b *testing.B) {
@@ -129,14 +129,14 @@ func ExampleSnack() {
 	Seed(11)
 	fmt.Println(Snack())
 
-	// Output: Hoisin marinated wing pieces
+	// Output: Fantastic banana bran muffins
 }
 
 func ExampleFaker_Snack() {
 	f := New(11)
 	fmt.Println(f.Snack())
 
-	// Output: Hoisin marinated wing pieces
+	// Output: Fantastic banana bran muffins
 }
 
 func BenchmarkSnack(b *testing.B) {
@@ -149,14 +149,14 @@ func ExampleDessert() {
 	Seed(11)
 	fmt.Println(Dessert())
 
-	// Output: French napoleons
+	// Output: Amish cream pie
 }
 
 func ExampleFaker_Dessert() {
 	f := New(11)
 	fmt.Println(f.Dessert())
 
-	// Output: French napoleons
+	// Output: Amish cream pie
 }
 
 func BenchmarkDessert(b *testing.B) {

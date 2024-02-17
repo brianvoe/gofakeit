@@ -13,14 +13,14 @@ func ExampleBool() {
 	Seed(11)
 	fmt.Println(Bool())
 
-	// Output: true
+	// Output: false
 }
 
 func ExampleFaker_Bool() {
 	f := New(11)
 	fmt.Println(f.Bool())
 
-	// Output: true
+	// Output: false
 }
 
 func BenchmarkBool(b *testing.B) {
@@ -49,14 +49,14 @@ func ExampleUUID() {
 	Seed(11)
 	fmt.Println(UUID())
 
-	// Output: 98173564-6619-4557-888e-65b16bb5def5
+	// Output: b412b5fb-33a4-498e-9503-21c6b7e01dcf
 }
 
 func ExampleFaker_UUID() {
 	f := New(11)
 	fmt.Println(f.UUID())
 
-	// Output: 98173564-6619-4557-888e-65b16bb5def5
+	// Output: b412b5fb-33a4-498e-9503-21c6b7e01dcf
 }
 
 func BenchmarkUUID(b *testing.B) {
@@ -106,9 +106,8 @@ func ExampleShuffleAnySlice() {
 	ShuffleAnySlice(ints)
 	fmt.Println(ints)
 
-	// Output:
-	// [good everyone have for times a day happy]
-	// [777 74125 941 854 89416 52 8413 841657]
+	// Output: [for day happy everyone good times a have]
+	// [854 52 74125 941 777 8413 841657 89416]
 }
 
 func ExampleFaker_ShuffleAnySlice() {
@@ -122,9 +121,8 @@ func ExampleFaker_ShuffleAnySlice() {
 	f.ShuffleAnySlice(ints)
 	fmt.Println(ints)
 
-	// Output:
-	// [good everyone have for times a day happy]
-	// [777 74125 941 854 89416 52 8413 841657]
+	// Output: [for day happy everyone good times a have]
+	// [854 52 74125 941 777 8413 841657 89416]
 }
 
 func BenchmarkShuffleAnySlice(b *testing.B) {
@@ -138,14 +136,14 @@ func ExampleFlipACoin() {
 	Seed(11)
 	fmt.Println(FlipACoin())
 
-	// Output: Heads
+	// Output: Tails
 }
 
 func ExampleFaker_FlipACoin() {
 	f := New(11)
 	fmt.Println(f.FlipACoin())
 
-	// Output: Heads
+	// Output: Tails
 }
 
 func TestFlipACoin(t *testing.T) {

@@ -9,14 +9,14 @@ func ExampleCelebrityActor() {
 	Seed(11)
 	fmt.Println(CelebrityActor())
 
-	// Output: Owen Wilson
+	// Output: Shah Rukh Khan
 }
 
 func ExampleFaker_CelebrityActor() {
 	f := New(11)
 	fmt.Println(f.CelebrityActor())
 
-	// Output: Owen Wilson
+	// Output: Shah Rukh Khan
 }
 
 func BenchmarkCelebrityActor(b *testing.B) {
@@ -29,14 +29,14 @@ func ExampleCelebrityBusiness() {
 	Seed(11)
 	fmt.Println(CelebrityBusiness())
 
-	// Output: Cameron Diaz
+	// Output: Prescott Bush
 }
 
 func ExampleFaker_CelebrityBusiness() {
 	f := New(11)
 	fmt.Println(f.CelebrityBusiness())
 
-	// Output: Cameron Diaz
+	// Output: Prescott Bush
 }
 
 func BenchmarkCelebrityBusiness(b *testing.B) {
@@ -49,14 +49,14 @@ func ExampleCelebritySport() {
 	Seed(11)
 	fmt.Println(CelebritySport())
 
-	// Output: Hicham El Guerrouj
+	// Output: Grete Waitz
 }
 
 func ExampleFaker_CelebritySport() {
 	f := New(11)
 	fmt.Println(f.CelebritySport())
 
-	// Output: Hicham El Guerrouj
+	// Output: Grete Waitz
 }
 
 func BenchmarkCelebritySport(b *testing.B) {

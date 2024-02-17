@@ -9,14 +9,14 @@ func ExampleHackerPhrase() {
 	Seed(11)
 	fmt.Println(HackerPhrase())
 
-	// Output: If we calculate the program, we can get to the AI pixel through the redundant XSS matrix!
+	// Output: Use the optical CSS microchip, then you can write the open-source monitor!
 }
 
 func ExampleFaker_HackerPhrase() {
 	f := New(11)
 	fmt.Println(f.HackerPhrase())
 
-	// Output: If we calculate the program, we can get to the AI pixel through the redundant XSS matrix!
+	// Output: Use the optical CSS microchip, then you can write the open-source monitor!
 }
 
 func BenchmarkHackerPhrase(b *testing.B) {
@@ -29,14 +29,14 @@ func ExampleHackerAbbreviation() {
 	Seed(11)
 	fmt.Println(HackerAbbreviation())
 
-	// Output: ADP
+	// Output: SCSI
 }
 
 func ExampleFaker_HackerAbbreviation() {
 	f := New(11)
 	fmt.Println(f.HackerAbbreviation())
 
-	// Output: ADP
+	// Output: SCSI
 }
 
 func BenchmarkHackerAbbreviation(b *testing.B) {
@@ -49,14 +49,14 @@ func ExampleHackerAdjective() {
 	Seed(11)
 	fmt.Println(HackerAdjective())
 
-	// Output: wireless
+	// Output: solid state
 }
 
 func ExampleFaker_HackerAdjective() {
 	f := New(11)
 	fmt.Println(f.HackerAdjective())
 
-	// Output: wireless
+	// Output: solid state
 }
 
 func BenchmarkHackerAdjective(b *testing.B) {
@@ -69,14 +69,14 @@ func ExampleHackerNoun() {
 	Seed(11)
 	fmt.Println(HackerNoun())
 
-	// Output: driver
+	// Output: circuit
 }
 
 func ExampleFaker_HackerNoun() {
 	f := New(11)
 	fmt.Println(f.HackerNoun())
 
-	// Output: driver
+	// Output: circuit
 }
 
 func BenchmarkHackerNoun(b *testing.B) {
@@ -89,14 +89,14 @@ func ExampleHackerVerb() {
 	Seed(11)
 	fmt.Println(HackerVerb())
 
-	// Output: synthesize
+	// Output: lock
 }
 
 func ExampleFaker_HackerVerb() {
 	f := New(11)
 	fmt.Println(f.HackerVerb())
 
-	// Output: synthesize
+	// Output: lock
 }
 
 func BenchmarkHackerVerb(b *testing.B) {
@@ -109,14 +109,14 @@ func ExampleHackeringVerb() {
 	Seed(11)
 	fmt.Println(HackeringVerb())
 
-	// Output: connecting
+	// Output: compressing
 }
 
 func ExampleFaker_HackeringVerb() {
 	f := New(11)
 	fmt.Println(f.HackeringVerb())
 
-	// Output: connecting
+	// Output: compressing
 }
 
 func BenchmarkHackeringVerb(b *testing.B) {

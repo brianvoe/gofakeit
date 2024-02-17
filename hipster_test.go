@@ -9,14 +9,14 @@ func ExampleHipsterWord() {
 	Seed(11)
 	fmt.Println(HipsterWord())
 
-	// Output: microdosing
+	// Output: semiotics
 }
 
 func ExampleFaker_HipsterWord() {
 	f := New(11)
 	fmt.Println(f.HipsterWord())
 
-	// Output: microdosing
+	// Output: semiotics
 }
 
 func BenchmarkHipsterWord(b *testing.B) {
@@ -29,14 +29,14 @@ func ExampleHipsterSentence() {
 	Seed(11)
 	fmt.Println(HipsterSentence(5))
 
-	// Output: Microdosing roof chia echo pickled.
+	// Output: Semiotics everyday you probably haven't heard of them you probably haven't heard of them portland.
 }
 
 func ExampleFaker_HipsterSentence() {
 	f := New(11)
 	fmt.Println(f.HipsterSentence(5))
 
-	// Output: Microdosing roof chia echo pickled.
+	// Output: Semiotics everyday you probably haven't heard of them you probably haven't heard of them portland.
 }
 
 func BenchmarkHipsterSentence(b *testing.B) {
@@ -49,18 +49,18 @@ func ExampleHipsterParagraph() {
 	Seed(11)
 	fmt.Println(HipsterParagraph(3, 5, 12, "\n"))
 
-	// Output: Microdosing roof chia echo pickled meditation cold-pressed raw denim fingerstache normcore sriracha pork belly. Wolf try-hard pop-up blog tilde hashtag health butcher waistcoat paleo portland vinegar. Microdosing sartorial blue bottle slow-carb freegan five dollar toast you probably haven't heard of them asymmetrical chia farm-to-table narwhal banjo. Gluten-free blog authentic literally synth vinyl meh ethical health fixie banh mi Yuccie. Try-hard drinking squid seitan cray VHS echo chillwave hammock kombucha food truck sustainable.
-	// Pug bushwick hella tote bag cliche direct trade waistcoat yr waistcoat knausgaard pour-over master. Pitchfork jean shorts franzen flexitarian distillery hella meggings austin knausgaard crucifix wolf heirloom. Crucifix food truck you probably haven't heard of them trust fund fixie gentrify pitchfork stumptown mlkshk umami chambray blue bottle. 3 wolf moon swag +1 biodiesel knausgaard semiotics taxidermy meh artisan hoodie +1 blue bottle. Fashion axe forage mixtape Thundercats pork belly whatever 90's beard selfies chambray cred mlkshk.
-	// Shabby chic typewriter VHS readymade lo-fi bitters PBR&B gentrify lomo raw denim freegan put a bird on it. Raw denim cliche dreamcatcher pug fixie park trust fund migas fingerstache sriracha +1 mustache. Tilde shoreditch kickstarter franzen dreamcatcher green juice mustache neutra polaroid stumptown organic schlitz. Flexitarian ramps chicharrones kogi lo-fi mustache tilde forage street church-key williamsburg taxidermy. Chia mustache plaid mumblecore squid slow-carb disrupt Thundercats goth shoreditch master direct trade.
+	// Output: Semiotics everyday you probably haven't heard of them you probably haven't heard of them portland austin tattooed retro cardigan Yuccie cred hoodie. Vice pug pug cred intelligentsia roof helvetica squid chambray literally ennui ugh. Chicharrones messenger bag narwhal ennui flannel twee art party mustache sartorial gluten-free cardigan cronut. Hoodie kickstarter cardigan Thundercats heirloom hashtag bitters salvia cleanse forage chartreuse keffiyeh. Sustainable tofu mustache bespoke vice aesthetic iPhone ugh lo-fi health put a bird on it blue bottle.
+	// Pop-up pabst pitchfork literally roof tattooed tilde shoreditch green juice ethical celiac tilde. Kombucha kinfolk occupy tacos ramps 90's echo meditation kale chips gluten-free humblebrag keffiyeh. Lo-fi bespoke wayfarers chicharrones crucifix green juice humblebrag organic viral shabby chic locavore cred. Roof forage farm-to-table YOLO williamsburg crucifix blog everyday green juice listicle wayfarers post-ironic. Single-origin coffee cray organic YOLO disrupt venmo tofu meggings fanny pack master craft beer tofu.
+	// Hella helvetica microdosing literally meh etsy echo pabst goth readymade +1 marfa. Pork belly hammock kale chips yr green juice stumptown crucifix hella pork belly franzen wolf austin. Offal cred chartreuse freegan intelligentsia twee trust fund paleo pinterest austin typewriter kogi. Pug single-origin coffee ethical irony helvetica beard green juice viral post-ironic Godard slow-carb put a bird on it. Schlitz hammock beard chia kitsch cred salvia irony farm-to-table loko truffaut ramps.
 }
 
 func ExampleFaker_HipsterParagraph() {
 	f := New(11)
 	fmt.Println(f.HipsterParagraph(3, 5, 12, "\n"))
 
-	// Output: Microdosing roof chia echo pickled meditation cold-pressed raw denim fingerstache normcore sriracha pork belly. Wolf try-hard pop-up blog tilde hashtag health butcher waistcoat paleo portland vinegar. Microdosing sartorial blue bottle slow-carb freegan five dollar toast you probably haven't heard of them asymmetrical chia farm-to-table narwhal banjo. Gluten-free blog authentic literally synth vinyl meh ethical health fixie banh mi Yuccie. Try-hard drinking squid seitan cray VHS echo chillwave hammock kombucha food truck sustainable.
-	// Pug bushwick hella tote bag cliche direct trade waistcoat yr waistcoat knausgaard pour-over master. Pitchfork jean shorts franzen flexitarian distillery hella meggings austin knausgaard crucifix wolf heirloom. Crucifix food truck you probably haven't heard of them trust fund fixie gentrify pitchfork stumptown mlkshk umami chambray blue bottle. 3 wolf moon swag +1 biodiesel knausgaard semiotics taxidermy meh artisan hoodie +1 blue bottle. Fashion axe forage mixtape Thundercats pork belly whatever 90's beard selfies chambray cred mlkshk.
-	// Shabby chic typewriter VHS readymade lo-fi bitters PBR&B gentrify lomo raw denim freegan put a bird on it. Raw denim cliche dreamcatcher pug fixie park trust fund migas fingerstache sriracha +1 mustache. Tilde shoreditch kickstarter franzen dreamcatcher green juice mustache neutra polaroid stumptown organic schlitz. Flexitarian ramps chicharrones kogi lo-fi mustache tilde forage street church-key williamsburg taxidermy. Chia mustache plaid mumblecore squid slow-carb disrupt Thundercats goth shoreditch master direct trade.
+	// Output: Semiotics everyday you probably haven't heard of them you probably haven't heard of them portland austin tattooed retro cardigan Yuccie cred hoodie. Vice pug pug cred intelligentsia roof helvetica squid chambray literally ennui ugh. Chicharrones messenger bag narwhal ennui flannel twee art party mustache sartorial gluten-free cardigan cronut. Hoodie kickstarter cardigan Thundercats heirloom hashtag bitters salvia cleanse forage chartreuse keffiyeh. Sustainable tofu mustache bespoke vice aesthetic iPhone ugh lo-fi health put a bird on it blue bottle.
+	// Pop-up pabst pitchfork literally roof tattooed tilde shoreditch green juice ethical celiac tilde. Kombucha kinfolk occupy tacos ramps 90's echo meditation kale chips gluten-free humblebrag keffiyeh. Lo-fi bespoke wayfarers chicharrones crucifix green juice humblebrag organic viral shabby chic locavore cred. Roof forage farm-to-table YOLO williamsburg crucifix blog everyday green juice listicle wayfarers post-ironic. Single-origin coffee cray organic YOLO disrupt venmo tofu meggings fanny pack master craft beer tofu.
+	// Hella helvetica microdosing literally meh etsy echo pabst goth readymade +1 marfa. Pork belly hammock kale chips yr green juice stumptown crucifix hella pork belly franzen wolf austin. Offal cred chartreuse freegan intelligentsia twee trust fund paleo pinterest austin typewriter kogi. Pug single-origin coffee ethical irony helvetica beard green juice viral post-ironic Godard slow-carb put a bird on it. Schlitz hammock beard chia kitsch cred salvia irony farm-to-table loko truffaut ramps.
 }
 
 func BenchmarkHipsterParagraph(b *testing.B) {

@@ -9,14 +9,14 @@ func ExampleLoremIpsumWord() {
 	Seed(11)
 	fmt.Println(LoremIpsumWord())
 
-	// Output: quia
+	// Output: eveniet
 }
 
 func ExampleFaker_LoremIpsumWord() {
 	f := New(11)
 	fmt.Println(f.LoremIpsumWord())
 
-	// Output: quia
+	// Output: eveniet
 }
 
 func BenchmarkLoremIpsumWord(b *testing.B) {
@@ -29,14 +29,14 @@ func ExampleLoremIpsumSentence() {
 	Seed(11)
 	fmt.Println(LoremIpsumSentence(5))
 
-	// Output: Quia quae repellat consequatur quidem.
+	// Output: Eveniet vero velit velit non.
 }
 
 func ExampleFaker_LoremIpsumSentence() {
 	f := New(11)
 	fmt.Println(f.LoremIpsumSentence(5))
 
-	// Output: Quia quae repellat consequatur quidem.
+	// Output: Eveniet vero velit velit non.
 }
 
 func TestLoremIpsumSentence(t *testing.T) {
@@ -57,18 +57,18 @@ func ExampleLoremIpsumParagraph() {
 	Seed(11)
 	fmt.Println(LoremIpsumParagraph(3, 5, 12, "\n"))
 
-	// Output: Quia quae repellat consequatur quidem nisi quo qui voluptatum accusantium quisquam amet. Quas et ut non dolorem ipsam aut enim assumenda mollitia harum ut. Dicta similique veniam nulla voluptas at excepturi non ad maxime at non. Eaque hic repellat praesentium voluptatem qui consequuntur dolor iusto autem velit aut. Fugit tempore exercitationem harum consequatur voluptatum modi minima aut eaque et et.
-	// Aut ea voluptatem dignissimos expedita odit tempore quod aut beatae ipsam iste. Minus voluptatibus dolorem maiores eius sed nihil vel enim odio voluptatem accusamus. Natus quibusdam temporibus tenetur cumque sint necessitatibus dolorem ex ducimus iusto ex. Voluptatem neque dicta explicabo officiis et ducimus sit ut ut praesentium pariatur. Illum molestias nisi at dolore ut voluptatem accusantium et fugiat et ut.
-	// Explicabo incidunt reprehenderit non quia dignissimos recusandae vitae soluta quia et quia. Aut veniam voluptas consequatur placeat sapiente non eveniet voluptatibus magni velit eum. Nobis vel repellendus sed est qui autem laudantium quidem quam ullam consequatur. Aut iusto ut commodi similique quae voluptatem atque qui fugiat eum aut. Quis distinctio consequatur voluptatem vel aliquid aut laborum facere officiis iure tempora.
+	// Output: Eveniet vero velit velit non incidunt est sed tenetur consequatur ut architecto. Quod non non et voluptas et esse quisquam ullam placeat molestiae laboriosam. Consequatur in perferendis molestiae quam voluptatem eaque quia facilis quo hic dignissimos. Architecto ut tenetur aut qui et optio id sint quae rerum labore. Quae deserunt quia mollitia id accusantium itaque nisi aut omnis occaecati repellendus.
+	// Ad sunt neque placeat et qui saepe voluptatem blanditiis voluptatum possimus saepe. Velit distinctio quia quas cupiditate sequi dolorum delectus quia quo corrupti labore. Aut mollitia et aut eligendi blanditiis corrupti aut rem voluptatibus veritatis ut. Et ab voluptas delectus repellat eligendi qui eos blanditiis et et eos. Qui ipsum aut ut voluptate nulla officia qui earum repudiandae quidem officia.
+	// Fugit esse beatae placeat nihil libero et sunt voluptas velit maiores voluptatem. Reiciendis quia dolor amet blanditiis labore eligendi fugit reiciendis modi est incidunt. Ut ut rerum odit sit voluptatem ipsam consequatur est incidunt aut quis. Non dolorem voluptatum pariatur esse eos blanditiis rem eos commodi accusamus occaecati. Qui voluptatem eos et tempora et id at voluptas suscipit magni cupiditate.
 }
 
 func ExampleFaker_LoremIpsumParagraph() {
 	f := New(11)
 	fmt.Println(f.LoremIpsumParagraph(3, 5, 12, "\n"))
 
-	// Output: Quia quae repellat consequatur quidem nisi quo qui voluptatum accusantium quisquam amet. Quas et ut non dolorem ipsam aut enim assumenda mollitia harum ut. Dicta similique veniam nulla voluptas at excepturi non ad maxime at non. Eaque hic repellat praesentium voluptatem qui consequuntur dolor iusto autem velit aut. Fugit tempore exercitationem harum consequatur voluptatum modi minima aut eaque et et.
-	// Aut ea voluptatem dignissimos expedita odit tempore quod aut beatae ipsam iste. Minus voluptatibus dolorem maiores eius sed nihil vel enim odio voluptatem accusamus. Natus quibusdam temporibus tenetur cumque sint necessitatibus dolorem ex ducimus iusto ex. Voluptatem neque dicta explicabo officiis et ducimus sit ut ut praesentium pariatur. Illum molestias nisi at dolore ut voluptatem accusantium et fugiat et ut.
-	// Explicabo incidunt reprehenderit non quia dignissimos recusandae vitae soluta quia et quia. Aut veniam voluptas consequatur placeat sapiente non eveniet voluptatibus magni velit eum. Nobis vel repellendus sed est qui autem laudantium quidem quam ullam consequatur. Aut iusto ut commodi similique quae voluptatem atque qui fugiat eum aut. Quis distinctio consequatur voluptatem vel aliquid aut laborum facere officiis iure tempora.
+	// Output: Eveniet vero velit velit non incidunt est sed tenetur consequatur ut architecto. Quod non non et voluptas et esse quisquam ullam placeat molestiae laboriosam. Consequatur in perferendis molestiae quam voluptatem eaque quia facilis quo hic dignissimos. Architecto ut tenetur aut qui et optio id sint quae rerum labore. Quae deserunt quia mollitia id accusantium itaque nisi aut omnis occaecati repellendus.
+	// Ad sunt neque placeat et qui saepe voluptatem blanditiis voluptatum possimus saepe. Velit distinctio quia quas cupiditate sequi dolorum delectus quia quo corrupti labore. Aut mollitia et aut eligendi blanditiis corrupti aut rem voluptatibus veritatis ut. Et ab voluptas delectus repellat eligendi qui eos blanditiis et et eos. Qui ipsum aut ut voluptate nulla officia qui earum repudiandae quidem officia.
+	// Fugit esse beatae placeat nihil libero et sunt voluptas velit maiores voluptatem. Reiciendis quia dolor amet blanditiis labore eligendi fugit reiciendis modi est incidunt. Ut ut rerum odit sit voluptatem ipsam consequatur est incidunt aut quis. Non dolorem voluptatum pariatur esse eos blanditiis rem eos commodi accusamus occaecati. Qui voluptatem eos et tempora et id at voluptas suscipit magni cupiditate.
 }
 
 func TestLoremIpsumParagraph(t *testing.T) {

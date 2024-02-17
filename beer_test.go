@@ -9,14 +9,14 @@ func ExampleBeerName() {
 	Seed(11)
 	fmt.Println(BeerName())
 
-	// Output: Duvel
+	// Output: Sierra Nevada Bigfoot Barleywine Style Ale
 }
 
 func ExampleFaker_BeerName() {
 	f := New(11)
 	fmt.Println(f.BeerName())
 
-	// Output: Duvel
+	// Output: Sierra Nevada Bigfoot Barleywine Style Ale
 }
 
 func BenchmarkBeerName(b *testing.B) {
@@ -29,14 +29,14 @@ func ExampleBeerStyle() {
 	Seed(11)
 	fmt.Println(BeerStyle())
 
-	// Output: European Amber Lager
+	// Output: Vegetable Beer
 }
 
 func ExampleFaker_BeerStyle() {
 	f := New(11)
 	fmt.Println(f.BeerStyle())
 
-	// Output: European Amber Lager
+	// Output: Vegetable Beer
 }
 
 func BenchmarkBeerStyle(b *testing.B) {
@@ -49,14 +49,14 @@ func ExampleBeerHop() {
 	Seed(11)
 	fmt.Println(BeerHop())
 
-	// Output: Glacier
+	// Output: TriplePearl
 }
 
 func ExampleFaker_BeerHop() {
 	f := New(11)
 	fmt.Println(f.BeerHop())
 
-	// Output: Glacier
+	// Output: TriplePearl
 }
 
 func BenchmarkBeerHop(b *testing.B) {
@@ -69,14 +69,14 @@ func ExampleBeerYeast() {
 	Seed(11)
 	fmt.Println(BeerYeast())
 
-	// Output: 1388 - Belgian Strong Ale
+	// Output: 2308 - Munich Lager
 }
 
 func ExampleFaker_BeerYeast() {
 	f := New(11)
 	fmt.Println(f.BeerYeast())
 
-	// Output: 1388 - Belgian Strong Ale
+	// Output: 2308 - Munich Lager
 }
 
 func BenchmarkBeerYeast(b *testing.B) {
@@ -110,14 +110,14 @@ func ExampleBeerIbu() {
 	Seed(11)
 	fmt.Println(BeerIbu())
 
-	// Output: 47 IBU
+	// Output: 91 IBU
 }
 
 func ExampleFaker_BeerIbu() {
 	f := New(11)
 	fmt.Println(f.BeerIbu())
 
-	// Output: 47 IBU
+	// Output: 91 IBU
 }
 
 func BenchmarkBeerIbu(b *testing.B) {
@@ -130,14 +130,14 @@ func ExampleBeerAlcohol() {
 	Seed(11)
 	fmt.Println(BeerAlcohol())
 
-	// Output: 2.7%
+	// Output: 8.2%
 }
 
 func ExampleFaker_BeerAlcohol() {
 	f := New(11)
 	fmt.Println(f.BeerAlcohol())
 
-	// Output: 2.7%
+	// Output: 8.2%
 }
 
 func BenchmarkBeerAlcohol(b *testing.B) {
@@ -150,14 +150,14 @@ func ExampleBeerBlg() {
 	Seed(11)
 	fmt.Println(BeerBlg())
 
-	// Output: 6.4°Blg
+	// Output: 16.6°Blg
 }
 
 func ExampleFaker_BeerBlg() {
 	f := New(11)
 	fmt.Println(f.BeerBlg())
 
-	// Output: 6.4°Blg
+	// Output: 16.6°Blg
 }
 
 func BenchmarkBeerBlg(b *testing.B) {

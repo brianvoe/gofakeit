@@ -761,7 +761,6 @@ func ExampleEvenInt() {
 	fmt.Println(E1)
 	fmt.Println(E2)
 
-	// Output:
-	// 6
-	// -92
+	// Output: -2
+	// 122
 }

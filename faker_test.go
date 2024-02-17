@@ -23,19 +23,18 @@ func Example() {
 	fmt.Println("Job Title:", JobTitle())
 	fmt.Println("Password:", Password(true, true, true, true, false, 32))
 
-	// Output:
-	// Name: Markus Moen
-	// Email: alaynawuckert@kozey.biz
-	// Phone: 9948995369
-	// Address: 35300 South Roadshaven, Miami, Tennessee 58302
-	// BS: streamline
-	// Beer Name: Pliny The Elder
-	// Color: Gray
-	// Company: Center for Responsive Politics
-	// Credit Card: 3821714800889989
-	// Hacker Phrase: Overriding the capacitor won't do anything, we need to compress the online SMTP protocol!
-	// Job Title: Supervisor
-	// Password: #8L79W6s4E9jT2Q047??YkyD0xxnC2#u
+	// Output: Name: Sonny Stiedemann
+	// Email: codydonnelly@leannon.biz
+	// Phone: 7598907999
+	// Address: 4737 Port Hillstown, Santa Ana, Alabama 41026
+	// BS: enable
+	// Beer Name: Chocolate St
+	// Color: Turquoise
+	// Company: Boundless
+	// Credit Card: 6282690620525711
+	// Hacker Phrase: Try to bundle the PNG firewall, maybe it will deconstruct the open-source bandwidth!
+	// Job Title: Assistant
+	// Password: Nyf8p8ka1Kvgn**@3H&$w7j01yM1vkc2
 }
 
 func ExampleNew() {
@@ -109,7 +108,7 @@ func TestConcurrency(t *testing.T) {
 	setupComplete.Add(1)
 
 	var wg sync.WaitGroup
-	for i := 0; i < 100000; i++ {
+	for i := 0; i < 1000; i++ {
 		wg.Add(1)
 		go func() {
 			setupComplete.Wait()

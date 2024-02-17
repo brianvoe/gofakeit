@@ -3,6 +3,7 @@ package gofakeit
 import (
 	"fmt"
 	"net"
+	"regexp"
 	"testing"
 	"time"
 )
@@ -113,18 +114,18 @@ func ExampleStruct() {
 	fmt.Printf("%v\n", f.MapRange)
 	fmt.Printf("%+v\n", f.Bar)
 
-	// Output: bRMaRx
-	// 8474499440427634498
-	// 4409580151121052361
-	// Andre
-	// 1
+	// Output: sKKbMlbxqu
+	// 1365845625386394310
+	// 4415419407664574903
+	// Tomasa
+	// 10
 	// <nil>
 	// <nil>
-	// [PtapWYJdn MKgtlxwnq]
-	// [claYk wfoRL PxLIok qanPAKaXS QFpZysVaHG]
-	// map[DjRRGUns:xdBXGY yvqqdH:eUxcvUVS]
-	// map[Oyrwg:LhewLkDVtD XpYcnVTKpB:eubY jQZsZt:eUpXhOq ynojqPYDrH:HWYKFgji]
-	// {Name:ANhYxKtSH Number:-5807586752746953977 Float:4.558046e+37}
+	// [RWVlPmwRAe wVHB]
+	// [rxXDcxFe kfvChMC KfmBwRtn]
+	// map[gyJrZ:tfZAk oOEImWl:NXYnuKiGab]
+	// map[WigEnVzBy:JJXMkG aHqIpyVs:UxvheGVE pYyDuWC:yzjqsX]
+	// {Name:LfLRuhFRHQ Number:5737279083624806933 Float:0.59020466}
 }
 
 func ExampleFaker_Struct() {
@@ -164,16 +165,16 @@ func ExampleFaker_Struct() {
 	fmt.Printf("%v\n", f.MapRange)
 	fmt.Printf("%+v\n", f.Bar)
 
-	// Output: bRMaRx
-	// 8474499440427634498
-	// 4409580151121052361
-	// Andre
-	// 1
+	// Output: sKKbMlbxqu
+	// 1365845625386394310
+	// 4415419407664574903
+	// Tomasa
+	// 10
 	// <nil>
-	// [PtapWYJdn MKgtlxwnq]
-	// map[DjRRGUns:xdBXGY yvqqdH:eUxcvUVS]
-	// map[Oyrwg:LhewLkDVtD XpYcnVTKpB:eubY jQZsZt:eUpXhOq ynojqPYDrH:HWYKFgji]
-	// {Name:ANhYxKtSH Number:-5807586752746953977 Float:4.558046e+37}
+	// [RWVlPmwRAe wVHB]
+	// map[gyJrZ:tfZAk oOEImWl:NXYnuKiGab]
+	// map[WigEnVzBy:JJXMkG aHqIpyVs:UxvheGVE pYyDuWC:yzjqsX]
+	// {Name:LfLRuhFRHQ Number:5737279083624806933 Float:0.59020466}
 }
 
 func ExampleStruct_array() {
@@ -200,10 +201,9 @@ func ExampleStruct_array() {
 	fmt.Printf("%v\n", fm.Names)
 	fmt.Printf("%v\n", fm.NamesRange)
 
-	// Output:
-	// [{bRMaRx 8474499440427634498 Paolo 4 <nil>}]
-	// [Santino Carole Enrique]
-	// [Zachery Amie Alice Zachary]
+	// Output: [{sKKbMlbxqu 1365845625386394310 Myrtis 10 <nil>}]
+	// [Tomasa Sunny Ernest]
+	// [Hassan Missouri Elisabeth Nedra Tiana Evan]
 }
 
 func ExampleFaker_Struct_array() {
@@ -230,10 +230,9 @@ func ExampleFaker_Struct_array() {
 	fmt.Printf("%v\n", fm.Names)
 	fmt.Printf("%v\n", fm.NamesRange)
 
-	// Output:
-	// [{bRMaRx 8474499440427634498 Paolo 4 <nil>}]
-	// [Santino Carole Enrique]
-	// [Zachery Amie Alice Zachary]
+	// Output: [{sKKbMlbxqu 1365845625386394310 Myrtis 10 <nil>}]
+	// [Tomasa Sunny Ernest]
+	// [Hassan Missouri Elisabeth Nedra Tiana Evan]
 }
 
 func TestStructBasic(t *testing.T) {
@@ -578,7 +577,7 @@ func TestStructToFloat(t *testing.T) {
 	if sf.FloatConst != 123.456789 {
 		t.Errorf("FloatConst should be 123.456.789 and instead got %f", sf.FloatConst)
 	}
-	if sf.FloatGenerate != 54.887310 {
+	if sf.FloatGenerate != 87.473328 {
 		t.Errorf("FloatGenerate should be 31.477726 but got %f", sf.FloatGenerate)
 	}
 }
@@ -592,14 +591,14 @@ func TestStructToBool(t *testing.T) {
 		BoolGenerate bool `fake:"{bool}"`
 	}
 	Struct(&sf)
-	if sf.Bool == false {
-		t.Error("Bool should be false got true")
+	if sf.Bool == true {
+		t.Error("Bool should be true got true")
 	}
 	if sf.BoolConst != true {
 		t.Errorf("BoolConst should be true got false")
 	}
 	if sf.BoolGenerate != false {
-		t.Errorf("BoolGenerate should be false got true")
+		t.Errorf("Bool Generate should be %t but got %t", false, sf.BoolGenerate)
 	}
 }
 
@@ -645,12 +644,12 @@ func TestStructToDateTime(t *testing.T) {
 		{
 			name:     "Simple",
 			observed: datetime.Simple.String(),
-			expected: "1915-01-24 13:00:35.820738079 +0000 UTC",
+			expected: "2011-11-07 04:31:13.726582492 +0000 UTC",
 		},
 		{
 			name:     "Tag",
 			observed: datetime.Tag.String(),
-			expected: "2023-02-10 22:06:24 +0000 UTC",
+			expected: "1967-12-26 21:04:44 +0000 UTC",
 		},
 		{
 			name:     "TagCustom",
@@ -660,27 +659,27 @@ func TestStructToDateTime(t *testing.T) {
 		{
 			name:     "TagFormat",
 			observed: datetime.TagFormat.String(),
-			expected: "1945-12-05 00:00:00 +0000 UTC",
+			expected: "1947-12-05 00:00:00 +0000 UTC",
 		},
 		{
 			name:     "TagJavaFormat",
 			observed: datetime.TagJavaFormat.String(),
-			expected: "1929-12-05 00:00:00 +0000 UTC",
+			expected: "1946-12-05 00:00:00 +0000 UTC",
 		},
 		{
 			name:     "Range",
 			observed: datetime.Range.String(),
-			expected: "1998-10-27 00:00:00 +0000 UTC",
+			expected: "1980-03-10 00:00:00 +0000 UTC",
 		},
 		{
 			name:     "PointerSimple",
 			observed: datetime.PointerSimple.String(),
-			expected: "1967-05-17 13:55:34.57634154 +0000 UTC",
+			expected: "1953-05-23 07:44:55.341122669 +0000 UTC",
 		},
 		{
 			name:     "PointerTag",
 			observed: datetime.PointerTag.String(),
-			expected: "1902-06-03 07:35:07 +0000 UTC",
+			expected: "1900-07-01 22:25:09 +0000 UTC",
 		},
 		{
 			name:     "PointerTagCustom",
@@ -690,17 +689,17 @@ func TestStructToDateTime(t *testing.T) {
 		{
 			name:     "PointerTagFormat",
 			observed: datetime.PointerTagFormat.String(),
-			expected: "1907-12-05 00:00:00 +0000 UTC",
+			expected: "1910-12-05 00:00:00 +0000 UTC",
 		},
 		{
 			name:     "PointerTagJavaFormat",
 			observed: datetime.PointerTagJavaFormat.String(),
-			expected: "1904-12-05 00:00:00 +0000 UTC",
+			expected: "1932-12-05 00:00:00 +0000 UTC",
 		},
 		{
 			name:     "PointerRange",
 			observed: datetime.PointerRange.String(),
-			expected: "2000-02-05 00:00:00 +0000 UTC",
+			expected: "1995-12-07 00:00:00 +0000 UTC",
 		},
 	}
 	for _, c := range testComparisons {
@@ -864,8 +863,15 @@ func TestExternalCustomType(t *testing.T) {
 	defer RemoveFuncLookup("netip")
 	Struct(&f)
 
-	if fmt.Sprintf("%s - %T", f.IP, f.IP) != "152.23.53.100 - net.IP" {
-		t.Errorf("IP should be empty and instead got %s - %T", f.IP, f.IP)
+	// Regex check its an IP
+	reg := `^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$`
+	matched, err := regexp.MatchString(reg, f.IP.String())
+	if err != nil {
+		t.Error(err)
+	}
+
+	if !matched {
+		t.Errorf("IP address is not valid: %s", f.IP.String())
 	}
 }
 

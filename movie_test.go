@@ -11,8 +11,8 @@ func ExampleMovie() {
 	fmt.Println(movie.Name)
 	fmt.Println(movie.Genre)
 
-	// Output: Psycho
-	// Mystery
+	// Output: The Terminator
+	// Sport
 }
 
 func ExampleFaker_Movie() {
@@ -21,8 +21,8 @@ func ExampleFaker_Movie() {
 	fmt.Println(movie.Name)
 	fmt.Println(movie.Genre)
 
-	// Output: Psycho
-	// Mystery
+	// Output: The Terminator
+	// Sport
 }
 
 func BenchmarkMovie(b *testing.B) {
@@ -41,14 +41,14 @@ func ExampleMovieName() {
 	Seed(11)
 	fmt.Println(MovieName())
 
-	// Output: Psycho
+	// Output: The Terminator
 }
 
 func ExampleFaker_MovieName() {
 	f := New(11)
 	fmt.Println(f.MovieName())
 
-	// Output: Psycho
+	// Output: The Terminator
 }
 
 func BenchmarkMovieName(b *testing.B) {
@@ -61,14 +61,14 @@ func ExampleMovieGenre() {
 	Seed(11)
 	fmt.Println(MovieGenre())
 
-	// Output: Music
+	// Output: Thriller
 }
 
 func ExampleFaker_MovieGenre() {
 	f := New(11)
 	fmt.Println(f.MovieGenre())
 
-	// Output: Music
+	// Output: Thriller
 }
 
 func BenchmarkMovieGenre(b *testing.B) {

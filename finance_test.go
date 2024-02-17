@@ -10,14 +10,14 @@ func ExampleCusip() {
 	Seed(11)
 	fmt.Println(Cusip())
 
-	// Output: MLRQCZBX0
+	// Output: 64HHTI0T8
 }
 
 func ExampleFaker_Cusip() {
 	f := New(11)
 	fmt.Println(f.Cusip())
 
-	// Output: MLRQCZBX0
+	// Output: 64HHTI0T8
 }
 
 func TestCusip(t *testing.T) {
@@ -64,14 +64,14 @@ func ExampleIsin() {
 	Seed(11)
 	fmt.Println(Isin())
 
-	// Output: CVLRQCZBXQ97
+	// Output: TO4HHTI0T819
 }
 
 func ExampleFaker_Isin() {
 	f := New(11)
 	fmt.Println(f.Isin())
 
-	// Output: AMMLRQCZBX03
+	// Output: TO4HHTI0T819
 }
 
 func TestIsin(t *testing.T) {

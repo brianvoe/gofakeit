@@ -8,15 +8,15 @@ import (
 func ExampleSchool() {
 	Seed(11)
 	fmt.Println(School())
-	// Output:
-	// Harborview State Academy
+
+	// Output: Hillside Private Academy
 }
 
 func ExampleFaker_School() {
 	f := New(11)
 	fmt.Println(f.School())
-	// Output:
-	// Harborview State Academy
+
+	// Output: Hillside Private Academy
 }
 
 func BenchmarkSchool(b *testing.B) {

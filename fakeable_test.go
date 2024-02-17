@@ -75,11 +75,10 @@ func ExampleFakeable() {
 	fmt.Printf("%#v\n", t3)
 	fmt.Printf("%#v\n", t4)
 
-	// Output:
-	// gofakeit.testStruct1{B:"Margarette"}
-	// gofakeit.testStruct1{B:"Margarette"}
-	// gofakeit.testStruct2{B:"Margarette"}
-	// gofakeit.testStruct2{B:"Margarette"}
+	// Output: gofakeit.testStruct1{B:"Colton"}
+	// gofakeit.testStruct1{B:"Colton"}
+	// gofakeit.testStruct2{B:"Colton"}
+	// gofakeit.testStruct2{B:"Colton"}
 }
 
 type gammaFloat64 float64
@@ -117,10 +116,9 @@ func ExampleFakeable_gammaFloat64() {
 	fmt.Println(A2)
 	fmt.Println(A3)
 
-	// Output:
-	// 10.300651760129734
-	// 5.391434877284098
-	// 2.0575989252140676
+	// Output: 1.9058272589164647
+	// 1.951453943304136
+	// 4.336093466276675
 }
 
 type poissonInt64 int64
@@ -160,8 +158,7 @@ func ExampleFakeable_employee() {
 	fmt.Printf("%#v\n", A2)
 	fmt.Printf("%#v\n", A3)
 
-	// Output:
-	// gofakeit.employee{Name:"Pearline Rippin", CallCountPerHour:12}
-	// gofakeit.employee{Name:"Sammie Renner", CallCountPerHour:23}
-	// gofakeit.employee{Name:"Katlyn Runte", CallCountPerHour:8}
+	// Output: gofakeit.employee{Name:"Madelynn Hickle", CallCountPerHour:17}
+	// gofakeit.employee{Name:"Brooke Berge", CallCountPerHour:8}
+	// gofakeit.employee{Name:"Rosalee Roberts", CallCountPerHour:10}
 }

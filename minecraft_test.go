@@ -9,16 +9,14 @@ func ExampleMinecraftOre() {
 	Seed(11)
 	fmt.Println(MinecraftOre())
 
-	// Output:
-	// coal
+	// Output: redstone
 }
 
 func ExampleFaker_MinecraftOre() {
 	f := New(11)
 	fmt.Println(f.MinecraftOre())
 
-	// Output:
-	// coal
+	// Output: redstone
 }
 
 func BenchmarkMinecraftOre(b *testing.B) {
@@ -31,16 +29,14 @@ func ExampleMinecraftWood() {
 	Seed(11)
 	fmt.Println(MinecraftWood())
 
-	// Output:
-	// oak
+	// Output: dark oak
 }
 
 func ExampleFaker_MinecraftWood() {
 	f := New(11)
 	fmt.Println(f.MinecraftWood())
 
-	// Output:
-	// oak
+	// Output: dark oak
 }
 
 func BenchmarkMinecraftWood(b *testing.B) {
@@ -53,16 +49,14 @@ func ExampleMinecraftArmorTier() {
 	Seed(11)
 	fmt.Println(MinecraftArmorTier())
 
-	// Output:
-	// leather
+	// Output: netherite
 }
 
 func ExampleFaker_MinecraftArmorTier() {
 	f := New(11)
 	fmt.Println(f.MinecraftArmorTier())
 
-	// Output:
-	// leather
+	// Output: netherite
 }
 
 func BenchmarkMinecraftArmorTier(b *testing.B) {
@@ -97,16 +91,14 @@ func ExampleMinecraftWeapon() {
 	Seed(11)
 	fmt.Println(MinecraftWeapon())
 
-	// Output:
-	// sword
+	// Output: shield
 }
 
 func ExampleFaker_MinecraftWeapon() {
 	f := New(11)
 	fmt.Println(f.MinecraftWeapon())
 
-	// Output:
-	// sword
+	// Output: shield
 }
 
 func BenchmarkMinecraftWeapon(b *testing.B) {
@@ -119,16 +111,14 @@ func ExampleMinecraftTool() {
 	Seed(11)
 	fmt.Println(MinecraftTool())
 
-	// Output:
-	// pickaxe
+	// Output: fishing rod
 }
 
 func ExampleFaker_MinecraftTool() {
 	f := New(11)
 	fmt.Println(f.MinecraftTool())
 
-	// Output:
-	// pickaxe
+	// Output: fishing rod
 }
 
 func BenchmarkMinecraftTool(b *testing.B) {
@@ -141,16 +131,14 @@ func ExampleMinecraftDye() {
 	Seed(11)
 	fmt.Println(MinecraftDye())
 
-	// Output:
-	// light gray
+	// Output: yellow
 }
 
 func ExampleFaker_MinecraftDye() {
 	f := New(11)
 	fmt.Println(f.MinecraftDye())
 
-	// Output:
-	// light gray
+	// Output: yellow
 }
 
 func BenchmarkMinecraftDye(b *testing.B) {
@@ -163,16 +151,14 @@ func ExampleMinecraftFood() {
 	Seed(11)
 	fmt.Println(MinecraftFood())
 
-	// Output:
-	// beetroot
+	// Output: steak
 }
 
 func ExampleFaker_MinecraftFood() {
 	f := New(11)
 	fmt.Println(f.MinecraftFood())
 
-	// Output:
-	// beetroot
+	// Output: steak
 }
 
 func BenchmarkMinecraftFood(b *testing.B) {
@@ -185,16 +171,14 @@ func ExampleMinecraftAnimal() {
 	Seed(11)
 	fmt.Println(MinecraftAnimal())
 
-	// Output:
-	// chicken
+	// Output: wolf
 }
 
 func ExampleFaker_MinecraftAnimal() {
 	f := New(11)
 	fmt.Println(f.MinecraftAnimal())
 
-	// Output:
-	// chicken
+	// Output: wolf
 }
 
 func BenchmarkMinecraftAnimal(b *testing.B) {
@@ -207,8 +191,7 @@ func ExampleMinecraftVillagerJob() {
 	Seed(11)
 	fmt.Println(MinecraftVillagerJob())
 
-	// Output:
-	// toolsmith
+	// Output: toolsmith
 }
 
 func ExampleFaker_MinecraftVillagerJob() {
@@ -229,16 +212,14 @@ func ExampleMinecraftVillagerStation() {
 	Seed(11)
 	fmt.Println(MinecraftVillagerStation())
 
-	// Output:
-	// cauldron
+	// Output: stonecutter
 }
 
 func ExampleFaker_MinecraftVillagerStation() {
 	f := New(11)
 	fmt.Println(f.MinecraftVillagerStation())
 
-	// Output:
-	// cauldron
+	// Output: stonecutter
 }
 
 func BenchmarkMinecraftVillagerStation(b *testing.B) {
@@ -251,16 +232,14 @@ func ExampleMinecraftVillagerLevel() {
 	Seed(11)
 	fmt.Println(MinecraftVillagerLevel())
 
-	// Output:
-	// novice
+	// Output: master
 }
 
 func ExampleFaker_MinecraftVillagerLevel() {
 	f := New(11)
 	fmt.Println(f.MinecraftVillagerLevel())
 
-	// Output:
-	// novice
+	// Output: master
 }
 
 func BenchmarkMinecraftVillagerLevel(b *testing.B) {
@@ -273,16 +252,14 @@ func ExampleMinecraftMobPassive() {
 	Seed(11)
 	fmt.Println(MinecraftMobPassive())
 
-	// Output:
-	// chicken
+	// Output: turtle
 }
 
 func ExampleFaker_MinecraftMobPassive() {
 	f := New(11)
 	fmt.Println(f.MinecraftMobPassive())
 
-	// Output:
-	// chicken
+	// Output: turtle
 }
 
 func BenchmarkMinecraftMobPassive(b *testing.B) {
@@ -295,8 +272,7 @@ func ExampleMinecraftMobNeutral() {
 	Seed(11)
 	fmt.Println(MinecraftMobNeutral())
 
-	// Output:
-	// wolf
+	// Output: wolf
 }
 
 func ExampleFaker_MinecraftMobNeutral() {
@@ -317,16 +293,14 @@ func ExampleMinecraftMobHostile() {
 	Seed(11)
 	fmt.Println(MinecraftMobHostile())
 
-	// Output:
-	// blaze
+	// Output: wither skeleton
 }
 
 func ExampleFaker_MinecraftMobHostile() {
 	f := New(11)
 	fmt.Println(f.MinecraftMobHostile())
 
-	// Output:
-	// blaze
+	// Output: wither skeleton
 }
 
 func BenchmarkMinecraftMobHostile(b *testing.B) {
@@ -361,16 +335,14 @@ func ExampleMinecraftBiome() {
 	Seed(11)
 	fmt.Println(MinecraftBiome())
 
-	// Output:
-	// stone shore
+	// Output: the nether
 }
 
 func ExampleFaker_MinecraftBiome() {
 	f := New(11)
 	fmt.Println(f.MinecraftBiome())
 
-	// Output:
-	// stone shore
+	// Output: the nether
 }
 
 func BenchmarkMinecraftBiome(b *testing.B) {
@@ -383,16 +355,14 @@ func ExampleMinecraftWeather() {
 	Seed(11)
 	fmt.Println(MinecraftWeather())
 
-	// Output:
-	// clear
+	// Output: thunder
 }
 
 func ExampleFaker_MinecraftWeather() {
 	f := New(11)
 	fmt.Println(f.MinecraftWeather())
 
-	// Output:
-	// clear
+	// Output: thunder
 }
 
 func BenchmarkMinecraftWeather(b *testing.B) {

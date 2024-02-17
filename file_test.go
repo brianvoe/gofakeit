@@ -9,14 +9,14 @@ func ExampleFileMimeType() {
 	Seed(11)
 	fmt.Println(FileMimeType())
 
-	// Output: application/dsptype
+	// Output: application/x-wri
 }
 
 func ExampleFaker_FileMimeType() {
 	f := New(11)
 	fmt.Println(f.FileMimeType())
 
-	// Output: application/dsptype
+	// Output: application/x-wri
 }
 
 func BenchmarkFileMimeType(b *testing.B) {
@@ -29,14 +29,14 @@ func ExampleFileExtension() {
 	Seed(11)
 	fmt.Println(FileExtension())
 
-	// Output: nes
+	// Output: dtd
 }
 
 func ExampleFaker_FileExtension() {
 	f := New(11)
 	fmt.Println(f.FileExtension())
 
-	// Output: nes
+	// Output: dtd
 }
 
 func BenchmarkFileExtension(b *testing.B) {

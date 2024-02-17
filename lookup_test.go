@@ -30,7 +30,7 @@ func Example_custom() {
 
 	fmt.Printf("%s", f.FriendName)
 
-	// Output: bill
+	// Output: sally
 }
 
 func Example_custom_with_params() {
@@ -65,7 +65,7 @@ func Example_custom_with_params() {
 
 	fmt.Printf("%s", f.JumbleWord)
 
-	// Output: loredlowlh
+	// Output: hldoolewrl
 }
 
 func TestMapParamsGet(t *testing.T) {

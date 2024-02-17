@@ -9,14 +9,14 @@ func ExampleAdverb() {
 	Seed(11)
 	fmt.Println(Adverb())
 
-	// Output: over
+	// Output: ever
 }
 
 func ExampleFaker_Adverb() {
 	f := New(11)
 	fmt.Println(f.Adverb())
 
-	// Output: over
+	// Output: ever
 }
 
 func BenchmarkAdverb(b *testing.B) {
@@ -29,14 +29,14 @@ func ExampleAdverbManner() {
 	Seed(11)
 	fmt.Println(AdverbManner())
 
-	// Output: stupidly
+	// Output: tensely
 }
 
 func ExampleFaker_AdverbManner() {
 	f := New(11)
 	fmt.Println(f.AdverbManner())
 
-	// Output: stupidly
+	// Output: tensely
 }
 
 func BenchmarkAdverbManner(b *testing.B) {
@@ -49,14 +49,14 @@ func ExampleAdverbDegree() {
 	Seed(11)
 	fmt.Println(AdverbDegree())
 
-	// Output: intensely
+	// Output: too
 }
 
 func ExampleFaker_AdverbDegree() {
 	f := New(11)
 	fmt.Println(f.AdverbDegree())
 
-	// Output: intensely
+	// Output: too
 }
 
 func BenchmarkAdverbDegree(b *testing.B) {
@@ -69,14 +69,14 @@ func ExampleAdverbPlace() {
 	Seed(11)
 	fmt.Println(AdverbPlace())
 
-	// Output: east
+	// Output: under
 }
 
 func ExampleFaker_AdverbPlace() {
 	f := New(11)
 	fmt.Println(f.AdverbPlace())
 
-	// Output: east
+	// Output: under
 }
 
 func BenchmarkAdverbPlace(b *testing.B) {
@@ -89,14 +89,14 @@ func ExampleAdverbTimeDefinite() {
 	Seed(11)
 	fmt.Println(AdverbTimeDefinite())
 
-	// Output: now
+	// Output: yesterday
 }
 
 func ExampleFaker_AdverbTimeDefinite() {
 	f := New(11)
 	fmt.Println(f.AdverbTimeDefinite())
 
-	// Output: now
+	// Output: yesterday
 }
 
 func BenchmarkAdverbTimeDefinite(b *testing.B) {
@@ -109,14 +109,14 @@ func ExampleAdverbTimeIndefinite() {
 	Seed(11)
 	fmt.Println(AdverbTimeIndefinite())
 
-	// Output: already
+	// Output: soon
 }
 
 func ExampleFaker_AdverbTimeIndefinite() {
 	f := New(11)
 	fmt.Println(f.AdverbTimeIndefinite())
 
-	// Output: already
+	// Output: soon
 }
 
 func BenchmarkAdverbTimeIndefinite(b *testing.B) {
@@ -129,14 +129,14 @@ func ExampleAdverbFrequencyDefinite() {
 	Seed(11)
 	fmt.Println(AdverbFrequencyDefinite())
 
-	// Output: hourly
+	// Output: yearly
 }
 
 func ExampleFaker_AdverbFrequencyDefinite() {
 	f := New(11)
 	fmt.Println(f.AdverbFrequencyDefinite())
 
-	// Output: hourly
+	// Output: yearly
 }
 
 func BenchmarkAdverbFrequencyDefinite(b *testing.B) {
@@ -149,14 +149,14 @@ func ExampleAdverbFrequencyIndefinite() {
 	Seed(11)
 	fmt.Println(AdverbFrequencyIndefinite())
 
-	// Output: occasionally
+	// Output: generally
 }
 
 func ExampleFaker_AdverbFrequencyIndefinite() {
 	f := New(11)
 	fmt.Println(f.AdverbFrequencyIndefinite())
 
-	// Output: occasionally
+	// Output: generally
 }
 
 func BenchmarkAdverbFrequencyIndefinite(b *testing.B) {

@@ -34,14 +34,6 @@ func programmingLanguage(f *Faker) string {
 	return getRandValue(f, []string{"language", "programming"})
 }
 
-// ProgrammingLanguageBest will return a random programming language
-func ProgrammingLanguageBest() string { return programmingLanguageBest(GlobalFaker) }
-
-// ProgrammingLanguageBest will return a random programming language
-func (f *Faker) ProgrammingLanguageBest() string { return programmingLanguageBest(f) }
-
-func programmingLanguageBest(f *Faker) string { return "Go" }
-
 func addLanguagesLookup() {
 	AddFuncLookup("language", Info{
 		Display:     "Language",

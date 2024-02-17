@@ -9,14 +9,14 @@ func ExampleInterjection() {
 	Seed(11)
 	fmt.Println(Interjection())
 
-	// Output: wow
+	// Output: alas
 }
 
 func ExampleFaker_Interjection() {
 	f := New(11)
 	fmt.Println(f.Interjection())
 
-	// Output: wow
+	// Output: alas
 }
 
 func BenchmarkInterjection(b *testing.B) {

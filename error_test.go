@@ -9,14 +9,14 @@ func ExampleError() {
 	Seed(11)
 	fmt.Println(Error())
 
-	// Output: failed to calculate pointer
+	// Output: variable assigned before declaration
 }
 
 func ExampleFaker_Error() {
 	f := New(11)
 	fmt.Println(f.Error())
 
-	// Output: failed to calculate pointer
+	// Output: variable assigned before declaration
 }
 
 func BenchmarkError(b *testing.B) {
@@ -29,14 +29,14 @@ func ExampleErrorObject() {
 	Seed(11)
 	fmt.Println(ErrorObject())
 
-	// Output: argument
+	// Output: url
 }
 
 func ExampleFaker_ErrorObject() {
 	f := New(11)
 	fmt.Println(f.ErrorObject())
 
-	// Output: argument
+	// Output: url
 }
 
 func BenchmarkErrorObject(b *testing.B) {
@@ -49,14 +49,14 @@ func ExampleErrorDatabase() {
 	Seed(11)
 	fmt.Println(ErrorDatabase())
 
-	// Output: bad connection
+	// Output: destination pointer is nil
 }
 
 func ExampleFaker_ErrorDatabase() {
 	f := New(11)
 	fmt.Println(f.ErrorDatabase())
 
-	// Output: bad connection
+	// Output: destination pointer is nil
 }
 
 func BenchmarkErrorDatabase(b *testing.B) {
@@ -109,14 +109,14 @@ func ExampleErrorHTTPClient() {
 	Seed(11)
 	fmt.Println(ErrorHTTPClient())
 
-	// Output: payment required
+	// Output: expectation failed
 }
 
 func ExampleFaker_ErrorHTTPClient() {
 	f := New(11)
 	fmt.Println(f.ErrorHTTPClient())
 
-	// Output: payment required
+	// Output: expectation failed
 }
 
 func BenchmarkErrorHTTPClient(b *testing.B) {
@@ -129,14 +129,14 @@ func ExampleErrorHTTPServer() {
 	Seed(11)
 	fmt.Println(ErrorHTTPServer())
 
-	// Output: internal server error
+	// Output: not extended
 }
 
 func ExampleFaker_ErrorHTTPServer() {
 	f := New(11)
 	fmt.Println(f.ErrorHTTPServer())
 
-	// Output: internal server error
+	// Output: not extended
 }
 
 func BenchmarkErrorHTTPServer(b *testing.B) {
@@ -149,14 +149,14 @@ func ExampleErrorRuntime() {
 	Seed(11)
 	fmt.Println(ErrorRuntime())
 
-	// Output: panic: runtime error: invalid memory address or nil pointer dereference
+	// Output: expected 2 arguments, got 3
 }
 
 func ExampleFaker_ErrorRuntime() {
 	f := New(11)
 	fmt.Println(f.ErrorRuntime())
 
-	// Output: panic: runtime error: invalid memory address or nil pointer dereference
+	// Output: expected 2 arguments, got 3
 }
 
 func BenchmarkErrorRuntime(b *testing.B) {
@@ -169,14 +169,14 @@ func ExampleErrorValidation() {
 	Seed(11)
 	fmt.Println(ErrorValidation())
 
-	// Output: state max length exceeded
+	// Output: payment details cannot be verified
 }
 
 func ExampleFaker_ErrorValidation() {
 	f := New(11)
 	fmt.Println(f.ErrorValidation())
 
-	// Output: state max length exceeded
+	// Output: payment details cannot be verified
 }
 
 func BenchmarkErrorValidation(b *testing.B) {

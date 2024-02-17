@@ -9,14 +9,14 @@ func ExampleLanguage() {
 	Seed(11)
 	fmt.Println(Language())
 
-	// Output: Kazakh
+	// Output: Turkish
 }
 
 func ExampleFaker_Language() {
 	f := New(11)
 	fmt.Println(f.Language())
 
-	// Output: Kazakh
+	// Output: Turkish
 }
 
 func BenchmarkLanguage(b *testing.B) {
@@ -29,14 +29,14 @@ func ExampleLanguageAbbreviation() {
 	Seed(11)
 	fmt.Println(LanguageAbbreviation())
 
-	// Output: kk
+	// Output: tr
 }
 
 func ExampleFaker_LanguageAbbreviation() {
 	f := New(11)
 	fmt.Println(f.LanguageAbbreviation())
 
-	// Output: kk
+	// Output: tr
 }
 
 func BenchmarkLanguageAbbreviation(b *testing.B) {
@@ -49,14 +49,14 @@ func ExampleLanguageBCP() {
 	Seed(11)
 	fmt.Println(LanguageBCP())
 
-	// Output: de-DE
+	// Output: tr-TR
 }
 
 func ExampleFaker_LanguageBCP() {
 	f := New(11)
 	fmt.Println(f.LanguageBCP())
 
-	// Output: de-DE
+	// Output: tr-TR
 }
 
 func BenchmarkLanguageBCP(b *testing.B) {
@@ -66,41 +66,21 @@ func BenchmarkLanguageBCP(b *testing.B) {
 }
 
 func ExampleProgrammingLanguage() {
-	Seed(464)
+	Seed(11)
 	fmt.Println(ProgrammingLanguage())
 
-	// Output: Go
+	// Output: TELCOMP
 }
 
 func ExampleFaker_ProgrammingLanguage() {
-	f := New(464)
+	f := New(11)
 	fmt.Println(f.ProgrammingLanguage())
 
-	// Output: Go
+	// Output: TELCOMP
 }
 
 func BenchmarkProgrammingLanguage(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		ProgrammingLanguage()
-	}
-}
-
-func ExampleProgrammingLanguageBest() {
-	Seed(11)
-	fmt.Println(ProgrammingLanguageBest())
-
-	// Output: Go
-}
-
-func ExampleFaker_ProgrammingLanguageBest() {
-	f := New(11)
-	fmt.Println(f.ProgrammingLanguageBest())
-
-	// Output: Go
-}
-
-func BenchmarkProgrammingLanguageBest(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		ProgrammingLanguageBest()
 	}
 }

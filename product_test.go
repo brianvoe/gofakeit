@@ -17,14 +17,14 @@ func ExampleProduct() {
 	fmt.Println(product.Material)
 	fmt.Println(product.UPC)
 
-	// Output: Olive Copper Monitor
-	// Choir computer still far unless army party riches theirs instead here. Whichever that those instance growth has ouch enough Swiss us since down he. Aha us you to upon how this this furniture way no play towel.
-	// [clothing tools and hardware]
-	// 41.61
-	// [ultra-lightweight]
-	// olive
-	// stainless
-	// 074937734366
+	// Output: Wave Precision Lamp
+	// Since previously was that there a tennis occur why. Heels out can fire anyone sometimes. Leap whom troop now scarcely.
+	// [cosmetics outdoor gear]
+	// 49.18
+	// [touchscreen ultra-lightweight gps-enabled biometric]
+	// green
+	// brass
+	// 082447816155
 }
 
 func ExampleFaker_Product() {
@@ -39,14 +39,14 @@ func ExampleFaker_Product() {
 	fmt.Println(product.Material)
 	fmt.Println(product.UPC)
 
-	// Output: Olive Copper Monitor
-	// Choir computer still far unless army party riches theirs instead here. Whichever that those instance growth has ouch enough Swiss us since down he. Aha us you to upon how this this furniture way no play towel.
-	// [clothing tools and hardware]
-	// 41.61
-	// [ultra-lightweight]
-	// olive
-	// stainless
-	// 074937734366
+	// Output: Wave Precision Lamp
+	// Since previously was that there a tennis occur why. Heels out can fire anyone sometimes. Leap whom troop now scarcely.
+	// [cosmetics outdoor gear]
+	// 49.18
+	// [touchscreen ultra-lightweight gps-enabled biometric]
+	// green
+	// brass
+	// 082447816155
 }
 
 func TestProduct(t *testing.T) {
@@ -96,14 +96,14 @@ func ExampleProductName() {
 	Seed(11)
 	fmt.Println(ProductName())
 
-	// Output: Appliance Pulse Leather
+	// Output: Green Glass Hair Dryer
 }
 
 func ExampleFaker_ProductName() {
 	f := New(11)
 	fmt.Println(f.ProductName())
 
-	// Output: Appliance Pulse Leather
+	// Output: Green Glass Hair Dryer
 }
 
 func BenchmarkProductName(b *testing.B) {
@@ -116,14 +116,14 @@ func ExampleProductDescription() {
 	Seed(11)
 	fmt.Println(ProductDescription())
 
-	// Output: How these keep trip Congolese choir computer still far unless army party riches theirs instead. Mine whichever that those instance. Has ouch enough Swiss us since down.
+	// Output: Regularly quiver these sprint fight something am elsewhere since previously was that there a. Occur why depend heels out can fire anyone sometimes that leap whom troop now.
 }
 
 func ExampleFaker_ProductDescription() {
 	f := New(11)
 	fmt.Println(f.ProductDescription())
 
-	// Output: How these keep trip Congolese choir computer still far unless army party riches theirs instead. Mine whichever that those instance. Has ouch enough Swiss us since down.
+	// Output: Regularly quiver these sprint fight something am elsewhere since previously was that there a. Occur why depend heels out can fire anyone sometimes that leap whom troop now.
 }
 
 func BenchmarkProductDescription(b *testing.B) {
@@ -136,14 +136,14 @@ func ExampleProductCategory() {
 	Seed(11)
 	fmt.Println(ProductCategory())
 
-	// Output: pet supplies
+	// Output: pet food
 }
 
 func ExampleFaker_ProductCategory() {
 	f := New(11)
 	fmt.Println(f.ProductCategory())
 
-	// Output: pet supplies
+	// Output: pet food
 }
 
 func BenchmarkProductCategory(b *testing.B) {
@@ -156,14 +156,14 @@ func ExampleProductFeature() {
 	Seed(11)
 	fmt.Println(ProductFeature())
 
-	// Output: wireless
+	// Output: fast-charging
 }
 
 func ExampleFaker_ProductFeature() {
 	f := New(11)
 	fmt.Println(f.ProductFeature())
 
-	// Output: wireless
+	// Output: fast-charging
 }
 
 func BenchmarkProductFeature(b *testing.B) {
@@ -176,14 +176,14 @@ func ExampleProductMaterial() {
 	Seed(11)
 	fmt.Println(ProductMaterial())
 
-	// Output: silicon
+	// Output: quartz
 }
 
 func ExampleFaker_ProductMaterial() {
 	f := New(11)
 	fmt.Println(f.ProductMaterial())
 
-	// Output: silicon
+	// Output: quartz
 }
 
 func BenchmarkProductMaterial(b *testing.B) {
@@ -196,14 +196,14 @@ func ExampleProductUPC() {
 	Seed(11)
 	fmt.Println(ProductUPC())
 
-	// Output: 056990598130
+	// Output: 088125275989
 }
 
 func ExampleFaker_ProductUPC() {
 	f := New(11)
 	fmt.Println(f.ProductUPC())
 
-	// Output: 056990598130
+	// Output: 088125275989
 }
 
 func BenchmarkProductUPC(b *testing.B) {

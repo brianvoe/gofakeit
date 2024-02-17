@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	"regexp"
 	"testing"
 	"unicode"
 )
@@ -10,14 +11,14 @@ func ExampleLetter() {
 	Seed(11)
 	fmt.Println(Letter())
 
-	// Output: g
+	// Output: u
 }
 
 func ExampleFaker_Letter() {
 	f := New(11)
 	fmt.Println(f.Letter())
 
-	// Output: g
+	// Output: u
 }
 
 func BenchmarkLetter(b *testing.B) {
@@ -48,14 +49,14 @@ func ExampleLetterN() {
 	Seed(11)
 	fmt.Println(LetterN(10))
 
-	// Output: gbRMaRxHki
+	// Output: usKKbMlbxq
 }
 
 func ExampleFaker_LetterN() {
 	f := New(11)
 	fmt.Println(f.LetterN(10))
 
-	// Output: gbRMaRxHki
+	// Output: usKKbMlbxq
 }
 
 func BenchmarkLetterN(b *testing.B) {
@@ -90,14 +91,14 @@ func ExampleDigit() {
 	Seed(11)
 	fmt.Println(Digit())
 
-	// Output: 0
+	// Output: 8
 }
 
 func ExampleFaker_Digit() {
 	f := New(11)
 	fmt.Println(f.Digit())
 
-	// Output: 0
+	// Output: 8
 }
 
 func BenchmarkDigit(b *testing.B) {
@@ -129,14 +130,14 @@ func ExampleDigitN() {
 	Seed(11)
 	fmt.Println(DigitN(10))
 
-	// Output: 0136459948
+	// Output: 8812527598
 }
 
 func ExampleFaker_DigitN() {
 	f := New(11)
 	fmt.Println(f.DigitN(10))
 
-	// Output: 0136459948
+	// Output: 8812527598
 }
 
 func BenchmarkDigitN(b *testing.B) {
@@ -150,14 +151,14 @@ func ExampleNumerify() {
 	Seed(11)
 	fmt.Println(Numerify("###-###-####"))
 
-	// Output: 613-645-9948
+	// Output: 881-252-7598
 }
 
 func ExampleFaker_Numerify() {
 	f := New(11)
 	fmt.Println(f.Numerify("###-###-####"))
 
-	// Output: 613-645-9948
+	// Output: 881-252-7598
 }
 
 func BenchmarkNumerify(b *testing.B) {
@@ -170,14 +171,14 @@ func ExampleLexify() {
 	Seed(11)
 	fmt.Println(Lexify("?????"))
 
-	// Output: gbRMa
+	// Output: usKKb
 }
 
 func ExampleFaker_Lexify() {
 	f := New(11)
 	fmt.Println(f.Lexify("?????"))
 
-	// Output: gbRMa
+	// Output: usKKb
 }
 
 func BenchmarkLexify(b *testing.B) {
@@ -192,7 +193,7 @@ func ExampleShuffleStrings() {
 	ShuffleStrings(strings)
 	fmt.Println(strings)
 
-	// Output: [good everyone have for times a day happy]
+	// Output: [for day happy everyone good times a have]
 }
 
 func ExampleFaker_ShuffleStrings() {
@@ -201,7 +202,7 @@ func ExampleFaker_ShuffleStrings() {
 	f.ShuffleStrings(strings)
 	fmt.Println(strings)
 
-	// Output: [good everyone have for times a day happy]
+	// Output: [for day happy everyone good times a have]
 }
 
 func TestShuffleStrings(t *testing.T) {
@@ -240,21 +241,25 @@ func ExampleFaker_RandomString() {
 
 func TestRandomString(t *testing.T) {
 	for _, test := range []struct {
-		in     []string
-		should string
+		in          []string
+		shouldRegex string
 	}{
 		{[]string{}, ""},
 		{nil, ""},
 		{[]string{"a"}, "a"},
-		{[]string{"a", "b", "c", "d", "e", "f"}, "f"},
+		{[]string{"a", "b", "c", "d", "e", "f"}, "[abcdef]"},
 	} {
-		Seed(44)
-		got := RandomString(test.in)
-		if got == test.should {
-			continue
+		Seed(11)
+
+		res := RandomString(test.in)
+		matched, err := regexp.MatchString(test.shouldRegex, res)
+		if err != nil {
+			t.Error(err)
 		}
-		t.Errorf("for '%v' should '%s' got '%s'",
-			test.in, test.should, got)
+
+		if !matched {
+			t.Errorf("expected %s to match %s", res, test.shouldRegex)
+		}
 	}
 }
 

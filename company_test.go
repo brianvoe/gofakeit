@@ -9,14 +9,14 @@ func ExampleCompany() {
 	Seed(11)
 	fmt.Println(Company())
 
-	// Output: ClearHealthCosts
+	// Output: TransparaGov
 }
 
 func ExampleFaker_Company() {
 	f := New(11)
 	fmt.Println(f.Company())
 
-	// Output: ClearHealthCosts
+	// Output: TransparaGov
 }
 
 func BenchmarkCompany(b *testing.B) {
@@ -55,14 +55,14 @@ func ExampleBlurb() {
 	Seed(11)
 	fmt.Println(Blurb())
 
-	// Output: Motivation
+	// Output: Teamwork
 }
 
 func ExampleFaker_Blurb() {
 	f := New(11)
 	fmt.Println(f.Blurb())
 
-	// Output: Motivation
+	// Output: Teamwork
 }
 
 func BenchmarkBlurb(b *testing.B) {
@@ -74,14 +74,14 @@ func ExampleBuzzWord() {
 	Seed(11)
 	fmt.Println(BuzzWord())
 
-	// Output: disintermediate
+	// Output: open system
 }
 
 func ExampleFaker_BuzzWord() {
 	f := New(11)
 	fmt.Println(f.BuzzWord())
 
-	// Output: disintermediate
+	// Output: open system
 }
 
 func BenchmarkBuzzWord(b *testing.B) {
@@ -94,14 +94,14 @@ func ExampleBS() {
 	Seed(11)
 	fmt.Println(BS())
 
-	// Output: front-end
+	// Output: models
 }
 
 func ExampleFaker_BS() {
 	f := New(11)
 	fmt.Println(f.BS())
 
-	// Output: front-end
+	// Output: models
 }
 
 func BenchmarkBS(b *testing.B) {
@@ -118,10 +118,10 @@ func ExampleJob() {
 	fmt.Println(jobInfo.Descriptor)
 	fmt.Println(jobInfo.Level)
 
-	// Output: ClearHealthCosts
-	// Agent
-	// Future
-	// Tactics
+	// Output: TransparaGov
+	// Specialist
+	// Direct
+	// Configuration
 }
 
 func ExampleFaker_Job() {
@@ -132,10 +132,10 @@ func ExampleFaker_Job() {
 	fmt.Println(jobInfo.Descriptor)
 	fmt.Println(jobInfo.Level)
 
-	// Output: ClearHealthCosts
-	// Agent
-	// Future
-	// Tactics
+	// Output: TransparaGov
+	// Specialist
+	// Direct
+	// Configuration
 }
 
 func BenchmarkJob(b *testing.B) {
@@ -148,14 +148,14 @@ func ExampleJobTitle() {
 	Seed(11)
 	fmt.Println(JobTitle())
 
-	// Output: Director
+	// Output: Strategist
 }
 
 func ExampleFaker_JobTitle() {
 	f := New(11)
 	fmt.Println(f.JobTitle())
 
-	// Output: Director
+	// Output: Strategist
 }
 
 func BenchmarkJobTitle(b *testing.B) {
@@ -168,14 +168,14 @@ func ExampleJobDescriptor() {
 	Seed(11)
 	fmt.Println(JobDescriptor())
 
-	// Output: Central
+	// Output: Product
 }
 
 func ExampleFaker_JobDescriptor() {
 	f := New(11)
 	fmt.Println(f.JobDescriptor())
 
-	// Output: Central
+	// Output: Product
 }
 
 func BenchmarkJobDescriptor(b *testing.B) {
@@ -188,14 +188,14 @@ func ExampleJobLevel() {
 	Seed(11)
 	fmt.Println(JobLevel())
 
-	// Output: Assurance
+	// Output: Solutions
 }
 
 func ExampleFaker_JobLevel() {
 	f := New(11)
 	fmt.Println(f.JobLevel())
 
-	// Output: Assurance
+	// Output: Solutions
 }
 
 func BenchmarkJobLevel(b *testing.B) {
@@ -208,14 +208,14 @@ func ExampleSlogan() {
 	Seed(11)
 	fmt.Println(Slogan())
 
-	// Output: Universal seamless Focus, interactive.
+	// Output: local area network maximize Drive, mission-critical.
 }
 
 func ExampleFaker_Slogan() {
 	f := New(11)
 	fmt.Println(f.Slogan())
 
-	// Output: Universal seamless Focus, interactive.
+	// Output: local area network maximize Drive, mission-critical.
 }
 
 func BenchmarkSlogan(b *testing.B) {

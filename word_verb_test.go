@@ -9,14 +9,14 @@ func ExampleVerb() {
 	Seed(11)
 	fmt.Println(Verb())
 
-	// Output: does
+	// Output: would
 }
 
 func ExampleFaker_Verb() {
 	f := New(11)
 	fmt.Println(f.Verb())
 
-	// Output: does
+	// Output: would
 }
 
 func BenchmarkVerb(b *testing.B) {
@@ -29,14 +29,14 @@ func ExampleVerbAction() {
 	Seed(11)
 	fmt.Println(VerbAction())
 
-	// Output: close
+	// Output: paint
 }
 
 func ExampleFaker_VerbAction() {
 	f := New(11)
 	fmt.Println(f.VerbAction())
 
-	// Output: close
+	// Output: paint
 }
 
 func BenchmarkVerbAction(b *testing.B) {
@@ -49,14 +49,14 @@ func ExampleVerbTransitive() {
 	Seed(11)
 	fmt.Println(VerbTransitive())
 
-	// Output: follow
+	// Output: upgrade
 }
 
 func ExampleFaker_VerbTransitive() {
 	f := New(11)
 	fmt.Println(f.VerbTransitive())
 
-	// Output: follow
+	// Output: upgrade
 }
 
 func BenchmarkVerbTransitive(b *testing.B) {
@@ -69,14 +69,14 @@ func ExampleVerbIntransitive() {
 	Seed(11)
 	fmt.Println(VerbIntransitive())
 
-	// Output: laugh
+	// Output: vomit
 }
 
 func ExampleFaker_VerbIntransitive() {
 	f := New(11)
 	fmt.Println(f.VerbIntransitive())
 
-	// Output: laugh
+	// Output: vomit
 }
 
 func BenchmarkVerbIntransitive(b *testing.B) {
@@ -89,14 +89,14 @@ func ExampleVerbLinking() {
 	Seed(11)
 	fmt.Println(VerbLinking())
 
-	// Output: was
+	// Output: must
 }
 
 func ExampleFaker_VerbLinking() {
 	f := New(11)
 	fmt.Println(f.VerbLinking())
 
-	// Output: was
+	// Output: must
 }
 
 func BenchmarkVerbLinking(b *testing.B) {
@@ -109,14 +109,14 @@ func ExampleVerbHelping() {
 	Seed(11)
 	fmt.Println(VerbHelping())
 
-	// Output: be
+	// Output: am
 }
 
 func ExampleFaker_VerbHelping() {
 	f := New(11)
 	fmt.Println(f.VerbHelping())
 
-	// Output: be
+	// Output: am
 }
 
 func BenchmarkVerbHelping(b *testing.B) {

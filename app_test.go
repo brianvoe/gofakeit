@@ -9,14 +9,14 @@ func ExampleAppName() {
 	Seed(11)
 	fmt.Println(AppName())
 
-	// Output: Oxbeing
+	// Output: Swanthink
 }
 
 func ExampleFaker_AppName() {
 	f := New(11)
 	fmt.Println(f.AppName())
 
-	// Output: Oxbeing
+	// Output: Swanthink
 }
 
 func TestAppName(t *testing.T) {
@@ -38,14 +38,14 @@ func ExampleAppVersion() {
 	Seed(11)
 	fmt.Println(AppVersion())
 
-	// Output: 1.17.20
+	// Output: 5.18.4
 }
 
 func ExampleFaker_AppVersion() {
 	f := New(11)
 	fmt.Println(f.AppVersion())
 
-	// Output: 1.17.20
+	// Output: 5.18.4
 }
 
 func BenchmarkAppVersion(b *testing.B) {
@@ -58,14 +58,14 @@ func ExampleAppAuthor() {
 	Seed(11)
 	fmt.Println(AppAuthor())
 
-	// Output: Marcel Pagac
+	// Output: StreetEasy
 }
 
 func ExampleFaker_AppAuthor() {
 	f := New(11)
 	fmt.Println(f.AppAuthor())
 
-	// Output: Marcel Pagac
+	// Output: StreetEasy
 }
 
 func TestAuthor(t *testing.T) {

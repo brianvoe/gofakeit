@@ -17,14 +17,14 @@ func ExampleAddress() {
 	fmt.Println(address.Latitude)
 	fmt.Println(address.Longitude)
 
-	// Output: 364 Unionsville, Norfolk, Ohio 99536
-	// 364 Unionsville
-	// Norfolk
-	// Ohio
-	// 99536
-	// Lesotho
-	// 88.792592
-	// 174.504681
+	// Output: 125 East Routemouth, North Las Vegas, South Dakota 17999
+	// 125 East Routemouth
+	// North Las Vegas
+	// South Dakota
+	// 17999
+	// Iran (Islamic Republic of)
+	// 83.558542
+	// -159.896615
 }
 
 func ExampleFaker_Address() {
@@ -39,14 +39,14 @@ func ExampleFaker_Address() {
 	fmt.Println(address.Latitude)
 	fmt.Println(address.Longitude)
 
-	// Output: 364 Unionsville, Norfolk, Ohio 99536
-	// 364 Unionsville
-	// Norfolk
-	// Ohio
-	// 99536
-	// Lesotho
-	// 88.792592
-	// 174.504681
+	// Output: 125 East Routemouth, North Las Vegas, South Dakota 17999
+	// 125 East Routemouth
+	// North Las Vegas
+	// South Dakota
+	// 17999
+	// Iran (Islamic Republic of)
+	// 83.558542
+	// -159.896615
 }
 
 func BenchmarkAddress(b *testing.B) {
@@ -59,14 +59,14 @@ func ExampleStreet() {
 	Seed(11)
 	fmt.Println(Street())
 
-	// Output: 364 Unionsville
+	// Output: 125 East Routemouth
 }
 
 func ExampleFaker_Street() {
 	f := New(11)
 	fmt.Println(f.Street())
 
-	// Output: 364 Unionsville
+	// Output: 125 East Routemouth
 }
 
 func BenchmarkStreet(b *testing.B) {
@@ -79,14 +79,14 @@ func ExampleStreetNumber() {
 	Seed(11)
 	fmt.Println(StreetNumber())
 
-	// Output: 13645
+	// Output: 812
 }
 
 func ExampleFaker_StreetNumber() {
 	f := New(11)
 	fmt.Println(f.StreetNumber())
 
-	// Output: 13645
+	// Output: 812
 }
 
 func BenchmarkStreetNumber(b *testing.B) {
@@ -99,14 +99,14 @@ func ExampleStreetPrefix() {
 	Seed(11)
 	fmt.Println(StreetPrefix())
 
-	// Output: Lake
+	// Output: Port
 }
 
 func ExampleFaker_StreetPrefix() {
 	f := New(11)
 	fmt.Println(f.StreetPrefix())
 
-	// Output: Lake
+	// Output: Port
 }
 
 func BenchmarkStreetPrefix(b *testing.B) {
@@ -119,14 +119,14 @@ func ExampleStreetName() {
 	Seed(11)
 	fmt.Println(StreetName())
 
-	// Output: View
+	// Output: Turnpike
 }
 
 func ExampleFaker_StreetName() {
 	f := New(11)
 	fmt.Println(f.StreetName())
 
-	// Output: View
+	// Output: Turnpike
 }
 
 func BenchmarkStreetName(b *testing.B) {
@@ -139,14 +139,14 @@ func ExampleStreetSuffix() {
 	Seed(11)
 	fmt.Println(StreetSuffix())
 
-	// Output: land
+	// Output: side
 }
 
 func ExampleFaker_StreetSuffix() {
 	f := New(11)
 	fmt.Println(f.StreetSuffix())
 
-	// Output: land
+	// Output: side
 }
 
 func BenchmarkStreetSuffix(b *testing.B) {
@@ -159,14 +159,14 @@ func ExampleCity() {
 	Seed(11)
 	fmt.Println(City())
 
-	// Output: Plano
+	// Output: Reno
 }
 
 func ExampleFaker_City() {
 	f := New(11)
 	fmt.Println(f.City())
 
-	// Output: Plano
+	// Output: Reno
 }
 
 func TestCity(t *testing.T) {
@@ -185,14 +185,14 @@ func ExampleState() {
 	Seed(11)
 	fmt.Println(State())
 
-	// Output: Hawaii
+	// Output: Vermont
 }
 
 func ExampleFaker_State() {
 	f := New(11)
 	fmt.Println(f.State())
 
-	// Output: Hawaii
+	// Output: Vermont
 }
 
 func BenchmarkState(b *testing.B) {
@@ -205,14 +205,14 @@ func ExampleStateAbr() {
 	Seed(11)
 	fmt.Println(StateAbr())
 
-	// Output: CO
+	// Output: WV
 }
 
 func ExampleFaker_StateAbr() {
 	f := New(11)
 	fmt.Println(f.StateAbr())
 
-	// Output: CO
+	// Output: WV
 }
 
 func BenchmarkStateAbr(b *testing.B) {
@@ -225,14 +225,14 @@ func ExampleZip() {
 	Seed(11)
 	fmt.Println(Zip())
 
-	// Output: 13645
+	// Output: 81252
 }
 
 func ExampleFaker_Zip() {
 	f := New(11)
 	fmt.Println(f.Zip())
 
-	// Output: 13645
+	// Output: 81252
 }
 
 func BenchmarkZip(b *testing.B) {
@@ -245,14 +245,14 @@ func ExampleCountry() {
 	Seed(11)
 	fmt.Println(Country())
 
-	// Output: Cabo Verde
+	// Output: Tonga
 }
 
 func ExampleFaker_Country() {
 	f := New(11)
 	fmt.Println(f.Country())
 
-	// Output: Cabo Verde
+	// Output: Tonga
 }
 
 func BenchmarkCountry(b *testing.B) {
@@ -265,14 +265,14 @@ func ExampleCountryAbr() {
 	Seed(11)
 	fmt.Println(CountryAbr())
 
-	// Output: CV
+	// Output: TO
 }
 
 func ExampleFaker_CountryAbr() {
 	f := New(11)
 	fmt.Println(f.CountryAbr())
 
-	// Output: CV
+	// Output: TO
 }
 
 func BenchmarkCountryAbr(b *testing.B) {
@@ -285,14 +285,14 @@ func ExampleLatitude() {
 	Seed(11)
 	fmt.Println(Latitude())
 
-	// Output: -73.534057
+	// Output: 48.654167
 }
 
 func ExampleFaker_Latitude() {
 	f := New(11)
 	fmt.Println(f.Latitude())
 
-	// Output: -73.534057
+	// Output: 48.654167
 }
 
 func BenchmarkLatitude(b *testing.B) {
@@ -305,14 +305,14 @@ func ExampleLongitude() {
 	Seed(11)
 	fmt.Println(Longitude())
 
-	// Output: -147.068113
+	// Output: 97.308335
 }
 
 func ExampleFaker_Longitude() {
 	f := New(11)
 	fmt.Println(f.Longitude())
 
-	// Output: -147.068113
+	// Output: 97.308335
 }
 
 func BenchmarkLongitude(b *testing.B) {
@@ -348,7 +348,7 @@ func ExampleLatitudeInRange() {
 	lat, _ := LatitudeInRange(21, 42)
 	fmt.Println(lat)
 
-	// Output: 22.921026
+	// Output: 37.176319
 }
 
 func ExampleFaker_LatitudeInRange() {
@@ -356,7 +356,7 @@ func ExampleFaker_LatitudeInRange() {
 	lat, _ := f.LatitudeInRange(21, 42)
 	fmt.Println(lat)
 
-	// Output: 22.921026
+	// Output: 37.176319
 }
 
 func BenchmarkLatitudeInRange(b *testing.B) {
@@ -392,7 +392,7 @@ func ExampleLongitudeInRange() {
 	long, _ := LongitudeInRange(-10, 10)
 	fmt.Println(long)
 
-	// Output: -8.170451
+	// Output: 5.406018
 }
 
 func ExampleFaker_LongitudeInRange() {
@@ -400,7 +400,7 @@ func ExampleFaker_LongitudeInRange() {
 	long, _ := f.LongitudeInRange(-10, 10)
 	fmt.Println(long)
 
-	// Output: -8.170451
+	// Output: 5.406018
 }
 
 func BenchmarkLongitudeInRange(b *testing.B) {

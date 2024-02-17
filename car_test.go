@@ -15,12 +15,12 @@ func ExampleCar() {
 	fmt.Println(car.Type)
 	fmt.Println(car.Year)
 
-	// Output: Fiat
-	// Gasoline
-	// Freestyle Fwd
+	// Output: Dacia
+	// CNG
+	// Santafe 4wd
 	// Automatic
-	// Passenger car mini
-	// 1965
+	// Passenger car heavy
+	// 1928
 }
 
 func ExampleFaker_Car() {
@@ -33,12 +33,12 @@ func ExampleFaker_Car() {
 	fmt.Println(car.Type)
 	fmt.Println(car.Year)
 
-	// Output: Fiat
-	// Gasoline
-	// Freestyle Fwd
+	// Output: Dacia
+	// CNG
+	// Santafe 4wd
 	// Automatic
-	// Passenger car mini
-	// 1965
+	// Passenger car heavy
+	// 1928
 }
 
 func BenchmarkCar(b *testing.B) {
@@ -51,14 +51,14 @@ func ExampleCarType() {
 	Seed(11)
 	fmt.Println(CarType())
 
-	// Output: Passenger car mini
+	// Output: Passenger car heavy
 }
 
 func ExampleFaker_CarType() {
 	f := New(11)
 	fmt.Println(f.CarType())
 
-	// Output: Passenger car mini
+	// Output: Passenger car heavy
 }
 
 func BenchmarkCarType(b *testing.B) {
@@ -71,14 +71,14 @@ func ExampleCarFuelType() {
 	Seed(11)
 	fmt.Println(CarFuelType())
 
-	// Output: CNG
+	// Output: Electric
 }
 
 func ExampleFaker_CarFuelType() {
 	f := New(11)
 	fmt.Println(f.CarFuelType())
 
-	// Output: CNG
+	// Output: Electric
 }
 
 func BenchmarkCarFuelType(b *testing.B) {
@@ -111,14 +111,14 @@ func ExampleCarMaker() {
 	Seed(11)
 	fmt.Println(CarMaker())
 
-	// Output: Nissan
+	// Output: Spyker
 }
 
 func ExampleFaker_CarMaker() {
 	f := New(11)
 	fmt.Println(f.CarMaker())
 
-	// Output: Nissan
+	// Output: Spyker
 }
 
 func BenchmarkCarMaker(b *testing.B) {
@@ -131,14 +131,14 @@ func ExampleCarModel() {
 	Seed(11)
 	fmt.Println(CarModel())
 
-	// Output: Aveo
+	// Output: Prius
 }
 
 func ExampleFaker_CarModel() {
 	f := New(11)
 	fmt.Println(f.CarModel())
 
-	// Output: Aveo
+	// Output: Prius
 }
 
 func BenchmarkCarModel(b *testing.B) {
