@@ -15,7 +15,7 @@ type Fakeable interface {
 func isFakeable(t reflect.Type) bool {
 	fakeableTyp := reflect.TypeOf((*Fakeable)(nil)).Elem()
 
-	return t.Implements(fakeableTyp) || reflect.PtrTo(t).Implements(fakeableTyp)
+	return t.Implements(fakeableTyp) || reflect.PointerTo(t).Implements(fakeableTyp)
 }
 
 func callFake(faker *Faker, v reflect.Value, possibleKinds ...reflect.Kind) (any, error) {
