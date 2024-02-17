@@ -29,7 +29,7 @@ func (f *Faker) UintN(n uint) uint { return uintNFunc(f, n) }
 
 func uintNFunc(f *Faker, n uint) uint {
 	if n == 0 {
-		panic("invalid argument to UintN")
+		return 0
 	}
 	return uint(uint64NFunc(f, uint64(n)))
 }
@@ -145,7 +145,7 @@ func (f *Faker) IntN(n int) int { return intNFunc(f, n) }
 
 func intNFunc(f *Faker, n int) int {
 	if n <= 0 {
-		panic("invalid argument to IntN")
+		return 0
 	}
 	return int(uint64NFunc(f, uint64(n)))
 }
@@ -410,7 +410,7 @@ func addNumberLookup() {
 		Example:     "32783",
 		Output:      "uint",
 		Params: []Param{
-			{Field: "n", Display: "N", Type: "uint", Description: "Maximum uint value"},
+			{Field: "n", Display: "N", Type: "uint", Default: "4294967295", Description: "Maximum uint value"},
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			n, err := info.GetUint(m, "n")
@@ -509,7 +509,7 @@ func addNumberLookup() {
 		Example:     "32783",
 		Output:      "int",
 		Params: []Param{
-			{Field: "n", Display: "N", Type: "int", Description: "Maximum int value"},
+			{Field: "n", Display: "N", Type: "int", Default: "2147483647", Description: "Maximum int value"},
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			n, err := info.GetInt(m, "n")
