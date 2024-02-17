@@ -17,6 +17,8 @@ func TestRandIntRange(t *testing.T) {
 		{0, 0},
 		{1000, -1000},
 		{minInt, maxInt},
+		{minInt, minInt + 100}, // Test min
+		{maxInt - 100, maxInt}, // Test max
 		{maxInt - 20000, maxInt - 10000},
 		{minInt + 10000, maxInt - 10000},
 	}

@@ -121,60 +121,30 @@ func randDigit(f *Faker) rune {
 
 // Generate random integer between min and max
 func randIntRange(f *Faker, min, max int) int {
-	// If they pass in the same number, just return that number
 	if min == max {
 		return min
 	}
 
-	// If they pass in a min that is bigger than max, swap them
 	if min > max {
-		ogmin := min
-		min = max
-		max = ogmin
+		min, max = max, min // Swap if min is greater than max
 	}
 
-	// Figure out if the min/max numbers calculation
-	// would cause a panic in the Int63() function.
-	if max-min+1 > 0 {
-		return min + int(int64NFunc(f, int64(max-min+1)))
-	}
-
-	// Loop through the range until we find a number that fits
-	for {
-		v := int(f.Uint64())
-		if (v >= min) && (v <= max) {
-			return v
-		}
-	}
+	// Use f.IntN to generate a random number in [0, rangeSize) and shift it into [min, max].
+	return f.IntN(max-min+1) + min
 }
 
 // Generate random uint between min and max
 func randUintRange(f *Faker, min, max uint) uint {
-	// If they pass in the same number, just return that number
 	if min == max {
-		return min
+		return min // Immediate return if range is zero
 	}
 
-	// If they pass in a min that is bigger than max, swap them
 	if min > max {
-		ogmin := min
-		min = max
-		max = ogmin
+		min, max = max, min // Swap if min is greater than max
 	}
 
-	// Figure out if the min/max numbers calculation
-	// would cause a panic in the Int63() function.
-	if int(max)-int(min)+1 > 0 {
-		return uint(f.IntN(int(max)-int(min)+1) + int(min))
-	}
-
-	// Loop through the range until we find a number that fits
-	for {
-		v := uint(f.Uint64())
-		if (v >= min) && (v <= max) {
-			return v
-		}
-	}
+	// Use f.UintN to generate a random number in [0, rangeSize) and shift it into [min, max].
+	return f.UintN(max-min+1) + min
 }
 
 func toFixed(num float64, precision int) float64 {
