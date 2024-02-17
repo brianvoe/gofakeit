@@ -38,7 +38,7 @@ func (f *Faker) Isin() string {
 }
 
 func isin(f *Faker) string {
-	countryCode := CountryAbr()
+	countryCode := countryAbr(f)
 	nsin := cusip(f)
 	isinChkDig := isinChecksumDigit(countryCode + nsin)
 	return countryCode + nsin + isinChkDig
