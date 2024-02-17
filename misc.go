@@ -27,9 +27,6 @@ func uuid(f *Faker) string {
 	version := byte(4)
 	uuid := make([]byte, 16)
 
-	// Commented out due to io.ReadFull not being race condition safe
-	// io.ReadFull(f, uuid[:])
-
 	// Read 16 random bytes
 	for i := 0; i < 16; i++ {
 		uuid[i] = byte(f.IntN(256))
