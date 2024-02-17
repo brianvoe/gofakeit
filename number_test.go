@@ -413,122 +413,22 @@ func BenchmarkRandomUint(b *testing.B) {
 	}
 }
 
-func ExampleHexUint8() {
+func ExampleHexUint() {
 	Seed(11)
-	fmt.Println(HexUint8())
-
-	// Output: 0x42
-}
-
-func ExampleFaker_HexUint8() {
-	f := New(11)
-	fmt.Println(f.HexUint8())
-
-	// Output: 0x42
-}
-
-func BenchmarkHexUint8(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		HexUint8()
-	}
-}
-
-func ExampleHexUint16() {
-	Seed(11)
-	fmt.Println(HexUint16())
+	fmt.Println(HexUint(16))
 
 	// Output: 0x425b
 }
 
-func ExampleFaker_HexUint16() {
+func ExampleFaker_HexUint() {
 	f := New(11)
-	fmt.Println(f.HexUint16())
+	fmt.Println(f.HexUint(16))
 
 	// Output: 0x425b
 }
 
-func BenchmarkHexUint16(b *testing.B) {
+func BenchmarkHexUint(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		HexUint16()
-	}
-}
-
-func ExampleHexUint32() {
-	Seed(11)
-	fmt.Println(HexUint32())
-
-	// Output: 0x425b349e
-}
-
-func ExampleFaker_HexUint32() {
-	f := New(11)
-	fmt.Println(f.HexUint32())
-
-	// Output: 0x425b349e
-}
-
-func BenchmarkHexUint32(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		HexUint32()
-	}
-}
-
-func ExampleHexUint64() {
-	Seed(11)
-	fmt.Println(HexUint64())
-
-	// Output: 0x425b349e531670df
-}
-
-func ExampleFaker_HexUint64() {
-	f := New(11)
-	fmt.Println(f.HexUint64())
-
-	// Output: 0x425b349e531670df
-}
-
-func BenchmarkHexUint64(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		HexUint64()
-	}
-}
-
-func ExampleHexUint128() {
-	Seed(11)
-	fmt.Println(HexUint128())
-
-	// Output: 0x425b349e531670df839f166ce11f5cfb
-}
-
-func ExampleFaker_HexUint128() {
-	f := New(11)
-	fmt.Println(f.HexUint128())
-
-	// Output: 0x425b349e531670df839f166ce11f5cfb
-}
-
-func BenchmarkHexUint128(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		HexUint128()
-	}
-}
-
-func ExampleHexUint256() {
-	Seed(11)
-	fmt.Println(HexUint256())
-
-	// Output: 0x425b349e531670df839f166ce11f5cfbf915661b53791fa88f2d0932305cfd9c
-}
-
-func ExampleFaker_HexUint256() {
-	f := New(11)
-	fmt.Println(f.HexUint256())
-
-	// Output: 0x425b349e531670df839f166ce11f5cfbf915661b53791fa88f2d0932305cfd9c
-}
-
-func BenchmarkHexUint256(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		HexUint256()
+		HexUint(16)
 	}
 }

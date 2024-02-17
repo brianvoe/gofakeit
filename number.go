@@ -306,41 +306,11 @@ func randomUint(f *Faker, u []uint) uint {
 	return u[f.IntN(size)]
 }
 
-// HexUint8 will generate a random uint8 hex value with "0x" prefix
-func HexUint8() string { return hexUint(GlobalFaker, 8) }
+// HexUint will generate a random uint hex value with "0x" prefix
+func HexUint(bitSize int) string { return hexUint(GlobalFaker, bitSize) }
 
-// HexUint8 will generate a random uint8 hex value with "0x" prefix
-func (f *Faker) HexUint8() string { return hexUint(f, 8) }
-
-// HexUint16 will generate a random uint16 hex value with "0x" prefix
-func HexUint16() string { return hexUint(GlobalFaker, 16) }
-
-// HexUint16 will generate a random uint16 hex value with "0x" prefix
-func (f *Faker) HexUint16() string { return hexUint(f, 16) }
-
-// HexUint32 will generate a random uint32 hex value with "0x" prefix
-func HexUint32() string { return hexUint(GlobalFaker, 32) }
-
-// HexUint32 will generate a random uint32 hex value with "0x" prefix
-func (f *Faker) HexUint32() string { return hexUint(f, 32) }
-
-// HexUint64 will generate a random uint64 hex value with "0x" prefix
-func HexUint64() string { return hexUint(GlobalFaker, 64) }
-
-// HexUint64 will generate a random uint64 hex value with "0x" prefix
-func (f *Faker) HexUint64() string { return hexUint(f, 64) }
-
-// HexUint128 will generate a random uint128 hex value with "0x" prefix
-func HexUint128() string { return hexUint(GlobalFaker, 128) }
-
-// HexUint128 will generate a random uint128 hex value with "0x" prefix
-func (f *Faker) HexUint128() string { return hexUint(f, 128) }
-
-// HexUint256 will generate a random uint256 hex value with "0x" prefix
-func HexUint256() string { return hexUint(GlobalFaker, 256) }
-
-// HexUint256 will generate a random uint256 hex value with "0x" prefix
-func (f *Faker) HexUint256() string { return hexUint(f, 256) }
+// HexUint will generate a random uint hex value with "0x" prefix
+func (f *Faker) HexUint(bitSize int) string { return hexUint(f, bitSize) }
 
 func hexUint(f *Faker, bitSize int) string {
 	digits := []byte("0123456789abcdef")
@@ -712,69 +682,22 @@ func addNumberLookup() {
 		},
 	})
 
-	AddFuncLookup("hexuint8", Info{
-		Display:     "HexUint8",
+	AddFuncLookup("hexuint", Info{
+		Display:     "HexUint",
 		Category:    "number",
-		Description: "Hexadecimal representation of an 8-bit unsigned integer",
+		Description: "Hexadecimal representation of an unsigned integer",
 		Example:     "0x87",
 		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return hexUint(f, 8), nil
+		Params: []Param{
+			{Field: "bitSize", Display: "Bit Size", Type: "int", Default: "8", Description: "Bit size of the unsigned integer"},
 		},
-	})
-
-	AddFuncLookup("hexuint16", Info{
-		Display:     "HexUint16",
-		Category:    "number",
-		Description: "Hexadecimal representation of an 16-bit unsigned integer",
-		Example:     "0x8754",
-		Output:      "string",
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return hexUint(f, 16), nil
-		},
-	})
+			bitSize, err := info.GetInt(m, "bitSize")
+			if err != nil {
+				return nil, err
+			}
 
-	AddFuncLookup("hexuint32", Info{
-		Display:     "HexUint32",
-		Category:    "number",
-		Description: "Hexadecimal representation of an 32-bit unsigned integer",
-		Example:     "0x87546957",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return hexUint(f, 32), nil
-		},
-	})
-
-	AddFuncLookup("hexuint64", Info{
-		Display:     "HexUint64",
-		Category:    "number",
-		Description: "Hexadecimal representation of an 64-bit unsigned integer",
-		Example:     "0x875469578e51b5e5",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return hexUint(f, 64), nil
-		},
-	})
-
-	AddFuncLookup("hexuint128", Info{
-		Display:     "HexUint128",
-		Category:    "number",
-		Description: "Hexadecimal representation of an 128-bit unsigned integer",
-		Example:     "0x875469578e51b5e56c95b64681d147a1",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return hexUint(f, 128), nil
-		},
-	})
-
-	AddFuncLookup("hexuint256", Info{
-		Display:     "HexUint256",
-		Category:    "number",
-		Description: "Hexadecimal representation of an 256-bit unsigned integer",
-		Example:     "0x875469578e51b5e56c95b64681d147a12cde48a4f417231b0c486abbc263e48d",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return hexUint(f, 256), nil
+			return hexUint(f, bitSize), nil
 		},
 	})
 }
