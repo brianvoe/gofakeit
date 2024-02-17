@@ -30,7 +30,10 @@ func New(seed uint64) *Faker {
 
 // NewFaker takes in a rand.Source and thread lock state and returns a new Faker struct
 func NewFaker(src rand.Source, lock bool) *Faker {
-	return &Faker{Rand: src}
+	return &Faker{
+		Rand:   src,
+		Locked: lock,
+	}
 }
 
 // Seed attempts to seed the Faker with the given seed
@@ -41,35 +44,40 @@ func (f *Faker) Seed(args ...any) error {
 		defer f.mu.Unlock()
 	}
 
-	// Ensure GlobalFaker is not nil
-	if GlobalFaker.Rand == nil {
-		return errors.New("GlobalFaker.Rand is nil")
+	// Ensure GlobalFaker is not nil and Rand is initialized
+	if GlobalFaker == nil || GlobalFaker.Rand == nil {
+		return errors.New("GlobalFaker or GlobalFaker.Rand is nil")
 	}
 
-	// The standard Seed method on rand.Source expects a single int64 argument.
-	// This code checks for custom Seed implementations with different parameters.
+	// Retrieve the Seed method
 	method := reflect.ValueOf(GlobalFaker.Rand).MethodByName("Seed")
-
-	// Check if a Seed method is found
 	if !method.IsValid() {
 		return errors.New("Seed method not found")
 	}
 
 	// Adjust args if method requires exactly 2 args but only 1 was provided
 	if method.Type().NumIn() == 2 && len(args) == 1 {
-		args = append(args, args[0]) // Double the first value if only one is provided
+		args = append(args, args[0]) // Duplicate the first value if only one is provided
+	}
+
+	// Get array of function argument types and prepare converted arguments
+	argTypes := make([]reflect.Type, method.Type().NumIn())
+	convertedArgs := make([]reflect.Value, len(args))
+	for i := 0; i < method.Type().NumIn(); i++ {
+		argTypes[i] = method.Type().In(i)
 	}
 
 	// Convert args to the expected type by the Seed method
-	convertedArgs := make([]reflect.Value, len(args))
 	for i, arg := range args {
-		// Assume the method expects uint64, convert the argument
-		if argInt, ok := arg.(int); ok {
-			convertedArgs[i] = reflect.ValueOf(uint64(argInt))
-		} else {
-			// For simplicity, if it's not an int, just reflect the value directly
-			// In a real-world scenario, you might need to handle other types and conversions
-			convertedArgs[i] = reflect.ValueOf(arg)
+		if i < len(argTypes) { // Ensure arg index is within argTypes bounds
+			argValue := reflect.ValueOf(arg)
+			// Check if conversion is necessary
+			if argValue.Type().ConvertibleTo(argTypes[i]) {
+				convertedArgs[i] = argValue.Convert(argTypes[i])
+			} else {
+				// If not convertible, use the argument as is (reflectively)
+				convertedArgs[i] = argValue
+			}
 		}
 	}
 
