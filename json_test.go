@@ -472,8 +472,8 @@ func ExampleJSON_numberWithTag() {
 	// obj.FieldInt16 = 10933
 	// obj.FieldInt32 = 430103905
 	// obj.FieldInt64 = 525217394518216243
-	// obj.FieldUint8 = 59
-	// obj.FieldUint16 = 47617
+	// obj.FieldUint8 = 164
+	// obj.FieldUint16 = 63417
 	// obj.FieldUint32 = 2307233133
 	// obj.FieldUint64 = 17560678512042153749
 	// obj.FieldFloat32 = 0.11857688426971436
