@@ -78,7 +78,7 @@ gofakeit.Seed(8675309) // Set it to whatever number you want
 
 Gofakeit has a few rand sources, by default it uses math/rand/v2 PCG which is a pseudo random number generator and is thread locked.
 
-If you want to see other potential sources you can see the sub package [Source](https://pkg.go.dev/github.com/brianvoe/gofakeit/v7/source) for more information.
+If you want to see other potential sources you can see the sub package [Source](https://github.com/brianvoe/gofakeit/tree/master/source) for more information.
 
 ```go
 import (
@@ -121,13 +121,9 @@ If you would like to use the simple function calls but need to use something lik
 crypto/rand you can override the default global with the random source that you want.
 
 ```go
-import (
-	"github.com/brianvoe/gofakeit/v7"
-	"math/rand/v2"
-)
+import "github.com/brianvoe/gofakeit/v7"
 
-faker := gofakeit.New(0)
-gofakeit.GlobalFaker = faker
+gofakeit.GlobalFaker = gofakeit.New(0)
 ```
 
 ## Struct
@@ -175,7 +171,7 @@ fmt.Println(f.Int)      		// -7825289004089916589
 fmt.Println(*f.Pointer) 		// -343806609094473732
 fmt.Println(f.Name)     		// fred
 fmt.Println(f.Sentence) 		// Record river mind.
-fmt.Println(fStr)  		// world
+fmt.Println(fStr)  				// world
 fmt.Println(f.Number)   		// 4
 fmt.Println(f.Regex)    		// cbdfc
 fmt.Println(f.Map)    			// map[PxLIo:52 lxwnqhqc:846]
@@ -203,36 +199,30 @@ For example, this is useful when it is not possible to modify the struct that yo
 
 ```go
 // Custom string that you want to generate your own data for
-// or just return a static value
-type CustomString string
+type Friend string
 
-func (c *CustomString) Fake(faker *gofakeit.Faker) (any, error) {
-	return CustomString("my custom string")
+func (c *Friend) Fake(f *gofakeit.Faker) (any, error) {
+	// Can call any other faker methods
+	return f.RandomString([]string{"billy", "fred", "susan"}), nil
 }
 
-// Imagine a CustomTime type that is needed to support a custom JSON Marshaler
-type CustomTime time.Time
+// Custom time that you want to generate your own data for
+type Age time.Time
 
-func (c *CustomTime) Fake(faker *gofakeit.Faker) (any, error) {
-	return CustomTime(time.Now())
-}
-
-func (c *CustomTime) MarshalJSON() ([]byte, error) {
-	//...
+func (c *Age) Fake(f *gofakeit.Faker) (any, error) {
+	return f.DateRange(time.Now().AddDate(-100, 0, 0), time.Now().AddDate(-18, 0, 0)), nil
 }
 
 // This is the struct that we cannot modify to add struct tags
-type NotModifiable struct {
-	Token string
-	Value CustomString
-	Creation *CustomTime
+type User struct {
+	Name Friend
+	Age *Age
 }
 
-var f NotModifiable
-gofakeit.Struct(&f)
-fmt.Printf("%s", f.Token) // yvqqdH
-fmt.Printf("%s", f.Value) // my custom string
-fmt.Printf("%s", f.Creation) // 2023-04-02 23:00:00 +0000 UTC m=+0.000000001
+var u User
+gofakeit.Struct(&u)
+fmt.Printf("%s", f.Name) // billy
+fmt.Printf("%s", f.Age) // 1990-12-07 04:14:25.685339029 +0000 UTC
 ```
 
 ## Custom Functions
@@ -295,14 +285,14 @@ We have added all the available functions to the template engine as well as some
 
 Additional Available Functions
 ```go
-- ToUpper(s string) string   // Make string upper case
-- ToLower(s string) string   // Make string lower case
-- ToString(s any)            // Convert to string
-- ToDate(s string) time.Time // Convert string to date
-- SpliceAny(args ...any) []any // Build a slice of anys, used with Weighted
+- ToUpper(s string) string   			// Make string upper case
+- ToLower(s string) string   			// Make string lower case
+- ToString(s any)            			// Convert to string
+- ToDate(s string) time.Time 			// Convert string to date
+- SpliceAny(args ...any) []any 			// Build a slice of anys, used with Weighted
 - SpliceString(args ...string) []string // Build a slice of strings, used with Teams and RandomString
-- SpliceUInt(args ...uint) []uint // Build a slice of uint, used with Dice and RandomUint
-- SpliceInt(args ...int) []int // Build a slice of int, used with RandomInt
+- SpliceUInt(args ...uint) []uint 		// Build a slice of uint, used with Dice and RandomUint
+- SpliceInt(args ...int) []int 			// Build a slice of int, used with RandomInt
 ```
 
 <details>
