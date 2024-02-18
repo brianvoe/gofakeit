@@ -149,7 +149,7 @@ type Foo struct {
 	Map           map[string]int `fakesize:"2"`
 	Array         []string       `fakesize:"2"`
 	ArrayRange    []string       `fakesize:"2,6"`
-    Bar           Bar
+	Bar           Bar
 	Skip          *string        `fake:"skip"`                // Set to "skip" to not generate data for
 	SkipAlt       *string        `fake:"-"`                   // Set to "-" to not generate data for
 	Created       time.Time                                   // Can take in a fake tag as well as a format tag
