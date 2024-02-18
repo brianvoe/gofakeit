@@ -51,7 +51,7 @@ func Example_custom_with_params() {
 			}
 
 			split := strings.Split(word, "")
-			ShuffleStrings(split)
+			f.ShuffleStrings(split)
 			return strings.Join(split, ""), nil
 		},
 	})
