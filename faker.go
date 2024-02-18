@@ -5,6 +5,8 @@ import (
 	"math/rand/v2"
 	"reflect"
 	"sync"
+
+	"github.com/brianvoe/gofakeit/v7/source"
 )
 
 // Create global variable to deal with global function call
@@ -47,6 +49,17 @@ func (f *Faker) Seed(args ...any) error {
 	// Ensure GlobalFaker is not nil and Rand is initialized
 	if GlobalFaker == nil || GlobalFaker.Rand == nil {
 		return errors.New("GlobalFaker or GlobalFaker.Rand is nil")
+	}
+
+	// If args is empty or 0, seed with a random crypto seed
+	if len(args) == 0 {
+		faker := NewFaker(source.NewCrypto(), false)
+		args = append(args, faker.Uint64())
+	}
+
+	if args[0] == 0 {
+		faker := NewFaker(source.NewCrypto(), false)
+		args[0] = faker.Uint64()
 	}
 
 	// Retrieve the Seed method
