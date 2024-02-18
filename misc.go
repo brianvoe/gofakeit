@@ -4,7 +4,7 @@ import (
 	"encoding/hex"
 	"reflect"
 
-	"github.com/brianvoe/gofakeit/v6/data"
+	"github.com/brianvoe/gofakeit/v7/data"
 )
 
 // Bool will generate a random boolean value

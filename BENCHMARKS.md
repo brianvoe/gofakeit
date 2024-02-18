@@ -1,7 +1,7 @@
 go test -bench=. -benchmem
 goos: darwin
 goarch: amd64
-pkg: github.com/brianvoe/gofakeit/v6
+pkg: github.com/brianvoe/gofakeit/v7
 cpu: Apple M1 Max
 Table generated with tablesgenerator.com/markdown_tables File->Paste table data
 
