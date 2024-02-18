@@ -2,7 +2,6 @@ package gofakeit
 
 import (
 	"math"
-	"math/rand"
 	"strconv"
 	"strings"
 )
@@ -22,92 +21,92 @@ type PersonInfo struct {
 }
 
 // Person will generate a struct with person information
-func Person() *PersonInfo { return person(globalFaker.Rand) }
+func Person() *PersonInfo { return person(GlobalFaker) }
 
 // Person will generate a struct with person information
-func (f *Faker) Person() *PersonInfo { return person(f.Rand) }
+func (f *Faker) Person() *PersonInfo { return person(f) }
 
-func person(r *rand.Rand) *PersonInfo {
+func person(f *Faker) *PersonInfo {
 	return &PersonInfo{
-		FirstName:  firstName(r),
-		LastName:   lastName(r),
-		Gender:     gender(r),
-		SSN:        ssn(r),
-		Image:      imageURL(r, number(r, 100, 500), number(r, 100, 500)),
-		Hobby:      hobby(r),
-		Job:        job(r),
-		Address:    address(r),
-		Contact:    contact(r),
-		CreditCard: creditCard(r),
+		FirstName:  firstName(f),
+		LastName:   lastName(f),
+		Gender:     gender(f),
+		SSN:        ssn(f),
+		Image:      imageURL(f, number(f, 100, 500), number(f, 100, 500)),
+		Hobby:      hobby(f),
+		Job:        job(f),
+		Address:    address(f),
+		Contact:    contact(f),
+		CreditCard: creditCard(f),
 	}
 }
 
 // Name will generate a random First and Last Name
-func Name() string { return name(globalFaker.Rand) }
+func Name() string { return name(GlobalFaker) }
 
 // Name will generate a random First and Last Name
-func (f *Faker) Name() string { return name(f.Rand) }
+func (f *Faker) Name() string { return name(f) }
 
-func name(r *rand.Rand) string {
-	return getRandValue(r, []string{"person", "first"}) + " " + getRandValue(r, []string{"person", "last"})
+func name(f *Faker) string {
+	return getRandValue(f, []string{"person", "first"}) + " " + getRandValue(f, []string{"person", "last"})
 }
 
 // FirstName will generate a random first name
-func FirstName() string { return firstName(globalFaker.Rand) }
+func FirstName() string { return firstName(GlobalFaker) }
 
 // FirstName will generate a random first name
-func (f *Faker) FirstName() string { return firstName(f.Rand) }
+func (f *Faker) FirstName() string { return firstName(f) }
 
-func firstName(r *rand.Rand) string { return getRandValue(r, []string{"person", "first"}) }
-
-// MiddleName will generate a random middle name
-func MiddleName() string { return middleName(globalFaker.Rand) }
+func firstName(f *Faker) string { return getRandValue(f, []string{"person", "first"}) }
 
 // MiddleName will generate a random middle name
-func (f *Faker) MiddleName() string { return middleName(f.Rand) }
+func MiddleName() string { return middleName(GlobalFaker) }
 
-func middleName(r *rand.Rand) string { return getRandValue(r, []string{"person", "middle"}) }
+// MiddleName will generate a random middle name
+func (f *Faker) MiddleName() string { return middleName(f) }
+
+func middleName(f *Faker) string { return getRandValue(f, []string{"person", "middle"}) }
 
 // LastName will generate a random last name
-func LastName() string { return lastName(globalFaker.Rand) }
+func LastName() string { return lastName(GlobalFaker) }
 
 // LastName will generate a random last name
-func (f *Faker) LastName() string { return lastName(f.Rand) }
+func (f *Faker) LastName() string { return lastName(f) }
 
-func lastName(r *rand.Rand) string { return getRandValue(r, []string{"person", "last"}) }
-
-// NamePrefix will generate a random name prefix
-func NamePrefix() string { return namePrefix(globalFaker.Rand) }
+func lastName(f *Faker) string { return getRandValue(f, []string{"person", "last"}) }
 
 // NamePrefix will generate a random name prefix
-func (f *Faker) NamePrefix() string { return namePrefix(f.Rand) }
+func NamePrefix() string { return namePrefix(GlobalFaker) }
 
-func namePrefix(r *rand.Rand) string { return getRandValue(r, []string{"person", "prefix"}) }
+// NamePrefix will generate a random name prefix
+func (f *Faker) NamePrefix() string { return namePrefix(f) }
+
+func namePrefix(f *Faker) string { return getRandValue(f, []string{"person", "prefix"}) }
 
 // NameSuffix will generate a random name suffix
-func NameSuffix() string { return nameSuffix(globalFaker.Rand) }
+func NameSuffix() string { return nameSuffix(GlobalFaker) }
 
 // NameSuffix will generate a random name suffix
-func (f *Faker) NameSuffix() string { return nameSuffix(f.Rand) }
+func (f *Faker) NameSuffix() string { return nameSuffix(f) }
 
-func nameSuffix(r *rand.Rand) string { return getRandValue(r, []string{"person", "suffix"}) }
-
-// SSN will generate a random Social Security Number
-func SSN() string { return ssn(globalFaker.Rand) }
+func nameSuffix(f *Faker) string { return getRandValue(f, []string{"person", "suffix"}) }
 
 // SSN will generate a random Social Security Number
-func (f *Faker) SSN() string { return ssn(f.Rand) }
+func SSN() string { return ssn(GlobalFaker) }
 
-func ssn(r *rand.Rand) string { return strconv.Itoa(randIntRange(r, 100000000, 999999999)) }
+// SSN will generate a random Social Security Number
+func (f *Faker) SSN() string { return ssn(f) }
+
+func ssn(f *Faker) string { return strconv.Itoa(randIntRange(f, 100000000, 999999999)) }
 
 // Gender will generate a random gender string
-func Gender() string { return gender(globalFaker.Rand) }
+func Gender() string { return gender(GlobalFaker) }
 
 // Gender will generate a random gender string
-func (f *Faker) Gender() string { return gender(f.Rand) }
+func (f *Faker) Gender() string { return gender(f) }
 
-func gender(r *rand.Rand) string {
-	if boolFunc(r) {
+func gender(f *Faker) string {
+	if boolFunc(f) {
 		return "male"
 	}
 
@@ -115,12 +114,12 @@ func gender(r *rand.Rand) string {
 }
 
 // Hobby will generate a random hobby string
-func Hobby() string { return hobby(globalFaker.Rand) }
+func Hobby() string { return hobby(GlobalFaker) }
 
 // Hobby will generate a random hobby string
-func (f *Faker) Hobby() string { return hobby(f.Rand) }
+func (f *Faker) Hobby() string { return hobby(f) }
 
-func hobby(r *rand.Rand) string { return getRandValue(r, []string{"person", "hobby"}) }
+func hobby(f *Faker) string { return getRandValue(f, []string{"person", "hobby"}) }
 
 // ContactInfo struct full of contact info
 type ContactInfo struct {
@@ -129,64 +128,64 @@ type ContactInfo struct {
 }
 
 // Contact will generate a struct with information randomly populated contact information
-func Contact() *ContactInfo { return contact(globalFaker.Rand) }
+func Contact() *ContactInfo { return contact(GlobalFaker) }
 
 // Contact will generate a struct with information randomly populated contact information
-func (f *Faker) Contact() *ContactInfo { return contact(f.Rand) }
+func (f *Faker) Contact() *ContactInfo { return contact(f) }
 
-func contact(r *rand.Rand) *ContactInfo {
+func contact(f *Faker) *ContactInfo {
 	return &ContactInfo{
-		Phone: phone(r),
-		Email: email(r),
+		Phone: phone(f),
+		Email: email(f),
 	}
 }
 
 // Phone will generate a random phone number string
-func Phone() string { return phone(globalFaker.Rand) }
+func Phone() string { return phone(GlobalFaker) }
 
 // Phone will generate a random phone number string
-func (f *Faker) Phone() string { return phone(f.Rand) }
+func (f *Faker) Phone() string { return phone(f) }
 
-func phone(r *rand.Rand) string { return replaceWithNumbers(r, "##########") }
-
-// PhoneFormatted will generate a random phone number string
-func PhoneFormatted() string { return phoneFormatted(globalFaker.Rand) }
+func phone(f *Faker) string { return replaceWithNumbers(f, "##########") }
 
 // PhoneFormatted will generate a random phone number string
-func (f *Faker) PhoneFormatted() string { return phoneFormatted(f.Rand) }
+func PhoneFormatted() string { return phoneFormatted(GlobalFaker) }
 
-func phoneFormatted(r *rand.Rand) string {
-	return replaceWithNumbers(r, getRandValue(r, []string{"person", "phone"}))
+// PhoneFormatted will generate a random phone number string
+func (f *Faker) PhoneFormatted() string { return phoneFormatted(f) }
+
+func phoneFormatted(f *Faker) string {
+	return replaceWithNumbers(f, getRandValue(f, []string{"person", "phone"}))
 }
 
 // Email will generate a random email string
-func Email() string { return email(globalFaker.Rand) }
+func Email() string { return email(GlobalFaker) }
 
 // Email will generate a random email string
-func (f *Faker) Email() string { return email(f.Rand) }
+func (f *Faker) Email() string { return email(f) }
 
-func email(r *rand.Rand) string {
-	email := getRandValue(r, []string{"person", "first"}) + getRandValue(r, []string{"person", "last"})
+func email(f *Faker) string {
+	email := getRandValue(f, []string{"person", "first"}) + getRandValue(f, []string{"person", "last"})
 	email += "@"
-	email += getRandValue(r, []string{"person", "last"}) + "." + getRandValue(r, []string{"internet", "domain_suffix"})
+	email += getRandValue(f, []string{"person", "last"}) + "." + getRandValue(f, []string{"internet", "domain_suffix"})
 
 	return strings.ToLower(email)
 }
 
 // Teams takes in an array of people and team names and randomly places the people into teams as evenly as possible
 func Teams(peopleArray []string, teamsArray []string) map[string][]string {
-	return teams(globalFaker.Rand, peopleArray, teamsArray)
+	return teams(GlobalFaker, peopleArray, teamsArray)
 }
 
 // Teams takes in an array of people and team names and randomly places the people into teams as evenly as possible
 func (f *Faker) Teams(peopleArray []string, teamsArray []string) map[string][]string {
-	return teams(f.Rand, peopleArray, teamsArray)
+	return teams(f, peopleArray, teamsArray)
 }
 
-func teams(r *rand.Rand, people []string, teams []string) map[string][]string {
+func teams(f *Faker, people []string, teams []string) map[string][]string {
 	// Shuffle the people if more than 1
 	if len(people) > 1 {
-		shuffleStrings(r, people)
+		shuffleStrings(f, people)
 	}
 
 	peopleIndex := 0
@@ -246,8 +245,8 @@ func addPersonLookup() {
 }`,
 		Output:      "map[string]any",
 		ContentType: "application/json",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return person(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return person(f), nil
 		},
 	})
 
@@ -257,8 +256,8 @@ func addPersonLookup() {
 		Description: "The given and family name of an individual",
 		Example:     "Markus Moen",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return name(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return name(f), nil
 		},
 	})
 
@@ -268,8 +267,8 @@ func addPersonLookup() {
 		Description: "A title or honorific added before a person's name",
 		Example:     "Mr.",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return namePrefix(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return namePrefix(f), nil
 		},
 	})
 
@@ -279,8 +278,8 @@ func addPersonLookup() {
 		Description: "A title or designation added after a person's name",
 		Example:     "Jr.",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return nameSuffix(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return nameSuffix(f), nil
 		},
 	})
 
@@ -290,8 +289,8 @@ func addPersonLookup() {
 		Description: "The name given to a person at birth",
 		Example:     "Markus",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return firstName(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return firstName(f), nil
 		},
 	})
 
@@ -301,8 +300,8 @@ func addPersonLookup() {
 		Description: "Name between a person's first name and last name",
 		Example:     "Belinda",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return middleName(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return middleName(f), nil
 		},
 	})
 
@@ -312,8 +311,8 @@ func addPersonLookup() {
 		Description: "The family name or surname of an individual",
 		Example:     "Daniel",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return lastName(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return lastName(f), nil
 		},
 	})
 
@@ -323,8 +322,8 @@ func addPersonLookup() {
 		Description: "Classification based on social and cultural norms that identifies an individual",
 		Example:     "male",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return gender(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return gender(f), nil
 		},
 	})
 
@@ -334,8 +333,8 @@ func addPersonLookup() {
 		Description: "Unique nine-digit identifier used for government and financial purposes in the United States",
 		Example:     "296446360",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return ssn(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return ssn(f), nil
 		},
 	})
 
@@ -345,8 +344,8 @@ func addPersonLookup() {
 		Description: "An activity pursued for leisure and pleasure",
 		Example:     "Swimming",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return hobby(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return hobby(f), nil
 		},
 	})
 
@@ -356,8 +355,8 @@ func addPersonLookup() {
 		Description: "Electronic mail used for sending digital messages and communication over the internet",
 		Example:     "markusmoen@pagac.net",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return email(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return email(f), nil
 		},
 	})
 
@@ -367,8 +366,8 @@ func addPersonLookup() {
 		Description: "Numerical sequence used to contact individuals via telephone or mobile devices",
 		Example:     "6136459948",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return phone(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return phone(f), nil
 		},
 	})
 
@@ -378,8 +377,8 @@ func addPersonLookup() {
 		Description: "Formatted phone number of a person",
 		Example:     "136-459-9489",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return phoneFormatted(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return phoneFormatted(f), nil
 		},
 	})
 
@@ -409,7 +408,7 @@ func addPersonLookup() {
 			{Field: "people", Display: "Strings", Type: "[]string", Description: "Array of people"},
 			{Field: "teams", Display: "Strings", Type: "[]string", Description: "Array of teams"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			people, err := info.GetStringArray(m, "people")
 			if err != nil {
 				return nil, err
@@ -420,7 +419,7 @@ func addPersonLookup() {
 				return nil, err
 			}
 
-			return teams(r, people, teamsArray), nil
+			return teams(f, people, teamsArray), nil
 		},
 	})
 }

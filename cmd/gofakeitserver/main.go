@@ -10,7 +10,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/brianvoe/gofakeit/v6"
+	"github.com/brianvoe/gofakeit/v7"
 )
 
 var port string
@@ -83,7 +83,7 @@ func lookupGet(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Generate requested data
-	data, err := info.Generate(faker.Rand, m, info)
+	data, err := info.Generate(faker, m, info)
 	if err != nil {
 		badrequest(w, err.Error())
 		return
@@ -149,7 +149,7 @@ func lookupPost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Generate requested data
-	data, err := info.Generate(faker.Rand, mapString, info)
+	data, err := info.Generate(faker, mapString, info)
 	if err != nil {
 		badrequest(w, err.Error())
 		return

@@ -1,7 +1,5 @@
 package gofakeit
 
-import "math/rand"
-
 // CarInfo is a struct dataset of all car information
 type CarInfo struct {
 	Type         string `json:"type" xml:"type"`
@@ -13,63 +11,63 @@ type CarInfo struct {
 }
 
 // Car will generate a struct with car information
-func Car() *CarInfo { return car(globalFaker.Rand) }
+func Car() *CarInfo { return car(GlobalFaker) }
 
 // Car will generate a struct with car information
-func (f *Faker) Car() *CarInfo { return car(f.Rand) }
+func (f *Faker) Car() *CarInfo { return car(f) }
 
-func car(r *rand.Rand) *CarInfo {
+func car(f *Faker) *CarInfo {
 	return &CarInfo{
-		Type:         carType(r),
-		Fuel:         carFuelType(r),
-		Transmission: carTransmissionType(r),
-		Brand:        carMaker(r),
-		Model:        carModel(r),
-		Year:         year(r),
+		Type:         carType(f),
+		Fuel:         carFuelType(f),
+		Transmission: carTransmissionType(f),
+		Brand:        carMaker(f),
+		Model:        carModel(f),
+		Year:         year(f),
 	}
 }
 
 // CarType will generate a random car type string
-func CarType() string { return carType(globalFaker.Rand) }
+func CarType() string { return carType(GlobalFaker) }
 
 // CarType will generate a random car type string
-func (f *Faker) CarType() string { return carType(f.Rand) }
+func (f *Faker) CarType() string { return carType(f) }
 
-func carType(r *rand.Rand) string { return getRandValue(r, []string{"car", "type"}) }
-
-// CarFuelType will return a random fuel type
-func CarFuelType() string { return carFuelType(globalFaker.Rand) }
+func carType(f *Faker) string { return getRandValue(f, []string{"car", "type"}) }
 
 // CarFuelType will return a random fuel type
-func (f *Faker) CarFuelType() string { return carFuelType(f.Rand) }
+func CarFuelType() string { return carFuelType(GlobalFaker) }
 
-func carFuelType(r *rand.Rand) string { return getRandValue(r, []string{"car", "fuel_type"}) }
+// CarFuelType will return a random fuel type
+func (f *Faker) CarFuelType() string { return carFuelType(f) }
+
+func carFuelType(f *Faker) string { return getRandValue(f, []string{"car", "fuel_type"}) }
 
 // CarTransmissionType will return a random transmission type
-func CarTransmissionType() string { return carTransmissionType(globalFaker.Rand) }
+func CarTransmissionType() string { return carTransmissionType(GlobalFaker) }
 
 // CarTransmissionType will return a random transmission type
-func (f *Faker) CarTransmissionType() string { return carTransmissionType(f.Rand) }
+func (f *Faker) CarTransmissionType() string { return carTransmissionType(f) }
 
-func carTransmissionType(r *rand.Rand) string {
-	return getRandValue(r, []string{"car", "transmission_type"})
+func carTransmissionType(f *Faker) string {
+	return getRandValue(f, []string{"car", "transmission_type"})
 }
 
 // CarMaker will return a random car maker
-func CarMaker() string { return carMaker(globalFaker.Rand) }
+func CarMaker() string { return carMaker(GlobalFaker) }
 
 // CarMaker will return a random car maker
-func (f *Faker) CarMaker() string { return carMaker(f.Rand) }
+func (f *Faker) CarMaker() string { return carMaker(f) }
 
-func carMaker(r *rand.Rand) string { return getRandValue(r, []string{"car", "maker"}) }
-
-// CarModel will return a random car model
-func CarModel() string { return carModel(globalFaker.Rand) }
+func carMaker(f *Faker) string { return getRandValue(f, []string{"car", "maker"}) }
 
 // CarModel will return a random car model
-func (f *Faker) CarModel() string { return carModel(f.Rand) }
+func CarModel() string { return carModel(GlobalFaker) }
 
-func carModel(r *rand.Rand) string { return getRandValue(r, []string{"car", "model"}) }
+// CarModel will return a random car model
+func (f *Faker) CarModel() string { return carModel(f) }
+
+func carModel(f *Faker) string { return getRandValue(f, []string{"car", "model"}) }
 
 func addCarLookup() {
 	AddFuncLookup("car", Info{
@@ -86,8 +84,8 @@ func addCarLookup() {
 }`,
 		Output:      "map[string]any",
 		ContentType: "application/json",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return car(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return car(f), nil
 		},
 	})
 
@@ -97,8 +95,8 @@ func addCarLookup() {
 		Description: "Classification of cars based on size, use, or body style",
 		Example:     "Passenger car mini",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return carType(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return carType(f), nil
 		},
 	})
 
@@ -108,8 +106,8 @@ func addCarLookup() {
 		Description: "Type of energy source a car uses",
 		Example:     "CNG",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return carFuelType(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return carFuelType(f), nil
 		},
 	})
 
@@ -119,8 +117,8 @@ func addCarLookup() {
 		Description: "Mechanism a car uses to transmit power from the engine to the wheels",
 		Example:     "Manual",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return carTransmissionType(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return carTransmissionType(f), nil
 		},
 	})
 
@@ -130,8 +128,8 @@ func addCarLookup() {
 		Description: "Company or brand that manufactures and designs cars",
 		Example:     "Nissan",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return carMaker(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return carMaker(f), nil
 		},
 	})
 
@@ -141,8 +139,8 @@ func addCarLookup() {
 		Description: "Specific design or version of a car produced by a manufacturer",
 		Example:     "Aveo",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return carModel(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return carModel(f), nil
 		},
 	})
 }

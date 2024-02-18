@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"math"
-	"math/rand"
 	"regexp/syntax"
 	"strings"
 )
@@ -24,7 +23,7 @@ import (
 // Ex: ??? - fda - random letters
 //
 // For a complete list of runnable functions use FuncsLookup
-func Generate(dataVal string) string { return generate(globalFaker.Rand, dataVal) }
+func Generate(dataVal string) string { return generate(GlobalFaker, dataVal) }
 
 // Generate fake information from given string.
 // Replaceable values should be within {}
@@ -40,12 +39,12 @@ func Generate(dataVal string) string { return generate(globalFaker.Rand, dataVal
 // Ex: ??? - fda - random letters
 //
 // For a complete list of runnable functions use FuncsLookup
-func (f *Faker) Generate(dataVal string) string { return generate(f.Rand, dataVal) }
+func (f *Faker) Generate(dataVal string) string { return generate(f, dataVal) }
 
-func generate(r *rand.Rand, dataVal string) string {
+func generate(f *Faker, dataVal string) string {
 	// Replace # with numbers and ? with letters
-	dataVal = replaceWithNumbers(r, dataVal)
-	dataVal = replaceWithLetters(r, dataVal)
+	dataVal = replaceWithNumbers(f, dataVal)
+	dataVal = replaceWithLetters(f, dataVal)
 
 	// Check if string has any replaceable values
 	if !strings.Contains(dataVal, "{") && !strings.Contains(dataVal, "}") {
@@ -120,7 +119,7 @@ func generate(r *rand.Rand, dataVal string) string {
 			}
 
 			// Call function
-			fValue, err := info.Generate(r, mapParams, info)
+			fValue, err := info.Generate(f, mapParams, info)
 			if err != nil {
 				// If we came across an error just dont replace value
 				dataVal = strings.Replace(dataVal, "{"+fParts+"}", err.Error(), 1)
@@ -160,14 +159,14 @@ type FixedWidthOptions struct {
 
 // FixedWidth generates an table of random data in fixed width format
 // A nil FixedWidthOptions returns a randomly structured FixedWidth.
-func FixedWidth(co *FixedWidthOptions) (string, error) { return fixeWidthFunc(globalFaker.Rand, co) }
+func FixedWidth(co *FixedWidthOptions) (string, error) { return fixeWidthFunc(GlobalFaker, co) }
 
 // FixedWidth generates an table of random data in fixed width format
 // A nil FixedWidthOptions returns a randomly structured FixedWidth.
-func (f *Faker) FixedWidth(co *FixedWidthOptions) (string, error) { return fixeWidthFunc(f.Rand, co) }
+func (f *Faker) FixedWidth(co *FixedWidthOptions) (string, error) { return fixeWidthFunc(f, co) }
 
 // Function to generate a fixed width document
-func fixeWidthFunc(r *rand.Rand, co *FixedWidthOptions) (string, error) {
+func fixeWidthFunc(f *Faker, co *FixedWidthOptions) (string, error) {
 	// If we didn't get FixedWidthOptions, create a new random one
 	if co == nil {
 		co = &FixedWidthOptions{}
@@ -175,7 +174,7 @@ func fixeWidthFunc(r *rand.Rand, co *FixedWidthOptions) (string, error) {
 
 	// Make sure you set a row count
 	if co.RowCount <= 0 {
-		co.RowCount = r.Intn(10) + 1
+		co.RowCount = f.IntN(10) + 1
 	}
 
 	// Check fields
@@ -208,13 +207,13 @@ func fixeWidthFunc(r *rand.Rand, co *FixedWidthOptions) (string, error) {
 		if funcInfo == nil {
 			// Try to run the function through generate
 			for i := 0; i < co.RowCount; i++ {
-				row = append(row, generate(r, field.Function))
+				row = append(row, generate(f, field.Function))
 			}
 		} else {
 			// Generate function value
 			var err error
 			for i := 0; i < co.RowCount; i++ {
-				value, err = funcInfo.Generate(r, &field.Params, funcInfo)
+				value, err = funcInfo.Generate(f, &field.Params, funcInfo)
 				if err != nil {
 					value = ""
 				}
@@ -265,12 +264,12 @@ func fixeWidthFunc(r *rand.Rand, co *FixedWidthOptions) (string, error) {
 }
 
 // Regex will generate a string based upon a RE2 syntax
-func Regex(regexStr string) string { return regex(globalFaker.Rand, regexStr) }
+func Regex(regexStr string) string { return regex(GlobalFaker, regexStr) }
 
 // Regex will generate a string based upon a RE2 syntax
-func (f *Faker) Regex(regexStr string) string { return regex(f.Rand, regexStr) }
+func (f *Faker) Regex(regexStr string) string { return regex(f, regexStr) }
 
-func regex(r *rand.Rand, regexStr string) (gen string) {
+func regex(f *Faker, regexStr string) (gen string) {
 	re, err := syntax.Parse(regexStr, syntax.Perl)
 	if err != nil {
 		return "Could not parse regex string"
@@ -279,16 +278,16 @@ func regex(r *rand.Rand, regexStr string) (gen string) {
 	// Panic catch
 	defer func() {
 		if r := recover(); r != nil {
-			gen = fmt.Sprint(r)
+			gen = fmt.Sprint(f)
 			return
 
 		}
 	}()
 
-	return regexGenerate(r, re, len(regexStr)*100)
+	return regexGenerate(f, re, len(regexStr)*100)
 }
 
-func regexGenerate(ra *rand.Rand, re *syntax.Regexp, limit int) string {
+func regexGenerate(f *Faker, re *syntax.Regexp, limit int) string {
 	if limit <= 0 {
 		panic("Length limit reached when generating output")
 	}
@@ -331,11 +330,11 @@ func regexGenerate(ra *rand.Rand, re *syntax.Regexp, limit int) string {
 				}
 			}
 			if len(chars) > 0 {
-				return string([]byte{chars[ra.Intn(len(chars))]})
+				return string([]byte{chars[f.IntN(len(chars))]})
 			}
 		}
 
-		r := ra.Intn(int(sum))
+		r := f.IntN(int(sum))
 		var ru rune
 		sum = 0
 		for i := 0; i < len(re.Rune); i += 2 {
@@ -349,7 +348,7 @@ func regexGenerate(ra *rand.Rand, re *syntax.Regexp, limit int) string {
 
 		return string(ru)
 	case syntax.OpAnyCharNotNL, syntax.OpAnyChar: // matches any character(and except newline)
-		return randCharacter(ra, allStr)
+		return randCharacter(f, allStr)
 	case syntax.OpBeginLine: // matches empty string at beginning of line
 	case syntax.OpEndLine: // matches empty string at end of line
 	case syntax.OpBeginText: // matches empty string at beginning of text
@@ -357,28 +356,28 @@ func regexGenerate(ra *rand.Rand, re *syntax.Regexp, limit int) string {
 	case syntax.OpWordBoundary: // matches word boundary `\b`
 	case syntax.OpNoWordBoundary: // matches word non-boundary `\B`
 	case syntax.OpCapture: // capturing subexpression with index Cap, optional name Name
-		return regexGenerate(ra, re.Sub0[0], limit)
+		return regexGenerate(f, re.Sub0[0], limit)
 	case syntax.OpStar: // matches Sub[0] zero or more times
 		var b strings.Builder
-		for i := 0; i < number(ra, 0, 10); i++ {
+		for i := 0; i < number(f, 0, 10); i++ {
 			for _, rs := range re.Sub {
-				b.WriteString(regexGenerate(ra, rs, limit-b.Len()))
+				b.WriteString(regexGenerate(f, rs, limit-b.Len()))
 			}
 		}
 		return b.String()
 	case syntax.OpPlus: // matches Sub[0] one or more times
 		var b strings.Builder
-		for i := 0; i < number(ra, 1, 10); i++ {
+		for i := 0; i < number(f, 1, 10); i++ {
 			for _, rs := range re.Sub {
-				b.WriteString(regexGenerate(ra, rs, limit-b.Len()))
+				b.WriteString(regexGenerate(f, rs, limit-b.Len()))
 			}
 		}
 		return b.String()
 	case syntax.OpQuest: // matches Sub[0] zero or one times
 		var b strings.Builder
-		for i := 0; i < number(ra, 0, 1); i++ {
+		for i := 0; i < number(f, 0, 1); i++ {
 			for _, rs := range re.Sub {
-				b.WriteString(regexGenerate(ra, rs, limit-b.Len()))
+				b.WriteString(regexGenerate(f, rs, limit-b.Len()))
 			}
 		}
 		return b.String()
@@ -387,84 +386,84 @@ func regexGenerate(ra *rand.Rand, re *syntax.Regexp, limit int) string {
 		count := 0
 		re.Max = int(math.Min(float64(re.Max), float64(10)))
 		if re.Max > re.Min {
-			count = ra.Intn(re.Max - re.Min + 1)
+			count = f.IntN(re.Max - re.Min + 1)
 		}
 		for i := 0; i < re.Min || i < (re.Min+count); i++ {
 			for _, rs := range re.Sub {
-				b.WriteString(regexGenerate(ra, rs, limit-b.Len()))
+				b.WriteString(regexGenerate(f, rs, limit-b.Len()))
 			}
 		}
 		return b.String()
 	case syntax.OpConcat: // matches concatenation of Subs
 		var b strings.Builder
 		for _, rs := range re.Sub {
-			b.WriteString(regexGenerate(ra, rs, limit-b.Len()))
+			b.WriteString(regexGenerate(f, rs, limit-b.Len()))
 		}
 		return b.String()
 	case syntax.OpAlternate: // matches alternation of Subs
-		return regexGenerate(ra, re.Sub[number(ra, 0, len(re.Sub)-1)], limit)
+		return regexGenerate(f, re.Sub[number(f, 0, len(re.Sub)-1)], limit)
 	}
 
 	return ""
 }
 
 // Map will generate a random set of map data
-func Map() map[string]any { return mapFunc(globalFaker.Rand) }
+func Map() map[string]any { return mapFunc(GlobalFaker) }
 
 // Map will generate a random set of map data
-func (f *Faker) Map() map[string]any { return mapFunc(f.Rand) }
+func (f *Faker) Map() map[string]any { return mapFunc(f) }
 
-func mapFunc(r *rand.Rand) map[string]any {
+func mapFunc(f *Faker) map[string]any {
 	m := map[string]any{}
 
 	randWordType := func() string {
-		s := randomString(r, []string{"lorem", "bs", "job", "name", "address"})
+		s := randomString(f, []string{"lorem", "bs", "job", "name", "address"})
 		switch s {
 		case "bs":
-			return bs(r)
+			return bs(f)
 		case "job":
-			return jobTitle(r)
+			return jobTitle(f)
 		case "name":
-			return name(r)
+			return name(f)
 		case "address":
-			return street(r) + ", " + city(r) + ", " + state(r) + " " + zip(r)
+			return street(f) + ", " + city(f) + ", " + state(f) + " " + zip(f)
 		}
-		return word(r)
+		return word(f)
 	}
 
 	randSlice := func() []string {
 		var sl []string
-		for ii := 0; ii < number(r, 3, 10); ii++ {
-			sl = append(sl, word(r))
+		for ii := 0; ii < number(f, 3, 10); ii++ {
+			sl = append(sl, word(f))
 		}
 		return sl
 	}
 
-	for i := 0; i < number(r, 3, 10); i++ {
-		t := randomString(r, []string{"string", "int", "float", "slice", "map"})
+	for i := 0; i < number(f, 3, 10); i++ {
+		t := randomString(f, []string{"string", "int", "float", "slice", "map"})
 		switch t {
 		case "string":
-			m[word(r)] = randWordType()
+			m[word(f)] = randWordType()
 		case "int":
-			m[word(r)] = number(r, 1, 10000000)
+			m[word(f)] = number(f, 1, 10000000)
 		case "float":
-			m[word(r)] = float32Range(r, 1, 1000000)
+			m[word(f)] = float32Range(f, 1, 1000000)
 		case "slice":
-			m[word(r)] = randSlice()
+			m[word(f)] = randSlice()
 		case "map":
 			mm := map[string]any{}
-			tt := randomString(r, []string{"string", "int", "float", "slice"})
+			tt := randomString(f, []string{"string", "int", "float", "slice"})
 			switch tt {
 			case "string":
-				mm[word(r)] = randWordType()
+				mm[word(f)] = randWordType()
 			case "int":
-				mm[word(r)] = number(r, 1, 10000000)
+				mm[word(f)] = number(f, 1, 10000000)
 			case "float":
-				mm[word(r)] = float32Range(r, 1, 1000000)
+				mm[word(f)] = float32Range(f, 1, 1000000)
 			case "slice":
-				mm[word(r)] = randSlice()
+				mm[word(f)] = randSlice()
 			}
-			m[word(r)] = mm
+			m[word(f)] = mm
 		}
 	}
 
@@ -481,7 +480,7 @@ func addGenerateLookup() {
 		Params: []Param{
 			{Field: "str", Display: "String", Type: "string", Description: "String value to generate from"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			str, err := info.GetString(m, "str")
 			if err != nil {
 				return nil, err
@@ -492,7 +491,7 @@ func addGenerateLookup() {
 				return nil, errors.New("string length is too large. limit to 1000 characters")
 			}
 
-			return generate(r, str), nil
+			return generate(f, str), nil
 		},
 	})
 
@@ -510,7 +509,7 @@ Lura Lockman       zacherykuhic@feil.name         S8gV7Z64KlHG     12`,
 			{Field: "rowcount", Display: "Row Count", Type: "int", Default: "10", Description: "Number of rows"},
 			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields name, function and params"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			co := FixedWidthOptions{}
 
 			rowCount, err := info.GetInt(m, "rowcount")
@@ -536,7 +535,7 @@ Lura Lockman       zacherykuhic@feil.name         S8gV7Z64KlHG     12`,
 				return nil, errors.New("missing fields")
 			}
 
-			out, err := fixeWidthFunc(r, &co)
+			out, err := fixeWidthFunc(f, &co)
 			if err != nil {
 				return nil, err
 			}
@@ -554,7 +553,7 @@ Lura Lockman       zacherykuhic@feil.name         S8gV7Z64KlHG     12`,
 		Params: []Param{
 			{Field: "str", Display: "String", Type: "string", Description: "Regex RE2 syntax string"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			str, err := info.GetString(m, "str")
 			if err != nil {
 				return nil, err
@@ -565,7 +564,7 @@ Lura Lockman       zacherykuhic@feil.name         S8gV7Z64KlHG     12`,
 				return nil, errors.New("string length is too large. limit to 500 characters")
 			}
 
-			return regex(r, str), nil
+			return regex(f, str), nil
 		},
 	})
 
@@ -582,8 +581,8 @@ Lura Lockman       zacherykuhic@feil.name         S8gV7Z64KlHG     12`,
 }`,
 		Output:      "map[string]any",
 		ContentType: "application/json",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return mapFunc(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return mapFunc(f), nil
 		},
 	})
 }

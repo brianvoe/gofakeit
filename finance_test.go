@@ -10,14 +10,14 @@ func ExampleCusip() {
 	Seed(11)
 	fmt.Println(Cusip())
 
-	// Output: MLRQCZBX0
+	// Output: 64HHTI0T8
 }
 
 func ExampleFaker_Cusip() {
 	f := New(11)
 	fmt.Println(f.Cusip())
 
-	// Output: MLRQCZBX0
+	// Output: 64HHTI0T8
 }
 
 func TestCusip(t *testing.T) {
@@ -54,27 +54,9 @@ func TestCusipCheckDigit(t *testing.T) {
 }
 
 func BenchmarkCusip(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Cusip()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Cusip()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Cusip()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Cusip()
+	}
 }
 
 // ISIN Tests
@@ -82,14 +64,14 @@ func ExampleIsin() {
 	Seed(11)
 	fmt.Println(Isin())
 
-	// Output: CVLRQCZBXQ97
+	// Output: TO4HHTI0T819
 }
 
 func ExampleFaker_Isin() {
 	f := New(11)
 	fmt.Println(f.Isin())
 
-	// Output: AMMLRQCZBX03
+	// Output: TO4HHTI0T819
 }
 
 func TestIsin(t *testing.T) {
@@ -126,25 +108,7 @@ func TestIsinCheckDigit(t *testing.T) {
 }
 
 func BenchmarkIsin(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Isin()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Isin()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Isin()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Isin()
+	}
 }

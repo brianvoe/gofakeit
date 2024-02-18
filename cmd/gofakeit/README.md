@@ -6,7 +6,7 @@ All functions are available to run in lowercase and if they require additional p
 ### Installation
 
 ```go
-go install -v github.com/brianvoe/gofakeit/v6/cmd/gofakeit@latest
+go install -v github.com/brianvoe/gofakeit/v7/cmd/gofakeit@latest
 ```
 
 ### Example

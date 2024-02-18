@@ -9,38 +9,20 @@ func ExampleUsername() {
 	Seed(11)
 	fmt.Println(Username())
 
-	// Output: Daniel1364
+	// Output: Treutel8125
 }
 
 func ExampleFaker_Username() {
 	f := New(11)
 	fmt.Println(f.Username())
 
-	// Output: Daniel1364
+	// Output: Treutel8125
 }
 
 func BenchmarkUsername(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Username()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Username()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Username()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Username()
+	}
 }
 
 func TestPassword(t *testing.T) {
@@ -76,12 +58,12 @@ func ExamplePassword() {
 	fmt.Println(Password(true, true, true, true, true, 32))
 	fmt.Println(Password(true, true, true, true, true, 4))
 
-	// Output: vodnqxzsuptgehrzylximvylxzoywexw
-	// ZSRQWJFJWCSTVGXKYKWMLIAFGFELFJRG
-	// 61718615932495608398906260648432
-	// !*&#$$??_!&!#.@@-!_!!$$-?_$&.@-&
-	// d6UzSwXvJ81 7QPvlse@l ln VmvU5jd
-	// UKTn2
+	// Output: cfelntbponnbbzrhswobuwlxajeeclrx
+	// KYEKNGUUNKUYSFBUFFTGDKUVCVYKPONP
+	// 43622637275953627791234759581343
+	// !?*-_-?#@!*?@?-&@!*!*?_!#$@@@**@
+	// .DTHJ&@oF#d.L5F65 N.-#U5xWX F0DI
+	// foZnB
 }
 
 func ExampleFaker_Password() {
@@ -93,34 +75,16 @@ func ExampleFaker_Password() {
 	fmt.Println(f.Password(true, true, true, true, true, 32))
 	fmt.Println(f.Password(true, true, true, true, true, 4))
 
-	// Output: vodnqxzsuptgehrzylximvylxzoywexw
-	// ZSRQWJFJWCSTVGXKYKWMLIAFGFELFJRG
-	// 61718615932495608398906260648432
-	// !*&#$$??_!&!#.@@-!_!!$$-?_$&.@-&
-	// d6UzSwXvJ81 7QPvlse@l ln VmvU5jd
-	// UKTn2
+	// Output: cfelntbponnbbzrhswobuwlxajeeclrx
+	// KYEKNGUUNKUYSFBUFFTGDKUVCVYKPONP
+	// 43622637275953627791234759581343
+	// !?*-_-?#@!*?@?-&@!*!*?_!#$@@@**@
+	// .DTHJ&@oF#d.L5F65 N.-#U5xWX F0DI
+	// foZnB
 }
 
 func BenchmarkPassword(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Password(true, true, true, true, true, 50)
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Password(true, true, true, true, true, 8)
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Password(true, true, true, true, true, 8)
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Password(true, true, true, true, true, 50)
+	}
 }

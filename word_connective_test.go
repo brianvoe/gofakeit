@@ -9,14 +9,14 @@ func ExampleConnective() {
 	Seed(11)
 	fmt.Println(Connective())
 
-	// Output: such as
+	// Output: through
 }
 
 func ExampleFaker_Connective() {
 	f := New(11)
 	fmt.Println(f.Connective())
 
-	// Output: such as
+	// Output: through
 }
 
 func BenchmarkConnective(b *testing.B) {
@@ -29,14 +29,14 @@ func ExampleConnectiveTime() {
 	Seed(11)
 	fmt.Println(ConnectiveTime())
 
-	// Output: finally
+	// Output: when
 }
 
 func ExampleFaker_ConnectiveTime() {
 	f := New(11)
 	fmt.Println(f.ConnectiveTime())
 
-	// Output: finally
+	// Output: when
 }
 
 func BenchmarkConnectiveTime(b *testing.B) {
@@ -49,14 +49,14 @@ func ExampleConnectiveComparative() {
 	Seed(11)
 	fmt.Println(ConnectiveComparative())
 
-	// Output: in addition
+	// Output: after all
 }
 
 func ExampleFaker_ConnectiveComparative() {
 	f := New(11)
 	fmt.Println(f.ConnectiveComparative())
 
-	// Output: in addition
+	// Output: after all
 }
 
 func BenchmarkConnectiveComparative(b *testing.B) {
@@ -69,14 +69,14 @@ func ExampleConnectiveComplaint() {
 	Seed(11)
 	fmt.Println(ConnectiveComplaint())
 
-	// Output: besides
+	// Output: i.e.
 }
 
 func ExampleFaker_ConnectiveComplaint() {
 	f := New(11)
 	fmt.Println(f.ConnectiveComplaint())
 
-	// Output: besides
+	// Output: i.e.
 }
 
 func BenchmarkConnectiveComplaint(b *testing.B) {
@@ -89,14 +89,14 @@ func ExampleConnectiveListing() {
 	Seed(11)
 	fmt.Println(ConnectiveListing())
 
-	// Output: firstly
+	// Output: in summation
 }
 
 func ExampleFaker_ConnectiveListing() {
 	f := New(11)
 	fmt.Println(f.ConnectiveListing())
 
-	// Output: firstly
+	// Output: in summation
 }
 
 func BenchmarkConnectiveListing(b *testing.B) {
@@ -109,14 +109,14 @@ func ExampleConnectiveCasual() {
 	Seed(11)
 	fmt.Println(ConnectiveCasual())
 
-	// Output: an outcome of
+	// Output: though
 }
 
 func ExampleFaker_ConnectiveCasual() {
 	f := New(11)
 	fmt.Println(f.ConnectiveCasual())
 
-	// Output: an outcome of
+	// Output: though
 }
 
 func BenchmarkConnectiveCasual(b *testing.B) {
@@ -129,14 +129,14 @@ func ExampleConnectiveExamplify() {
 	Seed(11)
 	fmt.Println(ConnectiveExamplify())
 
-	// Output: then
+	// Output: unless
 }
 
 func ExampleFaker_ConnectiveExamplify() {
 	f := New(11)
 	fmt.Println(f.ConnectiveExamplify())
 
-	// Output: then
+	// Output: unless
 }
 
 func BenchmarkConnectiveExamplify(b *testing.B) {

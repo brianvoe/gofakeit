@@ -9,14 +9,14 @@ func ExampleGamertag() {
 	Seed(11)
 	fmt.Println(Gamertag())
 
-	// Output: PurpleSheep5
+	// Output: TurkeyThinker
 }
 
 func ExampleFaker_Gamertag() {
 	f := New(11)
 	fmt.Println(f.Gamertag())
 
-	// Output: PurpleSheep5
+	// Output: TurkeyThinker
 }
 
 func TestGamertag(t *testing.T) {
@@ -29,27 +29,9 @@ func TestGamertag(t *testing.T) {
 }
 
 func BenchmarkGamertag(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Gamertag()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Gamertag()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Gamertag()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Gamertag()
+	}
 }
 
 func ExampleDice() {
@@ -118,25 +100,7 @@ func TestDiceOneSide(t *testing.T) {
 }
 
 func BenchmarkDice(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Dice(1, []uint{6})
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Dice(1, []uint{6})
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Dice(1, []uint{6})
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Dice(1, []uint{6})
+	}
 }

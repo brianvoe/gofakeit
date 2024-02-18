@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/brianvoe/gofakeit/v6"
+	"github.com/brianvoe/gofakeit/v7"
 )
 
 var errNoFuncRunMsg = errors.New("could not find function to run\nrun gofakeit help or gofakeit list for available functions")
@@ -50,7 +50,7 @@ func main() {
 	fmt.Printf("%s", out)
 }
 
-func mainFunc(seed int64, args []string, loop int) (string, error) {
+func mainFunc(seed uint64, args []string, loop int) (string, error) {
 	faker := gofakeit.New(seed)
 
 	argsLen := len(args)
@@ -142,7 +142,7 @@ func runFunction(faker *gofakeit.Faker, function string, args []string) (string,
 		}
 	}
 
-	value, err := info.Generate(faker.Rand, params, info)
+	value, err := info.Generate(faker, params, info)
 	if err != nil {
 		return "", err
 	}

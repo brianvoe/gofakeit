@@ -9,120 +9,60 @@ func ExampleMinecraftOre() {
 	Seed(11)
 	fmt.Println(MinecraftOre())
 
-	// Output:
-	// coal
+	// Output: redstone
 }
 
 func ExampleFaker_MinecraftOre() {
 	f := New(11)
 	fmt.Println(f.MinecraftOre())
 
-	// Output:
-	// coal
+	// Output: redstone
 }
 
 func BenchmarkMinecraftOre(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			MinecraftOre()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftOre()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftOre()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		MinecraftOre()
+	}
 }
 
 func ExampleMinecraftWood() {
 	Seed(11)
 	fmt.Println(MinecraftWood())
 
-	// Output:
-	// oak
+	// Output: dark oak
 }
 
 func ExampleFaker_MinecraftWood() {
 	f := New(11)
 	fmt.Println(f.MinecraftWood())
 
-	// Output:
-	// oak
+	// Output: dark oak
 }
 
 func BenchmarkMinecraftWood(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			MinecraftWood()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftWood()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftWood()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		MinecraftWood()
+	}
 }
 
 func ExampleMinecraftArmorTier() {
 	Seed(11)
 	fmt.Println(MinecraftArmorTier())
 
-	// Output:
-	// leather
+	// Output: netherite
 }
 
 func ExampleFaker_MinecraftArmorTier() {
 	f := New(11)
 	fmt.Println(f.MinecraftArmorTier())
 
-	// Output:
-	// leather
+	// Output: netherite
 }
 
 func BenchmarkMinecraftArmorTier(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			MinecraftArmorTier()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftArmorTier()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftArmorTier()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		MinecraftArmorTier()
+	}
 }
 
 func ExampleMinecraftArmorPart() {
@@ -142,235 +82,116 @@ func ExampleFaker_MinecraftArmorPart() {
 }
 
 func BenchmarkMinecraftArmorPart(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			MinecraftArmorPart()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftArmorPart()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftArmorPart()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		MinecraftArmorPart()
+	}
 }
 
 func ExampleMinecraftWeapon() {
 	Seed(11)
 	fmt.Println(MinecraftWeapon())
 
-	// Output:
-	// sword
+	// Output: shield
 }
 
 func ExampleFaker_MinecraftWeapon() {
 	f := New(11)
 	fmt.Println(f.MinecraftWeapon())
 
-	// Output:
-	// sword
+	// Output: shield
 }
 
 func BenchmarkMinecraftWeapon(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			MinecraftWeapon()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftWeapon()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftWeapon()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		MinecraftWeapon()
+	}
 }
 
 func ExampleMinecraftTool() {
 	Seed(11)
 	fmt.Println(MinecraftTool())
 
-	// Output:
-	// pickaxe
+	// Output: fishing rod
 }
 
 func ExampleFaker_MinecraftTool() {
 	f := New(11)
 	fmt.Println(f.MinecraftTool())
 
-	// Output:
-	// pickaxe
+	// Output: fishing rod
 }
 
 func BenchmarkMinecraftTool(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			MinecraftTool()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftTool()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftTool()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		MinecraftTool()
+	}
 }
 
 func ExampleMinecraftDye() {
 	Seed(11)
 	fmt.Println(MinecraftDye())
 
-	// Output:
-	// light gray
+	// Output: yellow
 }
 
 func ExampleFaker_MinecraftDye() {
 	f := New(11)
 	fmt.Println(f.MinecraftDye())
 
-	// Output:
-	// light gray
+	// Output: yellow
 }
 
 func BenchmarkMinecraftDye(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			MinecraftDye()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftDye()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftDye()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		MinecraftDye()
+	}
 }
 
 func ExampleMinecraftFood() {
 	Seed(11)
 	fmt.Println(MinecraftFood())
 
-	// Output:
-	// beetroot
+	// Output: steak
 }
 
 func ExampleFaker_MinecraftFood() {
 	f := New(11)
 	fmt.Println(f.MinecraftFood())
 
-	// Output:
-	// beetroot
+	// Output: steak
 }
 
 func BenchmarkMinecraftFood(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			MinecraftFood()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftFood()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftFood()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		MinecraftFood()
+	}
 }
 
 func ExampleMinecraftAnimal() {
 	Seed(11)
 	fmt.Println(MinecraftAnimal())
 
-	// Output:
-	// chicken
+	// Output: wolf
 }
 
 func ExampleFaker_MinecraftAnimal() {
 	f := New(11)
 	fmt.Println(f.MinecraftAnimal())
 
-	// Output:
-	// chicken
+	// Output: wolf
 }
 
 func BenchmarkMinecraftAnimal(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			MinecraftAnimal()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftAnimal()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftAnimal()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		MinecraftAnimal()
+	}
 }
 
 func ExampleMinecraftVillagerJob() {
 	Seed(11)
 	fmt.Println(MinecraftVillagerJob())
 
-	// Output:
-	// toolsmith
+	// Output: toolsmith
 }
 
 func ExampleFaker_MinecraftVillagerJob() {
@@ -382,155 +203,76 @@ func ExampleFaker_MinecraftVillagerJob() {
 }
 
 func BenchmarkMinecraftVillagerJob(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			MinecraftVillagerJob()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftVillagerJob()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftVillagerJob()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		MinecraftVillagerJob()
+	}
 }
 
 func ExampleMinecraftVillagerStation() {
 	Seed(11)
 	fmt.Println(MinecraftVillagerStation())
 
-	// Output:
-	// cauldron
+	// Output: stonecutter
 }
 
 func ExampleFaker_MinecraftVillagerStation() {
 	f := New(11)
 	fmt.Println(f.MinecraftVillagerStation())
 
-	// Output:
-	// cauldron
+	// Output: stonecutter
 }
 
 func BenchmarkMinecraftVillagerStation(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			MinecraftVillagerStation()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftVillagerStation()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftVillagerStation()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		MinecraftVillagerStation()
+	}
 }
 
 func ExampleMinecraftVillagerLevel() {
 	Seed(11)
 	fmt.Println(MinecraftVillagerLevel())
 
-	// Output:
-	// novice
+	// Output: master
 }
 
 func ExampleFaker_MinecraftVillagerLevel() {
 	f := New(11)
 	fmt.Println(f.MinecraftVillagerLevel())
 
-	// Output:
-	// novice
+	// Output: master
 }
 
 func BenchmarkMinecraftVillagerLevel(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			MinecraftVillagerLevel()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftVillagerLevel()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftVillagerLevel()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		MinecraftVillagerLevel()
+	}
 }
 
 func ExampleMinecraftMobPassive() {
 	Seed(11)
 	fmt.Println(MinecraftMobPassive())
 
-	// Output:
-	// chicken
+	// Output: turtle
 }
 
 func ExampleFaker_MinecraftMobPassive() {
 	f := New(11)
 	fmt.Println(f.MinecraftMobPassive())
 
-	// Output:
-	// chicken
+	// Output: turtle
 }
 
 func BenchmarkMinecraftMobPassive(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			MinecraftMobPassive()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftMobPassive()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftMobPassive()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		MinecraftMobPassive()
+	}
 }
 
 func ExampleMinecraftMobNeutral() {
 	Seed(11)
 	fmt.Println(MinecraftMobNeutral())
 
-	// Output:
-	// wolf
+	// Output: wolf
 }
 
 func ExampleFaker_MinecraftMobNeutral() {
@@ -542,67 +284,29 @@ func ExampleFaker_MinecraftMobNeutral() {
 }
 
 func BenchmarkMinecraftMobNeutral(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			MinecraftMobNeutral()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftMobNeutral()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftMobNeutral()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		MinecraftMobNeutral()
+	}
 }
 
 func ExampleMinecraftMobHostile() {
 	Seed(11)
 	fmt.Println(MinecraftMobHostile())
 
-	// Output:
-	// blaze
+	// Output: wither skeleton
 }
 
 func ExampleFaker_MinecraftMobHostile() {
 	f := New(11)
 	fmt.Println(f.MinecraftMobHostile())
 
-	// Output:
-	// blaze
+	// Output: wither skeleton
 }
 
 func BenchmarkMinecraftMobHostile(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			MinecraftMobHostile()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftMobHostile()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftMobHostile()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		MinecraftMobHostile()
+	}
 }
 
 func ExampleMinecraftMobBoss() {
@@ -622,105 +326,47 @@ func ExampleFaker_MinecraftMobBoss() {
 }
 
 func BenchmarkMinecraftMobBoss(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			MinecraftMobBoss()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftMobBoss()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftMobBoss()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		MinecraftMobBoss()
+	}
 }
 
 func ExampleMinecraftBiome() {
 	Seed(11)
 	fmt.Println(MinecraftBiome())
 
-	// Output:
-	// stone shore
+	// Output: the nether
 }
 
 func ExampleFaker_MinecraftBiome() {
 	f := New(11)
 	fmt.Println(f.MinecraftBiome())
 
-	// Output:
-	// stone shore
+	// Output: the nether
 }
 
 func BenchmarkMinecraftBiome(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			MinecraftBiome()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftBiome()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftBiome()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		MinecraftBiome()
+	}
 }
 
 func ExampleMinecraftWeather() {
 	Seed(11)
 	fmt.Println(MinecraftWeather())
 
-	// Output:
-	// clear
+	// Output: thunder
 }
 
 func ExampleFaker_MinecraftWeather() {
 	f := New(11)
 	fmt.Println(f.MinecraftWeather())
 
-	// Output:
-	// clear
+	// Output: thunder
 }
 
 func BenchmarkMinecraftWeather(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			MinecraftWeather()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftWeather()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.MinecraftWeather()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		MinecraftWeather()
+	}
 }

@@ -15,7 +15,7 @@ type Fakeable interface {
 func isFakeable(t reflect.Type) bool {
 	fakeableTyp := reflect.TypeOf((*Fakeable)(nil)).Elem()
 
-	return t.Implements(fakeableTyp) || reflect.PtrTo(t).Implements(fakeableTyp)
+	return t.Implements(fakeableTyp) || reflect.PointerTo(t).Implements(fakeableTyp)
 }
 
 func callFake(faker *Faker, v reflect.Value, possibleKinds ...reflect.Kind) (any, error) {
@@ -62,12 +62,13 @@ func callFake(faker *Faker, v reflect.Value, possibleKinds ...reflect.Kind) (any
 		return float32(reflect.ValueOf(fakedValue).Float()), nil
 	case reflect.Float64:
 		return float64(reflect.ValueOf(fakedValue).Float()), nil
-	case reflect.Slice:
+	case reflect.Slice, reflect.Array:
 		return reflect.ValueOf(fakedValue).Interface(), nil
 	case reflect.Map:
 		return reflect.ValueOf(fakedValue).Interface(), nil
 	case reflect.Struct:
 		return reflect.ValueOf(fakedValue).Interface(), nil
+
 	default:
 		return nil, fmt.Errorf("unsupported type %q", k)
 	}

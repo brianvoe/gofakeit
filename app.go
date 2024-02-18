@@ -2,28 +2,27 @@ package gofakeit
 
 import (
 	"fmt"
-	"math/rand"
 )
 
 // AppName will generate a random app name
 func AppName() string {
-	return appName(globalFaker.Rand)
+	return appName(GlobalFaker)
 }
 
 // AppName will generate a random app name
 func (f *Faker) AppName() string {
-	return appName(f.Rand)
+	return appName(f)
 }
 
-func appName(r *rand.Rand) string {
+func appName(f *Faker) string {
 	name := ""
-	switch number(r, 1, 3) {
+	switch number(f, 1, 3) {
 	case 1:
-		name = noun(r) + verb(r)
+		name = noun(f) + verb(f)
 	case 2:
-		name = color(r) + noun(r)
+		name = color(f) + noun(f)
 	case 3:
-		name = animal(r) + verb(r)
+		name = animal(f) + verb(f)
 	}
 
 	return title(name)
@@ -31,34 +30,34 @@ func appName(r *rand.Rand) string {
 
 // AppVersion will generate a random app version
 func AppVersion() string {
-	return appVersion(globalFaker.Rand)
+	return appVersion(GlobalFaker)
 }
 
 // AppVersion will generate a random app version
 func (f *Faker) AppVersion() string {
-	return appVersion(f.Rand)
+	return appVersion(f)
 }
 
-func appVersion(r *rand.Rand) string {
-	return fmt.Sprintf("%d.%d.%d", number(r, 1, 5), number(r, 1, 20), number(r, 1, 20))
+func appVersion(f *Faker) string {
+	return fmt.Sprintf("%d.%d.%d", number(f, 1, 5), number(f, 1, 20), number(f, 1, 20))
 }
 
 // AppAuthor will generate a random company or person name
 func AppAuthor() string {
-	return appAuthor(globalFaker.Rand)
+	return appAuthor(GlobalFaker)
 }
 
 // AppAuthor will generate a random company or person name
 func (f *Faker) AppAuthor() string {
-	return appAuthor(f.Rand)
+	return appAuthor(f)
 }
 
-func appAuthor(r *rand.Rand) string {
-	if boolFunc(r) {
-		return name(r)
+func appAuthor(f *Faker) string {
+	if boolFunc(f) {
+		return name(f)
 	}
 
-	return company(r)
+	return company(f)
 }
 
 func addAppLookup() {
@@ -68,8 +67,8 @@ func addAppLookup() {
 		Description: "Software program designed for a specific purpose or task on a computer or mobile device",
 		Example:     "Parkrespond",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return appName(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return appName(f), nil
 		},
 	})
 
@@ -79,8 +78,8 @@ func addAppLookup() {
 		Description: "Particular release of an application in Semantic Versioning format",
 		Example:     "1.12.14",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return appVersion(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return appVersion(f), nil
 		},
 	})
 
@@ -90,8 +89,8 @@ func addAppLookup() {
 		Description: "Person or group creating and developing an application",
 		Example:     "Qado Energy, Inc.",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return appAuthor(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return appAuthor(f), nil
 		},
 	})
 }

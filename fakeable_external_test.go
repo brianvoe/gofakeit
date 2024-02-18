@@ -2,11 +2,10 @@ package gofakeit_test
 
 import (
 	"fmt"
-	"math/rand"
 	"testing"
 	"time"
 
-	"github.com/brianvoe/gofakeit/v6"
+	"github.com/brianvoe/gofakeit/v7"
 )
 
 var (
@@ -119,6 +118,12 @@ func (c CustomMap) Fake(faker *gofakeit.Faker) (any, error) {
 	return CustomMap(map[string]string{"hello": "1", "test": "2"}), nil
 }
 
+type CustomArray [2]int
+
+func (c CustomArray) Fake(faker *gofakeit.Faker) (any, error) {
+	return CustomArray([2]int{1, 2}), nil
+}
+
 type CustomStruct struct {
 	Str string
 	Int int
@@ -150,6 +155,7 @@ type NestedCustom struct {
 	Timestamp    CustomTime
 	PtrTimestamp *CustomTime
 	SliceStr     CustomSlice
+	Array        CustomArray
 	MapStr       CustomMap
 	Struct       CustomStruct
 	PtrStruct    *CustomStruct
@@ -174,6 +180,7 @@ type NestedOverrideCustom struct {
 	Timestamp    CustomTime    `fake:"{raw_test_date}"`
 	PtrTimestamp *CustomTime   `fake:"{raw_test_date}"`
 	SliceStr     CustomSlice   `fake:"{word}"`
+	Array        CustomArray   `fake:"{number:100,1000}"`
 	MapStr       CustomMap     `fakesize:"2"`
 }
 
@@ -423,6 +430,21 @@ func TestCustomMap(t *testing.T) {
 	}
 }
 
+func TestCustomArray(t *testing.T) {
+	var d CustomArray
+	err := gofakeit.Struct(&d)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	expected := [2]int{1, 2}
+	for i, v := range expected {
+		if d[i] != v {
+			t.Errorf("expected item %d of the array to be: %v, got %v", i, expected[i], d[i])
+		}
+	}
+}
+
 func TestCustomStruct(t *testing.T) {
 	var d CustomStruct
 	err := gofakeit.Struct(&d)
@@ -510,6 +532,13 @@ func TestNestedCustom(t *testing.T) {
 		}
 	}
 
+	expectedArray := [2]int{1, 2}
+	for i, v := range expectedArray {
+		if d.Array[i] != v {
+			t.Errorf("expected item %d of the slice to be: %v, got %v", i, expectedArray[i], d.Array[i])
+		}
+	}
+
 	expectedMap := map[string]string{"hello": "1", "test": "2"}
 	if len(d.MapStr) != len(expectedMap) {
 		t.Fatalf("expected %v, got %v", expectedMap, d)
@@ -566,7 +595,7 @@ func TestNestedOverrideCustom(t *testing.T) {
 				Description: "Raw date time.Time object",
 			},
 		},
-		Generate: func(r *rand.Rand, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
+		Generate: func(f *gofakeit.Faker, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
 			return gofakeit.Date(), nil
 		},
 	})
@@ -641,6 +670,13 @@ func TestNestedOverrideCustom(t *testing.T) {
 			if d.SliceStr[i] == v {
 				t.Errorf("Slice: Got non-overriden item %d in the slice", i)
 			}
+		}
+	}
+
+	nonOverrideArray := [2]int{1, 2}
+	for i, v := range nonOverrideArray {
+		if d.Array[i] == v {
+			t.Errorf("Array: Got non-overriden item %d in the array", i)
 		}
 	}
 
@@ -725,7 +761,6 @@ func ExampleEvenInt() {
 	fmt.Println(E1)
 	fmt.Println(E2)
 
-	// Output:
-	// 6
-	// -92
+	// Output: -2
+	// 122
 }

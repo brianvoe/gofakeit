@@ -2,33 +2,32 @@ package gofakeit
 
 import (
 	"fmt"
-	"math/rand"
 	"strings"
 )
 
 // Gamertag will generate a random video game username
-func Gamertag() string { return gamertag(globalFaker.Rand) }
+func Gamertag() string { return gamertag(GlobalFaker) }
 
 // Gamertag will generate a random video game username
-func (f *Faker) Gamertag() string { return gamertag(f.Rand) }
+func (f *Faker) Gamertag() string { return gamertag(f) }
 
-func gamertag(r *rand.Rand) string {
+func gamertag(f *Faker) string {
 	str := ""
-	num := number(r, 1, 4)
+	num := number(f, 1, 4)
 	switch num {
 	case 1:
-		str = fmt.Sprintf("%s%ser", title(nounConcrete(r)), title(verbAction(r)))
+		str = fmt.Sprintf("%s%ser", title(nounConcrete(f)), title(verbAction(f)))
 	case 2:
-		str = fmt.Sprintf("%s%s", title(adjectiveDescriptive(r)), title(animal(r)))
+		str = fmt.Sprintf("%s%s", title(adjectiveDescriptive(f)), title(animal(f)))
 	case 3:
-		str = fmt.Sprintf("%s%s", title(adjectiveDescriptive(r)), title(nounConcrete(r)))
+		str = fmt.Sprintf("%s%s", title(adjectiveDescriptive(f)), title(nounConcrete(f)))
 	case 4:
-		str = fmt.Sprintf("%s%s", title(fruit(r)), title(adjectiveDescriptive(r)))
+		str = fmt.Sprintf("%s%s", title(fruit(f)), title(adjectiveDescriptive(f)))
 	}
 
 	// Randomly determine if we should add a number
-	if r.Intn(3) == 1 {
-		str += digitN(r, uint(number(r, 1, 3)))
+	if f.IntN(3) == 1 {
+		str += digitN(f, uint(number(f, 1, 3)))
 	}
 
 	// Remove any spaces
@@ -38,12 +37,12 @@ func gamertag(r *rand.Rand) string {
 }
 
 // Dice will generate a random set of dice
-func Dice(numDice uint, sides []uint) []uint { return dice(globalFaker.Rand, numDice, sides) }
+func Dice(numDice uint, sides []uint) []uint { return dice(GlobalFaker, numDice, sides) }
 
 // Dice will generate a random set of dice
-func (f *Faker) Dice(numDice uint, sides []uint) []uint { return dice(f.Rand, numDice, sides) }
+func (f *Faker) Dice(numDice uint, sides []uint) []uint { return dice(f, numDice, sides) }
 
-func dice(r *rand.Rand, numDice uint, sides []uint) []uint {
+func dice(f *Faker, numDice uint, sides []uint) []uint {
 	dice := make([]uint, numDice)
 
 	// If we dont have any sides well set the sides to 6
@@ -54,9 +53,9 @@ func dice(r *rand.Rand, numDice uint, sides []uint) []uint {
 	for i := range dice {
 		// If sides[i] doesnt exist use the first side
 		if len(sides)-1 < i {
-			dice[i] = uint(number(r, 1, int(sides[0])))
+			dice[i] = uint(number(f, 1, int(sides[0])))
 		} else {
-			dice[i] = uint(number(r, 1, int(sides[i])))
+			dice[i] = uint(number(f, 1, int(sides[i])))
 		}
 	}
 
@@ -70,8 +69,8 @@ func addGameLookup() {
 		Description: "User-selected online username or alias used for identification in games",
 		Example:     "footinterpret63",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return gamertag(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return gamertag(f), nil
 		},
 	})
 
@@ -85,7 +84,7 @@ func addGameLookup() {
 			{Field: "numdice", Display: "Number of Dice", Type: "uint", Default: "1", Description: "Number of dice to roll"},
 			{Field: "sides", Display: "Number of Sides", Type: "[]uint", Default: "[6]", Description: "Number of sides on each dice"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			numDice, err := info.GetUint(m, "numdice")
 			if err != nil {
 				return nil, err
@@ -96,7 +95,7 @@ func addGameLookup() {
 				return nil, err
 			}
 
-			return dice(r, numDice, sides), nil
+			return dice(f, numDice, sides), nil
 		},
 	})
 }

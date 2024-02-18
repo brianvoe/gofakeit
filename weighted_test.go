@@ -14,7 +14,7 @@ func ExampleWeighted() {
 
 	fmt.Println(option)
 
-	// Output: hello
+	// Output: 2
 }
 
 func TestWeighted(t *testing.T) {
@@ -62,8 +62,10 @@ func TestWeightedStruct(t *testing.T) {
 
 	var weight weighted
 	Struct(&weight)
-	if weight.S != "hello" {
-		t.Errorf("Expected hello got %s", weight.S)
+
+	// Make sure it is one of the options
+	if weight.S != "hello" && weight.S != "2" && weight.S != "6.9" {
+		t.Error("Weighted did not return one of the options")
 	}
 }
 

@@ -9,14 +9,14 @@ func ExamplePronoun() {
 	Seed(11)
 	fmt.Println(Pronoun())
 
-	// Output: me
+	// Output: some
 }
 
 func ExampleFaker_Pronoun() {
 	f := New(11)
 	fmt.Println(f.Pronoun())
 
-	// Output: me
+	// Output: some
 }
 
 func BenchmarkPronoun(b *testing.B) {
@@ -29,14 +29,14 @@ func ExamplePronounPersonal() {
 	Seed(11)
 	fmt.Println(PronounPersonal())
 
-	// Output: it
+	// Output: they
 }
 
 func ExampleFaker_PronounPersonal() {
 	f := New(11)
 	fmt.Println(f.PronounPersonal())
 
-	// Output: it
+	// Output: they
 }
 
 func BenchmarkPronounPersonal(b *testing.B) {
@@ -49,14 +49,14 @@ func ExamplePronounObject() {
 	Seed(11)
 	fmt.Println(PronounObject())
 
-	// Output: it
+	// Output: them
 }
 
 func ExampleFaker_PronounObject() {
 	f := New(11)
 	fmt.Println(f.PronounObject())
 
-	// Output: it
+	// Output: them
 }
 
 func BenchmarkPronounObject(b *testing.B) {
@@ -69,14 +69,14 @@ func ExamplePronounPossessive() {
 	Seed(11)
 	fmt.Println(PronounPossessive())
 
-	// Output: mine
+	// Output: theirs
 }
 
 func ExampleFaker_PronounPossessive() {
 	f := New(11)
 	fmt.Println(f.PronounPossessive())
 
-	// Output: mine
+	// Output: theirs
 }
 
 func BenchmarkPronounPossessive(b *testing.B) {
@@ -89,14 +89,14 @@ func ExamplePronounReflective() {
 	Seed(11)
 	fmt.Println(PronounReflective())
 
-	// Output: myself
+	// Output: itself
 }
 
 func ExampleFaker_PronounReflective() {
 	f := New(11)
 	fmt.Println(f.PronounReflective())
 
-	// Output: myself
+	// Output: itself
 }
 
 func BenchmarkPronounReflective(b *testing.B) {
@@ -109,14 +109,14 @@ func ExamplePronounIndefinite() {
 	Seed(11)
 	fmt.Println(PronounIndefinite())
 
-	// Output: few
+	// Output: somebody
 }
 
 func ExampleFaker_PronounIndefinite() {
 	f := New(11)
 	fmt.Println(f.PronounIndefinite())
 
-	// Output: few
+	// Output: somebody
 }
 
 func BenchmarkPronounIndefinite(b *testing.B) {
@@ -149,14 +149,14 @@ func ExamplePronounInterrogative() {
 	Seed(11)
 	fmt.Println(PronounInterrogative())
 
-	// Output: what
+	// Output: how
 }
 
 func ExampleFaker_PronounInterrogative() {
 	f := New(11)
 	fmt.Println(f.PronounInterrogative())
 
-	// Output: what
+	// Output: how
 }
 
 func BenchmarkPronounInterrogative(b *testing.B) {
@@ -169,14 +169,14 @@ func ExamplePronounRelative() {
 	Seed(11)
 	fmt.Println(PronounRelative())
 
-	// Output: as
+	// Output: whomever
 }
 
 func ExampleFaker_PronounRelative() {
 	f := New(11)
 	fmt.Println(f.PronounRelative())
 
-	// Output: as
+	// Output: whomever
 }
 
 func BenchmarkPronounRelative(b *testing.B) {

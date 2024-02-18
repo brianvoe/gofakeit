@@ -27,7 +27,7 @@ func ExampleGet() {
 	// [Mr. Mrs. Ms. Miss Dr.]
 }
 
-func ExampleGetSub() {
+func ExampleGet_sub() {
 	// Get data
 	data := GetSubData("person", "prefix")
 
