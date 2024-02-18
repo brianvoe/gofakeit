@@ -74,23 +74,23 @@ func ExampleFakeable() {
 	fmt.Printf("%#v\n", t2)
 	fmt.Printf("%#v\n", t3)
 	fmt.Printf("%#v\n", t4)
-	// Expected Output:
-	// gofakeit.testStruct1{B:"Margarette"}
-	// gofakeit.testStruct1{B:"Margarette"}
-	// gofakeit.testStruct2{B:"Margarette"}
-	// gofakeit.testStruct2{B:"Margarette"}
+
+	// Output: gofakeit.testStruct1{B:"Colton"}
+	// gofakeit.testStruct1{B:"Colton"}
+	// gofakeit.testStruct2{B:"Colton"}
+	// gofakeit.testStruct2{B:"Colton"}
 }
 
 type gammaFloat64 float64
 
-func (gammaFloat64) Fake(faker *Faker) (any, error) {
+func (gammaFloat64) Fake(f *Faker) (any, error) {
 	alpha := 2.0
 
 	// Generate a random value from the Gamma distribution
 	var r float64
 	for r == 0 {
-		u := faker.Float64Range(0, 1)
-		v := faker.Float64Range(0, 1)
+		u := f.Float64Range(0, 1)
+		v := f.Float64Range(0, 1)
 		w := u * (1 - u)
 		y := math.Sqrt(-2 * math.Log(w) / w)
 		x := alpha * (y*v + u - 0.5)
@@ -101,7 +101,7 @@ func (gammaFloat64) Fake(faker *Faker) (any, error) {
 	return gammaFloat64(r), nil
 }
 
-func ExampleGammaFloat64() {
+func ExampleFakeable_gammaFloat64() {
 	f1 := New(100)
 
 	// Fakes random values from the Gamma distribution
@@ -116,10 +116,9 @@ func ExampleGammaFloat64() {
 	fmt.Println(A2)
 	fmt.Println(A3)
 
-	// Output:
-	// 10.300651760129734
-	// 5.391434877284098
-	// 2.0575989252140676
+	// Output: 1.9058272589164647
+	// 1.951453943304136
+	// 4.336093466276675
 }
 
 type poissonInt64 int64
@@ -139,18 +138,18 @@ func (poissonInt64) Fake(faker *Faker) (any, error) {
 	return poissonInt64(k - 1), nil
 }
 
-type customerSupportEmployee struct {
+type employee struct {
 	Name             string `fake:"{firstname} {lastname}"`
 	CallCountPerHour poissonInt64
 }
 
-func ExamplecustomerSupportEmployee() {
+func ExampleFakeable_employee() {
 	f1 := New(100)
 
 	// Fakes random values from the Gamma distribution
-	var A1 customerSupportEmployee
-	var A2 customerSupportEmployee
-	var A3 customerSupportEmployee
+	var A1 employee
+	var A2 employee
+	var A3 employee
 	f1.Struct(&A1)
 	f1.Struct(&A2)
 	f1.Struct(&A3)
@@ -159,8 +158,7 @@ func ExamplecustomerSupportEmployee() {
 	fmt.Printf("%#v\n", A2)
 	fmt.Printf("%#v\n", A3)
 
-	// Output:
-	// gofakeit.customerSupportEmployee{Name:"Pearline Rippin", CallCountPerHour:12}
-	// gofakeit.customerSupportEmployee{Name:"Sammie Renner", CallCountPerHour:23}
-	// gofakeit.customerSupportEmployee{Name:"Katlyn Runte", CallCountPerHour:8}
+	// Output: gofakeit.employee{Name:"Madelynn Hickle", CallCountPerHour:17}
+	// gofakeit.employee{Name:"Brooke Berge", CallCountPerHour:8}
+	// gofakeit.employee{Name:"Rosalee Roberts", CallCountPerHour:10}
 }

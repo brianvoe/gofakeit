@@ -9,114 +9,60 @@ func ExampleError() {
 	Seed(11)
 	fmt.Println(Error())
 
-	// Output: failed to calculate pointer
+	// Output: variable assigned before declaration
 }
 
 func ExampleFaker_Error() {
 	f := New(11)
 	fmt.Println(f.Error())
 
-	// Output: failed to calculate pointer
+	// Output: variable assigned before declaration
 }
 
 func BenchmarkError(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Error()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Error()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Error()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Error()
+	}
 }
 
 func ExampleErrorObject() {
 	Seed(11)
 	fmt.Println(ErrorObject())
 
-	// Output: argument
+	// Output: url
 }
 
 func ExampleFaker_ErrorObject() {
 	f := New(11)
 	fmt.Println(f.ErrorObject())
 
-	// Output: argument
+	// Output: url
 }
 
 func BenchmarkErrorObject(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			ErrorObject()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.ErrorObject()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.ErrorObject()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		ErrorObject()
+	}
 }
 
 func ExampleErrorDatabase() {
 	Seed(11)
 	fmt.Println(ErrorDatabase())
 
-	// Output: bad connection
+	// Output: destination pointer is nil
 }
 
 func ExampleFaker_ErrorDatabase() {
 	f := New(11)
 	fmt.Println(f.ErrorDatabase())
 
-	// Output: bad connection
+	// Output: destination pointer is nil
 }
 
 func BenchmarkErrorDatabase(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			ErrorDatabase()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.ErrorDatabase()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.ErrorDatabase()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		ErrorDatabase()
+	}
 }
 
 func ExampleErrorGRPC() {
@@ -134,27 +80,9 @@ func ExampleFaker_ErrorGRPC() {
 }
 
 func BenchmarkErrorGRPC(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			ErrorGRPC()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.ErrorGRPC()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.ErrorGRPC()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		ErrorGRPC()
+	}
 }
 
 func ExampleErrorHTTP() {
@@ -172,177 +100,87 @@ func ExampleFaker_ErrorHTTP() {
 }
 
 func BenchmarkErrorHTTP(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			ErrorHTTP()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.ErrorHTTP()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.ErrorHTTP()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		ErrorHTTP()
+	}
 }
 
 func ExampleErrorHTTPClient() {
 	Seed(11)
 	fmt.Println(ErrorHTTPClient())
 
-	// Output: payment required
+	// Output: expectation failed
 }
 
 func ExampleFaker_ErrorHTTPClient() {
 	f := New(11)
 	fmt.Println(f.ErrorHTTPClient())
 
-	// Output: payment required
+	// Output: expectation failed
 }
 
 func BenchmarkErrorHTTPClient(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			ErrorHTTPClient()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.ErrorHTTPClient()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.ErrorHTTPClient()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		ErrorHTTPClient()
+	}
 }
 
 func ExampleErrorHTTPServer() {
 	Seed(11)
 	fmt.Println(ErrorHTTPServer())
 
-	// Output: internal server error
+	// Output: not extended
 }
 
 func ExampleFaker_ErrorHTTPServer() {
 	f := New(11)
 	fmt.Println(f.ErrorHTTPServer())
 
-	// Output: internal server error
+	// Output: not extended
 }
 
 func BenchmarkErrorHTTPServer(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			ErrorHTTPServer()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.ErrorHTTPServer()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.ErrorHTTPServer()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		ErrorHTTPServer()
+	}
 }
 
 func ExampleErrorRuntime() {
 	Seed(11)
 	fmt.Println(ErrorRuntime())
 
-	// Output: panic: runtime error: invalid memory address or nil pointer dereference
+	// Output: expected 2 arguments, got 3
 }
 
 func ExampleFaker_ErrorRuntime() {
 	f := New(11)
 	fmt.Println(f.ErrorRuntime())
 
-	// Output: panic: runtime error: invalid memory address or nil pointer dereference
+	// Output: expected 2 arguments, got 3
 }
 
 func BenchmarkErrorRuntime(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			ErrorRuntime()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.ErrorRuntime()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.ErrorRuntime()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		ErrorRuntime()
+	}
 }
 
 func ExampleErrorValidation() {
 	Seed(11)
 	fmt.Println(ErrorValidation())
 
-	// Output: state max length exceeded
+	// Output: payment details cannot be verified
 }
 
 func ExampleFaker_ErrorValidation() {
 	f := New(11)
 	fmt.Println(f.ErrorValidation())
 
-	// Output: state max length exceeded
+	// Output: payment details cannot be verified
 }
 
 func BenchmarkErrorValidation(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			ErrorValidation()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.ErrorValidation()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.ErrorValidation()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		ErrorValidation()
+	}
 }

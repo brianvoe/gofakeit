@@ -2,11 +2,10 @@ package gofakeit_test
 
 import (
 	"fmt"
-	"math/rand"
 	"testing"
 	"time"
 
-	"github.com/brianvoe/gofakeit/v6"
+	"github.com/brianvoe/gofakeit/v7"
 )
 
 var (
@@ -596,7 +595,7 @@ func TestNestedOverrideCustom(t *testing.T) {
 				Description: "Raw date time.Time object",
 			},
 		},
-		Generate: func(r *rand.Rand, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
+		Generate: func(f *gofakeit.Faker, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
 			return gofakeit.Date(), nil
 		},
 	})
@@ -762,7 +761,6 @@ func ExampleEvenInt() {
 	fmt.Println(E1)
 	fmt.Println(E2)
 
-	// Output:
-	// 6
-	// -92
+	// Output: -2
+	// 122
 }

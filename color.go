@@ -1,61 +1,59 @@
 package gofakeit
 
 import (
-	"math/rand"
-
-	"github.com/brianvoe/gofakeit/v6/data"
+	"github.com/brianvoe/gofakeit/v7/data"
 )
 
 // Color will generate a random color string
-func Color() string { return color(globalFaker.Rand) }
+func Color() string { return color(GlobalFaker) }
 
 // Color will generate a random color string
-func (f *Faker) Color() string { return color(f.Rand) }
+func (f *Faker) Color() string { return color(f) }
 
-func color(r *rand.Rand) string { return getRandValue(r, []string{"color", "full"}) }
-
-// NiceColor will generate a random safe color string
-func NiceColors() []string { return niceColors(globalFaker.Rand) }
+func color(f *Faker) string { return getRandValue(f, []string{"color", "full"}) }
 
 // NiceColor will generate a random safe color string
-func (f *Faker) NiceColors() []string { return niceColors(f.Rand) }
+func NiceColors() []string { return niceColors(GlobalFaker) }
 
-func niceColors(r *rand.Rand) []string {
-	return data.ColorsNice[randIntRange(r, 0, len(data.ColorsNice)-1)]
+// NiceColor will generate a random safe color string
+func (f *Faker) NiceColors() []string { return niceColors(f) }
+
+func niceColors(f *Faker) []string {
+	return data.ColorsNice[randIntRange(f, 0, len(data.ColorsNice)-1)]
 }
 
 // SafeColor will generate a random safe color string
-func SafeColor() string { return safeColor(globalFaker.Rand) }
+func SafeColor() string { return safeColor(GlobalFaker) }
 
 // SafeColor will generate a random safe color string
-func (f *Faker) SafeColor() string { return safeColor(f.Rand) }
+func (f *Faker) SafeColor() string { return safeColor(f) }
 
-func safeColor(r *rand.Rand) string { return getRandValue(r, []string{"color", "safe"}) }
-
-// HexColor will generate a random hexadecimal color string
-func HexColor() string { return hexColor(globalFaker.Rand) }
+func safeColor(f *Faker) string { return getRandValue(f, []string{"color", "safe"}) }
 
 // HexColor will generate a random hexadecimal color string
-func (f *Faker) HexColor() string { return hexColor(f.Rand) }
+func HexColor() string { return hexColor(GlobalFaker) }
 
-func hexColor(r *rand.Rand) string {
+// HexColor will generate a random hexadecimal color string
+func (f *Faker) HexColor() string { return hexColor(f) }
+
+func hexColor(f *Faker) string {
 	color := make([]byte, 6)
 	hashQuestion := []byte("?#")
 	for i := 0; i < 6; i++ {
-		color[i] = hashQuestion[r.Intn(2)]
+		color[i] = hashQuestion[f.IntN(2)]
 	}
 
-	return "#" + replaceWithHexLetters(r, replaceWithNumbers(r, string(color)))
+	return "#" + replaceWithHexLetters(f, replaceWithNumbers(f, string(color)))
 }
 
 // RGBColor will generate a random int slice color
-func RGBColor() []int { return rgbColor(globalFaker.Rand) }
+func RGBColor() []int { return rgbColor(GlobalFaker) }
 
 // RGBColor will generate a random int slice color
-func (f *Faker) RGBColor() []int { return rgbColor(f.Rand) }
+func (f *Faker) RGBColor() []int { return rgbColor(f) }
 
-func rgbColor(r *rand.Rand) []int {
-	return []int{randIntRange(r, 0, 255), randIntRange(r, 0, 255), randIntRange(r, 0, 255)}
+func rgbColor(f *Faker) []int {
+	return []int{randIntRange(f, 0, 255), randIntRange(f, 0, 255), randIntRange(f, 0, 255)}
 }
 
 func addColorLookup() {
@@ -65,8 +63,8 @@ func addColorLookup() {
 		Description: "Hue seen by the eye, returns the name of the color like red or blue",
 		Example:     "MediumOrchid",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return color(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return color(f), nil
 		},
 	})
 
@@ -77,8 +75,8 @@ func addColorLookup() {
 		Example:     `["#cfffdd","#b4dec1","#5c5863","#a85163","#ff1f4c"]`,
 		Output:      "[]string",
 		ContentType: "application/json",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return color(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return color(f), nil
 		},
 	})
 
@@ -88,8 +86,8 @@ func addColorLookup() {
 		Description: "Colors displayed consistently on different web browsers and devices",
 		Example:     "black",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return safeColor(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return safeColor(f), nil
 		},
 	})
 
@@ -99,8 +97,8 @@ func addColorLookup() {
 		Description: "Six-digit code representing a color in the color model",
 		Example:     "#a99fb4",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return hexColor(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return hexColor(f), nil
 		},
 	})
 
@@ -111,8 +109,8 @@ func addColorLookup() {
 		Example:     "[85, 224, 195]",
 		Output:      "[]int",
 		ContentType: "application/json",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return rgbColor(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return rgbColor(f), nil
 		},
 	})
 }

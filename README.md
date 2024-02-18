@@ -1,6 +1,6 @@
 ![alt text](https://raw.githubusercontent.com/brianvoe/gofakeit/master/logo.png)
 
-# Gofakeit [![Go Report Card](https://goreportcard.com/badge/github.com/brianvoe/gofakeit)](https://goreportcard.com/report/github.com/brianvoe/gofakeit) ![Test](https://github.com/brianvoe/gofakeit/workflows/Test/badge.svg?branch=master) [![GoDoc](https://godoc.org/github.com/brianvoe/gofakeit/v6?status.svg)](https://godoc.org/github.com/brianvoe/gofakeit/v6) [![license](http://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://raw.githubusercontent.com/brianvoe/gofakeit/master/LICENSE.txt)
+# Gofakeit [![Go Report Card](https://goreportcard.com/badge/github.com/brianvoe/gofakeit)](https://goreportcard.com/report/github.com/brianvoe/gofakeit) ![Test](https://github.com/brianvoe/gofakeit/workflows/Test/badge.svg?branch=master) [![GoDoc](https://godoc.org/github.com/brianvoe/gofakeit/v7?status.svg)](https://godoc.org/github.com/brianvoe/gofakeit/v7) [![license](http://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://raw.githubusercontent.com/brianvoe/gofakeit/master/LICENSE.txt)
 
 Random data generator written in go
 
@@ -33,13 +33,13 @@ Thank you to all our Gofakeit contributors!
 ## Installation
 
 ```go
-go get github.com/brianvoe/gofakeit/v6
+go get github.com/brianvoe/gofakeit/v7
 ```
 
 ## Simple Usage
 
 ```go
-import "github.com/brianvoe/gofakeit/v6"
+import "github.com/brianvoe/gofakeit/v7"
 
 gofakeit.Name()             // Markus Moen
 gofakeit.Email()            // alaynawuckert@kozey.biz
@@ -65,7 +65,7 @@ If you need a reproducible outcome you can set it via the Seed function call. Ev
 this repo sets it for testing purposes.
 
 ```go
-import "github.com/brianvoe/gofakeit/v6"
+import "github.com/brianvoe/gofakeit/v7"
 
 gofakeit.Seed(0) // If 0 will use crypto/rand to generate a number
 
@@ -76,25 +76,43 @@ gofakeit.Seed(8675309) // Set it to whatever number you want
 
 ## Random Sources
 
-Gofakeit has a few rand sources, by default it uses math.Rand and uses mutex locking to allow for safe goroutines.
+Gofakeit has a few rand sources, by default it uses math/rand/v2 PCG which is a pseudo random number generator and is thread locked.
 
-If you want to use a more performant source please use NewUnlocked. Be aware that it is not goroutine safe.
+If you want to see other potential sources you can see the sub package [Source](https://pkg.go.dev/github.com/brianvoe/gofakeit/v7/source) for more information.
 
 ```go
-import "github.com/brianvoe/gofakeit/v6"
+import (
+	"github.com/brianvoe/gofakeit/v7"
+	"github.com/brianvoe/gofakeit/v7/source"
+	"math/rand/v2"
+)
 
-// Uses math/rand(Pseudo) with mutex locking
+// Uses math/rand/v2(PCG Pseudo) with mutex locking
 faker := gofakeit.New(0)
 
-// Uses math/rand(Pseudo) with NO mutext locking
-// More performant but not goroutine safe.
-faker := gofakeit.NewUnlocked(0)
+// NewFaker takes in a source and whether or not it should be thread safe
+faker := gofakeit.NewFaker(source rand.Source, threadSafe bool)
 
-// Uses crypto/rand(cryptographically secure) with mutext locking
-faker := gofakeit.NewCrypto()
+// PCG Pseudo
+faker := gofakeit.NewFaker(rand.NewPCG(11, 11), true)
 
-// Pass in your own random source
-faker := gofakeit.NewCustom()
+// ChaCha8
+faker := gofakeit.NewFaker(rand.NewChaCha8([32]byte{0, 1, 2, 3, 4, 5}), true)
+
+
+// Additional from Gofakeit sub package source
+
+// JSF(Jenkins Small Fast)
+faker := gofakeit.NewFaker(source.NewJSF(11), true)
+
+// SFC(Simple Fast Counter)
+faker := gofakeit.NewFaker(source.NewSFC(11), true)
+
+// Crypto - Uses crypto/rand
+faker := gofakeit.NewFaker(source.NewCrypto(), true)
+
+// Dumb - simple incrementing number
+faker := gofakeit.NewFaker(source.NewDumb(11), true)
 ```
 
 ## Global Rand Set
@@ -103,10 +121,13 @@ If you would like to use the simple function calls but need to use something lik
 crypto/rand you can override the default global with the random source that you want.
 
 ```go
-import "github.com/brianvoe/gofakeit/v6"
+import (
+	"github.com/brianvoe/gofakeit/v7"
+	"math/rand/v2"
+)
 
-faker := gofakeit.NewCrypto()
-gofakeit.SetGlobalFaker(faker)
+faker := gofakeit.New(0)
+gofakeit.GlobalFaker = faker
 ```
 
 ## Struct
@@ -117,7 +138,7 @@ as well as some non-basic like time.Time.
 Struct fields can also use tags to more specifically generate data for that field type.
 
 ```go
-import "github.com/brianvoe/gofakeit/v6"
+import "github.com/brianvoe/gofakeit/v7"
 
 // Create structs with random injected data
 type Foo struct {
@@ -147,14 +168,14 @@ type Bar struct {
 
 // Pass your struct as a pointer
 var f Foo
-gofakeit.Struct(&f)
+err := gofakeit.Struct(&f)
 
 fmt.Println(f.Str)      		// hrukpttuezptneuvunh
 fmt.Println(f.Int)      		// -7825289004089916589
 fmt.Println(*f.Pointer) 		// -343806609094473732
 fmt.Println(f.Name)     		// fred
 fmt.Println(f.Sentence) 		// Record river mind.
-fmt.Println(f.RandStr)  		// world
+fmt.Println(fStr)  		// world
 fmt.Println(f.Number)   		// 4
 fmt.Println(f.Regex)    		// cbdfc
 fmt.Println(f.Map)    			// map[PxLIo:52 lxwnqhqc:846]
@@ -229,8 +250,8 @@ gofakeit.AddFuncLookup("friendname", gofakeit.Info{
 	Description: "Random friend name",
 	Example:     "bill",
 	Output:      "string",
-	Generate: func(r *rand.Rand, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
-		return gofakeit.RandomString([]string{"bill", "bob", "sally"}), nil
+	Generate: func(f *Faker, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
+		return f.RandomString([]string{"bill", "bob", "sally"}), nil
 	},
 })
 
@@ -243,14 +264,14 @@ gofakeit.AddFuncLookup("jumbleword", gofakeit.Info{
 	Params: []gofakeit.Param{
 		{Field: "word", Type: "string", Description: "Word you want to jumble"},
 	},
-	Generate: func(r *rand.Rand, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
+	Generate: func(f *Faker, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
 		word, err := info.GetString(m, "word")
 		if err != nil {
 			return nil, err
 		}
 
 		split := strings.Split(word, "")
-		gofakeit.ShuffleStrings(split)
+		f.ShuffleStrings(split)
 		return strings.Join(split, ""), nil
 	},
 })
@@ -301,7 +322,7 @@ Additional Available Functions
 ### Example Usages
 
 ```go
-import "github.com/brianvoe/gofakeit/v6"
+import "github.com/brianvoe/gofakeit/v7"
 
 func main() {
 	// Accessing the Lines variable from within the template.
@@ -748,10 +769,14 @@ ProgrammingLanguageBest() string
 
 ```go
 Number(min int, max int) int
+Int() int
+IntN(n int) int
 Int8() int8
 Int16() int16
 Int32() int32
 Int64() int64
+Uint() uint
+UintN(n uint) uint
 Uint8() uint8
 Uint16() uint16
 Uint32() uint32
@@ -762,12 +787,7 @@ Float64() float64
 Float64Range(min, max float64) float64
 ShuffleInts(a []int)
 RandomInt(i []int) int
-HexUint8() string
-HexUint16() string
-HexUint32() string
-HexUint64() string
-HexUint128() string
-HexUint256() string
+HexUint(bitsize int) string
 ```
 
 ### String

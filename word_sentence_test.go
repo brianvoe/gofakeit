@@ -10,14 +10,14 @@ func ExampleSentence() {
 	Seed(11)
 	fmt.Println(Sentence(5))
 
-	// Output: None how these keep trip.
+	// Output: Bathe regularly quiver these sprint.
 }
 
 func ExampleFaker_Sentence() {
 	f := New(11)
 	fmt.Println(f.Sentence(5))
 
-	// Output: None how these keep trip.
+	// Output: Bathe regularly quiver these sprint.
 }
 
 func TestSentence(t *testing.T) {
@@ -45,18 +45,18 @@ func ExampleParagraph() {
 	Seed(11)
 	fmt.Println(Paragraph(3, 5, 12, "\n"))
 
-	// Output: None how these keep trip Congolese choir computer still far unless army. Party riches theirs instead here mine whichever that those instance growth has. Ouch enough Swiss us since down he she aha us you to. Upon how this this furniture way no play towel that us to. Accordingly theirs purse enough so though election often until eek weekly yet.
-	// Oops until conclude his stay elsewhere such that galaxy clean that last. Each stack reluctantly theirs wisp aid firstly highly butter accordingly should already. Calm shake according fade neither kuban upon this he fortnightly occasionally bunch. On who elsewhere lastly hourly right there honesty we is how result. Out Shakespearean have whom yearly another packet are behind late lot finally.
-	// Time themselves goodness quizzical our therefore could fact cackle yourselves zebra for. Whose enormously all bowl out wandering secondly yellow another your hourly spit. Since tomorrow hers words little think will our by Polynesian write much. Of herself uptight these composer these any firstly stack you much terribly. Over pose place sprint it child is joyously that I whom mango.
+	// Output: Bathe regularly quiver these sprint fight something am elsewhere since previously was. That there a tennis occur why depend heels out can fire anyone. Sometimes that leap whom troop now scarcely since dance huh somebody constantly. Italian outfit certain weekly murder who cackle because her break write nobody. Could according whoa bevy we them summation to oxygen Greek how previously.
+	// A what answer handle daily ouch upon encourage that after his every. She wearily still he herself huge failure for yay sparse thoughtfully box. Anyway Jungian regularly world great daily recently whose Elizabethan outside to theirs. Block while French closely sit you to out fight bored yours those. Bale Parisian host which so today Ecuadorian hourly decidedly his everybody this.
+	// Play this little them on recently eager usually bunch daily whose somebody. Them few tonight dishonesty spell battery less patience whose inside hair your. Answer hand tonight these she team which today Einsteinian country yesterday for. Phew for now your him hourly infrequently lots drink absolutely when east. Conclude little annually hers nobody since troop it it whoever the park.
 }
 
 func ExampleFaker_Paragraph() {
 	f := New(11)
 	fmt.Println(f.Paragraph(3, 5, 12, "\n"))
 
-	// Output: None how these keep trip Congolese choir computer still far unless army. Party riches theirs instead here mine whichever that those instance growth has. Ouch enough Swiss us since down he she aha us you to. Upon how this this furniture way no play towel that us to. Accordingly theirs purse enough so though election often until eek weekly yet.
-	// Oops until conclude his stay elsewhere such that galaxy clean that last. Each stack reluctantly theirs wisp aid firstly highly butter accordingly should already. Calm shake according fade neither kuban upon this he fortnightly occasionally bunch. On who elsewhere lastly hourly right there honesty we is how result. Out Shakespearean have whom yearly another packet are behind late lot finally.
-	// Time themselves goodness quizzical our therefore could fact cackle yourselves zebra for. Whose enormously all bowl out wandering secondly yellow another your hourly spit. Since tomorrow hers words little think will our by Polynesian write much. Of herself uptight these composer these any firstly stack you much terribly. Over pose place sprint it child is joyously that I whom mango.
+	// Output: Bathe regularly quiver these sprint fight something am elsewhere since previously was. That there a tennis occur why depend heels out can fire anyone. Sometimes that leap whom troop now scarcely since dance huh somebody constantly. Italian outfit certain weekly murder who cackle because her break write nobody. Could according whoa bevy we them summation to oxygen Greek how previously.
+	// A what answer handle daily ouch upon encourage that after his every. She wearily still he herself huge failure for yay sparse thoughtfully box. Anyway Jungian regularly world great daily recently whose Elizabethan outside to theirs. Block while French closely sit you to out fight bored yours those. Bale Parisian host which so today Ecuadorian hourly decidedly his everybody this.
+	// Play this little them on recently eager usually bunch daily whose somebody. Them few tonight dishonesty spell battery less patience whose inside hair your. Answer hand tonight these she team which today Einsteinian country yesterday for. Phew for now your him hourly infrequently lots drink absolutely when east. Conclude little annually hers nobody since troop it it whoever the park.
 }
 
 func TestParagraph(t *testing.T) {
@@ -85,14 +85,14 @@ func ExampleQuestion() {
 	Seed(11)
 	fmt.Println(Question())
 
-	// Output: Roof chia echo pickled?
+	// Output: Everyday you probably haven't heard of them you probably haven't heard of them portland austin tattooed retro?
 }
 
 func ExampleFaker_Question() {
 	f := New(11)
 	fmt.Println(f.Question())
 
-	// Output: Roof chia echo pickled?
+	// Output: Everyday you probably haven't heard of them you probably haven't heard of them portland austin tattooed retro?
 }
 
 func BenchmarkQuestion(b *testing.B) {
@@ -105,14 +105,14 @@ func ExampleQuote() {
 	Seed(11)
 	fmt.Println(Quote())
 
-	// Output: "Roof chia echo pickled." - Marques Jakubowski
+	// Output: "Everyday you probably haven't heard of them you probably haven't heard of them portland austin tattooed retro." - Vance Schroeder
 }
 
 func ExampleFaker_Quote() {
 	f := New(11)
 	fmt.Println(f.Quote())
 
-	// Output: "Roof chia echo pickled." - Marques Jakubowski
+	// Output: "Everyday you probably haven't heard of them you probably haven't heard of them portland austin tattooed retro." - Vance Schroeder
 }
 
 func BenchmarkQuote(b *testing.B) {

@@ -2,7 +2,6 @@ package gofakeit
 
 import (
 	"fmt"
-	"math/rand"
 	"strings"
 )
 
@@ -18,140 +17,140 @@ type ProductInfo struct {
 }
 
 // Product will generate a random set of product information
-func Product() *ProductInfo { return product(globalFaker.Rand) }
+func Product() *ProductInfo { return product(GlobalFaker) }
 
 // Product will generate a random set of product information
-func (f *Faker) Product() *ProductInfo { return product(f.Rand) }
+func (f *Faker) Product() *ProductInfo { return product(f) }
 
-func product(r *rand.Rand) *ProductInfo {
+func product(f *Faker) *ProductInfo {
 	// Categories
 	categories := []string{}
-	weightedCategory, _ := weighted(r, []any{1, 2, 3, 4}, []float32{1, 4, 3, 4})
+	weightedCategory, _ := weighted(f, []any{1, 2, 3, 4}, []float32{1, 4, 3, 4})
 
 	for i := 0; i < weightedCategory.(int); i++ {
-		categories = append(categories, productCategory(r))
+		categories = append(categories, productCategory(f))
 	}
 
 	// Features
 	features := []string{}
-	for i := 0; i < number(r, 1, 5); i++ {
-		features = append(features, productFeature(r))
+	for i := 0; i < number(f, 1, 5); i++ {
+		features = append(features, productFeature(f))
 	}
 
 	product := &ProductInfo{
-		Name:        productName(r),
-		Description: productDescription(r),
+		Name:        productName(f),
+		Description: productDescription(f),
 		Categories:  categories,
-		Price:       price(r, 3.00, 100.00),
-		UPC:         productUPC(r),
+		Price:       price(f, 3.00, 100.00),
+		UPC:         productUPC(f),
 		Features:    features,
-		Color:       safeColor(r),
-		Material:    productMaterial(r),
+		Color:       safeColor(f),
+		Material:    productMaterial(f),
 	}
 
 	return product
 }
 
 // ProductName will generate a random product name
-func ProductName() string { return productName(globalFaker.Rand) }
+func ProductName() string { return productName(GlobalFaker) }
 
 // ProductName will generate a random product name
-func (f *Faker) ProductName() string { return productName(f.Rand) }
+func (f *Faker) ProductName() string { return productName(f) }
 
-func productName(r *rand.Rand) string {
-	name := getRandValue(r, []string{"product", "name"})
-	switch number(r, 0, 9) {
+func productName(f *Faker) string {
+	name := getRandValue(f, []string{"product", "name"})
+	switch number(f, 0, 9) {
 	case 1:
 		// Name + Adjective + Feature
-		return title(fmt.Sprintf("%s %s %s", name, getRandValue(r, []string{"product", "adjective"}), productFeature(r)))
+		return title(fmt.Sprintf("%s %s %s", name, getRandValue(f, []string{"product", "adjective"}), productFeature(f)))
 	case 2:
 		// Adjective + Material + Name
-		return title(fmt.Sprintf("%s %s %s", getRandValue(r, []string{"product", "adjective"}), productMaterial(r), name))
+		return title(fmt.Sprintf("%s %s %s", getRandValue(f, []string{"product", "adjective"}), productMaterial(f), name))
 	case 3:
 		// Color + Name + Suffix
-		return title(fmt.Sprintf("%s %s %s", safeColor(r), name, getRandValue(r, []string{"product", "suffix"})))
+		return title(fmt.Sprintf("%s %s %s", safeColor(f), name, getRandValue(f, []string{"product", "suffix"})))
 	case 4:
 		// Feature + Name + Adjective
-		return title(fmt.Sprintf("%s %s %s", productFeature(r), name, getRandValue(r, []string{"product", "adjective"})))
+		return title(fmt.Sprintf("%s %s %s", productFeature(f), name, getRandValue(f, []string{"product", "adjective"})))
 	case 5:
 		// Material + Color + Name
-		return title(fmt.Sprintf("%s %s %s", productMaterial(r), safeColor(r), name))
+		return title(fmt.Sprintf("%s %s %s", productMaterial(f), safeColor(f), name))
 	case 6:
 		// Name + Suffix + Material
-		return title(fmt.Sprintf("%s %s %s", name, getRandValue(r, []string{"product", "suffix"}), productMaterial(r)))
+		return title(fmt.Sprintf("%s %s %s", name, getRandValue(f, []string{"product", "suffix"}), productMaterial(f)))
 	case 7:
 		// Adjective + Feature + Name
-		return title(fmt.Sprintf("%s %s %s", getRandValue(r, []string{"product", "adjective"}), productFeature(r), name))
+		return title(fmt.Sprintf("%s %s %s", getRandValue(f, []string{"product", "adjective"}), productFeature(f), name))
 	case 8:
 		// Color + Material + Name
-		return title(fmt.Sprintf("%s %s %s", safeColor(r), productMaterial(r), name))
+		return title(fmt.Sprintf("%s %s %s", safeColor(f), productMaterial(f), name))
 	case 9:
 		// Suffix + Adjective + Name
-		return title(fmt.Sprintf("%s %s %s", getRandValue(r, []string{"product", "suffix"}), getRandValue(r, []string{"product", "adjective"}), name))
+		return title(fmt.Sprintf("%s %s %s", getRandValue(f, []string{"product", "suffix"}), getRandValue(f, []string{"product", "adjective"}), name))
 	}
 
 	// case: 0 - Adjective + Name + Suffix
-	return title(fmt.Sprintf("%s %s %s", getRandValue(r, []string{"product", "adjective"}), name, getRandValue(r, []string{"product", "suffix"})))
+	return title(fmt.Sprintf("%s %s %s", getRandValue(f, []string{"product", "adjective"}), name, getRandValue(f, []string{"product", "suffix"})))
 }
 
 // ProductDescription will generate a random product description
-func ProductDescription() string { return productDescription(globalFaker.Rand) }
+func ProductDescription() string { return productDescription(GlobalFaker) }
 
 // ProductDescription will generate a random product description
-func (f *Faker) ProductDescription() string { return productDescription(f.Rand) }
+func (f *Faker) ProductDescription() string { return productDescription(f) }
 
-func productDescription(r *rand.Rand) string {
+func productDescription(f *Faker) string {
 	desc := []string{}
-	for i := 0; i < number(r, 1, 3); i++ {
-		desc = append(desc, sentence(r, number(r, 5, 15)))
+	for i := 0; i < number(f, 1, 3); i++ {
+		desc = append(desc, sentence(f, number(f, 5, 15)))
 	}
 
 	return strings.Join(desc, " ")
 }
 
 // ProductCategory will generate a random product category
-func ProductCategory() string { return productCategory(globalFaker.Rand) }
+func ProductCategory() string { return productCategory(GlobalFaker) }
 
 // ProductCategory will generate a random product category
-func (f *Faker) ProductCategory() string { return productCategory(f.Rand) }
+func (f *Faker) ProductCategory() string { return productCategory(f) }
 
-func productCategory(r *rand.Rand) string {
-	return getRandValue(r, []string{"product", "category"})
+func productCategory(f *Faker) string {
+	return getRandValue(f, []string{"product", "category"})
 }
 
 // ProductFeature will generate a random product feature
-func ProductFeature() string { return productFeature(globalFaker.Rand) }
+func ProductFeature() string { return productFeature(GlobalFaker) }
 
 // ProductFeature will generate a random product feature
-func (f *Faker) ProductFeature() string { return productFeature(f.Rand) }
+func (f *Faker) ProductFeature() string { return productFeature(f) }
 
-func productFeature(r *rand.Rand) string {
-	return getRandValue(r, []string{"product", "feature"})
+func productFeature(f *Faker) string {
+	return getRandValue(f, []string{"product", "feature"})
 }
 
 // ProductMaterial will generate a random product material
-func ProductMaterial() string { return productMaterial(globalFaker.Rand) }
+func ProductMaterial() string { return productMaterial(GlobalFaker) }
 
 // ProductMaterial will generate a random product material
-func (f *Faker) ProductMaterial() string { return productMaterial(f.Rand) }
+func (f *Faker) ProductMaterial() string { return productMaterial(f) }
 
-func productMaterial(r *rand.Rand) string {
-	return getRandValue(r, []string{"product", "material"})
+func productMaterial(f *Faker) string {
+	return getRandValue(f, []string{"product", "material"})
 }
 
 // ProductUPC will generate a random product UPC
-func ProductUPC() string { return productUPC(globalFaker.Rand) }
+func ProductUPC() string { return productUPC(GlobalFaker) }
 
 // ProductUPC will generate a random product UPC
-func (f *Faker) ProductUPC() string { return productUPC(f.Rand) }
+func (f *Faker) ProductUPC() string { return productUPC(f) }
 
-func productUPC(r *rand.Rand) string {
+func productUPC(f *Faker) string {
 	// The first digit of a UPC is a fixed digit (usually 0)
 	upc := "0"
 
 	// Generate the remaining 11 digits randomly
 	for i := 1; i < 12; i++ {
-		digit := number(r, 0, 9)
+		digit := number(f, 0, 9)
 		upc += fmt.Sprintf("%d", digit)
 	}
 
@@ -180,8 +179,8 @@ func addProductLookup() {
 }`,
 		Output:      "map[string]any",
 		ContentType: "application/json",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return product(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return product(f), nil
 		},
 	})
 
@@ -191,8 +190,8 @@ func addProductLookup() {
 		Description: "Distinctive title or label assigned to a product for identification and marketing",
 		Example:     "olive copper monitor",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return productName(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return productName(f), nil
 		},
 	})
 
@@ -202,8 +201,8 @@ func addProductLookup() {
 		Description: "Explanation detailing the features and characteristics of a product",
 		Example:     "Backwards caused quarterly without week it hungry thing someone him regularly. Whomever this revolt hence from his timing as quantity us these yours.",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return productDescription(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return productDescription(f), nil
 		},
 	})
 
@@ -213,8 +212,8 @@ func addProductLookup() {
 		Description: "Classification grouping similar products based on shared characteristics or functions",
 		Example:     "clothing",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return productCategory(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return productCategory(f), nil
 		},
 	})
 
@@ -224,8 +223,8 @@ func addProductLookup() {
 		Description: "Specific characteristic of a product that distinguishes it from others products",
 		Example:     "ultra-lightweight",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return productFeature(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return productFeature(f), nil
 		},
 	})
 
@@ -235,8 +234,8 @@ func addProductLookup() {
 		Description: "The substance from which a product is made, influencing its appearance, durability, and properties",
 		Example:     "brass",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return productMaterial(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return productMaterial(f), nil
 		},
 	})
 
@@ -246,8 +245,8 @@ func addProductLookup() {
 		Description: "Standardized barcode used for product identification and tracking in retail and commerce",
 		Example:     "012780949980",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return productUPC(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return productUPC(f), nil
 		},
 	})
 }

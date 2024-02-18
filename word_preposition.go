@@ -1,50 +1,48 @@
 package gofakeit
 
-import "math/rand"
+// Preposition will generate a random preposition
+func Preposition() string { return preposition(GlobalFaker) }
 
 // Preposition will generate a random preposition
-func Preposition() string { return preposition(globalFaker.Rand) }
+func (f *Faker) Preposition() string { return preposition(f) }
 
-// Preposition will generate a random preposition
-func (f *Faker) Preposition() string { return preposition(f.Rand) }
-
-func preposition(r *rand.Rand) string {
+func preposition(f *Faker) string {
 	var prepType = map[int]string{
 		0: "preposition_simple",
 		1: "preposition_double",
 		2: "preposition_compound",
 	}
-	return getRandValue(r, []string{"word", prepType[number(r, 0, 2)]})
+	return getRandValue(f, []string{"word", prepType[number(f, 0, 2)]})
 }
 
 // PrepositionSimple will generate a random simple preposition
-func PrepositionSimple() string { return prepositionSimple(globalFaker.Rand) }
+func PrepositionSimple() string { return prepositionSimple(GlobalFaker) }
 
 // PrepositionSimple will generate a random simple preposition
-func (f *Faker) PrepositionSimple() string { return prepositionSimple(f.Rand) }
+func (f *Faker) PrepositionSimple() string { return prepositionSimple(f) }
 
-func prepositionSimple(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "preposition_simple"})
+func prepositionSimple(f *Faker) string {
+	return getRandValue(f, []string{"word", "preposition_simple"})
 }
 
 // PrepositionDouble will generate a random double preposition
-func PrepositionDouble() string { return prepositionDouble(globalFaker.Rand) }
+func PrepositionDouble() string { return prepositionDouble(GlobalFaker) }
 
 // PrepositionDouble will generate a random double preposition
-func (f *Faker) PrepositionDouble() string { return prepositionDouble(f.Rand) }
+func (f *Faker) PrepositionDouble() string { return prepositionDouble(f) }
 
-func prepositionDouble(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "preposition_double"})
+func prepositionDouble(f *Faker) string {
+	return getRandValue(f, []string{"word", "preposition_double"})
 }
 
 // PrepositionCompound will generate a random compound preposition
-func PrepositionCompound() string { return prepositionCompound(globalFaker.Rand) }
+func PrepositionCompound() string { return prepositionCompound(GlobalFaker) }
 
 // PrepositionCompound will generate a random compound preposition
-func (f *Faker) PrepositionCompound() string { return prepositionCompound(f.Rand) }
+func (f *Faker) PrepositionCompound() string { return prepositionCompound(f) }
 
-func prepositionCompound(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "preposition_compound"})
+func prepositionCompound(f *Faker) string {
+	return getRandValue(f, []string{"word", "preposition_compound"})
 }
 
 func addWordPrepositionLookup() {
@@ -54,8 +52,8 @@ func addWordPrepositionLookup() {
 		Description: "Words used to express the relationship of a noun or pronoun to other words in a sentence",
 		Example:     "other than",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return preposition(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return preposition(f), nil
 		},
 	})
 
@@ -65,8 +63,8 @@ func addWordPrepositionLookup() {
 		Description: "Single-word preposition showing relationships between 2 parts of a sentence",
 		Example:     "out",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return prepositionSimple(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return prepositionSimple(f), nil
 		},
 	})
 
@@ -76,8 +74,8 @@ func addWordPrepositionLookup() {
 		Description: "Two-word combination preposition, indicating a complex relation",
 		Example:     "before",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return prepositionDouble(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return prepositionDouble(f), nil
 		},
 	})
 
@@ -87,8 +85,8 @@ func addWordPrepositionLookup() {
 		Description: "Preposition that can be formed by combining two or more prepositions",
 		Example:     "according to",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return prepositionCompound(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return prepositionCompound(f), nil
 		},
 	})
 }

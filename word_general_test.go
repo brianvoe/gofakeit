@@ -9,14 +9,14 @@ func ExampleWord() {
 	Seed(11)
 	fmt.Println(Word())
 
-	// Output: none
+	// Output: bathe
 }
 
 func ExampleFaker_Word() {
 	f := New(11)
 	fmt.Println(f.Word())
 
-	// Output: none
+	// Output: bathe
 }
 
 func BenchmarkWord(b *testing.B) {

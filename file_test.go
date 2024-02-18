@@ -9,74 +9,38 @@ func ExampleFileMimeType() {
 	Seed(11)
 	fmt.Println(FileMimeType())
 
-	// Output: application/dsptype
+	// Output: application/x-wri
 }
 
 func ExampleFaker_FileMimeType() {
 	f := New(11)
 	fmt.Println(f.FileMimeType())
 
-	// Output: application/dsptype
+	// Output: application/x-wri
 }
 
 func BenchmarkFileMimeType(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			FileMimeType()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.FileMimeType()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.FileMimeType()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		FileMimeType()
+	}
 }
 
 func ExampleFileExtension() {
 	Seed(11)
 	fmt.Println(FileExtension())
 
-	// Output: nes
+	// Output: dtd
 }
 
 func ExampleFaker_FileExtension() {
 	f := New(11)
 	fmt.Println(f.FileExtension())
 
-	// Output: nes
+	// Output: dtd
 }
 
 func BenchmarkFileExtension(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			FileExtension()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.FileExtension()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.FileExtension()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		FileExtension()
+	}
 }

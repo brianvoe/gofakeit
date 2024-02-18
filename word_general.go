@@ -1,24 +1,23 @@
 package gofakeit
 
 import (
-	"math/rand"
 	"strings"
 
-	"github.com/brianvoe/gofakeit/v6/data"
+	"github.com/brianvoe/gofakeit/v7/data"
 )
 
 // Word will generate a random word
-func Word() string { return word(globalFaker.Rand) }
+func Word() string { return word(GlobalFaker) }
 
 // Word will generate a random word
-func (f *Faker) Word() string { return word(f.Rand) }
+func (f *Faker) Word() string { return word(f) }
 
-func word(r *rand.Rand) string {
-	word := getRandValue(r, []string{"word", randomString(r, data.WordKeys)})
+func word(f *Faker) string {
+	word := getRandValue(f, []string{"word", randomString(f, data.WordKeys)})
 
 	// Word may return a couple of words, if so we will split on space and return a random word
 	if strings.Contains(word, " ") {
-		return randomString(r, strings.Split(word, " "))
+		return randomString(f, strings.Split(word, " "))
 	}
 
 	return word
@@ -31,8 +30,8 @@ func addWordGeneralLookup() {
 		Description: "Basic unit of language representing a concept or thing, consisting of letters and having meaning",
 		Example:     "man",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return word(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return word(f), nil
 		},
 	})
 }

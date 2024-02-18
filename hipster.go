@@ -2,25 +2,24 @@ package gofakeit
 
 import (
 	"errors"
-	"math/rand"
 )
 
 // HipsterWord will return a single hipster word
-func HipsterWord() string { return hipsterWord(globalFaker.Rand) }
+func HipsterWord() string { return hipsterWord(GlobalFaker) }
 
 // HipsterWord will return a single hipster word
-func (f *Faker) HipsterWord() string { return hipsterWord(f.Rand) }
+func (f *Faker) HipsterWord() string { return hipsterWord(f) }
 
-func hipsterWord(r *rand.Rand) string { return getRandValue(r, []string{"hipster", "word"}) }
-
-// HipsterSentence will generate a random sentence
-func HipsterSentence(wordCount int) string { return hipsterSentence(globalFaker.Rand, wordCount) }
+func hipsterWord(f *Faker) string { return getRandValue(f, []string{"hipster", "word"}) }
 
 // HipsterSentence will generate a random sentence
-func (f *Faker) HipsterSentence(wordCount int) string { return hipsterSentence(f.Rand, wordCount) }
+func HipsterSentence(wordCount int) string { return hipsterSentence(GlobalFaker, wordCount) }
 
-func hipsterSentence(r *rand.Rand, wordCount int) string {
-	return sentenceGen(r, wordCount, hipsterWord)
+// HipsterSentence will generate a random sentence
+func (f *Faker) HipsterSentence(wordCount int) string { return hipsterSentence(f, wordCount) }
+
+func hipsterSentence(f *Faker, wordCount int) string {
+	return sentenceGen(f, wordCount, hipsterWord)
 }
 
 // HipsterParagraph will generate a random paragraphGenerator
@@ -29,7 +28,7 @@ func hipsterSentence(r *rand.Rand, wordCount int) string {
 // Set Word Count
 // Set Paragraph Separator
 func HipsterParagraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return hipsterParagraph(globalFaker.Rand, paragraphCount, sentenceCount, wordCount, separator)
+	return hipsterParagraph(GlobalFaker, paragraphCount, sentenceCount, wordCount, separator)
 }
 
 // HipsterParagraph will generate a random paragraphGenerator
@@ -38,11 +37,11 @@ func HipsterParagraph(paragraphCount int, sentenceCount int, wordCount int, sepa
 // Set Word Count
 // Set Paragraph Separator
 func (f *Faker) HipsterParagraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return hipsterParagraph(f.Rand, paragraphCount, sentenceCount, wordCount, separator)
+	return hipsterParagraph(f, paragraphCount, sentenceCount, wordCount, separator)
 }
 
-func hipsterParagraph(r *rand.Rand, paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return paragraphGen(r, paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, hipsterSentence)
+func hipsterParagraph(f *Faker, paragraphCount int, sentenceCount int, wordCount int, separator string) string {
+	return paragraphGen(f, paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, hipsterSentence)
 }
 
 func addHipsterLookup() {
@@ -52,8 +51,8 @@ func addHipsterLookup() {
 		Description: "Trendy and unconventional vocabulary used by hipsters to express unique cultural preferences",
 		Example:     "microdosing",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return hipsterWord(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return hipsterWord(f), nil
 		},
 	})
 
@@ -66,7 +65,7 @@ func addHipsterLookup() {
 		Params: []Param{
 			{Field: "wordcount", Display: "Word Count", Type: "int", Default: "5", Description: "Number of words in a sentence"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			wordCount, err := info.GetInt(m, "wordcount")
 			if err != nil {
 				return nil, err
@@ -75,7 +74,7 @@ func addHipsterLookup() {
 				return nil, errors.New("invalid word count, must be greater than 0, less than 50")
 			}
 
-			return hipsterSentence(r, wordCount), nil
+			return hipsterSentence(f, wordCount), nil
 		},
 	})
 
@@ -95,7 +94,7 @@ Shabby chic typewriter VHS readymade lo-fi bitters PBR&B gentrify lomo raw denim
 			{Field: "wordcount", Display: "Word Count", Type: "int", Default: "5", Description: "Number of words in a sentence"},
 			{Field: "paragraphseparator", Display: "Paragraph Separator", Type: "string", Default: "<br />", Description: "String value to add between paragraphs"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			paragraphCount, err := info.GetInt(m, "paragraphcount")
 			if err != nil {
 				return nil, err
@@ -125,7 +124,7 @@ Shabby chic typewriter VHS readymade lo-fi bitters PBR&B gentrify lomo raw denim
 				return nil, err
 			}
 
-			return hipsterParagraph(r, paragraphCount, sentenceCount, wordCount, paragraphSeparator), nil
+			return hipsterParagraph(f, paragraphCount, sentenceCount, wordCount, paragraphSeparator), nil
 		},
 	})
 }

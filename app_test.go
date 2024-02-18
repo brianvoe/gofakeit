@@ -9,14 +9,14 @@ func ExampleAppName() {
 	Seed(11)
 	fmt.Println(AppName())
 
-	// Output: Oxbeing
+	// Output: Swanthink
 }
 
 func ExampleFaker_AppName() {
 	f := New(11)
 	fmt.Println(f.AppName())
 
-	// Output: Oxbeing
+	// Output: Swanthink
 }
 
 func TestAppName(t *testing.T) {
@@ -29,79 +29,43 @@ func TestAppName(t *testing.T) {
 }
 
 func BenchmarkAppName(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			AppName()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.AppName()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.AppName()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		AppName()
+	}
 }
 
 func ExampleAppVersion() {
 	Seed(11)
 	fmt.Println(AppVersion())
 
-	// Output: 1.17.20
+	// Output: 5.18.4
 }
 
 func ExampleFaker_AppVersion() {
 	f := New(11)
 	fmt.Println(f.AppVersion())
 
-	// Output: 1.17.20
+	// Output: 5.18.4
 }
 
 func BenchmarkAppVersion(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			AppVersion()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.AppVersion()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.AppVersion()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		AppVersion()
+	}
 }
 
 func ExampleAppAuthor() {
 	Seed(11)
 	fmt.Println(AppAuthor())
 
-	// Output: Marcel Pagac
+	// Output: StreetEasy
 }
 
 func ExampleFaker_AppAuthor() {
 	f := New(11)
 	fmt.Println(f.AppAuthor())
 
-	// Output: Marcel Pagac
+	// Output: StreetEasy
 }
 
 func TestAuthor(t *testing.T) {
@@ -114,25 +78,7 @@ func TestAuthor(t *testing.T) {
 }
 
 func BenchmarkAppAuthor(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			AppAuthor()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.AppAuthor()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.AppAuthor()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		AppAuthor()
+	}
 }

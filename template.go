@@ -6,7 +6,6 @@ import (
 	"strconv"
 	"time"
 
-	"math/rand"
 	"reflect"
 	"strings"
 	"text/template"
@@ -22,9 +21,9 @@ type TemplateOptions struct {
 func Template(template string, co *TemplateOptions) (string, error) {
 	if co == nil {
 		co = &TemplateOptions{}
-		globalFaker.Struct(co)
+		GlobalFaker.Struct(co)
 	}
-	return templateFunc(template, templateFuncMap(globalFaker.Rand, &co.Funcs), co)
+	return templateFunc(template, templateFuncMap(GlobalFaker, &co.Funcs), co)
 }
 
 // Template generates an document based on the the supplied template
@@ -33,7 +32,7 @@ func (f *Faker) Template(template string, co *TemplateOptions) (string, error) {
 		co = &TemplateOptions{}
 		f.Struct(co)
 	}
-	return templateFunc(template, templateFuncMap(f.Rand, &co.Funcs), co)
+	return templateFunc(template, templateFuncMap(f, &co.Funcs), co)
 }
 
 // MarkdownOptions defines values needed for markdown document generation
@@ -92,9 +91,9 @@ console.log("{{ToLower $repo}} result:", "{{ToLower $result}}");
 func Markdown(co *MarkdownOptions) (string, error) {
 	if co == nil {
 		co = &MarkdownOptions{}
-		globalFaker.Struct(co)
+		GlobalFaker.Struct(co)
 	}
-	return templateFunc(templateMarkdown, templateFuncMap(globalFaker.Rand, nil), co)
+	return templateFunc(templateMarkdown, templateFuncMap(GlobalFaker, nil), co)
 }
 
 // Markdown will return a single random Markdown template document
@@ -103,7 +102,7 @@ func (f *Faker) Markdown(co *MarkdownOptions) (string, error) {
 		co = &MarkdownOptions{}
 		f.Struct(co)
 	}
-	return templateFunc(templateMarkdown, templateFuncMap(f.Rand, nil), co)
+	return templateFunc(templateMarkdown, templateFuncMap(f, nil), co)
 }
 
 // EmailOptions defines values needed for email document generation
@@ -138,9 +137,9 @@ Dear {{LastName}},
 func EmailText(co *EmailOptions) (string, error) {
 	if co == nil {
 		co = &EmailOptions{}
-		globalFaker.Struct(co)
+		GlobalFaker.Struct(co)
 	}
-	return templateFunc(templateEmail, templateFuncMap(globalFaker.Rand, nil), co)
+	return templateFunc(templateEmail, templateFuncMap(GlobalFaker, nil), co)
 }
 
 // EmailText will return a single random text email template document
@@ -149,7 +148,7 @@ func (f *Faker) EmailText(co *EmailOptions) (string, error) {
 		co = &EmailOptions{}
 		f.Struct(co)
 	}
-	return templateFunc(templateEmail, templateFuncMap(f.Rand, nil), co)
+	return templateFunc(templateEmail, templateFuncMap(f, nil), co)
 }
 
 // functions that wont work with template engine
@@ -160,13 +159,10 @@ var templateExclusion = []string{
 }
 
 // Build the template.FuncMap for the template engine
-func templateFuncMap(r *rand.Rand, fm *template.FuncMap) *template.FuncMap {
+func templateFuncMap(f *Faker, fm *template.FuncMap) *template.FuncMap {
 
 	// create a new function map
 	funcMap := template.FuncMap{}
-
-	// build the function map from a faker using their rand
-	f := &Faker{Rand: r}
 
 	v := reflect.ValueOf(f)
 
@@ -350,7 +346,7 @@ Markus Moen`,
 			{Field: "template", Display: "Template", Type: "string", Description: "Golang template to generate the document from"},
 			{Field: "data", Display: "Custom Data", Type: "string", Default: "", Optional: true, Description: "Custom data to pass to the template"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			tpl, err := info.GetString(m, "template")
 			if err != nil {
 				return nil, err
@@ -361,7 +357,7 @@ Markus Moen`,
 				return nil, err
 			}
 
-			templateOut, err := templateFunc(tpl, templateFuncMap(r, nil), &TemplateOptions{Data: data})
+			templateOut, err := templateFunc(tpl, templateFuncMap(f, nil), &TemplateOptions{Data: data})
 			if err != nil {
 				return nil, err
 			}
@@ -401,8 +397,8 @@ print("purplesheep5 result:", "in progress")
 ## License
 MIT`,
 		Output: "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			template_result, err := templateFunc(templateMarkdown, templateFuncMap(r, nil), &MarkdownOptions{})
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			template_result, err := templateFunc(templateMarkdown, templateFuncMap(f, nil), &MarkdownOptions{})
 			return string(template_result), err
 		},
 	})
@@ -436,8 +432,8 @@ Milford Johnston
 jamelhaag@king.org
 (507)096-3058`,
 		Output: "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			template_result, err := templateFunc(templateEmail, templateFuncMap(r, nil), &EmailOptions{})
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			template_result, err := templateFunc(templateEmail, templateFuncMap(f, nil), &EmailOptions{})
 			return string(template_result), err
 		},
 	})

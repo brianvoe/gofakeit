@@ -9,14 +9,14 @@ func ExampleComment() {
 	Seed(11)
 	fmt.Println(Comment())
 
-	// Output: Phew Substantial Thing Had Regularly.
+	// Output: Fear Drink To Heart.
 }
 
 func ExampleFaker_Comment() {
 	f := New(11)
 	fmt.Println(f.Comment())
 
-	// Output: Phew Substantial Thing Had Regularly.
+	// Output: Fear Drink To Heart.
 }
 
 func TestComment(t *testing.T) {

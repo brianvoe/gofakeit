@@ -1,17 +1,14 @@
 package gofakeit
 
 import (
-	crand "crypto/rand"
-	"encoding/binary"
 	"encoding/json"
 	"fmt"
 	"math"
-	"math/rand"
 	"reflect"
 	"strings"
 	"unicode"
 
-	"github.com/brianvoe/gofakeit/v6/data"
+	"github.com/brianvoe/gofakeit/v7/data"
 )
 
 const lowerStr = "abcdefghijklmnopqrstuvwxyz"
@@ -30,16 +27,7 @@ const minUint = 0
 const maxUint = ^uint(0)
 const minInt = -maxInt - 1
 const maxInt = int(^uint(0) >> 1)
-
-// Seed will set the global random value. Setting seed to 0 will use crypto/rand
-func Seed(seed int64) {
-	if seed == 0 {
-		binary.Read(crand.Reader, binary.BigEndian, &seed)
-		globalFaker.Rand.Seed(seed)
-	} else {
-		globalFaker.Rand.Seed(seed)
-	}
-}
+const is32bit = ^uint(0)>>32 == 0
 
 // Check if in lib
 func dataCheck(dataVal []string) bool {
@@ -56,40 +44,40 @@ func dataCheck(dataVal []string) bool {
 }
 
 // Get Random Value
-func getRandValue(r *rand.Rand, dataVal []string) string {
+func getRandValue(f *Faker, dataVal []string) string {
 	if !dataCheck(dataVal) {
 		return ""
 	}
-	return data.Data[dataVal[0]][dataVal[1]][r.Intn(len(data.Data[dataVal[0]][dataVal[1]]))]
+	return data.Data[dataVal[0]][dataVal[1]][f.IntN(len(data.Data[dataVal[0]][dataVal[1]]))]
 }
 
 // Replace # with numbers
-func replaceWithNumbers(r *rand.Rand, str string) string {
+func replaceWithNumbers(f *Faker, str string) string {
 	if str == "" {
 		return str
 	}
 	bytestr := []byte(str)
 	for i := 0; i < len(bytestr); i++ {
 		if bytestr[i] == hashtag {
-			bytestr[i] = byte(randDigit(r))
+			bytestr[i] = byte(randDigit(f))
 		}
 	}
 	if bytestr[0] == '0' {
-		bytestr[0] = byte(r.Intn(8)+1) + '0'
+		bytestr[0] = byte(f.IntN(8)+1) + '0'
 	}
 
 	return string(bytestr)
 }
 
 // Replace ? with ASCII lowercase letters
-func replaceWithLetters(r *rand.Rand, str string) string {
+func replaceWithLetters(f *Faker, str string) string {
 	if str == "" {
 		return str
 	}
 	bytestr := []byte(str)
 	for i := 0; i < len(bytestr); i++ {
 		if bytestr[i] == questionmark {
-			bytestr[i] = byte(randLetter(r))
+			bytestr[i] = byte(randLetter(f))
 		}
 	}
 
@@ -97,14 +85,14 @@ func replaceWithLetters(r *rand.Rand, str string) string {
 }
 
 // Replace ? with ASCII lowercase letters between a and f
-func replaceWithHexLetters(r *rand.Rand, str string) string {
+func replaceWithHexLetters(f *Faker, str string) string {
 	if str == "" {
 		return str
 	}
 	bytestr := []byte(str)
 	for i := 0; i < len(bytestr); i++ {
 		if bytestr[i] == questionmark {
-			bytestr[i] = byte(randHexLetter(r))
+			bytestr[i] = byte(randHexLetter(f))
 		}
 	}
 
@@ -112,81 +100,51 @@ func replaceWithHexLetters(r *rand.Rand, str string) string {
 }
 
 // Generate random lowercase ASCII letter
-func randLetter(r *rand.Rand) rune {
+func randLetter(f *Faker) rune {
 	allLetters := upperStr + lowerStr
-	return rune(allLetters[r.Intn(len(allLetters))])
+	return rune(allLetters[f.IntN(len(allLetters))])
 }
 
-func randCharacter(r *rand.Rand, s string) string {
-	return string(s[r.Int63()%int64(len(s))])
+func randCharacter(f *Faker, s string) string {
+	return string(s[f.Int64()%int64(len(s))])
 }
 
 // Generate random lowercase ASCII letter between a and f
-func randHexLetter(r *rand.Rand) rune {
-	return rune(byte(r.Intn(6)) + 'a')
+func randHexLetter(f *Faker) rune {
+	return rune(byte(f.IntN(6)) + 'a')
 }
 
 // Generate random ASCII digit
-func randDigit(r *rand.Rand) rune {
-	return rune(byte(r.Intn(10)) + '0')
+func randDigit(f *Faker) rune {
+	return rune(byte(f.IntN(10)) + '0')
 }
 
 // Generate random integer between min and max
-func randIntRange(r *rand.Rand, min, max int) int {
-	// If they pass in the same number, just return that number
+func randIntRange(f *Faker, min, max int) int {
 	if min == max {
 		return min
 	}
 
-	// If they pass in a min that is bigger than max, swap them
 	if min > max {
-		ogmin := min
-		min = max
-		max = ogmin
+		min, max = max, min // Swap if min is greater than max
 	}
 
-	// Figure out if the min/max numbers calculation
-	// would cause a panic in the Int63() function.
-	if max-min+1 > 0 {
-		return min + int(r.Int63n(int64(max-min+1)))
-	}
-
-	// Loop through the range until we find a number that fits
-	for {
-		v := int(r.Uint64())
-		if (v >= min) && (v <= max) {
-			return v
-		}
-	}
+	// Use f.IntN to generate a random number in [0, rangeSize) and shift it into [min, max].
+	return f.IntN(max-min+1) + min
 }
 
 // Generate random uint between min and max
-func randUintRange(r *rand.Rand, min, max uint) uint {
-	// If they pass in the same number, just return that number
+func randUintRange(f *Faker, min, max uint) uint {
 	if min == max {
-		return min
+		return min // Immediate return if range is zero
 	}
 
-	// If they pass in a min that is bigger than max, swap them
 	if min > max {
-		ogmin := min
-		min = max
-		max = ogmin
+		min, max = max, min // Swap if min is greater than max
 	}
 
-	// Figure out if the min/max numbers calculation
-	// would cause a panic in the Int63() function.
-	if int(max)-int(min)+1 > 0 {
-		return uint(r.Intn(int(max)-int(min)+1) + int(min))
-	}
-
-	// Loop through the range until we find a number that fits
-	for {
-		v := uint(r.Uint64())
-		if (v >= min) && (v <= max) {
-			return v
-		}
-	}
+	// Use f.UintN to generate a random number in [0, rangeSize) and shift it into [min, max].
+	return f.UintN(max-min+1) + min
 }
 
 func toFixed(num float64, precision int) float64 {

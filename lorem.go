@@ -2,43 +2,42 @@ package gofakeit
 
 import (
 	"errors"
-	"math/rand"
 )
 
 // LoremIpsumWord will generate a random word
-func LoremIpsumWord() string { return loremIpsumWord(globalFaker.Rand) }
+func LoremIpsumWord() string { return loremIpsumWord(GlobalFaker) }
 
 // LoremIpsumWord will generate a random word
-func (f *Faker) LoremIpsumWord() string { return loremIpsumWord(f.Rand) }
+func (f *Faker) LoremIpsumWord() string { return loremIpsumWord(f) }
 
-func loremIpsumWord(r *rand.Rand) string { return getRandValue(r, []string{"lorem", "word"}) }
+func loremIpsumWord(f *Faker) string { return getRandValue(f, []string{"lorem", "word"}) }
 
 // LoremIpsumSentence will generate a random sentence
 func LoremIpsumSentence(wordCount int) string {
-	return loremIpsumSentence(globalFaker.Rand, wordCount)
+	return loremIpsumSentence(GlobalFaker, wordCount)
 }
 
 // LoremIpsumSentence will generate a random sentence
 func (f *Faker) LoremIpsumSentence(wordCount int) string {
-	return loremIpsumSentence(f.Rand, wordCount)
+	return loremIpsumSentence(f, wordCount)
 }
 
-func loremIpsumSentence(r *rand.Rand, wordCount int) string {
-	return sentenceGen(r, wordCount, loremIpsumWord)
+func loremIpsumSentence(f *Faker, wordCount int) string {
+	return sentenceGen(f, wordCount, loremIpsumWord)
 }
 
 // LoremIpsumParagraph will generate a random paragraphGenerator
 func LoremIpsumParagraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return loremIpsumParagraph(globalFaker.Rand, paragraphCount, sentenceCount, wordCount, separator)
+	return loremIpsumParagraph(GlobalFaker, paragraphCount, sentenceCount, wordCount, separator)
 }
 
 // LoremIpsumParagraph will generate a random paragraphGenerator
 func (f *Faker) LoremIpsumParagraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return loremIpsumParagraph(f.Rand, paragraphCount, sentenceCount, wordCount, separator)
+	return loremIpsumParagraph(f, paragraphCount, sentenceCount, wordCount, separator)
 }
 
-func loremIpsumParagraph(r *rand.Rand, paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return paragraphGen(r, paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, loremIpsumSentence)
+func loremIpsumParagraph(f *Faker, paragraphCount int, sentenceCount int, wordCount int, separator string) string {
+	return paragraphGen(f, paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, loremIpsumSentence)
 }
 
 func addLoremLookup() {
@@ -48,8 +47,8 @@ func addLoremLookup() {
 		Description: "Word of the Lorem Ipsum placeholder text used in design and publishing",
 		Example:     "quia",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return loremIpsumWord(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return loremIpsumWord(f), nil
 		},
 	})
 
@@ -62,7 +61,7 @@ func addLoremLookup() {
 		Params: []Param{
 			{Field: "wordcount", Display: "Word Count", Type: "int", Default: "5", Description: "Number of words in a sentence"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			wordCount, err := info.GetInt(m, "wordcount")
 			if err != nil {
 				return nil, err
@@ -71,7 +70,7 @@ func addLoremLookup() {
 				return nil, errors.New("invalid word count, must be greater than 0, less than 50")
 			}
 
-			return loremIpsumSentence(r, wordCount), nil
+			return loremIpsumSentence(f, wordCount), nil
 		},
 	})
 
@@ -91,7 +90,7 @@ Explicabo incidunt reprehenderit non quia dignissimos recusandae vitae soluta qu
 			{Field: "wordcount", Display: "Word Count", Type: "int", Default: "5", Description: "Number of words in a sentence"},
 			{Field: "paragraphseparator", Display: "Paragraph Separator", Type: "string", Default: "<br />", Description: "String value to add between paragraphs"},
 		},
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			paragraphCount, err := info.GetInt(m, "paragraphcount")
 			if err != nil {
 				return nil, err
@@ -121,7 +120,7 @@ Explicabo incidunt reprehenderit non quia dignissimos recusandae vitae soluta qu
 				return nil, err
 			}
 
-			return loremIpsumParagraph(r, paragraphCount, sentenceCount, wordCount, paragraphSeparator), nil
+			return loremIpsumParagraph(f, paragraphCount, sentenceCount, wordCount, paragraphSeparator), nil
 		},
 	})
 }

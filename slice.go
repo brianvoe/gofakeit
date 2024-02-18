@@ -5,7 +5,7 @@ import (
 )
 
 // Slice fills built-in types and exported fields of a struct with random data.
-func Slice(v any) { sliceFunc(globalFaker, v) }
+func Slice(v any) { sliceFunc(GlobalFaker, v) }
 
 // Slice fills built-in types and exported fields of a struct with random data.
 func (f *Faker) Slice(v any) { sliceFunc(f, v) }

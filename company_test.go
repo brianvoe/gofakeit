@@ -9,38 +9,20 @@ func ExampleCompany() {
 	Seed(11)
 	fmt.Println(Company())
 
-	// Output: ClearHealthCosts
+	// Output: TransparaGov
 }
 
 func ExampleFaker_Company() {
 	f := New(11)
 	fmt.Println(f.Company())
 
-	// Output: ClearHealthCosts
+	// Output: TransparaGov
 }
 
 func BenchmarkCompany(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Company()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Company()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Company()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Company()
+	}
 }
 
 func TestCompany(t *testing.T) {
@@ -64,140 +46,68 @@ func ExampleFaker_CompanySuffix() {
 }
 
 func BenchmarkCompanySuffix(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			CompanySuffix()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.CompanySuffix()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.CompanySuffix()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		CompanySuffix()
+	}
 }
 
 func ExampleBlurb() {
 	Seed(11)
 	fmt.Println(Blurb())
 
-	// Output: Motivation
+	// Output: Teamwork
 }
 
 func ExampleFaker_Blurb() {
 	f := New(11)
 	fmt.Println(f.Blurb())
 
-	// Output: Motivation
+	// Output: Teamwork
 }
 
 func BenchmarkBlurb(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Blurb()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Blurb()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Blurb()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Blurb()
+	}
 }
 func ExampleBuzzWord() {
 	Seed(11)
 	fmt.Println(BuzzWord())
 
-	// Output: disintermediate
+	// Output: open system
 }
 
 func ExampleFaker_BuzzWord() {
 	f := New(11)
 	fmt.Println(f.BuzzWord())
 
-	// Output: disintermediate
+	// Output: open system
 }
 
 func BenchmarkBuzzWord(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			BuzzWord()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.BuzzWord()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.BuzzWord()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		BuzzWord()
+	}
 }
 
 func ExampleBS() {
 	Seed(11)
 	fmt.Println(BS())
 
-	// Output: front-end
+	// Output: models
 }
 
 func ExampleFaker_BS() {
 	f := New(11)
 	fmt.Println(f.BS())
 
-	// Output: front-end
+	// Output: models
 }
 
 func BenchmarkBS(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			BS()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.BS()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.BS()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		BS()
+	}
 }
 
 func ExampleJob() {
@@ -208,10 +118,10 @@ func ExampleJob() {
 	fmt.Println(jobInfo.Descriptor)
 	fmt.Println(jobInfo.Level)
 
-	// Output: ClearHealthCosts
-	// Agent
-	// Future
-	// Tactics
+	// Output: TransparaGov
+	// Specialist
+	// Direct
+	// Configuration
 }
 
 func ExampleFaker_Job() {
@@ -222,184 +132,94 @@ func ExampleFaker_Job() {
 	fmt.Println(jobInfo.Descriptor)
 	fmt.Println(jobInfo.Level)
 
-	// Output: ClearHealthCosts
-	// Agent
-	// Future
-	// Tactics
+	// Output: TransparaGov
+	// Specialist
+	// Direct
+	// Configuration
 }
 
 func BenchmarkJob(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Job()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Job()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Job()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Job()
+	}
 }
 
 func ExampleJobTitle() {
 	Seed(11)
 	fmt.Println(JobTitle())
 
-	// Output: Director
+	// Output: Strategist
 }
 
 func ExampleFaker_JobTitle() {
 	f := New(11)
 	fmt.Println(f.JobTitle())
 
-	// Output: Director
+	// Output: Strategist
 }
 
 func BenchmarkJobTitle(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			JobTitle()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.JobTitle()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.JobTitle()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		JobTitle()
+	}
 }
 
 func ExampleJobDescriptor() {
 	Seed(11)
 	fmt.Println(JobDescriptor())
 
-	// Output: Central
+	// Output: Product
 }
 
 func ExampleFaker_JobDescriptor() {
 	f := New(11)
 	fmt.Println(f.JobDescriptor())
 
-	// Output: Central
+	// Output: Product
 }
 
 func BenchmarkJobDescriptor(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			JobDescriptor()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.JobDescriptor()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.JobDescriptor()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		JobDescriptor()
+	}
 }
 
 func ExampleJobLevel() {
 	Seed(11)
 	fmt.Println(JobLevel())
 
-	// Output: Assurance
+	// Output: Solutions
 }
 
 func ExampleFaker_JobLevel() {
 	f := New(11)
 	fmt.Println(f.JobLevel())
 
-	// Output: Assurance
+	// Output: Solutions
 }
 
 func BenchmarkJobLevel(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			JobLevel()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.JobLevel()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.JobLevel()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		JobLevel()
+	}
 }
 
 func ExampleSlogan() {
 	Seed(11)
 	fmt.Println(Slogan())
 
-	// Output: Universal seamless Focus, interactive.
+	// Output: local area network maximize Drive, mission-critical.
 }
 
 func ExampleFaker_Slogan() {
 	f := New(11)
 	fmt.Println(f.Slogan())
 
-	// Output: Universal seamless Focus, interactive.
+	// Output: local area network maximize Drive, mission-critical.
 }
 
 func BenchmarkSlogan(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Slogan()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Slogan()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Slogan()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Slogan()
+	}
 }

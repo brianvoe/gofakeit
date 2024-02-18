@@ -9,14 +9,14 @@ func ExampleAdjective() {
 	Seed(11)
 	fmt.Println(Adjective())
 
-	// Output: Dutch
+	// Output: none
 }
 
 func ExampleFaker_Adjective() {
 	f := New(11)
 	fmt.Println(f.Adjective())
 
-	// Output: Dutch
+	// Output: none
 }
 
 func BenchmarkAdjective(b *testing.B) {
@@ -29,14 +29,14 @@ func ExampleAdjectiveDescriptive() {
 	Seed(11)
 	fmt.Println(AdjectiveDescriptive())
 
-	// Output: brave
+	// Output: tired
 }
 
 func ExampleFaker_AdjectiveDescriptive() {
 	f := New(11)
 	fmt.Println(f.AdjectiveDescriptive())
 
-	// Output: brave
+	// Output: tired
 }
 
 func BenchmarkAdjectiveDescriptive(b *testing.B) {
@@ -49,14 +49,14 @@ func ExampleAdjectiveQuantitative() {
 	Seed(11)
 	fmt.Println(AdjectiveQuantitative())
 
-	// Output: a little
+	// Output: sparse
 }
 
 func ExampleFaker_AdjectiveQuantitative() {
 	f := New(11)
 	fmt.Println(f.AdjectiveQuantitative())
 
-	// Output: a little
+	// Output: sparse
 }
 
 func BenchmarkAdjectiveQuantitative(b *testing.B) {
@@ -69,14 +69,14 @@ func ExampleAdjectiveProper() {
 	Seed(11)
 	fmt.Println(AdjectiveProper())
 
-	// Output: Afghan
+	// Output: Swiss
 }
 
 func ExampleFaker_AdjectiveProper() {
 	f := New(11)
 	fmt.Println(f.AdjectiveProper())
 
-	// Output: Afghan
+	// Output: Swiss
 }
 
 func BenchmarkAdjectiveProper(b *testing.B) {
@@ -89,14 +89,14 @@ func ExampleAdjectiveDemonstrative() {
 	Seed(11)
 	fmt.Println(AdjectiveDemonstrative())
 
-	// Output: this
+	// Output: it
 }
 
 func ExampleFaker_AdjectiveDemonstrative() {
 	f := New(11)
 	fmt.Println(f.AdjectiveDemonstrative())
 
-	// Output: this
+	// Output: it
 }
 
 func BenchmarkAdjectiveDemonstrative(b *testing.B) {
@@ -109,14 +109,14 @@ func ExampleAdjectivePossessive() {
 	Seed(11)
 	fmt.Println(AdjectivePossessive())
 
-	// Output: our
+	// Output: their
 }
 
 func ExampleFaker_AdjectivePossessive() {
 	f := New(11)
 	fmt.Println(f.AdjectivePossessive())
 
-	// Output: our
+	// Output: their
 }
 
 func BenchmarkAdjectivePossessive(b *testing.B) {
@@ -129,14 +129,14 @@ func ExampleAdjectiveInterrogative() {
 	Seed(11)
 	fmt.Println(AdjectiveInterrogative())
 
-	// Output: what
+	// Output: which
 }
 
 func ExampleFaker_AdjectiveInterrogative() {
 	f := New(11)
 	fmt.Println(f.AdjectiveInterrogative())
 
-	// Output: what
+	// Output: which
 }
 
 func BenchmarkAdjectiveInterrogative(b *testing.B) {
@@ -149,14 +149,14 @@ func ExampleAdjectiveIndefinite() {
 	Seed(11)
 	fmt.Println(AdjectiveIndefinite())
 
-	// Output: few
+	// Output: several
 }
 
 func ExampleFaker_AdjectiveIndefinite() {
 	f := New(11)
 	fmt.Println(f.AdjectiveIndefinite())
 
-	// Output: few
+	// Output: several
 }
 
 func BenchmarkAdjectiveIndefinite(b *testing.B) {

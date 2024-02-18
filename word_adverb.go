@@ -1,14 +1,12 @@
 package gofakeit
 
-import "math/rand"
+// Adverb will generate a random adverb
+func Adverb() string { return adverb(GlobalFaker) }
 
 // Adverb will generate a random adverb
-func Adverb() string { return adverb(globalFaker.Rand) }
+func (f *Faker) Adverb() string { return adverb(f) }
 
-// Adverb will generate a random adverb
-func (f *Faker) Adverb() string { return adverb(f.Rand) }
-
-func adverb(r *rand.Rand) string {
+func adverb(f *Faker) string {
 	var adverbType = map[int]string{
 		0: "adverb_manner",
 		1: "adverb_degree",
@@ -18,71 +16,71 @@ func adverb(r *rand.Rand) string {
 		5: "adverb_frequency_definite",
 		6: "adverb_frequency_indefinite",
 	}
-	return getRandValue(r, []string{"word", adverbType[number(r, 0, 6)]})
+	return getRandValue(f, []string{"word", adverbType[number(f, 0, 6)]})
 }
 
 // AdverbManner will generate a random manner adverb
-func AdverbManner() string { return adverbManner(globalFaker.Rand) }
+func AdverbManner() string { return adverbManner(GlobalFaker) }
 
 // AdverbManner will generate a random manner adverb
-func (f *Faker) AdverbManner() string { return adverbManner(f.Rand) }
+func (f *Faker) AdverbManner() string { return adverbManner(f) }
 
-func adverbManner(r *rand.Rand) string { return getRandValue(r, []string{"word", "adverb_manner"}) }
-
-// AdverbDegree will generate a random degree adverb
-func AdverbDegree() string { return adverbDegree(globalFaker.Rand) }
+func adverbManner(f *Faker) string { return getRandValue(f, []string{"word", "adverb_manner"}) }
 
 // AdverbDegree will generate a random degree adverb
-func (f *Faker) AdverbDegree() string { return adverbDegree(f.Rand) }
+func AdverbDegree() string { return adverbDegree(GlobalFaker) }
 
-func adverbDegree(r *rand.Rand) string { return getRandValue(r, []string{"word", "adverb_degree"}) }
+// AdverbDegree will generate a random degree adverb
+func (f *Faker) AdverbDegree() string { return adverbDegree(f) }
+
+func adverbDegree(f *Faker) string { return getRandValue(f, []string{"word", "adverb_degree"}) }
 
 // AdverbPlace will generate a random place adverb
-func AdverbPlace() string { return adverbPlace(globalFaker.Rand) }
+func AdverbPlace() string { return adverbPlace(GlobalFaker) }
 
 // AdverbPlace will generate a random place adverb
-func (f *Faker) AdverbPlace() string { return adverbPlace(f.Rand) }
+func (f *Faker) AdverbPlace() string { return adverbPlace(f) }
 
-func adverbPlace(r *rand.Rand) string { return getRandValue(r, []string{"word", "adverb_place"}) }
-
-// AdverbTimeDefinite will generate a random time definite adverb
-func AdverbTimeDefinite() string { return adverbTimeDefinite(globalFaker.Rand) }
+func adverbPlace(f *Faker) string { return getRandValue(f, []string{"word", "adverb_place"}) }
 
 // AdverbTimeDefinite will generate a random time definite adverb
-func (f *Faker) AdverbTimeDefinite() string { return adverbTimeDefinite(f.Rand) }
+func AdverbTimeDefinite() string { return adverbTimeDefinite(GlobalFaker) }
 
-func adverbTimeDefinite(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "adverb_time_definite"})
+// AdverbTimeDefinite will generate a random time definite adverb
+func (f *Faker) AdverbTimeDefinite() string { return adverbTimeDefinite(f) }
+
+func adverbTimeDefinite(f *Faker) string {
+	return getRandValue(f, []string{"word", "adverb_time_definite"})
 }
 
 // AdverbTimeIndefinite will generate a random time indefinite adverb
-func AdverbTimeIndefinite() string { return adverbTimeIndefinite(globalFaker.Rand) }
+func AdverbTimeIndefinite() string { return adverbTimeIndefinite(GlobalFaker) }
 
 // AdverbTimeIndefinite will generate a random time indefinite adverb
-func (f *Faker) AdverbTimeIndefinite() string { return adverbTimeIndefinite(f.Rand) }
+func (f *Faker) AdverbTimeIndefinite() string { return adverbTimeIndefinite(f) }
 
-func adverbTimeIndefinite(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "adverb_time_indefinite"})
+func adverbTimeIndefinite(f *Faker) string {
+	return getRandValue(f, []string{"word", "adverb_time_indefinite"})
 }
 
 // AdverbFrequencyDefinite will generate a random frequency definite adverb
-func AdverbFrequencyDefinite() string { return adverbFrequencyDefinite(globalFaker.Rand) }
+func AdverbFrequencyDefinite() string { return adverbFrequencyDefinite(GlobalFaker) }
 
 // AdverbFrequencyDefinite will generate a random frequency definite adverb
-func (f *Faker) AdverbFrequencyDefinite() string { return adverbFrequencyDefinite(f.Rand) }
+func (f *Faker) AdverbFrequencyDefinite() string { return adverbFrequencyDefinite(f) }
 
-func adverbFrequencyDefinite(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "adverb_frequency_definite"})
+func adverbFrequencyDefinite(f *Faker) string {
+	return getRandValue(f, []string{"word", "adverb_frequency_definite"})
 }
 
 // AdverbFrequencyIndefinite will generate a random frequency indefinite adverb
-func AdverbFrequencyIndefinite() string { return adverbFrequencyIndefinite(globalFaker.Rand) }
+func AdverbFrequencyIndefinite() string { return adverbFrequencyIndefinite(GlobalFaker) }
 
 // AdverbFrequencyIndefinite will generate a random frequency indefinite adverb
-func (f *Faker) AdverbFrequencyIndefinite() string { return adverbFrequencyIndefinite(f.Rand) }
+func (f *Faker) AdverbFrequencyIndefinite() string { return adverbFrequencyIndefinite(f) }
 
-func adverbFrequencyIndefinite(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "adverb_frequency_indefinite"})
+func adverbFrequencyIndefinite(f *Faker) string {
+	return getRandValue(f, []string{"word", "adverb_frequency_indefinite"})
 }
 
 func addWordAdverbLookup() {
@@ -92,8 +90,8 @@ func addWordAdverbLookup() {
 		Description: "Word that modifies verbs, adjectives, or other adverbs",
 		Example:     "smoothly",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return adverb(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return adverb(f), nil
 		},
 	})
 
@@ -103,8 +101,8 @@ func addWordAdverbLookup() {
 		Description: "Adverb that describes how an action is performed",
 		Example:     "stupidly",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return adverbManner(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return adverbManner(f), nil
 		},
 	})
 
@@ -114,8 +112,8 @@ func addWordAdverbLookup() {
 		Description: "Adverb that indicates the degree or intensity of an action or adjective",
 		Example:     "intensely",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return adverbDegree(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return adverbDegree(f), nil
 		},
 	})
 
@@ -125,8 +123,8 @@ func addWordAdverbLookup() {
 		Description: "Adverb that indicates the location or direction of an action",
 		Example:     "east",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return adverbPlace(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return adverbPlace(f), nil
 		},
 	})
 
@@ -136,8 +134,8 @@ func addWordAdverbLookup() {
 		Description: "Adverb that specifies the exact time an action occurs",
 		Example:     "now",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return adverbTimeDefinite(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return adverbTimeDefinite(f), nil
 		},
 	})
 
@@ -147,8 +145,8 @@ func addWordAdverbLookup() {
 		Description: "Adverb that gives a general or unspecified time frame",
 		Example:     "already",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return adverbTimeIndefinite(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return adverbTimeIndefinite(f), nil
 		},
 	})
 
@@ -158,8 +156,8 @@ func addWordAdverbLookup() {
 		Description: "Adverb that specifies how often an action occurs with a clear frequency",
 		Example:     "hourly",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return adverbFrequencyDefinite(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return adverbFrequencyDefinite(f), nil
 		},
 	})
 
@@ -169,8 +167,8 @@ func addWordAdverbLookup() {
 		Description: "Adverb that specifies how often an action occurs without specifying a particular frequency",
 		Example:     "occasionally",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return adverbFrequencyIndefinite(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return adverbFrequencyIndefinite(f), nil
 		},
 	})
 }

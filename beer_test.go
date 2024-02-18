@@ -9,152 +9,81 @@ func ExampleBeerName() {
 	Seed(11)
 	fmt.Println(BeerName())
 
-	// Output: Duvel
+	// Output: Sierra Nevada Bigfoot Barleywine Style Ale
 }
 
 func ExampleFaker_BeerName() {
 	f := New(11)
 	fmt.Println(f.BeerName())
 
-	// Output: Duvel
+	// Output: Sierra Nevada Bigfoot Barleywine Style Ale
 }
 
 func BenchmarkBeerName(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			BeerName()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.BeerName()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.BeerName()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		BeerName()
+	}
 }
 
 func ExampleBeerStyle() {
 	Seed(11)
 	fmt.Println(BeerStyle())
 
-	// Output: European Amber Lager
+	// Output: Vegetable Beer
 }
 
 func ExampleFaker_BeerStyle() {
 	f := New(11)
 	fmt.Println(f.BeerStyle())
 
-	// Output: European Amber Lager
+	// Output: Vegetable Beer
 }
 
 func BenchmarkBeerStyle(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			BeerStyle()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.BeerStyle()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.BeerStyle()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		BeerStyle()
+	}
 }
 
 func ExampleBeerHop() {
 	Seed(11)
 	fmt.Println(BeerHop())
 
-	// Output: Glacier
+	// Output: TriplePearl
 }
 
 func ExampleFaker_BeerHop() {
 	f := New(11)
 	fmt.Println(f.BeerHop())
 
-	// Output: Glacier
+	// Output: TriplePearl
 }
 
 func BenchmarkBeerHop(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			BeerHop()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.BeerHop()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.BeerHop()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		BeerHop()
+	}
 }
 
 func ExampleBeerYeast() {
 	Seed(11)
 	fmt.Println(BeerYeast())
 
-	// Output: 1388 - Belgian Strong Ale
+	// Output: 2308 - Munich Lager
 }
 
 func ExampleFaker_BeerYeast() {
 	f := New(11)
 	fmt.Println(f.BeerYeast())
 
-	// Output: 1388 - Belgian Strong Ale
+	// Output: 2308 - Munich Lager
 }
 
 func BenchmarkBeerYeast(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			BeerYeast()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		BeerYeast()
+	}
 
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.BeerYeast()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.BeerYeast()
-		}
-	})
 }
 
 func ExampleBeerMalt() {
@@ -172,139 +101,67 @@ func ExampleFaker_BeerMalt() {
 }
 
 func BenchmarkBeerMalt(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			BeerMalt()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.BeerMalt()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.BeerMalt()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		BeerMalt()
+	}
 }
 
 func ExampleBeerIbu() {
 	Seed(11)
 	fmt.Println(BeerIbu())
 
-	// Output: 47 IBU
+	// Output: 91 IBU
 }
 
 func ExampleFaker_BeerIbu() {
 	f := New(11)
 	fmt.Println(f.BeerIbu())
 
-	// Output: 47 IBU
+	// Output: 91 IBU
 }
 
 func BenchmarkBeerIbu(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			BeerIbu()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.BeerIbu()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.BeerIbu()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		BeerIbu()
+	}
 }
 
 func ExampleBeerAlcohol() {
 	Seed(11)
 	fmt.Println(BeerAlcohol())
 
-	// Output: 2.7%
+	// Output: 8.2%
 }
 
 func ExampleFaker_BeerAlcohol() {
 	f := New(11)
 	fmt.Println(f.BeerAlcohol())
 
-	// Output: 2.7%
+	// Output: 8.2%
 }
 
 func BenchmarkBeerAlcohol(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			BeerAlcohol()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.BeerAlcohol()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.BeerAlcohol()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		BeerAlcohol()
+	}
 }
 
 func ExampleBeerBlg() {
 	Seed(11)
 	fmt.Println(BeerBlg())
 
-	// Output: 6.4°Blg
+	// Output: 16.6°Blg
 }
 
 func ExampleFaker_BeerBlg() {
 	f := New(11)
 	fmt.Println(f.BeerBlg())
 
-	// Output: 6.4°Blg
+	// Output: 16.6°Blg
 }
 
 func BenchmarkBeerBlg(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			BeerBlg()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.BeerBlg()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.BeerBlg()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		BeerBlg()
+	}
 }

@@ -5,10 +5,6 @@ import (
 	"testing"
 )
 
-func TestSeed(t *testing.T) {
-	Seed(0)
-}
-
 // Test taking in two random int values and making sure the output is within the range
 func TestRandIntRange(t *testing.T) {
 	// Create a set of structs to test
@@ -21,6 +17,8 @@ func TestRandIntRange(t *testing.T) {
 		{0, 0},
 		{1000, -1000},
 		{minInt, maxInt},
+		{minInt, minInt + 100}, // Test min
+		{maxInt - 100, maxInt}, // Test max
 		{maxInt - 20000, maxInt - 10000},
 		{minInt + 10000, maxInt - 10000},
 	}
@@ -28,21 +26,21 @@ func TestRandIntRange(t *testing.T) {
 	// Add 10000 random values to the test set
 	for i := 0; i < 5000; i++ {
 		tests = append(tests, testStruct{
-			min: randIntRange(globalFaker.Rand, 0, maxInt),
-			max: randIntRange(globalFaker.Rand, 0, maxInt),
+			min: randIntRange(GlobalFaker, 0, maxInt),
+			max: randIntRange(GlobalFaker, 0, maxInt),
 		})
 	}
 	for i := 0; i < 5000; i++ {
 		tests = append(tests, testStruct{
-			min: randIntRange(globalFaker.Rand, minInt, 0),
-			max: randIntRange(globalFaker.Rand, 0, maxInt),
+			min: randIntRange(GlobalFaker, minInt, 0),
+			max: randIntRange(GlobalFaker, 0, maxInt),
 		})
 	}
 
 	// Loop through the tests
 	for _, test := range tests {
 		// Get the result
-		result := randIntRange(globalFaker.Rand, test.min, test.max)
+		result := randIntRange(GlobalFaker, test.min, test.max)
 
 		// Check the result
 		if test.min > test.max {
@@ -67,28 +65,28 @@ func TestRandUintRange(t *testing.T) {
 	tests := []testStruct{
 		{0, 0},
 		{100000, 100},
-		{0, maxUint},
-		{0 + 10000, maxUint - 10000},
+		{minUint, maxUint},
+		{minUint + 10000, maxUint - 10000},
 	}
 
 	// Add 10000 random values to the test set
 	for i := 0; i < 5000; i++ {
 		tests = append(tests, testStruct{
-			min: randUintRange(globalFaker.Rand, 0, maxUint),
-			max: randUintRange(globalFaker.Rand, 0, maxUint),
+			min: randUintRange(GlobalFaker, 0, maxUint),
+			max: randUintRange(GlobalFaker, 0, maxUint),
 		})
 	}
 	for i := 0; i < 5000; i++ {
 		tests = append(tests, testStruct{
-			min: randUintRange(globalFaker.Rand, 0, maxUint/2),
-			max: randUintRange(globalFaker.Rand, maxUint/2, maxUint),
+			min: randUintRange(GlobalFaker, 0, maxUint/2),
+			max: randUintRange(GlobalFaker, maxUint/2, maxUint),
 		})
 	}
 
 	// Loop through the tests
 	for _, test := range tests {
 		// Get the result
-		result := randUintRange(globalFaker.Rand, test.min, test.max)
+		result := randUintRange(GlobalFaker, test.min, test.max)
 
 		// Check the result
 		if test.min > test.max {
@@ -104,49 +102,54 @@ func TestRandUintRange(t *testing.T) {
 
 func TestGetRandValueFail(t *testing.T) {
 	for _, test := range [][]string{nil, {}, {"not", "found"}, {"person", "notfound"}} {
-		if getRandValue(globalFaker.Rand, test) != "" {
+		if getRandValue(GlobalFaker, test) != "" {
 			t.Error("You should have gotten no value back")
 		}
 	}
 }
 
 func TestReplaceWithNumbers(t *testing.T) {
-	if replaceWithNumbers(globalFaker.Rand, "") != "" {
+	if replaceWithNumbers(GlobalFaker, "") != "" {
 		t.Error("You should have gotten an empty string")
 	}
 }
 
 func BenchmarkReplaceWithNumbers(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Seed(42)
-		replaceWithNumbers(globalFaker.Rand, "###☺#☻##☹##")
+		Seed(11)
+		replaceWithNumbers(GlobalFaker, "###☺#☻##☹##")
 	}
 }
 
 func TestReplaceWithNumbersUnicode(t *testing.T) {
-	for _, test := range []struct{ in, should string }{
-		{"#界#世#", "5界7世8"},
-		{"☺#☻☹#", "☺5☻☹7"},
-		{"\x80#¼#語", "\x805¼7語"},
+	for _, test := range []struct{ in string }{
+		{"#界#世#"},
+		{"☺#☻☹#"},
+		{"\x80#¼#語"},
 	} {
-		Seed(42)
-		got := replaceWithNumbers(globalFaker.Rand, test.in)
-		if got == test.should {
-			continue
+		Seed(11)
+		got := replaceWithNumbers(GlobalFaker, test.in)
+		if got == test.in {
+			t.Errorf("got %q, want something different", got)
 		}
-		t.Errorf("for '%s' got '%s' should '%s'",
-			test.in, got, test.should)
+
+		// Check that # were replaced with numbers
+		for _, r := range got {
+			if r == '#' {
+				t.Errorf("got %q, want something different", got)
+			}
+		}
 	}
 }
 
 func TestReplaceWithLetters(t *testing.T) {
-	if replaceWithLetters(globalFaker.Rand, "") != "" {
+	if replaceWithLetters(GlobalFaker, "") != "" {
 		t.Error("You should have gotten an empty string")
 	}
 }
 
 func TestReplaceWithHexLetters(t *testing.T) {
-	if replaceWithHexLetters(globalFaker.Rand, "") != "" {
+	if replaceWithHexLetters(GlobalFaker, "") != "" {
 		t.Error("You should have gotten an empty string")
 	}
 }

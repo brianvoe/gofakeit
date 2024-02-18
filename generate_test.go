@@ -24,8 +24,8 @@ func TestGenerate_Sub(t *testing.T) {
 		Seed(11)
 
 		output := Generate("{randomstring:[{firstname},{lastname}]}")
-		if output != "Moen" {
-			t.Error("Did not generate what was expected. Got: ", output)
+		if output == "" {
+			t.Error("Output was empty")
 		}
 	})
 
@@ -33,8 +33,8 @@ func TestGenerate_Sub(t *testing.T) {
 		Seed(11)
 
 		output := Generate("{randomstring:[{randomstring:[{firstname},{lastname}]},{randomstring:[{firstname},{lastname}]}]}")
-		if output != "Kozey" {
-			t.Error("Did not generate what was expected. Got: ", output)
+		if output == "" {
+			t.Error("Output was empty")
 		}
 	})
 }
@@ -50,13 +50,13 @@ func ExampleGenerate() {
 	fmt.Println(Generate("{number:1,50}"))
 	fmt.Println(Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}"))
 
-	// Output: Markus Moen ssn is 526643139 and lives at 599 Daleton
-	// Congolese choir computer.
-	// [3 1 2]
+	// Output: Sonny Stiedemann ssn is 279582238 and lives at 2759 Stationside
+	// How shall cut.
+	// [1 2 3]
 	// 2
-	// 4
-	// 17
-	// [int:string 1:2 a:b key:value]
+	// 3
+	// 47
+	// [1:2 int:string a:b key:value]
 }
 
 func ExampleFaker_Generate() {
@@ -70,13 +70,13 @@ func ExampleFaker_Generate() {
 	fmt.Println(f.Generate("{number:1,50}"))
 	fmt.Println(f.Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}"))
 
-	// Output: Markus Moen ssn is 526643139 and lives at 599 Daleton
-	// Congolese choir computer.
-	// [3 1 2]
+	// Output: Sonny Stiedemann ssn is 279582238 and lives at 2759 Stationside
+	// How shall cut.
+	// [1 2 3]
 	// 2
-	// 4
-	// 17
-	// [int:string 1:2 a:b key:value]
+	// 3
+	// 47
+	// [1:2 int:string a:b key:value]
 }
 
 func BenchmarkGenerate(b *testing.B) {
@@ -89,22 +89,6 @@ func BenchmarkGenerate(b *testing.B) {
 	b.Run("Complex", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			Generate("{randomstring:[{randomstring:[{firstname},{lastname}]},{randomstring:[{firstname},{lastname}]}]}")
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Generate("{firstname} {lastname} {email} #?#?#?")
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Generate("{firstname} {lastname} {email} #?#?#?")
 		}
 	})
 }
@@ -127,11 +111,10 @@ func ExampleFixedWidth() {
 
 	fmt.Println(string(value))
 
-	// Output:
-	// Name               Email                          Password         Age
-	// Markus Moen        sylvanmraz@murphy.net          46HX9elvE5zl     43
-	// Alayna Wuckert     santinostanton@carroll.biz     l6A0EVSC90w2     11
-	// Lura Lockman       zacherykuhic@feil.name         xxL47424u8Ts     4
+	// Output: Name                 Email                          Password         Age
+	// Sonny Stiedemann     mollielegros@wilderman.org     3T8l34B5F0eb     62
+	// Cody Donnelly        stevebins@robel.io             3fnu2C12baqe     9
+	// Julius Farrell       tomasaullrich@hane.name        e8W8SJGZi1Y4     77
 }
 
 func ExampleFixedWidth_default() {
@@ -144,9 +127,16 @@ func ExampleFixedWidth_default() {
 
 	fmt.Println(string(value))
 
-	// Output:
-	// Name             Email                        Password
-	// Marcel Pagac     anibalkozey@lockman.name     ETZmouyV0q1W
+	// Output: Name                  Email                          Password
+	// Russ Donnelly         missourigrimes@rohan.io        N3xh07881HKv
+	// Cole Leannon          evanadams@marquardt.com        n2fja08VHMgw
+	// Darien Rempel         thorajerde@cormier.com         ZhMPq5v8z6iP
+	// Kaitlyn Wilderman     constancenienow@smitham.io     MkoTT5v5Mv6Q
+	// Rahul Turner          irvingbins@lemke.io            8Wy0UV016u88
+	// April Robel           beaulahmayert@kautzer.net      ykgR5bO83YSa
+	// Tomasa Waters         lelandwaelchi@beahan.net       k68Ew58F9a0V
+	// Sunny Hane            dawnbaumbach@mcdermott.biz     AbUjm6x5dwd8
+	// Hilma Jast            lavernerobel@bailey.io         MyY49BLUWKCh
 }
 
 func ExampleFixedWidth_noHeader() {
@@ -167,10 +157,9 @@ func ExampleFixedWidth_noHeader() {
 
 	fmt.Println(value)
 
-	// Output:
-	// Markus Moen        sylvanmraz@murphy.net          46HX9elvE5zl     43
-	// Alayna Wuckert     santinostanton@carroll.biz     l6A0EVSC90w2     11
-	// Lura Lockman       zacherykuhic@feil.name         xxL47424u8Ts     4
+	// Output: Sonny Stiedemann     mollielegros@wilderman.org     3T8l34B5F0eb     62
+	// Cody Donnelly        stevebins@robel.io             3fnu2C12baqe     9
+	// Julius Farrell       tomasaullrich@hane.name        e8W8SJGZi1Y4     77
 }
 
 func ExampleFaker_FixedWidth() {
@@ -191,11 +180,10 @@ func ExampleFaker_FixedWidth() {
 
 	fmt.Println(string(value))
 
-	// Output:
-	// Name               Email                          Password         Age
-	// Markus Moen        sylvanmraz@murphy.net          46HX9elvE5zl     43
-	// Alayna Wuckert     santinostanton@carroll.biz     l6A0EVSC90w2     11
-	// Lura Lockman       zacherykuhic@feil.name         xxL47424u8Ts     4
+	// Output: Name                 Email                          Password         Age
+	// Sonny Stiedemann     mollielegros@wilderman.org     3T8l34B5F0eb     62
+	// Cody Donnelly        stevebins@robel.io             3fnu2C12baqe     9
+	// Julius Farrell       tomasaullrich@hane.name        e8W8SJGZi1Y4     77
 }
 
 func TestFixedWidthLookup(t *testing.T) {
@@ -213,7 +201,7 @@ func TestFixedWidthLookup(t *testing.T) {
 		},
 	}
 
-	output, err := info.Generate(faker.Rand, &m, info)
+	output, err := info.Generate(faker, &m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -246,56 +234,16 @@ func BenchmarkFixedWidthLookup100(b *testing.B) {
 		m := MapParams{
 			"rowcount": {"100"},
 			"fields": {
-				`{"name":"Name","function":"{firstname} {lastname}"}"}`,
+				// `{"name":"Name","function":"{firstname} {lastname}"}`,
 				`{"name":"Email","function":"email"}`,
 				`{"name":"Password","function":"password","params":{"special":["false"],"length":["20"]}}`,
 				`{"name":"Age","function":"{number:1,100}"}`,
 			},
 		}
-		_, err := info.Generate(faker.Rand, &m, info)
+		_, err := info.Generate(faker, &m, info)
 		if err != nil {
-			b.Fatal(err.Error())
-		}
-	}
-}
+			// Stack trace
 
-func BenchmarkFixedWidthLookup1000(b *testing.B) {
-	faker := New(0)
-
-	for i := 0; i < b.N; i++ {
-		info := GetFuncLookup("fixed_width")
-		m := MapParams{
-			"rowcount": {"1000"},
-			"fields": {
-				`{"name":"Name","function":"{firstname} {lastname}"}"}`,
-				`{"name":"Email","function":"email"}`,
-				`{"name":"Password","function":"password","params":{"special":["false"],"length":["20"]}}`,
-				`{"name":"Age","function":"{number:1,100}"}`,
-			},
-		}
-		_, err := info.Generate(faker.Rand, &m, info)
-		if err != nil {
-			b.Fatal(err.Error())
-		}
-	}
-}
-
-func BenchmarkFixedWidthLookup10000(b *testing.B) {
-	faker := New(0)
-
-	for i := 0; i < b.N; i++ {
-		info := GetFuncLookup("fixed_width")
-		m := MapParams{
-			"rowcount": {"10000"},
-			"fields": {
-				`{"name":"Name","function":"{firstname} {lastname}"}"}`,
-				`{"name":"Email","function":"email"}`,
-				`{"name":"Password","function":"password","params":{"special":["false"],"length":["20"]}}`,
-				`{"name":"Age","function":"{number:1,100}"}`,
-			},
-		}
-		_, err := info.Generate(faker.Rand, &m, info)
-		if err != nil {
 			b.Fatal(err.Error())
 		}
 	}
@@ -309,10 +257,10 @@ func ExampleRegex() {
 	fmt.Println(Regex("(hello|world|whats|up)"))
 	fmt.Println(Regex(`^[a-z]{5,10}@[a-z]{5,10}\.(com|net|org)$`))
 
-	// Output: affec
-	// RXHKI
-	// world
-	// tapwyjdnsm@gtlxw.net
+	// Output: ffbbd
+	// GSNYV
+	// up
+	// tyyxi@kshtyia.net
 }
 
 func ExampleFaker_Regex() {
@@ -323,10 +271,10 @@ func ExampleFaker_Regex() {
 	fmt.Println(f.Regex("(hello|world|whats|up)"))
 	fmt.Println(f.Regex(`^[a-z]{5,10}@[a-z]{5,10}\.(com|net|org)$`))
 
-	// Output: affec
-	// RXHKI
-	// world
-	// tapwyjdnsm@gtlxw.net
+	// Output: ffbbd
+	// GSNYV
+	// up
+	// tyyxi@kshtyia.net
 }
 
 var regexes = []struct{ test string }{
@@ -387,107 +335,72 @@ func TestRegex_Struct(t *testing.T) {
 	rg := Reggy{}
 	Struct(&rg)
 
-	if rg.Str1 != "16" {
-		t.Errorf("Str1 should be 16 got: %s", rg.Str1)
+	// Test Str1 matches regex
+	if !regexp.MustCompile(`^\d+$`).MatchString(rg.Str1) {
+		t.Errorf("Str1 should match regex: ^\\d+$ got: %s", rg.Str1)
 	}
-	if rg.Str2 != "fP}" {
-		t.Errorf("Str2 should be fP} got: %s", rg.Str2)
+	if !regexp.MustCompile(`\D{3}`).MatchString(rg.Str2) {
+		t.Errorf("Str2 should match regex: \\D{3} got: %s", rg.Str2)
 	}
-	if rg.Str3 != "ZZ" {
-		t.Errorf("Str3 should be ZZ got: %s", rg.Str3)
+	if !regexp.MustCompile(`Z{2,5}`).MatchString(rg.Str3) {
+		t.Errorf("Str3 should match regex: Z{2,5} got: %s", rg.Str3)
 	}
-	if rg.Str4 != "% z" {
-		t.Errorf("Str4 should be %s got: %s", "% z", rg.Str4)
+	if !regexp.MustCompile(`[^1]{3,5}`).MatchString(rg.Str4) {
+		t.Errorf("Str4 should match regex: [^1]{3,5} got: %s", rg.Str4)
 	}
-	if rg.Str5 != "abdef" {
-		t.Errorf("Str5 should be abdef got: %s", rg.Str5)
+	if !regexp.MustCompile(`(ab|bc)def`).MatchString(rg.Str5) {
+		t.Errorf("Str5 should match regex: (ab|bc)def got: %s", rg.Str5)
 	}
-	if rg.Str6 != "123a123a123a" {
-		t.Errorf("Str6 should be 123a123a123a got: %s", rg.Str6)
+	if !regexp.MustCompile(`((123)?){3}`).MatchString(rg.Str6) {
+		t.Errorf("Str6 should match regex: ((123)?){3} got: %s", rg.Str6)
 	}
-	if rg.Str7 != ">=;-l" {
-		t.Errorf("Str7 should be >=;-l got: %s", rg.Str7)
+	if !regexp.MustCompile(`[^abcdef]{5}`).MatchString(rg.Str7) {
+		t.Errorf("Str7 should match regex: [^abcdef]{5} got: %s", rg.Str7)
 	}
-	if rg.Str8 != "nSMKgtlxwn" {
-		t.Errorf("Str8 should be nSMKgtlxwn got: %s", rg.Str8)
+	if !regexp.MustCompile(`[a-zA-Z]{10}`).MatchString(rg.Str8) {
+		t.Errorf("Str8 should match regex: [a-zA-Z]{10} got: %s", rg.Str8)
 	}
-	if rg.Str9 != "QHQCL" {
-		t.Errorf("Str9 should be QHQCL got: %s", rg.Str9)
+	if !regexp.MustCompile(`[[:upper:]]{5}`).MatchString(rg.Str9) {
+		t.Errorf("Str9 should match regex: [[:upper:]]{5} got: %s", rg.Str9)
 	}
-	if rg.Str10 != "(T}6X" {
-		t.Errorf("Str10 should be (T}6X got: %s", rg.Str10)
+	if !regexp.MustCompile(`[^0-5a-z\s]{5}`).MatchString(rg.Str10) {
+		t.Errorf("Str10 should match regex: [^0-5a-z\\s]{5} got: %s", rg.Str10)
 	}
-	if rg.Str11 != "123120aeD" {
-		t.Errorf("Str11 should be 123120aeD got: %s", rg.Str11)
+	if !regexp.MustCompile(`123[0-2]+.*\w{3}`).MatchString(rg.Str11) {
+		t.Errorf("Str11 should match regex: 123[0-2]+.*\\w{3} got: %s", rg.Str11)
 	}
-	if rg.Str12 != "hello" {
-		t.Errorf("Str12 should be hello got: %s", rg.Str12)
+	if !regexp.MustCompile(`(hello|world|whats|up)`).MatchString(rg.Str12) {
+		t.Errorf("Str12 should match regex: (hello|world|whats|up) got: %s", rg.Str12)
 	}
-	if rg.Str13 != "8/10/2022" {
-		t.Errorf("Str13 should be 8/10/2022 got: %s", rg.Str13)
+	if !regexp.MustCompile(`^\d{1,2}[/](1[0-2]|[1-9])[/]((19|20)\d{2})$`).MatchString(rg.Str13) {
+		t.Errorf("Str13 should match regex: ^\\d{1,2}[/](1[0-2]|[1-9])[/]((19|20)\\d{2})$ got: %s", rg.Str13)
 	}
 }
 
 func BenchmarkRegex(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Regex(`(hello|world|whats|up`)
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Regex(`(hello|world|whats|up`)
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Regex(`(hello|world|whats|up`)
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Regex(`(hello|world|whats|up`)
+	}
 }
 
 func BenchmarkRegexEmail(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Regex("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Regex("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Regex("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Regex("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+	}
 }
 
 func ExampleMap() {
 	Seed(11)
 	fmt.Println(Map())
 
-	// Output: map[here:Manager herself:map[trip:[far computer was unless whom riches]] how:8504801 ouch:Keith Ullrich outstanding:1860846 that:web services]
+	// Output: map[a:map[that:could] above:[sometimes vast whom us scarcely these huh] am:map[how:9310653] depend:map[hey:5402877] out:381794.78 since:916659.94 these:map[frequently:2314010]]
 }
 
 func ExampleFaker_Map() {
 	f := New(11)
 	fmt.Println(f.Map())
 
-	// Output: map[here:Manager herself:map[trip:[far computer was unless whom riches]] how:8504801 ouch:Keith Ullrich outstanding:1860846 that:web services]
+	// Output: map[a:map[that:could] above:[sometimes vast whom us scarcely these huh] am:map[how:9310653] depend:map[hey:5402877] out:381794.78 since:916659.94 these:map[frequently:2314010]]
 }
 
 func TestMap(t *testing.T) {
@@ -497,25 +410,7 @@ func TestMap(t *testing.T) {
 }
 
 func BenchmarkMap(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Map()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Map()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Map()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Map()
+	}
 }

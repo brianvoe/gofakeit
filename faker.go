@@ -1,103 +1,106 @@
 package gofakeit
 
 import (
-	crand "crypto/rand"
-	"encoding/binary"
-	"math/rand"
+	"errors"
+	"math/rand/v2"
+	"reflect"
 	"sync"
+
+	"github.com/brianvoe/gofakeit/v7/source"
 )
 
-// Create global variable to deal with global function call.
-var globalFaker *Faker = New(0)
+// Create global variable to deal with global function call
+var GlobalFaker *Faker = New(0)
 
-// Faker struct is the primary struct for using localized.
+// Faker struct is the primary struct for using localized
 type Faker struct {
-	Rand *rand.Rand
+	Rand rand.Source
+
+	// Lock to make thread safe
+	Locked bool
+	mu     sync.Mutex
 }
 
-type lockedSource struct {
-	lk  sync.Mutex
-	src rand.Source64
+// New creates and returns a new Faker struct seeded with a given seed
+// using the PCG algorithm in lock mode for thread safety
+func New(seed uint64) *Faker {
+	return &Faker{
+		Rand:   rand.NewPCG(seed, seed),
+		Locked: true,
+	}
 }
 
-func (r *lockedSource) Int63() (n int64) {
-	r.lk.Lock()
-	n = r.src.Int63()
-	r.lk.Unlock()
-
-	return
+// NewFaker takes in a rand.Source and thread lock state and returns a new Faker struct
+func NewFaker(src rand.Source, lock bool) *Faker {
+	return &Faker{
+		Rand:   src,
+		Locked: lock,
+	}
 }
 
-func (r *lockedSource) Uint64() (n uint64) {
-	r.lk.Lock()
-	n = r.src.Uint64()
-	r.lk.Unlock()
-	return
-}
-
-func (r *lockedSource) Seed(seed int64) {
-	r.lk.Lock()
-	r.src.Seed(seed)
-	r.lk.Unlock()
-}
-
-type cryptoRand struct {
-	sync.Mutex
-	buf []byte
-}
-
-func (c *cryptoRand) Seed(seed int64) {}
-
-func (c *cryptoRand) Uint64() uint64 {
-	// Lock to make reading thread safe
-	c.Lock()
-	defer c.Unlock()
-
-	crand.Read(c.buf)
-	return binary.BigEndian.Uint64(c.buf)
-}
-
-func (c *cryptoRand) Int63() int64 {
-	return int64(c.Uint64() & ^uint64(1<<63))
-}
-
-// New will utilize math/rand for concurrent random usage.
-// Setting seed to 0 will use crypto/rand for the initial seed number.
-func New(seed int64) *Faker {
-	// If passing 0 create crypto safe int64 for initial seed number
-	if seed == 0 {
-		binary.Read(crand.Reader, binary.BigEndian, &seed)
+// Seed attempts to seed the Faker with the given seed
+func (f *Faker) Seed(args ...any) error {
+	// Lock if locked
+	if f.Locked {
+		f.mu.Lock()
+		defer f.mu.Unlock()
 	}
 
-	return &Faker{Rand: rand.New(&lockedSource{src: rand.NewSource(seed).(rand.Source64)})}
-}
-
-// NewUnlocked will utilize math/rand for non concurrent safe random usage.
-// Setting seed to 0 will use crypto/rand for the initial seed number.
-// NewUnlocked is more performant but not safe to run concurrently.
-func NewUnlocked(seed int64) *Faker {
-	// If passing 0 create crypto safe int64 for initial seed number
-	if seed == 0 {
-		binary.Read(crand.Reader, binary.BigEndian, &seed)
+	// Ensure GlobalFaker is not nil and Rand is initialized
+	if GlobalFaker == nil || GlobalFaker.Rand == nil {
+		return errors.New("GlobalFaker or GlobalFaker.Rand is nil")
 	}
 
-	return &Faker{Rand: rand.New(rand.NewSource(seed))}
+	// If args is empty or 0, seed with a random crypto seed
+	if len(args) == 0 {
+		faker := NewFaker(source.NewCrypto(), false)
+		args = append(args, faker.Uint64())
+	}
+
+	if args[0] == 0 {
+		faker := NewFaker(source.NewCrypto(), false)
+		args[0] = faker.Uint64()
+	}
+
+	// Retrieve the Seed method
+	method := reflect.ValueOf(GlobalFaker.Rand).MethodByName("Seed")
+	if !method.IsValid() {
+		return errors.New("Seed method not found")
+	}
+
+	// Adjust args if method requires exactly 2 args but only 1 was provided
+	if method.Type().NumIn() == 2 && len(args) == 1 {
+		args = append(args, args[0]) // Duplicate the first value if only one is provided
+	}
+
+	// Get array of function argument types and prepare converted arguments
+	argTypes := make([]reflect.Type, method.Type().NumIn())
+	convertedArgs := make([]reflect.Value, len(args))
+	for i := 0; i < method.Type().NumIn(); i++ {
+		argTypes[i] = method.Type().In(i)
+	}
+
+	// Convert args to the expected type by the Seed method
+	for i, arg := range args {
+		if i < len(argTypes) { // Ensure arg index is within argTypes bounds
+			argValue := reflect.ValueOf(arg)
+			// Check if conversion is necessary
+			if argValue.Type().ConvertibleTo(argTypes[i]) {
+				convertedArgs[i] = argValue.Convert(argTypes[i])
+			} else {
+				// If not convertible, use the argument as is (reflectively)
+				convertedArgs[i] = argValue
+			}
+		}
+	}
+
+	// Dynamically call the Seed method with converted arguments
+	method.Call(convertedArgs)
+
+	return nil
 }
 
-// NewCrypto will utilize crypto/rand for concurrent random usage.
-func NewCrypto() *Faker {
-	return &Faker{Rand: rand.New(&cryptoRand{
-		buf: make([]byte, 8),
-	})}
-}
-
-// NewCustom will utilize a custom rand.Source64 for concurrent random usage
-// See https://golang.org/src/math/rand/rand.go for required interface methods
-func NewCustom(source rand.Source64) *Faker {
-	return &Faker{Rand: rand.New(source)}
-}
-
-// SetGlobalFaker will allow you to set what type of faker is globally used. Defailt is math/rand
-func SetGlobalFaker(faker *Faker) {
-	globalFaker = faker
+// Seed attempts to seed the GlobalFaker with the given seed
+func Seed(args ...any) error {
+	return GlobalFaker.Seed(args...)
 }

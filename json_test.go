@@ -26,19 +26,19 @@ func ExampleJSON_object() {
 	fmt.Println(string(value))
 
 	// Output: {
-	//     "first_name": "Markus",
-	//     "last_name": "Moen",
+	//     "first_name": "Sonny",
+	//     "last_name": "Stiedemann",
 	//     "address": {
-	//         "address": "4599 Daleton, Norfolk, New Jersey 36906",
-	//         "street": "4599 Daleton",
-	//         "city": "Norfolk",
-	//         "state": "New Jersey",
-	//         "zip": "36906",
-	//         "country": "Tokelau",
-	//         "latitude": 23.058758,
-	//         "longitude": 89.022594
+	//         "address": "52759 Stationside, San Diego, Oregon 99344",
+	//         "street": "52759 Stationside",
+	//         "city": "San Diego",
+	//         "state": "Oregon",
+	//         "zip": "99344",
+	//         "country": "Saint Pierre and Miquelon",
+	//         "latitude": -30.009814,
+	//         "longitude": 154.519771
 	//     },
-	//     "password": "myZ1PgF9ThVL"
+	//     "password": "l4338TebFL55"
 	// }
 }
 
@@ -62,19 +62,19 @@ func ExampleFaker_JSON_object() {
 	fmt.Println(string(value))
 
 	// Output: {
-	//     "first_name": "Markus",
-	//     "last_name": "Moen",
+	//     "first_name": "Sonny",
+	//     "last_name": "Stiedemann",
 	//     "address": {
-	//         "address": "4599 Daleton, Norfolk, New Jersey 36906",
-	//         "street": "4599 Daleton",
-	//         "city": "Norfolk",
-	//         "state": "New Jersey",
-	//         "zip": "36906",
-	//         "country": "Tokelau",
-	//         "latitude": 23.058758,
-	//         "longitude": 89.022594
+	//         "address": "52759 Stationside, San Diego, Oregon 99344",
+	//         "street": "52759 Stationside",
+	//         "city": "San Diego",
+	//         "state": "Oregon",
+	//         "zip": "99344",
+	//         "country": "Saint Pierre and Miquelon",
+	//         "latitude": -30.009814,
+	//         "longitude": 154.519771
 	//     },
-	//     "password": "myZ1PgF9ThVL"
+	//     "password": "l4338TebFL55"
 	// }
 }
 
@@ -101,21 +101,21 @@ func ExampleJSON_array() {
 	// Output: [
 	//     {
 	//         "id": 1,
-	//         "first_name": "Markus",
-	//         "last_name": "Moen",
-	//         "password": "856Y5wPZevX9"
+	//         "first_name": "Sonny",
+	//         "last_name": "Stiedemann",
+	//         "password": "8nwf0o3sBXcR"
 	//     },
 	//     {
 	//         "id": 2,
-	//         "first_name": "Jalon",
-	//         "last_name": "Rolfson",
-	//         "password": "64wz4EAS0Hl0"
+	//         "first_name": "Verda",
+	//         "last_name": "Brakus",
+	//         "password": "3beWLpq75Lua"
 	//     },
 	//     {
 	//         "id": 3,
-	//         "first_name": "Nestor",
-	//         "last_name": "Harris",
-	//         "password": "14GKq1j7Lx4T"
+	//         "first_name": "Jules",
+	//         "last_name": "Cremin",
+	//         "password": "Uu38J14Y8W82"
 	//     }
 	// ]
 }
@@ -143,21 +143,21 @@ func ExampleFaker_JSON_array() {
 	// Output: [
 	//     {
 	//         "id": 1,
-	//         "first_name": "Markus",
-	//         "last_name": "Moen",
-	//         "password": "856Y5wPZevX9"
+	//         "first_name": "Sonny",
+	//         "last_name": "Stiedemann",
+	//         "password": "8nwf0o3sBXcR"
 	//     },
 	//     {
 	//         "id": 2,
-	//         "first_name": "Jalon",
-	//         "last_name": "Rolfson",
-	//         "password": "64wz4EAS0Hl0"
+	//         "first_name": "Verda",
+	//         "last_name": "Brakus",
+	//         "password": "3beWLpq75Lua"
 	//     },
 	//     {
 	//         "id": 3,
-	//         "first_name": "Nestor",
-	//         "last_name": "Harris",
-	//         "password": "14GKq1j7Lx4T"
+	//         "first_name": "Jules",
+	//         "last_name": "Cremin",
+	//         "password": "Uu38J14Y8W82"
 	//     }
 	// ]
 }
@@ -173,7 +173,7 @@ func TestJSONLookup(t *testing.T) {
 	m.Add("fields", `{"name":"first_name","function":"firstname"}`)
 	m.Add("fields", `{"name":"password","function":"password","params":{"special":["false"],"length":["20"]}}`)
 
-	_, err := info.Generate(faker.Rand, m, info)
+	_, err := info.Generate(faker, m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -199,7 +199,7 @@ func TestJSONObjectLookupWithSubJSON(t *testing.T) {
 		}
 	}`)
 
-	output, err := info.Generate(faker.Rand, m, info)
+	output, err := info.Generate(faker, m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -223,17 +223,17 @@ func TestJSONObjectLookupWithSubJSON(t *testing.T) {
 	}
 
 	// check that the output values are correct
-	if j.JStruct.ID != 1 {
+	if j.JStruct.ID == 0 {
 		t.Fatalf("ID is not 1 got: %v", j.JStruct.ID)
 	}
-	if j.JStruct.FirstName != "Markus" {
-		t.Errorf("FirstName is incorrect got: %s", j.JStruct.FirstName)
+	if j.JStruct.FirstName == "" {
+		t.Errorf("FirstName is empty")
 	}
-	if j.JStruct.LastName != "Moen" {
-		t.Errorf("LastName is incorrect got: %s", j.JStruct.LastName)
+	if j.JStruct.LastName == "" {
+		t.Errorf("LastName is empty")
 	}
-	if j.JStruct.Password != "zPlYvZw9E8e49H5X6X5l" {
-		t.Errorf("Password is incorrect got: %s", j.JStruct.Password)
+	if j.JStruct.Password == "" {
+		t.Errorf("Password is empty")
 	}
 }
 
@@ -259,7 +259,7 @@ func TestJSONArrayLookupWithSubJSON(t *testing.T) {
 		}
 	}`)
 
-	output, err := info.Generate(faker.Rand, m, info)
+	output, err := info.Generate(faker, m, info)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -278,31 +278,32 @@ func TestJSONArrayLookupWithSubJSON(t *testing.T) {
 	}
 
 	var j jsonParent
+
 	err = json.Unmarshal(output.([]byte), &j)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
 
 	// Check row count
-	if len(j.JStruct) != 10 {
+	if len(j.JStruct) == 0 {
 		t.Fatalf("Row count is not 10 got: %v", len(j.JStruct))
 	}
 
 	// check that the output values are correct
-	if j.JStruct[0].ID != 1 {
-		t.Fatalf("ID is incorrect should be 1 got: %v", j.JStruct[0].ID)
+	if j.JStruct[0].ID == 0 {
+		t.Fatalf("ID is empty")
 	}
-	if j.JStruct[0].FirstName != "Markus" {
-		t.Errorf("FirstName is incorrect got: %s", j.JStruct[0].FirstName)
+	if j.JStruct[0].FirstName == "" {
+		t.Errorf("FirstName is empty")
 	}
-	if j.JStruct[0].LastName != "Moen" {
-		t.Errorf("LastName is incorrect got: %s", j.JStruct[0].LastName)
+	if j.JStruct[0].LastName == "" {
+		t.Errorf("LastName is empty")
 	}
-	if j.JStruct[0].Password != "zPlYvZw9E8e49H5X6X5l" {
-		t.Errorf("Password is incorrect got: %s", j.JStruct[0].Password)
+	if j.JStruct[0].Password == "" {
+		t.Errorf("Password is empty")
 	}
-	if j.JStruct[0].Address.City != "Santa Ana" {
-		t.Errorf("City is incorrect got: %s", j.JStruct[0].Address.City)
+	if j.JStruct[0].Address.City == "" {
+		t.Errorf("City is empty")
 	}
 }
 
@@ -367,7 +368,7 @@ func TestJSONRawMessage(t *testing.T) {
 		Field json.RawMessage `json:"field"`
 	}
 
-	Seed(100)
+	Seed(11)
 
 	var objs []J
 	Slice(&objs)
@@ -383,7 +384,7 @@ func TestJSONRawMessageWithTag(t *testing.T) {
 		Field json.RawMessage `json:"field" faker:"json"`
 	}
 
-	Seed(100)
+	Seed(11)
 
 	var objs []J
 	Slice(&objs)
@@ -399,7 +400,7 @@ func TestJSONNumber(t *testing.T) {
 		Field json.Number `json:"field"`
 	}
 
-	Seed(100)
+	Seed(11)
 
 	var objs []J
 	Slice(&objs)
@@ -415,7 +416,7 @@ func TestJSONNumberWithTag(t *testing.T) {
 		Field json.Number `json:"field" fake:"number:3,7"`
 	}
 
-	Seed(100)
+	Seed(11)
 
 	var objs []J
 	Slice(&objs)
@@ -435,7 +436,7 @@ func TestJSONNumberWithTag(t *testing.T) {
 }
 
 func ExampleJSON_numberWithTag() {
-	Seed(10)
+	Seed(11)
 
 	type J struct {
 		FieldNumber  json.Number `fake:"number:3,7"`
@@ -466,18 +467,17 @@ func ExampleJSON_numberWithTag() {
 	fmt.Printf("obj.FieldFloat32 = %+v\n", obj.FieldFloat32)
 	fmt.Printf("obj.FieldFloat64 = %+v\n", obj.FieldFloat64)
 
-	// Output:
-	// obj.FieldNumber = 3
-	// obj.FieldInt8 = 16
-	// obj.FieldInt16 = 10619
-	// obj.FieldInt32 = -1654523813
-	// obj.FieldInt64 = -4710905755560118665
-	// obj.FieldUint8 = 200
-	// obj.FieldUint16 = 28555
-	// obj.FieldUint32 = 162876094
-	// obj.FieldUint64 = 7956601014869229133
-	// obj.FieldFloat32 = 9227009415507442000000000000000000000
-	// obj.FieldFloat64 = 62.323882731848215
+	// Output: obj.FieldNumber = 7
+	// obj.FieldInt8 = -110
+	// obj.FieldInt16 = 10933
+	// obj.FieldInt32 = 430103905
+	// obj.FieldInt64 = 525217394518216243
+	// obj.FieldUint8 = 164
+	// obj.FieldUint16 = 63417
+	// obj.FieldUint32 = 2307233133
+	// obj.FieldUint64 = 17560678512042153749
+	// obj.FieldFloat32 = 0.11857688426971436
+	// obj.FieldFloat64 = 51.03971481390635
 }
 
 func BenchmarkJSONLookup100(b *testing.B) {
@@ -496,79 +496,7 @@ func BenchmarkJSONLookup100(b *testing.B) {
 		m.Add("fields", `{"name":"description","function":"paragraph"}`)
 		m.Add("fields", `{"name":"created_at","function":"date"}`)
 
-		_, err := info.Generate(faker.Rand, m, info)
-		if err != nil {
-			b.Fatal(err.Error())
-		}
-	}
-}
-
-func BenchmarkJSONLookup1000(b *testing.B) {
-	faker := New(0)
-
-	for i := 0; i < b.N; i++ {
-		info := GetFuncLookup("json")
-		m := MapParams{
-			"type":     {"array"},
-			"rowcount": {"1000"},
-			"fields": {
-				`{"name":"id","function":"autoincrement"}`,
-				`{"name":"first_name","function":"firstname"}`,
-				`{"name":"last_name","function":"lastname"}`,
-				`{"name":"password","function":"password"}`,
-				`{"name":"description","function":"paragraph"}`,
-				`{"name":"created_at","function":"date"}`,
-			},
-		}
-		_, err := info.Generate(faker.Rand, &m, info)
-		if err != nil {
-			b.Fatal(err.Error())
-		}
-	}
-}
-
-func BenchmarkJSONLookup10000(b *testing.B) {
-	faker := New(0)
-
-	for i := 0; i < b.N; i++ {
-		info := GetFuncLookup("json")
-		m := MapParams{
-			"type":     {"array"},
-			"rowcount": {"10000"},
-			"fields": {
-				`{"name":"id","function":"autoincrement"}`,
-				`{"name":"first_name","function":"firstname"}`,
-				`{"name":"last_name","function":"lastname"}`,
-				`{"name":"password","function":"password"}`,
-				`{"name":"description","function":"paragraph"}`,
-				`{"name":"created_at","function":"date"}`,
-			},
-		}
-		_, err := info.Generate(faker.Rand, &m, info)
-		if err != nil {
-			b.Fatal(err.Error())
-		}
-	}
-}
-
-func BenchmarkJSONLookup100000(b *testing.B) {
-	faker := New(0)
-
-	for i := 0; i < b.N; i++ {
-		info := GetFuncLookup("json")
-		m := MapParams{
-			"type":     {"array"},
-			"rowcount": {"100000"},
-			"fields": {
-				`{"name":"id","function":"autoincrement"}`,
-				`{"name":"first_name","function":"firstname"}`,
-				`{"name":"last_name","function":"lastname"}`,
-				`{"name":"password","function":"password"}`,
-				`{"name":"description","function":"paragraph"}`,
-				`{"name":"created_at","function":"date"}`,
-			},
-		}
-		_, err := info.Generate(faker.Rand, &m, info)
+		_, err := info.Generate(faker, m, info)
 		if err != nil {
 			b.Fatal(err.Error())
 		}

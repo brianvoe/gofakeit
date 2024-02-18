@@ -12,9 +12,9 @@ func ExampleBook() {
 	fmt.Println(book.Author)
 	fmt.Println(book.Genre)
 
-	// Output: Anna Karenina
+	// Output: Things Fall Apart
 	// Toni Morrison
-	// Thriller
+	// Erotic
 }
 
 func ExampleFaker_Book() {
@@ -24,33 +24,15 @@ func ExampleFaker_Book() {
 	fmt.Println(book.Author)
 	fmt.Println(book.Genre)
 
-	// Output: Anna Karenina
+	// Output: Things Fall Apart
 	// Toni Morrison
-	// Thriller
+	// Erotic
 }
 
 func BenchmarkBook(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Book()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Book()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Book()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Book()
+	}
 }
 
 func TestBook(t *testing.T) {
@@ -63,112 +45,58 @@ func ExampleBookTitle() {
 	Seed(11)
 	fmt.Println(BookTitle())
 
-	// Output: Anna Karenina
+	// Output: Things Fall Apart
 }
 
 func ExampleFaker_BookTitle() {
 	f := New(11)
 	fmt.Println(f.BookTitle())
 
-	// Output: Anna Karenina
+	// Output: Things Fall Apart
 }
 
 func BenchmarkBookTitle(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			BookTitle()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.BookTitle()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.BookTitle()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		BookTitle()
+	}
 }
 
 func ExampleBookAuthor() {
 	Seed(11)
 	fmt.Println(BookAuthor())
 
-	// Output: James Joyce
+	// Output: Vladimir Nabokov
 }
 
 func ExampleFaker_BookAuthor() {
 	f := New(11)
 	fmt.Println(f.BookAuthor())
 
-	// Output: James Joyce
+	// Output: Vladimir Nabokov
 }
 
 func BenchmarkBookAuthor(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			BookAuthor()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.BookAuthor()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.BookAuthor()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		BookAuthor()
+	}
 }
 
 func ExampleBookGenre() {
 	Seed(11)
 	fmt.Println(BookGenre())
 
-	// Output: Crime
+	// Output: Thriller
 }
 
 func ExampleFaker_BookGenre() {
 	f := New(11)
 	fmt.Println(f.BookGenre())
 
-	// Output: Crime
+	// Output: Thriller
 }
 
 func BenchmarkBookGenre(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			BookGenre()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.BookGenre()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.BookGenre()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		BookGenre()
+	}
 }

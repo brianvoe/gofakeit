@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
+	"math/rand/v2"
 	"net/url"
 	"strings"
 	"testing"
 
-	"github.com/brianvoe/gofakeit/v6"
+	"github.com/brianvoe/gofakeit/v7"
 )
 
 func TestList(t *testing.T) {
@@ -38,7 +38,7 @@ func TestGetAllRequests(t *testing.T) {
 			for _, p := range info.Params {
 				// If default is empty and has options randomly pick one
 				if p.Default == "" && len(p.Options) != 0 {
-					mapData.Add(p.Field, p.Options[faker.Rand.Intn(len(p.Options))])
+					mapData.Add(p.Field, p.Options[faker.IntN(len(p.Options))])
 					continue
 				} else if p.Default != "" {
 					// If p.Type is []uint, then we need to convert it to []string
@@ -174,7 +174,7 @@ func TestPostAllRequests(t *testing.T) {
 			for _, p := range info.Params {
 				// If default is empty and has options randomly pick one
 				if p.Default == "" && len(p.Options) != 0 {
-					mapData[p.Field] = []string{p.Options[rand.Intn(len(p.Options))]}
+					mapData[p.Field] = []string{p.Options[rand.IntN(len(p.Options))]}
 					continue
 				} else if p.Default != "" {
 					// If p.Type is []uint, then we need to convert it to []string

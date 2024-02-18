@@ -6,45 +6,27 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/brianvoe/gofakeit/v6/data"
+	"github.com/brianvoe/gofakeit/v7/data"
 )
 
 func ExampleBool() {
 	Seed(11)
 	fmt.Println(Bool())
 
-	// Output: true
+	// Output: false
 }
 
 func ExampleFaker_Bool() {
 	f := New(11)
 	fmt.Println(f.Bool())
 
-	// Output: true
+	// Output: false
 }
 
 func BenchmarkBool(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Bool()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Bool()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Bool()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Bool()
+	}
 }
 
 func TestUUID(t *testing.T) {
@@ -67,38 +49,20 @@ func ExampleUUID() {
 	Seed(11)
 	fmt.Println(UUID())
 
-	// Output: 98173564-6619-4557-888e-65b16bb5def5
+	// Output: b412b5fb-33a4-498e-9503-21c6b7e01dcf
 }
 
 func ExampleFaker_UUID() {
 	f := New(11)
 	fmt.Println(f.UUID())
 
-	// Output: 98173564-6619-4557-888e-65b16bb5def5
+	// Output: b412b5fb-33a4-498e-9503-21c6b7e01dcf
 }
 
 func BenchmarkUUID(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			UUID()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.UUID()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.UUID()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		UUID()
+	}
 }
 
 func TestShuffleAnySlice(t *testing.T) {
@@ -142,9 +106,8 @@ func ExampleShuffleAnySlice() {
 	ShuffleAnySlice(ints)
 	fmt.Println(ints)
 
-	// Output:
-	// [good everyone have for times a day happy]
-	// [777 74125 941 854 89416 52 8413 841657]
+	// Output: [for day happy everyone good times a have]
+	// [854 52 74125 941 777 8413 841657 89416]
 }
 
 func ExampleFaker_ShuffleAnySlice() {
@@ -158,50 +121,29 @@ func ExampleFaker_ShuffleAnySlice() {
 	f.ShuffleAnySlice(ints)
 	fmt.Println(ints)
 
-	// Output:
-	// [good everyone have for times a day happy]
-	// [777 74125 941 854 89416 52 8413 841657]
+	// Output: [for day happy everyone good times a have]
+	// [854 52 74125 941 777 8413 841657 89416]
 }
 
 func BenchmarkShuffleAnySlice(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		a := []any{"a", 1, "c", 3, []string{"a", "b", "c"}, -555, []byte{1, 5}, "h"}
-		for i := 0; i < b.N; i++ {
-			ShuffleAnySlice(a)
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		a := []any{"a", 1, "c", 3, []string{"a", "b", "c"}, -555, []byte{1, 5}, "h"}
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.ShuffleAnySlice(a)
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		a := []any{"a", 1, "c", 3, []string{"a", "b", "c"}, -555, []byte{1, 5}, "h"}
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.ShuffleAnySlice(a)
-		}
-	})
+	a := []any{"a", 1, "c", 3, []string{"a", "b", "c"}, -555, []byte{1, 5}, "h"}
+	for i := 0; i < b.N; i++ {
+		ShuffleAnySlice(a)
+	}
 }
 
 func ExampleFlipACoin() {
 	Seed(11)
 	fmt.Println(FlipACoin())
 
-	// Output: Heads
+	// Output: Tails
 }
 
 func ExampleFaker_FlipACoin() {
 	f := New(11)
 	fmt.Println(f.FlipACoin())
 
-	// Output: Heads
+	// Output: Tails
 }
 
 func TestFlipACoin(t *testing.T) {
@@ -211,27 +153,9 @@ func TestFlipACoin(t *testing.T) {
 }
 
 func BenchmarkFlipACoin(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			FlipACoin()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.FlipACoin()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.FlipACoin()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		FlipACoin()
+	}
 }
 
 func TestRandomMapKey(t *testing.T) {

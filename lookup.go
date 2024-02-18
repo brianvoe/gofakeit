@@ -3,7 +3,6 @@ package gofakeit
 import (
 	"encoding/json"
 	"fmt"
-	"math/rand"
 	"reflect"
 	"strconv"
 	"strings"
@@ -21,15 +20,15 @@ type MapParamsValue []string
 
 // Info structures fields to better break down what each one generates
 type Info struct {
-	Display     string                                                    `json:"display"`
-	Category    string                                                    `json:"category"`
-	Description string                                                    `json:"description"`
-	Example     string                                                    `json:"example"`
-	Output      string                                                    `json:"output"`
-	ContentType string                                                    `json:"content_type"`
-	Params      []Param                                                   `json:"params"`
-	Any         any                                                       `json:"any"`
-	Generate    func(r *rand.Rand, m *MapParams, info *Info) (any, error) `json:"-"`
+	Display     string                                                `json:"display"`
+	Category    string                                                `json:"category"`
+	Description string                                                `json:"description"`
+	Example     string                                                `json:"example"`
+	Output      string                                                `json:"output"`
+	ContentType string                                                `json:"content_type"`
+	Params      []Param                                               `json:"params"`
+	Any         any                                                   `json:"any"`
+	Generate    func(f *Faker, m *MapParams, info *Info) (any, error) `json:"-"`
 }
 
 // Param is a breakdown of param requirements and type definition
@@ -114,8 +113,8 @@ var internalFuncLookups map[string]Info = map[string]Info{
 	"fields": {
 		Description: "Example fields for generating csv, json, xml, etc",
 		Output:      "gofakeit.Field",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			function, _ := GetRandomSimpleFunc(r)
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			function, _ := GetRandomSimpleFunc(f)
 			return Field{
 				Name:     function,
 				Function: function,
@@ -192,7 +191,7 @@ func (m *MapParamsValue) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func GetRandomSimpleFunc(r *rand.Rand) (string, Info) {
+func GetRandomSimpleFunc(f *Faker) (string, Info) {
 	// Loop through all the functions and add them to a slice
 	var keys []string
 	for k, info := range FuncLookups {
@@ -203,7 +202,7 @@ func GetRandomSimpleFunc(r *rand.Rand) (string, Info) {
 	}
 
 	// Randomly grab a function from the slice
-	randomKey := randomString(r, keys)
+	randomKey := randomString(f, keys)
 
 	// Return the function name and info
 	return randomKey, FuncLookups[randomKey]

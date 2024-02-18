@@ -1,103 +1,101 @@
 package gofakeit
 
-import "math/rand"
-
 // PetName will return a random fun pet name
 func PetName() string {
-	return petName(globalFaker.Rand)
+	return petName(GlobalFaker)
 }
 
 // PetName will return a random fun pet name
 func (f *Faker) PetName() string {
-	return petName(f.Rand)
+	return petName(f)
 }
 
-func petName(r *rand.Rand) string {
-	return getRandValue(r, []string{"animal", "petname"})
+func petName(f *Faker) string {
+	return getRandValue(f, []string{"animal", "petname"})
 }
 
 // Animal will return a random animal
 func Animal() string {
-	return animal(globalFaker.Rand)
+	return animal(GlobalFaker)
 }
 
 // Animal will return a random animal
 func (f *Faker) Animal() string {
-	return animal(f.Rand)
+	return animal(f)
 }
 
-func animal(r *rand.Rand) string {
-	return getRandValue(r, []string{"animal", "animal"})
+func animal(f *Faker) string {
+	return getRandValue(f, []string{"animal", "animal"})
 }
 
 // AnimalType will return a random animal type
 func AnimalType() string {
-	return animalType(globalFaker.Rand)
+	return animalType(GlobalFaker)
 }
 
 // AnimalType will return a random animal type
 func (f *Faker) AnimalType() string {
-	return animalType(f.Rand)
+	return animalType(f)
 }
 
-func animalType(r *rand.Rand) string {
-	return getRandValue(r, []string{"animal", "type"})
+func animalType(f *Faker) string {
+	return getRandValue(f, []string{"animal", "type"})
 }
 
 // FarmAnimal will return a random animal that usually lives on a farm
 func FarmAnimal() string {
-	return farmAnimal(globalFaker.Rand)
+	return farmAnimal(GlobalFaker)
 }
 
 // FarmAnimal will return a random animal that usually lives on a farm
 func (f *Faker) FarmAnimal() string {
-	return farmAnimal(f.Rand)
+	return farmAnimal(f)
 }
 
-func farmAnimal(r *rand.Rand) string {
-	return getRandValue(r, []string{"animal", "farm"})
+func farmAnimal(f *Faker) string {
+	return getRandValue(f, []string{"animal", "farm"})
 }
 
 // Cat will return a random cat breed
 func Cat() string {
-	return cat(globalFaker.Rand)
+	return cat(GlobalFaker)
 }
 
 // Cat will return a random cat breed
 func (f *Faker) Cat() string {
-	return cat(f.Rand)
+	return cat(f)
 }
 
-func cat(r *rand.Rand) string {
-	return getRandValue(r, []string{"animal", "cat"})
+func cat(f *Faker) string {
+	return getRandValue(f, []string{"animal", "cat"})
 }
 
 // Dog will return a random dog breed
 func Dog() string {
-	return dog(globalFaker.Rand)
+	return dog(GlobalFaker)
 }
 
 // Dog will return a random dog breed
 func (f *Faker) Dog() string {
-	return dog(f.Rand)
+	return dog(f)
 }
 
-func dog(r *rand.Rand) string {
-	return getRandValue(r, []string{"animal", "dog"})
+func dog(f *Faker) string {
+	return getRandValue(f, []string{"animal", "dog"})
 }
 
 // Bird will return a random bird species
 func Bird() string {
-	return bird(globalFaker.Rand)
+	return bird(GlobalFaker)
 }
 
 // Bird will return a random bird species
 func (f *Faker) Bird() string {
-	return bird(f.Rand)
+	return bird(f)
 }
 
-func bird(r *rand.Rand) string {
-	return getRandValue(r, []string{"animal", "bird"})
+func bird(f *Faker) string {
+	return getRandValue(f, []string{"animal", "bird"})
 }
 
 func addAnimalLookup() {
@@ -107,8 +105,8 @@ func addAnimalLookup() {
 		Description: "Affectionate nickname given to a pet",
 		Example:     "Ozzy Pawsborne",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return petName(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return petName(f), nil
 		},
 	})
 
@@ -118,8 +116,8 @@ func addAnimalLookup() {
 		Description: "Living creature with the ability to move, eat, and interact with its environment",
 		Example:     "elk",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return animal(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return animal(f), nil
 		},
 	})
 
@@ -129,8 +127,8 @@ func addAnimalLookup() {
 		Description: "Type of animal, such as mammals, birds, reptiles, etc.",
 		Example:     "amphibians",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return animalType(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return animalType(f), nil
 		},
 	})
 
@@ -140,8 +138,8 @@ func addAnimalLookup() {
 		Description: "Animal name commonly found on a farm",
 		Example:     "Chicken",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return farmAnimal(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return farmAnimal(f), nil
 		},
 	})
 
@@ -151,8 +149,8 @@ func addAnimalLookup() {
 		Description: "Various breeds that define different cats",
 		Example:     "Chausie",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return cat(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return cat(f), nil
 		},
 	})
 
@@ -162,8 +160,8 @@ func addAnimalLookup() {
 		Description: "Various breeds that define different dogs",
 		Example:     "Norwich Terrier",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return dog(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return dog(f), nil
 		},
 	})
 
@@ -173,8 +171,8 @@ func addAnimalLookup() {
 		Description: "Distinct species of birds",
 		Example:     "goose",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return bird(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return bird(f), nil
 		},
 	})
 }

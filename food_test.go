@@ -9,302 +9,158 @@ func ExampleFruit() {
 	Seed(11)
 	fmt.Println(Fruit())
 
-	// Output: Peach
+	// Output: Redcurrant
 }
 
 func ExampleFaker_Fruit() {
 	f := New(11)
 	fmt.Println(f.Fruit())
 
-	// Output: Peach
+	// Output: Redcurrant
 }
 
 func BenchmarkFruit(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Fruit()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Fruit()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Fruit()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Fruit()
+	}
 }
 
 func ExampleVegetable() {
 	Seed(11)
 	fmt.Println(Vegetable())
 
-	// Output: Amaranth Leaves
+	// Output: Sweet Potato
 }
 
 func ExampleFaker_Vegetable() {
 	f := New(11)
 	fmt.Println(f.Vegetable())
 
-	// Output: Amaranth Leaves
+	// Output: Sweet Potato
 }
 
 func BenchmarkVegetable(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Vegetable()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Vegetable()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Vegetable()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Vegetable()
+	}
 }
 
 func ExampleBreakfast() {
 	Seed(11)
 	fmt.Println(Breakfast())
 
-	// Output: Blueberry banana happy face pancakes
+	// Output: Purple cow
 }
 
 func ExampleFaker_Breakfast() {
 	f := New(11)
 	fmt.Println(f.Breakfast())
 
-	// Output: Blueberry banana happy face pancakes
+	// Output: Purple cow
 }
 
 func BenchmarkBreakfast(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Breakfast()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Breakfast()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Breakfast()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Breakfast()
+	}
 }
 
 func ExampleLunch() {
 	Seed(11)
 	fmt.Println(Lunch())
 
-	// Output: No bake hersheys bar pie
+	// Output: Quick chile relleno casserole
 }
 
 func ExampleFaker_Lunch() {
 	f := New(11)
 	fmt.Println(f.Lunch())
 
-	// Output: No bake hersheys bar pie
+	// Output: Quick chile relleno casserole
 }
 
 func BenchmarkLunch(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Lunch()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Lunch()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Lunch()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Lunch()
+	}
 }
 
 func ExampleDinner() {
 	Seed(11)
 	fmt.Println(Dinner())
 
-	// Output: Wild addicting dip
+	// Output: German apple cake with cream cheese frosting
 }
 
 func ExampleFaker_Dinner() {
 	f := New(11)
 	fmt.Println(f.Dinner())
 
-	// Output: Wild addicting dip
+	// Output: German apple cake with cream cheese frosting
 }
 
 func BenchmarkDinner(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Dinner()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Dinner()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Dinner()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Dinner()
+	}
 }
 
 func ExampleDrink() {
 	Seed(11)
 	fmt.Println(Drink())
 
-	// Output: Juice
+	// Output: Wine
 }
 
 func ExampleFaker_Drink() {
 	f := New(11)
 	fmt.Println(f.Drink())
 
-	// Output: Juice
+	// Output: Wine
 }
 
 func BenchmarkDrink(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Drink()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Drink()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Drink()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Drink()
+	}
 }
 
 func ExampleSnack() {
 	Seed(11)
 	fmt.Println(Snack())
 
-	// Output: Hoisin marinated wing pieces
+	// Output: Fantastic banana bran muffins
 }
 
 func ExampleFaker_Snack() {
 	f := New(11)
 	fmt.Println(f.Snack())
 
-	// Output: Hoisin marinated wing pieces
+	// Output: Fantastic banana bran muffins
 }
 
 func BenchmarkSnack(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Snack()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Snack()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Snack()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Snack()
+	}
 }
 
 func ExampleDessert() {
 	Seed(11)
 	fmt.Println(Dessert())
 
-	// Output: French napoleons
+	// Output: Amish cream pie
 }
 
 func ExampleFaker_Dessert() {
 	f := New(11)
 	fmt.Println(f.Dessert())
 
-	// Output: French napoleons
+	// Output: Amish cream pie
 }
 
 func BenchmarkDessert(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			Dessert()
-		}
-	})
-
-	b.Run("Faker math", func(b *testing.B) {
-		f := New(0)
-
-		for i := 0; i < b.N; i++ {
-			f.Dessert()
-		}
-	})
-
-	b.Run("Faker crypto", func(b *testing.B) {
-		f := NewCrypto()
-
-		for i := 0; i < b.N; i++ {
-			f.Dessert()
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		Dessert()
+	}
 }

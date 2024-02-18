@@ -1,14 +1,12 @@
 package gofakeit
 
-import "math/rand"
+// Connective will generate a random connective
+func Connective() string { return connective(GlobalFaker) }
 
 // Connective will generate a random connective
-func Connective() string { return connective(globalFaker.Rand) }
+func (f *Faker) Connective() string { return connective(f) }
 
-// Connective will generate a random connective
-func (f *Faker) Connective() string { return connective(f.Rand) }
-
-func connective(r *rand.Rand) string {
+func connective(f *Faker) string {
 	var connectiveType = map[int]string{
 		0: "connective_time",
 		1: "connective_comparative",
@@ -17,68 +15,68 @@ func connective(r *rand.Rand) string {
 		4: "connective_casual",
 		5: "connective_examplify",
 	}
-	return getRandValue(r, []string{"word", connectiveType[number(r, 0, 5)]})
+	return getRandValue(f, []string{"word", connectiveType[number(f, 0, 5)]})
 }
 
 // ConnectiveTime will generate a random connective time
-func ConnectiveTime() string { return connectiveTime(globalFaker.Rand) }
+func ConnectiveTime() string { return connectiveTime(GlobalFaker) }
 
 // ConnectiveTime will generate a random connective time
 
-func (f *Faker) ConnectiveTime() string { return connectiveTime(f.Rand) }
+func (f *Faker) ConnectiveTime() string { return connectiveTime(f) }
 
-func connectiveTime(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "connective_time"})
+func connectiveTime(f *Faker) string {
+	return getRandValue(f, []string{"word", "connective_time"})
 }
 
 // ConnectiveComparative will generate a random comparative connective
-func ConnectiveComparative() string { return connectiveComparative(globalFaker.Rand) }
+func ConnectiveComparative() string { return connectiveComparative(GlobalFaker) }
 
 // ConnectiveComparative will generate a random comparative connective
-func (f *Faker) ConnectiveComparative() string { return connectiveComparative(f.Rand) }
+func (f *Faker) ConnectiveComparative() string { return connectiveComparative(f) }
 
-func connectiveComparative(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "connective_comparative"})
+func connectiveComparative(f *Faker) string {
+	return getRandValue(f, []string{"word", "connective_comparative"})
 }
 
 // ConnectiveComplaint will generate a random complaint connective
-func ConnectiveComplaint() string { return connectiveComplaint(globalFaker.Rand) }
+func ConnectiveComplaint() string { return connectiveComplaint(GlobalFaker) }
 
 // ConnectiveComplaint will generate a random complaint connective
-func (f *Faker) ConnectiveComplaint() string { return connectiveComplaint(f.Rand) }
+func (f *Faker) ConnectiveComplaint() string { return connectiveComplaint(f) }
 
-func connectiveComplaint(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "connective_complaint"})
+func connectiveComplaint(f *Faker) string {
+	return getRandValue(f, []string{"word", "connective_complaint"})
 }
 
 // ConnectiveListing will generate a random listing connective
-func ConnectiveListing() string { return connectiveListing(globalFaker.Rand) }
+func ConnectiveListing() string { return connectiveListing(GlobalFaker) }
 
 // ConnectiveListing will generate a random listing connective
-func (f *Faker) ConnectiveListing() string { return connectiveListing(f.Rand) }
+func (f *Faker) ConnectiveListing() string { return connectiveListing(f) }
 
-func connectiveListing(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "connective_listing"})
+func connectiveListing(f *Faker) string {
+	return getRandValue(f, []string{"word", "connective_listing"})
 }
 
 // ConnectiveCasual will generate a random casual connective
-func ConnectiveCasual() string { return connectiveCasual(globalFaker.Rand) }
+func ConnectiveCasual() string { return connectiveCasual(GlobalFaker) }
 
 // ConnectiveCasual will generate a random casual connective
-func (f *Faker) ConnectiveCasual() string { return connectiveCasual(f.Rand) }
+func (f *Faker) ConnectiveCasual() string { return connectiveCasual(f) }
 
-func connectiveCasual(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "connective_casual"})
+func connectiveCasual(f *Faker) string {
+	return getRandValue(f, []string{"word", "connective_casual"})
 }
 
 // ConnectiveExamplify will generate a random examplify connective
-func ConnectiveExamplify() string { return connectiveExamplify(globalFaker.Rand) }
+func ConnectiveExamplify() string { return connectiveExamplify(GlobalFaker) }
 
 // ConnectiveExamplify will generate a random examplify connective
-func (f *Faker) ConnectiveExamplify() string { return connectiveExamplify(f.Rand) }
+func (f *Faker) ConnectiveExamplify() string { return connectiveExamplify(f) }
 
-func connectiveExamplify(r *rand.Rand) string {
-	return getRandValue(r, []string{"word", "connective_examplify"})
+func connectiveExamplify(f *Faker) string {
+	return getRandValue(f, []string{"word", "connective_examplify"})
 }
 
 func addWordConnectiveLookup() {
@@ -88,8 +86,8 @@ func addWordConnectiveLookup() {
 		Description: "Word used to connect words or sentences",
 		Example:     "such as",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return connective(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return connective(f), nil
 		},
 	})
 
@@ -99,8 +97,8 @@ func addWordConnectiveLookup() {
 		Description: "Connective word used to indicate a temporal relationship between events or actions",
 		Example:     "finally",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return connectiveTime(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return connectiveTime(f), nil
 		},
 	})
 
@@ -110,8 +108,8 @@ func addWordConnectiveLookup() {
 		Description: "Connective word used to indicate a comparison between two or more things",
 		Example:     "in addition",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return connectiveComparative(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return connectiveComparative(f), nil
 		},
 	})
 
@@ -121,8 +119,8 @@ func addWordConnectiveLookup() {
 		Description: "Connective word used to express dissatisfaction or complaints about a situation",
 		Example:     "besides",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return connectiveComplaint(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return connectiveComplaint(f), nil
 		},
 	})
 
@@ -132,8 +130,8 @@ func addWordConnectiveLookup() {
 		Description: "Connective word used to list or enumerate items or examples",
 		Example:     "firstly",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return connectiveListing(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return connectiveListing(f), nil
 		},
 	})
 
@@ -143,8 +141,8 @@ func addWordConnectiveLookup() {
 		Description: "Connective word used to indicate a cause-and-effect relationship between events or actions",
 		Example:     "an outcome of",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return connectiveCasual(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return connectiveCasual(f), nil
 		},
 	})
 
@@ -154,8 +152,8 @@ func addWordConnectiveLookup() {
 		Description: "Connective word used to provide examples or illustrations of a concept or idea",
 		Example:     "then",
 		Output:      "string",
-		Generate: func(r *rand.Rand, m *MapParams, info *Info) (any, error) {
-			return connectiveExamplify(r), nil
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return connectiveExamplify(f), nil
 		},
 	})
 }
