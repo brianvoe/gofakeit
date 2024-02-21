@@ -99,10 +99,10 @@ func ExampleCreditCard() {
 	fmt.Println(ccInfo.Exp)
 	fmt.Println(ccInfo.Cvv)
 
-	// Output: Hiper
-	// 6370952527598909
-	// 12/34
-	// 344
+	// Output: American Express
+	// 6376095989079994
+	// 06/29
+	// 125
 }
 
 func ExampleFaker_CreditCard() {
@@ -113,10 +113,10 @@ func ExampleFaker_CreditCard() {
 	fmt.Println(ccInfo.Exp)
 	fmt.Println(ccInfo.Cvv)
 
-	// Output: Hiper
-	// 6370952527598909
-	// 12/34
-	// 344
+	// Output: American Express
+	// 6376095989079994
+	// 06/29
+	// 125
 }
 
 func BenchmarkCreditCard(b *testing.B) {

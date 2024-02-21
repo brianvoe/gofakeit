@@ -242,10 +242,10 @@ func ExamplePerson() {
 	// -53.873895
 	// 6268940591
 	// hopeprohaska@metz.io
-	// Maestro
-	// 4205257093875723
-	// 02/32
-	// 782
+	// American Express
+	// 4570938757201747
+	// 11/27
+	// 205
 }
 
 func ExampleFaker_Person() {
@@ -305,10 +305,10 @@ func ExampleFaker_Person() {
 	// -53.873895
 	// 6268940591
 	// hopeprohaska@metz.io
-	// Maestro
-	// 4205257093875723
-	// 02/32
-	// 782
+	// American Express
+	// 4570938757201747
+	// 11/27
+	// 205
 }
 
 func BenchmarkPerson(b *testing.B) {

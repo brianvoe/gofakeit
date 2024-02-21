@@ -9,10 +9,14 @@ import (
 
 func TestGenerate(t *testing.T) {
 	output := ""
+	var err error
 
 	numTests := 1000
 	for i := 0; i < numTests; i++ {
-		output = Generate("{firstname} {lastname} {email} #?#?#?")
+		output, err = Generate("{firstname} {lastname} {email} #?#?#?")
+		if err != nil {
+			t.Error(err)
+		}
 		if strings.Contains(output, "{") || strings.Contains(output, "}") {
 			t.Error("Output should not contain either { or }. Output: ", output)
 		}
@@ -23,7 +27,10 @@ func TestGenerate_Sub(t *testing.T) {
 	t.Run("Simple", func(t *testing.T) {
 		Seed(11)
 
-		output := Generate("{randomstring:[{firstname},{lastname}]}")
+		output, err := Generate("{randomstring:[{firstname},{lastname}]}")
+		if err != nil {
+			t.Error(err)
+		}
 		if output == "" {
 			t.Error("Output was empty")
 		}
@@ -32,7 +39,10 @@ func TestGenerate_Sub(t *testing.T) {
 	t.Run("Complex", func(t *testing.T) {
 		Seed(11)
 
-		output := Generate("{randomstring:[{randomstring:[{firstname},{lastname}]},{randomstring:[{firstname},{lastname}]}]}")
+		output, err := Generate("{randomstring:[{randomstring:[{firstname},{lastname}]},{randomstring:[{firstname},{lastname}]}]}")
+		if err != nil {
+			t.Error(err)
+		}
 		if output == "" {
 			t.Error("Output was empty")
 		}
@@ -42,41 +52,55 @@ func TestGenerate_Sub(t *testing.T) {
 func ExampleGenerate() {
 	Seed(11)
 
-	fmt.Println(Generate("{firstname} {lastname} ssn is {ssn} and lives at {street}"))
-	fmt.Println(Generate("{sentence:3}"))
-	fmt.Println(Generate("{shuffleints:[1,2,3]}"))
-	fmt.Println(Generate("{randomint:[-1,2,3,-4]}"))
-	fmt.Println(Generate("{randomuint:[1,2,3,4]}"))
-	fmt.Println(Generate("{number:1,50}"))
-	fmt.Println(Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}"))
+	genStr, _ := Generate("{firstname} {lastname} {email} #?#?#?")
+	fmt.Println(genStr)
+	genStr, _ = Generate("{sentence:3}")
+	fmt.Println(genStr)
+	genStr, _ = Generate("{shuffleints:[1,2,3]}")
+	fmt.Println(genStr)
+	genStr, _ = Generate("{randomint:[1,2,3,-4]}")
+	fmt.Println(genStr)
+	genStr, _ = Generate("{randomuint:[1,2,3,4]}")
+	fmt.Println(genStr)
+	genStr, _ = Generate("{number:1,50}")
+	fmt.Println(genStr)
+	genStr, _ = Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}")
+	fmt.Println(genStr)
 
-	// Output: Sonny Stiedemann ssn is 279582238 and lives at 2759 Stationside
-	// How shall cut.
-	// [1 2 3]
-	// 2
+	// Output: Mollie Legros vanceschroeder@turner.com 8K8b1M
+	// Something am elsewhere.
+	// [3 2 1]
 	// 3
-	// 47
-	// [1:2 int:string a:b key:value]
+	// 3
+	// 18
+	// [key:value a:b int:string 1:2]
 }
 
 func ExampleFaker_Generate() {
 	f := New(11)
 
-	fmt.Println(f.Generate("{firstname} {lastname} ssn is {ssn} and lives at {street}"))
-	fmt.Println(f.Generate("{sentence:3}"))
-	fmt.Println(f.Generate("{shuffleints:[1,2,3]}"))
-	fmt.Println(f.Generate("{randomint:[1,2,3,-4]}"))
-	fmt.Println(f.Generate("{randomuint:[1,2,3,4]}"))
-	fmt.Println(f.Generate("{number:1,50}"))
-	fmt.Println(f.Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}"))
+	genStr, _ := f.Generate("{firstname} {lastname} {email} #?#?#?")
+	fmt.Println(genStr)
+	genStr, _ = f.Generate("{sentence:3}")
+	fmt.Println(genStr)
+	genStr, _ = f.Generate("{shuffleints:[1,2,3]}")
+	fmt.Println(genStr)
+	genStr, _ = f.Generate("{randomint:[1,2,3,-4]}")
+	fmt.Println(genStr)
+	genStr, _ = f.Generate("{randomuint:[1,2,3,4]}")
+	fmt.Println(genStr)
+	genStr, _ = f.Generate("{number:1,50}")
+	fmt.Println(genStr)
+	genStr, _ = f.Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}")
+	fmt.Println(genStr)
 
-	// Output: Sonny Stiedemann ssn is 279582238 and lives at 2759 Stationside
-	// How shall cut.
-	// [1 2 3]
-	// 2
+	// Output: Mollie Legros vanceschroeder@turner.com 8K8b1M
+	// Something am elsewhere.
+	// [3 2 1]
 	// 3
-	// 47
-	// [1:2 int:string a:b key:value]
+	// 3
+	// 18
+	// [key:value a:b int:string 1:2]
 }
 
 func BenchmarkGenerate(b *testing.B) {

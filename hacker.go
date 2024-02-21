@@ -11,7 +11,9 @@ func HackerPhrase() string { return hackerPhrase(GlobalFaker) }
 func (f *Faker) HackerPhrase() string { return hackerPhrase(f) }
 
 func hackerPhrase(f *Faker) string {
-	words := strings.Split(generate(f, getRandValue(f, []string{"hacker", "phrase"})), " ")
+	genStr, _ := generate(f, getRandValue(f, []string{"hacker", "phrase"}))
+
+	words := strings.Split(genStr, " ")
 	words[0] = strings.ToUpper(words[0][0:1]) + words[0][1:]
 	return strings.Join(words, " ")
 }

@@ -304,7 +304,10 @@ func TestFuncLookupSplit(t *testing.T) {
 	}
 
 	for input, expected := range tests {
-		values := funcLookupSplit(input)
+		values, err := funcLookupSplit(input)
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
 		if len(values) != len(expected) {
 			t.Fatalf("%s was not %s", values, expected)
 		}

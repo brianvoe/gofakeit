@@ -87,7 +87,10 @@ func rCustom(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	}
 
 	// Parse map params
-	mapParams := parseMapParams(info, fParams)
+	mapParams, err := parseMapParams(info, fParams)
+	if err != nil {
+		return err
+	}
 
 	// Call function
 	fValue, err := info.Generate(f, mapParams, info)
@@ -358,7 +361,12 @@ func rMap(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error
 
 func rString(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
-		v.SetString(generate(f, tag))
+		genStr, err := generate(f, tag)
+		if err != nil {
+			return err
+		}
+
+		v.SetString(genStr)
 	} else if isFakeable(t) {
 		value, err := callFake(f, v, reflect.String)
 		if err != nil {
@@ -371,7 +379,12 @@ func rString(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 		}
 		v.SetString(valueStr)
 	} else {
-		v.SetString(generate(f, strings.Repeat("?", number(f, 4, 10))))
+		genStr, err := generate(f, strings.Repeat("?", number(f, 4, 10)))
+		if err != nil {
+			return err
+		}
+
+		v.SetString(genStr)
 	}
 
 	return nil
@@ -379,7 +392,12 @@ func rString(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 
 func rInt(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
-		i, err := strconv.ParseInt(generate(f, tag), 10, 64)
+		genStr, err := generate(f, tag)
+		if err != nil {
+			return err
+		}
+
+		i, err := strconv.ParseInt(genStr, 10, 64)
 		if err != nil {
 			return err
 		}
@@ -426,7 +444,12 @@ func rInt(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 
 func rUint(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
-		u, err := strconv.ParseUint(generate(f, tag), 10, 64)
+		genStr, err := generate(f, tag)
+		if err != nil {
+			return err
+		}
+
+		u, err := strconv.ParseUint(genStr, 10, 64)
 		if err != nil {
 			return err
 		}
@@ -473,7 +496,12 @@ func rUint(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 
 func rFloat(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
-		f, err := strconv.ParseFloat(generate(f, tag), 64)
+		genStr, err := generate(f, tag)
+		if err != nil {
+			return err
+		}
+
+		f, err := strconv.ParseFloat(genStr, 64)
 		if err != nil {
 			return err
 		}
@@ -508,7 +536,12 @@ func rFloat(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 
 func rBool(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	if tag != "" {
-		b, err := strconv.ParseBool(generate(f, tag))
+		genStr, err := generate(f, tag)
+		if err != nil {
+			return err
+		}
+
+		b, err := strconv.ParseBool(genStr)
 		if err != nil {
 			return err
 		}
@@ -538,7 +571,10 @@ func rBool(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 func rTime(f *Faker, t reflect.StructField, v reflect.Value, tag string) error {
 	if tag != "" {
 		// Generate time
-		timeOutput := generate(f, tag)
+		timeOutput, err := generate(f, tag)
+		if err != nil {
+			return err
+		}
 
 		// Check to see if timeOutput has monotonic clock reading
 		// if so, remove it. This is because time.Parse() does not

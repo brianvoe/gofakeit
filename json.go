@@ -292,7 +292,10 @@ func rJsonNumber(f *Faker, t reflect.Type, v reflect.Value, tag string, size int
 		}
 
 		// Parse map params
-		mapParams := parseMapParams(info, fParams)
+		mapParams, err := parseMapParams(info, fParams)
+		if err != nil {
+			return err
+		}
 
 		valueIface, err := info.Generate(f, mapParams, info)
 		if err != nil {

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net"
 	"regexp"
+	"strings"
 	"testing"
 	"time"
 )
@@ -922,5 +923,22 @@ func TestStructMapWithCustomFunction(t *testing.T) {
 		}
 	} else {
 		t.Errorf("map didnt contain 'abc'.")
+	}
+}
+
+func TestStructBrokenFakeTag(t *testing.T) {
+	type StructMap struct {
+		BrokenTag map[string]string `fake:"{randomstring:[hello,world}"`
+	}
+	var f StructMap
+
+	err := Struct(&f)
+	if err == nil {
+		t.Error("expected error")
+	}
+
+	// error should contain "missing ending ]"
+	if !strings.Contains(err.Error(), "missing ending ]") {
+		t.Fatal(err)
 	}
 }
