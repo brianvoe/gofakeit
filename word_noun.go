@@ -103,7 +103,8 @@ func nounProper(f *Faker) string {
 	case 1:
 		return getRandValue(f, []string{"celebrity", "actor"})
 	case 2:
-		return generate(f, getRandValue(f, []string{"address", "city"}))
+		genStr, _ := generate(f, getRandValue(f, []string{"address", "city"}))
+		return genStr
 	}
 
 	return getRandValue(f, []string{"person", "first"})

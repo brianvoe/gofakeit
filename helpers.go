@@ -271,12 +271,16 @@ func title(s string) string {
 		s)
 }
 
-func funcLookupSplit(str string) []string {
+func funcLookupSplit(str string) ([]string, error) {
 	out := []string{}
 	for str != "" {
 		if strings.HasPrefix(str, "[") {
 			startIndex := strings.Index(str, "[")
 			endIndex := strings.Index(str, "]")
+			if endIndex == -1 {
+				return nil, fmt.Errorf("invalid lookup split missing ending ] bracket")
+			}
+
 			val := str[(startIndex) : endIndex+1]
 			out = append(out, strings.TrimSpace(val))
 			str = strings.Replace(str, val, "", 1)
@@ -299,7 +303,7 @@ func funcLookupSplit(str string) []string {
 		}
 	}
 
-	return out
+	return out, nil
 }
 
 // Used for parsing the tag in a struct
@@ -321,7 +325,7 @@ func parseNameAndParamsFromTag(tag string) (string, string) {
 }
 
 // Used for parsing map params
-func parseMapParams(info *Info, fParams string) *MapParams {
+func parseMapParams(info *Info, fParams string) (*MapParams, error) {
 	// Get parameters, make sure params and the split both have values
 	mapParams := NewMapParams()
 	paramsLen := len(info.Params)
@@ -330,22 +334,34 @@ func parseMapParams(info *Info, fParams string) *MapParams {
 	if paramsLen == 1 && info.Params[0].Type == "string" {
 		mapParams.Add(info.Params[0].Field, fParams)
 	} else if paramsLen > 0 && fParams != "" {
-		splitVals := funcLookupSplit(fParams)
-		mapParams = addSplitValsToMapParams(splitVals, info, mapParams)
+		splitVals, err := funcLookupSplit(fParams)
+		if err != nil {
+			return nil, err
+		}
+		mapParams, err = addSplitValsToMapParams(splitVals, info, mapParams)
+		if err != nil {
+			return nil, err
+		}
 	}
-	if mapParams.Size() > 0 {
-		return mapParams
-	} else {
-		return nil
+
+	// If mapParams doesnt have a size then return nil
+	if mapParams.Size() == 0 {
+		return nil, nil
 	}
+
+	return mapParams, nil
 }
 
 // Used for splitting the values
-func addSplitValsToMapParams(splitVals []string, info *Info, mapParams *MapParams) *MapParams {
+func addSplitValsToMapParams(splitVals []string, info *Info, mapParams *MapParams) (*MapParams, error) {
 	for ii := 0; ii < len(splitVals); ii++ {
 		if len(info.Params)-1 >= ii {
 			if strings.HasPrefix(splitVals[ii], "[") {
-				lookupSplits := funcLookupSplit(strings.TrimRight(strings.TrimLeft(splitVals[ii], "["), "]"))
+				lookupSplits, err := funcLookupSplit(strings.TrimRight(strings.TrimLeft(splitVals[ii], "["), "]"))
+				if err != nil {
+					return nil, err
+				}
+
 				for _, v := range lookupSplits {
 					mapParams.Add(info.Params[ii].Field, v)
 				}
@@ -354,5 +370,5 @@ func addSplitValsToMapParams(splitVals []string, info *Info, mapParams *MapParam
 			}
 		}
 	}
-	return mapParams
+	return mapParams, nil
 }

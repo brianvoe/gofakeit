@@ -23,7 +23,7 @@ import (
 // Ex: ??? - fda - random letters
 //
 // For a complete list of runnable functions use FuncsLookup
-func Generate(dataVal string) string { return generate(GlobalFaker, dataVal) }
+func Generate(dataVal string) (string, error) { return generate(GlobalFaker, dataVal) }
 
 // Generate fake information from given string.
 // Replaceable values should be within {}
@@ -39,16 +39,17 @@ func Generate(dataVal string) string { return generate(GlobalFaker, dataVal) }
 // Ex: ??? - fda - random letters
 //
 // For a complete list of runnable functions use FuncsLookup
-func (f *Faker) Generate(dataVal string) string { return generate(f, dataVal) }
+func (f *Faker) Generate(dataVal string) (string, error) { return generate(f, dataVal) }
 
-func generate(f *Faker, dataVal string) string {
+func generate(f *Faker, dataVal string) (string, error) {
 	// Replace # with numbers and ? with letters
 	dataVal = replaceWithNumbers(f, dataVal)
 	dataVal = replaceWithLetters(f, dataVal)
 
 	// Check if string has any replaceable values
+	// Even if it doesnt its ok we will just return the string
 	if !strings.Contains(dataVal, "{") && !strings.Contains(dataVal, "}") {
-		return dataVal
+		return dataVal, nil
 	}
 
 	// Variables to identify the index in which it exists
@@ -111,8 +112,15 @@ func generate(f *Faker, dataVal string) string {
 			if paramsLen == 1 && info.Params[0].Type == "string" {
 				mapParams.Add(info.Params[0].Field, fParams)
 			} else if paramsLen > 0 && fParams != "" {
-				splitVals := funcLookupSplit(fParams)
-				mapParams = addSplitValsToMapParams(splitVals, info, mapParams)
+				var err error
+				splitVals, err := funcLookupSplit(fParams)
+				if err != nil {
+					return "", err
+				}
+				mapParams, err = addSplitValsToMapParams(splitVals, info, mapParams)
+				if err != nil {
+					return "", err
+				}
 			}
 			if mapParams.Size() == 0 {
 				mapParams = nil
@@ -121,12 +129,11 @@ func generate(f *Faker, dataVal string) string {
 			// Call function
 			fValue, err := info.Generate(f, mapParams, info)
 			if err != nil {
-				// If we came across an error just dont replace value
-				dataVal = strings.Replace(dataVal, "{"+fParts+"}", err.Error(), 1)
-			} else {
-				// Successfully found, run replace with new value
-				dataVal = strings.Replace(dataVal, "{"+fParts+"}", fmt.Sprintf("%v", fValue), 1)
+				return "", err
 			}
+
+			// Successfully found, run replace with new value
+			dataVal = strings.Replace(dataVal, "{"+fParts+"}", fmt.Sprintf("%v", fValue), 1)
 
 			// Reset the curly index back to -1 and reset ignores
 			startCurly = -1
@@ -148,7 +155,7 @@ func generate(f *Faker, dataVal string) string {
 		continue
 	}
 
-	return dataVal
+	return dataVal, nil
 }
 
 // FixedWidthOptions defines values needed for csv generation
@@ -207,7 +214,12 @@ func fixeWidthFunc(f *Faker, co *FixedWidthOptions) (string, error) {
 		if funcInfo == nil {
 			// Try to run the function through generate
 			for i := 0; i < co.RowCount; i++ {
-				row = append(row, generate(f, field.Function))
+				genStr, err := generate(f, field.Function)
+				if err != nil {
+					return "", err
+				}
+
+				row = append(row, genStr)
 			}
 		} else {
 			// Generate function value
@@ -215,7 +227,7 @@ func fixeWidthFunc(f *Faker, co *FixedWidthOptions) (string, error) {
 			for i := 0; i < co.RowCount; i++ {
 				value, err = funcInfo.Generate(f, &field.Params, funcInfo)
 				if err != nil {
-					value = ""
+					return "", err
 				}
 
 				// Add value to row
@@ -491,7 +503,7 @@ func addGenerateLookup() {
 				return nil, errors.New("string length is too large. limit to 1000 characters")
 			}
 
-			return generate(f, str), nil
+			return generate(f, str)
 		},
 	})
 

@@ -15,7 +15,8 @@ func (f *Faker) Error() error {
 }
 
 func err(f *Faker) error {
-	return errors.New(generate(f, getRandValue(f, []string{"error", "generic"})))
+	genStr, _ := generate(f, getRandValue(f, []string{"error", "generic"}))
+	return errors.New(genStr)
 }
 
 // ErrorObject will return a random error object word
@@ -29,7 +30,8 @@ func (f *Faker) ErrorObject() error {
 }
 
 func errorObject(f *Faker) error {
-	return errors.New(generate(f, getRandValue(f, []string{"error", "object"})))
+	genStr, _ := generate(f, getRandValue(f, []string{"error", "object"}))
+	return errors.New(genStr)
 }
 
 // ErrorDatabase will return a random database error
@@ -43,7 +45,8 @@ func (f *Faker) ErrorDatabase() error {
 }
 
 func errorDatabase(f *Faker) error {
-	return errors.New(generate(f, getRandValue(f, []string{"error", "database"})))
+	genStr, _ := generate(f, getRandValue(f, []string{"error", "database"}))
+	return errors.New(genStr)
 }
 
 // ErrorGRPC will return a random gRPC error
@@ -57,7 +60,8 @@ func (f *Faker) ErrorGRPC() error {
 }
 
 func errorGRPC(f *Faker) error {
-	return errors.New(generate(f, getRandValue(f, []string{"error", "grpc"})))
+	genStr, _ := generate(f, getRandValue(f, []string{"error", "grpc"}))
+	return errors.New(genStr)
 }
 
 // ErrorHTTP will return a random HTTP error
@@ -71,7 +75,8 @@ func (f *Faker) ErrorHTTP() error {
 }
 
 func errorHTTP(f *Faker) error {
-	return errors.New(generate(f, getRandValue(f, []string{"error", "http"})))
+	genStr, _ := generate(f, getRandValue(f, []string{"error", "http"}))
+	return errors.New(genStr)
 }
 
 // ErrorHTTPClient will return a random HTTP client error response (400-418)
@@ -85,7 +90,8 @@ func (f *Faker) ErrorHTTPClient() error {
 }
 
 func errorHTTPClient(f *Faker) error {
-	return errors.New(generate(f, getRandValue(f, []string{"error", "http_client"})))
+	genStr, _ := generate(f, getRandValue(f, []string{"error", "http_client"}))
+	return errors.New(genStr)
 }
 
 // ErrorHTTPServer will return a random HTTP server error response (500-511)
@@ -99,7 +105,8 @@ func (f *Faker) ErrorHTTPServer() error {
 }
 
 func errorHTTPServer(f *Faker) error {
-	return errors.New(generate(f, getRandValue(f, []string{"error", "http_server"})))
+	genStr, _ := generate(f, getRandValue(f, []string{"error", "http_server"}))
+	return errors.New(genStr)
 }
 
 // ErrorRuntime will return a random runtime error
@@ -113,7 +120,8 @@ func (f *Faker) ErrorRuntime() error {
 }
 
 func errorRuntime(f *Faker) error {
-	return errors.New(generate(f, getRandValue(f, []string{"error", "runtime"})))
+	genStr, _ := generate(f, getRandValue(f, []string{"error", "runtime"}))
+	return errors.New(genStr)
 }
 
 // ErrorValidation will return a random validation error
@@ -127,7 +135,8 @@ func (f *Faker) ErrorValidation() error {
 }
 
 func errorValidation(f *Faker) error {
-	return errors.New(generate(f, getRandValue(f, []string{"error", "validation"})))
+	genStr, _ := generate(f, getRandValue(f, []string{"error", "validation"}))
+	return errors.New(genStr)
 }
 
 func addErrorLookup() {
