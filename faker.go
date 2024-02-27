@@ -24,6 +24,12 @@ type Faker struct {
 // New creates and returns a new Faker struct seeded with a given seed
 // using the PCG algorithm in lock mode for thread safety
 func New(seed uint64) *Faker {
+	// If seed is 0, use a random crypto seed
+	if seed == 0 {
+		faker := NewFaker(source.NewCrypto(), false)
+		seed = faker.Uint64()
+	}
+
 	return &Faker{
 		Rand:   rand.NewPCG(seed, seed),
 		Locked: true,
