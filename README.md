@@ -1,4 +1,4 @@
-![alt text](https://raw.githubusercontent.com/brianvoe/gofakeit/master/logo.png)
+![Gofakeit](https://raw.githubusercontent.com/brianvoe/gofakeit/master/logo.png)
 
 # Gofakeit [![Go Report Card](https://goreportcard.com/badge/github.com/brianvoe/gofakeit)](https://goreportcard.com/report/github.com/brianvoe/gofakeit) ![Test](https://github.com/brianvoe/gofakeit/workflows/Test/badge.svg?branch=master) [![GoDoc](https://godoc.org/github.com/brianvoe/gofakeit/v7?status.svg)](https://godoc.org/github.com/brianvoe/gofakeit/v7) [![license](http://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://raw.githubusercontent.com/brianvoe/gofakeit/master/LICENSE.txt)
 
