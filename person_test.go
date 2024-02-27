@@ -197,7 +197,6 @@ func ExamplePerson() {
 	fmt.Println(person.LastName)
 	fmt.Println(person.Gender)
 	fmt.Println(person.SSN)
-	fmt.Println(person.Image)
 	fmt.Println(person.Hobby)
 
 	fmt.Println(job.Company)
@@ -226,26 +225,25 @@ func ExamplePerson() {
 	// Stiedemann
 	// male
 	// 280254464
-	// https://picsum.photos/311/192
-	// Sea glass collecting
-	// Mango Transit
-	// Supervisor
-	// National
-	// Solutions
-	// 999 West Lanebury, Lincoln, Kansas 93050
-	// 999 West Lanebury
-	// Lincoln
-	// Kansas
-	// 93050
-	// Uganda
-	// -0.729058
-	// -53.873895
-	// 6268940591
-	// hopeprohaska@metz.io
+	// Sailing
+	// DataLogix
+	// Planner
+	// Human
+	// Usability
+	// 679 Underpassborough, Omaha, Massachusetts 37930
+	// 679 Underpassborough
+	// Omaha
+	// Massachusetts
+	// 37930
+	// North Macedonia
+	// -0.877085
+	// 83.264578
+	// 4102689405
+	// verdabrakus@mayert.name
 	// American Express
-	// 4570938757201747
-	// 11/27
-	// 205
+	// 562570938760
+	// 04/25
+	// 906
 }
 
 func ExampleFaker_Person() {
@@ -260,7 +258,6 @@ func ExampleFaker_Person() {
 	fmt.Println(person.LastName)
 	fmt.Println(person.Gender)
 	fmt.Println(person.SSN)
-	fmt.Println(person.Image)
 	fmt.Println(person.Hobby)
 
 	fmt.Println(job.Company)
@@ -289,26 +286,25 @@ func ExampleFaker_Person() {
 	// Stiedemann
 	// male
 	// 280254464
-	// https://picsum.photos/311/192
-	// Sea glass collecting
-	// Mango Transit
-	// Supervisor
-	// National
-	// Solutions
-	// 999 West Lanebury, Lincoln, Kansas 93050
-	// 999 West Lanebury
-	// Lincoln
-	// Kansas
-	// 93050
-	// Uganda
-	// -0.729058
-	// -53.873895
-	// 6268940591
-	// hopeprohaska@metz.io
+	// Sailing
+	// DataLogix
+	// Planner
+	// Human
+	// Usability
+	// 679 Underpassborough, Omaha, Massachusetts 37930
+	// 679 Underpassborough
+	// Omaha
+	// Massachusetts
+	// 37930
+	// North Macedonia
+	// -0.877085
+	// 83.264578
+	// 4102689405
+	// verdabrakus@mayert.name
 	// American Express
-	// 4570938757201747
-	// 11/27
-	// 205
+	// 562570938760
+	// 04/25
+	// 906
 }
 
 func BenchmarkPerson(b *testing.B) {

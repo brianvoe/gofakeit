@@ -12,7 +12,6 @@ type PersonInfo struct {
 	LastName   string          `json:"last_name" xml:"last_name"`
 	Gender     string          `json:"gender" xml:"gender"`
 	SSN        string          `json:"ssn" xml:"ssn"`
-	Image      string          `json:"image" xml:"image"`
 	Hobby      string          `json:"hobby" xml:"hobby"`
 	Job        *JobInfo        `json:"job" xml:"job"`
 	Address    *AddressInfo    `json:"address" xml:"address"`
@@ -32,7 +31,6 @@ func person(f *Faker) *PersonInfo {
 		LastName:   lastName(f),
 		Gender:     gender(f),
 		SSN:        ssn(f),
-		Image:      imageURL(f, number(f, 100, 500), number(f, 100, 500)),
 		Hobby:      hobby(f),
 		Job:        job(f),
 		Address:    address(f),

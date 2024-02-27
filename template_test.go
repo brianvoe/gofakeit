@@ -103,7 +103,6 @@ func TestTemplate_misc(t *testing.T) {
 		"Number":              "{{Number 1 42 }}",
 		"Price":               "{{Price 1 100 }}",
 		"Regex":               "{{Regex `[abcdef]{5}` }}",
-		"ImageURL":            "{{ImageURL 640 480 }}",
 		"DigitN":              "{{DigitN 10 }}",
 		"LoremIpsumParagraph": "{{LoremIpsumParagraph 3  5  12 `\n` }}",
 		"Paragraph":           "{{Paragraph 3  5  12 `\n` }}",
