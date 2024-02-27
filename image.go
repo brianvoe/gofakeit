@@ -7,18 +7,7 @@ import (
 	imgCol "image/color"
 	"image/jpeg"
 	"image/png"
-	"strconv"
 )
-
-// ImageURL will generate a random Image Based Upon Height And Width. https://picsum.photos/
-func ImageURL(width int, height int) string { return imageURL(GlobalFaker, width, height) }
-
-// ImageURL will generate a random Image Based Upon Height And Width. https://picsum.photos/
-func (f *Faker) ImageURL(width int, height int) string { return imageURL(f, width, height) }
-
-func imageURL(f *Faker, width int, height int) string {
-	return "https://picsum.photos/" + strconv.Itoa(width) + "/" + strconv.Itoa(height)
-}
 
 // Image generates a random rgba image
 func Image(width int, height int) *img.RGBA { return image(GlobalFaker, width, height) }
@@ -67,37 +56,6 @@ func imagePng(f *Faker, width int, height int) []byte {
 }
 
 func addImageLookup() {
-	AddFuncLookup("imageurl", Info{
-		Display:     "Image URL",
-		Category:    "image",
-		Description: "Web address pointing to an image file that can be accessed and displayed online",
-		Example:     "https://picsum.photos/500/500",
-		Output:      "string",
-		Params: []Param{
-			{Field: "width", Display: "Width", Type: "int", Default: "500", Description: "Image width in px"},
-			{Field: "height", Display: "Height", Type: "int", Default: "500", Description: "Image height in px"},
-		},
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			width, err := info.GetInt(m, "width")
-			if err != nil {
-				return nil, err
-			}
-			if width < 10 || width >= 1000 {
-				return nil, errors.New("invalid image width, must be greater than 10, less than 1000")
-			}
-
-			height, err := info.GetInt(m, "height")
-			if err != nil {
-				return nil, err
-			}
-			if height < 10 || height >= 1000 {
-				return nil, errors.New("invalid image height, must be greater than 10, less than 1000")
-			}
-
-			return imageURL(f, width, height), nil
-		},
-	})
-
 	AddFuncLookup("imagejpeg", Info{
 		Display:     "Image JPEG",
 		Category:    "image",
