@@ -39,9 +39,9 @@ func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
 
 		switch t.Name() {
 		case "RawMessage":
-			return rJsonRawMessage(f, t, v, tag, size)
+			return rJsonRawMessage(f, v)
 		case "Number":
-			return rJsonNumber(f, t, v, tag, size)
+			return rJsonNumber(f, v, tag)
 		default:
 			return errors.New("unknown encoding/json type: " + t.Name())
 		}
@@ -72,7 +72,7 @@ func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
 	return nil
 }
 
-func rCustom(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
+func rCustom(f *Faker, v reflect.Value, tag string) error {
 	// If tag is empty return error
 	if tag == "" {
 		return errors.New("tag is empty")
@@ -126,7 +126,7 @@ func rCustom(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	// Check if tag exists, if so run custom function
 	if t.Name() != "" && tag != "" {
-		return rCustom(f, t, v, tag)
+		return rCustom(f, v, tag)
 	}
 
 	// Check if struct is fakeable
@@ -252,7 +252,7 @@ func rSlice(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) err
 	// Check if tag exists, if so run custom function
 	if t.Name() != "" && tag != "" {
 		// Check to see if custom function works if not continue to normal loop of values
-		err := rCustom(f, t, v, tag)
+		err := rCustom(f, v, tag)
 		if err == nil {
 			return nil
 		}
@@ -308,7 +308,7 @@ func rMap(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error
 
 	// Check if tag exists, if so run custom function
 	if tag != "" {
-		return rCustom(f, t, v, tag)
+		return rCustom(f, v, tag)
 	} else if size > 0 {
 		// NOOP
 	} else if isFakeable(t) {

@@ -254,7 +254,7 @@ func addFileJSONLookup() {
 // encoding/json.RawMessage is a special case of []byte
 // it cannot be handled as a reflect.Array/reflect.Slice
 // because it needs additional structure in the output
-func rJsonRawMessage(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
+func rJsonRawMessage(f *Faker, v reflect.Value) error {
 	b, err := f.JSON(nil)
 	if err != nil {
 		return err
@@ -268,7 +268,7 @@ func rJsonRawMessage(f *Faker, t reflect.Type, v reflect.Value, tag string, size
 // that represents a JSON number literal.
 // It cannot be handled as a string because it needs to
 // represent an integer or a floating-point number.
-func rJsonNumber(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
+func rJsonNumber(f *Faker, v reflect.Value, tag string) error {
 	var ret json.Number
 
 	var numberType string
