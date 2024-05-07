@@ -18,10 +18,10 @@ func date(f *Faker) time.Time {
 	return time.Date(year(f), time.Month(month(f)), day(f), hour(f), minute(f), second(f), nanoSecond(f), time.UTC)
 }
 
-// FutureDate will generate a random past time.Time struct
+// PastDate will generate a random past time.Time struct
 func PastDate() time.Time { return pastDate(GlobalFaker) }
 
-// FutureDate will generate a random past time.Time struct
+// PastDate will generate a random past time.Time struct
 func (f *Faker) PastDate() time.Time { return pastDate(f) }
 
 func pastDate(f *Faker) time.Time {
@@ -322,8 +322,8 @@ func addDateTimeLookup() {
 		},
 	})
 
-	AddFuncLookup("pasttime", Info{
-		Display:     "PastTime",
+	AddFuncLookup("pastdate", Info{
+		Display:     "PastDate",
 		Category:    "time",
 		Description: "Date that has occurred before the current moment in time",
 		Example:     "2007-01-24 13:00:35.820738079 +0000 UTC",
@@ -333,8 +333,8 @@ func addDateTimeLookup() {
 		},
 	})
 
-	AddFuncLookup("futuretime", Info{
-		Display:     "FutureTime",
+	AddFuncLookup("futuredate", Info{
+		Display:     "FutureDate",
 		Category:    "time",
 		Description: "Date that has occurred after the current moment in time",
 		Example:     "2107-01-24 13:00:35.820738079 +0000 UTC",
