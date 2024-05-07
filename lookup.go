@@ -262,6 +262,11 @@ func (i *Info) GetAny(m *MapParams, field string) (any, error) {
 		return nil, err
 	}
 
+	// Make sure value[0] exists
+	if len(value) == 0 {
+		return nil, fmt.Errorf("could not find field: %s", field)
+	}
+
 	var anyValue any
 
 	// Try to convert to int
@@ -333,7 +338,7 @@ func (i *Info) GetField(m *MapParams, field string) (*Param, []string, error) {
 		}
 
 		return p, value, nil
-	} else if m == nil && p.Default != "" {
+	} else if p.Default != "" {
 		// If p.Type is []uint, then we need to convert it to []string
 		if strings.HasPrefix(p.Default, "[") {
 			// Remove [] from type
