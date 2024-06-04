@@ -29,7 +29,7 @@ func structFunc(f *Faker, v any) error {
 	return r(f, reflect.TypeOf(v), reflect.ValueOf(v), "", 0)
 }
 
-func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
+func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) (err error) {
 	// Handle special types
 
 	if t.PkgPath() == "encoding/json" {
@@ -45,6 +45,14 @@ func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
 		default:
 			return errors.New("unknown encoding/json type: " + t.Name())
 		}
+	}
+
+	// Transform value if is transformable after generation
+	// Ignore pointer to avoid double call
+	if isTransformable(t) && t.Kind() != reflect.Pointer {
+		defer func() {
+			err = callTransform(f, v)
+		}()
 	}
 
 	// Handle generic types

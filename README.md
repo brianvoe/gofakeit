@@ -260,6 +260,23 @@ type Foo struct {
 }
 ```
 
+## Transformable types
+Types can implement the `Transformable` interface, allowing to modify their value
+in arbitrary ways after their generation.
+
+```go
+type Prefixer string
+
+func (s *Prefixer) FakeTransform(f *Faker) error {
+	*s = Prefixer(fmt.Sprintf("PREFIX.%s", *s))
+	return nil
+}
+
+type Foo struct {
+    Bar Prefixer `fake:"{word}"` // "PREFIX.Hello"
+}
+```
+
 ## Custom Functions
 
 In a lot of situations you may need to use your own random function usage for your specific needs.
