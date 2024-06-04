@@ -225,6 +225,41 @@ fmt.Printf("%s", f.Name) // billy
 fmt.Printf("%s", f.Age) // 1990-12-07 04:14:25.685339029 +0000 UTC
 ```
 
+## Recipient types
+
+Assignment of generated values can be controlled by implementing the
+`Recipient` interface. This is useful when working with wrapper types,
+and you want to control the generation of values for the wrapped type (the "receptor").
+
+Types implementing `Recipient` are initially populated with faked values
+just like any other type.
+The value of their receptor is then overwritten, which allows combining
+`Recipient` with `Fakeable`, or controlling the generation of faked
+ values for other non-receptor fields.
+```go
+type Optional[T any] struct {
+	IsSet bool
+	Value T
+}
+
+func (o *Optional[T]) Fake(faker *Faker) (any, error) {
+	return Optional[T]{
+		IsSet: true,
+	}, nil
+}
+
+func (o *Optional[T]) Receptor() reflect.Value {
+	return reflect.ValueOf(&o.Value)
+}
+
+type Foo struct {
+	OptEmail     Optional[string]         `fake:"{email}" fakesize:"3"` // {true naomieroob@kirlin.biz}
+	OptSentences Optional[[]string]       `fake:"{sentence:3}" fakesize:"3"` // {true [Rather daughter including. As whereas late. My as yet.]
+	OptMap       Optional[map[string]int] `fakesize:"2"` // {true map[MuPIU:1906369721605615517 mOItdWIG:5095924209814061526]}
+	Skip         Optional[int]            `fake:"-"` // {false 0}
+}
+```
+
 ## Custom Functions
 
 In a lot of situations you may need to use your own random function usage for your specific needs.

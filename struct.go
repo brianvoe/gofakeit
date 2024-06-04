@@ -158,6 +158,20 @@ func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 			continue
 		}
 
+		if isRecipient(elementT.Type) {
+			// First generate faked values as normal, e.g. for non-receptor fields
+			if err := r(f, elementT.Type, elementV, "", -1); err != nil {
+				return err
+			}
+			// Grab receptor and use it instead of current struct field
+			receptor, err := callReceptor(elementT.Type, elementV)
+			if err != nil {
+				return err
+			}
+			elementV = receptor.Elem()
+			elementT.Type = elementV.Type()
+		}
+
 		// Check if reflect type is of values we can specifically set
 		elemStr := elementT.Type.String()
 		switch elemStr {
