@@ -39,7 +39,7 @@ func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
 
 		switch t.Name() {
 		case "RawMessage":
-			return rJsonRawMessage(f, v)
+			return rJsonRawMessage(f, v, tag)
 		case "Number":
 			return rJsonNumber(f, v, tag)
 		default:
