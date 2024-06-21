@@ -395,6 +395,84 @@ func TestJSONRawMessageWithTag(t *testing.T) {
 	}
 }
 
+func TestJSONRawMessageWithCustomFuncTag(t *testing.T) {
+	AddFuncLookup("customjsontest", Info{
+		Display:     "CustomJSONTest",
+		Category:    "file",
+		Example:     `{"ErTA":"bale","FQJUIGrmnRBfuGlb":"over","HTJJPnEKGS":"please say that again","HvLvfsQRGbK":"whenever one turns around","KKbMlbxquDmwwvRWVlPmwRAeAw":"Voluptatem eaque quia facilis quo."}`,
+		Output:      "[]byte",
+		ContentType: "application/json",
+		Params:      []Param{},
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			length := f.Number(5, 15)
+			dataSet := []string{"word", "phrase", "loremipsumsentence", "{hackeradjective}-{hackernoun}", "float64", "bool"}
+			resultMap := make(map[string]any)
+			for i := 0; i < length; i++ {
+				key := f.LetterN(uint(f.Number(3, 30)))
+				val, err := f.Generate(RandomString(dataSet))
+				if err != nil {
+					return nil, err
+				}
+				resultMap[key] = val
+			}
+			marshal, err := json.Marshal(resultMap)
+			if err != nil {
+				panic(err)
+			}
+			return marshal, nil
+		},
+	})
+
+	type J struct {
+		Field json.RawMessage `json:"field" fake:"customjsontest"`
+	}
+
+	Seed(11)
+
+	var objs []J
+	Slice(&objs)
+
+	_, err := json.Marshal(objs)
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestJSONRawMessageWithInvalidCustomFuncTag(t *testing.T) {
+	AddFuncLookup("invalidjsontest", Info{
+		Display:     "InvalidJSONTest",
+		Category:    "file",
+		Example:     `[181 251 51 164 185 142 21 3 33]`,
+		Output:      "[]byte",
+		Params:      []Param{},
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			var result []byte
+			Slice(&result)
+			return result, nil
+		},
+	})
+
+	type J struct {
+		Field json.RawMessage `json:"field" fake:"invalidjsontest"`
+	}
+
+	Seed(11)
+
+	var objs []J
+	Slice(&objs)
+
+	_, err := json.Marshal(objs)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var obj J
+	err = Struct(&obj)
+	if err == nil {
+		t.Fatal("'Struct(&obj)' was supposed to return an error but didn't")
+	}
+}
+
 func TestJSONNumber(t *testing.T) {
 	type J struct {
 		Field json.Number `json:"field"`

@@ -254,7 +254,19 @@ func addFileJSONLookup() {
 // encoding/json.RawMessage is a special case of []byte
 // it cannot be handled as a reflect.Array/reflect.Slice
 // because it needs additional structure in the output
-func rJsonRawMessage(f *Faker, v reflect.Value) error {
+func rJsonRawMessage(f *Faker, v reflect.Value, tag string) error {
+	if tag != "" {
+		err := rCustom(f, v, tag)
+		if err == nil {
+			jsonData := v.Bytes()
+			if !json.Valid(jsonData) {
+				fName, _ := parseNameAndParamsFromTag(tag)
+				return errors.New("custom function " + fName + " returned invalid json data: " + string(jsonData))
+			}
+		}
+		return err
+	}
+
 	b, err := f.JSON(nil)
 	if err != nil {
 		return err
