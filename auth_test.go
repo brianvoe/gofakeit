@@ -61,8 +61,8 @@ func ExamplePassword() {
 	// Output: cfelntbponnbbzrhswobuwlxajeeclrx
 	// KYEKNGUUNKUYSFBUFFTGDKUVCVYKPONP
 	// 43622637275953627791234759581343
-	// !?*-_-?#@!*?@?-&@!*!*?_!#$@@@**@
-	// .DTHJ&@oF#d.L5F65 N.-#U5xWX F0DI
+	// @.__-._-!-!_..!-_*_*__-@*.__.__!
+	// -DTHJ@.oF@d@L5F65 N-.@U5xWX F0DI
 	// foZnB
 }
 
@@ -78,8 +78,8 @@ func ExampleFaker_Password() {
 	// Output: cfelntbponnbbzrhswobuwlxajeeclrx
 	// KYEKNGUUNKUYSFBUFFTGDKUVCVYKPONP
 	// 43622637275953627791234759581343
-	// !?*-_-?#@!*?@?-&@!*!*?_!#$@@@**@
-	// .DTHJ&@oF#d.L5F65 N.-#U5xWX F0DI
+	// @.__-._-!-!_..!-_*_*__-@*.__.__!
+	// -DTHJ@.oF@d@L5F65 N-.@U5xWX F0DI
 	// foZnB
 }
 

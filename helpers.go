@@ -15,7 +15,7 @@ const lowerStr = "abcdefghijklmnopqrstuvwxyz"
 const upperStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 const numericStr = "0123456789"
 const specialStr = "@#$%&?|!(){}<>=*+-_:;,."
-const specialSafeStr = "@#$&?!-_*."
+const specialSafeStr = "!@.-_*" // https://github.com/1Password/spg/pull/22
 const spaceStr = " "
 const allStr = lowerStr + upperStr + numericStr + specialStr + spaceStr
 const vowels = "aeiou"
