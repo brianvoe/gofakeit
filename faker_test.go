@@ -34,7 +34,7 @@ func Example() {
 	// Credit Card: 6282690620525711
 	// Hacker Phrase: Try to bundle the PNG firewall, maybe it will deconstruct the open-source bandwidth!
 	// Job Title: Assistant
-	// Password: Nyf8p8ka1Kvgn**@3H&$w7j01yM1vkc2
+	// Password: Nyf8p8ka1Kvgn...3H*.w7j01yM1vkc2
 }
 
 func ExampleNew() {

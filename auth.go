@@ -36,29 +36,29 @@ func password(f *Faker, lower bool, upper bool, numeric bool, special bool, spac
 	items := make([]any, 0)
 	weights := make([]float32, 0)
 	if lower {
-		items = append(items, "lower")
+		items = append(items, "l")
 		weights = append(weights, 4)
 	}
 	if upper {
-		items = append(items, "upper")
+		items = append(items, "u")
 		weights = append(weights, 4)
 	}
 	if numeric {
-		items = append(items, "numeric")
+		items = append(items, "n")
 		weights = append(weights, 3)
 	}
 	if special {
-		items = append(items, "special")
+		items = append(items, "e")
 		weights = append(weights, 2)
 	}
 	if space {
-		items = append(items, "space")
+		items = append(items, "a")
 		weights = append(weights, 1)
 	}
 
 	// If no items are selected then default to lower, upper, numeric
 	if len(items) == 0 {
-		items = append(items, "lower", "upper", "numeric")
+		items = append(items, "l", "u", "n")
 		weights = append(weights, 4, 4, 3)
 	}
 
@@ -70,15 +70,15 @@ func password(f *Faker, lower bool, upper bool, numeric bool, special bool, spac
 		weight, _ := weighted(f, items, weights)
 
 		switch weight.(string) {
-		case "lower":
+		case "l":
 			b[i] = lowerStr[f.Int64()%int64(len(lowerStr))]
-		case "upper":
+		case "u":
 			b[i] = upperStr[f.Int64()%int64(len(upperStr))]
-		case "numeric":
+		case "n":
 			b[i] = numericStr[f.Int64()%int64(len(numericStr))]
-		case "special":
+		case "e":
 			b[i] = specialSafeStr[f.Int64()%int64(len(specialSafeStr))]
-		case "space":
+		case "a":
 			b[i] = spaceStr[f.Int64()%int64(len(spaceStr))]
 		}
 	}
