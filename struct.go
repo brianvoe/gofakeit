@@ -29,7 +29,7 @@ func structFunc(f *Faker, v any) error {
 	return r(f, reflect.TypeOf(v), reflect.ValueOf(v), "", 0)
 }
 
-func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
+func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) (err error) {
 	// Handle special types
 
 	if t.PkgPath() == "encoding/json" {
@@ -45,6 +45,14 @@ func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
 		default:
 			return errors.New("unknown encoding/json type: " + t.Name())
 		}
+	}
+
+	// Transform value if is transformable after generation
+	// Ignore pointer to avoid double call
+	if isTransformable(t) && t.Kind() != reflect.Pointer {
+		defer func() {
+			err = callTransform(f, v)
+		}()
 	}
 
 	// Handle generic types
@@ -156,6 +164,20 @@ func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 		// Check to make sure you can set it or that it's an embedded(anonymous) field
 		if !elementV.CanSet() && !elementT.Anonymous {
 			continue
+		}
+
+		if isRecipient(elementT.Type) {
+			// First generate faked values as normal, e.g. for non-receptor fields
+			if err := r(f, elementT.Type, elementV, "", -1); err != nil {
+				return err
+			}
+			// Grab receptor and use it instead of current struct field
+			receptor, err := callReceptor(elementT.Type, elementV)
+			if err != nil {
+				return err
+			}
+			elementV = receptor.Elem()
+			elementT.Type = elementV.Type()
 		}
 
 		// Check if reflect type is of values we can specifically set
