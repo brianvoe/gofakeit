@@ -164,7 +164,7 @@ func xmlFunc(f *Faker, xo *XMLOptions) ([]byte, error) {
 	}
 
 	// Get key order by order of fields array
-	keyOrder := make([]string, len(xo.Fields))
+	keyOrder := make([]string, 0, len(xo.Fields))
 	for _, f := range xo.Fields {
 		keyOrder = append(keyOrder, f.Name)
 	}
