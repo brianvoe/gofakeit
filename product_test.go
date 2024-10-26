@@ -24,18 +24,18 @@ func ExampleProduct() {
 	fmt.Println(product.Suffix)
 
 	// Output: Wave Precision Lamp
-	// This grieving product is crafted from rubber and includes ultra-lightweight, making it perfect for professional work and delivering improved productivity for [athletes].
+	// This upset product is crafted from wood and includes wireless, making it perfect for personal grooming and delivering comfort for travelers and professionals.
 	// [cosmetics outdoor gear]
-	// 32.91
+	// 73.93
 	// [touchscreen ultra-lightweight gps-enabled biometric]
-	// blue
-	// felt
-	// 009410268940
-	// [pet owners gamers]
-	// oversized
-	// office
-	// customizability
-	// nexus
+	// maroon
+	// silver
+	// 041026894059
+	// [gamers musicians]
+	// heavy
+	// learning
+	// efficiency
+	// dash
 }
 
 func ExampleFaker_Product() {
@@ -56,18 +56,18 @@ func ExampleFaker_Product() {
 	fmt.Println(product.Suffix)
 
 	// Output: Wave Precision Lamp
-	// This grieving product is crafted from rubber and includes ultra-lightweight, making it perfect for professional work and delivering improved productivity for [athletes].
+	// This upset product is crafted from wood and includes wireless, making it perfect for personal grooming and delivering comfort for travelers and professionals.
 	// [cosmetics outdoor gear]
-	// 32.91
+	// 73.93
 	// [touchscreen ultra-lightweight gps-enabled biometric]
-	// blue
-	// felt
-	// 009410268940
-	// [pet owners gamers]
-	// oversized
-	// office
-	// customizability
-	// nexus
+	// maroon
+	// silver
+	// 041026894059
+	// [gamers musicians]
+	// heavy
+	// learning
+	// efficiency
+	// dash
 }
 
 func TestProduct(t *testing.T) {
@@ -157,14 +157,14 @@ func ExampleProductDescription() {
 	Seed(11)
 	fmt.Println(ProductDescription())
 
-	// Output: This product, ideal for [seniors families], features puzzled gold and incorporates gps-enabled to ensure robust construction during remote work.
+	// Output: This product, ideal for seniors and families, features puzzled gold and incorporates gps-enabled to ensure robust construction during remote work.
 }
 
 func ExampleFaker_ProductDescription() {
 	f := New(11)
 	fmt.Println(f.ProductDescription())
 
-	// Output: This product, ideal for [seniors families], features puzzled gold and incorporates gps-enabled to ensure robust construction during remote work.
+	// Output: This product, ideal for seniors and families, features puzzled gold and incorporates gps-enabled to ensure robust construction during remote work.
 }
 
 // Runs 10,000 tests to ensure description doesnt have any { or } in it
