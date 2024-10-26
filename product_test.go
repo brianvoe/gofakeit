@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -23,18 +24,18 @@ func ExampleProduct() {
 	fmt.Println(product.Suffix)
 
 	// Output: Wave Precision Lamp
-	// Since previously was that there a tennis occur why. Heels out can fire anyone sometimes. Leap whom troop now scarcely.
+	// This grieving product is crafted from rubber and includes ultra-lightweight, making it perfect for professional work and delivering improved productivity for [athletes].
 	// [cosmetics outdoor gear]
-	// 49.18
+	// 32.91
 	// [touchscreen ultra-lightweight gps-enabled biometric]
-	// green
-	// brass
-	// 082447816155
-	// [seniors]
-	// compact
-	// learning
-	// minimal maintenance
-	// dash
+	// blue
+	// felt
+	// 009410268940
+	// [pet owners gamers]
+	// oversized
+	// office
+	// customizability
+	// nexus
 }
 
 func ExampleFaker_Product() {
@@ -55,18 +56,18 @@ func ExampleFaker_Product() {
 	fmt.Println(product.Suffix)
 
 	// Output: Wave Precision Lamp
-	// Since previously was that there a tennis occur why. Heels out can fire anyone sometimes. Leap whom troop now scarcely.
+	// This grieving product is crafted from rubber and includes ultra-lightweight, making it perfect for professional work and delivering improved productivity for [athletes].
 	// [cosmetics outdoor gear]
-	// 49.18
+	// 32.91
 	// [touchscreen ultra-lightweight gps-enabled biometric]
-	// green
-	// brass
-	// 082447816155
-	// [seniors]
-	// compact
-	// learning
-	// minimal maintenance
-	// dash
+	// blue
+	// felt
+	// 009410268940
+	// [pet owners gamers]
+	// oversized
+	// office
+	// customizability
+	// nexus
 }
 
 func TestProduct(t *testing.T) {
@@ -156,14 +157,24 @@ func ExampleProductDescription() {
 	Seed(11)
 	fmt.Println(ProductDescription())
 
-	// Output: Regularly quiver these sprint fight something am elsewhere since previously was that there a. Occur why depend heels out can fire anyone sometimes that leap whom troop now.
+	// Output: This product, ideal for [seniors families], features puzzled gold and incorporates gps-enabled to ensure robust construction during remote work.
 }
 
 func ExampleFaker_ProductDescription() {
 	f := New(11)
 	fmt.Println(f.ProductDescription())
 
-	// Output: Regularly quiver these sprint fight something am elsewhere since previously was that there a. Occur why depend heels out can fire anyone sometimes that leap whom troop now.
+	// Output: This product, ideal for [seniors families], features puzzled gold and incorporates gps-enabled to ensure robust construction during remote work.
+}
+
+// Runs 10,000 tests to ensure description doesnt have any { or } in it
+func TestProductDescriptionReplacement(t *testing.T) {
+	for i := 0; i < 100000; i++ {
+		desc := ProductDescription()
+		if strings.ContainsAny(desc, "{") || strings.ContainsAny(desc, "}") {
+			t.Error("Description contains { or }")
+		}
+	}
 }
 
 func BenchmarkProductDescription(b *testing.B) {

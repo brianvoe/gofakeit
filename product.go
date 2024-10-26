@@ -2,7 +2,6 @@ package gofakeit
 
 import (
 	"fmt"
-	"strings"
 )
 
 type ProductInfo struct {
@@ -110,12 +109,8 @@ func ProductDescription() string { return productDescription(GlobalFaker) }
 func (f *Faker) ProductDescription() string { return productDescription(f) }
 
 func productDescription(f *Faker) string {
-	desc := []string{}
-	for i := 0; i < number(f, 1, 3); i++ {
-		desc = append(desc, sentence(f, number(f, 5, 15)))
-	}
-
-	return strings.Join(desc, " ")
+	desc, _ := generate(f, getRandValue(f, []string{"product", "description"}))
+	return desc
 }
 
 // ProductCategory will generate a random product category
