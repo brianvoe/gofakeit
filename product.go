@@ -169,11 +169,20 @@ func ProductAudience() []string { return productAudience(GlobalFaker) }
 func (f *Faker) ProductAudience() []string { return productAudience(f) }
 
 func productAudience(f *Faker) []string {
-	targetAudiences := []string{}
+	audiences := []string{}
 	for i := 0; i < number(f, 1, 2); i++ {
-		targetAudiences = append(targetAudiences, getRandValue(f, []string{"product", "target_audience"}))
+		// Check if the target audience is already in the list
+		// If it is, generate a new target audience
+		for {
+			audience := getRandValue(f, []string{"product", "target_audience"})
+			// Check if in array
+			if !stringInSlice(audience, audiences) {
+				audiences = append(audiences, audience)
+				break
+			}
+		}
 	}
-	return targetAudiences
+	return audiences
 }
 
 // ProductDimension will generate a random product dimension
