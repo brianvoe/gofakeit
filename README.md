@@ -387,6 +387,7 @@ FixedWidth(co *FixedWidthOptions) (string, error)
 
 ### Product
 
+
 ```go
 Product() *ProductInfo
 ProductName() string
@@ -394,6 +395,13 @@ ProductDescription() string
 ProductCategory() string
 ProductFeature() string
 ProductMaterial() string
+ProductUPC() string
+ProductAudience() string
+ProductDimension() string
+ProductUseCase() string
+ProductBenefit() string
+ProductSuffix() string
+
 ```
 
 ### Person
