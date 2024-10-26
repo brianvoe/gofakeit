@@ -16,6 +16,11 @@ func ExampleProduct() {
 	fmt.Println(product.Color)
 	fmt.Println(product.Material)
 	fmt.Println(product.UPC)
+	fmt.Println(product.Audience)
+	fmt.Println(product.Dimension)
+	fmt.Println(product.UseCase)
+	fmt.Println(product.Benefit)
+	fmt.Println(product.Suffix)
 
 	// Output: Wave Precision Lamp
 	// Since previously was that there a tennis occur why. Heels out can fire anyone sometimes. Leap whom troop now scarcely.
@@ -25,6 +30,11 @@ func ExampleProduct() {
 	// green
 	// brass
 	// 082447816155
+	// [seniors]
+	// compact
+	// learning
+	// minimal maintenance
+	// dash
 }
 
 func ExampleFaker_Product() {
@@ -38,6 +48,11 @@ func ExampleFaker_Product() {
 	fmt.Println(product.Color)
 	fmt.Println(product.Material)
 	fmt.Println(product.UPC)
+	fmt.Println(product.Audience)
+	fmt.Println(product.Dimension)
+	fmt.Println(product.UseCase)
+	fmt.Println(product.Benefit)
+	fmt.Println(product.Suffix)
 
 	// Output: Wave Precision Lamp
 	// Since previously was that there a tennis occur why. Heels out can fire anyone sometimes. Leap whom troop now scarcely.
@@ -47,6 +62,11 @@ func ExampleFaker_Product() {
 	// green
 	// brass
 	// 082447816155
+	// [seniors]
+	// compact
+	// learning
+	// minimal maintenance
+	// dash
 }
 
 func TestProduct(t *testing.T) {
@@ -82,6 +102,26 @@ func TestProduct(t *testing.T) {
 
 		if product.UPC == "" {
 			t.Error("UPC is empty")
+		}
+
+		if len(product.Audience) == 0 {
+			t.Error("Audience is empty")
+		}
+
+		if product.Dimension == "" {
+			t.Error("Dimension is empty")
+		}
+
+		if len(product.UseCase) == 0 {
+			t.Error("UseCase is empty")
+		}
+
+		if len(product.Benefit) == 0 {
+			t.Error("Benefit is empty")
+		}
+
+		if product.Suffix == "" {
+			t.Error("Suffix is empty")
 		}
 	}
 }
@@ -209,5 +249,105 @@ func ExampleFaker_ProductUPC() {
 func BenchmarkProductUPC(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		ProductUPC()
+	}
+}
+
+func ExampleProductAudience() {
+	Seed(11)
+	fmt.Println(ProductAudience())
+
+	// Output: [DIY enthusiasts students]
+}
+
+func ExampleFaker_ProductAudience() {
+	f := New(11)
+	fmt.Println(f.ProductAudience())
+
+	// Output: [DIY enthusiasts students]
+}
+
+func BenchmarkProductAudience(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		ProductAudience()
+	}
+}
+
+func ExampleProductDimension() {
+	Seed(11)
+	fmt.Println(ProductDimension())
+
+	// Output: standard
+}
+
+func ExampleFaker_ProductDimension() {
+	f := New(11)
+	fmt.Println(f.ProductDimension())
+
+	// Output: standard
+}
+
+func BenchmarkProductDimension(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		ProductDimension()
+	}
+}
+
+func ExampleProductUseCase() {
+	Seed(11)
+	fmt.Println(ProductUseCase())
+
+	// Output: remote work
+}
+
+func ExampleFaker_ProductUseCase() {
+	f := New(11)
+	fmt.Println(f.ProductUseCase())
+
+	// Output: remote work
+}
+
+func BenchmarkProductUseCase(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		ProductUseCase()
+	}
+}
+
+func ExampleProductBenefit() {
+	Seed(11)
+	fmt.Println(ProductBenefit())
+
+	// Output: minimal maintenance
+}
+
+func ExampleFaker_ProductBenefit() {
+	f := New(11)
+	fmt.Println(f.ProductBenefit())
+
+	// Output: minimal maintenance
+}
+
+func BenchmarkProductBenefit(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		ProductBenefit()
+	}
+}
+
+func ExampleProductSuffix() {
+	Seed(11)
+	fmt.Println(ProductSuffix())
+
+	// Output: turbo
+}
+
+func ExampleFaker_ProductSuffix() {
+	f := New(11)
+	fmt.Println(f.ProductSuffix())
+
+	// Output: turbo
+}
+
+func BenchmarkProductSuffix(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		ProductSuffix()
 	}
 }

@@ -61,4 +61,38 @@ var Product = map[string][]string{
 		"quantum", "spark", "vertex", "core", "flux",
 		"turbo", "shift", "wave", "matrix",
 	},
+
+	"benefit": {
+		"comfort", "efficiency", "safety", "reliability",
+		"versatility", "ease of use", "long battery life",
+		"precision", "enhanced connectivity", "portability",
+		"durability", "energy savings", "aesthetic appeal",
+		"health benefits", "convenience", "time-saving",
+		"high performance", "noise reduction", "user satisfaction",
+		"customizability", "sustainability", "cost-effectiveness",
+		"innovative features", "improved productivity", "enhanced experience",
+		"robust construction", "weather resistance", "minimal maintenance",
+		"increased functionality", "advanced technology", "ergonomic design",
+	},
+
+	"use_case": {
+		"home", "office", "outdoors", "fitness", "travel", "gaming",
+		"cooking", "music", "learning", "entertainment", "professional work",
+		"healthcare", "educational purposes", "commuting", "camping", "hiking",
+		"sports", "art and craft", "gardening", "cleaning", "personal grooming",
+		"relaxation", "home security", "pet care", "smart automation", "food preparation",
+		"baking", "social gatherings", "productivity", "collaboration", "DIY projects",
+		"childcare", "remote work", "photography", "videography", "wellness routines",
+	},
+
+	"target_audience": {
+		"children", "adults", "seniors", "students", "professionals", "athletes",
+		"travelers", "families", "pet owners", "homeowners", "gamers", "cooks", "DIY enthusiasts",
+		"musicians", "artists",
+	},
+
+	"dimension": {
+		"small", "medium", "large", "extra-large", "compact", "lightweight",
+		"heavy", "mini", "standard", "oversized",
+	},
 }
