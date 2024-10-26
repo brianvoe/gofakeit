@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	"strings"
 )
 
 type ProductInfo struct {
@@ -109,7 +110,14 @@ func ProductDescription() string { return productDescription(GlobalFaker) }
 func (f *Faker) ProductDescription() string { return productDescription(f) }
 
 func productDescription(f *Faker) string {
-	desc, _ := generate(f, getRandValue(f, []string{"product", "description"}))
+	prodDesc := getRandValue(f, []string{"product", "description"})
+
+	// Replace all {productaudience} with join "and"
+	for strings.Contains(prodDesc, "{productaudience}") {
+		prodDesc = strings.Replace(prodDesc, "{productaudience}", strings.Join(productAudience(f), " and "), 1)
+	}
+
+	desc, _ := generate(f, prodDesc)
 	return desc
 }
 
