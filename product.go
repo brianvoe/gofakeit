@@ -239,7 +239,14 @@ func addProductLookup() {
 	],
 	"color": "navy",
 	"material": "brass",
-	"upc": "012780949980"
+	"upc": "012780949980",
+	"audience": [
+		"adults"
+	],
+	"dimension": "medium",
+	"use_case": "home",
+	"benefit": "comfort",
+	"suffix": "pro"
 }`,
 		Output:      "map[string]any",
 		ContentType: "application/json",
