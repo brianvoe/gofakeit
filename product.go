@@ -2,7 +2,6 @@ package gofakeit
 
 import (
 	"fmt"
-	"strings"
 )
 
 type ProductInfo struct {
@@ -14,6 +13,11 @@ type ProductInfo struct {
 	Color       string   `json:"color" xml:"color"`
 	Material    string   `json:"material" xml:"material"`
 	UPC         string   `json:"upc" xml:"upc"`
+	Audience    []string `json:"audience" xml:"audience"`
+	Dimension   string   `json:"dimension" xml:"dimension"`
+	UseCase     string   `json:"use_case" xml:"use_case"`
+	Benefit     string   `json:"benefit" xml:"benefit"`
+	Suffix      string   `json:"suffix" xml:"suffix"`
 }
 
 // Product will generate a random set of product information
@@ -46,6 +50,11 @@ func product(f *Faker) *ProductInfo {
 		Features:    features,
 		Color:       safeColor(f),
 		Material:    productMaterial(f),
+		Audience:    productAudience(f),
+		Dimension:   productDimension(f),
+		UseCase:     productUseCase(f),
+		Benefit:     productBenefit(f),
+		Suffix:      productSuffix(f),
 	}
 
 	return product
@@ -100,12 +109,8 @@ func ProductDescription() string { return productDescription(GlobalFaker) }
 func (f *Faker) ProductDescription() string { return productDescription(f) }
 
 func productDescription(f *Faker) string {
-	desc := []string{}
-	for i := 0; i < number(f, 1, 3); i++ {
-		desc = append(desc, sentence(f, number(f, 5, 15)))
-	}
-
-	return strings.Join(desc, " ")
+	desc, _ := generate(f, getRandValue(f, []string{"product", "description"}))
+	return desc
 }
 
 // ProductCategory will generate a random product category
@@ -157,6 +162,60 @@ func productUPC(f *Faker) string {
 	return upc
 }
 
+// ProductAudience will generate a random target audience
+func ProductAudience() []string { return productAudience(GlobalFaker) }
+
+// ProductAudience will generate a random target audience
+func (f *Faker) ProductAudience() []string { return productAudience(f) }
+
+func productAudience(f *Faker) []string {
+	targetAudiences := []string{}
+	for i := 0; i < number(f, 1, 2); i++ {
+		targetAudiences = append(targetAudiences, getRandValue(f, []string{"product", "target_audience"}))
+	}
+	return targetAudiences
+}
+
+// ProductDimension will generate a random product dimension
+func ProductDimension() string { return productDimension(GlobalFaker) }
+
+// ProductDimension will generate a random product dimension
+func (f *Faker) ProductDimension() string { return productDimension(f) }
+
+func productDimension(f *Faker) string {
+	return getRandValue(f, []string{"product", "dimension"})
+}
+
+// ProductUseCase will generate a random product use case
+func ProductUseCase() string { return productUseCase(GlobalFaker) }
+
+// ProductUseCase will generate a random product use case
+func (f *Faker) ProductUseCase() string { return productUseCase(f) }
+
+func productUseCase(f *Faker) string {
+	return getRandValue(f, []string{"product", "use_case"})
+}
+
+// ProductBenefit will generate a random product benefit
+func ProductBenefit() string { return productBenefit(GlobalFaker) }
+
+// ProductBenefit will generate a random product benefit
+func (f *Faker) ProductBenefit() string { return productBenefit(f) }
+
+func productBenefit(f *Faker) string {
+	return getRandValue(f, []string{"product", "benefit"})
+}
+
+// ProductSuffix will generate a random product suffix
+func ProductSuffix() string { return productSuffix(GlobalFaker) }
+
+// ProductSuffix will generate a random product suffix
+func (f *Faker) ProductSuffix() string { return productSuffix(f) }
+
+func productSuffix(f *Faker) string {
+	return getRandValue(f, []string{"product", "suffix"})
+}
+
 func addProductLookup() {
 	AddFuncLookup("product", Info{
 		Display:     "Product",
@@ -175,7 +234,14 @@ func addProductLookup() {
 	],
 	"color": "navy",
 	"material": "brass",
-	"upc": "012780949980"
+	"upc": "012780949980",
+	"audience": [
+		"adults"
+	],
+	"dimension": "medium",
+	"use_case": "home",
+	"benefit": "comfort",
+	"suffix": "pro"
 }`,
 		Output:      "map[string]any",
 		ContentType: "application/json",
@@ -247,6 +313,61 @@ func addProductLookup() {
 		Output:      "string",
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return productUPC(f), nil
+		},
+	})
+
+	AddFuncLookup("productaudience", Info{
+		Display:     "Product Audience",
+		Category:    "product",
+		Description: "The group of people for whom the product is designed or intended",
+		Example:     "adults",
+		Output:      "[]string",
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return productAudience(f), nil
+		},
+	})
+
+	AddFuncLookup("productdimension", Info{
+		Display:     "Product Dimension",
+		Category:    "product",
+		Description: "The size or dimension of a product",
+		Example:     "medium",
+		Output:      "string",
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return productDimension(f), nil
+		},
+	})
+
+	AddFuncLookup("productusecase", Info{
+		Display:     "Product Use Case",
+		Category:    "product",
+		Description: "The scenario or purpose for which a product is typically used",
+		Example:     "home",
+		Output:      "string",
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return productUseCase(f), nil
+		},
+	})
+
+	AddFuncLookup("productbenefit", Info{
+		Display:     "Product Benefit",
+		Category:    "product",
+		Description: "The key advantage or value the product provides",
+		Example:     "comfort",
+		Output:      "string",
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return productBenefit(f), nil
+		},
+	})
+
+	AddFuncLookup("productsuffix", Info{
+		Display:     "Product Suffix",
+		Category:    "product",
+		Description: "A suffix used to differentiate product models or versions",
+		Example:     "pro",
+		Output:      "string",
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return productSuffix(f), nil
 		},
 	})
 }

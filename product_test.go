@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -16,15 +17,25 @@ func ExampleProduct() {
 	fmt.Println(product.Color)
 	fmt.Println(product.Material)
 	fmt.Println(product.UPC)
+	fmt.Println(product.Audience)
+	fmt.Println(product.Dimension)
+	fmt.Println(product.UseCase)
+	fmt.Println(product.Benefit)
+	fmt.Println(product.Suffix)
 
 	// Output: Wave Precision Lamp
-	// Since previously was that there a tennis occur why. Heels out can fire anyone sometimes. Leap whom troop now scarcely.
+	// This grieving product is crafted from rubber and includes ultra-lightweight, making it perfect for professional work and delivering improved productivity for [athletes].
 	// [cosmetics outdoor gear]
-	// 49.18
+	// 32.91
 	// [touchscreen ultra-lightweight gps-enabled biometric]
-	// green
-	// brass
-	// 082447816155
+	// blue
+	// felt
+	// 009410268940
+	// [pet owners gamers]
+	// oversized
+	// office
+	// customizability
+	// nexus
 }
 
 func ExampleFaker_Product() {
@@ -38,15 +49,25 @@ func ExampleFaker_Product() {
 	fmt.Println(product.Color)
 	fmt.Println(product.Material)
 	fmt.Println(product.UPC)
+	fmt.Println(product.Audience)
+	fmt.Println(product.Dimension)
+	fmt.Println(product.UseCase)
+	fmt.Println(product.Benefit)
+	fmt.Println(product.Suffix)
 
 	// Output: Wave Precision Lamp
-	// Since previously was that there a tennis occur why. Heels out can fire anyone sometimes. Leap whom troop now scarcely.
+	// This grieving product is crafted from rubber and includes ultra-lightweight, making it perfect for professional work and delivering improved productivity for [athletes].
 	// [cosmetics outdoor gear]
-	// 49.18
+	// 32.91
 	// [touchscreen ultra-lightweight gps-enabled biometric]
-	// green
-	// brass
-	// 082447816155
+	// blue
+	// felt
+	// 009410268940
+	// [pet owners gamers]
+	// oversized
+	// office
+	// customizability
+	// nexus
 }
 
 func TestProduct(t *testing.T) {
@@ -83,6 +104,26 @@ func TestProduct(t *testing.T) {
 		if product.UPC == "" {
 			t.Error("UPC is empty")
 		}
+
+		if len(product.Audience) == 0 {
+			t.Error("Audience is empty")
+		}
+
+		if product.Dimension == "" {
+			t.Error("Dimension is empty")
+		}
+
+		if len(product.UseCase) == 0 {
+			t.Error("UseCase is empty")
+		}
+
+		if len(product.Benefit) == 0 {
+			t.Error("Benefit is empty")
+		}
+
+		if product.Suffix == "" {
+			t.Error("Suffix is empty")
+		}
 	}
 }
 
@@ -116,14 +157,24 @@ func ExampleProductDescription() {
 	Seed(11)
 	fmt.Println(ProductDescription())
 
-	// Output: Regularly quiver these sprint fight something am elsewhere since previously was that there a. Occur why depend heels out can fire anyone sometimes that leap whom troop now.
+	// Output: This product, ideal for [seniors families], features puzzled gold and incorporates gps-enabled to ensure robust construction during remote work.
 }
 
 func ExampleFaker_ProductDescription() {
 	f := New(11)
 	fmt.Println(f.ProductDescription())
 
-	// Output: Regularly quiver these sprint fight something am elsewhere since previously was that there a. Occur why depend heels out can fire anyone sometimes that leap whom troop now.
+	// Output: This product, ideal for [seniors families], features puzzled gold and incorporates gps-enabled to ensure robust construction during remote work.
+}
+
+// Runs 10,000 tests to ensure description doesnt have any { or } in it
+func TestProductDescriptionReplacement(t *testing.T) {
+	for i := 0; i < 100000; i++ {
+		desc := ProductDescription()
+		if strings.ContainsAny(desc, "{") || strings.ContainsAny(desc, "}") {
+			t.Error("Description contains { or }")
+		}
+	}
 }
 
 func BenchmarkProductDescription(b *testing.B) {
@@ -209,5 +260,105 @@ func ExampleFaker_ProductUPC() {
 func BenchmarkProductUPC(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		ProductUPC()
+	}
+}
+
+func ExampleProductAudience() {
+	Seed(11)
+	fmt.Println(ProductAudience())
+
+	// Output: [DIY enthusiasts students]
+}
+
+func ExampleFaker_ProductAudience() {
+	f := New(11)
+	fmt.Println(f.ProductAudience())
+
+	// Output: [DIY enthusiasts students]
+}
+
+func BenchmarkProductAudience(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		ProductAudience()
+	}
+}
+
+func ExampleProductDimension() {
+	Seed(11)
+	fmt.Println(ProductDimension())
+
+	// Output: standard
+}
+
+func ExampleFaker_ProductDimension() {
+	f := New(11)
+	fmt.Println(f.ProductDimension())
+
+	// Output: standard
+}
+
+func BenchmarkProductDimension(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		ProductDimension()
+	}
+}
+
+func ExampleProductUseCase() {
+	Seed(11)
+	fmt.Println(ProductUseCase())
+
+	// Output: remote work
+}
+
+func ExampleFaker_ProductUseCase() {
+	f := New(11)
+	fmt.Println(f.ProductUseCase())
+
+	// Output: remote work
+}
+
+func BenchmarkProductUseCase(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		ProductUseCase()
+	}
+}
+
+func ExampleProductBenefit() {
+	Seed(11)
+	fmt.Println(ProductBenefit())
+
+	// Output: minimal maintenance
+}
+
+func ExampleFaker_ProductBenefit() {
+	f := New(11)
+	fmt.Println(f.ProductBenefit())
+
+	// Output: minimal maintenance
+}
+
+func BenchmarkProductBenefit(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		ProductBenefit()
+	}
+}
+
+func ExampleProductSuffix() {
+	Seed(11)
+	fmt.Println(ProductSuffix())
+
+	// Output: turbo
+}
+
+func ExampleFaker_ProductSuffix() {
+	f := New(11)
+	fmt.Println(f.ProductSuffix())
+
+	// Output: turbo
+}
+
+func BenchmarkProductSuffix(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		ProductSuffix()
 	}
 }
