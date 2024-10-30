@@ -76,7 +76,7 @@ func addColorLookup() {
 		Output:      "[]string",
 		ContentType: "application/json",
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return color(f), nil
+			return niceColors(f), nil
 		},
 	})
 
