@@ -46,35 +46,7 @@ func password(f *Faker, lower bool, upper bool, numeric bool, special bool, spac
 		num = 5
 	}
 
-	// Setup weights
-	items := make([]any, 0)
-	weights := make([]float32, 0)
-	if lower {
-		items = append(items, "l")
-		weights = append(weights, 4)
-	}
-	if upper {
-		items = append(items, "u")
-		weights = append(weights, 4)
-	}
-	if numeric {
-		items = append(items, "n")
-		weights = append(weights, 3)
-	}
-	if special {
-		items = append(items, "e")
-		weights = append(weights, 2)
-	}
-	if space {
-		items = append(items, "a")
-		weights = append(weights, 1)
-	}
-
-	// If no items are selected then default to lower, upper, numeric
-	if len(items) == 0 {
-		items = append(items, "l", "u", "n")
-		weights = append(weights, 4, 4, 3)
-	}
+	items, weights := itemsAndWeights(lower, upper, numeric, special, space)
 
 	// Create byte slice
 	b := make([]byte, num)
@@ -83,18 +55,7 @@ func password(f *Faker, lower bool, upper bool, numeric bool, special bool, spac
 		// Run weighted
 		weight, _ := weighted(f, items, weights)
 
-		switch weight.(string) {
-		case "l":
-			b[i] = lowerStr[f.Int64()%int64(len(lowerStr))]
-		case "u":
-			b[i] = upperStr[f.Int64()%int64(len(upperStr))]
-		case "n":
-			b[i] = numericStr[f.Int64()%int64(len(numericStr))]
-		case "e":
-			b[i] = specialSafeStr[f.Int64()%int64(len(specialSafeStr))]
-		case "a":
-			b[i] = spaceStr[f.Int64()%int64(len(spaceStr))]
-		}
+		b[i] = selectCharacter(f, weight.(string))
 	}
 
 	// Shuffle bytes
