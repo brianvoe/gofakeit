@@ -20,10 +20,24 @@ func Password(lower bool, upper bool, numeric bool, special bool, space bool, nu
 	return password(GlobalFaker, lower, upper, numeric, special, space, num)
 }
 
+// StrongPassword will generate a random password as the original function Password,
+// but with a strong inclusion of the required symbols depending on options.
+// Minimum number length of 5 if less than.
+func StrongPassword(lower bool, upper bool, numeric bool, special bool, space bool, num int) string {
+	return strongPassword(GlobalFaker, lower, upper, numeric, special, space, num)
+}
+
 // Password will generate a random password.
 // Minimum number length of 5 if less than.
 func (f *Faker) Password(lower bool, upper bool, numeric bool, special bool, space bool, num int) string {
 	return password(f, lower, upper, numeric, special, space, num)
+}
+
+// StrongPassword will generate a random password as the original function Password,
+// but with a strong inclusion of the required symbols depending on options.
+// Minimum number length of 5 if less than.
+func (f *Faker) StrongPassword(lower bool, upper bool, numeric bool, special bool, space bool, num int) string {
+	return strongPassword(f, lower, upper, numeric, special, space, num)
 }
 
 func password(f *Faker, lower bool, upper bool, numeric bool, special bool, space bool, num int) string {
@@ -98,6 +112,138 @@ func password(f *Faker, lower bool, upper bool, numeric bool, special bool, spac
 	}
 
 	return string(b)
+}
+
+func strongPassword(f *Faker, lower bool, upper bool, numeric bool, special bool, space bool, num int) string {
+	items, weights := itemsAndWeights(lower, upper, numeric, special, space)
+
+	// Make sure the num minimum is at least 5
+	if num < 5 {
+		num = 5
+	}
+
+	// Create byte slice
+	b := make([]byte, num)
+
+	strongRules := generateRules(lower, upper, numeric, special, space)
+
+	for i := 0; i < num; i++ {
+		var currentWeight string
+
+		if len(strongRules) == num-i {
+			for w := range strongRules {
+				currentWeight = w
+				break
+			}
+		} else {
+			// Run weighted
+			weight, _ := weighted(f, items, weights)
+			currentWeight = weight.(string)
+		}
+
+		b[i] = selectCharacter(f, currentWeight)
+
+		delete(strongRules, currentWeight)
+	}
+
+	// Shuffle bytes
+	for i := range b {
+		j := f.IntN(i + 1)
+		b[i], b[j] = b[j], b[i]
+	}
+
+	// Replace first or last character if it's a space, and other options are available
+	for b[0] == ' ' {
+		i := 0
+		j := f.IntN(num)
+		// Find index j, so that b[j] is not a space and j is not the last character
+		for b[j] == ' ' || j == num-1 {
+			j = f.IntN(num)
+		}
+		b[i], b[j] = b[j], b[i]
+	}
+	if b[len(b)-1] == ' ' {
+		i := num - 1
+		j := f.IntN(num)
+		// Find index j, so that b[j] is not a space and j is not the first character
+		for b[j] == ' ' || j == 0 {
+			j = f.IntN(num)
+		}
+		b[i], b[j] = b[j], b[i]
+	}
+
+	return string(b)
+}
+
+func itemsAndWeights(lower bool, upper bool, numeric bool, special bool, space bool) ([]any, []float32) {
+	// Setup weights
+	items := make([]any, 0)
+	weights := make([]float32, 0)
+	if lower {
+		items = append(items, "l")
+		weights = append(weights, 4)
+	}
+	if upper {
+		items = append(items, "u")
+		weights = append(weights, 4)
+	}
+	if numeric {
+		items = append(items, "n")
+		weights = append(weights, 3)
+	}
+	if special {
+		items = append(items, "e")
+		weights = append(weights, 2)
+	}
+	if space {
+		items = append(items, "a")
+		weights = append(weights, 1)
+	}
+
+	// If no items are selected then default to lower, upper, numeric
+	if len(items) == 0 {
+		items = append(items, "l", "u", "n")
+		weights = append(weights, 4, 4, 3)
+	}
+
+	return items, weights
+}
+
+func generateRules(lower bool, upper bool, numeric bool, special bool, space bool) map[string]bool {
+	rules := make(map[string]bool)
+
+	if lower {
+		rules["l"] = true
+	}
+	if upper {
+		rules["u"] = true
+	}
+	if numeric {
+		rules["n"] = true
+	}
+	if special {
+		rules["e"] = true
+	}
+	if space {
+		rules["a"] = true
+	}
+	return rules
+}
+
+func selectCharacter(f *Faker, key string) byte {
+	switch key {
+	case "l":
+		return lowerStr[f.Int64()%int64(len(lowerStr))]
+	case "u":
+		return upperStr[f.Int64()%int64(len(upperStr))]
+	case "n":
+		return numericStr[f.Int64()%int64(len(numericStr))]
+	case "e":
+		return specialSafeStr[f.Int64()%int64(len(specialSafeStr))]
+	case "a":
+		return spaceStr[f.Int64()%int64(len(spaceStr))]
+	}
+	return byte(0)
 }
 
 func addAuthLookup() {
