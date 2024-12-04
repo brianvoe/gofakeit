@@ -86,11 +86,15 @@ func strongPassword(f *Faker, lower bool, upper bool, numeric bool, special bool
 	// Create byte slice
 	b := make([]byte, num)
 
+	// Depending on the provided options, need to track what rules to apply
 	strongRules := generateRules(lower, upper, numeric, special, space)
 
 	for i := 0; i < num; i++ {
 		var currentWeight string
 
+		// When len of rules equal to number of left characters,
+		// need to apply option from the rule,
+		// otherwise it is not possible to use all the required options
 		if len(strongRules) == num-i {
 			for w := range strongRules {
 				currentWeight = w
@@ -104,6 +108,7 @@ func strongPassword(f *Faker, lower bool, upper bool, numeric bool, special bool
 
 		b[i] = selectCharacter(f, currentWeight)
 
+		// Remove the key from rules, because it has been applied in the current iteration
 		delete(strongRules, currentWeight)
 	}
 
