@@ -30,6 +30,7 @@ var Data = map[string]map[string][]string{
 	"html":      Html,
 	"book":      Books,
 	"movie":     Movies,
+	"music":     Musics,
 	"school":    School,
 	"product":   Product,
 }
