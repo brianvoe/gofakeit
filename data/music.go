@@ -1,7 +1,7 @@
 package data
 
 // List of songs on Billboard's 2020 Year-End Hot 100 chart
-var Movies = map[string][]string{
+var Musics = map[string][]string{
 	"name": {
 		"Blinding Lights",
 		"Circles",
