@@ -848,6 +848,15 @@ MovieName() string
 MovieGenre() string
 ```
 
+### Music
+
+```go
+Music() *MusicInfo
+MusicName() string
+MusicArtist() string
+MusicGenre() string
+```
+
 ### Error
 
 ```go
