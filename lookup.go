@@ -85,6 +85,7 @@ func initLookup() {
 	addMinecraftLookup()
 	addMiscLookup()
 	addMovieLookup()
+	addMusicLookup()
 	addNumberLookup()
 	addPaymentLookup()
 	addPersonLookup()
