@@ -59,7 +59,7 @@ func addMusicLookup() {
 		Example:     "New Rules",
 		Output:      "string",
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return movieName(f), nil
+			return musicName(f), nil
 		},
 	})
 
