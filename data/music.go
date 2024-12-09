@@ -236,6 +236,6 @@ var Musics = map[string][]string{
 		"Lo-fi Hip-Hop",
 		"Alternative Hip-Hop",
 		"Melodic Rap",
-		"Urban Contemporary"
+		"Urban Contemporary",
 	}
 }
