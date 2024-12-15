@@ -12,16 +12,16 @@ func (f *Faker) MusicArtist() string { return musicArtist(f) }
 
 func musicArtist(f *Faker) string { return getRandValue(f, []string{"music", "artist"}) }
 
-func MusicGenre() string { return musicsGenre(GlobalFaker) }
+func MusicGenre() string { return musicGenre(GlobalFaker) }
 
 func (f *Faker) MusicGenre() string { return musicGenre(f) }
 
 func musicGenre(f *Faker) string { return getRandValue(f, []string{"music", "genre"}) }
 
 type MusicInfo struct {
-	Name string `json:"name" xml:"name"`
+	Name   string `json:"name" xml:"name"`
 	Artist string `json:"artist" xml:"artist"`
-	Genre string`json:"genre" xml:"genre"`
+	Genre  string `json:"genre" xml:"genre"`
 }
 
 func Music() *MusicInfo { return music(GlobalFaker) }
@@ -30,9 +30,9 @@ func (f *Faker) Music() *MusicInfo { return music(f) }
 
 func music(f *Faker) *MusicInfo {
 	return &MusicInfo{
-		Name:  musicName(f),
+		Name:   musicName(f),
 		Artist: musicArtist(f),
-		Genre: musicGenre(f),
+		Genre:  musicGenre(f),
 	}
 }
 
@@ -48,7 +48,7 @@ func addMusicLookup() {
 		Output:      "map[string]string",
 		ContentType: "application/json",
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return mudic(f), nil
+			return music(f), nil
 		},
 	})
 
