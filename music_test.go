@@ -12,8 +12,9 @@ func ExampleMusic() {
 	fmt.Println(music.Artist)
 	fmt.Println(music.Genre)
 
-	// Output: The Terminator
-	// Sport
+	// Output: Rags2Riches
+	// The Scotts (Travis Scott and Kid Cudi)
+	// Electronic Dance Music (EDM)
 }
 
 func ExampleFaker_Music() {
@@ -23,8 +24,9 @@ func ExampleFaker_Music() {
 	fmt.Println(music.Artist)
 	fmt.Println(music.Genre)
 
-	// Output: The Terminator
-	// Sport
+	// Output: Rags2Riches
+	// The Scotts (Travis Scott and Kid Cudi)
+	// Electronic Dance Music (EDM)
 }
 
 func BenchmarkMusic(b *testing.B) {
@@ -43,14 +45,14 @@ func ExampleMusicName() {
 	Seed(11)
 	fmt.Println(MusicName())
 
-	// Output: The Terminator
+	// Output: Rags2Riches
 }
 
 func ExampleFaker_MusicName() {
 	f := New(11)
 	fmt.Println(f.MusicName())
 
-	// Output: The Terminator
+	// Output: Rags2Riches
 }
 
 func BenchmarkMusicName(b *testing.B) {
@@ -63,14 +65,14 @@ func ExampleMusicArtist() {
 	Seed(11)
 	fmt.Println(MusicArtist())
 
-	// Output: Thriller
+	// Output: Rod Wave featuring ATR Son Son
 }
 
 func ExampleFaker_MusicArtist() {
 	f := New(11)
 	fmt.Println(f.MusicArtist())
 
-	// Output: Thriller
+	// Output: Rod Wave featuring ATR Son Son
 }
 
 func BenchmarkMusicArtist(b *testing.B) {
@@ -83,14 +85,14 @@ func ExampleMusicGenre() {
 	Seed(11)
 	fmt.Println(MusicGenre())
 
-	// Output: Thriller
+	// Output: Lo-fi Hip-Hop
 }
 
 func ExampleFaker_MusicGenre() {
 	f := New(11)
 	fmt.Println(f.MusicGenre())
 
-	// Output: Thriller
+	// Output: Lo-fi Hip-Hop
 }
 
 func BenchmarkMusicGenre(b *testing.B) {
