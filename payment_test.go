@@ -101,7 +101,7 @@ func ExampleCreditCard() {
 
 	// Output: American Express
 	// 6376095989079994
-	// 06/29
+	// 06/30
 	// 125
 }
 
@@ -115,7 +115,7 @@ func ExampleFaker_CreditCard() {
 
 	// Output: American Express
 	// 6376095989079994
-	// 06/29
+	// 06/30
 	// 125
 }
 
@@ -216,14 +216,14 @@ func ExampleCreditCardExp() {
 	Seed(11)
 	fmt.Println(CreditCardExp())
 
-	// Output: 11/33
+	// Output: 11/34
 }
 
 func ExampleFaker_CreditCardExp() {
 	f := New(11)
 	fmt.Println(f.CreditCardExp())
 
-	// Output: 11/33
+	// Output: 11/34
 }
 
 func BenchmarkCreditCardExp(b *testing.B) {

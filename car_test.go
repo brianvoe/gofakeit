@@ -20,7 +20,7 @@ func ExampleCar() {
 	// Santafe 4wd
 	// Automatic
 	// Passenger car heavy
-	// 1928
+	// 1929
 }
 
 func ExampleFaker_Car() {
@@ -38,7 +38,7 @@ func ExampleFaker_Car() {
 	// Santafe 4wd
 	// Automatic
 	// Passenger car heavy
-	// 1928
+	// 1929
 }
 
 func BenchmarkCar(b *testing.B) {

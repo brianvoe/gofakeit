@@ -387,7 +387,6 @@ FixedWidth(co *FixedWidthOptions) (string, error)
 
 ### Product
 
-
 ```go
 Product() *ProductInfo
 ProductName() string

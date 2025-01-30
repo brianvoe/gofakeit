@@ -645,7 +645,7 @@ func TestStructToDateTime(t *testing.T) {
 		{
 			name:     "Simple",
 			observed: datetime.Simple.String(),
-			expected: "2011-11-07 04:31:13.726582492 +0000 UTC",
+			expected: "2012-11-07 04:31:13.726582492 +0000 UTC",
 		},
 		{
 			name:     "Tag",
@@ -675,7 +675,7 @@ func TestStructToDateTime(t *testing.T) {
 		{
 			name:     "PointerSimple",
 			observed: datetime.PointerSimple.String(),
-			expected: "1953-05-23 07:44:55.341122669 +0000 UTC",
+			expected: "1954-05-23 07:44:55.341122669 +0000 UTC",
 		},
 		{
 			name:     "PointerTag",

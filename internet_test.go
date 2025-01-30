@@ -289,14 +289,14 @@ func ExampleFirefoxUserAgent() {
 	Seed(11)
 	fmt.Println(FirefoxUserAgent())
 
-	// Output: Mozilla/5.0 (Windows CE; en-US; rv:1.9.3.20) Gecko/2011-11-07 Firefox/36.0
+	// Output: Mozilla/5.0 (Windows CE; en-US; rv:1.9.3.20) Gecko/2012-11-07 Firefox/36.0
 }
 
 func ExampleFaker_FirefoxUserAgent() {
 	f := New(11)
 	fmt.Println(f.FirefoxUserAgent())
 
-	// Output: Mozilla/5.0 (Windows CE; en-US; rv:1.9.3.20) Gecko/2011-11-07 Firefox/36.0
+	// Output: Mozilla/5.0 (Windows CE; en-US; rv:1.9.3.20) Gecko/2012-11-07 Firefox/36.0
 }
 
 func BenchmarkFirefoxUserAgent(b *testing.B) {
