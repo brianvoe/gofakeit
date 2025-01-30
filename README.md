@@ -866,3 +866,12 @@ ErrorRuntime() error
 ```go
 School() string
 ```
+
+### Song
+
+```go
+Song() *SongInfo
+SongName() string
+SongArtist() string
+SongGenre() string
+```

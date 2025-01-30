@@ -90,6 +90,7 @@ func initLookup() {
 	addPersonLookup()
 	addProductLookup()
 	addSchoolLookup()
+	addSongLookup()
 	addStringLookup()
 	addTemplateLookup()
 	addWeightedLookup()
