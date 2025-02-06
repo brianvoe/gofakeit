@@ -16,22 +16,40 @@ import (
 // Use `fake:"skip"` to explicitly skip an element.
 // All built-in types are supported, with templating support
 // for string types.
-func Struct(v any) error { return structFunc(GlobalFaker, v) }
+func Struct(v any) error { return structFunc(GlobalFaker, v, []reflect.Type{}) }
 
 // Struct fills in exported fields of a struct with random data
 // based on the value of `fake` tag of exported fields.
 // Use `fake:"skip"` to explicitly skip an element.
 // All built-in types are supported, with templating support
 // for string types.
-func (f *Faker) Struct(v any) error { return structFunc(f, v) }
+func (f *Faker) Struct(v any) error { return structFunc(f, v, []reflect.Type{}) }
 
-func structFunc(f *Faker, v any) error {
-	return r(f, reflect.TypeOf(v), reflect.ValueOf(v), "", 0)
+func structFunc(f *Faker, v any, typeAncestry []reflect.Type) error {
+	return r(f, reflect.TypeOf(v), reflect.ValueOf(v), "", 0, typeAncestry)
 }
 
-func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
-	// Handle special types
+func detectRecursion(t reflect.Type, typeAncestry []reflect.Type) bool {
+	typeFrequencyMap := make(map[reflect.Type]int)
+	for _, ta := range typeAncestry {
+		if _, ok := typeFrequencyMap[ta]; ok {
+			typeFrequencyMap[ta]++
+			if typeFrequencyMap[ta] > 1 {
+				return true
+			}
+		} else {
+			typeFrequencyMap[ta] = 1
+		}
+	}
+	return false
+}
 
+func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int, typeAncestry []reflect.Type) error {
+	if detectRecursion(t, typeAncestry) {
+		return nil
+	}
+
+	// Handle special types
 	if t.PkgPath() == "encoding/json" {
 		// encoding/json has two special types:
 		// - RawMessage
@@ -50,9 +68,10 @@ func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
 	// Handle generic types
 	switch t.Kind() {
 	case reflect.Ptr:
-		return rPointer(f, t, v, tag, size)
+		return rPointer(f, t, v, tag, size, typeAncestry)
 	case reflect.Struct:
-		return rStruct(f, t, v, tag)
+		typeAncestry = append(typeAncestry, t)
+		return rStruct(f, t, v, tag, typeAncestry)
 	case reflect.String:
 		return rString(f, t, v, tag)
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
@@ -64,9 +83,9 @@ func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
 	case reflect.Bool:
 		return rBool(f, t, v, tag)
 	case reflect.Array, reflect.Slice:
-		return rSlice(f, t, v, tag, size)
+		return rSlice(f, t, v, tag, size, typeAncestry)
 	case reflect.Map:
-		return rMap(f, t, v, tag, size)
+		return rMap(f, t, v, tag, size, typeAncestry)
 	}
 
 	return nil
@@ -123,7 +142,7 @@ func rCustom(f *Faker, v reflect.Value, tag string) error {
 	return nil
 }
 
-func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
+func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string, typeAncestry []reflect.Type) error {
 	// Check if tag exists, if so run custom function
 	if t.Name() != "" && tag != "" {
 		return rCustom(f, v, tag)
@@ -159,6 +178,7 @@ func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 		}
 
 		// Check if reflect type is of values we can specifically set
+
 		elemStr := elementT.Type.String()
 		switch elemStr {
 		case "time.Time", "*time.Time":
@@ -214,7 +234,7 @@ func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 		}
 
 		// Recursively call r() to fill in the struct
-		err := r(f, elementT.Type, elementV, fakeTag, size)
+		err := r(f, elementT.Type, elementV, fakeTag, size, typeAncestry)
 		if err != nil {
 			return err
 		}
@@ -223,18 +243,18 @@ func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	return nil
 }
 
-func rPointer(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
+func rPointer(f *Faker, t reflect.Type, v reflect.Value, tag string, size int, typeAncestry []reflect.Type) error {
 	elemT := t.Elem()
 	if v.IsNil() {
 		nv := reflect.New(elemT).Elem()
-		err := r(f, elemT, nv, tag, size)
+		err := r(f, elemT, nv, tag, size, typeAncestry)
 		if err != nil {
 			return err
 		}
 
 		v.Set(nv.Addr())
 	} else {
-		err := r(f, elemT, v.Elem(), tag, size)
+		err := r(f, elemT, v.Elem(), tag, size, typeAncestry)
 		if err != nil {
 			return err
 		}
@@ -243,7 +263,7 @@ func rPointer(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) e
 	return nil
 }
 
-func rSlice(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
+func rSlice(f *Faker, t reflect.Type, v reflect.Value, tag string, size int, typeAncestry []reflect.Type) error {
 	// If you cant even set it dont even try
 	if !v.CanSet() {
 		return errors.New("cannot set slice")
@@ -284,7 +304,7 @@ func rSlice(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) err
 	// Loop through the elements length and set based upon the index
 	for i := 0; i < size; i++ {
 		nv := reflect.New(elemT)
-		err := r(f, elemT, nv.Elem(), tag, ogSize)
+		err := r(f, elemT, nv.Elem(), tag, ogSize, typeAncestry)
 		if err != nil {
 			return err
 		}
@@ -300,7 +320,7 @@ func rSlice(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) err
 	return nil
 }
 
-func rMap(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
+func rMap(f *Faker, t reflect.Type, v reflect.Value, tag string, size int, typeAncestry []reflect.Type) error {
 	// If you cant even set it dont even try
 	if !v.CanSet() {
 		return errors.New("cannot set slice")
@@ -334,14 +354,14 @@ func rMap(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error
 	for i := 0; i < newSize; i++ {
 		// Create new key
 		mapIndex := reflect.New(t.Key())
-		err := r(f, t.Key(), mapIndex.Elem(), "", -1)
+		err := r(f, t.Key(), mapIndex.Elem(), "", -1, typeAncestry)
 		if err != nil {
 			return err
 		}
 
 		// Create new value
 		mapValue := reflect.New(t.Elem())
-		err = r(f, t.Elem(), mapValue.Elem(), "", -1)
+		err = r(f, t.Elem(), mapValue.Elem(), "", -1, typeAncestry)
 		if err != nil {
 			return err
 		}

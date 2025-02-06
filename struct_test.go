@@ -942,3 +942,26 @@ func TestStructBrokenFakeTag(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+func TestStructRecursion(t *testing.T) {
+	type Foo struct {
+		Bar        *Foo
+		OtherField string
+	}
+
+	var f Foo
+	err := Struct(&f)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if f.Bar == nil {
+		t.Error("Bar should not be nil")
+	}
+	if f.Bar.Bar != nil {
+		t.Error("Bar.Bar should be nil")
+	}
+	if f.OtherField == "" {
+		t.Error("Bar.OtherField should not be empty")
+	}
+}

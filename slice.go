@@ -11,5 +11,5 @@ func Slice(v any) { sliceFunc(GlobalFaker, v) }
 func (f *Faker) Slice(v any) { sliceFunc(f, v) }
 
 func sliceFunc(f *Faker, v any) {
-	r(f, reflect.TypeOf(v), reflect.ValueOf(v), "", -1)
+	r(f, reflect.TypeOf(v), reflect.ValueOf(v), "", -1, []reflect.Type{})
 }

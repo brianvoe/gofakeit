@@ -1,3 +1,3 @@
-module github.com/brianvoe/gofakeit/v7
+module github.com/gaurav-dhero/gofakeit/v7
 
 go 1.22
