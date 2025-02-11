@@ -874,3 +874,11 @@ SongName() string
 SongArtist() string
 SongGenre() string
 ```
+
+### Bank
+
+```go
+Bank() *BankInfo
+BankName() string
+BankType() string
+```
