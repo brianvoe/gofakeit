@@ -57,6 +57,7 @@ func initLookup() {
 	addAnimalLookup()
 	addAppLookup()
 	addAuthLookup()
+	addBankLookup()
 	addBeerLookup()
 	addBookLookup()
 	addCarLookup()

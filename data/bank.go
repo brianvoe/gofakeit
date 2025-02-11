@@ -1,0 +1,37 @@
+package data
+
+var Bank = map[string][]string{
+	"name": {
+		"Agricultural Bank of China",
+		"Banco Santander",
+		"Bank of America",
+		"Bank of China",
+		"Bank of Communications",
+		"BNP Paribas",
+		"China Citic Bank",
+		"China Construction Bank",
+		"China Merchants Bank",
+		"Citigroup",
+		"Credit Agricole",
+		"Goldman Sachs",
+		"HSBC Holdings",
+		"Industrial and Commercial Bank of China",
+		"Industrial Bank",
+		"JPMorgan Chase & Co",
+		"Mitsubishi UFJ Financial Group",
+		"Postal Savings Bank of China",
+		"Shanghai Pudong Development Bank",
+		"Wells Fargo",
+	},
+	"type": {
+		"Central Bank",
+		"Commercial Bank",
+		"Cooperative Bank",
+		"Investment Bank",
+		"Online Bank",
+		"Policy Bank",
+		"Private Bank",
+		"Retail Bank",
+		"Savings Bank",
+	},
+}
