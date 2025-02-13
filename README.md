@@ -679,6 +679,8 @@ AchRouting() string
 AchAccount() string
 BitcoinAddress() string
 BitcoinPrivateKey() string
+BankName() string
+BankType() string
 ```
 
 ### Finance
@@ -873,12 +875,4 @@ Song() *SongInfo
 SongName() string
 SongArtist() string
 SongGenre() string
-```
-
-### Bank
-
-```go
-Bank() *BankInfo
-BankName() string
-BankType() string
 ```

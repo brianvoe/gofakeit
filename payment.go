@@ -240,6 +240,18 @@ func bitcoinPrivateKey(f *Faker) string {
 	return "5" + randomString(f, []string{"H", "J", "K"}) + b.String()
 }
 
+func BankName() string { return bankName(GlobalFaker) }
+
+func (f *Faker) BankName() string { return bankName(f) }
+
+func bankName(f *Faker) string { return getRandValue(f, []string{"bank", "name"}) }
+
+func BankType() string { return bankType(GlobalFaker) }
+
+func (f *Faker) BankType() string { return bankType(f) }
+
+func bankType(f *Faker) string { return getRandValue(f, []string{"bank", "type"}) }
+
 func addPaymentLookup() {
 	AddFuncLookup("currency", Info{
 		Display:     "Currency",
@@ -438,6 +450,28 @@ func addPaymentLookup() {
 		Output:      "string",
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return bitcoinPrivateKey(f), nil
+		},
+	})
+
+	AddFuncLookup("bankname", Info{
+		Display:     "Bank Name",
+		Category:    "payment",
+		Description: "Name of a financial institution that offers banking services",
+		Example:     "Wells Fargo",
+		Output:      "string",
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return bankName(f), nil
+		},
+	})
+
+	AddFuncLookup("banktype", Info{
+		Display:     "Bank Type",
+		Category:    "payment",
+		Description: "Classification of a bank based on its services and operations",
+		Example:     "Investment Bank",
+		Output:      "string",
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return bankType(f), nil
 		},
 	})
 }
