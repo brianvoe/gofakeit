@@ -679,6 +679,8 @@ AchRouting() string
 AchAccount() string
 BitcoinAddress() string
 BitcoinPrivateKey() string
+BankName() string
+BankType() string
 ```
 
 ### Finance

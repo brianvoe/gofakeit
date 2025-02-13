@@ -331,3 +331,43 @@ func BenchmarkBitcoinPrivateKey(b *testing.B) {
 		BitcoinPrivateKey()
 	}
 }
+
+func ExampleBankName() {
+	Seed(11)
+	fmt.Println(BankName())
+
+	// Output: Toronto Dominion Bank
+}
+
+func ExampleFaker_BankName() {
+	f := New(11)
+	fmt.Println(f.BankName())
+
+	// Output: Toronto Dominion Bank
+}
+
+func BenchmarkBankName(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		BankName()
+	}
+}
+
+func ExampleBankType() {
+	Seed(11)
+	fmt.Println(BankType())
+
+	// Output: Savings Bank
+}
+
+func ExampleFaker_BankType() {
+	f := New(11)
+	fmt.Println(f.BankType())
+
+	// Output: Savings Bank
+}
+
+func BenchmarkBankType(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		BankType()
+	}
+}

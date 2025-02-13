@@ -33,6 +33,7 @@ var Data = map[string]map[string][]string{
 	"school":    School,
 	"song":      Songs,
 	"product":   Product,
+	"bank":      Bank,
 }
 
 func List() map[string][]string {
