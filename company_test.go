@@ -208,14 +208,14 @@ func ExampleSlogan() {
 	Seed(11)
 	fmt.Println(Slogan())
 
-	// Output: local area network maximize Drive, mission-critical.
+	// Output: Leads Success.
 }
 
 func ExampleFaker_Slogan() {
 	f := New(11)
 	fmt.Println(f.Slogan())
 
-	// Output: local area network maximize Drive, mission-critical.
+	// Output: Leads Success.
 }
 
 func BenchmarkSlogan(b *testing.B) {

@@ -1,5 +1,7 @@
 package gofakeit
 
+import "strings"
+
 // Company will generate a random company name string
 func Company() string { return company(GlobalFaker) }
 
@@ -92,21 +94,80 @@ func Slogan() string { return slogan(GlobalFaker) }
 // Slogan will generate a random company slogan
 func (f *Faker) Slogan() string { return slogan(f) }
 
+var sloganWords = map[string][]string{
+	"NounSingular": {
+		"Technology", "Success", "Strategy", "Leadership", "Trust", "Transformation", "Creativity", "Performance", "Progress",
+	},
+	"VerbSingular": {
+		"Empowers", "Creates", "Drives", "Shapes", "Builds", "Transforms", "Inspires", "Leads", "Delivers",
+	},
+	"Adjective": {
+		"Impactful", "Trusted", "Innovative", "Strategic", "Creative", "Visionary",
+	},
+	"Determiner": {
+		"Our", "Your",
+	},
+	"Interjection": {
+		"Wow", "Amazing",
+	},
+}
+
 // Slogan will generate a random company slogan
 func slogan(f *Faker) string {
-	slogan := ""
-	var sloganStyle = number(f, 0, 2)
-	switch sloganStyle {
-	// Noun. Buzzword!
-	case 0:
-		slogan = getRandValue(f, []string{"company", "blurb"}) + ". " + getRandValue(f, []string{"company", "buzzwords"}) + "!"
-	// Buzzword Noun, Buzzword Noun.
-	case 1:
-		slogan = getRandValue(f, []string{"company", "buzzwords"}) + " " + getRandValue(f, []string{"company", "blurb"}) + ", " + getRandValue(f, []string{"company", "buzzwords"}) + " " + getRandValue(f, []string{"company", "blurb"}) + "."
-	// Buzzword bs Noun, Buzzword.
-	case 2:
-		slogan = getRandValue(f, []string{"company", "buzzwords"}) + " " + getRandValue(f, []string{"company", "bs"}) + " " + getRandValue(f, []string{"company", "blurb"}) + ", " + getRandValue(f, []string{"company", "buzzwords"}) + "."
+	// Predefined slogan structures (Mad Libs style)
+	var structures = [][]string{
+		{"Adjective", "NounSingular", "Empowers"},
+		{"NounSingular", "Transforms", "Adjective", "NounSingular"},
+		{"NounSingular", "Drives", "Success"},
+		{"Adjective", "NounSingular", "Inspires"},
+		{"NounSingular", "Shapes", "Adjective", "Progress"},
+
+		{"Interjection", "!", "Adjective", "NounSingular"},
+		{"Interjection", "!", "NounSingular", "Leads"},
+
+		{"VerbSingular", "Adjective", "NounSingular"},
+		{"Adjective", "NounSingular", "Leads"},
+		{"Determiner", "Adjective", "NounSingular", "Delivers"},
+		{"Determiner", "NounSingular", "Inspires", "Adjective", "NounSingular"},
+
+		{"NounSingular", "Inspires"},
+		{"NounSingular", "Empowers"},
+		{"VerbSingular", "NounSingular"},
+		{"Adjective", "NounSingular"},
 	}
+
+	// Select a random structure
+	structure := structures[number(f, 0, len(structures)-1)]
+
+	// Build the slogan
+	var sloganParts []string
+	for _, wordType := range structure {
+		switch wordType {
+		case "NounSingular":
+			sloganParts = append(sloganParts, sloganWords["NounSingular"][number(f, 0, len(sloganWords["NounSingular"])-1)])
+		case "VerbSingular":
+			sloganParts = append(sloganParts, sloganWords["VerbSingular"][number(f, 0, len(sloganWords["VerbSingular"])-1)])
+		case "Adjective":
+			sloganParts = append(sloganParts, sloganWords["Adjective"][number(f, 0, len(sloganWords["Adjective"])-1)])
+		case "Determiner":
+			sloganParts = append(sloganParts, sloganWords["Determiner"][number(f, 0, len(sloganWords["Determiner"])-1)])
+		case "Interjection":
+			sloganParts = append(sloganParts, sloganWords["Interjection"][number(f, 0, len(sloganWords["Interjection"])-1)])
+		default:
+			// Directly append non-placeholder words
+			sloganParts = append(sloganParts, wordType)
+		}
+	}
+
+	// Combine words into a sentence
+	slogan := strings.Join(sloganParts, " ")
+
+	// Capitalize the first letter
+	slogan = title(slogan)
+
+	// Add a period to the end
+	slogan = slogan + "."
+
 	return slogan
 }
 
