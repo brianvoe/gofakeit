@@ -95,45 +95,36 @@ func Slogan() string { return slogan(GlobalFaker) }
 func (f *Faker) Slogan() string { return slogan(f) }
 
 var sloganWords = map[string][]string{
-	"NounSingular": {
-		"Technology", "Success", "Strategy", "Leadership", "Trust", "Transformation", "Creativity", "Performance", "Progress",
+	"NOUN": {
+		"future", "growth", "dream", "era", "world", "boundary", "hope", "glory", "journey", "direction",
 	},
-	"VerbSingular": {
-		"Empowers", "Creates", "Drives", "Shapes", "Builds", "Transforms", "Inspires", "Leads", "Delivers",
+	"VERB": {
+		"drive", "ignite", "inspire", "lead", "disrupt", "explore", "achieve", "transform", "empower", "exceed",
 	},
-	"Adjective": {
-		"Impactful", "Trusted", "Innovative", "Strategic", "Creative", "Visionary",
+	"ADJECTIVE": {
+		"excellent", "remarkable", "innovative", "reliable", "unique", "determined", "warm", "strong", "professional", "shining",
 	},
-	"Determiner": {
-		"Our", "Your",
-	},
-	"Interjection": {
-		"Wow", "Amazing",
-	},
+}
+
+// Determine whether it is punctuation
+func isPunctuation(word string) bool {
+	return strings.ContainsAny(word, ",.!?")
 }
 
 // Slogan will generate a random company slogan
 func slogan(f *Faker) string {
 	// Predefined slogan structures (Mad Libs style)
 	var structures = [][]string{
-		{"Adjective", "NounSingular", "Empowers"},
-		{"NounSingular", "Transforms", "Adjective", "NounSingular"},
-		{"NounSingular", "Drives", "Success"},
-		{"Adjective", "NounSingular", "Inspires"},
-		{"NounSingular", "Shapes", "Adjective", "Progress"},
-
-		{"Interjection", "!", "Adjective", "NounSingular"},
-		{"Interjection", "!", "NounSingular", "Leads"},
-
-		{"VerbSingular", "Adjective", "NounSingular"},
-		{"Adjective", "NounSingular", "Leads"},
-		{"Determiner", "Adjective", "NounSingular", "Delivers"},
-		{"Determiner", "NounSingular", "Inspires", "Adjective", "NounSingular"},
-
-		{"NounSingular", "Inspires"},
-		{"NounSingular", "Empowers"},
-		{"VerbSingular", "NounSingular"},
-		{"Adjective", "NounSingular"},
+		{"Innovation", "leads", "to", "NOUN", ",", "trust", "achieves", "excellence", "."},
+		{"Transform", "with", "technology", "to", "VERB", "change", "and", "unlock", "infinite", "possibilities", "."},
+		{"Connecting", "every", "trust", ",", "VERB", "every", "innovation", "."},
+		{"Explore", "the", "NOUN", "and", "achieve", "greatness", "."},
+		{"With", "wisdom", ",", "shape", "the", "NOUN", "and", "make", "every", "step", "more", "determined", "."},
+		{"Every", "choice", "creates", "a", "NOUN", "experience", "."},
+		{"Technology", "VERB", "to", "build", "a", "better", "tomorrow", "."},
+		{"Trust", "as", "the", "foundation", ",", "innovation", "as", "the", "wings", ",", "flying", "towards", "the", "NOUN", "."},
+		{"Use", "creativity", "to", "VERB", "boundaries", "and", "change", "the", "world", "through", "action", "."},
+		{"Focus", "creates", "professionalism", ",", "innovation", "VERB", "the", "future", "."},
 	}
 
 	// Select a random structure
@@ -143,32 +134,34 @@ func slogan(f *Faker) string {
 	var sloganParts []string
 	for _, wordType := range structure {
 		switch wordType {
-		case "NounSingular":
-			sloganParts = append(sloganParts, sloganWords["NounSingular"][number(f, 0, len(sloganWords["NounSingular"])-1)])
-		case "VerbSingular":
-			sloganParts = append(sloganParts, sloganWords["VerbSingular"][number(f, 0, len(sloganWords["VerbSingular"])-1)])
-		case "Adjective":
-			sloganParts = append(sloganParts, sloganWords["Adjective"][number(f, 0, len(sloganWords["Adjective"])-1)])
-		case "Determiner":
-			sloganParts = append(sloganParts, sloganWords["Determiner"][number(f, 0, len(sloganWords["Determiner"])-1)])
-		case "Interjection":
-			sloganParts = append(sloganParts, sloganWords["Interjection"][number(f, 0, len(sloganWords["Interjection"])-1)])
+		case "NOUN":
+			sloganParts = append(sloganParts, sloganWords["NOUN"][number(f, 0, len(sloganWords["NOUN"])-1)])
+		case "ADJECTIVE":
+			sloganParts = append(sloganParts, sloganWords["ADJECTIVE"][number(f, 0, len(sloganWords["ADJECTIVE"])-1)])
+		case "VERB":
+			sloganParts = append(sloganParts, sloganWords["VERB"][number(f, 0, len(sloganWords["VERB"])-1)])
 		default:
-			// Directly append non-placeholder words
 			sloganParts = append(sloganParts, wordType)
 		}
 	}
 
-	// Combine words into a sentence
-	slogan := strings.Join(sloganParts, " ")
+	var slogan strings.Builder
+	// Splice sentences and correctly handle punctuation
+	for i, word := range sloganParts {
+		if isPunctuation(word) {
+			slogan.WriteString(word)
+			if word != "." {
+				slogan.WriteString(" ")
+			}
+		} else {
+			if i > 0 && !isPunctuation(sloganParts[i-1]) {
+				slogan.WriteString(" ")
+			}
+			slogan.WriteString(word)
+		}
+	}
 
-	// Capitalize the first letter
-	slogan = title(slogan)
-
-	// Add a period to the end
-	slogan = slogan + "."
-
-	return slogan
+	return slogan.String()
 }
 
 func addCompanyLookup() {

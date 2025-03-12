@@ -208,14 +208,14 @@ func ExampleSlogan() {
 	Seed(11)
 	fmt.Println(Slogan())
 
-	// Output: Leads Success.
+	// Output: Use creativity to empower boundaries and change the world through action.
 }
 
 func ExampleFaker_Slogan() {
 	f := New(11)
 	fmt.Println(f.Slogan())
 
-	// Output: Leads Success.
+	// Output: Use creativity to empower boundaries and change the world through action.
 }
 
 func BenchmarkSlogan(b *testing.B) {
