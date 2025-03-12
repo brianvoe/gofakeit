@@ -1,5 +1,7 @@
 package gofakeit
 
+import "strings"
+
 // Company will generate a random company name string
 func Company() string { return company(GlobalFaker) }
 
@@ -92,22 +94,74 @@ func Slogan() string { return slogan(GlobalFaker) }
 // Slogan will generate a random company slogan
 func (f *Faker) Slogan() string { return slogan(f) }
 
+var sloganWords = map[string][]string{
+	"NOUN": {
+		"future", "growth", "dream", "era", "world", "boundary", "hope", "glory", "journey", "direction",
+	},
+	"VERB": {
+		"drive", "ignite", "inspire", "lead", "disrupt", "explore", "achieve", "transform", "empower", "exceed",
+	},
+	"ADJECTIVE": {
+		"excellent", "remarkable", "innovative", "reliable", "unique", "determined", "warm", "strong", "professional", "shining",
+	},
+}
+
+// Determine whether it is punctuation
+func isPunctuation(word string) bool {
+	return strings.ContainsAny(word, ",.!?")
+}
+
 // Slogan will generate a random company slogan
 func slogan(f *Faker) string {
-	slogan := ""
-	var sloganStyle = number(f, 0, 2)
-	switch sloganStyle {
-	// Noun. Buzzword!
-	case 0:
-		slogan = getRandValue(f, []string{"company", "blurb"}) + ". " + getRandValue(f, []string{"company", "buzzwords"}) + "!"
-	// Buzzword Noun, Buzzword Noun.
-	case 1:
-		slogan = getRandValue(f, []string{"company", "buzzwords"}) + " " + getRandValue(f, []string{"company", "blurb"}) + ", " + getRandValue(f, []string{"company", "buzzwords"}) + " " + getRandValue(f, []string{"company", "blurb"}) + "."
-	// Buzzword bs Noun, Buzzword.
-	case 2:
-		slogan = getRandValue(f, []string{"company", "buzzwords"}) + " " + getRandValue(f, []string{"company", "bs"}) + " " + getRandValue(f, []string{"company", "blurb"}) + ", " + getRandValue(f, []string{"company", "buzzwords"}) + "."
+	// Predefined slogan structures (Mad Libs style)
+	var structures = [][]string{
+		{"Innovation", "leads", "to", "NOUN", ",", "trust", "achieves", "excellence", "."},
+		{"Transform", "with", "technology", "to", "VERB", "change", "and", "unlock", "infinite", "possibilities", "."},
+		{"Connecting", "every", "trust", ",", "VERB", "every", "innovation", "."},
+		{"Explore", "the", "NOUN", "and", "achieve", "greatness", "."},
+		{"With", "wisdom", ",", "shape", "the", "NOUN", "and", "make", "every", "step", "more", "determined", "."},
+		{"Every", "choice", "creates", "a", "NOUN", "experience", "."},
+		{"Technology", "VERB", "to", "build", "a", "better", "tomorrow", "."},
+		{"Trust", "as", "the", "foundation", ",", "innovation", "as", "the", "wings", ",", "flying", "towards", "the", "NOUN", "."},
+		{"Use", "creativity", "to", "VERB", "boundaries", "and", "change", "the", "world", "through", "action", "."},
+		{"Focus", "creates", "professionalism", ",", "innovation", "VERB", "the", "future", "."},
 	}
-	return slogan
+
+	// Select a random structure
+	structure := structures[number(f, 0, len(structures)-1)]
+
+	// Build the slogan
+	var sloganParts []string
+	for _, wordType := range structure {
+		switch wordType {
+		case "NOUN":
+			sloganParts = append(sloganParts, sloganWords["NOUN"][number(f, 0, len(sloganWords["NOUN"])-1)])
+		case "ADJECTIVE":
+			sloganParts = append(sloganParts, sloganWords["ADJECTIVE"][number(f, 0, len(sloganWords["ADJECTIVE"])-1)])
+		case "VERB":
+			sloganParts = append(sloganParts, sloganWords["VERB"][number(f, 0, len(sloganWords["VERB"])-1)])
+		default:
+			sloganParts = append(sloganParts, wordType)
+		}
+	}
+
+	var slogan strings.Builder
+	// Splice sentences and correctly handle punctuation
+	for i, word := range sloganParts {
+		if isPunctuation(word) {
+			slogan.WriteString(word)
+			if word != "." {
+				slogan.WriteString(" ")
+			}
+		} else {
+			if i > 0 && !isPunctuation(sloganParts[i-1]) {
+				slogan.WriteString(" ")
+			}
+			slogan.WriteString(word)
+		}
+	}
+
+	return slogan.String()
 }
 
 func addCompanyLookup() {
