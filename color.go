@@ -1,7 +1,7 @@
 package gofakeit
 
 import (
-	"github.com/brianvoe/gofakeit/v7/data"
+	"github.com/digitalmint/gofakeit/data"
 )
 
 // Color will generate a random color string
@@ -57,60 +57,70 @@ func rgbColor(f *Faker) []int {
 }
 
 func addColorLookup() {
-	AddFuncLookup("color", Info{
-		Display:     "Color",
-		Category:    "color",
-		Description: "Hue seen by the eye, returns the name of the color like red or blue",
-		Example:     "MediumOrchid",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return color(f), nil
+	AddFuncLookup(
+		"color", Info{
+			Display:     "Color",
+			Category:    "color",
+			Description: "Hue seen by the eye, returns the name of the color like red or blue",
+			Example:     "MediumOrchid",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return color(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("nicecolors", Info{
-		Display:     "Nice Colors",
-		Category:    "color",
-		Description: "Attractive and appealing combinations of colors, returns an list of color hex codes",
-		Example:     `["#cfffdd","#b4dec1","#5c5863","#a85163","#ff1f4c"]`,
-		Output:      "[]string",
-		ContentType: "application/json",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return niceColors(f), nil
+	AddFuncLookup(
+		"nicecolors", Info{
+			Display:     "Nice Colors",
+			Category:    "color",
+			Description: "Attractive and appealing combinations of colors, returns an list of color hex codes",
+			Example:     `["#cfffdd","#b4dec1","#5c5863","#a85163","#ff1f4c"]`,
+			Output:      "[]string",
+			ContentType: "application/json",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return niceColors(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("safecolor", Info{
-		Display:     "Safe Color",
-		Category:    "color",
-		Description: "Colors displayed consistently on different web browsers and devices",
-		Example:     "black",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return safeColor(f), nil
+	AddFuncLookup(
+		"safecolor", Info{
+			Display:     "Safe Color",
+			Category:    "color",
+			Description: "Colors displayed consistently on different web browsers and devices",
+			Example:     "black",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return safeColor(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("hexcolor", Info{
-		Display:     "Hex Color",
-		Category:    "color",
-		Description: "Six-digit code representing a color in the color model",
-		Example:     "#a99fb4",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return hexColor(f), nil
+	AddFuncLookup(
+		"hexcolor", Info{
+			Display:     "Hex Color",
+			Category:    "color",
+			Description: "Six-digit code representing a color in the color model",
+			Example:     "#a99fb4",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return hexColor(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("rgbcolor", Info{
-		Display:     "RGB Color",
-		Category:    "color",
-		Description: "Color defined by red, green, and blue light values",
-		Example:     "[85, 224, 195]",
-		Output:      "[]int",
-		ContentType: "application/json",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return rgbColor(f), nil
+	AddFuncLookup(
+		"rgbcolor", Info{
+			Display:     "RGB Color",
+			Category:    "color",
+			Description: "Color defined by red, green, and blue light values",
+			Example:     "[85, 224, 195]",
+			Output:      "[]int",
+			ContentType: "application/json",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return rgbColor(f), nil
+			},
 		},
-	})
+	)
 }

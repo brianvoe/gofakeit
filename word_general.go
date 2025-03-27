@@ -3,7 +3,7 @@ package gofakeit
 import (
 	"strings"
 
-	"github.com/brianvoe/gofakeit/v7/data"
+	"github.com/digitalmint/gofakeit/data"
 )
 
 // Word will generate a random word
@@ -24,14 +24,16 @@ func word(f *Faker) string {
 }
 
 func addWordGeneralLookup() {
-	AddFuncLookup("word", Info{
-		Display:     "Word",
-		Category:    "word",
-		Description: "Basic unit of language representing a concept or thing, consisting of letters and having meaning",
-		Example:     "man",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return word(f), nil
+	AddFuncLookup(
+		"word", Info{
+			Display:     "Word",
+			Category:    "word",
+			Description: "Basic unit of language representing a concept or thing, consisting of letters and having meaning",
+			Example:     "man",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return word(f), nil
+			},
 		},
-	})
+	)
 }

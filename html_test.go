@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/brianvoe/gofakeit/v7/data"
+	"github.com/digitalmint/gofakeit/data"
 )
 
 func ExampleInputName() {
@@ -35,23 +35,27 @@ func TestSvg(t *testing.T) {
 	var SvgTypes = data.GetSubData("html", "svg")
 	for _, svgType := range SvgTypes {
 		// Run the test
-		t.Run(svgType, func(t *testing.T) {
+		t.Run(
+			svgType, func(t *testing.T) {
 
-			// Get the image
-			img := Svg(&SVGOptions{
-				Type: svgType,
-			})
+				// Get the image
+				img := Svg(
+					&SVGOptions{
+						Type: svgType,
+					},
+				)
 
-			// Check the image
-			if img == "" {
-				t.Error("Svg returned an empty string")
-			}
+				// Check the image
+				if img == "" {
+					t.Error("Svg returned an empty string")
+				}
 
-			// Check the image
-			if !strings.Contains(img, svgType) {
-				t.Errorf("Svg returned an image of type %s, but should have been %s", svgType, svgType)
-			}
-		})
+				// Check the image
+				if !strings.Contains(img, svgType) {
+					t.Errorf("Svg returned an image of type %s, but should have been %s", svgType, svgType)
+				}
+			},
+		)
 	}
 }
 

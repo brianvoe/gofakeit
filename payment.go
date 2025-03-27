@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/brianvoe/gofakeit/v7/data"
+	"github.com/digitalmint/gofakeit/data"
 )
 
 // CurrencyInfo is a struct of currency information
@@ -253,225 +253,255 @@ func (f *Faker) BankType() string { return bankType(f) }
 func bankType(f *Faker) string { return getRandValue(f, []string{"bank", "type"}) }
 
 func addPaymentLookup() {
-	AddFuncLookup("currency", Info{
-		Display:     "Currency",
-		Category:    "payment",
-		Description: "Medium of exchange, often in the form of paper money or coins, used for trade and transactions",
-		Example: `{
+	AddFuncLookup(
+		"currency", Info{
+			Display:     "Currency",
+			Category:    "payment",
+			Description: "Medium of exchange, often in the form of paper money or coins, used for trade and transactions",
+			Example: `{
 	"short": "IQD",
 	"long": "Iraq Dinar"
 }`,
-		Output:      "map[string]string",
-		ContentType: "application/json",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return currency(f), nil
+			Output:      "map[string]string",
+			ContentType: "application/json",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return currency(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("currencyshort", Info{
-		Display:     "Currency Short",
-		Category:    "payment",
-		Description: "Short 3-letter word used to represent a specific currency",
-		Example:     "USD",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return currencyShort(f), nil
+	AddFuncLookup(
+		"currencyshort", Info{
+			Display:     "Currency Short",
+			Category:    "payment",
+			Description: "Short 3-letter word used to represent a specific currency",
+			Example:     "USD",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return currencyShort(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("currencylong", Info{
-		Display:     "Currency Long",
-		Category:    "payment",
-		Description: "Complete name of a specific currency used for official identification in financial transactions",
-		Example:     "United States Dollar",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return currencyLong(f), nil
+	AddFuncLookup(
+		"currencylong", Info{
+			Display:     "Currency Long",
+			Category:    "payment",
+			Description: "Complete name of a specific currency used for official identification in financial transactions",
+			Example:     "United States Dollar",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return currencyLong(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("price", Info{
-		Display:     "Price",
-		Category:    "payment",
-		Description: "The amount of money or value assigned to a product, service, or asset in a transaction",
-		Example:     "92.26",
-		Output:      "float64",
-		Params: []Param{
-			{Field: "min", Display: "Min", Type: "float", Default: "0", Description: "Minimum price value"},
-			{Field: "max", Display: "Max", Type: "float", Default: "1000", Description: "Maximum price value"},
+	AddFuncLookup(
+		"price", Info{
+			Display:     "Price",
+			Category:    "payment",
+			Description: "The amount of money or value assigned to a product, service, or asset in a transaction",
+			Example:     "92.26",
+			Output:      "float64",
+			Params: []Param{
+				{Field: "min", Display: "Min", Type: "float", Default: "0", Description: "Minimum price value"},
+				{Field: "max", Display: "Max", Type: "float", Default: "1000", Description: "Maximum price value"},
+			},
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				min, err := info.GetFloat64(m, "min")
+				if err != nil {
+					return nil, err
+				}
+
+				max, err := info.GetFloat64(m, "max")
+				if err != nil {
+					return nil, err
+				}
+
+				return price(f, min, max), nil
+			},
 		},
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			min, err := info.GetFloat64(m, "min")
-			if err != nil {
-				return nil, err
-			}
+	)
 
-			max, err := info.GetFloat64(m, "max")
-			if err != nil {
-				return nil, err
-			}
-
-			return price(f, min, max), nil
-		},
-	})
-
-	AddFuncLookup("creditcard", Info{
-		Display:     "Credit Card",
-		Category:    "payment",
-		Description: "Plastic card allowing users to make purchases on credit, with payment due at a later date",
-		Example: `{
+	AddFuncLookup(
+		"creditcard", Info{
+			Display:     "Credit Card",
+			Category:    "payment",
+			Description: "Plastic card allowing users to make purchases on credit, with payment due at a later date",
+			Example: `{
 	"type": "UnionPay",
 	"number": "4364599489953698",
 	"exp": "02/24",
 	"cvv": "300"
 }`,
-		Output:      "map[string]any",
-		ContentType: "application/json",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return creditCard(f), nil
-		},
-	})
-
-	AddFuncLookup("creditcardtype", Info{
-		Display:     "Credit Card Type",
-		Category:    "payment",
-		Description: "Classification of credit cards based on the issuing company",
-		Example:     "Visa",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return creditCardType(f), nil
-		},
-	})
-
-	AddFuncLookup("creditcardnumber", Info{
-		Display:     "Credit Card Number",
-		Category:    "payment",
-		Description: "Unique numerical identifier on a credit card used for making electronic payments and transactions",
-		Example:     "4136459948995369",
-		Output:      "string",
-		Params: []Param{
-			{
-				Field: "types", Display: "Types", Type: "[]string", Default: "all",
-				Options:     []string{"visa", "mastercard", "american-express", "diners-club", "discover", "jcb", "unionpay", "maestro", "elo", "hiper", "hipercard"},
-				Description: "A select number of types you want to use when generating a credit card number",
+			Output:      "map[string]any",
+			ContentType: "application/json",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return creditCard(f), nil
 			},
-			{Field: "bins", Display: "Bins", Type: "[]string", Optional: true, Description: "Optional list of prepended bin numbers to pick from"},
-			{Field: "gaps", Display: "Gaps", Type: "bool", Default: "false", Description: "Whether or not to have gaps in number"},
 		},
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			types, err := info.GetStringArray(m, "types")
-			if err != nil {
-				return nil, err
-			}
-			if len(types) == 1 && types[0] == "all" {
-				types = []string{}
-			}
+	)
 
-			bins, _ := info.GetStringArray(m, "bins")
-
-			gaps, err := info.GetBool(m, "gaps")
-			if err != nil {
-				return nil, err
-			}
-
-			options := CreditCardOptions{
-				Types: types,
-				Gaps:  gaps,
-			}
-
-			if len(bins) >= 1 {
-				options.Bins = bins
-			}
-
-			return creditCardNumber(f, &options), nil
+	AddFuncLookup(
+		"creditcardtype", Info{
+			Display:     "Credit Card Type",
+			Category:    "payment",
+			Description: "Classification of credit cards based on the issuing company",
+			Example:     "Visa",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return creditCardType(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("creditcardexp", Info{
-		Display:     "Credit Card Exp",
-		Category:    "payment",
-		Description: "Date when a credit card becomes invalid and cannot be used for transactions",
-		Example:     "01/21",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return creditCardExp(f), nil
-		},
-	})
+	AddFuncLookup(
+		"creditcardnumber", Info{
+			Display:     "Credit Card Number",
+			Category:    "payment",
+			Description: "Unique numerical identifier on a credit card used for making electronic payments and transactions",
+			Example:     "4136459948995369",
+			Output:      "string",
+			Params: []Param{
+				{
+					Field: "types", Display: "Types", Type: "[]string", Default: "all",
+					Options:     []string{"visa", "mastercard", "american-express", "diners-club", "discover", "jcb", "unionpay", "maestro", "elo", "hiper", "hipercard"},
+					Description: "A select number of types you want to use when generating a credit card number",
+				},
+				{Field: "bins", Display: "Bins", Type: "[]string", Optional: true, Description: "Optional list of prepended bin numbers to pick from"},
+				{Field: "gaps", Display: "Gaps", Type: "bool", Default: "false", Description: "Whether or not to have gaps in number"},
+			},
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				types, err := info.GetStringArray(m, "types")
+				if err != nil {
+					return nil, err
+				}
+				if len(types) == 1 && types[0] == "all" {
+					types = []string{}
+				}
 
-	AddFuncLookup("creditcardcvv", Info{
-		Display:     "Credit Card CVV",
-		Category:    "payment",
-		Description: "Three or four-digit security code on a credit card used for online and remote transactions",
-		Example:     "513",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return creditCardCvv(f), nil
-		},
-	})
+				bins, _ := info.GetStringArray(m, "bins")
 
-	AddFuncLookup("achrouting", Info{
-		Display:     "ACH Routing Number",
-		Category:    "payment",
-		Description: "Unique nine-digit code used in the U.S. for identifying the bank and processing electronic transactions",
-		Example:     "513715684",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return achRouting(f), nil
-		},
-	})
+				gaps, err := info.GetBool(m, "gaps")
+				if err != nil {
+					return nil, err
+				}
 
-	AddFuncLookup("achaccount", Info{
-		Display:     "ACH Account Number",
-		Category:    "payment",
-		Description: "A bank account number used for Automated Clearing House transactions and electronic transfers",
-		Example:     "491527954328",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return achAccount(f), nil
-		},
-	})
+				options := CreditCardOptions{
+					Types: types,
+					Gaps:  gaps,
+				}
 
-	AddFuncLookup("bitcoinaddress", Info{
-		Display:     "Bitcoin Address",
-		Category:    "payment",
-		Description: "Cryptographic identifier used to receive, store, and send Bitcoin cryptocurrency in a peer-to-peer network",
-		Example:     "1lWLbxojXq6BqWX7X60VkcDIvYA",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return bitcoinAddress(f), nil
-		},
-	})
+				if len(bins) >= 1 {
+					options.Bins = bins
+				}
 
-	AddFuncLookup("bitcoinprivatekey", Info{
-		Display:     "Bitcoin Private Key",
-		Category:    "payment",
-		Description: "Secret, secure code that allows the owner to access and control their Bitcoin holdings",
-		Example:     "5vrbXTADWJ6sQBSYd6lLkG97jljNc0X9VPBvbVqsIH9lWOLcoqg",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return bitcoinPrivateKey(f), nil
+				return creditCardNumber(f, &options), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("bankname", Info{
-		Display:     "Bank Name",
-		Category:    "payment",
-		Description: "Name of a financial institution that offers banking services",
-		Example:     "Wells Fargo",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return bankName(f), nil
+	AddFuncLookup(
+		"creditcardexp", Info{
+			Display:     "Credit Card Exp",
+			Category:    "payment",
+			Description: "Date when a credit card becomes invalid and cannot be used for transactions",
+			Example:     "01/21",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return creditCardExp(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("banktype", Info{
-		Display:     "Bank Type",
-		Category:    "payment",
-		Description: "Classification of a bank based on its services and operations",
-		Example:     "Investment Bank",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return bankType(f), nil
+	AddFuncLookup(
+		"creditcardcvv", Info{
+			Display:     "Credit Card CVV",
+			Category:    "payment",
+			Description: "Three or four-digit security code on a credit card used for online and remote transactions",
+			Example:     "513",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return creditCardCvv(f), nil
+			},
 		},
-	})
+	)
+
+	AddFuncLookup(
+		"achrouting", Info{
+			Display:     "ACH Routing Number",
+			Category:    "payment",
+			Description: "Unique nine-digit code used in the U.S. for identifying the bank and processing electronic transactions",
+			Example:     "513715684",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return achRouting(f), nil
+			},
+		},
+	)
+
+	AddFuncLookup(
+		"achaccount", Info{
+			Display:     "ACH Account Number",
+			Category:    "payment",
+			Description: "A bank account number used for Automated Clearing House transactions and electronic transfers",
+			Example:     "491527954328",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return achAccount(f), nil
+			},
+		},
+	)
+
+	AddFuncLookup(
+		"bitcoinaddress", Info{
+			Display:     "Bitcoin Address",
+			Category:    "payment",
+			Description: "Cryptographic identifier used to receive, store, and send Bitcoin cryptocurrency in a peer-to-peer network",
+			Example:     "1lWLbxojXq6BqWX7X60VkcDIvYA",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return bitcoinAddress(f), nil
+			},
+		},
+	)
+
+	AddFuncLookup(
+		"bitcoinprivatekey", Info{
+			Display:     "Bitcoin Private Key",
+			Category:    "payment",
+			Description: "Secret, secure code that allows the owner to access and control their Bitcoin holdings",
+			Example:     "5vrbXTADWJ6sQBSYd6lLkG97jljNc0X9VPBvbVqsIH9lWOLcoqg",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return bitcoinPrivateKey(f), nil
+			},
+		},
+	)
+
+	AddFuncLookup(
+		"bankname", Info{
+			Display:     "Bank Name",
+			Category:    "payment",
+			Description: "Name of a financial institution that offers banking services",
+			Example:     "Wells Fargo",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return bankName(f), nil
+			},
+		},
+	)
+
+	AddFuncLookup(
+		"banktype", Info{
+			Display:     "Bank Type",
+			Category:    "payment",
+			Description: "Classification of a bank based on its services and operations",
+			Example:     "Investment Bank",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return bankType(f), nil
+			},
+		},
+	)
 }

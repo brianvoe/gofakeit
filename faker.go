@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"sync"
 
-	"github.com/brianvoe/gofakeit/v7/source"
+	"github.com/digitalmint/gofakeit/source"
 )
 
 // Create global variable to deal with global function call

@@ -8,7 +8,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/brianvoe/gofakeit/v7/data"
+	"github.com/digitalmint/gofakeit/data"
 )
 
 const lowerStr = "abcdefghijklmnopqrstuvwxyz"
@@ -268,7 +268,8 @@ func title(s string) string {
 			prev = r
 			return r
 		},
-		s)
+		s,
+	)
 }
 
 func funcLookupSplit(str string) ([]string, error) {

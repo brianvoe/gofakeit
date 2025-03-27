@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/brianvoe/gofakeit/v7/data"
+	"github.com/digitalmint/gofakeit/data"
 )
 
 // InputName will return a random input field name
@@ -93,82 +93,86 @@ func svg(f *Faker, options *SVGOptions) string {
 }
 
 func addHtmlLookup() {
-	AddFuncLookup("inputname", Info{
-		Display:     "Input Name",
-		Category:    "html",
-		Description: "Attribute used to define the name of an input element in web forms",
-		Example:     "first_name",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return inputName(f), nil
+	AddFuncLookup(
+		"inputname", Info{
+			Display:     "Input Name",
+			Category:    "html",
+			Description: "Attribute used to define the name of an input element in web forms",
+			Example:     "first_name",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return inputName(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("svg", Info{
-		Display:     "Image SVG",
-		Category:    "html",
-		Description: "Scalable Vector Graphics used to display vector images in web content",
-		Example: `<svg width="369" height="289">
+	AddFuncLookup(
+		"svg", Info{
+			Display:     "Image SVG",
+			Category:    "html",
+			Description: "Scalable Vector Graphics used to display vector images in web content",
+			Example: `<svg width="369" height="289">
 	<rect fill="#4f2958" />
 	<polygon points="382,87 418,212 415,110" fill="#fffbb7" />
 </svg>`,
-		Output:      "string",
-		ContentType: "image/svg+xml",
-		Params: []Param{
-			{Field: "width", Display: "Width", Type: "int", Default: "500", Description: "Width in px"},
-			{Field: "height", Display: "Height", Type: "int", Default: "500", Description: "Height in px"},
-			{Field: "type", Display: "Type", Type: "string", Optional: true, Options: data.GetSubData("html", "svg"), Description: "Sub child element type"},
-			{Field: "colors", Display: "Colors", Type: "[]string", Optional: true, Description: "Hex or RGB array of colors to use"},
+			Output:      "string",
+			ContentType: "image/svg+xml",
+			Params: []Param{
+				{Field: "width", Display: "Width", Type: "int", Default: "500", Description: "Width in px"},
+				{Field: "height", Display: "Height", Type: "int", Default: "500", Description: "Height in px"},
+				{Field: "type", Display: "Type", Type: "string", Optional: true, Options: data.GetSubData("html", "svg"), Description: "Sub child element type"},
+				{Field: "colors", Display: "Colors", Type: "[]string", Optional: true, Description: "Hex or RGB array of colors to use"},
+			},
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				// Setup new options
+				options := SVGOptions{}
+				var err error
+
+				options.Width, err = info.GetInt(m, "width")
+				if err != nil {
+					return nil, err
+				}
+				if options.Width < 10 || options.Width >= 1000 {
+					return nil, errors.New("invalid image width, must be greater than 10, less than 1000")
+				}
+
+				options.Height, err = info.GetInt(m, "height")
+				if err != nil {
+					return nil, err
+				}
+				if options.Height < 10 || options.Height >= 1000 {
+					return nil, errors.New("invalid image height, must be greater than 10, less than 1000")
+				}
+
+				options.Type, err = info.GetString(m, "type")
+				svgData := data.GetSubData("html", "svg")
+				if err != nil {
+					return nil, err
+				}
+
+				// If type is empty, set with random type
+				if options.Type == "" {
+					options.Type = randomString(f, svgData)
+				}
+
+				// If not in date html svg type array, return error
+				if !stringInSlice(options.Type, svgData) {
+					return nil, errors.New("invalid svg type, must be one of " + strings.Join(svgData, ","))
+				}
+
+				// Get colors
+				options.Colors, err = info.GetStringArray(m, "colors")
+				if err != nil {
+					return nil, err
+				}
+
+				// If colors is empty, set with random colors
+				if len(options.Colors) == 0 {
+					options.Colors = niceColors(f)
+				}
+
+				return svg(f, &options), nil
+			},
 		},
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			// Setup new options
-			options := SVGOptions{}
-			var err error
-
-			options.Width, err = info.GetInt(m, "width")
-			if err != nil {
-				return nil, err
-			}
-			if options.Width < 10 || options.Width >= 1000 {
-				return nil, errors.New("invalid image width, must be greater than 10, less than 1000")
-			}
-
-			options.Height, err = info.GetInt(m, "height")
-			if err != nil {
-				return nil, err
-			}
-			if options.Height < 10 || options.Height >= 1000 {
-				return nil, errors.New("invalid image height, must be greater than 10, less than 1000")
-			}
-
-			options.Type, err = info.GetString(m, "type")
-			svgData := data.GetSubData("html", "svg")
-			if err != nil {
-				return nil, err
-			}
-
-			// If type is empty, set with random type
-			if options.Type == "" {
-				options.Type = randomString(f, svgData)
-			}
-
-			// If not in date html svg type array, return error
-			if !stringInSlice(options.Type, svgData) {
-				return nil, errors.New("invalid svg type, must be one of " + strings.Join(svgData, ","))
-			}
-
-			// Get colors
-			options.Colors, err = info.GetStringArray(m, "colors")
-			if err != nil {
-				return nil, err
-			}
-
-			// If colors is empty, set with random colors
-			if len(options.Colors) == 0 {
-				options.Colors = niceColors(f)
-			}
-
-			return svg(f, &options), nil
-		},
-	})
+	)
 }

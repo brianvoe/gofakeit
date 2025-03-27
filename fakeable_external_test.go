@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/brianvoe/gofakeit/v7"
+	"github.com/digitalmint/gofakeit"
 )
 
 var (
@@ -581,24 +581,26 @@ func TestNestedCustom(t *testing.T) {
 }
 
 func TestNestedOverrideCustom(t *testing.T) {
-	gofakeit.AddFuncLookup("raw_test_date", gofakeit.Info{
-		Display:     "Date",
-		Category:    "time",
-		Description: "Random date",
-		Example:     "2006-01-02T15:04:05Z07:00",
-		Output:      "time.Time",
-		Params: []gofakeit.Param{
-			{
-				Field:       "format",
-				Display:     "Format",
-				Type:        "time.Time",
-				Description: "Raw date time.Time object",
+	gofakeit.AddFuncLookup(
+		"raw_test_date", gofakeit.Info{
+			Display:     "Date",
+			Category:    "time",
+			Description: "Random date",
+			Example:     "2006-01-02T15:04:05Z07:00",
+			Output:      "time.Time",
+			Params: []gofakeit.Param{
+				{
+					Field:       "format",
+					Display:     "Format",
+					Type:        "time.Time",
+					Description: "Raw date time.Time object",
+				},
+			},
+			Generate: func(f *gofakeit.Faker, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
+				return gofakeit.Date(), nil
 			},
 		},
-		Generate: func(f *gofakeit.Faker, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
-			return gofakeit.Date(), nil
-		},
-	})
+	)
 
 	defer gofakeit.RemoveFuncLookup("raw_test_date")
 

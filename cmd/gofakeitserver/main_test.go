@@ -7,19 +7,21 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/brianvoe/gofakeit/v7"
+	"github.com/digitalmint/gofakeit"
 )
 
 func TestList(t *testing.T) {
 	var response map[string]gofakeit.Info
 	var statusCode int
-	testRequest(&testRequestStruct{
-		Testing:    t,
-		Method:     "GET",
-		Path:       "/list",
-		Response:   &response,
-		StatusCode: &statusCode,
-	})
+	testRequest(
+		&testRequestStruct{
+			Testing:    t,
+			Method:     "GET",
+			Path:       "/list",
+			Response:   &response,
+			StatusCode: &statusCode,
+		},
+	)
 
 	if statusCode != 200 {
 		t.Fatalf("Was expecting 200 got %d", statusCode)
@@ -100,13 +102,15 @@ func TestGetAllRequests(t *testing.T) {
 		}
 
 		var statusCode int
-		testRequest(&testRequestStruct{
-			Testing:     t,
-			Method:      "GET",
-			Path:        "/" + field,
-			QueryParams: mapData,
-			StatusCode:  &statusCode,
-		})
+		testRequest(
+			&testRequestStruct{
+				Testing:     t,
+				Method:      "GET",
+				Path:        "/" + field,
+				QueryParams: mapData,
+				StatusCode:  &statusCode,
+			},
+		)
 
 		if statusCode != 200 {
 			t.Fatalf("Was expecting 200 got %d, function %v, params %+v", statusCode, field, mapData)
@@ -117,13 +121,15 @@ func TestGetAllRequests(t *testing.T) {
 func TestGetLookupNoParams(t *testing.T) {
 	var response string
 	var statusCode int
-	testRequest(&testRequestStruct{
-		Testing:    t,
-		Method:     "GET",
-		Path:       "/firstname",
-		Response:   &response,
-		StatusCode: &statusCode,
-	})
+	testRequest(
+		&testRequestStruct{
+			Testing:    t,
+			Method:     "GET",
+			Path:       "/firstname",
+			Response:   &response,
+			StatusCode: &statusCode,
+		},
+	)
 
 	if statusCode != 200 {
 		t.Fatalf("Was expecting 200 got %d", statusCode)
@@ -137,16 +143,18 @@ func TestGetLookupNoParams(t *testing.T) {
 func TestGetLookupWithParams(t *testing.T) {
 	var response string
 	var statusCode int
-	testRequest(&testRequestStruct{
-		Testing: t,
-		Method:  "GET",
-		Path:    "/password",
-		QueryParams: url.Values{
-			"length": []string{"5"},
+	testRequest(
+		&testRequestStruct{
+			Testing: t,
+			Method:  "GET",
+			Path:    "/password",
+			QueryParams: url.Values{
+				"length": []string{"5"},
+			},
+			Response:   &response,
+			StatusCode: &statusCode,
 		},
-		Response:   &response,
-		StatusCode: &statusCode,
-	})
+	)
 
 	if statusCode != 200 {
 		t.Fatalf("Was expecting 200 got %d", statusCode)
@@ -217,13 +225,15 @@ func TestPostAllRequests(t *testing.T) {
 		}
 
 		var statusCode int
-		testRequest(&testRequestStruct{
-			Testing:    t,
-			Method:     "POST",
-			Path:       "/" + field,
-			Body:       mapData,
-			StatusCode: &statusCode,
-		})
+		testRequest(
+			&testRequestStruct{
+				Testing:    t,
+				Method:     "POST",
+				Path:       "/" + field,
+				Body:       mapData,
+				StatusCode: &statusCode,
+			},
+		)
 
 		if statusCode != 200 {
 			t.Fatalf("Was expecting 200 got %d", statusCode)
@@ -234,13 +244,15 @@ func TestPostAllRequests(t *testing.T) {
 func TestPostLookupNoParams(t *testing.T) {
 	var response string
 	var statusCode int
-	testRequest(&testRequestStruct{
-		Testing:    t,
-		Method:     "POST",
-		Path:       "/firstname",
-		Response:   &response,
-		StatusCode: &statusCode,
-	})
+	testRequest(
+		&testRequestStruct{
+			Testing:    t,
+			Method:     "POST",
+			Path:       "/firstname",
+			Response:   &response,
+			StatusCode: &statusCode,
+		},
+	)
 
 	if statusCode != 200 {
 		t.Fatalf("Was expecting 200 got %d", statusCode)
@@ -254,17 +266,19 @@ func TestPostLookupNoParams(t *testing.T) {
 func TestPostLookupWithParams(t *testing.T) {
 	var response string
 	var statusCode int
-	testRequest(&testRequestStruct{
-		Testing: t,
-		Method:  "POST",
-		Path:    "/password",
-		Body: map[string]any{
-			"space":  true,
-			"length": "500",
+	testRequest(
+		&testRequestStruct{
+			Testing: t,
+			Method:  "POST",
+			Path:    "/password",
+			Body: map[string]any{
+				"space":  true,
+				"length": "500",
+			},
+			Response:   &response,
+			StatusCode: &statusCode,
 		},
-		Response:   &response,
-		StatusCode: &statusCode,
-	})
+	)
 
 	if statusCode != 200 {
 		t.Fatalf("Was expecting 200 got %d", statusCode)
@@ -286,16 +300,18 @@ func TestPostLookupWithParams(t *testing.T) {
 func TestPostLookupWithParamsArray(t *testing.T) {
 	var response []string
 	var statusCode int
-	testRequest(&testRequestStruct{
-		Testing: t,
-		Method:  "POST",
-		Path:    "/shufflestrings",
-		Body: map[string]any{
-			"strs": []string{"a", "b", "c", "d", "e", "f"},
+	testRequest(
+		&testRequestStruct{
+			Testing: t,
+			Method:  "POST",
+			Path:    "/shufflestrings",
+			Body: map[string]any{
+				"strs": []string{"a", "b", "c", "d", "e", "f"},
+			},
+			Response:   &response,
+			StatusCode: &statusCode,
 		},
-		Response:   &response,
-		StatusCode: &statusCode,
-	})
+	)
 
 	if statusCode != 200 {
 		t.Fatalf("Was expecting 200 got %d", statusCode)

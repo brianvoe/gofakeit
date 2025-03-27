@@ -4,7 +4,7 @@ import (
 	"encoding/hex"
 	"reflect"
 
-	"github.com/brianvoe/gofakeit/v7/data"
+	"github.com/digitalmint/gofakeit/data"
 )
 
 // Bool will generate a random boolean value
@@ -129,36 +129,42 @@ func Categories() map[string][]string {
 }
 
 func addMiscLookup() {
-	AddFuncLookup("uuid", Info{
-		Display:     "UUID",
-		Category:    "misc",
-		Description: "128-bit identifier used to uniquely identify objects or entities in computer systems",
-		Example:     "590c1440-9888-45b0-bd51-a817ee07c3f2",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return uuid(f), nil
+	AddFuncLookup(
+		"uuid", Info{
+			Display:     "UUID",
+			Category:    "misc",
+			Description: "128-bit identifier used to uniquely identify objects or entities in computer systems",
+			Example:     "590c1440-9888-45b0-bd51-a817ee07c3f2",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return uuid(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("bool", Info{
-		Display:     "Boolean",
-		Category:    "misc",
-		Description: "Data type that represents one of two possible values, typically true or false",
-		Example:     "true",
-		Output:      "bool",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return boolFunc(f), nil
+	AddFuncLookup(
+		"bool", Info{
+			Display:     "Boolean",
+			Category:    "misc",
+			Description: "Data type that represents one of two possible values, typically true or false",
+			Example:     "true",
+			Output:      "bool",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return boolFunc(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("flipacoin", Info{
-		Display:     "Flip A Coin",
-		Category:    "misc",
-		Description: "Decision-making method involving the tossing of a coin to determine outcomes",
-		Example:     "Tails",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return flipACoin(f), nil
+	AddFuncLookup(
+		"flipacoin", Info{
+			Display:     "Flip A Coin",
+			Category:    "misc",
+			Description: "Decision-making method involving the tossing of a coin to determine outcomes",
+			Example:     "Tails",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return flipACoin(f), nil
+			},
 		},
-	})
+	)
 }

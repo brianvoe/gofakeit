@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/brianvoe/gofakeit/v7"
+	"github.com/digitalmint/gofakeit"
 )
 
 var errNoFuncRunMsg = errors.New("could not find function to run\nrun gofakeit help or gofakeit list for available functions")

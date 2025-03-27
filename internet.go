@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/brianvoe/gofakeit/v7/data"
+	"github.com/digitalmint/gofakeit/data"
 )
 
 // DomainName will generate a random url domain name
@@ -262,179 +262,211 @@ func httpVersion(f *Faker) string {
 }
 
 func addInternetLookup() {
-	AddFuncLookup("url", Info{
-		Display:     "URL",
-		Category:    "internet",
-		Description: "Web address that specifies the location of a resource on the internet",
-		Example:     "http://www.principalproductize.biz/target",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return url(f), nil
+	AddFuncLookup(
+		"url", Info{
+			Display:     "URL",
+			Category:    "internet",
+			Description: "Web address that specifies the location of a resource on the internet",
+			Example:     "http://www.principalproductize.biz/target",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return url(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("domainname", Info{
-		Display:     "Domain Name",
-		Category:    "internet",
-		Description: "Human-readable web address used to identify websites on the internet",
-		Example:     "centraltarget.biz",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return domainName(f), nil
+	AddFuncLookup(
+		"domainname", Info{
+			Display:     "Domain Name",
+			Category:    "internet",
+			Description: "Human-readable web address used to identify websites on the internet",
+			Example:     "centraltarget.biz",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return domainName(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("domainsuffix", Info{
-		Display:     "Domain Suffix",
-		Category:    "internet",
-		Description: "The part of a domain name that comes after the last dot, indicating its type or purpose",
-		Example:     "org",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return domainSuffix(f), nil
+	AddFuncLookup(
+		"domainsuffix", Info{
+			Display:     "Domain Suffix",
+			Category:    "internet",
+			Description: "The part of a domain name that comes after the last dot, indicating its type or purpose",
+			Example:     "org",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return domainSuffix(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("ipv4address", Info{
-		Display:     "IPv4 Address",
-		Category:    "internet",
-		Description: "Numerical label assigned to devices on a network for identification and communication",
-		Example:     "222.83.191.222",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return ipv4Address(f), nil
+	AddFuncLookup(
+		"ipv4address", Info{
+			Display:     "IPv4 Address",
+			Category:    "internet",
+			Description: "Numerical label assigned to devices on a network for identification and communication",
+			Example:     "222.83.191.222",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return ipv4Address(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("ipv6address", Info{
-		Display:     "IPv6 Address",
-		Category:    "internet",
-		Description: "Numerical label assigned to devices on a network, providing a larger address space than IPv4 for internet communication",
-		Example:     "2001:cafe:8898:ee17:bc35:9064:5866:d019",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return ipv6Address(f), nil
+	AddFuncLookup(
+		"ipv6address", Info{
+			Display:     "IPv6 Address",
+			Category:    "internet",
+			Description: "Numerical label assigned to devices on a network, providing a larger address space than IPv4 for internet communication",
+			Example:     "2001:cafe:8898:ee17:bc35:9064:5866:d019",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return ipv6Address(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("httpmethod", Info{
-		Display:     "HTTP Method",
-		Category:    "internet",
-		Description: "Verb used in HTTP requests to specify the desired action to be performed on a resource",
-		Example:     "HEAD",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return httpMethod(f), nil
+	AddFuncLookup(
+		"httpmethod", Info{
+			Display:     "HTTP Method",
+			Category:    "internet",
+			Description: "Verb used in HTTP requests to specify the desired action to be performed on a resource",
+			Example:     "HEAD",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return httpMethod(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("loglevel", Info{
-		Display:     "Log Level",
-		Category:    "internet",
-		Description: "Classification used in logging to indicate the severity or priority of a log entry",
-		Example:     "error",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return logLevel(f, ""), nil
+	AddFuncLookup(
+		"loglevel", Info{
+			Display:     "Log Level",
+			Category:    "internet",
+			Description: "Classification used in logging to indicate the severity or priority of a log entry",
+			Example:     "error",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return logLevel(f, ""), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("useragent", Info{
-		Display:     "User Agent",
-		Category:    "internet",
-		Description: "String sent by a web browser to identify itself when requesting web content",
-		Example:     "Mozilla/5.0 (Windows NT 5.0) AppleWebKit/5362 (KHTML, like Gecko) Chrome/37.0.834.0 Mobile Safari/5362",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return userAgent(f), nil
+	AddFuncLookup(
+		"useragent", Info{
+			Display:     "User Agent",
+			Category:    "internet",
+			Description: "String sent by a web browser to identify itself when requesting web content",
+			Example:     "Mozilla/5.0 (Windows NT 5.0) AppleWebKit/5362 (KHTML, like Gecko) Chrome/37.0.834.0 Mobile Safari/5362",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return userAgent(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("chromeuseragent", Info{
-		Display:     "Chrome User Agent",
-		Category:    "internet",
-		Description: "The specific identification string sent by the Google Chrome web browser when making requests on the internet",
-		Example:     "Mozilla/5.0 (X11; Linux i686) AppleWebKit/5312 (KHTML, like Gecko) Chrome/39.0.836.0 Mobile Safari/5312",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return chromeUserAgent(f), nil
+	AddFuncLookup(
+		"chromeuseragent", Info{
+			Display:     "Chrome User Agent",
+			Category:    "internet",
+			Description: "The specific identification string sent by the Google Chrome web browser when making requests on the internet",
+			Example:     "Mozilla/5.0 (X11; Linux i686) AppleWebKit/5312 (KHTML, like Gecko) Chrome/39.0.836.0 Mobile Safari/5312",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return chromeUserAgent(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("firefoxuseragent", Info{
-		Display:     "Firefox User Agent",
-		Category:    "internet",
-		Description: "The specific identification string sent by the Firefox web browser when making requests on the internet",
-		Example:     "Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_8_3 rv:7.0) Gecko/1900-07-01 Firefox/37.0",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return firefoxUserAgent(f), nil
+	AddFuncLookup(
+		"firefoxuseragent", Info{
+			Display:     "Firefox User Agent",
+			Category:    "internet",
+			Description: "The specific identification string sent by the Firefox web browser when making requests on the internet",
+			Example:     "Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_8_3 rv:7.0) Gecko/1900-07-01 Firefox/37.0",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return firefoxUserAgent(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("operauseragent", Info{
-		Display:     "Opera User Agent",
-		Category:    "internet",
-		Description: "The specific identification string sent by the Opera web browser when making requests on the internet",
-		Example:     "Opera/8.39 (Macintosh; U; PPC Mac OS X 10_8_7; en-US) Presto/2.9.335 Version/10.00",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return operaUserAgent(f), nil
+	AddFuncLookup(
+		"operauseragent", Info{
+			Display:     "Opera User Agent",
+			Category:    "internet",
+			Description: "The specific identification string sent by the Opera web browser when making requests on the internet",
+			Example:     "Opera/8.39 (Macintosh; U; PPC Mac OS X 10_8_7; en-US) Presto/2.9.335 Version/10.00",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return operaUserAgent(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("safariuseragent", Info{
-		Display:     "Safari User Agent",
-		Category:    "internet",
-		Description: "The specific identification string sent by the Safari web browser when making requests on the internet",
-		Example:     "Mozilla/5.0 (iPad; CPU OS 8_3_2 like Mac OS X; en-US) AppleWebKit/531.15.6 (KHTML, like Gecko) Version/4.0.5 Mobile/8B120 Safari/6531.15.6",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return safariUserAgent(f), nil
+	AddFuncLookup(
+		"safariuseragent", Info{
+			Display:     "Safari User Agent",
+			Category:    "internet",
+			Description: "The specific identification string sent by the Safari web browser when making requests on the internet",
+			Example:     "Mozilla/5.0 (iPad; CPU OS 8_3_2 like Mac OS X; en-US) AppleWebKit/531.15.6 (KHTML, like Gecko) Version/4.0.5 Mobile/8B120 Safari/6531.15.6",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return safariUserAgent(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("httpstatuscode", Info{
-		Display:     "HTTP Status Code",
-		Category:    "internet",
-		Description: "Random http status code",
-		Example:     "200",
-		Output:      "int",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return httpStatusCode(f), nil
+	AddFuncLookup(
+		"httpstatuscode", Info{
+			Display:     "HTTP Status Code",
+			Category:    "internet",
+			Description: "Random http status code",
+			Example:     "200",
+			Output:      "int",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return httpStatusCode(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("httpstatuscodesimple", Info{
-		Display:     "HTTP Status Code Simple",
-		Category:    "internet",
-		Description: "Three-digit number returned by a web server to indicate the outcome of an HTTP request",
-		Example:     "404",
-		Output:      "int",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return httpStatusCodeSimple(f), nil
+	AddFuncLookup(
+		"httpstatuscodesimple", Info{
+			Display:     "HTTP Status Code Simple",
+			Category:    "internet",
+			Description: "Three-digit number returned by a web server to indicate the outcome of an HTTP request",
+			Example:     "404",
+			Output:      "int",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return httpStatusCodeSimple(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("httpversion", Info{
-		Display:     "HTTP Version",
-		Category:    "internet",
-		Description: "Number indicating the version of the HTTP protocol used for communication between a client and a server",
-		Example:     "HTTP/1.1",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return httpVersion(f), nil
+	AddFuncLookup(
+		"httpversion", Info{
+			Display:     "HTTP Version",
+			Category:    "internet",
+			Description: "Number indicating the version of the HTTP protocol used for communication between a client and a server",
+			Example:     "HTTP/1.1",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return httpVersion(f), nil
+			},
 		},
-	})
+	)
 
-	AddFuncLookup("macaddress", Info{
-		Display:     "MAC Address",
-		Category:    "internet",
-		Description: "Unique identifier assigned to network interfaces, often used in Ethernet networks",
-		Example:     "cb:ce:06:94:22:e9",
-		Output:      "string",
-		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			return macAddress(f), nil
+	AddFuncLookup(
+		"macaddress", Info{
+			Display:     "MAC Address",
+			Category:    "internet",
+			Description: "Unique identifier assigned to network interfaces, often used in Ethernet networks",
+			Example:     "cb:ce:06:94:22:e9",
+			Output:      "string",
+			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+				return macAddress(f), nil
+			},
 		},
-	})
+	)
 }

@@ -3,14 +3,15 @@ package main
 import (
 	"errors"
 	"io"
+	"log"
 	"os"
 	"strings"
 	"testing"
 
-	"github.com/brianvoe/gofakeit/v7/data"
+	"github.com/digitalmint/gofakeit/data"
 )
 
-func TestMain(t *testing.T) {
+func TestMain(m *testing.M) {
 	rescueStdout := os.Stdout
 	r, w, _ := os.Pipe()
 	os.Stdout = w
@@ -27,7 +28,6 @@ func TestMain(t *testing.T) {
 
 	// Get output string
 	outStr := string(out)
-
 	// Check if lastname is in the data array
 	isIn := false
 	for _, v := range data.Person["last"] {
@@ -38,7 +38,7 @@ func TestMain(t *testing.T) {
 
 	// If not in array, fail
 	if !isIn {
-		t.Errorf("lastname %s not in data array", outStr)
+		log.Fatalf("lastname %s not in data array", outStr)
 	}
 }
 
