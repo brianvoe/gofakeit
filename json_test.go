@@ -440,11 +440,11 @@ func TestJSONRawMessageWithCustomFuncTag(t *testing.T) {
 
 func TestJSONRawMessageWithInvalidCustomFuncTag(t *testing.T) {
 	AddFuncLookup("invalidjsontest", Info{
-		Display:     "InvalidJSONTest",
-		Category:    "file",
-		Example:     `[181 251 51 164 185 142 21 3 33]`,
-		Output:      "[]byte",
-		Params:      []Param{},
+		Display:  "InvalidJSONTest",
+		Category: "file",
+		Example:  `[181 251 51 164 185 142 21 3 33]`,
+		Output:   "[]byte",
+		Params:   []Param{},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			var result []byte
 			Slice(&result)
