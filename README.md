@@ -141,7 +141,7 @@ type Foo struct {
 	Str           string
 	Int           int
 	Pointer       *int
-	Name          string         `fake:"{firstname}"`          // Any available function all lowercase
+	Name          string         `fake:"{firstname}"`         // Any available function all lowercase
 	Sentence      string         `fake:"{sentence:3}"`        // Can call with parameters
 	RandStr       string         `fake:"{randomstring:[hello,world]}"`
 	Number        string         `fake:"{number:1,10}"`       // Comma separated for multiple values
