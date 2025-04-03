@@ -141,7 +141,7 @@ type Foo struct {
 	Str           string
 	Int           int
 	Pointer       *int
-	Name          string         `fake:"{firstname}"`         // Any available function all lowercase
+	Name          string         `fake:"{firstname}"`          // Any available function all lowercase
 	Sentence      string         `fake:"{sentence:3}"`        // Can call with parameters
 	RandStr       string         `fake:"{randomstring:[hello,world]}"`
 	Number        string         `fake:"{number:1,10}"`       // Comma separated for multiple values
@@ -171,7 +171,7 @@ fmt.Println(f.Int)      		// -7825289004089916589
 fmt.Println(*f.Pointer) 		// -343806609094473732
 fmt.Println(f.Name)     		// fred
 fmt.Println(f.Sentence) 		// Record river mind.
-fmt.Println(fStr)  				// world
+fmt.Println(f.RandStr)          // world
 fmt.Println(f.Number)   		// 4
 fmt.Println(f.Regex)    		// cbdfc
 fmt.Println(f.Map)    			// map[PxLIo:52 lxwnqhqc:846]
@@ -222,7 +222,7 @@ type User struct {
 var u User
 gofakeit.Struct(&u)
 fmt.Printf("%s", f.Name) // billy
-fmt.Printf("%s", f.Age) // 1990-12-07 04:14:25.685339029 +0000 UTC
+fmt.Printf("%s", f.Age)  // 1990-12-07 04:14:25.685339029 +0000 UTC
 ```
 
 ## Custom Functions
