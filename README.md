@@ -41,17 +41,17 @@ go get github.com/brianvoe/gofakeit/v7
 ```go
 import "github.com/brianvoe/gofakeit/v7"
 
-gofakeit.Name()             // Markus Moen
-gofakeit.Email()            // alaynawuckert@kozey.biz
-gofakeit.Phone()            // (570)245-7485
-gofakeit.BS()               // front-end
-gofakeit.BeerName()         // Duvel
-gofakeit.Color()            // MediumOrchid
-gofakeit.Company()          // Moen, Pagac and Wuckert
-gofakeit.CreditCardNumber() // 4287271570245748
-gofakeit.HackerPhrase()     // Connecting the array won't do anything, we need to generate the haptic COM driver!
-gofakeit.JobTitle()         // Director
-gofakeit.CurrencyShort()    // USD
+gofakeit.Name()                // Markus Moen
+gofakeit.Email()               // alaynawuckert@kozey.biz
+gofakeit.Phone()               // (570)245-7485
+gofakeit.BS()                  // front-end
+gofakeit.BeerName()            // Duvel
+gofakeit.Color()               // MediumOrchid
+gofakeit.Company()             // Moen, Pagac and Wuckert
+gofakeit.CreditCardNumber(nil) // 4287271570245748
+gofakeit.HackerPhrase()        // Connecting the array won't do anything, we need to generate the haptic COM driver!
+gofakeit.JobTitle()            // Director
+gofakeit.CurrencyShort()       // USD
 ```
 
 [See full list of functions](#functions)
@@ -91,7 +91,7 @@ import (
 faker := gofakeit.New(0)
 
 // NewFaker takes in a source and whether or not it should be thread safe
-faker := gofakeit.NewFaker(source rand.Source, threadSafe bool)
+faker := gofakeit.NewFaker(src rand.Source, lock bool)
 
 // PCG Pseudo
 faker := gofakeit.NewFaker(rand.NewPCG(11, 11), true)
@@ -210,7 +210,7 @@ func (c *Friend) Fake(f *gofakeit.Faker) (any, error) {
 type Age time.Time
 
 func (c *Age) Fake(f *gofakeit.Faker) (any, error) {
-	return f.DateRange(time.Now().AddDate(-100, 0, 0), time.Now().AddDate(-18, 0, 0)), nil
+	return Age(f.DateRange(time.Now().AddDate(-100, 0, 0), time.Now().AddDate(-18, 0, 0))), nil
 }
 
 // This is the struct that we cannot modify to add struct tags
@@ -221,8 +221,8 @@ type User struct {
 
 var u User
 gofakeit.Struct(&u)
-fmt.Printf("%s", f.Name) // billy
-fmt.Printf("%s", f.Age)  // 1990-12-07 04:14:25.685339029 +0000 UTC
+fmt.Println(u.Name)            // billy
+fmt.Println(time.Time(*u.Age)) // 1990-12-07 04:14:25.685339029 +0000 UTC
 ```
 
 ## Custom Functions
@@ -240,7 +240,7 @@ gofakeit.AddFuncLookup("friendname", gofakeit.Info{
 	Description: "Random friend name",
 	Example:     "bill",
 	Output:      "string",
-	Generate: func(f *Faker, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
+	Generate: func(f *gofakeit.Faker, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
 		return f.RandomString([]string{"bill", "bob", "sally"}), nil
 	},
 })
@@ -254,7 +254,7 @@ gofakeit.AddFuncLookup("jumbleword", gofakeit.Info{
 	Params: []gofakeit.Param{
 		{Field: "word", Type: "string", Description: "Word you want to jumble"},
 	},
-	Generate: func(f *Faker, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
+	Generate: func(f *gofakeit.Faker, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
 		word, err := info.GetString(m, "word")
 		if err != nil {
 			return nil, err
@@ -273,8 +273,8 @@ type Foo struct {
 
 var f Foo
 gofakeit.Struct(&f)
-fmt.Printf("%s", f.FriendName) // bill
-fmt.Printf("%s", f.JumbleWord) // loredlowlh
+fmt.Println(f.FriendName) // bill
+fmt.Println(f.JumbleWord) // loredlowlh
 ```
 
 ## Templates
@@ -328,17 +328,17 @@ func main() {
 	{{RandomString (SliceString "Warm regards" "Best wishes" "Sincerely")}}
 	{{$person:=Person}}
 	{{$person.FirstName}} {{$person.LastName}}
-	{{$person.Email}}
-	{{$person.Phone}}
+	{{$person.Contact.Email}}
+	{{$person.Contact.Phone}}
 	`
 
-	value, err := gofakeit.Template(template, &TemplateOptions{Data: 5})
+	value, err := gofakeit.Template(template, &gofakeit.TemplateOptions{Data: 5})
 
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	fmt.Println(string(value))
+	fmt.Println(value)
 }
 ```
 
@@ -353,6 +353,7 @@ Greetings!
 Quia voluptatem voluptatem voluptatem. Quia voluptatem voluptatem voluptatem. Quia voluptatem voluptatem voluptatem.
 
 Warm regards
+
 Kaitlyn Krajcik
 kaitlynkrajcik@krajcik
 570-245-7485
