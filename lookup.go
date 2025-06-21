@@ -106,7 +106,6 @@ func initLookup() {
 	addWordVerbLookup()
 	addWordCommentLookup()
 	addWordMiscLookup()
-	addISBNLookup()
 }
 
 // internalFuncLookups is the internal map array with mapping to all available data
