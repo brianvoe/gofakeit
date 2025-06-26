@@ -401,6 +401,7 @@ ProductDimension() string
 ProductUseCase() string
 ProductBenefit() string
 ProductSuffix() string
+ProductISBN(opts *ISBNOptions) string
 
 ```
 
