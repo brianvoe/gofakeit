@@ -22,8 +22,6 @@ func ExampleProduct() {
 	fmt.Println(product.UseCase)
 	fmt.Println(product.Benefit)
 	fmt.Println(product.Suffix)
-	fmt.Println(product.ISBN)
-	fmt.Println(product.ISBN10)
 
 	// Output: Wave Precision Lamp
 	// This upset product is crafted from wood and includes wireless, making it perfect for personal grooming and delivering comfort for travelers and professionals.
@@ -38,8 +36,6 @@ func ExampleProduct() {
 	// learning
 	// efficiency
 	// dash
-	// 978-0-570-93875-0
-	// 0-201-74782-0
 }
 
 func ExampleFaker_Product() {
@@ -58,8 +54,6 @@ func ExampleFaker_Product() {
 	fmt.Println(product.UseCase)
 	fmt.Println(product.Benefit)
 	fmt.Println(product.Suffix)
-	fmt.Println(product.ISBN)
-	fmt.Println(product.ISBN10)
 
 	// Output: Wave Precision Lamp
 	// This upset product is crafted from wood and includes wireless, making it perfect for personal grooming and delivering comfort for travelers and professionals.
@@ -74,8 +68,6 @@ func ExampleFaker_Product() {
 	// learning
 	// efficiency
 	// dash
-	// 978-0-570-93875-0
-	// 0-201-74782-0
 }
 
 func TestProduct(t *testing.T) {
@@ -131,20 +123,6 @@ func TestProduct(t *testing.T) {
 
 		if product.Suffix == "" {
 			t.Error("Suffix is empty")
-		}
-
-		if product.ISBN == "" {
-			t.Error("Suffix is empty")
-		}
-		if product.ISBN10 == "" {
-			t.Error("Suffix is empty")
-		}
-
-		if len(strings.ReplaceAll(product.ISBN, "-", "")) != 13 {
-			t.Errorf("\"%s\" is not a valid ISBN string with length 13", product.ISBN)
-		}
-		if len(strings.ReplaceAll(product.ISBN10, "-", "")) != 10 {
-			t.Errorf("\"%s\" is not a valid ISBN string with length 10", product.ISBN10)
 		}
 	}
 }
@@ -387,40 +365,34 @@ func BenchmarkProductSuffix(b *testing.B) {
 
 func ExampleProductISBN() {
 	Seed(11)
-	fmt.Println(ProductISBN("-"))
+	fmt.Println(ProductISBN(&ISBNOptions{Version: "13", Separator: "-"}))
 
-	// Output: 978-0-8125-2759-9
+	// Output: 978-8-8125-2759-5
 }
 
 func ExampleFaker_ProductISBN() {
 	f := New(11)
-	fmt.Println(f.ProductISBN("-"))
+	fmt.Println(f.ProductISBN(&ISBNOptions{Version: "13", Separator: "-"}))
 
-	// Output: 978-0-8125-2759-9
+	// Output: 978-8-8125-2759-5
 }
 
 func BenchmarkProductISBN(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		ProductISBN("-")
+		ProductISBN(&ISBNOptions{Version: "13", Separator: "-"})
 	}
 }
 
-func ExampleProductISBN10() {
+func ExampleProductISBN_isbn10() {
 	Seed(11)
-	fmt.Println(ProductISBN10("-"))
+	fmt.Println(ProductISBN(&ISBNOptions{Version: "10", Separator: "-"}))
 
-	// Output: 0-8125-2759-3
+	// Output: 8-8125-275-7
 }
 
-func ExampleFaker_ProductISBN10() {
+func ExampleFaker_ProductISBN_isbn10() {
 	f := New(11)
-	fmt.Println(f.ProductISBN10("-"))
+	fmt.Println(f.ProductISBN(&ISBNOptions{Version: "10", Separator: "-"}))
 
-	// Output: 0-8125-2759-3
-}
-
-func BenchmarkProductISBN10(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		ProductISBN("-")
-	}
+	// Output: 8-8125-275-7
 }

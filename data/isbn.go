@@ -1,45 +1,58 @@
 package data
 
-// Ref:
-// 	- https://www.isbn-international.org/range_file_generation
-// 	- https://github.com/joke2k/faker/blob/master/faker/providers/isbn/en_US/__init__.py
+// Prefixes for ISBN standards
+const (
+	ISBN13Prefix = "978"
+	ISBN10Prefix = "979"
+)
 
-const PrefixGroup1 = "978"
-
-type RegistrantElements struct {
+// ISBNRule defines a registrant rule range and its length
+type ISBNRule struct {
 	Min    string
 	Max    string
 	Length int
 }
-type Rule map[string][]RegistrantElements
 
-var ISBNRules = map[string]Rule{
-	PrefixGroup1: {
-		// Registration Group
+// ISBNRules maps prefix -> registration group -> registrant rules
+var ISBNRules = map[string]map[string][]ISBNRule{
+	ISBN13Prefix: {
 		"0": {
-			// Registrant Rule (min, max, registrant element length)
-			{"0000000", "1999999", 2},
-			{"2000000", "2279999", 3},
-			{"2280000", "2289999", 4},
-			{"2290000", "6479999", 3},
-			{"6480000", "6489999", 7},
-			{"6490000", "6999999", 3},
-			{"7000000", "8499999", 4},
-			{"8500000", "8999999", 5},
-			{"9000000", "9499999", 6},
-			{"9500000", "9999999", 7},
+			{Min: "0000000", Max: "1999999", Length: 2},
+			{Min: "2000000", Max: "2279999", Length: 3},
+			{Min: "2280000", Max: "2289999", Length: 4},
+			{Min: "2290000", Max: "6479999", Length: 3},
+			{Min: "6480000", Max: "6489999", Length: 7},
+			{Min: "6490000", Max: "6999999", Length: 3},
+			{Min: "7000000", Max: "8499999", Length: 4},
+			{Min: "8500000", Max: "8999999", Length: 5},
+			{Min: "9000000", Max: "9499999", Length: 6},
+			{Min: "9500000", Max: "9999999", Length: 7},
 		},
 		"1": {
-			{"0000000", "0999999", 2},
-			{"1000000", "3999999", 3},
-			{"4000000", "5499999", 4},
-			{"5500000", "7319999", 5},
-			{"7320000", "7399999", 7},
-			{"7400000", "8697999", 5},
-			{"8698000", "9729999", 6},
-			{"9730000", "9877999", 4},
-			{"9878000", "9989999", 6},
-			{"9990000", "9999999", 7},
+			{Min: "0000000", Max: "0999999", Length: 2},
+			{Min: "1000000", Max: "3999999", Length: 3},
+			{Min: "4000000", Max: "5499999", Length: 4},
+			{Min: "5500000", Max: "7319999", Length: 5},
+			{Min: "7320000", Max: "7399999", Length: 7},
+			{Min: "7400000", Max: "8697999", Length: 5},
+			{Min: "8698000", Max: "9729999", Length: 6},
+			{Min: "9730000", Max: "9877999", Length: 4},
+			{Min: "9878000", Max: "9989999", Length: 6},
+			{Min: "9990000", Max: "9999999", Length: 7},
+		},
+	},
+	ISBN10Prefix: {
+		"8": {
+			{Min: "0000000", Max: "1999999", Length: 2},
+			{Min: "2000000", Max: "2279999", Length: 3},
+			{Min: "2280000", Max: "2289999", Length: 4},
+			{Min: "2290000", Max: "6479999", Length: 3},
+			{Min: "6480000", Max: "6489999", Length: 7},
+			{Min: "6490000", Max: "6999999", Length: 3},
+			{Min: "7000000", Max: "8499999", Length: 4},
+			{Min: "8500000", Max: "8999999", Length: 5},
+			{Min: "9000000", Max: "9499999", Length: 6},
+			{Min: "9500000", Max: "9999999", Length: 7},
 		},
 	},
 }
