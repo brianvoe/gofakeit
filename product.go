@@ -2,7 +2,10 @@ package gofakeit
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
+
+	"github.com/brianvoe/gofakeit/v7/data"
 )
 
 type ProductInfo struct {
@@ -233,6 +236,87 @@ func productSuffix(f *Faker) string {
 	return getRandValue(f, []string{"product", "suffix"})
 }
 
+// ProductISBN13 will generate a random ISBN-13 string for the product
+func ProductISBN(opts *ISBNOptions) string { return productISBN(GlobalFaker, opts) }
+
+// ProductISBN13 will generate a random ISBN-13 string for the product
+func (f *Faker) ProductISBN(opts *ISBNOptions) string { return productISBN(f, opts) }
+
+type ISBNOptions struct {
+	Version   string // "10" or "13"
+	Separator string // e.g. "-", "" (default: "-")
+}
+
+func productISBN(f *Faker, opts *ISBNOptions) string {
+	if opts == nil {
+		opts = &ISBNOptions{Version: "13", Separator: "-"}
+	}
+
+	sep := opts.Separator
+	if sep == "" {
+		sep = "-"
+	}
+
+	// string of n random digits
+	randomDigits := func(f *Faker, n int) string {
+		digits := make([]byte, n)
+		for i := 0; i < n; i++ {
+			digits[i] = byte('0' + number(f, 0, 9))
+		}
+		return string(digits)
+	}
+
+	switch opts.Version {
+	case "10":
+		// ISBN-10 format: group(1)-registrant(4)-publication(3)-check(1)
+		group := randomDigits(f, 1)
+		registrant := randomDigits(f, 4)
+		publication := randomDigits(f, 3)
+		base := group + registrant + publication
+
+		// checksum
+		sum := 0
+		for i, c := range base {
+			digit := int(c - '0')
+			sum += digit * (10 - i)
+		}
+		remainder := (11 - (sum % 11)) % 11
+		check := "X"
+		if remainder < 10 {
+			check = strconv.Itoa(remainder)
+		}
+
+		return strings.Join([]string{group, registrant, publication, check}, sep)
+
+	case "13":
+		// ISBN-13 format: prefix(3)-group(1)-registrant(4)-publication(4)-check(1)
+		prefix := data.ISBN13Prefix
+		group := randomDigits(f, 1)
+		registrant := randomDigits(f, 4)
+		publication := randomDigits(f, 4)
+		base := prefix + group + registrant + publication
+
+		// checksum
+		sum := 0
+		for i, c := range base {
+			digit := int(c - '0')
+			if i%2 == 0 {
+				sum += digit
+			} else {
+				sum += digit * 3
+			}
+		}
+		remainder := (10 - (sum % 10)) % 10
+		check := strconv.Itoa(remainder)
+
+		return strings.Join([]string{prefix, group, registrant, publication, check}, sep)
+
+	default:
+		// fallback to ISBN-13 if invalid version provided
+		return productISBN(f, &ISBNOptions{Version: "13", Separator: sep})
+	}
+}
+
 func addProductLookup() {
 	AddFuncLookup("product", Info{
 		Display:     "Product",
@@ -385,6 +469,17 @@ func addProductLookup() {
 		Output:      "string",
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return productSuffix(f), nil
+		},
+	})
+
+	AddFuncLookup("productisbn", Info{
+		Display:     "Product ISBN",
+		Category:    "product",
+		Description: "ISBN-10 or ISBN-13 identifier for books",
+		Example:     "978-1-4028-9462-6",
+		Output:      "string",
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return productISBN(f, nil), nil
 		},
 	})
 }

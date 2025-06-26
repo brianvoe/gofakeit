@@ -362,3 +362,37 @@ func BenchmarkProductSuffix(b *testing.B) {
 		ProductSuffix()
 	}
 }
+
+func ExampleProductISBN() {
+	Seed(11)
+	fmt.Println(ProductISBN(&ISBNOptions{Version: "13", Separator: "-"}))
+
+	// Output: 978-8-8125-2759-5
+}
+
+func ExampleFaker_ProductISBN() {
+	f := New(11)
+	fmt.Println(f.ProductISBN(&ISBNOptions{Version: "13", Separator: "-"}))
+
+	// Output: 978-8-8125-2759-5
+}
+
+func BenchmarkProductISBN(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		ProductISBN(&ISBNOptions{Version: "13", Separator: "-"})
+	}
+}
+
+func ExampleProductISBN_isbn10() {
+	Seed(11)
+	fmt.Println(ProductISBN(&ISBNOptions{Version: "10", Separator: "-"}))
+
+	// Output: 8-8125-275-7
+}
+
+func ExampleFaker_ProductISBN_isbn10() {
+	f := New(11)
+	fmt.Println(f.ProductISBN(&ISBNOptions{Version: "10", Separator: "-"}))
+
+	// Output: 8-8125-275-7
+}
