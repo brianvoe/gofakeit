@@ -10,6 +10,7 @@ func ExampleAddress() {
 	address := Address()
 	fmt.Println(address.Address)
 	fmt.Println(address.Street)
+	fmt.Println(address.Unit)
 	fmt.Println(address.City)
 	fmt.Println(address.State)
 	fmt.Println(address.Zip)
@@ -19,12 +20,13 @@ func ExampleAddress() {
 
 	// Output: 125 East Routemouth, North Las Vegas, South Dakota 17999
 	// 125 East Routemouth
+	//
 	// North Las Vegas
 	// South Dakota
 	// 17999
-	// Iran (Islamic Republic of)
-	// 83.558542
-	// -159.896615
+	// Isle of Man
+	// -79.948308
+	// -60.019628
 }
 
 func ExampleFaker_Address() {
@@ -32,6 +34,7 @@ func ExampleFaker_Address() {
 	address := f.Address()
 	fmt.Println(address.Address)
 	fmt.Println(address.Street)
+	fmt.Println(address.Unit)
 	fmt.Println(address.City)
 	fmt.Println(address.State)
 	fmt.Println(address.Zip)
@@ -41,12 +44,13 @@ func ExampleFaker_Address() {
 
 	// Output: 125 East Routemouth, North Las Vegas, South Dakota 17999
 	// 125 East Routemouth
+	//
 	// North Las Vegas
 	// South Dakota
 	// 17999
-	// Iran (Islamic Republic of)
-	// 83.558542
-	// -159.896615
+	// Isle of Man
+	// -79.948308
+	// -60.019628
 }
 
 func BenchmarkAddress(b *testing.B) {
@@ -152,6 +156,26 @@ func ExampleFaker_StreetSuffix() {
 func BenchmarkStreetSuffix(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		StreetSuffix()
+	}
+}
+
+func ExampleUnit() {
+	Seed(11)
+	fmt.Println(Unit())
+
+	// Output: Penthouse 812
+}
+
+func ExampleFaker_Unit() {
+	f := New(11)
+	fmt.Println(f.Unit())
+
+	// Output: Penthouse 812
+}
+
+func BenchmarkUnit(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Unit()
 	}
 }
 

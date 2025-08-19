@@ -31,14 +31,15 @@ func ExampleJSON_object() {
 	//     "address": {
 	//         "address": "52759 Stationside, San Diego, Oregon 99344",
 	//         "street": "52759 Stationside",
+	//         "unit": "",
 	//         "city": "San Diego",
 	//         "state": "Oregon",
 	//         "zip": "99344",
-	//         "country": "Saint Pierre and Miquelon",
-	//         "latitude": -30.009814,
-	//         "longitude": 154.519771
+	//         "country": "France",
+	//         "latitude": 77.259885,
+	//         "longitude": 101.656736
 	//     },
-	//     "password": "l4338TebFL55"
+	//     "password": "2PXNpNye3j1r"
 	// }
 }
 
@@ -67,14 +68,15 @@ func ExampleFaker_JSON_object() {
 	//     "address": {
 	//         "address": "52759 Stationside, San Diego, Oregon 99344",
 	//         "street": "52759 Stationside",
+	//         "unit": "",
 	//         "city": "San Diego",
 	//         "state": "Oregon",
 	//         "zip": "99344",
-	//         "country": "Saint Pierre and Miquelon",
-	//         "latitude": -30.009814,
-	//         "longitude": 154.519771
+	//         "country": "France",
+	//         "latitude": 77.259885,
+	//         "longitude": 101.656736
 	//     },
-	//     "password": "l4338TebFL55"
+	//     "password": "2PXNpNye3j1r"
 	// }
 }
 
@@ -440,11 +442,11 @@ func TestJSONRawMessageWithCustomFuncTag(t *testing.T) {
 
 func TestJSONRawMessageWithInvalidCustomFuncTag(t *testing.T) {
 	AddFuncLookup("invalidjsontest", Info{
-		Display:     "InvalidJSONTest",
-		Category:    "file",
-		Example:     `[181 251 51 164 185 142 21 3 33]`,
-		Output:      "[]byte",
-		Params:      []Param{},
+		Display:  "InvalidJSONTest",
+		Category: "file",
+		Example:  `[181 251 51 164 185 142 21 3 33]`,
+		Output:   "[]byte",
+		Params:   []Param{},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			var result []byte
 			Slice(&result)

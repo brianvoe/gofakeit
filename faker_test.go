@@ -27,14 +27,14 @@ func Example() {
 	// Email: codydonnelly@leannon.biz
 	// Phone: 7598907999
 	// Address: 4737 Port Hillstown, Santa Ana, Alabama 41026
-	// BS: enable
-	// Beer Name: Chocolate St
-	// Color: Turquoise
-	// Company: Boundless
-	// Credit Card: 6282690620525711
-	// Hacker Phrase: Try to bundle the PNG firewall, maybe it will deconstruct the open-source bandwidth!
-	// Job Title: Assistant
-	// Password: Nyf8p8ka1Kvgn...3H*.w7j01yM1vkc2
+	// BS: interactive
+	// Beer Name: Hercules Double IPA
+	// Color: Chartreuse
+	// Company: Municode
+	// Credit Card: 6449062052570938760
+	// Hacker Phrase: I'll override the back-end USB system, that should encrypt the SCSI port!
+	// Job Title: Engineer
+	// Password: pMncaf38jvvy1_M0.Ng.kw1P28kH1*7y
 }
 
 func ExampleNew() {

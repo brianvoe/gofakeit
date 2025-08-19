@@ -235,15 +235,15 @@ func ExamplePerson() {
 	// Omaha
 	// Massachusetts
 	// 37930
-	// North Macedonia
-	// -0.877085
-	// 83.264578
-	// 4102689405
-	// verdabrakus@mayert.name
-	// American Express
-	// 562570938760
-	// 04/26
-	// 906
+	// Antigua and Barbuda
+	// 41.632289
+	// -1.458116
+	// 1026894059
+	// beaulahmayert@kautzer.net
+	// UnionPay
+	// 627700709387573
+	// 02/27
+	// 162
 }
 
 func ExampleFaker_Person() {
@@ -296,15 +296,15 @@ func ExampleFaker_Person() {
 	// Omaha
 	// Massachusetts
 	// 37930
-	// North Macedonia
-	// -0.877085
-	// 83.264578
-	// 4102689405
-	// verdabrakus@mayert.name
-	// American Express
-	// 562570938760
-	// 04/26
-	// 906
+	// Antigua and Barbuda
+	// 41.632289
+	// -1.458116
+	// 1026894059
+	// beaulahmayert@kautzer.net
+	// UnionPay
+	// 627700709387573
+	// 02/27
+	// 162
 }
 
 func BenchmarkPerson(b *testing.B) {

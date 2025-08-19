@@ -9,6 +9,7 @@ import (
 type AddressInfo struct {
 	Address   string  `json:"address" xml:"address"`
 	Street    string  `json:"street" xml:"street"`
+	Unit      string  `json:"unit" xml:"unit"`
 	City      string  `json:"city" xml:"city"`
 	State     string  `json:"state" xml:"state"`
 	Zip       string  `json:"zip" xml:"zip"`
@@ -29,9 +30,20 @@ func address(f *Faker) *AddressInfo {
 	state := state(f)
 	zip := zip(f)
 
+	// 30% chance to include a unit in the address
+	var unitStr string
+	var unitField string
+	if randIntRange(f, 1, 10) <= 3 {
+		unitStr = ", " + unit(f)
+		unitField = unit(f)
+	}
+
+	addressStr := street + unitStr + ", " + city + ", " + state + " " + zip
+
 	return &AddressInfo{
-		Address:   street + ", " + city + ", " + state + " " + zip,
+		Address:   addressStr,
 		Street:    street,
+		Unit:      unitField,
 		City:      city,
 		State:     state,
 		Zip:       zip,
@@ -92,6 +104,18 @@ func StreetSuffix() string { return streetSuffix(GlobalFaker) }
 func (f *Faker) StreetSuffix() string { return streetSuffix(f) }
 
 func streetSuffix(f *Faker) string { return getRandValue(f, []string{"address", "street_suffix"}) }
+
+// Unit will generate a random unit string
+func Unit() string { return unit(GlobalFaker) }
+
+// Unit will generate a random unit string
+func (f *Faker) Unit() string { return unit(f) }
+
+func unit(f *Faker) string {
+	unitType := getRandValue(f, []string{"address", "unit"})
+	unitNumber := replaceWithNumbers(f, "###")
+	return unitType + " " + unitNumber
+}
 
 // City will generate a random city string
 func City() string { return city(GlobalFaker) }
@@ -199,8 +223,9 @@ func addAddressLookup() {
 		Category:    "address",
 		Description: "Residential location including street, city, state, country and postal code",
 		Example: `{
-	"address": "364 Unionsville, Norfolk, Ohio 99536",
+	"address": "364 Unionsville, Apt 123, Norfolk, Ohio 99536",
 	"street": "364 Unionsville",
+	"apartment": "Apt 123",
 	"city": "Norfolk",
 	"state": "Ohio",
 	"zip": "99536",
@@ -322,6 +347,17 @@ func addAddressLookup() {
 		Output:      "string",
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return streetSuffix(f), nil
+		},
+	})
+
+	AddFuncLookup("unit", Info{
+		Display:     "Unit",
+		Category:    "address",
+		Description: "Unit identifier within a building, such as apartment number, suite, or office",
+		Example:     "Apt 123",
+		Output:      "string",
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return unit(f), nil
 		},
 	})
 

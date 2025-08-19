@@ -460,6 +460,7 @@ StreetName() string
 StreetNumber() string
 StreetPrefix() string
 StreetSuffix() string
+Unit() string
 Zip() string
 Latitude() float64
 LatitudeInRange(min, max float64) (float64, error)
