@@ -110,6 +110,8 @@ func addFinanceLookup() {
 		Description: "Unique identifier for securities, especially bonds, in the United States and Canada",
 		Example:     "38259P508",
 		Output:      "string",
+		Aliases:     []string{"identifier", "bond", "security", "us", "canada", "unique"},
+		Keywords:    []string{"finance", "investment", "trading", "securities", "identifier", "bond", "us", "canada"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return cusip(f), nil
 		},
@@ -120,6 +122,8 @@ func addFinanceLookup() {
 		Description: "International standard code for uniquely identifying securities worldwide",
 		Example:     "CVLRQCZBXQ97",
 		Output:      "string",
+		Aliases:     []string{"international", "securities", "identifier", "stock", "bond", "security"},
+		Keywords:    []string{"finance", "investment", "trading", "securities", "international", "identifier", "stock", "bond"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return isin(f), nil
 		},

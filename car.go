@@ -84,6 +84,8 @@ func addCarLookup() {
 }`,
 		Output:      "map[string]any",
 		ContentType: "application/json",
+		Aliases:     []string{"vehicle", "automobile", "transportation", "motor", "wheeled"},
+		Keywords:    []string{"car", "vehicle", "automobile", "transportation", "motor", "wheeled", "used"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return car(f), nil
 		},
@@ -95,6 +97,8 @@ func addCarLookup() {
 		Description: "Classification of cars based on size, use, or body style",
 		Example:     "Passenger car mini",
 		Output:      "string",
+		Aliases:     []string{"classification", "size", "body", "style", "vehicle", "category"},
+		Keywords:    []string{"car", "type", "classification", "size", "body", "style", "vehicle", "based"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return carType(f), nil
 		},
@@ -106,6 +110,8 @@ func addCarLookup() {
 		Description: "Type of energy source a car uses",
 		Example:     "CNG",
 		Output:      "string",
+		Aliases:     []string{"energy", "source", "power", "vehicle", "gasoline"},
+		Keywords:    []string{"car", "fuel", "energy", "source", "power", "vehicle", "uses"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return carFuelType(f), nil
 		},
@@ -117,6 +123,8 @@ func addCarLookup() {
 		Description: "Mechanism a car uses to transmit power from the engine to the wheels",
 		Example:     "Manual",
 		Output:      "string",
+		Aliases:     []string{"mechanism", "power", "engine", "wheels", "vehicle", "gearbox"},
+		Keywords:    []string{"car", "transmission", "mechanism", "power", "engine", "wheels", "vehicle", "transmit"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return carTransmissionType(f), nil
 		},
@@ -128,6 +136,8 @@ func addCarLookup() {
 		Description: "Company or brand that manufactures and designs cars",
 		Example:     "Nissan",
 		Output:      "string",
+		Aliases:     []string{"company", "brand", "manufacturer", "designer", "vehicle", "producer"},
+		Keywords:    []string{"car", "maker", "company", "brand", "manufacturer", "designer", "vehicle", "manufactures"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return carMaker(f), nil
 		},
@@ -139,6 +149,8 @@ func addCarLookup() {
 		Description: "Specific design or version of a car produced by a manufacturer",
 		Example:     "Aveo",
 		Output:      "string",
+		Aliases:     []string{"model", "design", "version", "specific", "manufacturer", "vehicle"},
+		Keywords:    []string{"car", "model", "design", "version", "specific", "manufacturer", "vehicle", "produced"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return carModel(f), nil
 		},

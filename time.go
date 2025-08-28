@@ -217,6 +217,8 @@ func addDateTimeLookup() {
 		Description: "Representation of a specific day, month, and year, often used for chronological reference",
 		Example:     "2006-01-02T15:04:05Z07:00",
 		Output:      "string",
+		Aliases:     []string{"datetime", "timestamp", "chronological", "calendar", "time"},
+		Keywords:    []string{"date", "datetime", "timestamp", "chronological", "calendar", "time", "reference"},
 		Params: []Param{
 			{
 				Field:       "format",
@@ -270,6 +272,8 @@ func addDateTimeLookup() {
 		Description: "Random date between two ranges",
 		Example:     "2006-01-02T15:04:05Z07:00",
 		Output:      "string",
+		Aliases:     []string{"start", "end", "date", "time", "period", "span"},
+		Keywords:    []string{"daterange", "range", "between", "start", "end", "date", "time", "random"},
 		Params: []Param{
 			{
 				Field:       "startdate",
@@ -328,6 +332,8 @@ func addDateTimeLookup() {
 		Description: "Date that has occurred before the current moment in time",
 		Example:     "2007-01-24 13:00:35.820738079 +0000 UTC",
 		Output:      "time",
+		Aliases:     []string{"past", "before", "previous", "time", "history", "earlier"},
+		Keywords:    []string{"past", "date", "before", "previous", "time", "history", "occurred"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return pastDate(f), nil
 		},
@@ -339,6 +345,8 @@ func addDateTimeLookup() {
 		Description: "Date that has occurred after the current moment in time",
 		Example:     "2107-01-24 13:00:35.820738079 +0000 UTC",
 		Output:      "time",
+		Aliases:     []string{"after", "next", "time", "upcoming", "ahead", "later"},
+		Keywords:    []string{"future", "date", "after", "next", "time", "upcoming", "occurred"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return futureDate(f), nil
 		},
@@ -350,6 +358,8 @@ func addDateTimeLookup() {
 		Description: "Unit of time equal to One billionth (10^-9) of a second",
 		Example:     "196446360",
 		Output:      "int",
+		Aliases:     []string{"nano", "billionth", "time", "unit", "precision"},
+		Keywords:    []string{"nanosecond", "nano", "billionth", "time", "unit", "precision", "second"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return nanoSecond(f), nil
 		},
@@ -361,6 +371,8 @@ func addDateTimeLookup() {
 		Description: "Unit of time equal to 1/60th of a minute",
 		Example:     "43",
 		Output:      "int",
+		Aliases:     []string{"time", "unit", "minute", "sixtieth", "measurement"},
+		Keywords:    []string{"second", "sec", "time", "unit", "minute", "sixtieth"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return second(f), nil
 		},
@@ -372,6 +384,8 @@ func addDateTimeLookup() {
 		Description: "Unit of time equal to 60 seconds",
 		Example:     "34",
 		Output:      "int",
+		Aliases:     []string{"time", "unit", "sixty", "seconds", "measurement"},
+		Keywords:    []string{"minute", "min", "time", "unit", "sixty", "seconds"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return minute(f), nil
 		},
@@ -383,6 +397,8 @@ func addDateTimeLookup() {
 		Description: "Unit of time equal to 60 minutes",
 		Example:     "8",
 		Output:      "int",
+		Aliases:     []string{"time", "unit", "sixty", "minutes", "period"},
+		Keywords:    []string{"hour", "hr", "time", "unit", "sixty", "minutes"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return hour(f), nil
 		},
@@ -394,6 +410,8 @@ func addDateTimeLookup() {
 		Description: "24-hour period equivalent to one rotation of Earth on its axis",
 		Example:     "12",
 		Output:      "int",
+		Aliases:     []string{"time", "unit", "rotation", "earth", "period"},
+		Keywords:    []string{"day", "time", "unit", "rotation", "earth", "axis", "24-hour"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return day(f), nil
 		},
@@ -405,6 +423,8 @@ func addDateTimeLookup() {
 		Description: "Day of the week excluding the weekend",
 		Example:     "Friday",
 		Output:      "string",
+		Aliases:     []string{"day", "week", "workday", "business", "monday"},
+		Keywords:    []string{"weekday", "day", "week", "workday", "business", "weekend"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return weekDay(f), nil
 		},
@@ -416,6 +436,8 @@ func addDateTimeLookup() {
 		Description: "Division of the year, typically 30 or 31 days long",
 		Example:     "1",
 		Output:      "string",
+		Aliases:     []string{"division", "calendar", "time", "period", "monthly"},
+		Keywords:    []string{"month", "year", "division", "calendar", "time", "30", "31", "days"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return month(f), nil
 		},
@@ -427,6 +449,8 @@ func addDateTimeLookup() {
 		Description: "String Representation of a month name",
 		Example:     "September",
 		Output:      "string",
+		Aliases:     []string{"name", "calendar", "time", "january", "text"},
+		Keywords:    []string{"month", "string", "name", "calendar", "time", "representation"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return monthString(f), nil
 		},
@@ -438,6 +462,8 @@ func addDateTimeLookup() {
 		Description: "Period of 365 days, the time Earth takes to orbit the Sun",
 		Example:     "1900",
 		Output:      "int",
+		Aliases:     []string{"time", "period", "orbit", "sun", "earth", "annual"},
+		Keywords:    []string{"year", "time", "period", "orbit", "sun", "earth", "365", "days"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return year(f), nil
 		},
@@ -449,6 +475,8 @@ func addDateTimeLookup() {
 		Description: "Region where the same standard time is used, based on longitudinal divisions of the Earth",
 		Example:     "Kaliningrad Standard Time",
 		Output:      "string",
+		Aliases:     []string{"timezone", "zone", "time", "region", "standard"},
+		Keywords:    []string{"timezone", "zone", "time", "region", "standard", "longitudinal", "earth"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return timeZone(f), nil
 		},
@@ -460,6 +488,8 @@ func addDateTimeLookup() {
 		Description: "Abbreviated 3-letter word of a timezone",
 		Example:     "KST",
 		Output:      "string",
+		Aliases:     []string{"timezone", "abbreviation", "abv", "zone", "time"},
+		Keywords:    []string{"timezone", "abbreviation", "abv", "zone", "time", "3-letter"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return timeZoneAbv(f), nil
 		},
@@ -471,6 +501,8 @@ func addDateTimeLookup() {
 		Description: "Full name of a timezone",
 		Example:     "(UTC+03:00) Kaliningrad, Minsk",
 		Output:      "string",
+		Aliases:     []string{"name", "zone", "time", "utc", "complete", "detailed"},
+		Keywords:    []string{"timezone", "full", "name", "zone", "time", "utc"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return timeZoneFull(f), nil
 		},
@@ -482,6 +514,8 @@ func addDateTimeLookup() {
 		Description: "The difference in hours from Coordinated Universal Time (UTC) for a specific region",
 		Example:     "3",
 		Output:      "float32",
+		Aliases:     []string{"hours", "coordinated", "deviation", "variation", "difference"},
+		Keywords:    []string{"timezone", "offset", "utc", "difference", "hours", "coordinated", "universal"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return timeZoneOffset(f), nil
 		},
@@ -493,6 +527,8 @@ func addDateTimeLookup() {
 		Description: "Geographic area sharing the same standard time",
 		Example:     "America/Alaska",
 		Output:      "string",
+		Aliases:     []string{"region", "geographic", "area", "standard", "zone"},
+		Keywords:    []string{"timezone", "region", "geographic", "area", "standard", "time"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return timeZoneRegion(f), nil
 		},

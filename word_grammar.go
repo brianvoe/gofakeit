@@ -27,6 +27,8 @@ func addWordGrammerLookup() {
 		Description: "Group of words that expresses a complete thought",
 		Example:     "A tribe fly the lemony kitchen.",
 		Output:      "string",
+		Aliases:     []string{"simple", "complete", "thought", "grammar", "basic", "statement"},
+		Keywords:    []string{"sentence", "simple", "complete", "thought", "grammar", "basic", "expresses"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return sentenceSimple(f), nil
 		},

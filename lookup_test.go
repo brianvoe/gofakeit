@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"math/rand/v2"
+	"slices"
 	"strings"
 	"testing"
 )
@@ -242,6 +243,27 @@ func TestLookupCheckFields(t *testing.T) {
 			t.Fatalf("%s is misssing output", field)
 		}
 
+		// Check aliases - should be a slice (can be empty but should be initialized)
+		if info.Aliases == nil {
+			t.Fatalf("%s is missing aliases slice (should be initialized even if empty)", field)
+		} else if len(info.Aliases) == 0 {
+			t.Fatalf("%s has empty aliases slice", field)
+		}
+
+		// Check keywords - should be a slice (can be empty but should be initialized)
+		if info.Keywords == nil {
+			t.Fatalf("%s is missing keywords slice (should be initialized even if empty)", field)
+		} else if len(info.Keywords) == 0 {
+			t.Fatalf("%s has empty keywords slice", field)
+		}
+
+		// Make sure aliases and keywords dont have the same values in them
+		for _, alias := range info.Aliases {
+			if slices.Contains(info.Keywords, alias) {
+				t.Fatalf("Keywords and Aliases should be unique. Check each field and only use one of the values that best matches the field. %s has duplicate alias %s", field, alias)
+			}
+		}
+
 		// Check params
 		if info.Params != nil {
 			for _, p := range info.Params {
@@ -258,6 +280,65 @@ func TestLookupCheckFields(t *testing.T) {
 					t.Fatalf("Field %s param %s is missing a description", field, p.Field)
 				}
 			}
+		}
+	}
+}
+
+func TestLookupSearchHygiene(t *testing.T) {
+	stop := map[string]struct{}{
+		"a": {}, "an": {}, "the": {}, "of": {}, "for": {}, "to": {}, "and": {}, "or": {}, "in": {}, "on": {}, "with": {}, "by": {}, "from": {},
+		"data": {}, "info": {}, "thing": {}, "things": {}, "stuff": {}, "object": {}, "objects": {},
+	}
+	for key, info := range FuncLookups {
+		// counts
+		if len(info.Aliases) < 3 || len(info.Aliases) > 8 {
+			t.Fatalf("%s aliases count should be 3–8 got %d", key, len(info.Aliases))
+		}
+		if len(info.Keywords) < 6 || len(info.Keywords) > 20 {
+			t.Fatalf("%s keywords count should be 6–20 got %d", key, len(info.Keywords))
+		}
+
+		// normalization
+		seen := map[string]string{}
+		norm := func(s string) string {
+			s = strings.ToLower(strings.TrimSpace(s))
+			s = strings.Map(func(r rune) rune {
+				if (r >= 'a' && r <= 'z') || (r >= '0' && r <= '9') || r == ' ' || r == '-' {
+					return r
+				}
+				return -1
+			}, s)
+			return strings.Join(strings.Fields(s), " ")
+		}
+
+		for _, a := range info.Aliases {
+			an := norm(a)
+			if an == "" || an != a {
+				t.Fatalf("%s alias must be lowercase ascii and trimmed: %q", key, a)
+			}
+			if _, bad := stop[an]; bad {
+				t.Fatalf("%s alias contains stopword: %q", key, a)
+			}
+			if prev, dup := seen[an]; dup {
+				t.Fatalf("%s duplicate alias: %q equals %q", key, a, prev)
+			}
+			seen[an] = "alias"
+		}
+		for _, k := range info.Keywords {
+			kn := norm(k)
+			if kn == "" || kn != k {
+				t.Fatalf("%s keyword must be lowercase ascii and trimmed: %q", key, k)
+			}
+			if strings.Contains(kn, " ") {
+				t.Fatalf("%s keyword must be a single token or hyphenated: %q", key, k)
+			}
+			if _, bad := stop[kn]; bad {
+				t.Fatalf("%s keyword contains stopword: %q", key, k)
+			}
+			if where, clash := seen[kn]; clash {
+				t.Fatalf("%s duplicate across %s and keyword: %q", key, where, k)
+			}
+			seen[kn] = "keyword"
 		}
 	}
 }

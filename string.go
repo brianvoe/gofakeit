@@ -124,6 +124,8 @@ func addStringLookup() {
 		Description: "Character or symbol from the American Standard Code for Information Interchange (ASCII) character set",
 		Example:     "g",
 		Output:      "string",
+		Aliases:     []string{"character", "symbol", "ascii", "alphabet", "alphabetical", "text"},
+		Keywords:    []string{"letter", "character", "symbol", "ascii", "alphabet", "alphabetical", "text", "american"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return letter(f), nil
 		},
@@ -135,6 +137,8 @@ func addStringLookup() {
 		Description: "ASCII string with length N",
 		Example:     "gbRMaRxHki",
 		Output:      "string",
+		Aliases:     []string{"letter", "ascii", "string", "length", "random", "alphabetical"},
+		Keywords:    []string{"letter", "ascii", "string", "length", "random", "alphabetical", "generated"},
 		Params: []Param{
 			{Field: "count", Display: "Count", Type: "uint", Description: "Number of digits to generate"},
 		},
@@ -154,6 +158,8 @@ func addStringLookup() {
 		Description: "Speech sound produced with an open vocal tract",
 		Example:     "a",
 		Output:      "string",
+		Aliases:     []string{"vowel", "speech", "sound", "vocal", "tract", "letter"},
+		Keywords:    []string{"vowel", "speech", "sound", "vocal", "tract", "letter", "produced", "open"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return vowel(f), nil
 		},
@@ -165,6 +171,8 @@ func addStringLookup() {
 		Description: "Numerical symbol used to represent numbers",
 		Example:     "0",
 		Output:      "string",
+		Aliases:     []string{"digit", "numerical", "symbol", "number", "represent"},
+		Keywords:    []string{"digit", "numerical", "symbol", "number", "represent", "used"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return digit(f), nil
 		},
@@ -176,6 +184,8 @@ func addStringLookup() {
 		Description: "string of length N consisting of ASCII digits",
 		Example:     "0136459948",
 		Output:      "string",
+		Aliases:     []string{"numerical", "string", "length", "ascii", "numbers", "sequence"},
+		Keywords:    []string{"digit", "numerical", "string", "length", "ascii", "numbers", "consisting"},
 		Params: []Param{
 			{Field: "count", Display: "Count", Type: "uint", Description: "Number of digits to generate"},
 		},
@@ -195,6 +205,8 @@ func addStringLookup() {
 		Description: "Replace # with random numerical values",
 		Example:     "(###)###-#### => (555)867-5309",
 		Output:      "string",
+		Aliases:     []string{"numerical", "values", "random", "string", "pattern", "substitute"},
+		Keywords:    []string{"numerify", "replace", "numerical", "values", "random", "string", "pattern", "with"},
 		Params: []Param{
 			{Field: "str", Display: "String", Type: "string", Description: "String value to replace #'s"},
 		},
@@ -214,6 +226,8 @@ func addStringLookup() {
 		Description: "Replace ? with random generated letters",
 		Example:     "?????@??????.com => billy@mister.com",
 		Output:      "string",
+		Aliases:     []string{"letters", "random", "generated", "string", "pattern", "substitute"},
+		Keywords:    []string{"lexify", "replace", "letters", "random", "generated", "string", "pattern", "with"},
 		Params: []Param{
 			{Field: "str", Display: "String", Type: "string", Description: "String value to replace ?'s"},
 		},
@@ -234,6 +248,8 @@ func addStringLookup() {
 		Example:     "hello,world,whats,up => whats,world,hello,up",
 		Output:      "[]string",
 		ContentType: "application/json",
+		Aliases:     []string{"shuffle", "array", "strings", "randomize", "reorder", "mix"},
+		Keywords:    []string{"shuffle", "array", "strings", "randomize", "reorder", "mix", "an"},
 		Params: []Param{
 			{Field: "strs", Display: "Strings", Type: "[]string", Description: "Delimited separated strings"},
 		},
@@ -255,6 +271,8 @@ func addStringLookup() {
 		Description: "Return a random string from a string array",
 		Example:     "hello,world,whats,up => world",
 		Output:      "[]string",
+		Aliases:     []string{"string", "array", "return", "select", "choose", "pick"},
+		Keywords:    []string{"random", "string", "array", "return", "select", "choose", "from"},
 		Params: []Param{
 			{Field: "strs", Display: "Strings", Type: "[]string", Description: "Delimited separated strings"},
 		},

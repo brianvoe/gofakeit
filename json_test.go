@@ -404,6 +404,8 @@ func TestJSONRawMessageWithCustomFuncTag(t *testing.T) {
 		Example:     `{"ErTA":"bale","FQJUIGrmnRBfuGlb":"over","HTJJPnEKGS":"please say that again","HvLvfsQRGbK":"whenever one turns around","KKbMlbxquDmwwvRWVlPmwRAeAw":"Voluptatem eaque quia facilis quo."}`,
 		Output:      "[]byte",
 		ContentType: "application/json",
+		Aliases:     []string{"custom", "json", "test", "function", "tag", "raw"},
+		Keywords:    []string{"customjsontest", "custom", "json", "test", "function", "tag", "raw", "message"},
 		Params:      []Param{},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			length := f.Number(5, 15)
@@ -446,6 +448,8 @@ func TestJSONRawMessageWithInvalidCustomFuncTag(t *testing.T) {
 		Category: "file",
 		Example:  `[181 251 51 164 185 142 21 3 33]`,
 		Output:   "[]byte",
+		Aliases:  []string{"invalid", "json", "test", "custom", "function", "tag"},
+		Keywords: []string{"invalidjsontest", "invalid", "json", "test", "custom", "function", "tag", "raw"},
 		Params:   []Param{},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			var result []byte

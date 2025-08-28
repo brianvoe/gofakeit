@@ -47,6 +47,8 @@ func addSongLookup() {
 }`,
 		Output:      "map[string]string",
 		ContentType: "application/json",
+		Aliases:     []string{"music", "track", "tune", "melody"},
+		Keywords:    []string{"song", "music", "track", "tune", "melody", "artist", "genre", "name"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return song(f), nil
 		},
@@ -58,6 +60,8 @@ func addSongLookup() {
 		Description: "Title or name of a specific song used for identification and reference",
 		Example:     "New Rules",
 		Output:      "string",
+		Aliases:     []string{"title", "name", "track", "song"},
+		Keywords:    []string{"song", "name", "title", "track", "music", "identification"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return songName(f), nil
 		},
@@ -69,6 +73,8 @@ func addSongLookup() {
 		Description: "The artist of maker of song",
 		Example:     "Dua Lipa",
 		Output:      "string",
+		Aliases:     []string{"singer", "performer", "musician", "creator"},
+		Keywords:    []string{"song", "artist", "singer", "performer", "musician", "maker"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return songArtist(f), nil
 		},
@@ -80,6 +86,8 @@ func addSongLookup() {
 		Description: "Category that classifies song based on common themes, styles, and storytelling approaches",
 		Example:     "Action",
 		Output:      "string",
+		Aliases:     []string{"style", "category", "type", "classification"},
+		Keywords:    []string{"song", "genre", "style", "category", "type", "classification", "theme"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return songGenre(f), nil
 		},

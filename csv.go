@@ -134,6 +134,8 @@ func addFileCSVLookup() {
 2,Osborne,Hilll,XPJ9OVNbs5lm`,
 		Output:      "[]byte",
 		ContentType: "text/csv",
+		Aliases:     []string{"comma", "separated", "values", "format", "data", "spreadsheet"},
+		Keywords:    []string{"csv", "comma", "separated", "values", "format", "data", "spreadsheet", "entries"},
 		Params: []Param{
 			{Field: "delimiter", Display: "Delimiter", Type: "string", Default: ",", Description: "Separator in between row values"},
 			{Field: "rowcount", Display: "Row Count", Type: "int", Default: "100", Description: "Number of rows"},

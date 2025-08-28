@@ -33,6 +33,8 @@ func addCelebrityLookup() {
 		Description: "Famous person known for acting in films, television, or theater",
 		Example:     "Brad Pitt",
 		Output:      "string",
+		Aliases:     []string{"actor", "famous", "films", "television", "theater", "entertainment"},
+		Keywords:    []string{"celebrity", "actor", "famous", "films", "television", "theater", "entertainment", "known"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return celebrityActor(f), nil
 		},
@@ -44,6 +46,8 @@ func addCelebrityLookup() {
 		Description: "High-profile individual known for significant achievements in business or entrepreneurship",
 		Example:     "Elon Musk",
 		Output:      "string",
+		Aliases:     []string{"business", "entrepreneur", "high-profile", "achievements", "executive"},
+		Keywords:    []string{"celebrity", "business", "entrepreneur", "high-profile", "achievements", "executive", "significant"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return celebrityBusiness(f), nil
 		},
@@ -55,6 +59,8 @@ func addCelebrityLookup() {
 		Description: "Famous athlete known for achievements in a particular sport",
 		Example:     "Michael Phelps",
 		Output:      "string",
+		Aliases:     []string{"athlete", "famous", "achievements", "competition", "athletic", "player"},
+		Keywords:    []string{"celebrity", "sport", "athlete", "famous", "achievements", "competition", "athletic", "particular"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return celebritySport(f), nil
 		},

@@ -39,6 +39,8 @@ func addMovieLookup() {
 }`,
 		Output:      "map[string]string",
 		ContentType: "application/json",
+		Aliases:     []string{"cinema", "picture", "story", "entertainment", "motion"},
+		Keywords:    []string{"movie", "film", "cinema", "picture", "story", "entertainment", "moving", "sound"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return movie(f), nil
 		},
@@ -50,6 +52,8 @@ func addMovieLookup() {
 		Description: "Title or name of a specific film used for identification and reference",
 		Example:     "The Matrix",
 		Output:      "string",
+		Aliases:     []string{"film", "identification", "reference", "label", "heading"},
+		Keywords:    []string{"movie", "name", "title", "film", "identification", "reference"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return movieName(f), nil
 		},
@@ -61,6 +65,8 @@ func addMovieLookup() {
 		Description: "Category that classifies movies based on common themes, styles, and storytelling approaches",
 		Example:     "Action",
 		Output:      "string",
+		Aliases:     []string{"category", "type", "classification", "style", "genre"},
+		Keywords:    []string{"movie", "genre", "category", "type", "classification", "themes", "styles", "storytelling"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return movieGenre(f), nil
 		},

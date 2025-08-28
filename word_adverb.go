@@ -90,6 +90,8 @@ func addWordAdverbLookup() {
 		Description: "Word that modifies verbs, adjectives, or other adverbs",
 		Example:     "smoothly",
 		Output:      "string",
+		Aliases:     []string{"word", "modifies", "verbs", "adjectives", "grammar", "modifier"},
+		Keywords:    []string{"adverb", "word", "modifies", "verbs", "adjectives", "grammar", "modifies"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return adverb(f), nil
 		},
@@ -101,6 +103,8 @@ func addWordAdverbLookup() {
 		Description: "Adverb that describes how an action is performed",
 		Example:     "stupidly",
 		Output:      "string",
+		Aliases:     []string{"manner", "describes", "action", "performed", "grammar", "how"},
+		Keywords:    []string{"adverb", "manner", "describes", "action", "performed", "grammar", "how"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return adverbManner(f), nil
 		},
@@ -112,6 +116,8 @@ func addWordAdverbLookup() {
 		Description: "Adverb that indicates the degree or intensity of an action or adjective",
 		Example:     "intensely",
 		Output:      "string",
+		Aliases:     []string{"degree", "intensity", "action", "adjective", "grammar", "level"},
+		Keywords:    []string{"adverb", "degree", "intensity", "action", "adjective", "grammar", "indicates"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return adverbDegree(f), nil
 		},
@@ -123,6 +129,8 @@ func addWordAdverbLookup() {
 		Description: "Adverb that indicates the location or direction of an action",
 		Example:     "east",
 		Output:      "string",
+		Aliases:     []string{"direction", "action", "grammar", "word", "where", "position"},
+		Keywords:    []string{"adverb", "place", "location", "direction", "action", "grammar", "indicates"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return adverbPlace(f), nil
 		},
@@ -134,6 +142,8 @@ func addWordAdverbLookup() {
 		Description: "Adverb that specifies the exact time an action occurs",
 		Example:     "now",
 		Output:      "string",
+		Aliases:     []string{"time", "definite", "exact", "action", "grammar", "when"},
+		Keywords:    []string{"adverb", "time", "definite", "exact", "action", "grammar", "specifies"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return adverbTimeDefinite(f), nil
 		},
@@ -145,6 +155,8 @@ func addWordAdverbLookup() {
 		Description: "Adverb that gives a general or unspecified time frame",
 		Example:     "already",
 		Output:      "string",
+		Aliases:     []string{"time", "indefinite", "general", "unspecified", "grammar", "vague"},
+		Keywords:    []string{"adverb", "time", "indefinite", "general", "unspecified", "grammar", "frame"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return adverbTimeIndefinite(f), nil
 		},
@@ -156,6 +168,8 @@ func addWordAdverbLookup() {
 		Description: "Adverb that specifies how often an action occurs with a clear frequency",
 		Example:     "hourly",
 		Output:      "string",
+		Aliases:     []string{"frequency", "definite", "often", "action", "grammar", "word", "clear"},
+		Keywords:    []string{"adverb", "frequency", "definite", "often", "action", "grammar", "clear", "specifies"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return adverbFrequencyDefinite(f), nil
 		},
@@ -167,6 +181,8 @@ func addWordAdverbLookup() {
 		Description: "Adverb that specifies how often an action occurs without specifying a particular frequency",
 		Example:     "occasionally",
 		Output:      "string",
+		Aliases:     []string{"indefinite", "often", "action", "grammar", "sometimes", "recurring"},
+		Keywords:    []string{"adverb", "frequency", "indefinite", "often", "action", "grammar", "particular"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return adverbFrequencyIndefinite(f), nil
 		},

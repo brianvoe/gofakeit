@@ -63,6 +63,8 @@ func addColorLookup() {
 		Description: "Hue seen by the eye, returns the name of the color like red or blue",
 		Example:     "MediumOrchid",
 		Output:      "string",
+		Aliases:     []string{"hue", "eye", "name", "blue", "visual", "shade", "chroma"},
+		Keywords:    []string{"color", "hue", "eye", "name", "red", "blue", "visual", "seen"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return color(f), nil
 		},
@@ -75,6 +77,8 @@ func addColorLookup() {
 		Example:     `["#cfffdd","#b4dec1","#5c5863","#a85163","#ff1f4c"]`,
 		Output:      "[]string",
 		ContentType: "application/json",
+		Aliases:     []string{"colors", "attractive", "appealing", "combinations", "hex", "codes", "palette"},
+		Keywords:    []string{"nice", "colors", "attractive", "appealing", "combinations", "hex", "codes", "returns"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return niceColors(f), nil
 		},
@@ -86,6 +90,8 @@ func addColorLookup() {
 		Description: "Colors displayed consistently on different web browsers and devices",
 		Example:     "black",
 		Output:      "string",
+		Aliases:     []string{"web", "browsers", "devices", "compatible", "accessible", "reliable", "stable"},
+		Keywords:    []string{"safe", "color", "displayed", "consistently", "web", "browsers", "devices", "different", "cross-platform"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return safeColor(f), nil
 		},
@@ -97,6 +103,8 @@ func addColorLookup() {
 		Description: "Six-digit code representing a color in the color model",
 		Example:     "#a99fb4",
 		Output:      "string",
+		Aliases:     []string{"six-digit", "code", "representing", "model", "hexadecimal", "hash"},
+		Keywords:    []string{"hex", "color", "six-digit", "code", "representing", "model", "color"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return hexColor(f), nil
 		},
@@ -109,6 +117,8 @@ func addColorLookup() {
 		Example:     "[85, 224, 195]",
 		Output:      "[]int",
 		ContentType: "application/json",
+		Aliases:     []string{"green", "blue", "light", "values", "pixel", "triple", "primary"},
+		Keywords:    []string{"rgb", "color", "red", "green", "blue", "light", "values", "defined"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return rgbColor(f), nil
 		},

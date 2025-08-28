@@ -30,6 +30,8 @@ func addWordGeneralLookup() {
 		Description: "Basic unit of language representing a concept or thing, consisting of letters and having meaning",
 		Example:     "man",
 		Output:      "string",
+		Aliases:     []string{"basic", "unit", "language", "concept", "letters", "meaning", "term"},
+		Keywords:    []string{"word", "basic", "unit", "language", "concept", "thing", "letters", "meaning", "representing"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return word(f), nil
 		},

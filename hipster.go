@@ -51,6 +51,8 @@ func addHipsterLookup() {
 		Description: "Trendy and unconventional vocabulary used by hipsters to express unique cultural preferences",
 		Example:     "microdosing",
 		Output:      "string",
+		Aliases:     []string{"word", "trendy", "unconventional", "vocabulary", "culture", "modern"},
+		Keywords:    []string{"hipster", "word", "trendy", "unconventional", "vocabulary", "culture", "preferences"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return hipsterWord(f), nil
 		},
@@ -62,6 +64,8 @@ func addHipsterLookup() {
 		Description: "Sentence showcasing the use of trendy and unconventional vocabulary associated with hipster culture",
 		Example:     "Microdosing roof chia echo pickled.",
 		Output:      "string",
+		Aliases:     []string{"sentence", "trendy", "unconventional", "vocabulary", "culture", "modern"},
+		Keywords:    []string{"hipster", "sentence", "trendy", "unconventional", "vocabulary", "culture", "showcasing"},
 		Params: []Param{
 			{Field: "wordcount", Display: "Word Count", Type: "int", Default: "5", Description: "Number of words in a sentence"},
 		},
@@ -87,7 +91,9 @@ func addHipsterLookup() {
 Pug bushwick hella tote bag cliche direct trade waistcoat yr waistcoat knausgaard pour-over master. Pitchfork jean shorts franzen flexitarian distillery hella meggings austin knausgaard crucifix wolf heirloom. Crucifix food truck you probably haven't heard of them trust fund fixie gentrify pitchfork stumptown mlkshk umami chambray blue bottle. 3 wolf moon swag +1 biodiesel knausgaard semiotics taxidermy meh artisan hoodie +1 blue bottle. Fashion axe forage mixtape Thundercats pork belly whatever 90's beard selfies chambray cred mlkshk.
 
 Shabby chic typewriter VHS readymade lo-fi bitters PBR&B gentrify lomo raw denim freegan put a bird on it. Raw denim cliche dreamcatcher pug fixie park trust fund migas fingerstache sriracha +1 mustache. Tilde shoreditch kickstarter franzen dreamcatcher green juice mustache neutra polaroid stumptown organic schlitz. Flexitarian ramps chicharrones kogi lo-fi mustache tilde forage street church-key williamsburg taxidermy. Chia mustache plaid mumblecore squid slow-carb disrupt Thundercats goth shoreditch master direct trade.`,
-		Output: "string",
+		Output:   "string",
+		Aliases:  []string{"paragraph", "trendy", "unconventional", "vocabulary", "culture", "modern"},
+		Keywords: []string{"hipster", "paragraph", "trendy", "unconventional", "vocabulary", "culture", "showcasing"},
 		Params: []Param{
 			{Field: "paragraphcount", Display: "Paragraph Count", Type: "int", Default: "2", Description: "Number of paragraphs"},
 			{Field: "sentencecount", Display: "Sentence Count", Type: "int", Default: "2", Description: "Number of sentences in a paragraph"},

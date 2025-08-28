@@ -243,6 +243,8 @@ func addPersonLookup() {
 }`,
 		Output:      "map[string]any",
 		ContentType: "application/json",
+		Aliases:     []string{"personal", "data", "name", "contact", "identification", "communication"},
+		Keywords:    []string{"person", "personal", "data", "name", "contact", "identification", "communication", "details"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return person(f), nil
 		},
@@ -254,6 +256,8 @@ func addPersonLookup() {
 		Description: "The given and family name of an individual",
 		Example:     "Markus Moen",
 		Output:      "string",
+		Aliases:     []string{"name", "person", "individual", "given", "family", "full"},
+		Keywords:    []string{"name", "person", "individual", "given", "family", "full", "name"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return name(f), nil
 		},
@@ -265,6 +269,8 @@ func addPersonLookup() {
 		Description: "A title or honorific added before a person's name",
 		Example:     "Mr.",
 		Output:      "string",
+		Aliases:     []string{"name", "prefix", "title", "honorific", "person", "before"},
+		Keywords:    []string{"name", "prefix", "title", "honorific", "person", "before", "added"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return namePrefix(f), nil
 		},
@@ -276,6 +282,8 @@ func addPersonLookup() {
 		Description: "A title or designation added after a person's name",
 		Example:     "Jr.",
 		Output:      "string",
+		Aliases:     []string{"name", "suffix", "title", "designation", "person", "after"},
+		Keywords:    []string{"name", "suffix", "title", "designation", "person", "after", "added"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return nameSuffix(f), nil
 		},
@@ -287,6 +295,8 @@ func addPersonLookup() {
 		Description: "The name given to a person at birth",
 		Example:     "Markus",
 		Output:      "string",
+		Aliases:     []string{"first", "given", "birth", "person", "individual", "forename"},
+		Keywords:    []string{"name", "first", "given", "birth", "person", "individual", "name"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return firstName(f), nil
 		},
@@ -298,6 +308,8 @@ func addPersonLookup() {
 		Description: "Name between a person's first name and last name",
 		Example:     "Belinda",
 		Output:      "string",
+		Aliases:     []string{"name", "middle", "between", "first", "last", "person"},
+		Keywords:    []string{"name", "middle", "between", "first", "last", "person", "name"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return middleName(f), nil
 		},
@@ -309,6 +321,8 @@ func addPersonLookup() {
 		Description: "The family name or surname of an individual",
 		Example:     "Daniel",
 		Output:      "string",
+		Aliases:     []string{"name", "last", "family", "surname", "individual", "person"},
+		Keywords:    []string{"name", "last", "family", "surname", "individual", "person", "name"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return lastName(f), nil
 		},
@@ -320,6 +334,8 @@ func addPersonLookup() {
 		Description: "Classification based on social and cultural norms that identifies an individual",
 		Example:     "male",
 		Output:      "string",
+		Aliases:     []string{"gender", "classification", "social", "cultural", "norms", "individual"},
+		Keywords:    []string{"gender", "classification", "social", "cultural", "norms", "individual", "identifies"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return gender(f), nil
 		},
@@ -331,6 +347,8 @@ func addPersonLookup() {
 		Description: "Unique nine-digit identifier used for government and financial purposes in the United States",
 		Example:     "296446360",
 		Output:      "string",
+		Aliases:     []string{"security", "number", "identifier", "government", "financial", "federal", "national"},
+		Keywords:    []string{"ssn", "social", "security", "number", "identifier", "government", "financial", "purposes"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return ssn(f), nil
 		},
@@ -342,6 +360,8 @@ func addPersonLookup() {
 		Description: "An activity pursued for leisure and pleasure",
 		Example:     "Swimming",
 		Output:      "string",
+		Aliases:     []string{"leisure", "pleasure", "pursued", "person", "recreation", "pastime"},
+		Keywords:    []string{"hobby", "activity", "leisure", "pleasure", "pursued", "person", "activity"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return hobby(f), nil
 		},
@@ -353,6 +373,8 @@ func addPersonLookup() {
 		Description: "Electronic mail used for sending digital messages and communication over the internet",
 		Example:     "markusmoen@pagac.net",
 		Output:      "string",
+		Aliases:     []string{"electronic", "mail", "digital", "messages", "communication", "internet", "sending"},
+		Keywords:    []string{"email", "electronic", "mail", "digital", "messages", "communication", "internet", "sending"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return email(f), nil
 		},
@@ -364,6 +386,8 @@ func addPersonLookup() {
 		Description: "Numerical sequence used to contact individuals via telephone or mobile devices",
 		Example:     "6136459948",
 		Output:      "string",
+		Aliases:     []string{"contact", "telephone", "mobile", "devices", "call", "dial", "number"},
+		Keywords:    []string{"phone", "numerical", "sequence", "contact", "telephone", "mobile", "devices", "individuals"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return phone(f), nil
 		},
@@ -375,6 +399,8 @@ func addPersonLookup() {
 		Description: "Formatted phone number of a person",
 		Example:     "136-459-9489",
 		Output:      "string",
+		Aliases:     []string{"formatted", "number", "person", "contact", "telephone", "dial"},
+		Keywords:    []string{"phone", "formatted", "number", "person", "contact", "telephone", "formatted"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return phoneFormatted(f), nil
 		},
@@ -402,6 +428,8 @@ func addPersonLookup() {
 }`,
 		Output:      "map[string][]string",
 		ContentType: "application/json",
+		Aliases:     []string{"people", "split", "randomly", "groups", "person", "division"},
+		Keywords:    []string{"teams", "people", "split", "randomly", "groups", "person", "into"},
 		Params: []Param{
 			{Field: "people", Display: "Strings", Type: "[]string", Description: "Array of people"},
 			{Field: "teams", Display: "Strings", Type: "[]string", Description: "Array of teams"},

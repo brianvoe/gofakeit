@@ -48,6 +48,8 @@ func addBookLookup() {
 }`,
 		Output:      "map[string]string",
 		ContentType: "application/json",
+		Aliases:     []string{"printed", "pages", "bound", "subjects", "stories", "literature", "text"},
+		Keywords:    []string{"book", "written", "printed", "pages", "bound", "subjects", "stories", "work", "consisting"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return book(f), nil
 		},
@@ -59,6 +61,8 @@ func addBookLookup() {
 		Description: "The specific name given to a book",
 		Example:     "Hamlet",
 		Output:      "string",
+		Aliases:     []string{"title", "name", "specific", "given", "heading"},
+		Keywords:    []string{"book", "title", "name", "specific", "given", "identification"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return bookTitle(f), nil
 		},
@@ -70,6 +74,8 @@ func addBookLookup() {
 		Description: "The individual who wrote or created the content of a book",
 		Example:     "Mark Twain",
 		Output:      "string",
+		Aliases:     []string{"author", "writer", "creator", "individual", "content", "book"},
+		Keywords:    []string{"book", "author", "writer", "creator", "individual", "content", "wrote", "created"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return bookAuthor(f), nil
 		},
@@ -81,6 +87,8 @@ func addBookLookup() {
 		Description: "Category or type of book defined by its content, style, or form",
 		Example:     "Adventure",
 		Output:      "string",
+		Aliases:     []string{"type", "content", "style", "form", "literature", "classification"},
+		Keywords:    []string{"book", "genre", "category", "type", "content", "style", "form", "defined"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return bookGenre(f), nil
 		},

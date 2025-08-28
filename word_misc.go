@@ -15,6 +15,8 @@ func addWordMiscLookup() {
 		Description: "Word expressing emotion",
 		Example:     "wow",
 		Output:      "string",
+		Aliases:     []string{"emotion", "word", "expression", "feeling", "reaction", "exclamation"},
+		Keywords:    []string{"interjection", "emotion", "word", "expression", "feeling", "reaction", "exclamation"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return interjection(f), nil
 		},

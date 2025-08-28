@@ -52,6 +52,8 @@ func addWordPrepositionLookup() {
 		Description: "Words used to express the relationship of a noun or pronoun to other words in a sentence",
 		Example:     "other than",
 		Output:      "string",
+		Aliases:     []string{"preposition", "relationship", "noun", "pronoun", "sentence", "grammar"},
+		Keywords:    []string{"preposition", "relationship", "noun", "pronoun", "sentence", "grammar", "express"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return preposition(f), nil
 		},
@@ -63,6 +65,8 @@ func addWordPrepositionLookup() {
 		Description: "Single-word preposition showing relationships between 2 parts of a sentence",
 		Example:     "out",
 		Output:      "string",
+		Aliases:     []string{"single-word", "relationships", "parts", "sentence", "grammar", "basic"},
+		Keywords:    []string{"preposition", "simple", "single-word", "relationships", "parts", "sentence", "grammar", "showing"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return prepositionSimple(f), nil
 		},
@@ -74,6 +78,8 @@ func addWordPrepositionLookup() {
 		Description: "Two-word combination preposition, indicating a complex relation",
 		Example:     "before",
 		Output:      "string",
+		Aliases:     []string{"double", "two-word", "combination", "complex", "relation", "grammar"},
+		Keywords:    []string{"preposition", "double", "two-word", "combination", "complex", "relation", "grammar", "indicating"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return prepositionDouble(f), nil
 		},
@@ -85,6 +91,8 @@ func addWordPrepositionLookup() {
 		Description: "Preposition that can be formed by combining two or more prepositions",
 		Example:     "according to",
 		Output:      "string",
+		Aliases:     []string{"compound", "combining", "two", "more", "prepositions", "grammar"},
+		Keywords:    []string{"preposition", "compound", "combining", "two", "more", "prepositions", "grammar", "formed"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return prepositionCompound(f), nil
 		},

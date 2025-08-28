@@ -20,15 +20,17 @@ type MapParamsValue []string
 
 // Info structures fields to better break down what each one generates
 type Info struct {
-	Display     string                                                `json:"display"`
-	Category    string                                                `json:"category"`
-	Description string                                                `json:"description"`
-	Example     string                                                `json:"example"`
-	Output      string                                                `json:"output"`
-	ContentType string                                                `json:"content_type"`
-	Params      []Param                                               `json:"params"`
-	Any         any                                                   `json:"any"`
-	Generate    func(f *Faker, m *MapParams, info *Info) (any, error) `json:"-"`
+	Display     string                                                `json:"display"`      // display name
+	Category    string                                                `json:"category"`     // category
+	Description string                                                `json:"description"`  // description
+	Example     string                                                `json:"example"`      // example
+	Output      string                                                `json:"output"`       // output type
+	Aliases     []string                                              `json:"aliases"`      // alt names users might type
+	Keywords    []string                                              `json:"keywords"`     // free words and domain terms
+	ContentType string                                                `json:"content_type"` // content type
+	Params      []Param                                               `json:"params"`       // params
+	Any         any                                                   `json:"any"`          // any
+	Generate    func(f *Faker, m *MapParams, info *Info) (any, error) `json:"-"`            // generate function
 }
 
 // Param is a breakdown of param requirements and type definition

@@ -107,6 +107,8 @@ func addAuthLookup() {
 		Description: "Unique identifier assigned to a user for accessing an account or system",
 		Example:     "Daniel1364",
 		Output:      "string",
+		Aliases:     []string{"login", "account", "identifier", "access", "handle"},
+		Keywords:    []string{"username", "user", "login", "account", "identifier", "access", "system"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return username(f), nil
 		},
@@ -118,6 +120,8 @@ func addAuthLookup() {
 		Description: "Secret word or phrase used to authenticate access to a system or account",
 		Example:     "EEP+wwpk 4lU-eHNXlJZ4n K9%v&TZ9e",
 		Output:      "string",
+		Aliases:     []string{"secret", "authentication", "security", "access", "credential"},
+		Keywords:    []string{"password", "pass", "secret", "authentication", "security", "access", "system", "account"},
 		Params: []Param{
 			{Field: "lower", Display: "Lower", Type: "bool", Default: "true", Description: "Whether or not to add lower case characters"},
 			{Field: "upper", Display: "Upper", Type: "bool", Default: "true", Description: "Whether or not to add upper case characters"},

@@ -105,6 +105,8 @@ func addAnimalLookup() {
 		Description: "Affectionate nickname given to a pet",
 		Example:     "Ozzy Pawsborne",
 		Output:      "string",
+		Aliases:     []string{"pet", "name", "nickname", "affectionate", "animal"},
+		Keywords:    []string{"pet", "name", "nickname", "affectionate", "animal", "companion"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return petName(f), nil
 		},
@@ -116,6 +118,8 @@ func addAnimalLookup() {
 		Description: "Living creature with the ability to move, eat, and interact with its environment",
 		Example:     "elk",
 		Output:      "string",
+		Aliases:     []string{"creature", "living", "move", "eat", "environment", "wildlife"},
+		Keywords:    []string{"animal", "creature", "living", "move", "eat", "environment", "wildlife"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return animal(f), nil
 		},
@@ -127,6 +131,8 @@ func addAnimalLookup() {
 		Description: "Type of animal, such as mammals, birds, reptiles, etc.",
 		Example:     "amphibians",
 		Output:      "string",
+		Aliases:     []string{"mammals", "birds", "reptiles", "amphibians", "classification", "category"},
+		Keywords:    []string{"animal", "type", "mammals", "birds", "reptiles", "amphibians", "classification"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return animalType(f), nil
 		},
@@ -138,6 +144,8 @@ func addAnimalLookup() {
 		Description: "Animal name commonly found on a farm",
 		Example:     "Chicken",
 		Output:      "string",
+		Aliases:     []string{"domestic", "agriculture", "cattle", "barnyard", "herd"},
+		Keywords:    []string{"farm", "animal", "livestock", "domestic", "agriculture", "commonly"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return farmAnimal(f), nil
 		},
@@ -149,6 +157,8 @@ func addAnimalLookup() {
 		Description: "Various breeds that define different cats",
 		Example:     "Chausie",
 		Output:      "string",
+		Aliases:     []string{"breed", "feline", "pet", "domestic", "kitty"},
+		Keywords:    []string{"cat", "breed", "feline", "pet", "domestic", "various"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return cat(f), nil
 		},
@@ -160,6 +170,8 @@ func addAnimalLookup() {
 		Description: "Various breeds that define different dogs",
 		Example:     "Norwich Terrier",
 		Output:      "string",
+		Aliases:     []string{"pet", "domestic", "fido", "companion", "mammal"},
+		Keywords:    []string{"dog", "breed", "canine", "pet", "domestic", "various"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return dog(f), nil
 		},
@@ -171,6 +183,8 @@ func addAnimalLookup() {
 		Description: "Distinct species of birds",
 		Example:     "goose",
 		Output:      "string",
+		Aliases:     []string{"bird", "species", "avian", "feather", "wing"},
+		Keywords:    []string{"bird", "species", "avian", "feather", "wing", "distinct"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return bird(f), nil
 		},
