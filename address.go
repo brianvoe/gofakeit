@@ -391,7 +391,7 @@ func addAddressLookup() {
 		Description: "Numerical code for postal address sorting, specific to a geographic area",
 		Example:     "13645",
 		Output:      "string",
-		Aliases:     []string{"zip code", "postal code", "postcode", "mail code", "delivery code"},
+		Aliases:     []string{"zip code", "postal code", "mail code", "delivery code"},
 		Keywords:    []string{"zip", "postal", "postcode", "code", "address", "sorting", "geographic", "area", "numerical", "mailing", "delivery", "zone", "district", "region", "identifier"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return zip(f), nil
@@ -443,7 +443,7 @@ func addAddressLookup() {
 		Example:     "-147.068112",
 		Output:      "float",
 		Aliases:     []string{"long coordinate", "east-west coordinate", "geographic longitude", "earth longitude", "position longitude"},
-		Keywords:    []string{"longitude", "lon", "coordinate", "east-west", "degrees", "gps", "wgs84", "geodesy", "meridian", "prime meridian", "idl"},
+		Keywords:    []string{"longitude", "lon", "coordinate", "east-west", "degrees", "gps", "wgs84", "geodesy", "meridian", "idl"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return longitude(f), nil
 		},

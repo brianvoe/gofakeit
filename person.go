@@ -273,6 +273,7 @@ func addPersonLookup() {
 			"person name",
 			"complete name",
 			"name string",
+			"display name",
 		},
 		Keywords: []string{
 			"name", "fullname", "given", "family",
@@ -294,9 +295,10 @@ func addPersonLookup() {
 			"honorific",
 			"title prefix",
 			"courtesy title",
+			"pre-nominal",
 		},
 		Keywords: []string{
-			"prefix", "title", "honorific", "mr", "ms", "mrs",
+			"prefix", "title", "mr", "ms", "mrs",
 			"dr", "prof", "sir", "madam", "rev", "fr",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return namePrefix(f), nil },
@@ -314,6 +316,7 @@ func addPersonLookup() {
 			"post nominal",
 			"suffix designation",
 			"generational suffix",
+			"professional suffix",
 		},
 		Keywords: []string{
 			"suffix", "jr", "sr", "iii", "iv",
@@ -335,9 +338,10 @@ func addPersonLookup() {
 			"given name",
 			"forename",
 			"personal name",
+			"given label",
 		},
 		Keywords: []string{
-			"first", "given", "forename", "name",
+			"first", "given", "name",
 			"preferred", "callname", "initial",
 			"personal",
 		},
@@ -356,6 +360,7 @@ func addPersonLookup() {
 			"second name",
 			"additional name",
 			"secondary name",
+			"middle initial label",
 		},
 		Keywords: []string{
 			"middle", "second", "additional", "secondary",
@@ -376,9 +381,10 @@ func addPersonLookup() {
 			"family name",
 			"surname",
 			"patronymic",
+			"family designation",
 		},
 		Keywords: []string{
-			"last", "family", "surname", "name",
+			"last", "family", "name",
 			"lineage", "heritage", "ancestry", "clan",
 			"tribe",
 		},
@@ -396,6 +402,8 @@ func addPersonLookup() {
 			"gender identity",
 			"gender label",
 			"sex category",
+			"gender marker",
+			"presentation",
 		},
 		Keywords: []string{
 			"gender", "male", "female", "nonbinary",
@@ -416,6 +424,7 @@ func addPersonLookup() {
 			"ssn number",
 			"us ssn",
 			"tax id us",
+			"federal id",
 		},
 		Keywords: []string{
 			"ssn", "social", "security", "number",
@@ -437,10 +446,11 @@ func addPersonLookup() {
 			"leisure activity",
 			"recreational activity",
 			"interest",
+			"free-time pursuit",
 		},
 		Keywords: []string{
-			"hobby", "pastime", "leisure", "recreation",
-			"interest", "activity", "sport", "craft",
+			"hobby", "leisure", "recreation",
+			"activity", "sport", "craft",
 			"game", "collection",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return hobby(f), nil },
@@ -458,6 +468,7 @@ func addPersonLookup() {
 			"mail address",
 			"contact email",
 			"user email",
+			"electronic mailbox",
 		},
 		Keywords: []string{
 			"email", "address", "mail", "inbox",
@@ -479,6 +490,7 @@ func addPersonLookup() {
 			"telephone number",
 			"mobile number",
 			"contact number",
+			"voice number",
 		},
 		Keywords: []string{
 			"phone", "number", "telephone", "mobile",
@@ -500,6 +512,7 @@ func addPersonLookup() {
 			"pretty phone",
 			"display phone",
 			"readable phone",
+			"formatted telephone",
 		},
 		Keywords: []string{
 			"phone", "formatted", "format", "pattern",
@@ -531,8 +544,17 @@ func addPersonLookup() {
 }`,
 		Output:      "map[string][]string",
 		ContentType: "application/json",
-		Aliases:     []string{"people", "split", "groups", "division", "assignment"},
-		Keywords:    []string{"teams", "randomly", "person", "into", "distribution", "allocation", "roster", "squad"},
+		Aliases: []string{
+			"people grouping",
+			"team assignment",
+			"random partition",
+			"group allocator",
+			"roster builder",
+		},
+		Keywords: []string{
+			"teams", "randomly", "person", "into",
+			"distribution", "allocation", "roster", "squad",
+		},
 		Params: []Param{
 			{Field: "people", Display: "Strings", Type: "[]string", Description: "Array of people"},
 			{Field: "teams", Display: "Strings", Type: "[]string", Description: "Array of teams"},
@@ -551,4 +573,5 @@ func addPersonLookup() {
 			return teams(f, people, teamsArray), nil
 		},
 	})
+
 }

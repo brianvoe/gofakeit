@@ -281,7 +281,7 @@ func addInternetLookup() {
 		Description: "Human-readable web address used to identify websites on the internet",
 		Example:     "centraltarget.biz",
 		Output:      "string",
-		Aliases:     []string{"domain name", "website name", "internet domain", "dns name", "hostname"},
+		Aliases:     []string{"domain name", "website name", "internet domain", "dns name", "site domain"},
 		Keywords:    []string{"domain", "name", "web", "address", "dns", "hostname", "resolve", "centraltarget", "biz", "website"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return domainName(f), nil
@@ -294,7 +294,7 @@ func addInternetLookup() {
 		Description: "The part of a domain name that comes after the last dot, indicating its type or purpose",
 		Example:     "org",
 		Output:      "string",
-		Aliases:     []string{"tld", "domain suffix", "domain extension", "top level domain", "domain ending"},
+		Aliases:     []string{"domain suffix", "domain extension", "top level domain", "domain ending"},
 		Keywords:    []string{"domain", "suffix", "tld", "top-level", "extension", "org", "com", "net", "gov", "edu", "mil", "int"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return domainSuffix(f), nil
@@ -307,7 +307,7 @@ func addInternetLookup() {
 		Description: "Numerical label assigned to devices on a network for identification and communication",
 		Example:     "222.83.191.222",
 		Output:      "string",
-		Aliases:     []string{"ipv4", "ip address", "network address", "internet address", "device ip"},
+		Aliases:     []string{"ip address", "network address", "internet address", "device ip", "ipv4 label"},
 		Keywords:    []string{"ipv4", "address", "ip", "network", "internet", "protocol", "communication", "dotted", "decimal"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return ipv4Address(f), nil
@@ -320,8 +320,8 @@ func addInternetLookup() {
 		Description: "Numerical label assigned to devices on a network, providing a larger address space than IPv4 for internet communication",
 		Example:     "2001:cafe:8898:ee17:bc35:9064:5866:d019",
 		Output:      "string",
-		Aliases:     []string{"ipv6", "ip address", "network address", "internet address", "hex ip"},
-		Keywords:    []string{"ipv6", "address", "ip", "network", "protocol", "hexadecimal", "colon", "identification", "larger space"},
+		Aliases:     []string{"ip address", "network address", "internet address", "hex ip", "ipv6 label"},
+		Keywords:    []string{"ipv6", "address", "ip", "network", "protocol", "hexadecimal", "identification"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return ipv6Address(f), nil
 		},
@@ -451,7 +451,7 @@ func addInternetLookup() {
 		Example:     "HTTP/1.1",
 		Output:      "string",
 		Aliases:     []string{"http version", "protocol version", "http protocol", "http identifier", "http version string"},
-		Keywords:    []string{"http", "version", "protocol", "communication", "client", "server", "1.0", "1.1", "2", "3"},
+		Keywords:    []string{"http", "version", "protocol", "communication", "client", "server"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return httpVersion(f), nil
 		},
@@ -463,7 +463,7 @@ func addInternetLookup() {
 		Description: "Unique identifier assigned to network interfaces, often used in Ethernet networks",
 		Example:     "cb:ce:06:94:22:e9",
 		Output:      "string",
-		Aliases:     []string{"mac", "mac address", "hardware address", "ethernet address", "network identifier"},
+		Aliases:     []string{"mac address", "hardware address", "ethernet address", "network identifier", "link-layer address"},
 		Keywords:    []string{"mac", "address", "hardware", "ethernet", "network", "identifier", "oui", "vendor", "colon", "hexadecimal"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return macAddress(f), nil

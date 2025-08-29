@@ -65,10 +65,15 @@ func addWordCommentLookup() {
 		Description: "Statement or remark expressing an opinion, observation, or reaction",
 		Example:     "wow",
 		Output:      "string",
-		Aliases:     []string{"verbal statement", "expressed thought", "spoken remark", "communication element"},
-		Keywords:    []string{"comment", "statement", "remark", "opinion", "observation", "reaction", "expressing", "response", "feedback", "verbal"},
+		Aliases: []string{
+			"verbal statement", "expressed thought", "spoken remark", "communication element", "casual note",
+		},
+		Keywords: []string{
+			"opinion", "observation", "reaction", "response", "feedback", "critique", "interpretation", "perspective", "reflection", "discussion",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return comment(f), nil
 		},
 	})
+
 }

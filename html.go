@@ -99,8 +99,12 @@ func addHtmlLookup() {
 		Description: "Attribute used to define the name of an input element in web forms",
 		Example:     "first_name",
 		Output:      "string",
-		Aliases:     []string{"input", "name", "web", "forms", "field"},
-		Keywords:    []string{"define", "first_name", "attribute", "element", "web", "forms", "used"},
+		Aliases: []string{
+			"form field", "field name", "html input", "input identifier", "web attribute",
+		},
+		Keywords: []string{
+			"define", "attribute", "element", "parameter", "submission", "mapping", "key", "entry", "binding",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return inputName(f), nil
 		},
@@ -116,8 +120,13 @@ func addHtmlLookup() {
 </svg>`,
 		Output:      "string",
 		ContentType: "image/svg+xml",
-		Aliases:     []string{"vector", "graphics", "images", "web", "content", "format"},
-		Keywords:    []string{"svg", "scalable", "display", "polygon", "rect", "points"},
+		Aliases: []string{
+			"vector graphic", "xml image", "scalable format", "web graphic", "svg file",
+		},
+		Keywords: []string{
+			"scalable", "vector", "graphics", "image", "drawing", "markup", "shape", "color", "path", "render",
+		},
+
 		Params: []Param{
 			{Field: "width", Display: "Width", Type: "int", Default: "500", Description: "Width in px"},
 			{Field: "height", Display: "Height", Type: "int", Default: "500", Description: "Height in px"},

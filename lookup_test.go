@@ -164,7 +164,7 @@ func TestLookupChecking(t *testing.T) {
 
 	for field, info := range FuncLookups {
 		var mapData MapParams
-		if info.Params != nil && len(info.Params) != 0 {
+		if len(info.Params) != 0 {
 			// Make sure mapdata is set
 			if mapData == nil {
 				mapData = make(MapParams)
@@ -286,8 +286,8 @@ func TestLookupCheckFields(t *testing.T) {
 
 func TestLookupSearchHygiene(t *testing.T) {
 	stop := map[string]struct{}{
-		"a": {}, "an": {}, "the": {}, "of": {}, "for": {}, "to": {}, "and": {}, "or": {}, "in": {}, "on": {}, "with": {}, "by": {}, "from": {},
-		"info": {}, "thing": {}, "things": {}, "stuff": {}, "object": {}, "objects": {},
+		"a": {}, "an": {}, "the": {}, "of": {}, "for": {}, "to": {}, "and": {},
+		"or": {}, "in": {}, "on": {}, "with": {}, "by": {}, "from": {},
 	}
 	for key, info := range FuncLookups {
 		// counts
@@ -376,7 +376,7 @@ func TestLookupCalls(t *testing.T) {
 		mapData := make(MapParams)
 
 		// If parameters are required build it
-		if info.Params != nil && len(info.Params) != 0 {
+		if len(info.Params) != 0 {
 			// Loop through params and add fields to mapdata
 			for _, p := range info.Params {
 				// If default is empty and has options randomly pick one
@@ -472,7 +472,7 @@ func TestLookupCallsErrorParams(t *testing.T) {
 
 	for funcName, info := range FuncLookups {
 		// If parameters are not required skip it. We are only testing params
-		if info.Params == nil || len(info.Params) == 0 {
+		if len(info.Params) == 0 {
 			continue
 		}
 

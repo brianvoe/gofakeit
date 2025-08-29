@@ -198,8 +198,17 @@ func addWordSentenceLookup() {
 		Description: "Statement formulated to inquire or seek clarification",
 		Example:     "Roof chia echo?",
 		Output:      "string",
-		Aliases:     []string{"clarification", "formulated", "seek", "ask", "query"},
-		Keywords:    []string{"question", "inquiry", "clarification", "formulated", "seek", "ask", "inquire", "interrogative", "query"},
+		Aliases: []string{
+			"interrogative sentence",
+			"information request",
+			"asking phrase",
+			"query prompt",
+			"clarifying ask",
+		},
+		Keywords: []string{
+			"question", "inquiry", "clarification", "interrogative",
+			"ask", "who", "what", "when", "where", "why", "how", "mark",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return question(f), nil
 		},
@@ -211,10 +220,20 @@ func addWordSentenceLookup() {
 		Description: "Direct repetition of someone else's words",
 		Example:     `"Roof chia echo." - Lura Lockman`,
 		Output:      "string",
-		Aliases:     []string{"quotation", "repetition", "someone", "else", "attribution"},
-		Keywords:    []string{"quote", "quotation", "repetition", "someone", "else", "attribution", "direct", "citation", "reference", "excerpt"},
+		Aliases: []string{
+			"direct speech",
+			"verbatim line",
+			"cited passage",
+			"attributed text",
+			"pulled excerpt",
+		},
+		Keywords: []string{
+			"quote", "quotation", "citation", "reference", "excerpt",
+			"epigraph", "saying", "maxim", "attribution", "blockquote",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return quote(f), nil
 		},
 	})
+
 }

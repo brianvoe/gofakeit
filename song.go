@@ -47,8 +47,17 @@ func addSongLookup() {
 }`,
 		Output:      "map[string]string",
 		ContentType: "application/json",
-		Aliases:     []string{"tune", "melody", "composition"},
-		Keywords:    []string{"song", "music", "track", "tune", "melody", "artist", "genre", "name", "composition", "recording"},
+		Aliases: []string{
+			"musical work",
+			"sound piece",
+			"single release",
+			"record title",
+			"audio selection",
+		},
+		Keywords: []string{
+			"song", "music", "track", "tune", "melody",
+			"artist", "genre", "name", "composition", "recording",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return song(f), nil
 		},
@@ -82,8 +91,17 @@ func addSongLookup() {
 		Description: "The artist of maker of song",
 		Example:     "Dua Lipa",
 		Output:      "string",
-		Aliases:     []string{"singer", "performer", "musician", "creator"},
-		Keywords:    []string{"song", "artist", "singer", "performer", "musician", "maker", "composer", "band"},
+		Aliases: []string{
+			"performer name",
+			"music act",
+			"band name",
+			"recording artist",
+			"song creator",
+		},
+		Keywords: []string{
+			"song", "artist", "singer", "musician", "composer",
+			"band", "producer", "vocalist", "group", "instrumentalist",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return songArtist(f), nil
 		},
@@ -95,8 +113,17 @@ func addSongLookup() {
 		Description: "Category that classifies song based on common themes, styles, and storytelling approaches",
 		Example:     "Action",
 		Output:      "string",
-		Aliases:     []string{"style", "category", "type", "classification"},
-		Keywords:    []string{"song", "genre", "style", "category", "type", "classification", "theme", "musical", "category"},
+		Aliases: []string{
+			"music style",
+			"song category",
+			"musical classification",
+			"sound type",
+			"genre label",
+		},
+		Keywords: []string{
+			"song", "genre", "style", "category", "type",
+			"classification", "theme", "musical", "subgenre", "influence",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return songGenre(f), nil
 		},

@@ -80,8 +80,12 @@ func addWeightedLookup() {
 		Description: "Randomly select a given option based upon an equal amount of weights",
 		Example:     "[hello, 2, 6.9],[1, 2, 3] => 6.9",
 		Output:      "any",
-		Aliases:     []string{"select", "option", "weights", "equal", "amount", "choice"},
-		Keywords:    []string{"weighted", "randomly", "select", "option", "weights", "equal", "amount", "based", "probability", "distribution"},
+		Aliases: []string{
+			"weighted choice", "probabilistic pick", "random weight", "distribution choice", "chance selection", "ratio selection", "stochastic option",
+		},
+		Keywords: []string{
+			"randomly", "select", "probability", "distribution", "likelihood", "chance", "statistical", "outcome", "bias", "ratio",
+		},
 		Params: []Param{
 			{Field: "options", Display: "Options", Type: "[]string", Description: "Array of any values"},
 			{Field: "weights", Display: "Weights", Type: "[]float", Description: "Array of weights"},

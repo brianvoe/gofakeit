@@ -258,21 +258,16 @@ func addPaymentLookup() {
 		Category:    "payment",
 		Description: "Medium of exchange, often in the form of money, used for trade and transactions",
 		Example: `{
-		"short": "IQD",
-		"long": "Iraq Dinar"
-	}`,
+	"short": "IQD",
+	"long": "Iraq Dinar"
+}`,
 		Output:      "map[string]string",
 		ContentType: "application/json",
 		Aliases: []string{
-			"currency code",
-			"currency unit",
-			"money type",
-			"exchange currency",
+			"currency unit", "currency code", "money type", "exchange currency", "monetary unit", "legal tender", "fiat money",
 		},
 		Keywords: []string{
-			"currency", "money", "exchange", "fiat", "unit",
-			"code", "iso", "usd", "eur", "gbp", "jpy", "cny",
-			"trade", "transaction", "market",
+			"currency", "money", "exchange", "fiat", "unit", "code", "iso", "usd", "eur", "gbp", "jpy", "cny", "trade", "transaction", "market",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return currency(f), nil },
 	})
@@ -284,14 +279,10 @@ func addPaymentLookup() {
 		Example:     "USD",
 		Output:      "string",
 		Aliases: []string{
-			"currency code",
-			"iso code",
-			"3-letter code",
-			"short currency",
+			"iso alpha-3", "currency ticker", "alpha-3 code", "currency shorthand", "iso-4217 code",
 		},
 		Keywords: []string{
-			"currency", "short", "iso", "code", "alpha3",
-			"usd", "eur", "gbp", "jpy", "cad", "aud",
+			"currency", "short", "iso", "code", "alpha3", "usd", "eur", "gbp", "jpy", "cad", "aud",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return currencyShort(f), nil },
 	})
@@ -303,14 +294,10 @@ func addPaymentLookup() {
 		Example:     "United States Dollar",
 		Output:      "string",
 		Aliases: []string{
-			"currency name",
-			"full currency",
-			"long currency",
-			"official currency",
+			"currency name", "full currency", "long form name", "official currency", "monetary name",
 		},
 		Keywords: []string{
-			"currency", "name", "long", "full", "official",
-			"dollar", "euro", "pound", "yen", "franc", "peso", "rupee",
+			"currency", "name", "long", "full", "official", "dollar", "euro", "pound", "yen", "franc", "peso", "rupee",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return currencyLong(f), nil },
 	})
@@ -322,16 +309,10 @@ func addPaymentLookup() {
 		Example:     "92.26",
 		Output:      "float64",
 		Aliases: []string{
-			"amount",
-			"cost",
-			"value",
-			"fee",
-			"charge",
+			"amount", "cost", "value", "fee", "charge", "rate", "unit price",
 		},
 		Keywords: []string{
-			"price", "amount", "cost", "value",
-			"charge", "payment", "transaction",
-			"retail", "wholesale", "market", "asset",
+			"price", "payment", "transaction", "retail", "wholesale", "market", "asset", "listing", "quote", "valuation",
 		},
 		Params: []Param{
 			{Field: "min", Display: "Min", Type: "float", Default: "0", Description: "Minimum price value"},
@@ -355,23 +336,18 @@ func addPaymentLookup() {
 		Category:    "payment",
 		Description: "Card allowing users to make purchases on credit, with payment due at a later date",
 		Example: `{
-		"type": "Visa",
-		"number": "4111111111111111",
-		"exp": "02/27",
-		"cvv": "123"
-	}`,
+	"type": "Visa",
+	"number": "4111111111111111",
+	"exp": "02/27",
+	"cvv": "123"
+}`,
 		Output:      "map[string]any",
 		ContentType: "application/json",
 		Aliases: []string{
-			"credit card",
-			"payment card",
-			"charge card",
-			"plastic card",
+			"payment card", "charge card", "credit instrument", "card account", "plastic card",
 		},
 		Keywords: []string{
-			"credit", "card", "payment", "debt",
-			"visa", "mastercard", "amex", "discover",
-			"unionpay", "maestro", "jcb",
+			"credit", "card", "payment", "debt", "visa", "mastercard", "amex", "discover", "unionpay", "maestro", "jcb",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return creditCard(f), nil },
 	})
@@ -383,14 +359,10 @@ func addPaymentLookup() {
 		Example:     "Visa",
 		Output:      "string",
 		Aliases: []string{
-			"card type",
-			"issuer",
-			"brand",
-			"network",
+			"issuer brand", "card network", "scheme name", "card family", "issuer type",
 		},
 		Keywords: []string{
-			"credit", "card", "type", "issuer", "brand", "network",
-			"visa", "mastercard", "amex", "discover", "unionpay", "maestro", "jcb",
+			"credit", "card", "type", "issuer", "brand", "network", "visa", "mastercard", "amex", "discover", "unionpay", "maestro", "jcb",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return creditCardType(f), nil },
 	})
@@ -402,14 +374,10 @@ func addPaymentLookup() {
 		Example:     "4111111111111111",
 		Output:      "string",
 		Aliases: []string{
-			"card number",
-			"cc number",
-			"credit number",
-			"payment number",
+			"card number", "cc number", "primary account number", "pan value", "payment number",
 		},
 		Keywords: []string{
-			"credit", "card", "number", "identifier",
-			"luhn", "validation", "checksum", "bin",
+			"identifier", "luhn", "validation", "checksum", "bin", "tokenize", "masking", "digits",
 		},
 		Params: []Param{
 			{
@@ -418,7 +386,7 @@ func addPaymentLookup() {
 				Description: "A select number of types you want to use when generating a credit card number",
 			},
 			{Field: "bins", Display: "Bins", Type: "[]string", Optional: true, Description: "Optional list of prepended bin numbers to pick from"},
-			{Field: "gaps", Display: "Gaps", Type: "bool", Default: "false", Description: "Whether or not to have gaps in number"},
+			{Field: "gaps", Display: "Gaps", Type: "bool", Default: "false", Optional: true, Description: "Whether or not to have gaps in number"},
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			types, err := info.GetStringArray(m, "types")
@@ -445,13 +413,10 @@ func addPaymentLookup() {
 		Example:     "01/27",
 		Output:      "string",
 		Aliases: []string{
-			"expiry date",
-			"expiration date",
-			"exp date",
+			"expiry date", "expiration date", "exp date", "valid thru", "card expiry",
 		},
 		Keywords: []string{
-			"credit", "card", "exp", "expiry", "expiration",
-			"month", "year", "validity", "future", "expired",
+			"credit", "card", "exp", "expiry", "expiration", "month", "year", "validity", "future", "expired",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return creditCardExp(f), nil },
 	})
@@ -463,14 +428,10 @@ func addPaymentLookup() {
 		Example:     "513",
 		Output:      "string",
 		Aliases: []string{
-			"cvv",
-			"cvc",
-			"security code",
-			"verification code",
+			"cvv", "cvc", "cid", "security number", "auth digits", "card check value",
 		},
 		Keywords: []string{
-			"credit", "card", "cvv", "cvc",
-			"security", "code", "transaction", "authentication", "fraud", "protection",
+			"credit", "card", "transaction", "authentication", "fraud", "protection", "verification", "online", "payment",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return creditCardCvv(f), nil },
 	})
@@ -482,9 +443,7 @@ func addPaymentLookup() {
 		Example:     "513715684",
 		Output:      "string",
 		Aliases: []string{
-			"routing number",
-			"ach code",
-			"aba number",
+			"routing number", "aba number", "routing transit number", "rtn code", "bank routing id",
 		},
 		Keywords: []string{
 			"ach", "routing", "aba", "us", "bank", "federal", "reserve", "clearinghouse",
@@ -499,14 +458,10 @@ func addPaymentLookup() {
 		Example:     "491527954328",
 		Output:      "string",
 		Aliases: []string{
-			"ach account",
-			"bank account",
-			"checking account",
-			"savings account",
+			"ach account", "bank account", "checking account", "savings account", "account identifier",
 		},
 		Keywords: []string{
-			"ach", "account", "banking", "checking", "savings",
-			"finance", "electronic", "transfer", "payment",
+			"ach", "account", "banking", "checking", "savings", "finance", "electronic", "transfer", "payment",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return achAccount(f), nil },
 	})
@@ -518,13 +473,10 @@ func addPaymentLookup() {
 		Example:     "1BoatSLRHtKNngkdXEeobR76b53LETtpyT",
 		Output:      "string",
 		Aliases: []string{
-			"btc address",
-			"bitcoin wallet",
-			"crypto address",
+			"btc address", "bitcoin wallet", "crypto address", "public address", "payment address",
 		},
 		Keywords: []string{
-			"bitcoin", "btc", "address", "wallet",
-			"blockchain", "public", "key", "hash", "base58",
+			"bitcoin", "btc", "address", "wallet", "blockchain", "public", "key", "hash", "base58",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return bitcoinAddress(f), nil },
 	})
@@ -536,13 +488,10 @@ func addPaymentLookup() {
 		Example:     "5HueCGU8rMjxEXxiPuD5BDuG6o5xjA7QkbPp",
 		Output:      "string",
 		Aliases: []string{
-			"btc private key",
-			"wallet key",
-			"secret key",
+			"btc private key", "wallet key", "secret key", "private wif", "signing key",
 		},
 		Keywords: []string{
-			"bitcoin", "btc", "private", "key",
-			"blockchain", "wallet", "signature", "base58", "wif",
+			"bitcoin", "btc", "private", "key", "blockchain", "wallet", "signature", "base58", "wif",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return bitcoinPrivateKey(f), nil },
 	})
@@ -554,13 +503,10 @@ func addPaymentLookup() {
 		Example:     "Wells Fargo",
 		Output:      "string",
 		Aliases: []string{
-			"bank name",
-			"financial institution",
-			"banking entity",
+			"financial institution", "banking entity", "lender name", "depository name", "institution title",
 		},
 		Keywords: []string{
-			"bank", "name", "institution", "financial",
-			"wells", "fargo", "chase", "citibank", "pnc", "boa", "usbank",
+			"bank", "name", "institution", "financial", "wells", "fargo", "chase", "citibank", "pnc", "boa", "usbank",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return bankName(f), nil },
 	})
@@ -572,13 +518,10 @@ func addPaymentLookup() {
 		Example:     "Investment Bank",
 		Output:      "string",
 		Aliases: []string{
-			"bank classification",
-			"bank category",
-			"bank segment",
+			"bank classification", "bank category", "bank segment", "institution class", "service tier",
 		},
 		Keywords: []string{
-			"bank", "type", "classification", "category", "segment",
-			"investment", "commercial", "retail", "savings", "credit", "union", "central", "federal",
+			"bank", "type", "classification", "category", "segment", "investment", "commercial", "retail", "savings", "credit", "union", "central", "federal",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return bankType(f), nil },
 	})

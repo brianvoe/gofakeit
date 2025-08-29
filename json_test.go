@@ -404,9 +404,13 @@ func TestJSONRawMessageWithCustomFuncTag(t *testing.T) {
 		Example:     `{"ErTA":"bale","FQJUIGrmnRBfuGlb":"over","HTJJPnEKGS":"please say that again","HvLvfsQRGbK":"whenever one turns around","KKbMlbxquDmwwvRWVlPmwRAeAw":"Voluptatem eaque quia facilis quo."}`,
 		Output:      "[]byte",
 		ContentType: "application/json",
-		Aliases:     []string{"custom", "json", "test", "function", "tag", "raw"},
-		Keywords:    []string{"customjsontest", "custom", "json", "test", "function", "tag", "raw", "message"},
-		Params:      []Param{},
+		Aliases: []string{
+			"custom json", "json generator", "test data", "json mock", "synthetic json", "arbitrary json",
+		},
+		Keywords: []string{
+			"customjsontest", "json", "random", "mock", "payload", "structure", "keys", "values", "message", "testing", "dynamic", "data",
+		},
+		Params: []Param{},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			length := f.Number(5, 15)
 			dataSet := []string{"word", "phrase", "loremipsumsentence", "{hackeradjective}-{hackernoun}", "float64", "bool"}
@@ -448,9 +452,13 @@ func TestJSONRawMessageWithInvalidCustomFuncTag(t *testing.T) {
 		Category: "file",
 		Example:  `[181 251 51 164 185 142 21 3 33]`,
 		Output:   "[]byte",
-		Aliases:  []string{"invalid", "json", "test", "custom", "function", "tag"},
-		Keywords: []string{"invalidjsontest", "invalid", "json", "test", "custom", "function", "tag", "raw"},
-		Params:   []Param{},
+		Aliases: []string{
+			"invalid json", "json fuzz", "broken json", "malformed json", "test data", "error json", "raw bytes",
+		},
+		Keywords: []string{
+			"invalidjsontest", "invalid", "json", "test", "custom", "function", "tag", "raw", "bytes", "corrupt", "fuzzing",
+		},
+		Params: []Param{},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			var result []byte
 			Slice(&result)

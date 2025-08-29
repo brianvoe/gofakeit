@@ -146,57 +146,62 @@ func addErrorLookup() {
 		Description: "Message displayed by a computer or software when a problem or mistake is encountered",
 		Example:     "syntax error",
 		Output:      "string",
-		Aliases:     []string{"err", "problem", "issue", "fault", "bug"},
-		Keywords:    []string{"error", "software", "computer", "message", "syntax", "mistake", "encountered", "displayed"},
+		Aliases: []string{
+			"fault", "problem", "issue", "bug", "failure",
+		},
+		Keywords: []string{
+			"software", "computer", "crash", "exception", "warning", "alert", "diagnostic", "system", "message", "malfunction",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return err(f), nil
 		},
 	})
 
 	AddFuncLookup("errorobject", Info{
-		Display:     "Error object word",
+		Display:     "Error Object",
 		Category:    "error",
 		Description: "Various categories conveying details about encountered errors",
 		Example:     "protocol",
 		Output:      "string",
-		Aliases:     []string{"category", "type", "classification", "issue", "entity"},
-		Keywords:    []string{"error", "protocol", "details", "conveying", "encountered", "various", "categories"},
+		Aliases: []string{
+			"category", "classification", "entity", "type", "object detail",
+		},
+		Keywords: []string{
+			"protocol", "context", "identifier", "descriptor", "domain", "nature", "tag", "origin",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return errorObject(f), nil
 		},
 	})
 
 	AddFuncLookup("errordatabase", Info{
-		Display:     "Database error",
+		Display:     "Database Error",
 		Category:    "error",
 		Description: "A problem or issue encountered while accessing or managing a database",
 		Example:     "sql error",
 		Output:      "string",
-		Aliases:     []string{"db", "dbms", "query", "database"},
-		Keywords:    []string{"error", "access", "management", "sql", "dbms", "query", "encountered", "managing"},
+		Aliases: []string{
+			"db error", "query issue", "storage failure", "sql fault", "data access problem",
+		},
+		Keywords: []string{
+			"connection", "query", "timeout", "transaction", "integrity", "constraint", "lock", "schema", "management", "corruption",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return errorDatabase(f), nil
 		},
 	})
 
 	AddFuncLookup("errorgrpc", Info{
-		Display:     "gRPC error",
+		Display:     "gRPC Error",
 		Category:    "error",
 		Description: "Communication failure in the high-performance, open-source universal RPC framework",
 		Example:     "client protocol error",
 		Output:      "string",
 		Aliases: []string{
-			"grpc error",
-			"rpc error",
-			"grpc failure",
-			"rpc failure",
-			"grpc communication error",
+			"grpc failure", "rpc error", "rpc failure", "communication fault", "transport issue",
 		},
 		Keywords: []string{
-			"error", "grpc", "rpc", "protocol", "transport",
-			"client", "server", "connection", "failure",
-			"status", "unavailable", "timeout",
-			"communication",
+			"protocol", "transport", "client", "server", "connection", "status", "unavailable", "timeout", "stream", "call",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return errorGRPC(f), nil
@@ -204,67 +209,89 @@ func addErrorLookup() {
 	})
 
 	AddFuncLookup("errorhttp", Info{
-		Display:     "HTTP error",
+		Display:     "HTTP Error",
 		Category:    "error",
-		Description: "A problem with a web http request",
+		Description: "A problem with a web HTTP request",
 		Example:     "invalid method",
 		Output:      "string",
-		Aliases:     []string{"http", "request", "protocol", "network", "client"},
-		Keywords:    []string{"error", "problem", "invalid", "method", "web", "request", "protocol", "network"},
+		Aliases: []string{
+			"http failure", "network error", "web problem", "request fault", "protocol issue",
+		},
+		Keywords: []string{
+			"invalid", "method", "status", "response", "request", "header", "url", "timeout", "redirect", "forbidden",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return errorHTTP(f), nil
 		},
 	})
 
 	AddFuncLookup("errorhttpclient", Info{
-		Display:     "HTTP client error",
+		Display:     "HTTP Client Error",
 		Category:    "error",
 		Description: "Failure or issue occurring within a client software that sends requests to web servers",
 		Example:     "request timeout",
 		Output:      "string",
-		Aliases:     []string{"http", "client", "timeout", "request", "browser"},
-		Keywords:    []string{"error", "failure", "issue", "occurring", "software", "server", "sends", "requests"},
+		Aliases: []string{
+			"client failure", "browser error", "request timeout", "frontend fault", "http client issue",
+		},
+		Keywords: []string{
+			"timeout", "request", "forbidden", "unauthorized",
+			"network", "connectivity", "invalid", "failure", "rejected",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return errorHTTPClient(f), nil
 		},
 	})
 
 	AddFuncLookup("errorhttpserver", Info{
-		Display:     "HTTP server error",
+		Display:     "HTTP Server Error",
 		Category:    "error",
-		Description: "Failure or issue occurring within a server software that recieves requests from clients",
+		Description: "Failure or issue occurring within a server software that receives requests from clients",
 		Example:     "internal server error",
 		Output:      "string",
-		Aliases:     []string{"server", "internal", "request", "host", "service"},
-		Keywords:    []string{"error", "failure", "issue", "occurring", "software", "client", "recieves", "requests", "backend"},
+		Aliases: []string{
+			"server fault", "backend error", "host issue", "service failure", "internal error",
+		},
+		Keywords: []string{
+			"unavailable", "overload", "gateway", "crash", "timeout", "backend", "processing", "failure", "503", "unexpected",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return errorHTTPServer(f), nil
 		},
 	})
 
 	AddFuncLookup("errorruntime", Info{
-		Display:     "Runtime error",
+		Display:     "Runtime Error",
 		Category:    "error",
-		Description: "Malfunction occuring during program execution, often causing abrupt termination or unexpected behavior",
+		Description: "Malfunction occurring during program execution, often causing abrupt termination or unexpected behavior",
 		Example:     "address out of bounds",
 		Output:      "string",
-		Aliases:     []string{"runtime", "execution", "program", "malfunction", "crash"},
-		Keywords:    []string{"error", "occuring", "during", "abrupt", "termination", "unexpected", "behavior", "address", "bounds"},
+		Aliases: []string{
+			"execution error", "program crash", "runtime failure", "unexpected fault", "software halt",
+		},
+		Keywords: []string{
+			"execution", "segmentation", "overflow", "invalid", "null", "panic", "crash", "termination", "exception", "bug",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return errorRuntime(f), nil
 		},
 	})
 
 	AddFuncLookup("errorvalidation", Info{
-		Display:     "Validation error",
+		Display:     "Validation Error",
 		Category:    "error",
 		Description: "Occurs when input data fails to meet required criteria or format specifications",
 		Example:     "missing required field",
 		Output:      "string",
-		Aliases:     []string{"validation", "input", "criteria", "format", "check"},
-		Keywords:    []string{"error", "occurs", "fails", "meet", "required", "specifications", "missing", "field"},
+		Aliases: []string{
+			"invalid input", "format error", "data check failure", "input rejection", "criteria mismatch",
+		},
+		Keywords: []string{
+			"missing", "required", "field", "constraint", "format", "rule", "criteria", "restriction", "validation", "check",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return errorValidation(f), nil
 		},
 	})
+
 }

@@ -112,8 +112,12 @@ VALUES
 	(2, 'Santino', 235.13, 40, '1964-07-07 22:25:40');`,
 		Output:      "string",
 		ContentType: "application/sql",
-		Aliases:     []string{"table", "query", "statement", "database", "insert"},
-		Keywords:    []string{"sql", "database", "insert", "command", "records", "table", "query", "tuples", "rows", "data"},
+		Aliases: []string{
+			"insert command", "database query", "sql statement", "record insert", "data query",
+		},
+		Keywords: []string{
+			"database", "insert", "command", "records", "table", "tuples", "rows", "data", "values", "query",
+		},
 		Params: []Param{
 			{Field: "table", Display: "Table", Type: "string", Description: "Name of the table to insert into"},
 			{Field: "count", Display: "Count", Type: "int", Default: "100", Description: "Number of inserts to generate"},
@@ -155,4 +159,5 @@ VALUES
 			return sqlFunc(f, &so)
 		},
 	})
+
 }

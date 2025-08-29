@@ -147,7 +147,7 @@ func addWordPronounLookup() {
 		Example:     "mine",
 		Output:      "string",
 		Aliases:     []string{"ownership indicator", "belonging reference", "possession word", "grammar element"},
-		Keywords:    []string{"pronoun", "possessive", "ownership", "belonging", "grammar", "indicating", "possession", "property", "ownership"},
+		Keywords:    []string{"pronoun", "possessive", "ownership", "belonging", "grammar", "indicating", "possession", "property"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return pronounPossessive(f), nil
 		},
@@ -173,7 +173,7 @@ func addWordPronounLookup() {
 		Example:     "few",
 		Output:      "string",
 		Aliases:     []string{"vague reference", "general pronoun", "unspecific word", "grammar element"},
-		Keywords:    []string{"pronoun", "indefinite", "specific", "person", "thing", "grammar", "refer", "vague", "general", "unspecified"},
+		Keywords:    []string{"pronoun", "indefinite", "specific", "person", "grammar", "refer", "vague", "general", "unspecified"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return pronounIndefinite(f), nil
 		},
@@ -212,7 +212,7 @@ func addWordPronounLookup() {
 		Example:     "as",
 		Output:      "string",
 		Aliases:     []string{"backward reference", "linking pronoun", "grammar element"},
-		Keywords:    []string{"pronoun", "relative", "clause", "noun", "grammar", "introduces", "referring", "connector", "link", "clause"},
+		Keywords:    []string{"pronoun", "relative", "clause", "noun", "grammar", "introduces", "referring", "connector", "link"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return pronounRelative(f), nil
 		},

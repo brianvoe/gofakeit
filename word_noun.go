@@ -125,8 +125,12 @@ func addWordNounLookup() {
 		Description: "Person, place, thing, or idea, named or referred to in a sentence",
 		Example:     "aunt",
 		Output:      "string",
-		Aliases:     []string{"random noun", "grammar noun", "word type", "part speech", "naming word"},
-		Keywords:    []string{"noun", "person", "place", "thing", "idea", "sentence", "grammar", "named", "referred", "subject", "object", "entity", "concept", "term", "substantive"},
+		Aliases: []string{
+			"random noun", "grammar noun", "word type", "part speech", "naming word", "lexical noun", "nominal word",
+		},
+		Keywords: []string{
+			"noun", "person", "place", "idea", "sentence", "grammar", "named", "referred", "subject", "object", "entity", "concept", "term", "substantive",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return noun(f), nil
 		},
@@ -138,8 +142,12 @@ func addWordNounLookup() {
 		Description: "General name for people, places, or things, not specific or unique",
 		Example:     "part",
 		Output:      "string",
-		Aliases:     []string{"common noun", "general noun", "generic name", "basic noun", "ordinary noun"},
-		Keywords:    []string{"common", "general", "name", "people", "places", "things", "generic", "basic", "ordinary", "standard", "typical", "regular", "everyday", "normal"},
+		Aliases: []string{
+			"common noun", "general noun", "generic name", "basic noun", "ordinary noun", "regular noun", "everyday noun",
+		},
+		Keywords: []string{
+			"common", "general", "name", "people", "places", "generic", "basic", "ordinary", "standard", "typical", "regular", "normal",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return nounCommon(f), nil
 		},
@@ -151,8 +159,12 @@ func addWordNounLookup() {
 		Description: "Names for physical entities experienced through senses like sight, touch, smell, or taste",
 		Example:     "snowman",
 		Output:      "string",
-		Aliases:     []string{"concrete noun", "physical noun", "tangible noun", "material noun", "sensory noun"},
-		Keywords:    []string{"concrete", "physical", "entities", "senses", "sight", "touch", "smell", "taste", "tangible", "material", "solid", "real", "visible", "touchable", "observable"},
+		Aliases: []string{
+			"concrete noun", "physical noun", "tangible noun", "material noun", "sensory noun", "real noun", "perceptible noun",
+		},
+		Keywords: []string{
+			"concrete", "physical", "entities", "senses", "sight", "touch", "smell", "taste", "tangible", "material", "solid", "real", "visible", "touchable", "observable",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return nounConcrete(f), nil
 		},
@@ -164,8 +176,12 @@ func addWordNounLookup() {
 		Description: "Ideas, qualities, or states that cannot be perceived with the five senses",
 		Example:     "confusion",
 		Output:      "string",
-		Aliases:     []string{"abstract noun", "concept noun", "idea noun", "intangible noun", "mental noun"},
-		Keywords:    []string{"abstract", "ideas", "qualities", "states", "senses", "concept", "intangible", "mental", "theoretical", "emotional", "spiritual", "intellectual", "philosophical", "metaphysical"},
+		Aliases: []string{
+			"abstract noun", "concept noun", "idea noun", "intangible noun", "mental noun", "notional noun", "theoretical noun",
+		},
+		Keywords: []string{
+			"abstract", "ideas", "qualities", "states", "senses", "concept", "intangible", "mental", "theoretical", "emotional", "spiritual", "intellectual", "philosophical", "metaphysical",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return nounAbstract(f), nil
 		},
@@ -177,8 +193,12 @@ func addWordNounLookup() {
 		Description: "Group of people or things regarded as a unit",
 		Example:     "body",
 		Output:      "string",
-		Aliases:     []string{"collective noun", "group noun", "people group", "crowd noun", "assembly noun"},
-		Keywords:    []string{"collective", "people", "group", "unit", "regarded", "crowd", "assembly", "gathering", "team", "committee", "audience", "class", "family", "society"},
+		Aliases: []string{
+			"collective noun", "group noun", "people group", "crowd noun", "assembly noun", "community noun", "societal noun",
+		},
+		Keywords: []string{
+			"collective", "people", "group", "unit", "regarded", "crowd", "assembly", "gathering", "team", "committee", "audience", "class", "family", "society",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return nounCollectivePeople(f), nil
 		},
@@ -190,8 +210,12 @@ func addWordNounLookup() {
 		Description: "Group of animals, like a 'pack' of wolves or a 'flock' of birds",
 		Example:     "party",
 		Output:      "string",
-		Aliases:     []string{"animal collective", "pack noun", "flock noun", "herd noun", "swarm noun"},
-		Keywords:    []string{"collective", "animal", "group", "pack", "flock", "animals", "herd", "swarm", "pride", "school", "colony", "pod", "gaggle", "murder", "exaltation"},
+		Aliases: []string{
+			"animal collective", "pack noun", "flock noun", "herd noun", "swarm noun", "colony noun", "pride noun",
+		},
+		Keywords: []string{
+			"collective", "animal", "group", "pack", "flock", "animals", "herd", "swarm", "pride", "school", "colony", "pod", "gaggle", "murder", "exaltation",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return nounCollectiveAnimal(f), nil
 		},
@@ -203,8 +227,12 @@ func addWordNounLookup() {
 		Description: "Group of objects or items, such as a 'bundle' of sticks or a 'cluster' of grapes",
 		Example:     "hand",
 		Output:      "string",
-		Aliases:     []string{"object collective", "bundle noun", "cluster noun", "collection noun", "set noun"},
-		Keywords:    []string{"collective", "thing", "group", "objects", "items", "bundle", "cluster", "collection", "set", "batch", "stack", "pile", "heap", "bunch", "array", "assortment"},
+		Aliases: []string{
+			"object collective", "bundle noun", "cluster noun", "collection noun", "set noun", "batch noun", "pile noun",
+		},
+		Keywords: []string{
+			"collective", "thing", "group", "objects", "items", "bundle", "cluster", "collection", "set", "batch", "stack", "pile", "heap", "bunch", "array", "assortment",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return nounCollectiveThing(f), nil
 		},
@@ -216,8 +244,12 @@ func addWordNounLookup() {
 		Description: "Items that can be counted individually",
 		Example:     "neck",
 		Output:      "string",
-		Aliases:     []string{"countable noun", "count noun", "discrete item", "enumerable noun", "plural noun"},
-		Keywords:    []string{"countable", "items", "counted", "individually", "discrete", "enumerable", "plural", "many", "few", "number", "objects", "things", "units", "pieces"},
+		Aliases: []string{
+			"countable noun", "count noun", "discrete item", "enumerable noun", "plural noun", "numerical noun", "measurable noun",
+		},
+		Keywords: []string{
+			"countable", "items", "counted", "individually", "discrete", "enumerable", "plural", "many", "few", "number", "objects", "things", "units", "pieces",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return nounCountable(f), nil
 		},
@@ -229,8 +261,12 @@ func addWordNounLookup() {
 		Description: "Items that can't be counted individually",
 		Example:     "seafood",
 		Output:      "string",
-		Aliases:     []string{"uncountable noun", "mass noun", "non-count noun", "bulk noun", "substance noun"},
-		Keywords:    []string{"uncountable", "items", "counted", "individually", "mass", "bulk", "substance", "material", "liquid", "powder", "grain", "continuous", "indivisible", "measurement"},
+		Aliases: []string{
+			"uncountable noun", "mass noun", "non-count noun", "bulk noun", "substance noun", "continuous noun", "material noun",
+		},
+		Keywords: []string{
+			"uncountable", "items", "counted", "individually", "mass", "bulk", "substance", "material", "liquid", "powder", "grain", "continuous", "indivisible", "measurement",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return nounUncountable(f), nil
 		},
@@ -242,8 +278,12 @@ func addWordNounLookup() {
 		Description: "Specific name for a particular person, place, or organization",
 		Example:     "John",
 		Output:      "string",
-		Aliases:     []string{"proper noun", "specific name", "person name", "place name", "organization name", "capitalized noun"},
-		Keywords:    []string{"proper", "specific", "name", "person", "place", "organization", "capitalized", "title", "brand", "company", "city", "country", "individual", "entity", "designation"},
+		Aliases: []string{
+			"proper noun", "specific name", "person name", "place name", "organization name", "capitalized noun", "unique name",
+		},
+		Keywords: []string{
+			"proper", "specific", "name", "person", "place", "organization", "capitalized", "title", "brand", "company", "city", "country", "individual", "entity", "designation",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return nounProper(f), nil
 		},
@@ -255,10 +295,15 @@ func addWordNounLookup() {
 		Description: "Word that introduces a noun and identifies it as a noun",
 		Example:     "your",
 		Output:      "string",
-		Aliases:     []string{"determiner word", "article word", "noun introducer", "specifier word", "modifier word"},
-		Keywords:    []string{"determiner", "word", "introduces", "identifies", "article", "specifier", "modifier", "the", "a", "an", "this", "that", "these", "those", "my", "your", "his", "her"},
+		Aliases: []string{
+			"determiner word", "article word", "noun introducer", "specifier word", "modifier word", "defining word", "introductory word",
+		},
+		Keywords: []string{
+			"determiner", "word", "introduces", "identifies", "article", "specifier", "modifier",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return nounDeterminer(f), nil
 		},
 	})
+
 }

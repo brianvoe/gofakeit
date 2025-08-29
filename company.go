@@ -348,7 +348,7 @@ func addCompanyLookup() {
 			"slogan", "tagline", "motto", "catchphrase",
 			"brand", "company", "marketing", "advertising",
 			"identity", "values", "mission", "vision",
-			"strapline", "promo line", "campaign line",
+			"strapline", "promo", "campaign",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return slogan(f), nil

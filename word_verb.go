@@ -64,8 +64,12 @@ func addWordVerbLookup() {
 		Description: "Word expressing an action, event or state",
 		Example:     "release",
 		Output:      "string",
-		Aliases:     []string{"event", "state", "word", "grammar", "doing", "expressing"},
-		Keywords:    []string{"verb", "action", "event", "state", "word", "grammar", "expressing", "predicate"},
+		Aliases: []string{
+			"action word", "doing word", "predicate word", "verb form", "process word",
+		},
+		Keywords: []string{
+			"movement", "change", "existence", "process", "condition", "happening", "expression", "statement", "activity", "function",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return verb(f), nil
 		},
@@ -74,11 +78,15 @@ func addWordVerbLookup() {
 	AddFuncLookup("verbaction", Info{
 		Display:     "Action Verb",
 		Category:    "word",
-		Description: "Verb Indicating a physical or mental action",
+		Description: "Verb indicating a physical or mental action",
 		Example:     "close",
 		Output:      "string",
-		Aliases:     []string{"physical", "mental", "grammar", "indicating", "movement", "doing"},
-		Keywords:    []string{"verb", "action", "physical", "mental", "grammar", "indicating", "movement", "activity", "behavior"},
+		Aliases: []string{
+			"movement word", "doing action", "behavior word", "mental action", "physical action",
+		},
+		Keywords: []string{
+			"activity", "task", "operation", "motion", "effort", "performance", "gesture", "response", "execution", "behavior",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return verbAction(f), nil
 		},
@@ -90,8 +98,12 @@ func addWordVerbLookup() {
 		Description: "Verb that requires a direct object to complete its meaning",
 		Example:     "follow",
 		Output:      "string",
-		Aliases:     []string{"direct", "grammar", "requires", "complete", "meaning"},
-		Keywords:    []string{"verb", "transitive", "direct", "object", "grammar", "requires", "complete", "meaning", "object-required"},
+		Aliases: []string{
+			"object verb", "requires object", "dependent verb", "object-linked", "receiver word",
+		},
+		Keywords: []string{
+			"direct", "receiver", "transfer", "target", "completion", "relation", "dependent", "object-based", "action-transfer", "link",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return verbTransitive(f), nil
 		},
@@ -103,8 +115,12 @@ func addWordVerbLookup() {
 		Description: "Verb that does not require a direct object to complete its meaning",
 		Example:     "laugh",
 		Output:      "string",
-		Aliases:     []string{"direct", "object", "grammar", "does", "not"},
-		Keywords:    []string{"verb", "intransitive", "direct", "object", "grammar", "does", "not", "require", "complete", "no-object"},
+		Aliases: []string{
+			"standalone verb", "independent word", "no object verb", "complete action", "self-contained verb",
+		},
+		Keywords: []string{
+			"autonomous", "independent", "non-transfer", "self-complete", "expression", "state", "behavior", "occur", "perform", "action-only",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return verbIntransitive(f), nil
 		},
@@ -113,11 +129,15 @@ func addWordVerbLookup() {
 	AddFuncLookup("verblinking", Info{
 		Display:     "Linking Verb",
 		Category:    "word",
-		Description: "Verb that Connects the subject of a sentence to a subject complement",
+		Description: "Verb that connects the subject of a sentence to a subject complement",
 		Example:     "was",
 		Output:      "string",
-		Aliases:     []string{"linking", "connects", "subject", "complement", "grammar", "sentence"},
-		Keywords:    []string{"verb", "linking", "connects", "subject", "complement", "grammar", "sentence", "copula"},
+		Aliases: []string{
+			"connecting verb", "copular verb", "bridge word", "link word", "equating verb",
+		},
+		Keywords: []string{
+			"relation", "connection", "equivalence", "identification", "state", "being", "subject-link", "copula", "connector", "description",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return verbLinking(f), nil
 		},
@@ -129,10 +149,16 @@ func addWordVerbLookup() {
 		Description: "Auxiliary verb that helps the main verb complete the sentence",
 		Example:     "be",
 		Output:      "string",
-		Aliases:     []string{"auxiliary", "main", "grammar", "complete", "assists", "support"},
-		Keywords:    []string{"verb", "helping", "auxiliary", "main", "grammar", "complete", "sentence", "assists", "support", "modal"},
+		Aliases: []string{
+			"auxiliary verb", "supporting verb", "assisting word", "helper verb", "modal verb",
+		},
+		Keywords: []string{
+			"tense", "mood", "voice", "aspect", "support", "structure",
+			"compound", "formation", "assistance",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return verbHelping(f), nil
 		},
 	})
+
 }

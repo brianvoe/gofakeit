@@ -78,7 +78,7 @@ func addColorLookup() {
 		Output:      "[]string",
 		ContentType: "application/json",
 		Aliases:     []string{"color palette", "nice palette", "harmonious colors", "aesthetic palette", "design colors"},
-		Keywords:    []string{"nice", "colors", "palette", "array", "hex codes", "design", "aesthetic", "beautiful", "harmonious", "scheme", "ui", "ux"},
+		Keywords:    []string{"nice", "colors", "palette", "array", "hex", "design", "aesthetic", "beautiful", "harmonious", "scheme", "ui", "ux"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return niceColors(f), nil
 		},
@@ -91,7 +91,7 @@ func addColorLookup() {
 		Example:     "black",
 		Output:      "string",
 		Aliases:     []string{"web safe color", "browser safe", "cross platform color", "universal color", "standard color"},
-		Keywords:    []string{"safe", "color", "web safe", "cross-platform", "css", "html", "compatible", "browser", "device", "universal", "stable", "standard"},
+		Keywords:    []string{"safe", "color", "cross-platform", "css", "html", "compatible", "browser", "device", "universal", "stable", "standard"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return safeColor(f), nil
 		},

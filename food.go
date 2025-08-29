@@ -93,8 +93,18 @@ func addFoodLookup() {
 		Description: "Edible plant part, typically sweet, enjoyed as a natural snack or dessert",
 		Example:     "Peach",
 		Output:      "string",
-		Aliases:     []string{"fruit", "edible", "sweet", "dessert", "natural"},
-		Keywords:    []string{"enjoyed", "peach", "typically", "part", "snack", "dessert", "natural", "plant"},
+		Aliases: []string{
+			"fruit item",
+			"natural snack",
+			"sweet produce",
+			"edible plant food",
+			"dessert fruit",
+		},
+		Keywords: []string{
+			"fruit", "edible", "plant", "peach",
+			"snack", "dessert", "sweet", "natural",
+			"produce", "fresh",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return fruit(f), nil
 		},
@@ -106,8 +116,18 @@ func addFoodLookup() {
 		Description: "Edible plant or part of a plant, often used in savory cooking or salads",
 		Example:     "Amaranth Leaves",
 		Output:      "string",
-		Aliases:     []string{"savory", "food", "greens", "produce", "edible"},
-		Keywords:    []string{"vegetable", "used", "amaranth", "leaves", "often", "part", "plant", "cooking", "salads"},
+		Aliases: []string{
+			"veggie",
+			"plant food",
+			"green produce",
+			"savory food",
+			"leafy edible",
+		},
+		Keywords: []string{
+			"vegetable", "greens", "produce", "amaranth",
+			"leaves", "cooking", "salads", "plant",
+			"edible", "savory",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return vegetable(f), nil
 		},
@@ -119,8 +139,18 @@ func addFoodLookup() {
 		Description: "First meal of the day, typically eaten in the morning",
 		Example:     "Blueberry banana happy face pancakes",
 		Output:      "string",
-		Aliases:     []string{"first", "meal", "day", "morning", "eaten", "food", "start"},
-		Keywords:    []string{"breakfast", "typically", "blueberry", "banana", "happy", "face", "pancakes", "morning"},
+		Aliases: []string{
+			"morning meal",
+			"first meal",
+			"day starter",
+			"early food",
+			"sunrise meal",
+		},
+		Keywords: []string{
+			"breakfast", "morning", "meal", "start",
+			"pancakes", "blueberry", "banana", "food",
+			"first", "early",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return breakfast(f), nil
 		},
@@ -132,8 +162,18 @@ func addFoodLookup() {
 		Description: "Midday meal, often lighter than dinner, eaten around noon",
 		Example:     "No bake hersheys bar pie",
 		Output:      "string",
-		Aliases:     []string{"midday", "meal", "dinner", "food", "afternoon"},
-		Keywords:    []string{"lunch", "often", "lighter", "around", "noon", "no", "bake", "bar", "pie"},
+		Aliases: []string{
+			"midday meal",
+			"noon food",
+			"afternoon meal",
+			"light meal",
+			"daytime meal",
+		},
+		Keywords: []string{
+			"lunch", "meal", "midday", "noon",
+			"lighter", "food", "pie", "bar",
+			"afternoon",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return lunch(f), nil
 		},
@@ -145,8 +185,18 @@ func addFoodLookup() {
 		Description: "Evening meal, typically the day's main and most substantial meal",
 		Example:     "Wild addicting dip",
 		Output:      "string",
-		Aliases:     []string{"evening", "main", "day", "food", "supper"},
-		Keywords:    []string{"dinner", "most", "substantial", "wild", "addicting", "dip", "days", "main", "meal"},
+		Aliases: []string{
+			"evening meal",
+			"main meal",
+			"days supper",
+			"night food",
+			"hearty meal",
+		},
+		Keywords: []string{
+			"dinner", "supper", "evening", "meal",
+			"main", "substantial", "night", "food",
+			"heavy", "course",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return dinner(f), nil
 		},
@@ -158,8 +208,18 @@ func addFoodLookup() {
 		Description: "Liquid consumed for hydration, pleasure, or nutritional benefits",
 		Example:     "Soda",
 		Output:      "string",
-		Aliases:     []string{"beverage", "pleasure", "nutritional", "benefits", "fluid"},
-		Keywords:    []string{"drink", "for", "soda", "liquid", "consumed", "hydration", "pleasure", "nutritional", "benefits"},
+		Aliases: []string{
+			"beverage",
+			"refreshment",
+			"hydration",
+			"liquid food",
+			"consumable fluid",
+		},
+		Keywords: []string{
+			"drink", "soda", "liquid",
+			"pleasure", "nutrition", "fluid", "quencher",
+			"consumed",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return drink(f), nil
 		},
@@ -168,11 +228,21 @@ func addFoodLookup() {
 	AddFuncLookup("snack", Info{
 		Display:     "Snack",
 		Category:    "food",
-		Description: "Random snack",
-		Example:     "Small, quick food item eaten between meals",
+		Description: "Small, quick food item eaten between meals",
+		Example:     "Trail mix",
 		Output:      "string",
-		Aliases:     []string{"quick", "food", "item", "eaten", "meals", "bite"},
-		Keywords:    []string{"snack", "between", "small", "quick", "food", "item", "eaten", "meals", "random"},
+		Aliases: []string{
+			"light bite",
+			"quick food",
+			"mini meal",
+			"finger food",
+			"nibble",
+		},
+		Keywords: []string{
+			"snack", "between", "meals", "quick",
+			"small", "food", "item", "random",
+			"bite", "treat",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return snack(f), nil
 		},
@@ -184,10 +254,21 @@ func addFoodLookup() {
 		Description: "Sweet treat often enjoyed after a meal",
 		Example:     "French napoleons",
 		Output:      "string",
-		Aliases:     []string{"sweet", "treat", "enjoyed", "meal", "after", "food", "pastry"},
-		Keywords:    []string{"dessert", "often", "sweet", "treat", "enjoyed", "after", "meal"},
+		Aliases: []string{
+			"after meal sweet",
+			"pastry treat",
+			"confection",
+			"final course",
+			"delicacy",
+		},
+		Keywords: []string{
+			"dessert", "sweet", "treat", "meal",
+			"after", "pastry", "cake", "enjoyed",
+			"final", "sugar",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return dessert(f), nil
 		},
 	})
+
 }

@@ -389,7 +389,7 @@ func addDateTimeLookup() {
 			"second value", "sec unit", "time second", "sixtieth minute", "time slice",
 		},
 		Keywords: []string{
-			"second", "time", "unit", "minute", "1/60", "sixtieth", "duration", "interval",
+			"second", "time", "unit", "minute", "sixtieth", "duration", "interval", "sixty",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return second(f), nil },
 	})
@@ -446,10 +446,10 @@ func addDateTimeLookup() {
 		Example:     "Friday",
 		Output:      "string",
 		Aliases: []string{
-			"weekday name", "workday", "business day", "monday-friday", "week day",
+			"weekday name", "business day", "work day", "monday to friday", "weekday label",
 		},
 		Keywords: []string{
-			"weekday", "day", "week", "workday", "business", "calendar", "monday", "friday",
+			"weekday", "day", "week", "workday", "business", "calendar", "monday", "tuesday", "wednesday", "thursday", "friday",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return weekDay(f), nil },
 	})
