@@ -64,7 +64,7 @@ func addImageLookup() {
 		Output:      "[]byte",
 		ContentType: "image/jpeg",
 		Aliases:     []string{"jpeg", "jpg", "format", "compression", "compatibility", "photo"},
-		Keywords:    []string{"image", "jpeg", "jpg", "format", "compression", "compatibility", "file", "bytes"},
+		Keywords:    []string{"image", "efficient", "file", "bytes", "known", "rgba", "pixel", "width", "height"},
 		Params: []Param{
 			{Field: "width", Display: "Width", Type: "int", Default: "500", Description: "Image width in px"},
 			{Field: "height", Display: "Height", Type: "int", Default: "500", Description: "Image height in px"},
@@ -98,7 +98,7 @@ func addImageLookup() {
 		Output:      "[]byte",
 		ContentType: "image/png",
 		Aliases:     []string{"png", "format", "lossless", "compression", "transparency", "graphic"},
-		Keywords:    []string{"image", "png", "format", "lossless", "compression", "transparency", "file", "bytes"},
+		Keywords:    []string{"image", "support", "file", "bytes", "known", "rgba", "pixel", "width", "height"},
 		Params: []Param{
 			{Field: "width", Display: "Width", Type: "int", Default: "500", Description: "Image width in px"},
 			{Field: "height", Display: "Height", Type: "int", Default: "500", Description: "Image height in px"},

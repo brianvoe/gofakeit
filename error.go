@@ -147,7 +147,7 @@ func addErrorLookup() {
 		Example:     "syntax error",
 		Output:      "string",
 		Aliases:     []string{"err", "problem", "issue", "fault", "bug"},
-		Keywords:    []string{"error", "problem", "issue", "fault", "bug", "software", "computer", "message"},
+		Keywords:    []string{"error", "software", "computer", "message", "syntax", "mistake", "encountered", "displayed"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return err(f), nil
 		},
@@ -160,7 +160,7 @@ func addErrorLookup() {
 		Example:     "protocol",
 		Output:      "string",
 		Aliases:     []string{"category", "type", "classification", "issue", "entity"},
-		Keywords:    []string{"error", "object", "category", "type", "classification", "details"},
+		Keywords:    []string{"error", "protocol", "details", "conveying", "encountered", "various", "categories"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return errorObject(f), nil
 		},
@@ -172,8 +172,8 @@ func addErrorLookup() {
 		Description: "A problem or issue encountered while accessing or managing a database",
 		Example:     "sql error",
 		Output:      "string",
-		Aliases:     []string{"db", "sql", "dbms", "query", "database"},
-		Keywords:    []string{"error", "database", "db", "sql", "dbms", "access", "management"},
+		Aliases:     []string{"db", "dbms", "query", "database"},
+		Keywords:    []string{"error", "access", "management", "sql", "dbms", "query", "encountered", "managing"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return errorDatabase(f), nil
 		},
@@ -185,8 +185,19 @@ func addErrorLookup() {
 		Description: "Communication failure in the high-performance, open-source universal RPC framework",
 		Example:     "client protocol error",
 		Output:      "string",
-		Aliases:     []string{"rpc", "communication", "protocol", "framework", "universal", "grpc"},
-		Keywords:    []string{"error", "grpc", "rpc", "communication", "protocol", "framework", "high-performance"},
+		Aliases: []string{
+			"grpc error",
+			"rpc error",
+			"grpc failure",
+			"rpc failure",
+			"grpc communication error",
+		},
+		Keywords: []string{
+			"error", "grpc", "rpc", "protocol", "transport",
+			"client", "server", "connection", "failure",
+			"status", "unavailable", "timeout",
+			"communication",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return errorGRPC(f), nil
 		},
@@ -198,8 +209,8 @@ func addErrorLookup() {
 		Description: "A problem with a web http request",
 		Example:     "invalid method",
 		Output:      "string",
-		Aliases:     []string{"http", "web", "request", "protocol", "network"},
-		Keywords:    []string{"error", "http", "web", "request", "protocol", "problem"},
+		Aliases:     []string{"http", "request", "protocol", "network", "client"},
+		Keywords:    []string{"error", "problem", "invalid", "method", "web", "request", "protocol", "network"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return errorHTTP(f), nil
 		},
@@ -212,7 +223,7 @@ func addErrorLookup() {
 		Example:     "request timeout",
 		Output:      "string",
 		Aliases:     []string{"http", "client", "timeout", "request", "browser"},
-		Keywords:    []string{"error", "http", "client", "timeout", "request", "software", "server"},
+		Keywords:    []string{"error", "failure", "issue", "occurring", "software", "server", "sends", "requests"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return errorHTTPClient(f), nil
 		},
@@ -224,8 +235,8 @@ func addErrorLookup() {
 		Description: "Failure or issue occurring within a server software that recieves requests from clients",
 		Example:     "internal server error",
 		Output:      "string",
-		Aliases:     []string{"server", "internal", "request", "backend", "host"},
-		Keywords:    []string{"error", "http", "server", "internal", "request", "software", "client"},
+		Aliases:     []string{"server", "internal", "request", "host", "service"},
+		Keywords:    []string{"error", "failure", "issue", "occurring", "software", "client", "recieves", "requests", "backend"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return errorHTTPServer(f), nil
 		},
@@ -238,7 +249,7 @@ func addErrorLookup() {
 		Example:     "address out of bounds",
 		Output:      "string",
 		Aliases:     []string{"runtime", "execution", "program", "malfunction", "crash"},
-		Keywords:    []string{"error", "runtime", "execution", "program", "malfunction", "termination"},
+		Keywords:    []string{"error", "occuring", "during", "abrupt", "termination", "unexpected", "behavior", "address", "bounds"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return errorRuntime(f), nil
 		},
@@ -251,7 +262,7 @@ func addErrorLookup() {
 		Example:     "missing required field",
 		Output:      "string",
 		Aliases:     []string{"validation", "input", "criteria", "format", "check"},
-		Keywords:    []string{"error", "validation", "input", "criteria", "format", "specifications"},
+		Keywords:    []string{"error", "occurs", "fails", "meet", "required", "specifications", "missing", "field"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return errorValidation(f), nil
 		},

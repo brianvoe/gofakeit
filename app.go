@@ -67,8 +67,8 @@ func addAppLookup() {
 		Description: "Software program designed for a specific purpose or task on a computer or mobile device",
 		Example:     "Parkrespond",
 		Output:      "string",
-		Aliases:     []string{"software", "program", "application", "mobile", "title", "app"},
-		Keywords:    []string{"app", "name", "software", "program", "application", "mobile", "device", "computer"},
+		Aliases:     []string{"software name", "application name", "mobile app name", "program title", "app title"},
+		Keywords:    []string{"app", "name", "software", "program", "application", "mobile", "device", "computer", "ios", "android", "desktop", "web", "platform", "title"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return appName(f), nil
 		},
@@ -80,8 +80,8 @@ func addAppLookup() {
 		Description: "Particular release of an application in Semantic Versioning format",
 		Example:     "1.12.14",
 		Output:      "string",
-		Aliases:     []string{"version", "release", "semantic", "versioning", "software"},
-		Keywords:    []string{"app", "version", "release", "semantic", "versioning", "application"},
+		Aliases:     []string{"semantic version", "app release", "software version", "version number", "release version"},
+		Keywords:    []string{"app", "version", "release", "semantic", "versioning", "application", "major", "minor", "patch", "build", "number", "format", "tag"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return appVersion(f), nil
 		},
@@ -93,8 +93,8 @@ func addAppLookup() {
 		Description: "Person or group creating and developing an application",
 		Example:     "Qado Energy, Inc.",
 		Output:      "string",
-		Aliases:     []string{"author", "developer", "creator", "person", "company", "software"},
-		Keywords:    []string{"app", "author", "developer", "creator", "person", "company", "group", "creating"},
+		Aliases:     []string{"app developer", "software author", "application creator", "program developer", "app creator"},
+		Keywords:    []string{"app", "author", "developer", "creator", "person", "company", "group", "creating", "programmer", "coder", "engineer", "team", "organization", "studio", "publisher"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return appAuthor(f), nil
 		},

@@ -346,8 +346,8 @@ func addProductLookup() {
 }`,
 		Output:      "map[string]any",
 		ContentType: "application/json",
-		Aliases:     []string{"item", "created", "sale", "use", "goods", "merchandise"},
-		Keywords:    []string{"product", "item", "created", "sale", "use", "goods", "merchandise", "for"},
+		Aliases:     []string{"sale", "use", "goods", "merchandise"},
+		Keywords:    []string{"product", "item", "created", "sale", "use", "goods", "merchandise"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return product(f), nil
 		},
@@ -359,8 +359,19 @@ func addProductLookup() {
 		Description: "Distinctive title or label assigned to a product for identification and marketing",
 		Example:     "olive copper monitor",
 		Output:      "string",
-		Aliases:     []string{"product", "name", "title", "label", "identification", "marketing"},
-		Keywords:    []string{"product", "name", "title", "label", "identification", "marketing", "distinctive"},
+		Aliases: []string{
+			"product title",
+			"product label",
+			"brand name",
+			"item name",
+			"product identifier",
+		},
+		Keywords: []string{
+			"product", "name", "title", "label", "brand",
+			"item", "merchandise", "goods", "article",
+			"identifier", "marketing", "branding",
+			"sku", "catalog", "inventory",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return productName(f), nil
 		},
@@ -372,8 +383,19 @@ func addProductLookup() {
 		Description: "Explanation detailing the features and characteristics of a product",
 		Example:     "Backwards caused quarterly without week it hungry thing someone him regularly. Whomever this revolt hence from his timing as quantity us these yours.",
 		Output:      "string",
-		Aliases:     []string{"product", "description", "explanation", "features", "characteristics", "detailing"},
-		Keywords:    []string{"product", "description", "explanation", "features", "characteristics", "detailing", "explanation"},
+		Aliases: []string{
+			"product details",
+			"product specs",
+			"item description",
+			"feature list",
+			"marketing copy",
+		},
+		Keywords: []string{
+			"product", "description", "details", "features",
+			"specifications", "characteristics", "summary",
+			"overview", "attributes", "benefits",
+			"marketing", "content", "copy", "info", "text",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return productDescription(f), nil
 		},
@@ -385,8 +407,19 @@ func addProductLookup() {
 		Description: "Classification grouping similar products based on shared characteristics or functions",
 		Example:     "clothing",
 		Output:      "string",
-		Aliases:     []string{"product", "category", "classification", "grouping", "characteristics", "functions"},
-		Keywords:    []string{"product", "category", "classification", "grouping", "characteristics", "functions", "similar"},
+		Aliases: []string{
+			"product classification",
+			"product type",
+			"item category",
+			"product group",
+			"product segment",
+		},
+		Keywords: []string{
+			"product", "category", "type", "class", "classification",
+			"group", "segment", "line", "collection", "range",
+			"electronics", "furniture", "clothing", "appliances",
+			"food", "toys", "accessories", "goods",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return productCategory(f), nil
 		},
@@ -398,8 +431,19 @@ func addProductLookup() {
 		Description: "Specific characteristic of a product that distinguishes it from others products",
 		Example:     "ultra-lightweight",
 		Output:      "string",
-		Aliases:     []string{"feature", "characteristic", "product", "distinguishing"},
-		Keywords:    []string{"product", "feature", "characteristic", "distinguishing", "specific", "unique"},
+		Aliases: []string{
+			"product trait",
+			"product attribute",
+			"key feature",
+			"unique feature",
+			"special characteristic",
+		},
+		Keywords: []string{
+			"feature", "trait", "attribute", "characteristic",
+			"capability", "functionality", "specification",
+			"benefit", "advantage", "highlight",
+			"unique", "differentiator", "selling point",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return productFeature(f), nil
 		},
@@ -411,8 +455,19 @@ func addProductLookup() {
 		Description: "The substance from which a product is made, influencing its appearance, durability, and properties",
 		Example:     "brass",
 		Output:      "string",
-		Aliases:     []string{"material", "substance", "product", "durability"},
-		Keywords:    []string{"product", "material", "substance", "durability", "appearance", "properties"},
+		Aliases: []string{
+			"material type",
+			"product substance",
+			"product composition",
+			"item material",
+			"build material",
+		},
+		Keywords: []string{
+			"material", "substance", "composition", "make",
+			"fabric", "textile", "cloth", "leather", "wool",
+			"wood", "metal", "plastic", "glass", "stone",
+			"durability", "properties", "construction",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return productMaterial(f), nil
 		},
@@ -424,8 +479,19 @@ func addProductLookup() {
 		Description: "Standardized barcode used for product identification and tracking in retail and commerce",
 		Example:     "012780949980",
 		Output:      "string",
-		Aliases:     []string{"upc", "barcode", "product", "identification", "tracking"},
-		Keywords:    []string{"product", "upc", "barcode", "identification", "tracking", "retail", "commerce"},
+		Aliases: []string{
+			"upc code",
+			"product barcode",
+			"product code",
+			"universal product code",
+			"retail barcode",
+		},
+		Keywords: []string{
+			"upc", "barcode", "product", "code", "identifier",
+			"sku", "retail", "commerce", "inventory",
+			"tracking", "scanning", "checkout", "label",
+			"universal", "standard",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return productUPC(f), nil
 		},
@@ -437,8 +503,20 @@ func addProductLookup() {
 		Description: "The group of people for whom the product is designed or intended",
 		Example:     "adults",
 		Output:      "[]string",
-		Aliases:     []string{"group", "people", "product", "target", "demographic"},
-		Keywords:    []string{"product", "audience", "group", "people", "target", "designed", "intended"},
+		Aliases: []string{
+			"target audience",
+			"target market",
+			"customer group",
+			"user base",
+			"demographic group",
+		},
+		Keywords: []string{
+			"audience", "market", "segment", "demographic",
+			"consumer", "customer", "buyer", "user",
+			"group", "target", "end user", "population",
+			"adults", "kids", "teens", "families", "professionals",
+		},
+
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return productAudience(f), nil
 		},
@@ -450,8 +528,19 @@ func addProductLookup() {
 		Description: "The size or dimension of a product",
 		Example:     "medium",
 		Output:      "string",
-		Aliases:     []string{"dimension", "size", "product", "measurement"},
-		Keywords:    []string{"product", "dimension", "size", "measurement"},
+		Aliases: []string{
+			"product size",
+			"product measurement",
+			"item dimensions",
+			"product scale",
+			"size specification",
+		},
+		Keywords: []string{
+			"dimension", "size", "measurement", "proportion",
+			"scale", "specification", "specs", "length",
+			"width", "height", "depth", "volume", "weight",
+			"product", "item",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return productDimension(f), nil
 		},
@@ -463,8 +552,19 @@ func addProductLookup() {
 		Description: "The scenario or purpose for which a product is typically used",
 		Example:     "home",
 		Output:      "string",
-		Aliases:     []string{"usecase", "scenario", "purpose", "product", "usage"},
-		Keywords:    []string{"product", "usecase", "scenario", "purpose", "usage", "typically"},
+		Aliases: []string{
+			"use case",
+			"product purpose",
+			"intended use",
+			"product application",
+			"usage scenario",
+		},
+		Keywords: []string{
+			"use", "usecase", "purpose", "usage", "application",
+			"context", "scenario", "situation", "case",
+			"intention", "goal", "objective", "function",
+			"home", "office", "outdoor", "industrial", "commercial",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return productUseCase(f), nil
 		},
@@ -477,7 +577,7 @@ func addProductLookup() {
 		Example:     "comfort",
 		Output:      "string",
 		Aliases:     []string{"benefit", "advantage", "value", "key", "feature"},
-		Keywords:    []string{"product", "benefit", "advantage", "value", "key", "provides"},
+		Keywords:    []string{"key", "advantage", "value", "provides", "improvement", "enhancement"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return productBenefit(f), nil
 		},
@@ -489,8 +589,18 @@ func addProductLookup() {
 		Description: "A suffix used to differentiate product models or versions",
 		Example:     "pro",
 		Output:      "string",
-		Aliases:     []string{"suffix", "model", "version", "product", "differentiate"},
-		Keywords:    []string{"product", "suffix", "model", "version", "differentiate"},
+		Aliases: []string{
+			"product suffix",
+			"model suffix",
+			"version suffix",
+			"edition suffix",
+			"name suffix",
+		},
+		Keywords: []string{
+			"suffix", "variant", "edition", "version", "model",
+			"series", "line", "tier", "release", "upgrade",
+			"plus", "pro", "max", "lite", "mini",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return productSuffix(f), nil
 		},
@@ -502,8 +612,19 @@ func addProductLookup() {
 		Description: "ISBN-10 or ISBN-13 identifier for books",
 		Example:     "978-1-4028-9462-6",
 		Output:      "string",
-		Aliases:     []string{"book", "identifier", "isbn10", "isbn13", "publication", "isbn"},
-		Keywords:    []string{"product", "isbn", "book", "identifier", "isbn10", "isbn13"},
+		Aliases: []string{
+			"isbn code",
+			"isbn number",
+			"book isbn",
+			"isbn10",
+			"isbn13",
+		},
+		Keywords: []string{
+			"isbn", "isbn10", "isbn13", "identifier",
+			"book", "book code", "publication id",
+			"publishing", "library", "catalog",
+			"literature", "reference",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return productISBN(f, nil), nil
 		},

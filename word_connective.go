@@ -86,8 +86,8 @@ func addWordConnectiveLookup() {
 		Description: "Word used to connect words or sentences",
 		Example:     "such as",
 		Output:      "string",
-		Aliases:     []string{"word", "connect", "sentence", "grammar", "joining"},
-		Keywords:    []string{"connective", "word", "connect", "sentence", "grammar", "used"},
+		Aliases:     []string{"joining element", "grammar connector", "sentence bridge", "word linker"},
+		Keywords:    []string{"connective", "word", "connect", "sentence", "grammar", "used", "conjunction", "link", "joining"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return connective(f), nil
 		},
@@ -99,8 +99,8 @@ func addWordConnectiveLookup() {
 		Description: "Connective word used to indicate a temporal relationship between events or actions",
 		Example:     "finally",
 		Output:      "string",
-		Aliases:     []string{"connective", "time", "temporal", "relationship", "events", "grammar"},
-		Keywords:    []string{"connective", "time", "temporal", "relationship", "events", "grammar", "actions"},
+		Aliases:     []string{"temporal connector", "time relationship", "chronological link", "sequence element"},
+		Keywords:    []string{"connective", "time", "temporal", "relationship", "events", "grammar", "actions", "chronological", "sequence", "timing"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return connectiveTime(f), nil
 		},
@@ -112,8 +112,8 @@ func addWordConnectiveLookup() {
 		Description: "Connective word used to indicate a comparison between two or more things",
 		Example:     "in addition",
 		Output:      "string",
-		Aliases:     []string{"connective", "comparative", "comparison", "things", "grammar"},
-		Keywords:    []string{"connective", "comparative", "comparison", "things", "grammar", "indicate"},
+		Aliases:     []string{"comparison connector", "contrast element", "similarity link", "grammar bridge"},
+		Keywords:    []string{"connective", "comparative", "comparison", "things", "grammar", "indicate", "contrast", "similarity", "relative"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return connectiveComparative(f), nil
 		},
@@ -125,8 +125,8 @@ func addWordConnectiveLookup() {
 		Description: "Connective word used to express dissatisfaction or complaints about a situation",
 		Example:     "besides",
 		Output:      "string",
-		Aliases:     []string{"connective", "complaint", "dissatisfaction", "situation", "grammar"},
-		Keywords:    []string{"connective", "complaint", "dissatisfaction", "situation", "grammar", "express"},
+		Aliases:     []string{"objection connector", "criticism element", "dissatisfaction link", "grammar bridge"},
+		Keywords:    []string{"connective", "complaint", "dissatisfaction", "situation", "grammar", "express", "objection", "criticism", "negative"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return connectiveComplaint(f), nil
 		},
@@ -138,8 +138,8 @@ func addWordConnectiveLookup() {
 		Description: "Connective word used to list or enumerate items or examples",
 		Example:     "firstly",
 		Output:      "string",
-		Aliases:     []string{"connective", "listing", "enumerate", "items", "examples", "grammar"},
-		Keywords:    []string{"connective", "listing", "enumerate", "items", "examples", "grammar", "list"},
+		Aliases:     []string{"enumeration connector", "sequence element", "order link", "grammar bridge"},
+		Keywords:    []string{"connective", "listing", "enumerate", "items", "examples", "grammar", "list", "sequence", "order", "numbered"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return connectiveListing(f), nil
 		},
@@ -151,8 +151,8 @@ func addWordConnectiveLookup() {
 		Description: "Connective word used to indicate a cause-and-effect relationship between events or actions",
 		Example:     "an outcome of",
 		Output:      "string",
-		Aliases:     []string{"connective", "casual", "cause", "effect", "relationship", "grammar"},
-		Keywords:    []string{"connective", "casual", "cause", "effect", "relationship", "grammar", "events", "actions"},
+		Aliases:     []string{"causal connector", "effect relationship", "consequence link", "grammar bridge"},
+		Keywords:    []string{"connective", "casual", "cause", "effect", "relationship", "grammar", "events", "actions", "causal", "consequence", "result"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return connectiveCasual(f), nil
 		},
@@ -164,8 +164,8 @@ func addWordConnectiveLookup() {
 		Description: "Connective word used to provide examples or illustrations of a concept or idea",
 		Example:     "then",
 		Output:      "string",
-		Aliases:     []string{"connective", "examplify", "examples", "illustrations", "concept", "grammar"},
-		Keywords:    []string{"connective", "examplify", "examples", "illustrations", "concept", "grammar", "provide"},
+		Aliases:     []string{"example connector", "illustration element", "instance link", "grammar bridge"},
+		Keywords:    []string{"connective", "examplify", "examples", "illustrations", "concept", "grammar", "provide", "instance", "demonstration", "sample"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return connectiveExamplify(f), nil
 		},

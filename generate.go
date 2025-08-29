@@ -490,7 +490,7 @@ func addGenerateLookup() {
 		Example:     "{firstname} {lastname} {email} - Markus Moen markusmoen@pagac.net",
 		Output:      "string",
 		Aliases:     []string{"random", "string", "data", "sets", "available", "based"},
-		Keywords:    []string{"generate", "random", "string", "data", "sets", "available", "based", "upon"},
+		Keywords:    []string{"generate", "upon", "datasets", "random", "string", "value", "available", "data", "sets", "based"},
 		Params: []Param{
 			{Field: "str", Display: "String", Type: "string", Description: "String value to generate from"},
 		},
@@ -519,8 +519,8 @@ Alayna Wuckert     santinostanton@carroll.biz     g7sLrS0gEwLO     46
 Lura Lockman       zacherykuhic@feil.name         S8gV7Z64KlHG     12`,
 		Output:      "[]byte",
 		ContentType: "text/plain",
-		Aliases:     []string{"fixed", "width", "rows", "output", "fields", "tabular"},
-		Keywords:    []string{"fixed", "width", "rows", "output", "data", "fields", "based", "input"},
+		Aliases:     []string{"fixed", "width", "rows", "output", "fields"},
+		Keywords:    []string{"tabular", "data", "based"},
 		Params: []Param{
 			{Field: "rowcount", Display: "Row Count", Type: "int", Default: "10", Description: "Number of rows"},
 			{Field: "fields", Display: "Fields", Type: "[]Field", Description: "Fields name, function and params"},
@@ -567,7 +567,7 @@ Lura Lockman       zacherykuhic@feil.name         S8gV7Z64KlHG     12`,
 		Example:     "[abcdef]{5} - affec",
 		Output:      "string",
 		Aliases:     []string{"pattern", "matching", "text", "processing", "search", "manipulate"},
-		Keywords:    []string{"regex", "pattern", "matching", "text", "processing", "search", "manipulate", "strings"},
+		Keywords:    []string{"regex", "strings", "re2", "syntax", "pattern-matching", "tool"},
 		Params: []Param{
 			{Field: "str", Display: "String", Type: "string", Description: "Regex RE2 syntax string"},
 		},
@@ -600,7 +600,7 @@ Lura Lockman       zacherykuhic@feil.name         S8gV7Z64KlHG     12`,
 		Output:      "map[string]any",
 		ContentType: "application/json",
 		Aliases:     []string{"data", "structure", "key-value", "pairs", "dictionary", "hash"},
-		Keywords:    []string{"map", "data", "structure", "key-value", "pairs", "dictionary", "hash", "stores"},
+		Keywords:    []string{"map", "stores", "software", "data", "structure", "key", "value", "pairs", "dictionary", "hash", "collection"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return mapFunc(f), nil
 		},

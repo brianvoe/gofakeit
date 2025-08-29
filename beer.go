@@ -123,8 +123,8 @@ func addBeerLookup() {
 		Description: "Specific brand or variety of beer",
 		Example:     "Duvel",
 		Output:      "string",
-		Aliases:     []string{"brand", "variety", "brewery", "alcoholic", "beverage", "label"},
-		Keywords:    []string{"beer", "name", "brand", "variety", "brewery", "specific", "craft"},
+		Aliases:     []string{"brand", "brewery", "label", "craft", "microbrew"},
+		Keywords:    []string{"beer", "name", "variety", "specific", "alcoholic", "beverage", "lager", "ale", "stout", "pilsner", "ipa"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return beerName(f), nil
 		},
@@ -136,8 +136,8 @@ func addBeerLookup() {
 		Description: "Distinct characteristics and flavors of beer",
 		Example:     "European Amber Lager",
 		Output:      "string",
-		Aliases:     []string{"style", "characteristics", "flavors", "type", "variety"},
-		Keywords:    []string{"beer", "style", "characteristics", "flavors", "type", "distinct"},
+		Aliases:     []string{"style", "type", "category", "classification", "variety"},
+		Keywords:    []string{"beer", "characteristics", "flavors", "distinct", "lager", "ale", "stout", "pilsner", "porter", "wheat", "amber"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return beerStyle(f), nil
 		},
@@ -149,8 +149,8 @@ func addBeerLookup() {
 		Description: "The flower used in brewing to add flavor, aroma, and bitterness to beer",
 		Example:     "Glacier",
 		Output:      "string",
-		Aliases:     []string{"hop", "flower", "brewing", "flavor", "aroma", "plant"},
-		Keywords:    []string{"beer", "hop", "flower", "brewing", "flavor", "aroma", "bitterness"},
+		Aliases:     []string{"hop", "flower", "plant", "cone", "vine"},
+		Keywords:    []string{"beer", "brewing", "flavor", "aroma", "bitterness", "ingredient", "humulus", "lupulus", "cascade", "citra", "mosaic"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return beerHop(f), nil
 		},
@@ -162,8 +162,8 @@ func addBeerLookup() {
 		Description: "Microorganism used in brewing to ferment sugars, producing alcohol and carbonation in beer",
 		Example:     "1388 - Belgian Strong Ale",
 		Output:      "string",
-		Aliases:     []string{"yeast", "microorganism", "brewing", "ferment", "sugars", "fungus"},
-		Keywords:    []string{"beer", "yeast", "microorganism", "brewing", "ferment", "sugars", "alcohol", "carbonation"},
+		Aliases:     []string{"yeast", "fungus", "microorganism", "culture", "strain"},
+		Keywords:    []string{"beer", "brewing", "ferment", "sugars", "alcohol", "carbonation", "ingredient", "saccharomyces", "cerevisiae", "belgian", "ale"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return beerYeast(f), nil
 		},
@@ -175,8 +175,8 @@ func addBeerLookup() {
 		Description: "Processed barley or other grains, provides sugars for fermentation and flavor to beer",
 		Example:     "Munich",
 		Output:      "string",
-		Aliases:     []string{"malt", "barley", "grains", "sugars", "fermentation", "ingredient"},
-		Keywords:    []string{"beer", "malt", "barley", "grains", "sugars", "fermentation", "flavor", "processed"},
+		Aliases:     []string{"malt", "barley", "grain", "cereal", "kernel"},
+		Keywords:    []string{"beer", "sugars", "fermentation", "flavor", "processed", "ingredient", "munich", "pale", "crystal", "roasted", "wheat", "rye"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return beerMalt(f), nil
 		},
@@ -188,8 +188,8 @@ func addBeerLookup() {
 		Description: "Measures the alcohol content in beer",
 		Example:     "2.7%",
 		Output:      "string",
-		Aliases:     []string{"alcohol", "content", "measure", "percentage", "strength"},
-		Keywords:    []string{"beer", "alcohol", "content", "measure", "percentage"},
+		Aliases:     []string{"alcohol", "abv", "strength", "proof", "percentage"},
+		Keywords:    []string{"beer", "content", "measure", "volume", "concentration", "level", "degree", "potency"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return beerAlcohol(f), nil
 		},
@@ -201,8 +201,8 @@ func addBeerLookup() {
 		Description: "Scale measuring bitterness of beer from hops",
 		Example:     "29 IBU",
 		Output:      "string",
-		Aliases:     []string{"ibu", "bitterness", "scale", "hops", "measurement"},
-		Keywords:    []string{"beer", "ibu", "bitterness", "scale", "hops", "measuring"},
+		Aliases:     []string{"ibu", "bitterness", "scale", "units", "measurement"},
+		Keywords:    []string{"beer", "hops", "measuring", "international", "bittering", "alpha", "acid", "level", "intensity"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return beerIbu(f), nil
 		},
@@ -214,8 +214,8 @@ func addBeerLookup() {
 		Description: "Scale indicating the concentration of extract in worts",
 		Example:     "6.4°Blg",
 		Output:      "string",
-		Aliases:     []string{"blg", "concentration", "extract", "worts", "scale", "density"},
-		Keywords:    []string{"beer", "blg", "concentration", "extract", "worts", "scale", "indicating"},
+		Aliases:     []string{"blg", "density", "gravity", "extract", "concentration"},
+		Keywords:    []string{"beer", "worts", "scale", "indicating", "balling", "plato", "sugar", "soluble", "solids", "degree"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return beerBlg(f), nil
 		},

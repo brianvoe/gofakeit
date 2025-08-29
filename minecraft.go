@@ -172,7 +172,7 @@ func addMinecraftLookup() {
 		Example:     "coal",
 		Output:      "string",
 		Aliases:     []string{"ore", "mineral", "minecraft", "game", "crafting"},
-		Keywords:    []string{"minecraft", "game", "ore", "mineral", "crafting", "resource", "mining"},
+		Keywords:    []string{"naturally", "occurring", "coal", "found", "used", "purposes", "mining", "resource", "blocks"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return minecraftOre(f), nil
 		},
@@ -185,7 +185,7 @@ func addMinecraftLookup() {
 		Example:     "oak",
 		Output:      "string",
 		Aliases:     []string{"wood", "tree", "minecraft", "game", "crafting"},
-		Keywords:    []string{"minecraft", "game", "wood", "tree", "crafting", "resource", "building"},
+		Keywords:    []string{"natural", "resource", "oak", "various", "items", "building", "structures", "used", "logs", "planks"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return minecraftWood(f), nil
 		},
@@ -198,7 +198,7 @@ func addMinecraftLookup() {
 		Example:     "iron",
 		Output:      "string",
 		Aliases:     []string{"armor", "tier", "minecraft", "game", "protection"},
-		Keywords:    []string{"minecraft", "game", "armor", "tier", "protection", "defense", "combat"},
+		Keywords:    []string{"classification", "system", "iron", "sets", "indicating", "effectiveness", "level", "defense", "combat", "material"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return minecraftArmorTier(f), nil
 		},
@@ -210,8 +210,8 @@ func addMinecraftLookup() {
 		Description: "Component of an armor set in Minecraft, such as a helmet, chestplate, leggings, or boots",
 		Example:     "helmet",
 		Output:      "string",
-		Aliases:     []string{"armor", "part", "game", "equipment", "protection"},
-		Keywords:    []string{"minecraft", "game", "armor", "part", "equipment", "helmet", "chestplate", "leggings", "boots"},
+		Aliases:     []string{"armor", "part", "game", "protection"},
+		Keywords:    []string{"component", "helmet", "chestplate", "leggings", "boots", "set", "equipment", "gear", "slot"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return minecraftArmorPart(f), nil
 		},
@@ -223,8 +223,8 @@ func addMinecraftLookup() {
 		Description: "Tools and items used in Minecraft for combat and defeating hostile mobs",
 		Example:     "bow",
 		Output:      "string",
-		Aliases:     []string{"weapon", "game", "combat", "fight", "attack"},
-		Keywords:    []string{"minecraft", "game", "weapon", "combat", "fight", "attack", "damage"},
+		Aliases:     []string{"weapon", "game", "fight", "attack"},
+		Keywords:    []string{"tools", "items", "bow", "defeating", "hostile", "mobs", "used", "combat", "damage", "sword"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return minecraftWeapon(f), nil
 		},
@@ -237,7 +237,7 @@ func addMinecraftLookup() {
 		Example:     "shovel",
 		Output:      "string",
 		Aliases:     []string{"tool", "game", "mining", "digging", "building"},
-		Keywords:    []string{"minecraft", "game", "tool", "mining", "digging", "building", "crafting"},
+		Keywords:    []string{"items", "shovel", "designed", "specific", "tasks", "including", "crafting", "pickaxe", "axe", "hoe"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return minecraftTool(f), nil
 		},
@@ -249,8 +249,8 @@ func addMinecraftLookup() {
 		Description: "Items used to change the color of various in-game objects",
 		Example:     "white",
 		Output:      "string",
-		Aliases:     []string{"color", "game", "coloring", "pigment", "customization"},
-		Keywords:    []string{"minecraft", "game", "dye", "color", "coloring", "customization"},
+		Aliases:     []string{"color", "game", "pigment", "customization"},
+		Keywords:    []string{"items", "white", "change", "various", "in-game", "used", "coloring", "pigment", "wool"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return minecraftDye(f), nil
 		},
@@ -263,7 +263,7 @@ func addMinecraftLookup() {
 		Example:     "apple",
 		Output:      "string",
 		Aliases:     []string{"game", "eating", "nourishment", "consumable", "hunger"},
-		Keywords:    []string{"minecraft", "game", "food", "eating", "nourishment", "hunger", "survival"},
+		Keywords:    []string{"consumable", "items", "apple", "provide", "nourishment", "player", "character", "survival", "hunger", "health"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return minecraftFood(f), nil
 		},
@@ -275,8 +275,8 @@ func addMinecraftLookup() {
 		Description: "Non-hostile creatures in Minecraft, often used for resources and farming",
 		Example:     "chicken",
 		Output:      "string",
-		Aliases:     []string{"creature", "farming", "resource", "passive", "mob"},
-		Keywords:    []string{"minecraft", "game", "animal", "creature", "farming", "resource", "passive"},
+		Aliases:     []string{"creature", "resource", "passive", "mob"},
+		Keywords:    []string{"non-hostile", "chicken", "often", "used", "resources", "farming", "livestock", "breeding"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return minecraftAnimal(f), nil
 		},
@@ -288,8 +288,8 @@ func addMinecraftLookup() {
 		Description: "The profession or occupation assigned to a villager character in the game",
 		Example:     "farmer",
 		Output:      "string",
-		Aliases:     []string{"villager", "job", "profession", "game", "occupation"},
-		Keywords:    []string{"minecraft", "game", "villager", "job", "profession", "occupation", "npc"},
+		Aliases:     []string{"villager", "job", "game"},
+		Keywords:    []string{"profession", "farmer", "assigned", "character", "npc", "occupation", "trading", "workstation"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return minecraftVillagerJob(f), nil
 		},
@@ -301,8 +301,8 @@ func addMinecraftLookup() {
 		Description: "Designated area or structure in Minecraft where villagers perform their job-related tasks and trading",
 		Example:     "furnace",
 		Output:      "string",
-		Aliases:     []string{"villager", "station", "workstation", "minecraft", "game"},
-		Keywords:    []string{"minecraft", "game", "villager", "station", "workstation", "trading", "work"},
+		Aliases:     []string{"villager", "station", "minecraft", "game"},
+		Keywords:    []string{"designated", "furnace", "area", "structure", "perform", "job-related", "tasks", "trading", "workstation", "block"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return minecraftVillagerStation(f), nil
 		},
@@ -314,8 +314,8 @@ func addMinecraftLookup() {
 		Description: "Measure of a villager's experience and proficiency in their assigned job or profession",
 		Example:     "master",
 		Output:      "string",
-		Aliases:     []string{"villager", "level", "experience", "minecraft", "game"},
-		Keywords:    []string{"minecraft", "game", "villager", "level", "experience", "proficiency", "skill"},
+		Aliases:     []string{"villager", "level", "minecraft", "game"},
+		Keywords:    []string{"measure", "master", "proficiency", "skill", "assigned", "job", "profession", "experience", "tier"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return minecraftVillagerLevel(f), nil
 		},
@@ -327,8 +327,8 @@ func addMinecraftLookup() {
 		Description: "Non-aggressive creatures in the game that do not attack players",
 		Example:     "cow",
 		Output:      "string",
-		Aliases:     []string{"mob", "passive", "creature", "game", "peaceful"},
-		Keywords:    []string{"minecraft", "game", "mob", "passive", "creature", "non-aggressive", "friendly"},
+		Aliases:     []string{"mob", "passive", "creature", "game", "friendly"},
+		Keywords:    []string{"non-aggressive", "cow", "attack", "players", "friendly", "peaceful", "neutral", "safe"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return minecraftMobPassive(f), nil
 		},
@@ -341,7 +341,7 @@ func addMinecraftLookup() {
 		Example:     "bee",
 		Output:      "string",
 		Aliases:     []string{"mob", "neutral", "creature", "minecraft", "game"},
-		Keywords:    []string{"minecraft", "game", "mob", "neutral", "creature", "defensive", "provoked"},
+		Keywords:    []string{"bee", "becomes", "hostile", "provoked", "defending", "attacked", "typically", "defensive", "reactive"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return minecraftMobNeutral(f), nil
 		},
@@ -353,8 +353,8 @@ func addMinecraftLookup() {
 		Description: "Aggressive creatures in the game that actively attack players when encountered",
 		Example:     "spider",
 		Output:      "string",
-		Aliases:     []string{"hostile", "creature", "game", "aggressive", "enemy"},
-		Keywords:    []string{"minecraft", "game", "mob", "hostile", "creature", "aggressive", "dangerous"},
+		Aliases:     []string{"hostile", "creature", "game", "enemy"},
+		Keywords:    []string{"spider", "actively", "attack", "players", "encountered", "dangerous", "aggressive", "threatening", "monster"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return minecraftMobHostile(f), nil
 		},
@@ -366,8 +366,8 @@ func addMinecraftLookup() {
 		Description: "Powerful hostile creature in the game, often found in challenging dungeons or structures",
 		Example:     "ender dragon",
 		Output:      "string",
-		Aliases:     []string{"mob", "boss", "creature", "minecraft", "game"},
-		Keywords:    []string{"minecraft", "game", "mob", "boss", "creature", "powerful", "challenging", "dungeon"},
+		Aliases:     []string{"mob", "creature", "minecraft", "game", "elite"},
+		Keywords:    []string{"powerful", "ender", "dragon", "found", "challenging", "dungeons", "structures", "hostile", "boss", "elite", "raid"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return minecraftMobBoss(f), nil
 		},
@@ -380,7 +380,7 @@ func addMinecraftLookup() {
 		Example:     "forest",
 		Output:      "string",
 		Aliases:     []string{"biome", "environment", "minecraft", "game", "terrain"},
-		Keywords:    []string{"minecraft", "game", "biome", "environment", "terrain", "vegetation", "weather"},
+		Keywords:    []string{"distinctive", "forest", "regions", "characterized", "unique", "vegetation", "weather", "environmental", "climate", "ecosystem"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return minecraftBiome(f), nil
 		},
@@ -393,7 +393,7 @@ func addMinecraftLookup() {
 		Example:     "rain",
 		Output:      "string",
 		Aliases:     []string{"weather", "atmosphere", "minecraft", "game", "climate"},
-		Keywords:    []string{"minecraft", "game", "weather", "atmosphere", "climate", "rain", "thunderstorm"},
+		Keywords:    []string{"atmospheric", "rain", "thunderstorms", "clear", "skies", "affecting", "gameplay", "ambiance", "conditions", "include", "precipitation", "storm"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return minecraftWeather(f), nil
 		},

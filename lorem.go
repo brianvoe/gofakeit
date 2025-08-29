@@ -47,8 +47,17 @@ func addLoremLookup() {
 		Description: "Word of the Lorem Ipsum placeholder text used in design and publishing",
 		Example:     "quia",
 		Output:      "string",
-		Aliases:     []string{"lorem", "ipsum", "word", "placeholder", "text", "design", "publishing"},
-		Keywords:    []string{"lorem", "ipsum", "word", "placeholder", "text", "design", "publishing", "dummy", "content"},
+		Aliases: []string{
+			"lorem word",
+			"ipsum word",
+			"placeholder word",
+			"latin word",
+		},
+		Keywords: []string{
+			"lorem", "ipsum", "word", "placeholder",
+			"latin", "dummy", "filler", "text",
+			"typography", "mockup",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return loremIpsumWord(f), nil
 		},
@@ -60,8 +69,17 @@ func addLoremLookup() {
 		Description: "Sentence of the Lorem Ipsum placeholder text used in design and publishing",
 		Example:     "Quia quae repellat consequatur quidem.",
 		Output:      "string",
-		Aliases:     []string{"lorem", "ipsum", "sentence", "placeholder", "text", "design", "publishing"},
-		Keywords:    []string{"lorem", "ipsum", "sentence", "placeholder", "text", "design", "publishing", "dummy", "content"},
+		Aliases: []string{
+			"lorem sentence",
+			"ipsum sentence",
+			"placeholder sentence",
+			"latin sentence",
+		},
+		Keywords: []string{
+			"lorem", "ipsum", "sentence", "placeholder",
+			"latin", "dummy", "filler", "text",
+			"typography", "mockup",
+		},
 		Params: []Param{
 			{Field: "wordcount", Display: "Word Count", Type: "int", Default: "5", Description: "Number of words in a sentence"},
 		},
@@ -87,9 +105,18 @@ func addLoremLookup() {
 Aut ea voluptatem dignissimos expedita odit tempore quod aut beatae ipsam iste. Minus voluptatibus dolorem maiores eius sed nihil vel enim odio voluptatem accusamus. Natus quibusdam temporibus tenetur cumque sint necessitatibus dolorem ex ducimus iusto ex. Voluptatem neque dicta explicabo officiis et ducimus sit ut ut praesentium pariatur. Illum molestias nisi at dolore ut voluptatem accusantium et fugiat et ut.
 
 Explicabo incidunt reprehenderit non quia dignissimos recusandae vitae soluta quia et quia. Aut veniam voluptas consequatur placeat sapiente non eveniet voluptatibus magni velit eum. Nobis vel repellendus sed est qui autem laudantium quidem quam ullam consequatur. Aut iusto ut commodi similique quae voluptatem atque qui fugiat eum aut. Quis distinctio consequatur voluptatem vel aliquid aut laborum facere officiis iure tempora.`,
-		Output:   "string",
-		Aliases:  []string{"ipsum", "paragraph", "placeholder", "text", "design", "publishing", "dummy"},
-		Keywords: []string{"lorem", "ipsum", "paragraph", "placeholder", "text", "design", "publishing", "dummy", "content"},
+		Output: "string",
+		Aliases: []string{
+			"lorem paragraph",
+			"ipsum paragraph",
+			"placeholder paragraph",
+			"latin paragraph",
+		},
+		Keywords: []string{
+			"lorem", "ipsum", "paragraph", "placeholder",
+			"latin", "dummy", "filler", "text",
+			"typography", "mockup",
+		},
 		Params: []Param{
 			{Field: "paragraphcount", Display: "Paragraph Count", Type: "int", Default: "2", Description: "Number of paragraphs"},
 			{Field: "sentencecount", Display: "Sentence Count", Type: "int", Default: "2", Description: "Number of sentences in a paragraph"},

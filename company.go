@@ -117,8 +117,18 @@ func addCompanyLookup() {
 		Description: "Designated official name of a business or organization",
 		Example:     "Moen, Pagac and Wuckert",
 		Output:      "string",
-		Aliases:     []string{"organization", "corporation", "enterprise", "firm", "official", "name"},
-		Keywords:    []string{"company", "business", "organization", "corporation", "enterprise", "firm", "official", "name"},
+		Aliases: []string{
+			"business name",
+			"company name",
+			"organization name",
+			"corporate name",
+			"legal entity",
+		},
+		Keywords: []string{
+			"company", "business", "organization", "corporation",
+			"enterprise", "firm", "entity", "brand",
+			"employer", "vendor", "partner",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return company(f), nil
 		},
@@ -130,8 +140,19 @@ func addCompanyLookup() {
 		Description: "Suffix at the end of a company name, indicating business structure, like 'Inc.' or 'LLC'",
 		Example:     "Inc",
 		Output:      "string",
-		Aliases:     []string{"structure", "inc", "llc", "corporation", "ending", "legal"},
-		Keywords:    []string{"company", "suffix", "business", "structure", "inc", "llc", "corporation", "end"},
+		Aliases: []string{
+			"business suffix",
+			"legal suffix",
+			"company ending",
+			"corporate suffix",
+			"entity suffix",
+		},
+		Keywords: []string{
+			"suffix", "ending", "company", "business", "entity",
+			"inc", "incorporated", "llc", "ltd", "limited",
+			"corp", "corporation", "plc", "gmbh", "sarl",
+			"legal", "structure", "designation",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return companySuffix(f), nil
 		},
@@ -143,8 +164,18 @@ func addCompanyLookup() {
 		Description: "Random bs company word",
 		Example:     "front-end",
 		Output:      "string",
-		Aliases:     []string{"company", "word", "corporate", "random", "nonsense"},
-		Keywords:    []string{"bs", "company", "word", "business", "corporate", "random"},
+		Aliases: []string{
+			"business jargon",
+			"corporate jargon",
+			"marketing buzzword",
+			"tech buzzword",
+			"consulting speak",
+		},
+		Keywords: []string{
+			"bs", "jargon", "buzzwords", "synergy", "leverage",
+			"disrupt", "innovate", "scalable", "agile", "optimize",
+			"pipeline", "roadmap", "vision", "strategy", "corporate",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return bs(f), nil
 		},
@@ -156,8 +187,19 @@ func addCompanyLookup() {
 		Description: "Brief description or summary of a company's purpose, products, or services",
 		Example:     "word",
 		Output:      "string",
-		Aliases:     []string{"summary", "company", "purpose", "brief", "overview"},
-		Keywords:    []string{"blurb", "description", "summary", "company", "purpose", "products", "services"},
+		Aliases: []string{
+			"company blurb",
+			"company summary",
+			"company description",
+			"short overview",
+			"about text",
+		},
+		Keywords: []string{
+			"blurb", "summary", "overview", "description",
+			"company", "profile", "about", "intro",
+			"purpose", "mission", "vision", "statement",
+			"services", "products", "offerings",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return blurb(f), nil
 		},
@@ -169,8 +211,19 @@ func addCompanyLookup() {
 		Description: "Trendy or overused term often used in business to sound impressive",
 		Example:     "disintermediate",
 		Output:      "string",
-		Aliases:     []string{"term", "corporate", "impressive", "jargon", "fashionable"},
-		Keywords:    []string{"buzzword", "trendy", "business", "term", "corporate", "impressive"},
+		Aliases: []string{
+			"business buzzword",
+			"corporate buzzword",
+			"trendy term",
+			"catchphrase",
+			"marketing phrase",
+		},
+		Keywords: []string{
+			"buzzword", "jargon", "hype", "trend", "phrase",
+			"term", "corporate", "management", "marketing",
+			"innovation", "paradigm", "disruptive", "visionary",
+			"fashionable", "impressive",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return buzzWord(f), nil
 		},
@@ -188,8 +241,20 @@ func addCompanyLookup() {
 }`,
 		Output:      "map[string]string",
 		ContentType: "application/json",
-		Aliases:     []string{"position", "role", "employment", "work", "career"},
-		Keywords:    []string{"job", "position", "role", "employment", "work", "tasks", "responsibilities"},
+		Aliases: []string{
+			"job role",
+			"job position",
+			"employment role",
+			"work role",
+			"career role",
+			"occupation role",
+		},
+		Keywords: []string{
+			"job", "role", "position", "employment", "work",
+			"career", "occupation", "profession", "title",
+			"responsibilities", "tasks", "duties",
+			"staff", "employee", "hiring", "positioning",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return job(f), nil
 		},
@@ -201,8 +266,18 @@ func addCompanyLookup() {
 		Description: "Specific title for a position or role within a company or organization",
 		Example:     "Director",
 		Output:      "string",
-		Aliases:     []string{"title", "position", "role", "employment", "occupation"},
-		Keywords:    []string{"job", "title", "position", "role", "employment", "company", "organization"},
+		Aliases: []string{
+			"job designation",
+			"position title",
+			"role title",
+			"employment title",
+			"official title",
+		},
+		Keywords: []string{
+			"job", "title", "designation", "position", "role",
+			"occupation", "profession", "career",
+			"company", "organization", "staff", "employee",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return jobTitle(f), nil
 		},
@@ -214,8 +289,18 @@ func addCompanyLookup() {
 		Description: "Word used to describe the duties, requirements, and nature of a job",
 		Example:     "Central",
 		Output:      "string",
-		Aliases:     []string{"descriptor", "duties", "requirements", "nature", "responsibilities"},
-		Keywords:    []string{"job", "descriptor", "duties", "requirements", "nature", "description"},
+		Aliases: []string{
+			"job modifier",
+			"job adjective",
+			"role descriptor",
+			"title descriptor",
+			"position descriptor",
+		},
+		Keywords: []string{
+			"descriptor", "modifier", "adjective", "qualifier",
+			"job", "role", "title", "position",
+			"label", "term", "descriptive", "characterization",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return jobDescriptor(f), nil
 		},
@@ -227,8 +312,20 @@ func addCompanyLookup() {
 		Description: "Random job level",
 		Example:     "Assurance",
 		Output:      "string",
-		Aliases:     []string{"position", "rank", "seniority", "tier", "grade"},
-		Keywords:    []string{"job", "level", "position", "rank", "seniority", "random"},
+		Aliases: []string{
+			"seniority level",
+			"career level",
+			"position level",
+			"role level",
+			"job grade",
+			"job band",
+		},
+		Keywords: []string{
+			"level", "seniority", "rank", "tier", "grade", "band",
+			"entry", "junior", "associate", "mid", "senior",
+			"lead", "staff", "principal", "manager", "director",
+			"executive",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return jobLevel(f), nil
 		},
@@ -240,8 +337,19 @@ func addCompanyLookup() {
 		Description: "Catchphrase or motto used by a company to represent its brand or values",
 		Example:     "Universal seamless Focus, interactive.",
 		Output:      "string",
-		Aliases:     []string{"catchphrase", "motto", "brand", "values", "tagline"},
-		Keywords:    []string{"slogan", "catchphrase", "motto", "brand", "values", "company"},
+		Aliases: []string{
+			"company slogan",
+			"brand slogan",
+			"brand tagline",
+			"company motto",
+			"advertising slogan",
+		},
+		Keywords: []string{
+			"slogan", "tagline", "motto", "catchphrase",
+			"brand", "company", "marketing", "advertising",
+			"identity", "values", "mission", "vision",
+			"strapline", "promo line", "campaign line",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return slogan(f), nil
 		},

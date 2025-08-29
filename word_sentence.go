@@ -126,8 +126,8 @@ func addWordSentenceLookup() {
 		Description: "Set of words expressing a statement, question, exclamation, or command",
 		Example:     "Interpret context record river mind.",
 		Output:      "string",
-		Aliases:     []string{"statement", "question", "exclamation", "command", "words", "grammar"},
-		Keywords:    []string{"sentence", "statement", "question", "exclamation", "command", "words", "grammar", "expressing"},
+		Aliases:     []string{"complete thought", "grammatical unit", "word group", "linguistic element"},
+		Keywords:    []string{"sentence", "complete", "thought", "grammatical", "unit", "word", "group", "expression", "clause", "utterance"},
 		Params: []Param{
 			{Field: "wordcount", Display: "Word Count", Type: "int", Default: "5", Description: "Number of words in a sentence"},
 		},
@@ -150,8 +150,8 @@ func addWordSentenceLookup() {
 		Description: "Distinct section of writing covering a single theme, composed of multiple sentences",
 		Example:     "Interpret context record river mind press self should compare property outcome divide. Combine approach sustain consult discover explanation direct address church husband seek army. Begin own act welfare replace press suspect stay link place manchester specialist. Arrive price satisfy sign force application hair train provide basis right pay. Close mark teacher strengthen information attempt head touch aim iron tv take.",
 		Output:      "string",
-		Aliases:     []string{"writing", "theme", "sentences", "composition", "text", "passage"},
-		Keywords:    []string{"paragraph", "section", "writing", "theme", "sentences", "composition", "text", "distinct"},
+		Aliases:     []string{"text block", "writing section", "thematic unit", "content block"},
+		Keywords:    []string{"paragraph", "text", "block", "writing", "section", "theme", "sentences", "composition", "distinct", "passage", "content"},
 		Params: []Param{
 			{Field: "paragraphcount", Display: "Paragraph Count", Type: "int", Default: "2", Description: "Number of paragraphs"},
 			{Field: "sentencecount", Display: "Sentence Count", Type: "int", Default: "2", Description: "Number of sentences in a paragraph"},
@@ -198,8 +198,8 @@ func addWordSentenceLookup() {
 		Description: "Statement formulated to inquire or seek clarification",
 		Example:     "Roof chia echo?",
 		Output:      "string",
-		Aliases:     []string{"inquiry", "clarification", "statement", "formulated", "seek", "ask"},
-		Keywords:    []string{"question", "inquiry", "clarification", "statement", "formulated", "seek", "ask", "inquire"},
+		Aliases:     []string{"clarification", "formulated", "seek", "ask", "query"},
+		Keywords:    []string{"question", "inquiry", "clarification", "formulated", "seek", "ask", "inquire", "interrogative", "query"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return question(f), nil
 		},
@@ -211,8 +211,8 @@ func addWordSentenceLookup() {
 		Description: "Direct repetition of someone else's words",
 		Example:     `"Roof chia echo." - Lura Lockman`,
 		Output:      "string",
-		Aliases:     []string{"quotation", "repetition", "words", "someone", "else", "attribution"},
-		Keywords:    []string{"quote", "quotation", "repetition", "words", "someone", "else", "attribution", "direct"},
+		Aliases:     []string{"quotation", "repetition", "someone", "else", "attribution"},
+		Keywords:    []string{"quote", "quotation", "repetition", "someone", "else", "attribution", "direct", "citation", "reference", "excerpt"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return quote(f), nil
 		},

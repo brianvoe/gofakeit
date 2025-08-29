@@ -52,8 +52,8 @@ func addWordPrepositionLookup() {
 		Description: "Words used to express the relationship of a noun or pronoun to other words in a sentence",
 		Example:     "other than",
 		Output:      "string",
-		Aliases:     []string{"preposition", "relationship", "noun", "pronoun", "sentence", "grammar"},
-		Keywords:    []string{"preposition", "relationship", "noun", "pronoun", "sentence", "grammar", "express"},
+		Aliases:     []string{"relationship connector", "grammar link", "sentence bridge", "word connector"},
+		Keywords:    []string{"preposition", "relationship", "noun", "pronoun", "sentence", "grammar", "express", "connector", "link", "relational"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return preposition(f), nil
 		},
@@ -65,8 +65,8 @@ func addWordPrepositionLookup() {
 		Description: "Single-word preposition showing relationships between 2 parts of a sentence",
 		Example:     "out",
 		Output:      "string",
-		Aliases:     []string{"single-word", "relationships", "parts", "sentence", "grammar", "basic"},
-		Keywords:    []string{"preposition", "simple", "single-word", "relationships", "parts", "sentence", "grammar", "showing"},
+		Aliases:     []string{"basic connector", "fundamental link", "single element", "grammar bridge"},
+		Keywords:    []string{"preposition", "simple", "single-word", "relationships", "parts", "sentence", "grammar", "showing", "basic", "fundamental", "elementary"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return prepositionSimple(f), nil
 		},
@@ -78,8 +78,8 @@ func addWordPrepositionLookup() {
 		Description: "Two-word combination preposition, indicating a complex relation",
 		Example:     "before",
 		Output:      "string",
-		Aliases:     []string{"double", "two-word", "combination", "complex", "relation", "grammar"},
-		Keywords:    []string{"preposition", "double", "two-word", "combination", "complex", "relation", "grammar", "indicating"},
+		Aliases:     []string{"two-word connector", "complex relation", "combination element", "grammar bridge"},
+		Keywords:    []string{"preposition", "double", "two-word", "combination", "complex", "relation", "grammar", "indicating", "compound", "multi-word", "paired"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return prepositionDouble(f), nil
 		},
@@ -91,8 +91,8 @@ func addWordPrepositionLookup() {
 		Description: "Preposition that can be formed by combining two or more prepositions",
 		Example:     "according to",
 		Output:      "string",
-		Aliases:     []string{"compound", "combining", "two", "more", "prepositions", "grammar"},
-		Keywords:    []string{"preposition", "compound", "combining", "two", "more", "prepositions", "grammar", "formed"},
+		Aliases:     []string{"multi-part connector", "complex combination", "formed element", "grammar bridge"},
+		Keywords:    []string{"preposition", "compound", "combining", "two", "more", "prepositions", "grammar", "formed", "complex", "multi-part", "constructed"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return prepositionCompound(f), nil
 		},

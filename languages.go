@@ -41,8 +41,8 @@ func addLanguagesLookup() {
 		Description: "System of communication using symbols, words, and grammar to convey meaning between individuals",
 		Example:     "Kazakh",
 		Output:      "string",
-		Aliases:     []string{"communication", "symbols", "words", "grammar", "meaning", "individuals", "system"},
-		Keywords:    []string{"language", "communication", "symbols", "words", "grammar", "meaning", "individuals", "system", "convey"},
+		Aliases:     []string{"communication", "symbols", "words", "grammar", "meaning", "system"},
+		Keywords:    []string{"language", "convey", "using", "between", "individuals", "system", "communication", "speech", "tongue", "dialect"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return language(f), nil
 		},
@@ -54,8 +54,8 @@ func addLanguagesLookup() {
 		Description: "Shortened form of a language's name",
 		Example:     "kk",
 		Output:      "string",
-		Aliases:     []string{"abbreviation", "shortened", "form", "name", "code", "iso"},
-		Keywords:    []string{"language", "abbreviation", "shortened", "form", "name", "code", "language's"},
+		Aliases:     []string{"abbreviation", "form", "name", "code", "iso", "standard"},
+		Keywords:    []string{"language", "shortened", "form", "name", "code", "iso", "standard", "identifier", "locale"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return languageAbbreviation(f), nil
 		},
@@ -67,8 +67,8 @@ func addLanguagesLookup() {
 		Description: "Set of guidelines and standards for identifying and representing languages in computing and internet protocols",
 		Example:     "en-US",
 		Output:      "string",
-		Aliases:     []string{"guidelines", "standards", "identifying", "computing", "internet", "protocols", "rfc", "best"},
-		Keywords:    []string{"language", "bcp", "guidelines", "standards", "identifying", "computing", "internet", "protocols", "representing"},
+		Aliases:     []string{"guidelines", "standards", "identifying", "internet", "protocols", "rfc", "best"},
+		Keywords:    []string{"language", "bcp", "representing", "set", "computing", "internet", "protocols", "locale", "region", "country"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return languageBCP(f), nil
 		},
@@ -80,8 +80,8 @@ func addLanguagesLookup() {
 		Description: "Formal system of instructions used to create software and perform computational tasks",
 		Example:     "Go",
 		Output:      "string",
-		Aliases:     []string{"language", "formal", "system", "instructions", "software", "computational", "tasks", "code"},
-		Keywords:    []string{"programming", "language", "formal", "system", "instructions", "software", "computational", "tasks", "create"},
+		Aliases:     []string{"language", "formal", "system", "instructions", "software", "tasks", "code"},
+		Keywords:    []string{"programming", "create", "perform", "used", "computational", "tasks", "development", "coding", "scripting"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return programmingLanguage(f), nil
 		},

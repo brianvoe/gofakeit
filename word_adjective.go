@@ -96,8 +96,8 @@ func addWordAdjectiveLookup() {
 		Description: "Word describing or modifying a noun",
 		Example:     "genuine",
 		Output:      "string",
-		Aliases:     []string{"describing", "modifying", "noun", "word", "grammar", "part"},
-		Keywords:    []string{"adjective", "describing", "modifying", "noun", "word", "grammar", "part", "speech"},
+		Aliases:     []string{"describing", "modifying", "word", "grammar", "part"},
+		Keywords:    []string{"adjective", "noun", "speech", "quality", "attribute", "characteristic", "property", "trait", "descriptive", "modifier"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return adjective(f), nil
 		},
@@ -109,8 +109,8 @@ func addWordAdjectiveLookup() {
 		Description: "Adjective that provides detailed characteristics about a noun",
 		Example:     "brave",
 		Output:      "string",
-		Aliases:     []string{"descriptive", "characteristics", "detailed", "word", "describing", "modifying"},
-		Keywords:    []string{"adjective", "descriptive", "characteristics", "detailed", "word", "describing", "modifying", "provides"},
+		Aliases:     []string{"descriptive", "characteristics", "provides", "quality", "feature"},
+		Keywords:    []string{"adjective", "word", "describing", "modifying", "attribute", "property", "trait", "feature", "aspect", "detailed", "characteristics"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return adjectiveDescriptive(f), nil
 		},
@@ -122,8 +122,8 @@ func addWordAdjectiveLookup() {
 		Description: "Adjective that indicates the quantity or amount of something",
 		Example:     "a little",
 		Output:      "string",
-		Aliases:     []string{"quantity", "amount", "measure", "word", "describing", "modifying"},
-		Keywords:    []string{"adjective", "quantitative", "quantity", "amount", "measure", "word", "describing", "modifying", "indicates"},
+		Aliases:     []string{"quantity", "amount", "measure", "indicates", "number"},
+		Keywords:    []string{"adjective", "quantitative", "word", "describing", "modifying", "count", "volume", "extent", "degree", "magnitude", "quantity", "amount"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return adjectiveQuantitative(f), nil
 		},
@@ -135,8 +135,8 @@ func addWordAdjectiveLookup() {
 		Description: "Adjective derived from a proper noun, often used to describe nationality or origin",
 		Example:     "Afghan",
 		Output:      "string",
-		Aliases:     []string{"proper", "noun", "nationality", "origin", "derived", "word"},
-		Keywords:    []string{"adjective", "proper", "noun", "nationality", "origin", "derived", "word", "describing"},
+		Aliases:     []string{"nationality", "origin", "derived", "geographic", "cultural"},
+		Keywords:    []string{"adjective", "noun", "word", "describing", "cultural", "regional", "ethnic", "linguistic", "heritage", "proper", "nationality"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return adjectiveProper(f), nil
 		},
@@ -148,8 +148,18 @@ func addWordAdjectiveLookup() {
 		Description: "Adjective used to point out specific things",
 		Example:     "this",
 		Output:      "string",
-		Aliases:     []string{"demonstrative", "point", "specific", "things", "word", "grammar"},
-		Keywords:    []string{"adjective", "demonstrative", "point", "specific", "things", "word", "grammar", "used"},
+		Aliases: []string{
+			"demonstrative adjective",
+			"pointing adjective",
+			"deictic adjective",
+			"proximal distal adjective",
+		},
+		Keywords: []string{
+			"adjective", "demonstrative", "deictic",
+			"this", "that", "these", "those",
+			"proximal", "distal", "near", "far",
+			"pointer", "reference", "specific", "grammar",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return adjectiveDemonstrative(f), nil
 		},
@@ -161,8 +171,8 @@ func addWordAdjectiveLookup() {
 		Description: "Adjective indicating ownership or possession",
 		Example:     "my",
 		Output:      "string",
-		Aliases:     []string{"possessive", "ownership", "possession", "word", "grammar", "indicating"},
-		Keywords:    []string{"adjective", "possessive", "ownership", "possession", "word", "grammar", "indicating"},
+		Aliases:     []string{"ownership", "possession", "indicating", "belonging"},
+		Keywords:    []string{"adjective", "word", "grammar", "my", "your", "his", "her", "its", "our", "their", "belong", "possessive", "ownership"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return adjectivePossessive(f), nil
 		},
@@ -174,8 +184,8 @@ func addWordAdjectiveLookup() {
 		Description: "Adjective used to ask questions",
 		Example:     "what",
 		Output:      "string",
-		Aliases:     []string{"interrogative", "questions", "ask", "word", "grammar", "used"},
-		Keywords:    []string{"adjective", "interrogative", "questions", "ask", "word", "grammar", "used"},
+		Aliases:     []string{"interrogative", "questions", "ask", "used", "inquiry"},
+		Keywords:    []string{"adjective", "word", "grammar", "what", "which", "whose", "question", "inquiry", "interrogation", "interrogative", "ask"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return adjectiveInterrogative(f), nil
 		},
@@ -187,8 +197,8 @@ func addWordAdjectiveLookup() {
 		Description: "Adjective describing a non-specific noun",
 		Example:     "few",
 		Output:      "string",
-		Aliases:     []string{"indefinite", "non-specific", "noun", "describing", "word", "grammar"},
-		Keywords:    []string{"adjective", "indefinite", "non-specific", "noun", "describing", "word", "grammar"},
+		Aliases:     []string{"indefinite", "non-specific", "describing", "vague", "general"},
+		Keywords:    []string{"adjective", "noun", "word", "grammar", "some", "any", "many", "few", "several", "various", "certain", "indefinite", "non-specific"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return adjectiveIndefinite(f), nil
 		},

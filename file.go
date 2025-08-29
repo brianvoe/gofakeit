@@ -24,7 +24,7 @@ func addFileLookup() {
 		Example:     "nes",
 		Output:      "string",
 		Aliases:     []string{"extension", "suffix", "format", "type", "filename", "ending"},
-		Keywords:    []string{"file", "extension", "suffix", "format", "type", "filename", "ending", "appended"},
+		Keywords:    []string{"file", "appended", "indicating", "nes", "format", "type", "filename", "suffix"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return fileExtension(f), nil
 		},
@@ -37,7 +37,7 @@ func addFileLookup() {
 		Example:     "application/json",
 		Output:      "string",
 		Aliases:     []string{"mime", "type", "format", "browser", "email", "standardized"},
-		Keywords:    []string{"file", "mime", "type", "format", "browser", "email", "standardized", "identifiers"},
+		Keywords:    []string{"file", "defines", "nature", "clients", "using", "identifiers", "application", "json"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return fileMimeType(f), nil
 		},

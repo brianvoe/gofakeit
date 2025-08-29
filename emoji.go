@@ -48,7 +48,7 @@ func addEmojiLookup() {
 		Example:     "🤣",
 		Output:      "string",
 		Aliases:     []string{"emoticon", "icon", "digital", "expression", "feeling", "unicode"},
-		Keywords:    []string{"emoji", "symbol", "emoticon", "icon", "digital", "expression", "feeling", "text", "message"},
+		Keywords:    []string{"emoji", "symbol", "text", "message", "online", "chats", "ideas", "feelings", "digital"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return emoji(f), nil
 		},
@@ -60,8 +60,8 @@ func addEmojiLookup() {
 		Description: "Brief explanation of the meaning or emotion conveyed by an emoji",
 		Example:     "face vomiting",
 		Output:      "string",
-		Aliases:     []string{"description", "explanation", "meaning", "emotion", "brief", "conveyed"},
-		Keywords:    []string{"emoji", "description", "explanation", "meaning", "emotion", "brief", "conveyed", "brief"},
+		Aliases:     []string{"description", "meaning", "emotion", "concise", "conveyed"},
+		Keywords:    []string{"emoji", "brief", "explanation", "meaning", "emotion", "conveyed"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return emojiDescription(f), nil
 		},
@@ -73,8 +73,8 @@ func addEmojiLookup() {
 		Description: "Group or classification of emojis based on their common theme or use, like 'smileys' or 'animals'",
 		Example:     "Smileys & Emotion",
 		Output:      "string",
-		Aliases:     []string{"category", "group", "classification", "theme", "use", "smileys"},
-		Keywords:    []string{"emoji", "category", "group", "classification", "theme", "use", "smileys", "animals"},
+		Aliases:     []string{"category", "group", "classification", "theme", "use", "emotion"},
+		Keywords:    []string{"emoji", "smileys", "emotion", "animals", "common", "theme", "based", "classification"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return emojiCategory(f), nil
 		},
@@ -86,8 +86,8 @@ func addEmojiLookup() {
 		Description: "Alternative name or keyword used to represent a specific emoji in text or code",
 		Example:     "smile",
 		Output:      "string",
-		Aliases:     []string{"alternative", "name", "keyword", "represent", "text", "nickname"},
-		Keywords:    []string{"emoji", "alias", "alternative", "name", "keyword", "represent", "text", "code"},
+		Aliases:     []string{"name", "keyword", "text", "nickname", "identifier"},
+		Keywords:    []string{"emoji", "alias", "smile", "code", "specific", "represent", "alternative", "keyword"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return emojiAlias(f), nil
 		},
@@ -99,8 +99,8 @@ func addEmojiLookup() {
 		Description: "Label or keyword associated with an emoji to categorize or search for it easily",
 		Example:     "happy",
 		Output:      "string",
-		Aliases:     []string{"tag", "label", "keyword", "categorize", "search", "easily"},
-		Keywords:    []string{"emoji", "tag", "label", "keyword", "categorize", "search", "easily", "associated"},
+		Aliases:     []string{"keyword", "categorize", "search", "easily", "identifier", "marker"},
+		Keywords:    []string{"emoji", "tag", "happy", "associated", "categorize", "search", "easily", "label"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return emojiTag(f), nil
 		},

@@ -111,8 +111,8 @@ func addWordPhraseLookup() {
 		Description: "A small group of words standing together",
 		Example:     "time will tell",
 		Output:      "string",
-		Aliases:     []string{"group", "sentence", "text", "language", "expression"},
-		Keywords:    []string{"phrase", "words", "group", "sentence", "text", "language", "grammar"},
+		Aliases:     []string{"word group", "language unit", "text element", "expression block"},
+		Keywords:    []string{"phrase", "words", "group", "sentence", "text", "language", "grammar", "expression", "unit", "collection"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return phrase(f), nil
 		},
@@ -124,8 +124,8 @@ func addWordPhraseLookup() {
 		Description: "Phrase with a noun as its head, functions within sentence like a noun",
 		Example:     "a tribe",
 		Output:      "string",
-		Aliases:     []string{"noun", "phrase", "grammar", "subject", "object"},
-		Keywords:    []string{"phrase", "noun", "grammar", "subject", "object", "head", "sentence"},
+		Aliases:     []string{"nominal phrase", "substantive element", "subject phrase", "object phrase"},
+		Keywords:    []string{"phrase", "noun", "grammar", "subject", "object", "head", "sentence", "nominal", "substantive", "entity"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return phraseNoun(f), nil
 		},
@@ -137,8 +137,8 @@ func addWordPhraseLookup() {
 		Description: "Phrase that Consists of a verb and its modifiers, expressing an action or state",
 		Example:     "a tribe",
 		Output:      "string",
-		Aliases:     []string{"verb", "phrase", "grammar", "action", "state"},
-		Keywords:    []string{"phrase", "verb", "grammar", "action", "state", "modifiers", "sentence"},
+		Aliases:     []string{"predicate phrase", "verbal element", "action phrase", "state phrase"},
+		Keywords:    []string{"phrase", "verb", "grammar", "action", "state", "modifiers", "sentence", "predicate", "verbal", "behavior"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return phraseVerb(f), nil
 		},
@@ -150,8 +150,8 @@ func addWordPhraseLookup() {
 		Description: "Phrase that modifies a verb, adjective, or another adverb, providing additional information.",
 		Example:     "fully gladly",
 		Output:      "string",
-		Aliases:     []string{"adverb", "phrase", "grammar", "modifier", "description"},
-		Keywords:    []string{"phrase", "adverb", "grammar", "modifier", "description", "information"},
+		Aliases:     []string{"adverbial phrase", "qualifier element", "modifier phrase", "description phrase"},
+		Keywords:    []string{"phrase", "adverb", "grammar", "modifier", "description", "information", "adverbial", "qualifier", "modification"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return phraseAdverb(f), nil
 		},
@@ -163,8 +163,8 @@ func addWordPhraseLookup() {
 		Description: "Phrase starting with a preposition, showing relation between elements in a sentence.",
 		Example:     "out the black thing",
 		Output:      "string",
-		Aliases:     []string{"preposition", "phrase", "grammar", "relation", "connection"},
-		Keywords:    []string{"phrase", "preposition", "grammar", "relation", "connection", "sentence"},
+		Aliases:     []string{"prepositional phrase", "relational element", "connection phrase", "grammar bridge"},
+		Keywords:    []string{"phrase", "preposition", "grammar", "relation", "connection", "sentence", "prepositional", "relational", "linking"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return phrasePreposition(f), nil
 		},

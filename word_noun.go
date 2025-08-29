@@ -126,7 +126,7 @@ func addWordNounLookup() {
 		Example:     "aunt",
 		Output:      "string",
 		Aliases:     []string{"random noun", "grammar noun", "word type", "part speech", "naming word"},
-		Keywords:    []string{"noun", "person", "place", "thing", "idea", "sentence", "grammar", "named", "referred", "subject", "object", "entity", "concept", "term"},
+		Keywords:    []string{"noun", "person", "place", "thing", "idea", "sentence", "grammar", "named", "referred", "subject", "object", "entity", "concept", "term", "substantive"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return noun(f), nil
 		},

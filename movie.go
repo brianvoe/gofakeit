@@ -40,7 +40,7 @@ func addMovieLookup() {
 		Output:      "map[string]string",
 		ContentType: "application/json",
 		Aliases:     []string{"cinema", "picture", "story", "entertainment", "motion"},
-		Keywords:    []string{"movie", "film", "cinema", "picture", "story", "entertainment", "moving", "sound"},
+		Keywords:    []string{"movie", "film", "moving", "sound", "pictures", "told", "through", "psycho", "mystery"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return movie(f), nil
 		},
@@ -52,8 +52,18 @@ func addMovieLookup() {
 		Description: "Title or name of a specific film used for identification and reference",
 		Example:     "The Matrix",
 		Output:      "string",
-		Aliases:     []string{"film", "identification", "reference", "label", "heading"},
-		Keywords:    []string{"movie", "name", "title", "film", "identification", "reference"},
+		Aliases: []string{
+			"movie title",
+			"film title",
+			"film name",
+			"motion picture title",
+			"cinema title",
+		},
+		Keywords: []string{
+			"movie", "film", "title", "name", "cinema",
+			"motionpicture", "blockbuster", "feature", "picture",
+			"hollywood", "bollywood", "screenplay", "screen",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return movieName(f), nil
 		},
@@ -65,8 +75,19 @@ func addMovieLookup() {
 		Description: "Category that classifies movies based on common themes, styles, and storytelling approaches",
 		Example:     "Action",
 		Output:      "string",
-		Aliases:     []string{"category", "type", "classification", "style", "genre"},
-		Keywords:    []string{"movie", "genre", "category", "type", "classification", "themes", "styles", "storytelling"},
+		Aliases: []string{
+			"film genre",
+			"movie category",
+			"film type",
+			"cinema genre",
+			"movie classification",
+		},
+		Keywords: []string{
+			"genre", "category", "type", "classification",
+			"movie", "film", "cinema", "style", "theme",
+			"drama", "comedy", "horror", "thriller", "romance",
+			"documentary", "animation", "sci-fi", "fantasy", "action",
+		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return movieGenre(f), nil
 		},

@@ -285,7 +285,7 @@ func addFileXMLLookup() {
 		Output:      "[]byte",
 		ContentType: "application/xml",
 		Aliases:     []string{"extensible", "markup", "language", "elements", "format", "structured"},
-		Keywords:    []string{"xml", "extensible", "markup", "language", "elements", "format", "structured", "generates"},
+		Keywords:    []string{"xml", "extensible", "markup", "language", "elements", "format", "structured", "generates", "tags", "attributes", "nested"},
 		Params: []Param{
 			{Field: "type", Display: "Type", Type: "string", Default: "single", Options: []string{"single", "array"}, Description: "Type of XML, single or array"},
 			{Field: "rootelement", Display: "Root Element", Type: "string", Default: "xml", Description: "Root element wrapper name"},

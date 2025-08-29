@@ -76,7 +76,7 @@ func addHackerLookup() {
 		Example:     "If we calculate the program, we can get to the AI pixel through the redundant XSS matrix!",
 		Output:      "string",
 		Aliases:     []string{"hacker", "phrase", "jargon", "slang", "cybersecurity"},
-		Keywords:    []string{"hacker", "phrase", "jargon", "slang", "cybersecurity", "community", "informal"},
+		Keywords:    []string{"community", "informal", "calculate", "program", "ai", "pixel", "redundant"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return hackerPhrase(f), nil
 		},
@@ -89,7 +89,7 @@ func addHackerLookup() {
 		Example:     "ADP",
 		Output:      "string",
 		Aliases:     []string{"acronym", "cybersecurity", "short", "code", "shortened"},
-		Keywords:    []string{"hacker", "abbreviation", "acronym", "cybersecurity", "community", "short"},
+		Keywords:    []string{"hacker", "community", "short", "commonly", "used", "abbreviations", "acronyms"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return hackerAbbreviation(f), nil
 		},
@@ -101,8 +101,8 @@ func addHackerLookup() {
 		Description: "Adjectives describing terms often associated with hackers and cybersecurity experts",
 		Example:     "wireless",
 		Output:      "string",
-		Aliases:     []string{"hacker", "adjective", "describing", "cybersecurity", "expert"},
-		Keywords:    []string{"hacker", "adjective", "describing", "cybersecurity", "expert", "terms"},
+		Aliases:     []string{"hacker", "adjective", "descriptive", "cybersecurity", "expert"},
+		Keywords:    []string{"often", "associated", "experts", "terms", "describing", "adjectives"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return hackerAdjective(f), nil
 		},
@@ -115,7 +115,7 @@ func addHackerLookup() {
 		Example:     "driver",
 		Output:      "string",
 		Aliases:     []string{"noun", "element", "tool", "concept", "cybersecurity", "digital"},
-		Keywords:    []string{"hacker", "noun", "element", "tool", "concept", "cybersecurity", "realm"},
+		Keywords:    []string{"hacker", "realm", "driver", "representing", "element", "tool", "concept", "within"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return hackerNoun(f), nil
 		},
@@ -128,7 +128,7 @@ func addHackerLookup() {
 		Example:     "synthesize",
 		Output:      "string",
 		Aliases:     []string{"hacker", "verb", "action", "activity", "cybersecurity"},
-		Keywords:    []string{"hacker", "verb", "action", "activity", "cybersecurity", "field"},
+		Keywords:    []string{"synthesize", "field", "associated", "actions", "activities", "verbs", "hacking"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return hackerVerb(f), nil
 		},
@@ -140,8 +140,8 @@ func addHackerLookup() {
 		Description: "Verb describing actions and activities related to hacking, often involving computer systems and security",
 		Example:     "connecting",
 		Output:      "string",
-		Aliases:     []string{"ingverb", "action", "activity", "computer", "security", "process"},
-		Keywords:    []string{"hacker", "ingverb", "action", "activity", "computer", "security", "systems"},
+		Aliases:     []string{"ingverb", "action", "activity", "process"},
+		Keywords:    []string{"hacker", "connecting", "systems", "related", "involving", "computer", "security", "often"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return hackeringVerb(f), nil
 		},

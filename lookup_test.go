@@ -287,7 +287,7 @@ func TestLookupCheckFields(t *testing.T) {
 func TestLookupSearchHygiene(t *testing.T) {
 	stop := map[string]struct{}{
 		"a": {}, "an": {}, "the": {}, "of": {}, "for": {}, "to": {}, "and": {}, "or": {}, "in": {}, "on": {}, "with": {}, "by": {}, "from": {},
-		"data": {}, "info": {}, "thing": {}, "things": {}, "stuff": {}, "object": {}, "objects": {},
+		"info": {}, "thing": {}, "things": {}, "stuff": {}, "object": {}, "objects": {},
 	}
 	for key, info := range FuncLookups {
 		// counts

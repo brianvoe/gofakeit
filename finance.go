@@ -111,7 +111,7 @@ func addFinanceLookup() {
 		Example:     "38259P508",
 		Output:      "string",
 		Aliases:     []string{"identifier", "bond", "security", "us", "canada", "unique"},
-		Keywords:    []string{"finance", "investment", "trading", "securities", "identifier", "bond", "us", "canada"},
+		Keywords:    []string{"finance", "investment", "trading", "securities", "38259p508", "checksum", "validation", "market"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return cusip(f), nil
 		},
@@ -123,7 +123,7 @@ func addFinanceLookup() {
 		Example:     "CVLRQCZBXQ97",
 		Output:      "string",
 		Aliases:     []string{"international", "securities", "identifier", "stock", "bond", "security"},
-		Keywords:    []string{"finance", "investment", "trading", "securities", "international", "identifier", "stock", "bond"},
+		Keywords:    []string{"finance", "investment", "trading", "cvlrqczbxq97", "worldwide", "standard", "code", "global"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return isin(f), nil
 		},
