@@ -428,10 +428,10 @@ func addPaymentLookup() {
 		Example:     "513",
 		Output:      "string",
 		Aliases: []string{
-			"cvv", "cvc", "cid", "security number", "auth digits", "card check value", "security code",
+			"credit card cvv", "cvv", "cvc", "cid", "security number", "auth digits", "card check value", "security code",
 		},
 		Keywords: []string{
-			"cvv", "cvc", "cid", "security", "code", "verification", "authentication", "fraud", "protection", "online", "payment", "transaction",
+			"security", "code", "verification", "authentication", "fraud", "protection", "online", "payment", "transaction",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return creditCardCvv(f), nil },
 	})
