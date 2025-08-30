@@ -344,7 +344,7 @@ func addPaymentLookup() {
 		Output:      "map[string]any",
 		ContentType: "application/json",
 		Aliases: []string{
-			"payment card", "charge card", "credit instrument", "card account", "plastic card",
+			"credit card", "payment card", "charge card", "credit instrument", "card account", "plastic card",
 		},
 		Keywords: []string{
 			"credit", "card", "payment", "debt", "visa", "mastercard", "amex", "discover", "unionpay", "maestro", "jcb",
@@ -359,7 +359,7 @@ func addPaymentLookup() {
 		Example:     "Visa",
 		Output:      "string",
 		Aliases: []string{
-			"issuer brand", "card network", "scheme name", "card family", "issuer type",
+			"credit card type", "issuer brand", "card network", "scheme name", "card family", "issuer type",
 		},
 		Keywords: []string{
 			"credit", "card", "type", "issuer", "brand", "network", "visa", "mastercard", "amex", "discover", "unionpay", "maestro", "jcb",
@@ -374,10 +374,10 @@ func addPaymentLookup() {
 		Example:     "4111111111111111",
 		Output:      "string",
 		Aliases: []string{
-			"card number", "cc number", "primary account number", "pan value", "payment number",
+			"credit card", "credit card number", "card number", "cc number", "primary account number", "pan value", "payment number",
 		},
 		Keywords: []string{
-			"identifier", "luhn", "validation", "checksum", "bin", "tokenize", "masking", "digits",
+			"credit", "card", "number", "identifier", "luhn", "validation", "checksum", "bin", "tokenize", "masking", "digits",
 		},
 		Params: []Param{
 			{
@@ -413,7 +413,7 @@ func addPaymentLookup() {
 		Example:     "01/27",
 		Output:      "string",
 		Aliases: []string{
-			"expiry date", "expiration date", "exp date", "valid thru", "card expiry",
+			"credit card exp", "credit card expiration", "expiry date", "expiration date", "exp date", "valid thru", "card expiry",
 		},
 		Keywords: []string{
 			"credit", "card", "exp", "expiry", "expiration", "month", "year", "validity", "future", "expired",
@@ -428,10 +428,10 @@ func addPaymentLookup() {
 		Example:     "513",
 		Output:      "string",
 		Aliases: []string{
-			"cvv", "cvc", "cid", "security number", "auth digits", "card check value",
+			"cvv", "cvc", "cid", "security number", "auth digits", "card check value", "security code",
 		},
 		Keywords: []string{
-			"credit", "card", "transaction", "authentication", "fraud", "protection", "verification", "online", "payment",
+			"cvv", "cvc", "cid", "security", "code", "verification", "authentication", "fraud", "protection", "online", "payment", "transaction",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return creditCardCvv(f), nil },
 	})
