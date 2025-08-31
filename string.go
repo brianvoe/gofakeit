@@ -302,7 +302,7 @@ func addStringLookup() {
 		Category:    "string",
 		Description: "Return a random string from a string array",
 		Example:     "hello,world,whats,up => world",
-		Output:      "[]string",
+		Output:      "string",
 		Aliases: []string{
 			"string picker", "array choice", "string select", "random pick", "string chooser",
 		},
