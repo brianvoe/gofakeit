@@ -583,7 +583,7 @@ func TestNestedCustom(t *testing.T) {
 func TestNestedOverrideCustom(t *testing.T) {
 	gofakeit.AddFuncLookup("raw_test_date", gofakeit.Info{
 		Display:     "Date",
-		Category:    "time",
+		Category:    "datetime",
 		Description: "Random date",
 		Example:     "2006-01-02T15:04:05Z07:00",
 		Output:      "time.Time",
