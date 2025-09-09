@@ -163,13 +163,14 @@ func timeZoneOffset(f *Faker) float32 {
 	return float32(value)
 }
 
-// javaDateFormatToGolangDateFormat converts java date format into go date format
-func javaDateFormatToGolangDateFormat(format string) string {
+// javaDateTimeFormatToGolangFormat converts java date/time format into go date/time format
+func javaDateTimeFormatToGolangFormat(format string) string {
 	format = strings.Replace(format, "ddd", "_2", -1)
 	format = strings.Replace(format, "dd", "02", -1)
 	format = strings.Replace(format, "d", "2", -1)
 
 	format = strings.Replace(format, "HH", "15", -1)
+	format = strings.Replace(format, "H", "15", -1)
 
 	format = strings.Replace(format, "hh", "03", -1)
 	format = strings.Replace(format, "h", "3", -1)
@@ -213,7 +214,7 @@ func javaDateFormatToGolangDateFormat(format string) string {
 func addDateTimeLookup() {
 	AddFuncLookup("date", Info{
 		Display:     "Date",
-		Category:    "time",
+		Category:    "datetime",
 		Description: "Representation of a specific day, month, and year, often used for chronological reference",
 		Example:     "2006-01-02T15:04:05Z07:00",
 		Output:      "string",
@@ -265,14 +266,14 @@ func addDateTimeLookup() {
 					return f.Date().Format(time.RFC3339), nil
 				}
 
-				return f.Date().Format(javaDateFormatToGolangDateFormat(format)), nil
+				return f.Date().Format(javaDateTimeFormatToGolangFormat(format)), nil
 			}
 		},
 	})
 
 	AddFuncLookup("daterange", Info{
 		Display:     "Date Range",
-		Category:    "time",
+		Category:    "datetime",
 		Description: "Random date between two ranges",
 		Example:     "1995-06-15T14:30:00Z",
 		Output:      "string",
@@ -310,7 +311,7 @@ func addDateTimeLookup() {
 			if err != nil {
 				return nil, err
 			}
-			format = javaDateFormatToGolangDateFormat(format)
+			format = javaDateTimeFormatToGolangFormat(format)
 
 			startdate, err := info.GetString(m, "startdate")
 			if err != nil {
@@ -336,7 +337,7 @@ func addDateTimeLookup() {
 
 	AddFuncLookup("pastdate", Info{
 		Display:     "PastDate",
-		Category:    "time",
+		Category:    "datetime",
 		Description: "Date that has occurred before the current moment in time",
 		Example:     "2007-01-24 13:00:35.820738079 +0000 UTC",
 		Output:      "time",
@@ -351,7 +352,7 @@ func addDateTimeLookup() {
 
 	AddFuncLookup("futuredate", Info{
 		Display:     "FutureDate",
-		Category:    "time",
+		Category:    "datetime",
 		Description: "Date that has occurred after the current moment in time",
 		Example:     "2107-01-24 13:00:35.820738079 +0000 UTC",
 		Output:      "time",
@@ -366,7 +367,7 @@ func addDateTimeLookup() {
 
 	AddFuncLookup("nanosecond", Info{
 		Display:     "Nanosecond",
-		Category:    "time",
+		Category:    "datetime",
 		Description: "Unit of time equal to one billionth (10^-9) of a second",
 		Example:     "196446360",
 		Output:      "int",
@@ -381,7 +382,7 @@ func addDateTimeLookup() {
 
 	AddFuncLookup("second", Info{
 		Display:     "Second",
-		Category:    "time",
+		Category:    "datetime",
 		Description: "Unit of time equal to 1/60th of a minute",
 		Example:     "43",
 		Output:      "int",
@@ -396,7 +397,7 @@ func addDateTimeLookup() {
 
 	AddFuncLookup("minute", Info{
 		Display:     "Minute",
-		Category:    "time",
+		Category:    "datetime",
 		Description: "Unit of time equal to 60 seconds",
 		Example:     "34",
 		Output:      "int",
@@ -411,7 +412,7 @@ func addDateTimeLookup() {
 
 	AddFuncLookup("hour", Info{
 		Display:     "Hour",
-		Category:    "time",
+		Category:    "datetime",
 		Description: "Unit of time equal to 60 minutes",
 		Example:     "8",
 		Output:      "int",
@@ -426,7 +427,7 @@ func addDateTimeLookup() {
 
 	AddFuncLookup("day", Info{
 		Display:     "Day",
-		Category:    "time",
+		Category:    "datetime",
 		Description: "24-hour period equivalent to one rotation of Earth on its axis",
 		Example:     "12",
 		Output:      "int",
@@ -441,7 +442,7 @@ func addDateTimeLookup() {
 
 	AddFuncLookup("weekday", Info{
 		Display:     "Weekday",
-		Category:    "time",
+		Category:    "datetime",
 		Description: "Day of the week excluding the weekend",
 		Example:     "Friday",
 		Output:      "string",
@@ -456,7 +457,7 @@ func addDateTimeLookup() {
 
 	AddFuncLookup("month", Info{
 		Display:     "Month",
-		Category:    "time",
+		Category:    "datetime",
 		Description: "Division of the year, typically 30 or 31 days long",
 		Example:     "1",
 		Output:      "string",
@@ -471,7 +472,7 @@ func addDateTimeLookup() {
 
 	AddFuncLookup("monthstring", Info{
 		Display:     "Month String",
-		Category:    "time",
+		Category:    "datetime",
 		Description: "String representation of a month name",
 		Example:     "September",
 		Output:      "string",
@@ -486,7 +487,7 @@ func addDateTimeLookup() {
 
 	AddFuncLookup("year", Info{
 		Display:     "Year",
-		Category:    "time",
+		Category:    "datetime",
 		Description: "Period of 365 days, the time Earth takes to orbit the Sun",
 		Example:     "1900",
 		Output:      "int",
@@ -501,7 +502,7 @@ func addDateTimeLookup() {
 
 	AddFuncLookup("timezone", Info{
 		Display:     "Timezone",
-		Category:    "time",
+		Category:    "datetime",
 		Description: "Region where the same standard time is used, based on longitudinal divisions of the Earth",
 		Example:     "Kaliningrad Standard Time",
 		Output:      "string",
@@ -516,7 +517,7 @@ func addDateTimeLookup() {
 
 	AddFuncLookup("timezoneabv", Info{
 		Display:     "Timezone Abbreviation",
-		Category:    "time",
+		Category:    "datetime",
 		Description: "Abbreviated 3-letter word of a timezone",
 		Example:     "KST",
 		Output:      "string",
@@ -531,7 +532,7 @@ func addDateTimeLookup() {
 
 	AddFuncLookup("timezonefull", Info{
 		Display:     "Timezone Full",
-		Category:    "time",
+		Category:    "datetime",
 		Description: "Full name of a timezone",
 		Example:     "(UTC+03:00) Kaliningrad, Minsk",
 		Output:      "string",
@@ -546,7 +547,7 @@ func addDateTimeLookup() {
 
 	AddFuncLookup("timezoneoffset", Info{
 		Display:     "Timezone Offset",
-		Category:    "time",
+		Category:    "datetime",
 		Description: "The difference in hours from Coordinated Universal Time (UTC) for a specific region",
 		Example:     "-5",
 		Output:      "float32",
@@ -561,7 +562,7 @@ func addDateTimeLookup() {
 
 	AddFuncLookup("timezoneregion", Info{
 		Display:     "Timezone Region",
-		Category:    "time",
+		Category:    "datetime",
 		Description: "Geographic area sharing the same standard time",
 		Example:     "America/Alaska",
 		Output:      "string",
@@ -572,6 +573,127 @@ func addDateTimeLookup() {
 			"timezone", "time", "america", "europe", "asia", "africa", "australia", "continent", "city",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return timeZoneRegion(f), nil },
+	})
+
+	AddFuncLookup("time", Info{
+		Display:     "Time",
+		Category:    "datetime",
+		Description: "Random time string in the specified format",
+		Example:     "14:30:25",
+		Output:      "string",
+		Aliases: []string{
+			"time string", "clock time", "time format", "time value", "hour minute second",
+		},
+		Keywords: []string{
+			"time", "clock", "hour", "minute", "second", "format", "24-hour", "12-hour", "am", "pm",
+		},
+		Params: []Param{
+			{
+				Field:       "format",
+				Display:     "Format",
+				Type:        "string",
+				Default:     "HH:mm:ss",
+				Options:     []string{"HH:mm:ss", "HH:mm", "hh:mm:ss a", "hh:mm a", "H:mm", "h:mm a"},
+				Description: "Time format string. Supports Java time format patterns or Go time format patterns",
+			},
+		},
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			format, err := info.GetString(m, "format")
+			if err != nil {
+				return nil, err
+			}
+
+			// Convert java format to golang format
+			golangFormat := javaDateTimeFormatToGolangFormat(format)
+
+			// Create a time with today's date but random time
+			t := time.Date(2000, 1, 1, hour(f), minute(f), second(f), nanoSecond(f), time.UTC)
+
+			return t.Format(golangFormat), nil
+		},
+	})
+
+	AddFuncLookup("timerange", Info{
+		Display:     "Time Range",
+		Category:    "datetime",
+		Description: "Random time string between start and end times",
+		Example:     "10:15:30",
+		Output:      "string",
+		Aliases: []string{
+			"time interval", "time span", "time window", "between times", "bounded time",
+		},
+		Keywords: []string{
+			"timerange", "range", "between", "time", "start", "end", "bounds", "limits", "window",
+		},
+		Params: []Param{
+			{
+				Field:       "starttime",
+				Display:     "Start Time",
+				Type:        "string",
+				Default:     "00:00:00",
+				Description: "Start time string in the specified format",
+			},
+			{
+				Field:       "endtime",
+				Display:     "End Time",
+				Type:        "string",
+				Default:     "23:59:59",
+				Description: "End time string in the specified format",
+			},
+			{
+				Field:       "format",
+				Display:     "Format",
+				Type:        "string",
+				Default:     "HH:mm:ss",
+				Options:     []string{"HH:mm:ss", "HH:mm", "hh:mm:ss a", "hh:mm a", "H:mm", "h:mm a"},
+				Description: "Time format string. Supports Java time format patterns or Go time format patterns",
+			},
+		},
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			format, err := info.GetString(m, "format")
+			if err != nil {
+				return nil, err
+			}
+
+			startTime, err := info.GetString(m, "starttime")
+			if err != nil {
+				return nil, err
+			}
+
+			endTime, err := info.GetString(m, "endtime")
+			if err != nil {
+				return nil, err
+			}
+
+			// Convert java format to golang format
+			golangFormat := javaDateTimeFormatToGolangFormat(format)
+
+			// Parse start and end times
+			start, err := time.Parse(golangFormat, startTime)
+			if err != nil {
+				// If parsing fails, use a default start time
+				start = time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC)
+			}
+
+			end, err := time.Parse(golangFormat, endTime)
+			if err != nil {
+				// If parsing fails, use a default end time
+				end = time.Date(2000, 1, 1, 23, 59, 59, 999999999, time.UTC)
+			}
+
+			// Generate random time between start and end
+			startNano := start.UnixNano()
+			endNano := end.UnixNano()
+
+			if startNano > endNano {
+				startNano, endNano = endNano, startNano
+			}
+
+			randomNano := int64(number(f, int(startNano), int(endNano)))
+			randomTime := time.Unix(0, randomNano).UTC()
+
+			return randomTime.Format(golangFormat), nil
+		},
 	})
 
 }

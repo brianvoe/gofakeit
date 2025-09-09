@@ -585,7 +585,7 @@ func rTime(f *Faker, t reflect.StructField, v reflect.Value, tag string) error {
 		// Check to see if they are passing in a format	to parse the time
 		timeFormat, timeFormatOK := t.Tag.Lookup("format")
 		if timeFormatOK {
-			timeFormat = javaDateFormatToGolangDateFormat(timeFormat)
+			timeFormat = javaDateTimeFormatToGolangFormat(timeFormat)
 		} else {
 			// If tag == "{date}" use time.RFC3339
 			// They are attempting to use the default date lookup
