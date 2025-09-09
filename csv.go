@@ -46,7 +46,7 @@ func csvFunc(f *Faker, co *CSVOptions) ([]byte, error) {
 	}
 
 	// Check fields
-	if co.Fields == nil || len(co.Fields) <= 0 {
+	if len(co.Fields) <= 0 {
 		return nil, errors.New("must pass fields in order to build json object(s)")
 	}
 

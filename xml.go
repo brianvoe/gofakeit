@@ -149,7 +149,7 @@ func xmlFunc(f *Faker, xo *XMLOptions) ([]byte, error) {
 	}
 
 	// Check fields length
-	if xo.Fields == nil || len(xo.Fields) <= 0 {
+	if len(xo.Fields) <= 0 {
 		return nil, errors.New("must pass fields in order to build json object(s)")
 	}
 

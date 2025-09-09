@@ -79,7 +79,7 @@ func jsonFunc(f *Faker, jo *JSONOptions) ([]byte, error) {
 		return nil, errors.New("invalid type, must be array or object")
 	}
 
-	if jo.Fields == nil || len(jo.Fields) <= 0 {
+	if len(jo.Fields) <= 0 {
 		return nil, errors.New("must pass fields in order to build json object(s)")
 	}
 

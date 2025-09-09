@@ -21,7 +21,7 @@ func sqlFunc(f *Faker, so *SQLOptions) (string, error) {
 	if so.Table == "" {
 		return "", errors.New("must provide table name to generate SQL")
 	}
-	if so.Fields == nil || len(so.Fields) <= 0 {
+	if len(so.Fields) <= 0 {
 		return "", errors.New(("must pass fields in order to generate SQL queries"))
 	}
 	if so.Count <= 0 {
