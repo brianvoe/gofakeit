@@ -97,6 +97,27 @@ func (f *Faker) SSN() string { return ssn(f) }
 
 func ssn(f *Faker) string { return strconv.Itoa(randIntRange(f, 100000000, 999999999)) }
 
+// EIN will generate a random Employer Identification Number
+func EIN() string { return ein(GlobalFaker) }
+
+// EIN will generate a random Employer Identification Number
+func (f *Faker) EIN() string { return ein(f) }
+
+func ein(f *Faker) string {
+	// EIN format: XX-XXXXXXX (2 digits, dash, 7 digits)
+	// First two digits have specific valid prefixes
+	prefixes := []string{"10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99"}
+	prefix := prefixes[f.IntN(len(prefixes))]
+
+	// Generate 7 random digits
+	sevenDigits := ""
+	for i := 0; i < 7; i++ {
+		sevenDigits += string(rune('0' + f.IntN(10)))
+	}
+
+	return prefix + "-" + sevenDigits
+}
+
 // Gender will generate a random gender string
 func Gender() string { return gender(GlobalFaker) }
 
@@ -432,6 +453,25 @@ func addPersonLookup() {
 			"benefits", "identification",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return ssn(f), nil },
+	})
+
+	AddFuncLookup("ein", Info{
+		Display:     "EIN",
+		Category:    "person",
+		Description: "Nine-digit Employer Identification Number used by businesses for tax purposes",
+		Example:     "12-3456789",
+		Output:      "string",
+		Aliases: []string{
+			"employer id",
+			"tax id",
+			"business tax id",
+			"federal tax id",
+			"irs number",
+		},
+		Keywords: []string{
+			"ein", "employer", "identification", "tax", "business", "federal", "irs", "number", "id",
+		},
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return ein(f), nil },
 	})
 
 	// hobby

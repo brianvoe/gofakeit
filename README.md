@@ -421,6 +421,7 @@ MiddleName() string
 LastName() string
 Gender() string
 SSN() string
+EIN() string
 Hobby() string
 Contact() *ContactInfo
 Email() string

@@ -145,6 +145,49 @@ func BenchmarkSSN(b *testing.B) {
 	}
 }
 
+func ExampleEIN() {
+	Seed(11)
+	fmt.Println(EIN())
+
+	// Output: 90-8125275
+}
+
+func ExampleFaker_EIN() {
+	f := New(11)
+	fmt.Println(f.EIN())
+
+	// Output: 90-8125275
+}
+
+func TestEIN(t *testing.T) {
+	ein := EIN()
+	if len(ein) != 10 {
+		t.Errorf("EIN should be 10 characters long, got %d", len(ein))
+	}
+	if ein[2] != '-' {
+		t.Errorf("EIN should have a dash at position 2, got %c", ein[2])
+	}
+
+	// Check that it's all digits except for the dash
+	for i, char := range ein {
+		if i == 2 {
+			if char != '-' {
+				t.Errorf("EIN should have a dash at position 2, got %c", char)
+			}
+		} else {
+			if char < '0' || char > '9' {
+				t.Errorf("EIN should contain only digits (except dash), got %c", char)
+			}
+		}
+	}
+}
+
+func BenchmarkEIN(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		EIN()
+	}
+}
+
 func ExampleGender() {
 	Seed(11)
 	fmt.Println(Gender())
