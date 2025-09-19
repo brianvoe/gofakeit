@@ -108,7 +108,7 @@ func creditCardNumber(f *Faker, cco *CreditCardOptions) string {
 	if cco == nil {
 		cco = &CreditCardOptions{}
 	}
-	if cco.Types == nil || len(cco.Types) == 0 {
+	if len(cco.Types) == 0 {
 		cco.Types = data.CreditCardTypes
 	}
 	ccType := randomString(f, cco.Types)
