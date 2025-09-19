@@ -458,7 +458,7 @@ func addPaymentLookup() {
 		Example:     "491527954328",
 		Output:      "string",
 		Aliases: []string{
-			"ach account", "bank account", "checking account", "savings account", "account identifier",
+			"account number", "ach account", "bank account", "checking account", "savings account", "account identifier",
 		},
 		Keywords: []string{
 			"ach", "account", "banking", "checking", "savings", "finance", "electronic", "transfer", "payment",
