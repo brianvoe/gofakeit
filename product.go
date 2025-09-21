@@ -379,7 +379,7 @@ func addProductLookup() {
 			"product", "name", "title", "label", "brand",
 			"item", "merchandise", "goods", "article",
 			"identifier", "marketing", "branding",
-			"sku", "catalog", "inventory",
+			"catalog", "inventory",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return productName(f), nil
@@ -492,6 +492,7 @@ func addProductLookup() {
 			"upc code",
 			"product barcode",
 			"product code",
+			"product sku",
 			"universal product code",
 			"retail barcode",
 		},
