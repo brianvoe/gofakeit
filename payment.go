@@ -476,7 +476,7 @@ func addPaymentLookup() {
 			"btc address", "bitcoin wallet", "crypto address", "public address", "payment address",
 		},
 		Keywords: []string{
-			"bitcoin", "btc", "address", "wallet", "blockchain", "public", "key", "hash", "base58",
+			"bitcoin", "btc", "wallet", "blockchain", "public", "key", "hash", "base58",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return bitcoinAddress(f), nil },
 	})

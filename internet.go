@@ -308,7 +308,7 @@ func addInternetLookup() {
 		Example:     "222.83.191.222",
 		Output:      "string",
 		Aliases:     []string{"ip address", "network address", "internet address", "device ip", "ipv4 label"},
-		Keywords:    []string{"ipv4", "address", "ip", "network", "internet", "protocol", "communication", "dotted", "decimal"},
+		Keywords:    []string{"ipv4", "ip", "network", "internet", "protocol", "communication", "dotted", "decimal"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return ipv4Address(f), nil
 		},
@@ -321,7 +321,7 @@ func addInternetLookup() {
 		Example:     "2001:cafe:8898:ee17:bc35:9064:5866:d019",
 		Output:      "string",
 		Aliases:     []string{"ip address", "network address", "internet address", "hex ip", "ipv6 label"},
-		Keywords:    []string{"ipv6", "address", "ip", "network", "protocol", "hexadecimal", "identification"},
+		Keywords:    []string{"ipv6", "ip", "network", "protocol", "hexadecimal", "identification"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return ipv6Address(f), nil
 		},
