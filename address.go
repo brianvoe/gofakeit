@@ -313,7 +313,7 @@ func addAddressLookup() {
 		Description: "Public road in a city or town, typically with houses and buildings on each side",
 		Example:     "364 East Rapidsborough",
 		Output:      "string",
-		Aliases:     []string{"street address", "shipping address", "billing address", "mailing address", "address line 1", "road address", "avenue address", "drive address", "thoroughfare address"},
+		Aliases:     []string{"street address", "shipping address", "billing address", "mailing address", "address line 1", "line 1", "road address", "avenue address", "drive address", "thoroughfare address"},
 		Keywords:    []string{"address", "street", "road", "avenue", "drive", "lane", "way", "public", "thoroughfare", "boulevard", "court", "place", "circle", "terrace", "highway"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return street(f), nil
@@ -378,7 +378,7 @@ func addAddressLookup() {
 		Description: "Unit identifier within a building, such as apartment number, suite, or office",
 		Example:     "Apt 123",
 		Output:      "string",
-		Aliases:     []string{"apartment unit", "suite number", "office number", "building unit", "room number", "address line 2"},
+		Aliases:     []string{"apartment unit", "suite number", "office number", "building unit", "room number", "address line 2", "line 2"},
 		Keywords:    []string{"unit", "apartment", "suite", "office", "identifier", "building", "number", "within", "room", "floor", "level", "section", "compartment"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return unit(f), nil
