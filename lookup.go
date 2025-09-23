@@ -83,7 +83,6 @@ func initLookup() {
 	addImageLookup()
 	addInternetLookup()
 	addLanguagesLookup()
-	addLoremLookup()
 	addMinecraftLookup()
 	addMiscLookup()
 	addMovieLookup()
@@ -102,13 +101,11 @@ func initLookup() {
 	addWordGeneralLookup()
 	addWordGrammerLookup()
 	addWordNounLookup()
-	addWordPhraseLookup()
 	addWordPrepositionLookup()
 	addWordPronounLookup()
-	addWordSentenceLookup()
 	addWordVerbLookup()
-	addWordCommentLookup()
 	addWordMiscLookup()
+	addTextLookup()
 }
 
 // internalFuncLookups is the internal map array with mapping to all available data
