@@ -75,6 +75,10 @@ type NestedArray struct {
 	NA []StructArray `fakesize:"2"`
 }
 
+// Recursive helper types for tests
+type RecA struct{ B *RecB }
+type RecB struct{ A *RecA }
+
 func ExampleStruct() {
 	Seed(11)
 
@@ -940,5 +944,108 @@ func TestStructBrokenFakeTag(t *testing.T) {
 	// error should contain "missing ending ]"
 	if !strings.Contains(err.Error(), "missing ending ]") {
 		t.Fatal(err)
+	}
+}
+
+func TestStructRecursiveSelfPointer(t *testing.T) {
+	Seed(11)
+
+	type Node struct {
+		Value string
+		Next  *Node
+	}
+
+	var n Node
+	if err := Struct(&n); err != nil {
+		t.Fatal(err)
+	}
+
+	// Ensure it terminates and does not exceed a reasonable depth
+	max := 10
+	depth := 0
+	cur := &n
+	for cur != nil && depth <= max {
+		depth++
+		cur = cur.Next
+	}
+	if depth > max {
+		t.Fatalf("recursive self-pointer exceeded max depth: %d", depth)
+	}
+	if n.Value == "" {
+		t.Error("root node value should be populated")
+	}
+}
+
+func TestStructRecursiveMutualPointer(t *testing.T) {
+	Seed(11)
+
+	type (
+		A = RecA
+		B = RecB
+	)
+
+	var a A
+	if err := Struct(&a); err != nil {
+		t.Fatal(err)
+	}
+
+	// Walk alternating A->B->A... and ensure termination under depth guard
+	max := 10
+	depth := 0
+	pa := &a
+	for pa != nil && depth <= max {
+		depth++
+		if pa.B == nil {
+			break
+		}
+		if pa.B.A == nil {
+			depth++
+			break
+		}
+		pa = pa.B.A
+	}
+	if depth > max {
+		t.Fatalf("mutual recursion exceeded max depth: %d", depth)
+	}
+}
+
+func TestStructRecursiveInCollections(t *testing.T) {
+	Seed(11)
+
+	type Tree struct {
+		Label    string
+		Children []*Tree          `fakesize:"2"`
+		Lookup   map[string]*Tree `fakesize:"2"`
+	}
+
+	var root Tree
+	if err := Struct(&root); err != nil {
+		t.Fatal(err)
+	}
+
+	// Verify some data is populated
+	if root.Label == "" {
+		t.Error("root label should be populated")
+	}
+	if len(root.Children) == 0 {
+		t.Error("children should be populated")
+	}
+	if len(root.Lookup) == 0 {
+		t.Error("lookup should be populated")
+	}
+
+	// Depth-bounded traversal on first child to ensure termination
+	max := 10
+	depth := 0
+	cur := root.Children[0]
+	for cur != nil && depth <= max {
+		depth++
+		if len(cur.Children) == 0 {
+			break
+		}
+		cur = cur.Children[0]
+	}
+	if depth > max {
+		t.Fatalf("recursive collections exceeded max depth: %d", depth)
 	}
 }

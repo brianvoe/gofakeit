@@ -9,6 +9,10 @@ import (
 	"time"
 )
 
+// RecursiveDepth controls the maximum recursion depth when populating structs.
+// Increase if your data structures are deeply nested; decrease to be more conservative.
+var RecursiveDepth = 10
+
 // Struct fills in exported fields of a struct with random data
 // based on the value of `fake` tag of exported fields
 // or with the result of a call to the Fake() method
@@ -26,10 +30,10 @@ func Struct(v any) error { return structFunc(GlobalFaker, v) }
 func (f *Faker) Struct(v any) error { return structFunc(f, v) }
 
 func structFunc(f *Faker, v any) error {
-	return r(f, reflect.TypeOf(v), reflect.ValueOf(v), "", 0)
+	return r(f, reflect.TypeOf(v), reflect.ValueOf(v), "", 0, 0)
 }
 
-func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
+func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int, depth int) error {
 	// Handle special types
 
 	if t.PkgPath() == "encoding/json" {
@@ -50,9 +54,9 @@ func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
 	// Handle generic types
 	switch t.Kind() {
 	case reflect.Ptr:
-		return rPointer(f, t, v, tag, size)
+		return rPointer(f, t, v, tag, size, depth)
 	case reflect.Struct:
-		return rStruct(f, t, v, tag)
+		return rStruct(f, t, v, tag, depth)
 	case reflect.String:
 		return rString(f, t, v, tag)
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
@@ -64,9 +68,9 @@ func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
 	case reflect.Bool:
 		return rBool(f, t, v, tag)
 	case reflect.Array, reflect.Slice:
-		return rSlice(f, t, v, tag, size)
+		return rSlice(f, t, v, tag, size, depth)
 	case reflect.Map:
-		return rMap(f, t, v, tag, size)
+		return rMap(f, t, v, tag, size, depth)
 	}
 
 	return nil
@@ -123,7 +127,12 @@ func rCustom(f *Faker, v reflect.Value, tag string) error {
 	return nil
 }
 
-func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
+func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string, depth int) error {
+	// Prevent recursing deeper than configured levels
+	if depth >= RecursiveDepth {
+		return nil
+	}
+
 	// Check if tag exists, if so run custom function
 	if t.Name() != "" && tag != "" {
 		return rCustom(f, v, tag)
@@ -214,7 +223,7 @@ func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 		}
 
 		// Recursively call r() to fill in the struct
-		err := r(f, elementT.Type, elementV, fakeTag, size)
+		err := r(f, elementT.Type, elementV, fakeTag, size, depth+1)
 		if err != nil {
 			return err
 		}
@@ -223,18 +232,23 @@ func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string) error {
 	return nil
 }
 
-func rPointer(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
+func rPointer(f *Faker, t reflect.Type, v reflect.Value, tag string, size int, depth int) error {
 	elemT := t.Elem()
+	// Prevent recursing deeper than configured levels
+	if depth >= RecursiveDepth {
+		return nil
+	}
+
 	if v.IsNil() {
 		nv := reflect.New(elemT).Elem()
-		err := r(f, elemT, nv, tag, size)
+		err := r(f, elemT, nv, tag, size, depth+1)
 		if err != nil {
 			return err
 		}
 
 		v.Set(nv.Addr())
 	} else {
-		err := r(f, elemT, v.Elem(), tag, size)
+		err := r(f, elemT, v.Elem(), tag, size, depth+1)
 		if err != nil {
 			return err
 		}
@@ -243,10 +257,15 @@ func rPointer(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) e
 	return nil
 }
 
-func rSlice(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
+func rSlice(f *Faker, t reflect.Type, v reflect.Value, tag string, size int, depth int) error {
 	// If you cant even set it dont even try
 	if !v.CanSet() {
 		return errors.New("cannot set slice")
+	}
+
+	// Prevent recursing deeper than configured levels
+	if depth >= RecursiveDepth {
+		return nil
 	}
 
 	// Check if tag exists, if so run custom function
@@ -284,7 +303,7 @@ func rSlice(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) err
 	// Loop through the elements length and set based upon the index
 	for i := 0; i < size; i++ {
 		nv := reflect.New(elemT)
-		err := r(f, elemT, nv.Elem(), tag, ogSize)
+		err := r(f, elemT, nv.Elem(), tag, ogSize, depth+1)
 		if err != nil {
 			return err
 		}
@@ -300,10 +319,15 @@ func rSlice(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) err
 	return nil
 }
 
-func rMap(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error {
+func rMap(f *Faker, t reflect.Type, v reflect.Value, tag string, size int, depth int) error {
 	// If you cant even set it dont even try
 	if !v.CanSet() {
 		return errors.New("cannot set slice")
+	}
+
+	// Prevent recursing deeper than configured levels
+	if depth >= RecursiveDepth {
+		return nil
 	}
 
 	// Check if tag exists, if so run custom function
@@ -333,14 +357,14 @@ func rMap(f *Faker, t reflect.Type, v reflect.Value, tag string, size int) error
 	for i := 0; i < newSize; i++ {
 		// Create new key
 		mapIndex := reflect.New(t.Key())
-		err := r(f, t.Key(), mapIndex.Elem(), "", -1)
+		err := r(f, t.Key(), mapIndex.Elem(), "", -1, depth+1)
 		if err != nil {
 			return err
 		}
 
 		// Create new value
 		mapValue := reflect.New(t.Elem())
-		err = r(f, t.Elem(), mapValue.Elem(), "", -1)
+		err = r(f, t.Elem(), mapValue.Elem(), "", -1, depth+1)
 		if err != nil {
 			return err
 		}
