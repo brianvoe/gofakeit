@@ -979,12 +979,7 @@ func TestStructRecursiveSelfPointer(t *testing.T) {
 func TestStructRecursiveMutualPointer(t *testing.T) {
 	Seed(11)
 
-	type (
-		A = RecA
-		B = RecB
-	)
-
-	var a A
+	var a RecA
 	if err := Struct(&a); err != nil {
 		t.Fatal(err)
 	}
