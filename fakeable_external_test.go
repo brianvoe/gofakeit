@@ -692,6 +692,56 @@ func TestNestedOverrideCustom(t *testing.T) {
 	}
 }
 
+func TestNestedOverrideCustomMultiple(t *testing.T) {
+	// Run the override test multiple times to catch intermittent failures
+	for i := 0; i < 50; i++ {
+		t.Run(fmt.Sprintf("iteration_%d", i), func(t *testing.T) {
+			gofakeit.AddFuncLookup("raw_test_date", gofakeit.Info{
+				Display:     "Date",
+				Category:    "datetime",
+				Description: "Random date",
+				Example:     "2006-01-02T15:04:05Z07:00",
+				Output:      "time.Time",
+				Params: []gofakeit.Param{
+					{
+						Field:       "format",
+						Display:     "Format",
+						Type:        "time.Time",
+						Description: "Raw date time.Time object",
+					},
+				},
+				Generate: func(f *gofakeit.Faker, m *gofakeit.MapParams, info *gofakeit.Info) (any, error) {
+					return gofakeit.Date(), nil
+				},
+			})
+
+			var d NestedOverrideCustom
+			err := gofakeit.Struct(&d)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			// Check for the specific failure cases
+			nonOverrideInt := -42
+			if d.Int == CustomInt(nonOverrideInt) {
+				t.Errorf("Int: expected a random integer but got the non-overriden value")
+			}
+
+			nonOverrideMap := map[string]string{"hello": "1", "test": "2"}
+			if len(d.MapStr) == len(nonOverrideMap) {
+				t.Logf("Map: Got the same length as the non-overriden map: %v vs %v", nonOverrideMap, d.MapStr)
+				for k, v := range nonOverrideMap {
+					if d.MapStr[k] == v {
+						t.Errorf("Map: Got non-overriden item %v in the map", k)
+					}
+				}
+			}
+
+			gofakeit.RemoveFuncLookup("raw_test_date")
+		})
+	}
+}
+
 func TestSliceCustom(t *testing.T) {
 	var B []CustomString
 	gofakeit.Slice(&B)
