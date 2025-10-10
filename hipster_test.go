@@ -27,27 +27,27 @@ func BenchmarkHipsterWord(b *testing.B) {
 
 func ExampleHipsterSentence() {
 	Seed(11)
-	fmt.Println(HipsterSentence(5))
+	fmt.Println(HipsterSentence())
 
 	// Output: Semiotics everyday you probably haven't heard of them you probably haven't heard of them portland.
 }
 
 func ExampleFaker_HipsterSentence() {
 	f := New(11)
-	fmt.Println(f.HipsterSentence(5))
+	fmt.Println(f.HipsterSentence())
 
 	// Output: Semiotics everyday you probably haven't heard of them you probably haven't heard of them portland.
 }
 
 func BenchmarkHipsterSentence(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		HipsterSentence(10)
+		HipsterSentence()
 	}
 }
 
 func ExampleHipsterParagraph() {
 	Seed(11)
-	fmt.Println(HipsterParagraph(3, 5, 12, "\n"))
+	fmt.Println(HipsterParagraph())
 
 	// Output: Semiotics everyday you probably haven't heard of them you probably haven't heard of them portland austin tattooed retro cardigan Yuccie cred hoodie. Vice pug pug cred intelligentsia roof helvetica squid chambray literally ennui ugh. Chicharrones messenger bag narwhal ennui flannel twee art party mustache sartorial gluten-free cardigan cronut. Hoodie kickstarter cardigan Thundercats heirloom hashtag bitters salvia cleanse forage chartreuse keffiyeh. Sustainable tofu mustache bespoke vice aesthetic iPhone ugh lo-fi health put a bird on it blue bottle.
 	// Pop-up pabst pitchfork literally roof tattooed tilde shoreditch green juice ethical celiac tilde. Kombucha kinfolk occupy tacos ramps 90's echo meditation kale chips gluten-free humblebrag keffiyeh. Lo-fi bespoke wayfarers chicharrones crucifix green juice humblebrag organic viral shabby chic locavore cred. Roof forage farm-to-table YOLO williamsburg crucifix blog everyday green juice listicle wayfarers post-ironic. Single-origin coffee cray organic YOLO disrupt venmo tofu meggings fanny pack master craft beer tofu.
@@ -56,7 +56,7 @@ func ExampleHipsterParagraph() {
 
 func ExampleFaker_HipsterParagraph() {
 	f := New(11)
-	fmt.Println(f.HipsterParagraph(3, 5, 12, "\n"))
+	fmt.Println(f.HipsterParagraph())
 
 	// Output: Semiotics everyday you probably haven't heard of them you probably haven't heard of them portland austin tattooed retro cardigan Yuccie cred hoodie. Vice pug pug cred intelligentsia roof helvetica squid chambray literally ennui ugh. Chicharrones messenger bag narwhal ennui flannel twee art party mustache sartorial gluten-free cardigan cronut. Hoodie kickstarter cardigan Thundercats heirloom hashtag bitters salvia cleanse forage chartreuse keffiyeh. Sustainable tofu mustache bespoke vice aesthetic iPhone ugh lo-fi health put a bird on it blue bottle.
 	// Pop-up pabst pitchfork literally roof tattooed tilde shoreditch green juice ethical celiac tilde. Kombucha kinfolk occupy tacos ramps 90's echo meditation kale chips gluten-free humblebrag keffiyeh. Lo-fi bespoke wayfarers chicharrones crucifix green juice humblebrag organic viral shabby chic locavore cred. Roof forage farm-to-table YOLO williamsburg crucifix blog everyday green juice listicle wayfarers post-ironic. Single-origin coffee cray organic YOLO disrupt venmo tofu meggings fanny pack master craft beer tofu.
@@ -65,6 +65,6 @@ func ExampleFaker_HipsterParagraph() {
 
 func BenchmarkHipsterParagraph(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		HipsterParagraph(3, 5, 12, "\n")
+		HipsterParagraph()
 	}
 }
