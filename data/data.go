@@ -5,6 +5,7 @@ var Data = map[string]map[string][]string{
 	"person":    Person,
 	"auth":      Auth,
 	"address":   Address,
+	"airline":   Airline,
 	"company":   Company,
 	"job":       Job,
 	"lorem":     Lorem,
