@@ -99,7 +99,6 @@ func initLookup() {
 	addWordAdverbLookup()
 	addWordConnectiveLookup()
 	addWordGeneralLookup()
-	addWordGrammerLookup()
 	addWordNounLookup()
 	addWordPrepositionLookup()
 	addWordPronounLookup()
