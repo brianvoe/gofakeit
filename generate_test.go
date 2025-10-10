@@ -104,17 +104,127 @@ func ExampleFaker_Generate() {
 }
 
 func BenchmarkGenerate(b *testing.B) {
-	b.Run("package", func(b *testing.B) {
+	f := New(0)
+
+	b.Run("simple_single_function", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			Generate("{firstname} {lastname} {email} #?#?#?")
+			generate(f, "{firstname}")
 		}
 	})
 
-	b.Run("Complex", func(b *testing.B) {
+	b.Run("simple_multiple_functions", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			Generate("{randomstring:[{randomstring:[{firstname},{lastname}]},{randomstring:[{firstname},{lastname}]}]}")
+			generate(f, "{firstname} {lastname} {email}")
 		}
 	})
+
+	b.Run("function_with_params", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			generate(f, "{number:1,100}")
+		}
+	})
+
+	b.Run("multiple_functions_with_params", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			generate(f, "{number:1,100} {sentence} {color}")
+		}
+	})
+
+	b.Run("mixed_letters_numbers", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			generate(f, "###-???-###")
+		}
+	})
+
+	b.Run("complex_mixed", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			generate(f, "{firstname} {lastname} - {email} - ID: ###-???-### - {number:1,1000}")
+		}
+	})
+
+	b.Run("no_replacements", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			generate(f, "just a plain string with no replacements")
+		}
+	})
+
+	b.Run("many_functions", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			generate(f, "{firstname} {lastname} {email} {phone} {address} {city} {state} {zip} {country}")
+		}
+	})
+
+	b.Run("nested_params", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			generate(f, "{randomstring:[hello,world,foo,bar]}")
+		}
+	})
+
+	b.Run("nested_complex", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			generate(f, "{randomstring:[{randomstring:[{firstname},{lastname}]},{randomstring:[{firstname},{lastname}]}]}")
+		}
+	})
+
+	b.Run("bio_template", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			generate(f, "A {jobtitle} who {verb} {noun} and practices {hobby} in {city}.")
+		}
+	})
+
+	b.Run("sentence_template", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			generate(f, "Choose {adjectivedescriptive} defaults.")
+		}
+	})
+
+	b.Run("long_string_many_replacements", func(b *testing.B) {
+		template := "{firstname} {lastname} lives in {city}, {state} {zip}. Email: {email}, Phone: {phone}. Works as {jobtitle} at {company}. Favorite color: {color}, Animal: {animal}."
+		for i := 0; i < b.N; i++ {
+			generate(f, template)
+		}
+	})
+}
+
+// Test generate function with various edge cases
+func TestGenerateEdgeCases(t *testing.T) {
+	testCases := []struct {
+		template string
+		validate func(string) bool
+	}{
+		{"{firstname}", func(s string) bool { return len(s) > 0 && !strings.Contains(s, "{") }},
+		{"{firstname} {lastname}", func(s string) bool { return len(strings.Fields(s)) >= 2 && !strings.Contains(s, "{") }},
+		{"{firstname} {lastname} {email}", func(s string) bool { return strings.Contains(s, "@") && !strings.Contains(s, "{") }},
+		{"{number:1,100}", func(s string) bool { return len(s) > 0 && !strings.Contains(s, "{") }},
+		{"###-???-###", func(s string) bool { return len(s) == 11 && s[3] == '-' && s[7] == '-' }},
+		{"just a plain string", func(s string) bool { return s == "just a plain string" }},
+		{"{randomstring:[hello,world]}", func(s string) bool { return s == "hello" || s == "world" }},
+		{"A {jobtitle} in {city}.", func(s string) bool {
+			return strings.HasPrefix(s, "A ") && strings.HasSuffix(s, ".") && !strings.Contains(s, "{")
+		}},
+		// Edge cases
+		{"{unknown}", func(s string) bool { return s == "{unknown}" }},
+		{"{firstname", func(s string) bool { return s == "{firstname" }},
+		{"firstname}", func(s string) bool { return s == "firstname}" }},
+		{"{}", func(s string) bool { return s == "{}" }},
+	}
+
+	for _, tc := range testCases {
+		// Test multiple times with different seeds
+		for seed := uint64(0); seed < 10; seed++ {
+			f := New(seed)
+			result, err := generate(f, tc.template)
+
+			if err != nil {
+				t.Errorf("Unexpected error for %q (seed %d): %v", tc.template, seed, err)
+				continue
+			}
+
+			if !tc.validate(result) {
+				t.Errorf("Validation failed for %q (seed %d): got %q", tc.template, seed, result)
+			}
+		}
+	}
 }
 
 func ExampleFixedWidth() {
