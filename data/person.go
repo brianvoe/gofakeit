@@ -9,4 +9,117 @@ var Person = map[string][]string{
 	"last":   {"Abbott", "Abernathy", "Abshire", "Adams", "Altenwerth", "Anderson", "Ankunding", "Armstrong", "Auer", "Aufderhar", "Bahringer", "Bailey", "Balistreri", "Barrows", "Bartell", "Bartoletti", "Barton", "Bashirian", "Batz", "Bauch", "Baumbach", "Bayer", "Beahan", "Beatty", "Bechtelar", "Becker", "Bednar", "Beer", "Beier", "Berge", "Bergnaum", "Bergstrom", "Bernhard", "Bernier", "Bins", "Blanda", "Blick", "Block", "Bode", "Boehm", "Bogan", "Bogisich", "Borer", "Bosco", "Botsford", "Boyer", "Boyle", "Bradtke", "Brakus", "Braun", "Breitenberg", "Brekke", "Brown", "Bruen", "Buckridge", "Carroll", "Carter", "Cartwright", "Casper", "Cassin", "Champlin", "Christiansen", "Cole", "Collier", "Collins", "Conn", "Connelly", "Conroy", "Considine", "Corkery", "Cormier", "Corwin", "Cremin", "Crist", "Crona", "Cronin", "Crooks", "Cruickshank", "Cummerata", "Cummings", "Dach", "Damore", "Daniel", "Dare", "Daugherty", "Davis", "Deckow", "Denesik", "Dibbert", "Dickens", "Dicki", "Dickinson", "Dietrich", "Donnelly", "Dooley", "Douglas", "Doyle", "DuBuque", "Durgan", "Ebert", "Effertz", "Eichmann", "Emard", "Emmerich", "Erdman", "Ernser", "Fadel", "Fahey", "Farrell", "Fay", "Feeney", "Feest", "Feil", "Ferry", "Fisher", "Flatley", "Frami", "Franecki", "Friesen", "Fritsch", "Funk", "Gaylord", "Gerhold", "Gerlach", "Gibson", "Gislason", "Gleason", "Gleichner", "Glover", "Goldner", "Goodwin", "Gorczany", "Gottlieb", "Goyette", "Grady", "Graham", "Grant", "Green", "Greenfelder", "Greenholt", "Grimes", "Gulgowski", "Gusikowski", "Gutkowski", "Gutmann", "Haag", "Hackett", "Hagenes", "Hahn", "Haley", "Halvorson", "Hamill", "Hammes", "Hand", "Hane", "Hansen", "Harber", "Harris", "Hartmann", "Harvey", "Hauck", "Hayes", "Heaney", "Heathcote", "Hegmann", "Heidenreich", "Heller", "Herman", "Hermann", "Hermiston", "Herzog", "Hessel", "Hettinger", "Hickle", "Hilll", "Hills", "Hilpert", "Hintz", "Hirthe", "Hodkiewicz", "Hoeger", "Homenick", "Hoppe", "Howe", "Howell", "Hudson", "Huel", "Huels", "Hyatt", "Jacobi", "Jacobs", "Jacobson", "Jakubowski", "Jaskolski", "Jast", "Jenkins", "Jerde", "Jewess", "Johns", "Johnson", "Johnston", "Jones", "Kassulke", "Kautzer", "Keebler", "Keeling", "Kemmer", "Kerluke", "Kertzmann", "Kessler", "Kiehn", "Kihn", "Kilback", "King", "Kirlin", "Klein", "Kling", "Klocko", "Koch", "Koelpin", "Koepp", "Kohler", "Konopelski", "Koss", "Kovacek", "Kozey", "Krajcik", "Kreiger", "Kris", "Kshlerin", "Kub", "Kuhic", "Kuhlman", "Kuhn", "Kulas", "Kunde", "Kunze", "Kuphal", "Kutch", "Kuvalis", "Labadie", "Lakin", "Lang", "Langosh", "Langworth", "Larkin", "Larson", "Leannon", "Lebsack", "Ledner", "Leffler", "Legros", "Lehner", "Lemke", "Lesch", "Leuschke", "Lind", "Lindgren", "Littel", "Little", "Lockman", "Lowe", "Lubowitz", "Lueilwitz", "Luettgen", "Lynch", "Macejkovic", "Maggio", "Mann", "Mante", "Marks", "Marquardt", "Marvin", "Mayer", "Mayert", "McClure", "McCullough", "McDermott", "McGlynn", "McKenzie", "McLaughlin", "Medhurst", "Mertz", "Metz", "Miller", "Mills", "Mitchell", "Moen", "Mohr", "Monahan", "Moore", "Morar", "Morissette", "Mosciski", "Mraz", "Mueller", "Muller", "Murazik", "Murphy", "Murray", "Nader", "Nicolas", "Nienow", "Nikolaus", "Nitzsche", "Nolan", "Oberbrunner", "Okuneva", "Olson", "Ondricka", "OReilly", "Orn", "Ortiz", "Osinski", "Pacocha", "Padberg", "Pagac", "Parisian", "Parker", "Paucek", "Pfannerstill", "Pfeffer", "Pollich", "Pouros", "Powlowski", "Predovic", "Price", "Prohaska", "Prosacco", "Purdy", "Quigley", "Quitzon", "Rath", "Ratke", "Rau", "Raynor", "Reichel", "Reichert", "Reilly", "Reinger", "Rempel", "Renner", "Reynolds", "Rice", "Rippin", "Ritchie", "Robel", "Roberts", "Rodriguez", "Rogahn", "Rohan", "Rolfson", "Romaguera", "Roob", "Rosenbaum", "Rowe", "Ruecker", "Runolfsdottir", "Runolfsson", "Runte", "Russel", "Rutherford", "Ryan", "Sanford", "Satterfield", "Sauer", "Sawayn", "Schaden", "Schaefer", "Schamberger", "Schiller", "Schimmel", "Schinner", "Schmeler", "Schmidt", "Schmitt", "Schneider", "Schoen", "Schowalter", "Schroeder", "Schulist", "Schultz", "Schumm", "Schuppe", "Schuster", "Senger", "Shanahan", "Shields", "Simonis", "Sipes", "Skiles", "Smith", "Smitham", "Spencer", "Spinka", "Sporer", "Stamm", "Stanton", "Stark", "Stehr", "Steuber", "Stiedemann", "Stokes", "Stoltenberg", "Stracke", "Streich", "Stroman", "Strosin", "Swaniawski", "Swift", "Terry", "Thiel", "Thompson", "Tillman", "Torp", "Torphy", "Towne", "Toy", "Trantow", "Tremblay", "Treutel", "Tromp", "Turcotte", "Turner", "Ullrich", "Upton", "Vandervort", "Veum", "Volkman", "Von", "VonRueden", "Waelchi", "Walker", "Walsh", "Walter", "Ward", "Waters", "Watsica", "Weber", "Wehner", "Weimann", "Weissnat", "Welch", "West", "White", "Wiegand", "Wilderman", "Wilkinson", "Will", "Williamson", "Willms", "Windler", "Wintheiser", "Wisoky", "Wisozk", "Witting", "Wiza", "Wolf", "Wolff", "Wuckert", "Wunsch", "Wyman", "Yost", "Yundt", "Zboncak", "Zemlak", "Ziemann", "Zieme", "Zulauf"},
 	"hobby":  {"3D printing", "Acrobatics", "Acting", "Amateur radio", "Animation", "Aquascaping", "Astrology", "Astronomy", "Baking", "Baton twirling", "Blogging", "Building", "Board/tabletop games", "Book discussion clubs", "Book restoration", "Bowling", "Brazilian jiu-jitsu", "Breadmaking", "Bullet journaling", "Cabaret", "Calligraphy", "Candle making", "Candy making", "Car fixing & building", "Card games", "Cheesemaking", "Cleaning", "Clothesmaking", "Coffee roasting", "Collecting", "Coloring", "Computer programming", "Confectionery", "Cooking", "Cosplaying", "Couponing", "Craft", "Creative writing", "Crocheting", "Cross-stitch", "Crossword puzzles", "Cryptography", "Cue sports", "Dance", "Digital arts", "Distro Hopping", "DJing", "Do it yourself", "Drama", "Drawing", "Drink mixing", "Drinking", "Electronic games", "Electronics", "Embroidery", "Experimenting", "Fantasy sports", "Fashion", "Fashion design", "Fishkeeping", "Filmmaking", "Flower arranging", "Fly tying", "Foreign language learning", "Furniture building", "Gaming", "Genealogy", "Gingerbread house making", "Glassblowing", "Graphic design", "Gunsmithing", "Gymnastics", "Hacking", "Herp keeping", "Home improvement", "Homebrewing", "Houseplant care", "Hula hooping", "Humor", "Hydroponics", "Ice skating", "Jewelry making", "Jigsaw puzzles", "Journaling", "Juggling", "Karaoke", "Karate", "Kendama", "Knife making", "Knitting", "Knot tying", "Kombucha brewing", "Lace making", "Lapidary", "Leather crafting", "Lego building", "Lock picking", "Listening to music", "Listening to podcasts", "Machining", "Macrame", "Magic", "Makeup", "Mazes (indoor/outdoor)", "Metalworking", "Model building", "Model engineering", "Nail art", "Needlepoint", "Origami", "Painting", "Palmistry", "Pet adoption & fostering", "Philately", "Photography", "Practical jokes", "Pressed flower craft", "Playing musical instruments", "Poi", "Pottery", "Powerlifting", "Puzzles", "Quilling", "Quilting", "Quizzes", "Radio-controlled model", "Rail transport modeling", "Rapping", "Reading", "Refinishing", "Reiki", "Robot combat", "Rubik's Cube", "Scrapbooking", "Sculpting", "Sewing", "Shoemaking", "Singing", "Sketching", "Skipping rope", "Slot car", "Soapmaking", "Social media", "Spreadsheets", "Stand-up comedy", "Stamp collecting", "Table tennis", "Tarot", "Taxidermy", "Thrifting", "Video editing", "Video game developing", "Video gaming", "Watching movies", "Watching television", "Videography", "Virtual reality", "Waxing", "Weaving", "Weight training", "Welding", "Whittling", "Wikipedia editing", "Winemaking", "Wood carving", "Woodworking", "Worldbuilding", "Writing", "Word searches", "Yo-yoing", "Yoga", "Zumba", "Amusement park visiting", "Air sports", "Airsoft", "Amateur geology", "Archery", "Astronomy", "Backpacking", "Badminton", "BASE jumping", "Baseball", "Basketball", "Beekeeping", "Birdwatching", "Blacksmithing", "BMX", "Board sports", "Bodybuilding", "Bonsai", "Butterfly watching", "Bus riding", "Camping", "Canoeing", "Canyoning", "Car riding", "Caving", "Composting", "Cycling", "Dowsing", "Driving", "Farming", "Fishing", "Flag football", "Flower growing", "Flying", "Flying disc", "Foraging", "Fossicking", "Freestyle football", "Gardening", "Geocaching", "Ghost hunting", "Gold prospecting", "Graffiti", "Handball", "Herbalism", "Herping", "High-power rocketry", "Hiking", "Hobby horsing", "Hobby tunneling", "Hooping", "Horseback riding", "Hunting", "Inline skating", "Jogging", "Jumping rope", "Kayaking", "Kite flying", "Kitesurfing", "Lacrosse", "LARPing", "Letterboxing", "Longboarding", "Martial arts", "Metal detecting", "Meteorology", "Motor sports", "Mountain biking", "Mountaineering", "Museum visiting", "Mushroom hunting", "Netball", "Nordic skating", "Orienteering", "Paintball", "Parkour", "Photography", "Podcast hosting", "Polo", "Public transport riding", "Rafting", "Railway journeys", "Rappelling", "Road biking", "Rock climbing", "Roller skating", "Rugby", "Running", "Radio-controlled model", "Sailing", "Sand art", "Scouting", "Scuba diving", "Sculling", "Shooting", "Shopping", "Shuffleboard", "Skateboarding", "Skiing", "Skimboarding", "Skydiving", "Slacklining", "Snowboarding", "Snowmobiling", "Snowshoeing", "Soccer", "Stone skipping", "Sun bathing", "Surfing", "Survivalism", "Swimming", "Taekwondo", "Tai chi", "Tennis", "Topiary", "Tourism", "Thru-hiking", "Trade fair visiting", "Travel", "Urban exploration", "Vacation", "Vegetable farming", "Videography", "Vehicle restoration", "Walking", "Water sports", "Astronomy", "Biology", "Chemistry", "Electrochemistry", "Physics", "Psychology", "Sports science", "Geography", "History", "Mathematics", "Railway studies", "Action figure", "Antiquing", "Ant-keeping", "Art collecting", "Book collecting", "Button collecting", "Cartophily", "Coin collecting", "Comic book collecting", "Deltiology", "Die-cast toy", "Digital hoarding", "Dolls", "Element collecting", "Ephemera collecting", "Fusilately", "Knife collecting", "Lotology", "Movie and movie memorabilia collecting", "Fingerprint collecting", "Perfume", "Phillumeny", "Radio-controlled model", "Rail transport modelling", "Record collecting", "Rock tumbling", "Scutelliphily", "Shoes", "Slot car", "Sports memorabilia", "Stamp collecting", "Stuffed toy collecting", "Tea bag collecting", "Ticket collecting", "Toys", "Transit map collecting", "Video game collecting", "Vintage cars", "Vintage clothing", "Vinyl Records", "Antiquities", "Auto audiophilia", "Flower collecting and pressing", "Fossil hunting", "Insect collecting", "Magnet fishing", "Metal detecting", "Mineral collecting", "Rock balancing", "Sea glass collecting", "Seashell collecting", "Stone collecting", "Animal fancy", "Axe throwing", "Backgammon", "Badminton", "Baton twirling", "Beauty pageants", "Billiards", "Bowling", "Boxing", "Bridge", "Checkers (draughts)", "Cheerleading", "Chess", "Color guard", "Cribbage", "Curling", "Dancing", "Darts", "Debate", "Dominoes", "Eating", "Esports", "Fencing", "Go", "Gymnastics", "Ice hockey", "Ice skating", "Judo", "Jujitsu", "Kabaddi", "Knowledge/word games", "Laser tag", "Longboarding", "Mahjong", "Marbles", "Martial arts", "Model United Nations", "Poker", "Pool", "Role-playing games", "Shogi", "Slot car racing", "Speedcubing", "Sport stacking", "Table football", "Table tennis", "Volleyball", "Weightlifting", "Wrestling", "Airsoft", "Archery", "Association football", "Australian rules football", "Auto racing", "Baseball", "Beach volleyball", "Breakdancing", "Climbing", "Cricket", "Croquet", "Cycling", "Disc golf", "Dog sport", "Equestrianism", "Exhibition drill", "Field hockey", "Figure skating", "Fishing", "Footbag", "Frisbee", "Golfing", "Handball", "Horseback riding", "Horseshoes", "Iceboat racing", "Jukskei", "Kart racing", "Knife throwing", "Lacrosse", "Longboarding", "Long-distance running", "Marching band", "Model aircraft", "Orienteering", "Pickleball", "Quidditch", "Race walking", "Racquetball", "Radio-controlled car racing", "Roller derby", "Rugby league football", "Sculling", "Shooting sport", "Skateboarding", "Skiing", "Sled dog racing", "Softball", "Speed skating", "Squash", "Surfing", "Swimming", "Table tennis", "Tennis", "Tennis polo", "Tether car", "Tour skating", "Tourism", "Trapshooting", "Triathlon", "Ultimate frisbee", "Volleyball", "Water polo", "Fishkeeping", "Learning", "Meditation", "Microscopy", "Reading", "Research", "Shortwave listening", "Audiophile", "Aircraft spotting", "Amateur astronomy", "Birdwatching", "Bus spotting", "Geocaching", "Gongoozling", "Herping", "Hiking", "Meteorology", "Photography", "Satellite watching", "Trainspotting", "Whale watching"},
 	"phone":  {"###-###-####", "(###)###-####", "1-###-###-####", "###.###.####"},
+	"social_media": {
+		// Generic handles
+		"{gamertag}",
+		"@{gamertag}",
+
+		// Social Websites
+		"https://x.com/{gamertag}",
+		"https://instagram.com/{gamertag}",
+		"https://linkedin.com/in/{gamertag}",
+		"https://github.com/{gamertag}",
+		"https://tiktok.com/@{gamertag}",
+		"https://facebook.com/{gamertag}",
+	},
+	// Bio contains sentence templates for personal biographies
+	// phrased to avoid article/plural pitfalls and work with Generate
+	"bio": {
+		// short punchy
+		"Started in {city} as {jobtitle}, now in {productcategory}",
+		"{programminglanguage} developer with a side path in {productcategory}",
+		"Former {jobtitle} now focused on {productcategory}",
+		"Born in {country}, moved into {jobtitle} after studying {programminglanguage}",
+
+		// hipster flavor
+		"{jobtitle} into {hipsterword} and {hipsterword}, based in {city}",
+		"Known for a {hipsterword} aesthetic and work in {country} as {jobtitle}",
+		"{jobtitle} with a taste for {hipsterword} culture in {city}",
+		"From {country}, brought {hipsterword} vibes to {city} while working in {jobtitle}",
+
+		// beer
+		"{jobtitle} by day, brewing {beerstyle} after hours in {city}",
+		"Known for a {beerhop} IPA recipe and a career in {country} as {jobtitle}",
+		"Started brewing {beerstyle} in {city}, later specializing in {productcategory} as {jobtitle}",
+		"{jobtitle} who experiments with {beeryeast} fermentation on weekends",
+
+		// cars
+		"{jobtitle} who drives a {carmaker} {carmodel} and trains in {hobby} around {city}",
+		"Collector of {carmaker} models and working in {country} as {jobtitle}",
+		"{jobtitle} with a soft spot for {carfueltype} builds and hands-on {hobby} in {city}",
+		"Restored a {carmaker} {carmodel} and shifted into {jobtitle}",
+
+		// movies
+		"{jobtitle} obsessed with {moviegenre} cinema and hands-on {hobby} in {city}",
+		"Known for deep dives into {moviegenre} and a career in {country} as {jobtitle}",
+		"{jobtitle} who studies {moviegenre} and practices {hobby} after work",
+
+		// music
+		"{jobtitle} who codes to {songgenre} playlists in {city}",
+		"Workdays in {country} as {jobtitle}, nights with {songgenre} sessions",
+		"{jobtitle} blending {songgenre} jams with weekend {hobby}",
+
+		// celebrity
+		"{jobtitle} inspired by {celebrityactor}, active with {hobby} in {city}",
+		"Takes cues from {celebritybusiness} playbooks while working in {country} as {jobtitle}",
+		"{jobtitle} who follows {celebritysport} and keeps up daily practice in {hobby}",
+
+		// books
+		"{jobtitle} who reads {bookgenre} and keeps up with {hobby} in {city}",
+		"Career in {country} as {jobtitle}, library stacked with {bookgenre}",
+		"Moved into {jobtitle} after reading {booktitle} by {bookauthor}",
+
+		// school
+		"{jobtitle} with roots at {school}, now active in {hobby} around {city}",
+		"Known for a {school} background and work in {country} as {jobtitle}",
+		"{jobtitle} with a {school} degree and a habit of {verb} {noun} in {city}",
+
+		// pets
+		"{jobtitle} who cares about {animaltype} welfare and keeps up with {hobby}",
+		"Career in {country} as {jobtitle}, home life includes {petname}",
+		"{jobtitle} who volunteers with {animaltype} groups on weekends",
+
+		// color and aesthetic
+		"{jobtitle} drawn to {color} palettes and practical {hobby} in {city}",
+		"Recognized in {country} for a {color} aesthetic and work as {jobtitle}",
+		"{jobtitle} focused on {productfeature} with an eye for {color} design",
+
+		// medium mixed
+		"From {city}, discovered {hobby} while working as {jobtitle} at {company}",
+		"{jobtitle} by day and {hobby} enthusiast by night, currently in {country}",
+		"After {number:5,30} years in {city}, shifted focus to {productcategory}",
+		"Known for {verb} {noun} and practical {productcategory} work",
+
+		// story-ish
+		"From {city} to {country}, the path in {jobtitle} involved steady {verb} {noun} and {hobby}",
+		"Studied {programminglanguage} in {city} and built a name in {productcategory}",
+		"Moved into {jobtitle} after years of hands-on {hobby} across {country}",
+
+		// creative combos
+		"What began as {hobby} in {city} led to work in {productfeature} as {jobtitle}",
+		"Between {verb} {noun} and {hobby}, developed a steady path in {jobtitle} around {country}",
+		"{jobtitle} who studies {animal} behavior for fun and iterates on {noun} for work",
+
+		// compact one-liners
+		"{jobtitle} by trade, {hobby} by choice",
+		"Born in {country}, works in {productcategory}",
+		"{programminglanguage} roots with a focus on {productfeature}",
+		"From {city}, building in {productcategory} and keeping up with {hobby}",
+
+		// professional focus
+		"Specializes in {productcategory} as {jobtitle} in {city}",
+		"{jobtitle} with {programminglanguage} experience and ongoing {hobby}",
+		"Works in {productcategory} and keeps a steady practice in {hobby} around {country}",
+
+		// lifestyle crossovers
+		"Brews {beerstyle} while streaming {songgenre}, day job in {city} as {jobtitle}",
+		"Known for a {hipsterword} look and a shelf of {color} {animal} art",
+		"{jobtitle} with a {carmaker} {carmodel} and a taste for {moviegenre}",
+		"Reads {booktitle} by {bookauthor} and applies lessons in {jobtitle}",
+
+		// safe oddities
+		"{jobtitle} exploring {language} study and practical {hobby} in {city}",
+		"From {country}, building a path in {jobtitle} with {productcategory} focus",
+		"{programminglanguage} practitioner mixing {hobby} and {productfeature}",
+	},
 }
