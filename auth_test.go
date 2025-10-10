@@ -9,14 +9,14 @@ func ExampleUsername() {
 	Seed(11)
 	fmt.Println(Username())
 
-	// Output: Treutel8125
+	// Output: Julius812
 }
 
 func ExampleFaker_Username() {
 	f := New(11)
 	fmt.Println(f.Username())
 
-	// Output: Treutel8125
+	// Output: Julius812
 }
 
 func BenchmarkUsername(b *testing.B) {

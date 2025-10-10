@@ -11,7 +11,13 @@ func (f *Faker) Username() string {
 }
 
 func username(f *Faker) string {
-	return getRandValue(f, []string{"person", "last"}) + replaceWithNumbers(f, "####")
+	username := getRandValue(f, []string{"auth", "username"})
+	username, err := generate(f, username)
+	if err != nil {
+		return username // fallback to raw template if generation fails
+	}
+
+	return username
 }
 
 // Password will generate a random password.
