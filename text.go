@@ -26,51 +26,35 @@ func Comment() string { return comment(GlobalFaker) }
 func (f *Faker) Comment() string { return comment(f) }
 
 func comment(f *Faker) string {
-	structures := [][]string{
-		{"interjection", "adjective", "noun", "verb", "adverb"},
-		{"noun", "verb", "preposition", "determiner", "adjective", "noun"},
-		{"noun", "verb", "adverb"},
-		{"adjective", "noun", "verb"},
-		{"noun", "verb", "preposition", "noun"},
+	template := getRandValue(f, []string{"text", "comment"})
+
+	// Generate using your faker
+	comment, err := generate(f, template)
+	if err != nil {
+		return template
 	}
 
-	// Randomly select a structure
-	structure := structures[number(f, 0, len(structures)-1)]
-
-	// Build the sentence
-	var commentParts []string
-	for _, wordType := range structure {
-		switch wordType {
-		case "noun":
-			commentParts = append(commentParts, noun(f))
-		case "verb":
-			commentParts = append(commentParts, verb(f))
-		case "adjective":
-			commentParts = append(commentParts, adjective(f))
-		case "adverb":
-			commentParts = append(commentParts, adverb(f))
-		case "interjection":
-			commentParts = append(commentParts, interjection(f))
-		case "preposition":
-			commentParts = append(commentParts, preposition(f))
-		case "determiner":
-			commentParts = append(commentParts, nounDeterminer(f))
-		default:
-			// Should never hit
-			panic("Invalid word type")
+	// ~16% chance to capitalize first letter
+	if prob, _ := weighted(f, []any{0, 1}, []float32{5, 1}); prob == 1 {
+		if len(comment) > 0 {
+			comment = strings.ToUpper(comment[:1]) + comment[1:]
 		}
 	}
 
-	// Combine the words into a sentence
-	sentence := strings.Join(commentParts, " ")
+	// ~15% chance to add punctuation
+	if prob, _ := weighted(f, []any{0, 1}, []float32{17, 3}); prob == 1 {
+		// Within punctuation: ? (4), ! (3), . (1)
+		switch p, _ := weighted(f, []any{"?", "!", "."}, []float32{4, 3, 1}); p {
+		case "?":
+			comment += "?"
+		case "!":
+			comment += "!"
+		case ".":
+			comment += "."
+		}
+	}
 
-	// Capitalize the first letter
-	sentence = title(sentence)
-
-	// Add a period to the end of the sentence
-	sentence = sentence + "."
-
-	return sentence
+	return comment
 }
 
 // Phrase will return a random phrase
@@ -79,7 +63,7 @@ func Phrase() string { return phrase(GlobalFaker) }
 // Phrase will return a random phrase
 func (f *Faker) Phrase() string { return phrase(f) }
 
-func phrase(f *Faker) string { return getRandValue(f, []string{"sentence", "phrase"}) }
+func phrase(f *Faker) string { return getRandValue(f, []string{"text", "phrase"}) }
 
 // PhraseNoun will return a random noun phrase
 func PhraseNoun() string { return phraseNoun(GlobalFaker) }

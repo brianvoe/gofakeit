@@ -10,20 +10,28 @@ func ExampleComment() {
 	Seed(11)
 	fmt.Println(Comment())
 
-	// Output: Fear Drink To Heart.
+	// Output: After seeing this fear, maybe drink the trip and adjust the here class
 }
 
 func ExampleFaker_Comment() {
 	f := New(11)
 	fmt.Println(f.Comment())
 
-	// Output: Fear Drink To Heart.
+	// Output: After seeing this fear, maybe drink the trip and adjust the here class
 }
 
 func TestComment(t *testing.T) {
 	f := New(11)
-	for i := 0; i < 1000; i++ {
-		f.Comment()
+	for i := 0; i < 10000; i++ {
+		comment := f.Comment()
+		if comment == "" {
+			t.Error("Comment is empty")
+		}
+
+		// make sure it doesn't contain { or }
+		if strings.Contains(comment, "{") || strings.Contains(comment, "}") {
+			t.Error("Comment contains { or }")
+		}
 	}
 }
 
