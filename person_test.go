@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -225,6 +226,88 @@ func ExampleFaker_Hobby() {
 func BenchmarkHobby(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		Hobby()
+	}
+}
+
+func ExampleSocialMedia() {
+	Seed(11)
+	fmt.Println(SocialMedia())
+
+	// Output: https://linkedin.com/in/CuriosCasino7
+}
+
+func ExampleFaker_SocialMedia() {
+	f := New(11)
+	fmt.Println(f.SocialMedia())
+
+	// Output: https://linkedin.com/in/CuriosCasino7
+}
+
+func BenchmarkSocialMedia(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		SocialMedia()
+	}
+}
+
+func ExampleBio() {
+	Seed(11)
+	fmt.Println(Bio())
+	fmt.Println(Bio())
+	fmt.Println(Bio())
+
+	// Output: Brews Fruit Beer while streaming Country, day job in Memphis as Facilitator
+	// Planner with a soft spot for Diesel builds and hands-on Ultimate frisbee in Laredo
+	// Known for a hoodie look and a shelf of PaleGreen weasel art
+}
+
+func ExampleFaker_Bio() {
+	f := New(11)
+	fmt.Println(f.Bio())
+	fmt.Println(f.Bio())
+	fmt.Println(f.Bio())
+
+	// Output: Brews Fruit Beer while streaming Country, day job in Memphis as Facilitator
+	// Planner with a soft spot for Diesel builds and hands-on Ultimate frisbee in Laredo
+	// Known for a hoodie look and a shelf of PaleGreen weasel art
+}
+
+func TestBio(t *testing.T) {
+	Seed(11)
+
+	bio1 := Bio()
+	bio2 := Bio()
+
+	if bio1 == "" {
+		t.Error("Bio() returned empty string")
+	}
+
+	if bio2 == "" {
+		t.Error("Bio() returned empty string")
+	}
+
+	if bio1 == bio2 {
+		t.Error("Bio() returned same result for different calls")
+	}
+
+	// Test that bio contains some expected elements from templates
+	if len(bio1) < 10 {
+		t.Error("Bio() returned too short result")
+	}
+}
+
+// Test to make sure all curly braces are replaced
+func TestBioReplace(t *testing.T) {
+	for i := 0; i < 100000; i++ {
+		bio := Bio()
+		if strings.Contains(bio, "{") || strings.Contains(bio, "}") {
+			t.Error("Bio contains { or }")
+		}
+	}
+}
+
+func BenchmarkBio(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Bio()
 	}
 }
 

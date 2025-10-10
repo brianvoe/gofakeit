@@ -140,6 +140,44 @@ func (f *Faker) Hobby() string { return hobby(f) }
 
 func hobby(f *Faker) string { return getRandValue(f, []string{"person", "hobby"}) }
 
+// SocialMedia will generate a random social media string
+func SocialMedia() string { return socialMedia(GlobalFaker) }
+
+// SocialMedia will generate a random social media string
+func (f *Faker) SocialMedia() string { return socialMedia(f) }
+
+func socialMedia(f *Faker) string {
+	template := getRandValue(f, []string{"person", "social_media"})
+	social, err := generate(f, template)
+	if err != nil {
+		return template // fallback to raw template if generation fails
+	}
+
+	return social
+}
+
+// Bio will generate a random biography using mad libs style templates
+func Bio() string {
+	return bio(GlobalFaker)
+}
+
+// Bio will generate a random biography using mad libs style templates
+func (f *Faker) Bio() string {
+	return bio(f)
+}
+
+func bio(f *Faker) string {
+	template := getRandValue(f, []string{"person", "bio"})
+
+	// Use generate function to process the template with all available lookups
+	bio, err := generate(f, template)
+	if err != nil {
+		return template // fallback to raw template if generation fails
+	}
+
+	return bio
+}
+
 // ContactInfo struct full of contact info
 type ContactInfo struct {
 	Phone string `json:"phone" xml:"phone"`
@@ -496,6 +534,75 @@ func addPersonLookup() {
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return hobby(f), nil },
 	})
 
+	AddFuncLookup("socialmedia", Info{
+		Display:     "Social Media",
+		Category:    "person",
+		Description: "Random social media string",
+		Example:     "https://twitter.com/ImpossibleTrousers",
+		Output:      "string",
+		Aliases: []string{
+			"social media",
+			"social link",
+			"social url",
+			"social handle",
+			"social username",
+			"social profile",
+			"profile link",
+			"profile url",
+			"profile handle",
+			"account link",
+			"account url",
+			"account handle",
+			"username handle",
+			"screen name",
+			// platform-intent phrases (useful for fuzzy scoring)
+			"twitter link",
+			"x link",
+			"instagram link",
+			"linkedin url",
+			"github url",
+			"tiktok handle",
+			"facebook profile",
+		},
+		Keywords: []string{
+			"social", "media", "profile", "account", "handle", "username",
+			"screenname", "link", "url",
+			"twitter", "x", "instagram", "linkedin", "github",
+			"tiktok", "facebook", "dribbble", "behance",
+		},
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return socialMedia(f), nil },
+	})
+
+	AddFuncLookup("bio", Info{
+		Display:     "Biography",
+		Category:    "person",
+		Description: "Random biography",
+		Example:     "Born in New York, John grew up to become a Software Engineer who codes applications.",
+		Output:      "string",
+		Aliases: []string{
+			"bio",
+			"short bio",
+			"mini bio",
+			"one line bio",
+			"profile bio",
+			"user bio",
+			"author bio",
+			"about",
+			"about me",
+			"profile summary",
+			"personal summary",
+			"blurb",
+			"elevator pitch",
+		},
+		Keywords: []string{
+			"profile", "summary", "tagline", "intro",
+			"overview", "description", "story", "background",
+			"career", "job", "role", "hobby", "personal", "person",
+			"one-liner", "author", "user",
+		},
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return f.Bio(), nil },
+	})
+
 	// email
 	AddFuncLookup("email", Info{
 		Display:     "Email",
@@ -613,5 +720,4 @@ func addPersonLookup() {
 			return teams(f, people, teamsArray), nil
 		},
 	})
-
 }
