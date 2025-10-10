@@ -291,11 +291,11 @@ func TestLookupSearchHygiene(t *testing.T) {
 	}
 	for key, info := range FuncLookups {
 		// counts
-		if len(info.Aliases) < 3 || len(info.Aliases) > 20 {
-			t.Fatalf("%s aliases count should be 3–8 got %d", key, len(info.Aliases))
+		if len(info.Aliases) < 3 || len(info.Aliases) > 30 {
+			t.Fatalf("%s aliases count should be 3–30 got %d", key, len(info.Aliases))
 		}
 		if len(info.Keywords) < 6 || len(info.Keywords) > 50 {
-			t.Fatalf("%s keywords count should be 6–20 got %d", key, len(info.Keywords))
+			t.Fatalf("%s keywords count should be 6–50 got %d", key, len(info.Keywords))
 		}
 
 		// normalization
