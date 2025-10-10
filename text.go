@@ -7,18 +7,6 @@ import (
 	"unicode"
 )
 
-type paragrapOptions struct {
-	paragraphCount int
-	sentenceCount  int
-	wordCount      int
-	separator      string
-}
-
-const bytesPerWordEstimation = 6
-
-type sentenceGenerator func(f *Faker, wordCount int) string
-type wordGenerator func(f *Faker) string
-
 // Comment will generate a random statement or remark expressing an opinion, observation, or reaction
 func Comment() string { return comment(GlobalFaker) }
 
@@ -195,58 +183,6 @@ func paragraph(f *Faker) string {
 	return strings.Join(sentences, " ")
 }
 
-func sentenceGen(f *Faker, wordCount int, word wordGenerator) string {
-	if wordCount <= 0 {
-		return ""
-	}
-
-	wordSeparator := ' '
-	sentence := bytes.Buffer{}
-	sentence.Grow(wordCount * bytesPerWordEstimation)
-
-	for i := 0; i < wordCount; i++ {
-		word := word(f)
-		if i == 0 {
-			runes := []rune(word)
-			runes[0] = unicode.ToTitle(runes[0])
-			word = string(runes)
-		}
-		sentence.WriteString(word)
-		if i < wordCount-1 {
-			sentence.WriteRune(wordSeparator)
-		}
-	}
-	sentence.WriteRune('.')
-	return sentence.String()
-}
-
-func paragraphGen(f *Faker, opts paragrapOptions, sentecer sentenceGenerator) string {
-	if opts.paragraphCount <= 0 || opts.sentenceCount <= 0 || opts.wordCount <= 0 {
-		return ""
-	}
-
-	//to avoid making Go 1.10 dependency, we cannot use strings.Builder
-	paragraphs := bytes.Buffer{}
-	//we presume the length
-	paragraphs.Grow(opts.paragraphCount * opts.sentenceCount * opts.wordCount * bytesPerWordEstimation)
-	wordSeparator := ' '
-
-	for i := 0; i < opts.paragraphCount; i++ {
-		for e := 0; e < opts.sentenceCount; e++ {
-			paragraphs.WriteString(sentecer(f, opts.wordCount))
-			if e < opts.sentenceCount-1 {
-				paragraphs.WriteRune(wordSeparator)
-			}
-		}
-
-		if i < opts.paragraphCount-1 {
-			paragraphs.WriteString(opts.separator)
-		}
-	}
-
-	return paragraphs.String()
-}
-
 // Question will return a random question
 func Question() string {
 	return question(GlobalFaker)
@@ -294,7 +230,27 @@ func (f *Faker) LoremIpsumSentence(wordCount int) string {
 }
 
 func loremIpsumSentence(f *Faker, wordCount int) string {
-	return sentenceGen(f, wordCount, loremIpsumWord)
+	if wordCount <= 0 {
+		return ""
+	}
+
+	sentence := bytes.Buffer{}
+	sentence.Grow(wordCount * 6) // estimate 6 bytes per word
+
+	for i := 0; i < wordCount; i++ {
+		word := loremIpsumWord(f)
+		if i == 0 {
+			runes := []rune(word)
+			runes[0] = unicode.ToTitle(runes[0])
+			word = string(runes)
+		}
+		sentence.WriteString(word)
+		if i < wordCount-1 {
+			sentence.WriteRune(' ')
+		}
+	}
+	sentence.WriteRune('.')
+	return sentence.String()
 }
 
 // LoremIpsumParagraph will generate a random paragraphGenerator
@@ -308,7 +264,27 @@ func (f *Faker) LoremIpsumParagraph(paragraphCount int, sentenceCount int, wordC
 }
 
 func loremIpsumParagraph(f *Faker, paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return paragraphGen(f, paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, loremIpsumSentence)
+	if paragraphCount <= 0 || sentenceCount <= 0 || wordCount <= 0 {
+		return ""
+	}
+
+	paragraphs := bytes.Buffer{}
+	paragraphs.Grow(paragraphCount * sentenceCount * wordCount * 6) // estimate 6 bytes per word
+
+	for i := 0; i < paragraphCount; i++ {
+		for e := 0; e < sentenceCount; e++ {
+			paragraphs.WriteString(loremIpsumSentence(f, wordCount))
+			if e < sentenceCount-1 {
+				paragraphs.WriteRune(' ')
+			}
+		}
+
+		if i < paragraphCount-1 {
+			paragraphs.WriteString(separator)
+		}
+	}
+
+	return paragraphs.String()
 }
 
 func addTextLookup() {
