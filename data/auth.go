@@ -1,0 +1,35 @@
+package data
+
+// Aut
+var Auth = map[string][]string{
+	"username": {
+		"{firstname}{number:0,9999}",
+		"{lastname}{number:0,9999}",
+		"{firstname}.{lastname}",
+		"{firstname}_{lastname}",
+		"{adjective}{animal}",
+		"{color}{animal}",
+		"{firstname}{lastname}",
+		"the{lastname}",
+		"mr{lastname}",
+		"ms{lastname}",
+		"dr{lastname}",
+		"{petname}{number:0,999}",
+		"{noun}{number:0,999}",
+		"{adjective}_{noun}",
+		"{color}_{noun}",
+		"{animal}_{number:10,99}",
+		"{animal}.{number:10,99}",
+		"{gamertag}",
+		"{gamertag}{number:0,99}",
+		"{firstname}{adjective}",
+		"{adjective}{firstname}",
+		"{firstname}{color}",
+		"{city}{number:0,99}",
+		"{programminglanguage}{number:0,999}",
+		"{jobtitle}{number:0,999}",
+		"{firstname}###",
+		"{lastname}_???",
+		"{firstname}.{number:10,99}",
+	},
+}
