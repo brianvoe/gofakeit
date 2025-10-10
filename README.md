@@ -624,6 +624,7 @@ ImagePng(width int, height int) []byte
 
 ```go
 URL() string
+UrlSlug(words int) string
 DomainName() string
 DomainSuffix() string
 IPv4Address() string

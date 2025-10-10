@@ -53,6 +53,25 @@ func url(f *Faker) string {
 	return url
 }
 
+// UrlSlug will generate a random url slug with the specified number of words
+func UrlSlug(words int) string { return urlSlug(GlobalFaker, words) }
+
+// UrlSlug will generate a random url slug with the specified number of words
+func (f *Faker) UrlSlug(words int) string { return urlSlug(f, words) }
+
+func urlSlug(f *Faker, words int) string {
+	if words <= 0 {
+		words = 3
+	}
+
+	slug := make([]string, words)
+	for i := 0; i < words; i++ {
+		slug[i] = strings.ToLower(word(f))
+	}
+
+	return strings.Join(slug, "-")
+}
+
 // HTTPMethod will generate a random http method
 func HTTPMethod() string { return httpMethod(GlobalFaker) }
 
@@ -272,6 +291,30 @@ func addInternetLookup() {
 		Keywords:    []string{"url", "web", "address", "http", "https", "www", "protocol", "scheme", "path", "domain", "location", "resource"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return url(f), nil
+		},
+	})
+
+	AddFuncLookup("urlslug", Info{
+		Display:     "URL Slug",
+		Category:    "internet",
+		Description: "Simplified and URL-friendly version of a string, typically used in web addresses",
+		Example:     "bathe-regularly-quiver",
+		Output:      "string",
+		Aliases:     []string{"slug", "url path", "permalink", "friendly url"},
+		Keywords:    []string{"url", "path", "hyphen", "dash", "seo", "friendly", "web", "address", "kebab", "separator"},
+		Params: []Param{
+			{Field: "words", Display: "Words", Type: "int", Default: "3", Description: "Number of words in the slug"},
+		},
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			words, err := info.GetInt(m, "words")
+			if err != nil {
+				return nil, err
+			}
+			if words <= 0 {
+				words = 3
+			}
+
+			return urlSlug(f, words), nil
 		},
 	})
 

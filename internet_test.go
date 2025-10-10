@@ -60,6 +60,66 @@ func ExampleFaker_URL() {
 	// Output: http://www.directinnovative.biz/infrastructures
 }
 
+func ExampleUrlSlug() {
+	Seed(11)
+	fmt.Println(UrlSlug(3))
+
+	// Output: bathe-regularly-quiver
+}
+
+func ExampleFaker_UrlSlug() {
+	f := New(11)
+	fmt.Println(f.UrlSlug(3))
+
+	// Output: bathe-regularly-quiver
+}
+
+func TestUrlSlug(t *testing.T) {
+	Seed(11)
+
+	// Test with default (3 words)
+	slug := UrlSlug(3)
+	parts := strings.Split(slug, "-")
+	if len(parts) != 3 {
+		t.Errorf("Expected 3 words in slug, got %d: %s", len(parts), slug)
+	}
+
+	// Test with different word counts
+	for _, count := range []int{1, 2, 5, 10} {
+		slug := UrlSlug(count)
+		parts := strings.Split(slug, "-")
+		if len(parts) != count {
+			t.Errorf("Expected %d words in slug, got %d: %s", count, len(parts), slug)
+		}
+	}
+
+	// Test with 0 or negative (should default to 3)
+	for _, count := range []int{0, -1, -10} {
+		slug := UrlSlug(count)
+		parts := strings.Split(slug, "-")
+		if len(parts) != 3 {
+			t.Errorf("Expected default 3 words for count %d, got %d: %s", count, len(parts), slug)
+		}
+	}
+
+	// Test that slug is lowercase and has no spaces
+	for i := 0; i < 100; i++ {
+		slug := UrlSlug(3)
+		if strings.Contains(slug, " ") {
+			t.Errorf("Slug should not contain spaces: %s", slug)
+		}
+		if slug != strings.ToLower(slug) {
+			t.Errorf("Slug should be lowercase: %s", slug)
+		}
+	}
+}
+
+func BenchmarkUrlSlug(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		UrlSlug(3)
+	}
+}
+
 func TestURLValid(t *testing.T) {
 	for i := 0; i < 10000; i++ {
 		url := URL()
