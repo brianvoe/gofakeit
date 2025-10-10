@@ -244,7 +244,12 @@ func (f *Faker) Question() string {
 }
 
 func question(f *Faker) string {
-	return strings.Replace(hipsterSentence(f, number(f, 3, 10)), ".", "?", 1)
+	question, err := generate(f, getRandValue(f, []string{"text", "question"}))
+	if err != nil {
+		return ""
+	}
+
+	return question + "?"
 }
 
 // Quote will return a random quote from a random person
@@ -254,7 +259,12 @@ func Quote() string { return quote(GlobalFaker) }
 func (f *Faker) Quote() string { return quote(f) }
 
 func quote(f *Faker) string {
-	return `"` + hipsterSentence(f, number(f, 3, 10)) + `" - ` + firstName(f) + " " + lastName(f)
+	quote, err := generate(f, getRandValue(f, []string{"text", "quote"}))
+	if err != nil {
+		return ""
+	}
+
+	return quote
 }
 
 // LoremIpsumSentence will generate a random sentence
