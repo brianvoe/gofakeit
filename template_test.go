@@ -93,7 +93,7 @@ func TestTemplate_misc(t *testing.T) {
 		"Password":            "{{Password true false false false false 32}}",
 		"ToUpper":             "{{ToUpper `this was lower`}}",
 		"ToLower":             "{{ToLower `THIS WAS UPPER`}}",
-		"Sentence":            "{{Sentence 3}}",
+		"Sentence":            "{{Sentence}}",
 		"LoremIpsumSentence":  "{{LoremIpsumSentence 3}}",
 		"Image":               "{{Image 1 1}}",
 		"ImageJpeg":           "{{ImageJpeg 1 1}}",
@@ -105,7 +105,7 @@ func TestTemplate_misc(t *testing.T) {
 		"Regex":               "{{Regex `[abcdef]{5}` }}",
 		"DigitN":              "{{DigitN 10 }}",
 		"LoremIpsumParagraph": "{{LoremIpsumParagraph 3  5  12 `\n` }}",
-		"Paragraph":           "{{Paragraph 3  5  12 `\n` }}",
+		"Paragraph":           "{{Paragraph}}",
 		"Lexify":              "{{Lexify `hello`}}",
 		"LogLevel":            "{{LogLevel `apache`}}",
 		"CreditCardNumber":    "{{CreditCardNumber nil}}",
@@ -236,22 +236,22 @@ func ExampleEmailText() {
 	//
 	// I trust this email finds you well. Sending good vibes your way.
 	//
-	// Galaxy they how shall cut lastly that someone additionally ambulance. Could a tennis occur why depend heels out can fire. Anyone sometimes that leap whom troop now scarcely since dance. Huh somebody constantly Italian outfit certain weekly murder who cackle. Because her break write nobody could according whoa bevy we.
+	// Warm starts beat cold company. Launch the person midweek for clarity. Automate problem recovery victoriously. Launch the life midweek for clarity.
 	//
-	// Them summation to oxygen Greek how previously a what answer. Handle daily ouch upon encourage that after his every she. Wearily still he herself huge failure for yay sparse thoughtfully. Box anyway Jungian regularly world great daily recently whose Elizabethan. Outside to theirs block while French closely sit you to.
+	// Sometimes the point last never. Retire outdated life each quarter. Choose lovely defaults. Deliberately wake the part. Clear time were better than clever week.
 	//
-	// Out fight bored yours those bale Parisian host which so. Today Ecuadorian hourly decidedly his everybody this play this little. Them on recently eager usually bunch daily whose somebody them. Few tonight dishonesty spell battery less patience whose inside hair. Your answer hand tonight these she team which today Einsteinian.
+	// Warm starts beat cold child. Systematically improve the woman yearly. Protect the place under grumpy load.
 	//
-	// I'm eager to hear your feedback on it. If you have a moment, please feel free to check out the project on GitLab
+	// I'm curious to know what you think about it. If you have a moment, please feel free to check out the project on GitLab
 	//
-	// Your insights would be invaluable. Your thoughts matter to me.
+	// Feel free to share your opinions with me. Looking forward to your feedback!
 	//
-	// I appreciate your attention to this matter. Your feedback is greatly appreciated.
+	// I appreciate your attention to this matter. Wishing you a wonderful day!
 	//
-	// Sincerely
-	// Hyman Rogahn
-	// mervingottlieb@goldner.com
-	// 1-275-132-4165
+	// Warm regards
+	// Landen Doyle
+	// lavernerobel@bailey.io
+	// 1-875-720-1747
 }
 
 func ExampleFaker_EmailText() {
@@ -272,22 +272,22 @@ func ExampleFaker_EmailText() {
 	//
 	// I trust this email finds you well. Sending good vibes your way.
 	//
-	// Galaxy they how shall cut lastly that someone additionally ambulance. Could a tennis occur why depend heels out can fire. Anyone sometimes that leap whom troop now scarcely since dance. Huh somebody constantly Italian outfit certain weekly murder who cackle. Because her break write nobody could according whoa bevy we.
+	// Warm starts beat cold company. Launch the person midweek for clarity. Automate problem recovery victoriously. Launch the life midweek for clarity.
 	//
-	// Them summation to oxygen Greek how previously a what answer. Handle daily ouch upon encourage that after his every she. Wearily still he herself huge failure for yay sparse thoughtfully. Box anyway Jungian regularly world great daily recently whose Elizabethan. Outside to theirs block while French closely sit you to.
+	// Sometimes the point last never. Retire outdated life each quarter. Choose lovely defaults. Deliberately wake the part. Clear time were better than clever week.
 	//
-	// Out fight bored yours those bale Parisian host which so. Today Ecuadorian hourly decidedly his everybody this play this little. Them on recently eager usually bunch daily whose somebody them. Few tonight dishonesty spell battery less patience whose inside hair. Your answer hand tonight these she team which today Einsteinian.
+	// Warm starts beat cold child. Systematically improve the woman yearly. Protect the place under grumpy load.
 	//
-	// I'm eager to hear your feedback on it. If you have a moment, please feel free to check out the project on GitLab
+	// I'm curious to know what you think about it. If you have a moment, please feel free to check out the project on GitLab
 	//
-	// Your insights would be invaluable. Your thoughts matter to me.
+	// Feel free to share your opinions with me. Looking forward to your feedback!
 	//
-	// I appreciate your attention to this matter. Your feedback is greatly appreciated.
+	// I appreciate your attention to this matter. Wishing you a wonderful day!
 	//
-	// Sincerely
-	// Hyman Rogahn
-	// mervingottlieb@goldner.com
-	// 1-275-132-4165
+	// Warm regards
+	// Landen Doyle
+	// lavernerobel@bailey.io
+	// 1-875-720-1747
 }
 
 // TemplateMarkdown examples and tests
@@ -305,9 +305,9 @@ func ExampleMarkdown() {
 	//
 	// *Author: Tomasa Waters*
 	//
-	// Cut lastly that someone additionally ambulance could. A tennis occur why depend heels out. Can fire anyone sometimes that leap whom. Troop now scarcely since dance huh somebody. Constantly Italian outfit certain weekly murder who.
+	// He open safely to stabilize the world. Automate problem recovery gracefully. Choose lovely defaults. Deliberately wake the part. Clear time were better than clever week.
 	//
-	// Cackle because her break write nobody could. According whoa bevy we them summation to. Oxygen Greek how previously a what answer. Handle daily ouch upon encourage that after. His every she wearily still he herself.
+	// Warm starts beat cold child. Systematically improve the woman yearly. Protect the place under grumpy load.
 	//
 	// ## Table of Contents
 	// - [Installation](#installation)
@@ -326,7 +326,7 @@ func ExampleMarkdown() {
 	// '''
 	//
 	// ## License
-	// MIT
+	// BSD-3-Clause
 }
 
 func ExampleFaker_Markdown() {
@@ -343,9 +343,9 @@ func ExampleFaker_Markdown() {
 	//
 	// *Author: Tomasa Waters*
 	//
-	// Cut lastly that someone additionally ambulance could. A tennis occur why depend heels out. Can fire anyone sometimes that leap whom. Troop now scarcely since dance huh somebody. Constantly Italian outfit certain weekly murder who.
+	// He open safely to stabilize the world. Automate problem recovery gracefully. Choose lovely defaults. Deliberately wake the part. Clear time were better than clever week.
 	//
-	// Cackle because her break write nobody could. According whoa bevy we them summation to. Oxygen Greek how previously a what answer. Handle daily ouch upon encourage that after. His every she wearily still he herself.
+	// Warm starts beat cold child. Systematically improve the woman yearly. Protect the place under grumpy load.
 	//
 	// ## Table of Contents
 	// - [Installation](#installation)
@@ -364,7 +364,7 @@ func ExampleFaker_Markdown() {
 	// '''
 	//
 	// ## License
-	// MIT
+	// BSD-3-Clause
 }
 
 func BenchmarkTemplate(b *testing.B) {

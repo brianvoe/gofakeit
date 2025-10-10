@@ -83,9 +83,10 @@ func phraseNoun(f *Faker) string {
 
 	// Add determiner from weighted list
 	prob, _ := weighted(f, []any{1, 2, 3}, []float32{2, 1.5, 1})
-	if prob == 1 {
+	switch prob {
+	case 1:
 		str = getArticle(str) + " " + str
-	} else if prob == 2 {
+	case 2:
 		str = "the " + str
 	}
 
@@ -158,27 +159,40 @@ func phrasePreposition(f *Faker) string {
 }
 
 // Sentence will generate a random sentence
-func Sentence(wordCount int) string { return sentence(GlobalFaker, wordCount) }
+func Sentence() string { return sentence(GlobalFaker) }
 
 // Sentence will generate a random sentence
-func (f *Faker) Sentence(wordCount int) string { return sentence(f, wordCount) }
+func (f *Faker) Sentence() string { return sentence(f) }
 
-func sentence(f *Faker, wordCount int) string {
-	return sentenceGen(f, wordCount, word)
+func sentence(f *Faker) string {
+	sentence, err := generate(f, getRandValue(f, []string{"text", "sentence"}))
+	if err != nil {
+		return ""
+	}
+
+	// Capitalize the first letter
+	return strings.ToUpper(sentence[:1]) + sentence[1:]
 }
 
-// Paragraph will generate a random paragraphGenerator
-func Paragraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return paragraph(GlobalFaker, paragraphCount, sentenceCount, wordCount, separator)
+// Paragraph will generate a random paragraph
+func Paragraph() string {
+	return paragraph(GlobalFaker)
 }
 
-// Paragraph will generate a random paragraphGenerator
-func (f *Faker) Paragraph(paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return paragraph(f, paragraphCount, sentenceCount, wordCount, separator)
+// Paragraph will generate a random paragraph
+func (f *Faker) Paragraph() string {
+	return paragraph(f)
 }
 
-func paragraph(f *Faker, paragraphCount int, sentenceCount int, wordCount int, separator string) string {
-	return paragraphGen(f, paragrapOptions{paragraphCount, sentenceCount, wordCount, separator}, sentence)
+func paragraph(f *Faker) string {
+	// generate 2-5 sentences
+	sentenceCount := f.Number(2, 5)
+	sentences := make([]string, sentenceCount)
+	for i := 0; i < sentenceCount; i++ {
+		sentences[i] = sentence(f)
+	}
+
+	return strings.Join(sentences, " ")
 }
 
 func sentenceGen(f *Faker, wordCount int, word wordGenerator) string {
@@ -249,7 +263,8 @@ func question(f *Faker) string {
 		return ""
 	}
 
-	return question + "?"
+	// Capitalize the first letter and add a question mark
+	return strings.ToUpper(question[:1]) + question[1:] + "?"
 }
 
 // Quote will return a random quote from a random person
@@ -264,7 +279,8 @@ func quote(f *Faker) string {
 		return ""
 	}
 
-	return quote
+	// Capitalize the first letter after the opening quote
+	return quote[:1] + strings.ToUpper(quote[1:2]) + quote[2:]
 }
 
 // LoremIpsumSentence will generate a random sentence
@@ -300,7 +316,7 @@ func addTextLookup() {
 		Display:     "Comment",
 		Category:    "text",
 		Description: "Statement or remark expressing an opinion, observation, or reaction",
-		Example:     "wow",
+		Example:     "add some a little bit team",
 		Output:      "string",
 		Aliases: []string{
 			"verbal statement", "expressed thought", "spoken remark", "communication element", "casual note",
@@ -382,23 +398,12 @@ func addTextLookup() {
 		Display:     "Sentence",
 		Category:    "text",
 		Description: "Set of words expressing a statement, question, exclamation, or command",
-		Example:     "Interpret context record river mind.",
+		Example:     "Guide person with kind affordances.",
 		Output:      "string",
 		Aliases:     []string{"complete thought", "grammatical unit", "word group", "linguistic element"},
 		Keywords:    []string{"sentence", "complete", "thought", "grammatical", "unit", "word", "group", "expression", "clause", "utterance"},
-		Params: []Param{
-			{Field: "wordcount", Display: "Word Count", Type: "int", Default: "5", Description: "Number of words in a sentence"},
-		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			wordCount, err := info.GetInt(m, "wordcount")
-			if err != nil {
-				return nil, err
-			}
-			if wordCount <= 0 || wordCount > 50 {
-				return nil, errors.New("invalid word count, must be greater than 0, less than 50")
-			}
-
-			return sentence(f, wordCount), nil
+			return sentence(f), nil
 		},
 	})
 
@@ -406,47 +411,12 @@ func addTextLookup() {
 		Display:     "Paragraph",
 		Category:    "text",
 		Description: "Distinct section of writing covering a single theme, composed of multiple sentences",
-		Example:     "Interpret context record river mind press self should compare property outcome divide. Combine approach sustain consult discover explanation direct address church husband seek army. Begin own act welfare replace press suspect stay link place manchester specialist. Arrive price satisfy sign force application hair train provide basis right pay. Close mark teacher strengthen information attempt head touch aim iron tv take.",
+		Example:     "Protect the place under grumpy load. Decompose work into smaller group. Ruthlessly remove dead work.",
 		Output:      "string",
 		Aliases:     []string{"text block", "writing section", "thematic unit", "content block"},
 		Keywords:    []string{"paragraph", "text", "block", "writing", "section", "theme", "sentences", "composition", "distinct", "passage", "content"},
-		Params: []Param{
-			{Field: "paragraphcount", Display: "Paragraph Count", Type: "int", Default: "2", Description: "Number of paragraphs"},
-			{Field: "sentencecount", Display: "Sentence Count", Type: "int", Default: "2", Description: "Number of sentences in a paragraph"},
-			{Field: "wordcount", Display: "Word Count", Type: "int", Default: "5", Description: "Number of words in a sentence"},
-			{Field: "paragraphseparator", Display: "Paragraph Separator", Type: "string", Default: "<br />", Description: "String value to add between paragraphs"},
-		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-			paragraphCount, err := info.GetInt(m, "paragraphcount")
-			if err != nil {
-				return nil, err
-			}
-			if paragraphCount <= 0 || paragraphCount > 20 {
-				return nil, errors.New("invalid paragraph count, must be greater than 0, less than 20")
-			}
-
-			sentenceCount, err := info.GetInt(m, "sentencecount")
-			if err != nil {
-				return nil, err
-			}
-			if sentenceCount <= 0 || sentenceCount > 20 {
-				return nil, errors.New("invalid sentence count, must be greater than 0, less than 20")
-			}
-
-			wordCount, err := info.GetInt(m, "wordcount")
-			if err != nil {
-				return nil, err
-			}
-			if wordCount <= 0 || wordCount > 50 {
-				return nil, errors.New("invalid word count, must be greater than 0, less than 50")
-			}
-
-			paragraphSeparator, err := info.GetString(m, "paragraphseparator")
-			if err != nil {
-				return nil, err
-			}
-
-			return paragraph(f, paragraphCount, sentenceCount, wordCount, paragraphSeparator), nil
+			return paragraph(f), nil
 		},
 	})
 
@@ -476,7 +446,7 @@ func addTextLookup() {
 		Display:     "Quote",
 		Category:    "text",
 		Description: "Direct repetition of someone else's words",
-		Example:     `"Roof chia echo." - Lura Lockman`,
+		Example:     `"Does orange help the tissue or distract it"`,
 		Output:      "string",
 		Aliases: []string{
 			"direct speech",

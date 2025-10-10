@@ -54,7 +54,7 @@ func ExampleGenerate() {
 
 	genStr, _ := Generate("{firstname} {lastname} {email} #?#?#?")
 	fmt.Println(genStr)
-	genStr, _ = Generate("{sentence:3}")
+	genStr, _ = Generate("{sentence}")
 	fmt.Println(genStr)
 	genStr, _ = Generate("{shuffleints:[1,2,3]}")
 	fmt.Println(genStr)
@@ -68,12 +68,12 @@ func ExampleGenerate() {
 	fmt.Println(genStr)
 
 	// Output: Mollie Legros vanceschroeder@turner.com 8K8b1M
-	// Something am elsewhere.
-	// [3 2 1]
-	// 3
-	// 3
-	// 18
-	// [key:value a:b int:string 1:2]
+	// Automate problem recovery victoriously.
+	// [2 3 1]
+	// 2
+	// 4
+	// 16
+	// [int:string key:value a:b 1:2]
 }
 
 func ExampleFaker_Generate() {
@@ -81,7 +81,7 @@ func ExampleFaker_Generate() {
 
 	genStr, _ := f.Generate("{firstname} {lastname} {email} #?#?#?")
 	fmt.Println(genStr)
-	genStr, _ = f.Generate("{sentence:3}")
+	genStr, _ = f.Generate("{sentence}")
 	fmt.Println(genStr)
 	genStr, _ = f.Generate("{shuffleints:[1,2,3]}")
 	fmt.Println(genStr)
@@ -95,12 +95,12 @@ func ExampleFaker_Generate() {
 	fmt.Println(genStr)
 
 	// Output: Mollie Legros vanceschroeder@turner.com 8K8b1M
-	// Something am elsewhere.
-	// [3 2 1]
-	// 3
-	// 3
-	// 18
-	// [key:value a:b int:string 1:2]
+	// Automate problem recovery victoriously.
+	// [2 3 1]
+	// 2
+	// 4
+	// 16
+	// [int:string key:value a:b 1:2]
 }
 
 func BenchmarkGenerate(b *testing.B) {

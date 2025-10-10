@@ -112,7 +112,7 @@ func TestConcurrency(t *testing.T) {
 		wg.Add(1)
 		go func() {
 			setupComplete.Wait()
-			Paragraph(1, 5, 20, " ")
+			Paragraph()
 			wg.Done()
 		}()
 	}
