@@ -22,6 +22,9 @@ func hipsterSentence(f *Faker) string {
 		return ""
 	}
 
+	// Capitalize the first letter
+	sentence = strings.ToUpper(sentence[:1]) + sentence[1:]
+
 	return sentence
 }
 
@@ -64,7 +67,7 @@ func addHipsterLookup() {
 		Display:     "Hipster Sentence",
 		Category:    "hipster",
 		Description: "Sentence showcasing the use of trendy and unconventional vocabulary associated with hipster culture",
-		Example:     "Microdosing roof chia echo pickled.",
+		Example:     "Soul loops with you probably haven't heard of them undertones.",
 		Output:      "string",
 		Aliases:     []string{"sentence", "trendy", "unconventional", "vocabulary", "culture", "modern"},
 		Keywords:    []string{"hipster", "showcasing", "microdosing", "roof", "chia", "echo", "pickled", "artisanal"},
@@ -77,14 +80,10 @@ func addHipsterLookup() {
 		Display:     "Hipster Paragraph",
 		Category:    "hipster",
 		Description: "Paragraph showcasing the use of trendy and unconventional vocabulary associated with hipster culture",
-		Example: `Microdosing roof chia echo pickled meditation cold-pressed raw denim fingerstache normcore sriracha pork belly. Wolf try-hard pop-up blog tilde hashtag health butcher waistcoat paleo portland vinegar. Microdosing sartorial blue bottle slow-carb freegan five dollar toast you probably haven't heard of them asymmetrical chia farm-to-table narwhal banjo. Gluten-free blog authentic literally synth vinyl meh ethical health fixie banh mi Yuccie. Try-hard drinking squid seitan cray VHS echo chillwave hammock kombucha food truck sustainable.
-
-Pug bushwick hella tote bag cliche direct trade waistcoat yr waistcoat knausgaard pour-over master. Pitchfork jean shorts franzen flexitarian distillery hella meggings austin knausgaard crucifix wolf heirloom. Crucifix food truck you probably haven't heard of them trust fund fixie gentrify pitchfork stumptown mlkshk umami chambray blue bottle. 3 wolf moon swag +1 biodiesel knausgaard semiotics taxidermy meh artisan hoodie +1 blue bottle. Fashion axe forage mixtape Thundercats pork belly whatever 90's beard selfies chambray cred mlkshk.
-
-Shabby chic typewriter VHS readymade lo-fi bitters PBR&B gentrify lomo raw denim freegan put a bird on it. Raw denim cliche dreamcatcher pug fixie park trust fund migas fingerstache sriracha +1 mustache. Tilde shoreditch kickstarter franzen dreamcatcher green juice mustache neutra polaroid stumptown organic schlitz. Flexitarian ramps chicharrones kogi lo-fi mustache tilde forage street church-key williamsburg taxidermy. Chia mustache plaid mumblecore squid slow-carb disrupt Thundercats goth shoreditch master direct trade.`,
-		Output:   "string",
-		Aliases:  []string{"paragraph", "trendy", "unconventional", "vocabulary", "culture", "modern"},
-		Keywords: []string{"hipster", "showcasing", "meditation", "cold-pressed", "raw", "denim", "fingerstache", "normcore", "sriracha"},
+		Example:     "Single-origin austin, double why. Tag it Yuccie, keep it any. Ironically pug, sincerely several. Roof > helvetica, discuss. From France to Jersey, chasing ennui.",
+		Output:      "string",
+		Aliases:     []string{"paragraph", "trendy", "unconventional", "vocabulary", "culture", "modern"},
+		Keywords:    []string{"hipster", "showcasing", "meditation", "cold-pressed", "raw", "denim", "fingerstache", "normcore", "sriracha"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return hipsterParagraph(f), nil
 		},
