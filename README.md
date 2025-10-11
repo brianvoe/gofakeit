@@ -757,10 +757,29 @@ Bird() string
 
 ```go
 Emoji() string
-EmojiDescription() string
 EmojiCategory() string
 EmojiAlias() string
 EmojiTag() string
+EmojiFlag() string
+EmojiAnimal() string
+EmojiFood() string
+EmojiPlant() string
+EmojiMusic() string
+EmojiVehicle() string
+EmojiSport() string
+EmojiFace() string
+EmojiHand() string
+EmojiClothing() string
+EmojiLandmark() string
+EmojiElectronics() string
+EmojiGame() string
+EmojiTools() string
+EmojiWeather() string
+EmojiJob() string
+EmojiPerson() string
+EmojiGesture() string
+EmojiCostume() string
+EmojiSentence() string
 ```
 
 ### Language
