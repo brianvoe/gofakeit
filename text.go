@@ -147,10 +147,12 @@ func phrasePreposition(f *Faker) string {
 }
 
 // Sentence will generate a random sentence
-func Sentence() string { return sentence(GlobalFaker) }
+// Deprecated: The wordCount parameter is ignored and will be removed in the next major release.
+func Sentence(wordCount ...int) string { return sentence(GlobalFaker) }
 
 // Sentence will generate a random sentence
-func (f *Faker) Sentence() string { return sentence(f) }
+// Deprecated: The wordCount parameter is ignored and will be removed in the next major release.
+func (f *Faker) Sentence(wordCount ...int) string { return sentence(f) }
 
 func sentence(f *Faker) string {
 	sentence, err := generate(f, getRandValue(f, []string{"text", "sentence"}))
@@ -163,12 +165,14 @@ func sentence(f *Faker) string {
 }
 
 // Paragraph will generate a random paragraph
-func Paragraph() string {
+// Deprecated: The parameters are ignored and will be removed in the next major release.
+func Paragraph(paragraphCount ...any) string {
 	return paragraph(GlobalFaker)
 }
 
 // Paragraph will generate a random paragraph
-func (f *Faker) Paragraph() string {
+// Deprecated: The parameters are ignored and will be removed in the next major release.
+func (f *Faker) Paragraph(paragraphCount ...any) string {
 	return paragraph(f)
 }
 
