@@ -788,7 +788,6 @@ EmojiSentence() string
 Language() string
 LanguageAbbreviation() string
 ProgrammingLanguage() string
-ProgrammingLanguageBest() string
 ```
 
 ### Number
@@ -886,7 +885,6 @@ ErrorGRPC() error
 ErrorHTTP() error
 ErrorHTTPClient() error
 ErrorHTTPServer() error
-ErrorInput() error
 ErrorRuntime() error
 ```
 
