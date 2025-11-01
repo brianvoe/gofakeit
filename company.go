@@ -247,7 +247,9 @@ func addCompanyLookup() {
 			"employment role",
 			"work role",
 			"career role",
+			"occupation",
 			"occupation role",
+			"occupation job",
 		},
 		Keywords: []string{
 			"job", "role", "position", "employment", "work",

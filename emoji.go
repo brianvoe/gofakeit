@@ -511,7 +511,7 @@ func addEmojiLookup() {
 		Example:     "🧑‍💻",
 		Output:      "string",
 		Aliases:     []string{"job emoji", "occupation emoji", "career emoji", "profession emoji"},
-		Keywords:    []string{"emoji", "job", "occupation", "role", "profession", "worker", "person"},
+		Keywords:    []string{"emoji", "job", "role", "profession", "worker", "person"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return emojiJob(f), nil
 		},
