@@ -253,7 +253,7 @@ func addCompanyLookup() {
 		},
 		Keywords: []string{
 			"job", "role", "position", "employment", "work",
-			"career", "occupation", "profession", "title",
+			"career", "profession", "title",
 			"responsibilities", "tasks", "duties",
 			"staff", "employee", "hiring", "positioning",
 		},
