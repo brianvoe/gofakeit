@@ -232,7 +232,7 @@ func addCompanyLookup() {
 	AddFuncLookup("job", Info{
 		Display:     "Job",
 		Category:    "company",
-		Description: "Position or role in employment, involving specific tasks and responsibilities",
+		Description: "Occupation or role in employment, involving specific tasks and responsibilities",
 		Example: `{
 	"company": "ClearHealthCosts",
 	"title": "Agent",
