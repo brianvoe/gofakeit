@@ -27,13 +27,11 @@ func New(seed uint64) *Faker {
 	// If seed is 0, use a random crypto seed
 	if seed == 0 {
 		faker := NewFaker(source.NewCrypto(), false)
-		seed = faker.Uint64()
+
+		return NewFaker(rand.NewPCG(faker.Uint64(), faker.Uint64()), true)
 	}
 
-	return &Faker{
-		Rand:   rand.NewPCG(seed, seed),
-		Locked: true,
-	}
+	return NewFaker(rand.NewPCG(seed, seed), true)
 }
 
 // NewFaker takes in a rand.Source and thread lock state and returns a new Faker struct
