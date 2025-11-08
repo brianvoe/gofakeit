@@ -81,6 +81,7 @@ func initLookup() {
 	addHackerLookup()
 	addHipsterLookup()
 	addHtmlLookup()
+	addIDLookup()
 	addImageLookup()
 	addInternetLookup()
 	addLanguagesLookup()

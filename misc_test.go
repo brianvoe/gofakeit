@@ -29,42 +29,6 @@ func BenchmarkBool(b *testing.B) {
 	}
 }
 
-func TestUUID(t *testing.T) {
-	id := UUID()
-
-	if len(id) != 36 {
-		t.Error(id)
-		t.Error("unique length does not equal requested length")
-	}
-
-	// Checking for race conditions, need to run --race
-	for i := 0; i < 10000; i++ {
-		go func() {
-			_ = UUID()
-		}()
-	}
-}
-
-func ExampleUUID() {
-	Seed(11)
-	fmt.Println(UUID())
-
-	// Output: b412b5fb-33a4-498e-9503-21c6b7e01dcf
-}
-
-func ExampleFaker_UUID() {
-	f := New(11)
-	fmt.Println(f.UUID())
-
-	// Output: b412b5fb-33a4-498e-9503-21c6b7e01dcf
-}
-
-func BenchmarkUUID(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		UUID()
-	}
-}
-
 func TestShuffleAnySlice(t *testing.T) {
 	ShuffleAnySlice(nil)           // Should do nothing
 	ShuffleAnySlice("b")           // Should do nothing
