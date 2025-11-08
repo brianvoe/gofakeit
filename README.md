@@ -390,6 +390,13 @@ EmailText(co *EmailOptions) (string, error)
 FixedWidth(co *FixedWidthOptions) (string, error)
 ```
 
+### ID
+
+```go
+ID() string
+UUID() string
+```
+
 ### Product
 
 ```go
@@ -595,7 +602,6 @@ Dessert() string
 
 ```go
 Bool() bool
-UUID() string
 Weighted(options []any, weights []float32) (any, error)
 FlipACoin() string
 RandomMapKey(mapI any) any
