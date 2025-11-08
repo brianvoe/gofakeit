@@ -7,13 +7,13 @@ const (
 	// readable 32 chars, (no 0, o, 1, i, l)
 	// 0 and o are removed to avoid confusion with each other
 	// 1, i, l are removed to avoid confusion with each other
+	// extra g was added to fit 32 chars
 	idAlphabetStr = "23456789abcdefgghjkmnpqrstuvwxyz"
 	hexDigits     = "0123456789abcdef"
 )
 
 var (
-	idAlphabet    = []byte(idAlphabetStr)
-	idAlphabetLen = len(idAlphabet)
+	idAlphabet = []byte(idAlphabetStr)
 )
 
 // ID will return a random unique identifier
@@ -119,7 +119,7 @@ func addIDLookup() {
 		Example:     "b4ddf623-4ea6-48e5-9292-541f028d1fdb",
 		Output:      "string",
 		Aliases:     []string{"identifier", "guid", "uuid v4", "128-bit", "uuid generator"},
-		Keywords:    []string{"uuid", "unique", "v4", "hex", "computer", "system", "identifier", "universally unique"},
+		Keywords:    []string{"unique", "v4", "hex", "computer", "system", "random"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return uuid(f), nil
 		},

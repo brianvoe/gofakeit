@@ -12,8 +12,6 @@ import (
 	"sync"
 	"sync/atomic"
 	"testing"
-
-	"github.com/brianvoe/gofakeit/v7/source"
 )
 
 func TestID(t *testing.T) {
@@ -85,27 +83,19 @@ func ExampleID() {
 	Seed(11)
 	fmt.Println(ID())
 
-	// Output: pfsfktb87rcmj6bqha2fz9
+	// Output: nfrfzjsb87qckh6bpga2
 }
 
 func ExampleFaker_ID() {
 	f := New(11)
 	fmt.Println(f.ID())
 
-	// Output: pfsfktb87rcmj6bqha2fz9
+	// Output: nfrfzjsb87qckh6bpga2
 }
 
-func BenchmarkIDPCG(b *testing.B) {
-	f := New(11)
+func BenchmarkID(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		_ = f.ID()
-	}
-}
-
-func BenchmarkIDCrypto(b *testing.B) {
-	f := NewFaker(source.NewCrypto(), false)
-	for i := 0; i < b.N; i++ {
-		_ = f.ID()
+		_ = ID()
 	}
 }
 
