@@ -246,9 +246,9 @@ func ExampleFixedWidth() {
 	fmt.Println(string(value))
 
 	// Output: Name                 Email                          Password         Age
-	// Sonny Stiedemann     mollielegros@wilderman.org     3T8l34B5F0eb     62
-	// Cody Donnelly        stevebins@robel.io             3fnu2C12baqe     9
-	// Julius Farrell       tomasaullrich@hane.name        e8W8SJGZi1Y4     77
+	// Sonny Stiedemann     mollielegros@wilderman.org     L43ypoSV1tDf     62
+	// Cody Donnelly        stevebins@robel.io             rSM78E2ncUt3     9
+	// Julius Farrell       tomasaullrich@hane.name        DUB69zQ1WZx8     77
 }
 
 func ExampleFixedWidth_default() {
@@ -262,15 +262,15 @@ func ExampleFixedWidth_default() {
 	fmt.Println(string(value))
 
 	// Output: Name                  Email                          Password
-	// Russ Donnelly         missourigrimes@rohan.io        N3xh07881HKv
-	// Cole Leannon          evanadams@marquardt.com        n2fja08VHMgw
-	// Darien Rempel         thorajerde@cormier.com         ZhMPq5v8z6iP
-	// Kaitlyn Wilderman     constancenienow@smitham.io     MkoTT5v5Mv6Q
-	// Rahul Turner          irvingbins@lemke.io            8Wy0UV016u88
-	// April Robel           beaulahmayert@kautzer.net      ykgR5bO83YSa
-	// Tomasa Waters         lelandwaelchi@beahan.net       k68Ew58F9a0V
-	// Sunny Hane            dawnbaumbach@mcdermott.biz     AbUjm6x5dwd8
-	// Hilma Jast            lavernerobel@bailey.io         MyY49BLUWKCh
+	// Russ Donnelly         missourigrimes@rohan.io        1T2elqD45w8N
+	// Cole Leannon          evanadams@marquardt.com        V444uNv59i04
+	// Darien Rempel         thorajerde@cormier.com         eiZz6ipistlz
+	// Kaitlyn Wilderman     constancenienow@smitham.io     623DddowdELF
+	// Rahul Turner          irvingbins@lemke.io            3Ydc69Z00Mcj
+	// April Robel           beaulahmayert@kautzer.net      31mk7arUdpNi
+	// Tomasa Waters         lelandwaelchi@beahan.net       t9fPK4m8497T
+	// Sunny Hane            dawnbaumbach@mcdermott.biz     x4KU3IhQ6im7
+	// Hilma Jast            lavernerobel@bailey.io         5aHeXXT8vjF5
 }
 
 func ExampleFixedWidth_noHeader() {
@@ -291,9 +291,9 @@ func ExampleFixedWidth_noHeader() {
 
 	fmt.Println(value)
 
-	// Output: Sonny Stiedemann     mollielegros@wilderman.org     3T8l34B5F0eb     62
-	// Cody Donnelly        stevebins@robel.io             3fnu2C12baqe     9
-	// Julius Farrell       tomasaullrich@hane.name        e8W8SJGZi1Y4     77
+	// Output: Sonny Stiedemann     mollielegros@wilderman.org     L43ypoSV1tDf     62
+	// Cody Donnelly        stevebins@robel.io             rSM78E2ncUt3     9
+	// Julius Farrell       tomasaullrich@hane.name        DUB69zQ1WZx8     77
 }
 
 func ExampleFaker_FixedWidth() {
@@ -315,9 +315,9 @@ func ExampleFaker_FixedWidth() {
 	fmt.Println(string(value))
 
 	// Output: Name                 Email                          Password         Age
-	// Sonny Stiedemann     mollielegros@wilderman.org     3T8l34B5F0eb     62
-	// Cody Donnelly        stevebins@robel.io             3fnu2C12baqe     9
-	// Julius Farrell       tomasaullrich@hane.name        e8W8SJGZi1Y4     77
+	// Sonny Stiedemann     mollielegros@wilderman.org     L43ypoSV1tDf     62
+	// Cody Donnelly        stevebins@robel.io             rSM78E2ncUt3     9
+	// Julius Farrell       tomasaullrich@hane.name        DUB69zQ1WZx8     77
 }
 
 func TestFixedWidthLookup(t *testing.T) {

@@ -38,55 +38,83 @@ func password(f *Faker, lower bool, upper bool, numeric bool, special bool, spac
 		num = 5
 	}
 
-	// Setup weights
-	items := make([]any, 0)
-	weights := make([]float32, 0)
-	if lower {
-		items = append(items, "l")
-		weights = append(weights, 4)
-	}
-	if upper {
-		items = append(items, "u")
-		weights = append(weights, 4)
-	}
-	if numeric {
-		items = append(items, "n")
-		weights = append(weights, 3)
-	}
-	if special {
-		items = append(items, "e")
-		weights = append(weights, 2)
-	}
-	if space {
-		items = append(items, "a")
-		weights = append(weights, 1)
+	type charGroup struct {
+		chars   string
+		weight  int
+		isSpace bool
 	}
 
+	defaultNonSpace := [...]charGroup{
+		{chars: lowerStr, weight: 4},
+		{chars: upperStr, weight: 4},
+		{chars: numericStr, weight: 3},
+	}
+	const defaultNonSpaceWeight = 4 + 4 + 3
+
+	var (
+		activeBuf      [5]charGroup
+		nonSpaceBuf    [5]charGroup
+		active         []charGroup
+		totalWeight    int
+		nonSpace       []charGroup
+		nonSpaceWeight int
+	)
+
+	appendGroup := func(enabled bool, chars string, weight int, isSpace bool) {
+		if !enabled {
+			return
+		}
+		active = append(active, charGroup{chars: chars, weight: weight, isSpace: isSpace})
+		totalWeight += weight
+		if !isSpace {
+			nonSpace = append(nonSpace, charGroup{chars: chars, weight: weight})
+			nonSpaceWeight += weight
+		}
+	}
+
+	active = activeBuf[:0]
+	nonSpace = nonSpaceBuf[:0]
+	appendGroup(lower, lowerStr, 4, false)
+	appendGroup(upper, upperStr, 4, false)
+	appendGroup(numeric, numericStr, 3, false)
+	appendGroup(special, specialSafeStr, 2, false)
+	appendGroup(space, spaceStr, 1, true)
+
 	// If no items are selected then default to lower, upper, numeric
-	if len(items) == 0 {
-		items = append(items, "l", "u", "n")
-		weights = append(weights, 4, 4, 3)
+	if len(active) == 0 {
+		active = defaultNonSpace[:]
+		totalWeight = defaultNonSpaceWeight
+		nonSpace = active
+		nonSpaceWeight = totalWeight
+	} else if nonSpaceWeight == 0 {
+		// No non-space characters were added (only spaces); fall back to defaults.
+		nonSpace = defaultNonSpace[:]
+		nonSpaceWeight = defaultNonSpaceWeight
+	}
+
+	draw := func(groups []charGroup, total int) byte {
+		if total <= 0 {
+			groups = defaultNonSpace[:]
+			total = defaultNonSpaceWeight
+		}
+
+		r := f.IntN(total)
+		for _, g := range groups {
+			if r < g.weight {
+				return g.chars[f.IntN(len(g.chars))]
+			}
+			r -= g.weight
+		}
+
+		// Should never be reached, but fall back to the last group just in case.
+		g := groups[len(groups)-1]
+		return g.chars[f.IntN(len(g.chars))]
 	}
 
 	// Create byte slice
 	b := make([]byte, num)
-
-	for i := 0; i <= num-1; i++ {
-		// Run weighted
-		weight, _ := weighted(f, items, weights)
-
-		switch weight.(string) {
-		case "l":
-			b[i] = lowerStr[f.Int64()%int64(len(lowerStr))]
-		case "u":
-			b[i] = upperStr[f.Int64()%int64(len(upperStr))]
-		case "n":
-			b[i] = numericStr[f.Int64()%int64(len(numericStr))]
-		case "e":
-			b[i] = specialSafeStr[f.Int64()%int64(len(specialSafeStr))]
-		case "a":
-			b[i] = spaceStr[f.Int64()%int64(len(spaceStr))]
-		}
+	for i := range b {
+		b[i] = draw(active, totalWeight)
 	}
 
 	// Shuffle bytes
@@ -97,10 +125,10 @@ func password(f *Faker, lower bool, upper bool, numeric bool, special bool, spac
 
 	// Replace first or last character if it's a space, and other options are available
 	if b[0] == ' ' {
-		b[0] = password(f, lower, upper, numeric, special, false, 1)[0]
+		b[0] = draw(nonSpace, nonSpaceWeight)
 	}
 	if b[len(b)-1] == ' ' {
-		b[len(b)-1] = password(f, lower, upper, numeric, special, false, 1)[0]
+		b[len(b)-1] = draw(nonSpace, nonSpaceWeight)
 	}
 
 	return string(b)

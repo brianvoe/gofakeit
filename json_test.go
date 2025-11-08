@@ -39,7 +39,7 @@ func ExampleJSON_object() {
 	//         "latitude": 77.259885,
 	//         "longitude": 101.656736
 	//     },
-	//     "password": "2PXNpNye3j1r"
+	//     "password": "B4qp9aqaXYSA"
 	// }
 }
 
@@ -76,7 +76,7 @@ func ExampleFaker_JSON_object() {
 	//         "latitude": 77.259885,
 	//         "longitude": 101.656736
 	//     },
-	//     "password": "2PXNpNye3j1r"
+	//     "password": "B4qp9aqaXYSA"
 	// }
 }
 
@@ -105,19 +105,19 @@ func ExampleJSON_array() {
 	//         "id": 1,
 	//         "first_name": "Sonny",
 	//         "last_name": "Stiedemann",
-	//         "password": "8nwf0o3sBXcR"
+	//         "password": "3lGftNp9S908"
 	//     },
 	//     {
 	//         "id": 2,
 	//         "first_name": "Verda",
 	//         "last_name": "Brakus",
-	//         "password": "3beWLpq75Lua"
+	//         "password": "Lc3G00tpPp7U"
 	//     },
 	//     {
 	//         "id": 3,
 	//         "first_name": "Jules",
 	//         "last_name": "Cremin",
-	//         "password": "Uu38J14Y8W82"
+	//         "password": "LGAvzZ5xUB6Z"
 	//     }
 	// ]
 }
@@ -147,19 +147,19 @@ func ExampleFaker_JSON_array() {
 	//         "id": 1,
 	//         "first_name": "Sonny",
 	//         "last_name": "Stiedemann",
-	//         "password": "8nwf0o3sBXcR"
+	//         "password": "3lGftNp9S908"
 	//     },
 	//     {
 	//         "id": 2,
 	//         "first_name": "Verda",
 	//         "last_name": "Brakus",
-	//         "password": "3beWLpq75Lua"
+	//         "password": "Lc3G00tpPp7U"
 	//     },
 	//     {
 	//         "id": 3,
 	//         "first_name": "Jules",
 	//         "last_name": "Cremin",
-	//         "password": "Uu38J14Y8W82"
+	//         "password": "LGAvzZ5xUB6Z"
 	//     }
 	// ]
 }

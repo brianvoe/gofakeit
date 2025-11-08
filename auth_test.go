@@ -58,12 +58,12 @@ func ExamplePassword() {
 	fmt.Println(Password(true, true, true, true, true, 32))
 	fmt.Println(Password(true, true, true, true, true, 4))
 
-	// Output: cfelntbponnbbzrhswobuwlxajeeclrx
-	// KYEKNGUUNKUYSFBUFFTGDKUVCVYKPONP
-	// 43622637275953627791234759581343
-	// @.__-._-!-!_..!-_*_*__-@*.__.__!
-	// -DTHJ@.oF@d@L5F65 N-.@U5xWX F0DI
-	// foZnB
+	// Output: tcvncypbfolpftvlyplgdxiwibpsautg
+	// ZXVXDVFQGCECFDBRWEKPWATHKRGKWDIZ
+	// 78902501101475351179812748788830
+	// !!._-._*--@@.@---@_@.-_!_!-*_!*@
+	// 96 rvcB@f0.PNzL!qp 7hP_V 7g!vV 9
+	// 6hJDB
 }
 
 func ExampleFaker_Password() {
@@ -75,12 +75,12 @@ func ExampleFaker_Password() {
 	fmt.Println(f.Password(true, true, true, true, true, 32))
 	fmt.Println(f.Password(true, true, true, true, true, 4))
 
-	// Output: cfelntbponnbbzrhswobuwlxajeeclrx
-	// KYEKNGUUNKUYSFBUFFTGDKUVCVYKPONP
-	// 43622637275953627791234759581343
-	// @.__-._-!-!_..!-_*_*__-@*.__.__!
-	// -DTHJ@.oF@d@L5F65 N-.@U5xWX F0DI
-	// foZnB
+	// Output: tcvncypbfolpftvlyplgdxiwibpsautg
+	// ZXVXDVFQGCECFDBRWEKPWATHKRGKWDIZ
+	// 78902501101475351179812748788830
+	// !!._-._*--@@.@---@_@.-_!_!-*_!*@
+	// 96 rvcB@f0.PNzL!qp 7hP_V 7g!vV 9
+	// 6hJDB
 }
 
 func BenchmarkPassword(b *testing.B) {
