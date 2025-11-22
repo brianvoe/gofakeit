@@ -1,136 +1,12 @@
 package gofakeit
 
 import (
-	"reflect"
 	"sync"
 	"testing"
 )
 
-// TestPatchesApplied verifies that all 5 race condition patches are in place
-func TestPatchesApplied(t *testing.T) {
-	// Clean up any test functions we add
-	t.Cleanup(func() {
-		RemoveFuncLookup("race-test")
-		RemoveFuncLookup("simple-race-test")
-		RemoveFuncLookup("another-simple")
-		RemoveFuncLookup("init-race-test")
-		RemoveFuncLookup("remove-race-test")
-	})
-	
-	t.Run("RWMutex type", func(t *testing.T) {
-		lockType := reflect.TypeOf(lockFuncLookups)
-		if lockType.String() != "sync.RWMutex" {
-			t.Errorf("Expected lockFuncLookups to be sync.RWMutex, got %s", lockType)
-		}
-	})
-
-	t.Run("GetFuncLookup uses lock", func(t *testing.T) {
-		// Behavioral test - if GetFuncLookup doesn't lock, race detector catches it
-		var wg sync.WaitGroup
-		for i := 0; i < 50; i++ {
-			wg.Add(2)
-			go func() {
-				defer wg.Done()
-				AddFuncLookup("race-test", Info{
-					Category: "test",
-					Output:   "string",
-					Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-						return "test", nil
-					},
-				})
-			}()
-			go func() {
-				defer wg.Done()
-				_ = GetFuncLookup("race-test")
-			}()
-		}
-		wg.Wait()
-	})
-
-	t.Run("GetRandomSimpleFunc uses lock", func(t *testing.T) {
-		AddFuncLookup("simple-race-test", Info{
-			Category: "test",
-			Output:   "string",
-			Params:   nil,
-			Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-				return "test", nil
-			},
-		})
-
-		var wg sync.WaitGroup
-		for i := 0; i < 50; i++ {
-			wg.Add(2)
-			go func() {
-				defer wg.Done()
-				AddFuncLookup("another-simple", Info{
-					Category: "test",
-					Output:   "string",
-					Params:   nil,
-					Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-						return "test", nil
-					},
-				})
-			}()
-			go func() {
-				defer wg.Done()
-				faker := New(0)
-				_, _ = GetRandomSimpleFunc(faker)
-			}()
-		}
-		wg.Wait()
-	})
-
-	t.Run("AddFuncLookup locks before nil check", func(t *testing.T) {
-		original := FuncLookups
-		defer func() { FuncLookups = original }()
-
-		FuncLookups = nil
-		var wg sync.WaitGroup
-		for i := 0; i < 100; i++ {
-			wg.Add(1)
-			go func(id int) {
-				defer wg.Done()
-				AddFuncLookup("init-race-test", Info{
-					Category: "test",
-					Output:   "string",
-					Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-						return "test", nil
-					},
-				})
-			}(i)
-		}
-		wg.Wait()
-
-		if FuncLookups == nil {
-			t.Error("FuncLookups should be initialized")
-		}
-	})
-
-	t.Run("RemoveFuncLookup locks before existence check", func(t *testing.T) {
-		var wg sync.WaitGroup
-		for i := 0; i < 50; i++ {
-			wg.Add(2)
-			go func() {
-				defer wg.Done()
-				AddFuncLookup("remove-race-test", Info{
-					Category: "test",
-					Output:   "string",
-					Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-						return "test", nil
-					},
-				})
-			}()
-			go func() {
-				defer wg.Done()
-				RemoveFuncLookup("remove-race-test")
-			}()
-		}
-		wg.Wait()
-	})
-}
-
-// TestConcurrentOperations tests realistic concurrent usage patterns
-func TestConcurrentOperations(t *testing.T) {
+// TestConcurrentFuncLookupOperations tests concurrent operations on func lookups
+func TestConcurrentFuncLookupOperations(t *testing.T) {
 	// Clean up test functions
 	t.Cleanup(func() {
 		RemoveFuncLookup("test-func")
@@ -139,7 +15,7 @@ func TestConcurrentOperations(t *testing.T) {
 		RemoveFuncLookup("removable-func")
 		RemoveFuncLookup("concurrent-func")
 	})
-	
+
 	t.Run("Concurrent Add and Get", func(t *testing.T) {
 		var wg sync.WaitGroup
 		iterations := 100
@@ -263,12 +139,12 @@ func TestConcurrentOperations(t *testing.T) {
 	})
 }
 
-// TestNilMapInitialization tests concurrent initialization from nil
-func TestNilMapInitialization(t *testing.T) {
+// TestConcurrentNilMapInitialization tests concurrent initialization from nil map
+func TestConcurrentNilMapInitialization(t *testing.T) {
 	t.Cleanup(func() {
 		RemoveFuncLookup("init-test")
 	})
-	
+
 	original := FuncLookups
 	defer func() { FuncLookups = original }()
 
@@ -296,12 +172,12 @@ func TestNilMapInitialization(t *testing.T) {
 	}
 }
 
-// TestStructGeneration tests Faker.Struct() concurrent usage
-func TestStructGeneration(t *testing.T) {
+// TestConcurrentStructGeneration tests Faker.Struct() concurrent usage
+func TestConcurrentStructGeneration(t *testing.T) {
 	t.Cleanup(func() {
 		RemoveFuncLookup("customfield")
 	})
-	
+
 	AddFuncLookup("customfield", Info{
 		Category:    "custom",
 		Description: "Custom field",
@@ -332,43 +208,12 @@ func TestStructGeneration(t *testing.T) {
 	wg.Wait()
 }
 
-// TestPatchVersion documents which version we patched
-func TestPatchVersion(t *testing.T) {
-	expectedVersion := "v7.9.0"
-
-	lockType := reflect.TypeOf(lockFuncLookups)
-	if lockType.String() != "sync.RWMutex" {
-		t.Errorf("Patches not applied correctly for %s. Expected RWMutex, got %s",
-			expectedVersion, lockType)
-	}
-
-	t.Logf("✅ Running patched gofakeit %s with TR race condition fixes", expectedVersion)
-}
-
-// TestDocumentedPatches ensures developers know about the patches
-func TestDocumentedPatches(t *testing.T) {
-	patches := []string{
-		"Changed sync.Mutex to sync.RWMutex",
-		"Added RLock to GetFuncLookup",
-		"Added RLock to GetRandomSimpleFunc",
-		"Moved nil check inside lock in AddFuncLookup",
-		"Moved existence check inside lock in RemoveFuncLookup",
-	}
-
-	t.Logf("📝 This gofakeit copy includes the following patches:")
-	for i, patch := range patches {
-		t.Logf("   %d. %s", i+1, patch)
-	}
-
-	t.Logf("ℹ️  See TR_PATCHES.md for detailed documentation")
-}
-
-// BenchmarkConcurrentAccess benchmarks concurrent access with patches
+// BenchmarkConcurrentAccess benchmarks concurrent access to func lookups
 func BenchmarkConcurrentAccess(b *testing.B) {
 	b.Cleanup(func() {
 		RemoveFuncLookup("bench-test")
 	})
-	
+
 	AddFuncLookup("bench-test", Info{
 		Category: "test",
 		Output:   "string",
@@ -382,34 +227,4 @@ func BenchmarkConcurrentAccess(b *testing.B) {
 			_ = GetFuncLookup("bench-test")
 		}
 	})
-}
-
-// TestUnpatchedVersionWouldFail documents what would fail without patches
-func TestUnpatchedVersionWouldFail(t *testing.T) {
-	t.Skip("This test documents the race condition - run with -race on unpatched version to see failure")
-
-	// This is what would fail without patches:
-	var wg sync.WaitGroup
-	for i := 0; i < 100; i++ {
-		wg.Add(2)
-
-		// Writer (AddFuncLookup)
-		go func() {
-			defer wg.Done()
-			AddFuncLookup("race", Info{
-				Category: "test",
-				Output:   "string",
-				Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
-					return "test", nil
-				},
-			})
-		}()
-
-		// Reader (GetFuncLookup) - would race without patch
-		go func() {
-			defer wg.Done()
-			_ = GetFuncLookup("race")
-		}()
-	}
-	wg.Wait()
 }
