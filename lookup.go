@@ -11,7 +11,6 @@ import (
 
 // FuncLookups is the primary map array with mapping to all available data
 var FuncLookups map[string]Info
-// PATCHED for v7.9.0: Changed to RWMutex to fix concurrent map read/write race
 var lockFuncLookups sync.RWMutex
 
 // MapParams is the values to pass into a lookup generate
@@ -194,7 +193,6 @@ func (m *MapParamsValue) UnmarshalJSON(data []byte) error {
 }
 
 func GetRandomSimpleFunc(f *Faker) (string, Info) {
-	// PATCHED for v7.9.0: Added RLock protection
 	lockFuncLookups.RLock()
 	defer lockFuncLookups.RUnlock()
 	
@@ -215,7 +213,6 @@ func GetRandomSimpleFunc(f *Faker) (string, Info) {
 }
 
 // AddFuncLookup takes a field and adds it to map
-// PATCHED for v7.9.0: Lock before checking/initializing map
 func AddFuncLookup(functionName string, info Info) {
 	// Check content type
 	if info.ContentType == "" {
@@ -233,7 +230,6 @@ func AddFuncLookup(functionName string, info Info) {
 }
 
 // GetFuncLookup will lookup
-// PATCHED for v7.9.0: Added RLock to fix concurrent map access bug
 func GetFuncLookup(functionName string) *Info {
 	var info Info
 	var ok bool
@@ -256,7 +252,6 @@ func GetFuncLookup(functionName string) *Info {
 }
 
 // RemoveFuncLookup will remove a function from lookup
-// PATCHED for v7.9.0: Fixed to lock before checking existence
 func RemoveFuncLookup(functionName string) {
 	lockFuncLookups.Lock()
 	defer lockFuncLookups.Unlock()
