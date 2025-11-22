@@ -209,6 +209,26 @@ func BenchmarkGender(b *testing.B) {
 	}
 }
 
+func ExampleAge() {
+	Seed(11)
+	fmt.Println(Age())
+
+	// Output: 90
+}
+
+func ExampleFaker_Age() {
+	f := New(11)
+	fmt.Println(f.Age())
+
+	// Output: 90
+}
+
+func BenchmarkAge(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Age()
+	}
+}
+
 func ExampleHobby() {
 	Seed(11)
 	fmt.Println(Hobby())
@@ -322,6 +342,7 @@ func ExamplePerson() {
 	fmt.Println(person.FirstName)
 	fmt.Println(person.LastName)
 	fmt.Println(person.Gender)
+	fmt.Println(person.Age)
 	fmt.Println(person.SSN)
 	fmt.Println(person.Hobby)
 
@@ -350,26 +371,27 @@ func ExamplePerson() {
 	// Output: Sonny
 	// Stiedemann
 	// male
-	// 280254464
-	// Sailing
-	// DataLogix
-	// Planner
-	// Human
-	// Usability
-	// 679 Underpassborough, Omaha, Massachusetts 37930
-	// 679 Underpassborough
-	// Omaha
-	// Massachusetts
-	// 37930
-	// Antigua and Barbuda
-	// 41.632289
-	// -1.458116
-	// 1026894059
-	// beaulahmayert@kautzer.net
-	// UnionPay
-	// 627700709387573
-	// 02/27
-	// 162
+	// 20
+	// 575624882
+	// Photography
+	// Qado Energy, Inc.
+	// Facilitator
+	// Regional
+	// Quality
+	// 79993 Lanebury, Lincoln, Kansas 93050
+	// 79993 Lanebury
+	// Lincoln
+	// Kansas
+	// 93050
+	// India
+	// -26.936948
+	// -28.374174
+	// 2689405915
+	// hopeprohaska@metz.io
+	// American Express
+	// 4570938757201747
+	// 11/28
+	// 205
 }
 
 func ExampleFaker_Person() {
@@ -383,6 +405,7 @@ func ExampleFaker_Person() {
 	fmt.Println(person.FirstName)
 	fmt.Println(person.LastName)
 	fmt.Println(person.Gender)
+	fmt.Println(person.Age)
 	fmt.Println(person.SSN)
 	fmt.Println(person.Hobby)
 
@@ -411,26 +434,27 @@ func ExampleFaker_Person() {
 	// Output: Sonny
 	// Stiedemann
 	// male
-	// 280254464
-	// Sailing
-	// DataLogix
-	// Planner
-	// Human
-	// Usability
-	// 679 Underpassborough, Omaha, Massachusetts 37930
-	// 679 Underpassborough
-	// Omaha
-	// Massachusetts
-	// 37930
-	// Antigua and Barbuda
-	// 41.632289
-	// -1.458116
-	// 1026894059
-	// beaulahmayert@kautzer.net
-	// UnionPay
-	// 627700709387573
-	// 02/27
-	// 162
+	// 20
+	// 575624882
+	// Photography
+	// Qado Energy, Inc.
+	// Facilitator
+	// Regional
+	// Quality
+	// 79993 Lanebury, Lincoln, Kansas 93050
+	// 79993 Lanebury
+	// Lincoln
+	// Kansas
+	// 93050
+	// India
+	// -26.936948
+	// -28.374174
+	// 2689405915
+	// hopeprohaska@metz.io
+	// American Express
+	// 4570938757201747
+	// 11/28
+	// 205
 }
 
 func BenchmarkPerson(b *testing.B) {

@@ -11,6 +11,7 @@ type PersonInfo struct {
 	FirstName  string          `json:"first_name" xml:"first_name"`
 	LastName   string          `json:"last_name" xml:"last_name"`
 	Gender     string          `json:"gender" xml:"gender"`
+	Age        int             `json:"age" xml:"age"`
 	SSN        string          `json:"ssn" xml:"ssn"`
 	Hobby      string          `json:"hobby" xml:"hobby"`
 	Job        *JobInfo        `json:"job" xml:"job"`
@@ -30,6 +31,7 @@ func person(f *Faker) *PersonInfo {
 		FirstName:  firstName(f),
 		LastName:   lastName(f),
 		Gender:     gender(f),
+		Age:        age(f),
 		SSN:        ssn(f),
 		Hobby:      hobby(f),
 		Job:        job(f),
@@ -88,6 +90,14 @@ func NameSuffix() string { return nameSuffix(GlobalFaker) }
 func (f *Faker) NameSuffix() string { return nameSuffix(f) }
 
 func nameSuffix(f *Faker) string { return getRandValue(f, []string{"person", "suffix"}) }
+
+// Age will generate a random age between 0 and 100
+func Age() int { return age(GlobalFaker) }
+
+// Age will generate a random age between 0 and 100
+func (f *Faker) Age() int { return age(f) }
+
+func age(f *Faker) int { return randIntRange(f, 0, 100) }
 
 // SSN will generate a random Social Security Number
 func SSN() string { return ssn(GlobalFaker) }
@@ -270,6 +280,7 @@ func addPersonLookup() {
 	"first_name": "Markus",
 	"last_name": "Moen",
 	"gender": "male",
+	"age": 30,
 	"ssn": "275413589",
 	"image": "https://picsum.photos/208/500",
 	"hobby": "Lacrosse",
@@ -450,7 +461,7 @@ func addPersonLookup() {
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return lastName(f), nil },
 	})
 
-	// gender (keep terms neutral and search-friendly)
+	// gender
 	AddFuncLookup("gender", Info{
 		Display:     "Gender",
 		Category:    "person",
@@ -471,7 +482,25 @@ func addPersonLookup() {
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return gender(f), nil },
 	})
 
-	// ssn (us)
+	// age
+	AddFuncLookup("age", Info{
+		Display:     "Age",
+		Category:    "person",
+		Description: "The number of years a person has lived",
+		Example:     "40",
+		Output:      "int",
+		Aliases: []string{
+			"age of person", "person age", "age of individual", "years old", "years of age",
+		},
+		Keywords: []string{
+			"years", "old", "birthday", "birthdate", "birth-date",
+			"lifespan", "maturity", "elderly", "young", "adult", "teenager", "child",
+			"senior", "juvenile", "minor", "majority", "minority", "generation",
+		},
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return age(f), nil },
+	})
+
+	// ssn
 	AddFuncLookup("ssn", Info{
 		Display:     "SSN",
 		Category:    "person",
