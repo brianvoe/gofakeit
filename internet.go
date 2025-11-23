@@ -244,6 +244,18 @@ func operaUserAgent(f *Faker) string {
 	return "Opera/" + strconv.Itoa(randIntRange(f, 8, 10)) + "." + strconv.Itoa(randIntRange(f, 10, 99)) + " " + platform
 }
 
+// APIUserAgent will generate a random API user agent string
+func APIUserAgent() string { return apiUserAgent(GlobalFaker) }
+
+// APIUserAgent will generate a random API user agent string
+func (f *Faker) APIUserAgent() string { return apiUserAgent(f) }
+
+func apiUserAgent(f *Faker) string {
+	ua := getRandValue(f, []string{"internet", "api"})
+	result, _ := generate(f, ua)
+	return result
+}
+
 // linuxPlatformToken will generate a random linux platform
 func linuxPlatformToken(f *Faker) string {
 	return "X11; Linux " + getRandValue(f, []string{"computer", "linux_processor"})
@@ -458,6 +470,19 @@ func addInternetLookup() {
 		Keywords:    []string{"safari", "apple", "ipad", "os", "applewebkit", "khtml", "gecko", "browser", "ua", "mobile"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return safariUserAgent(f), nil
+		},
+	})
+
+	AddFuncLookup("apiuseragent", Info{
+		Display:     "API User Agent",
+		Category:    "internet",
+		Description: "String sent by API clients, tools, or libraries to identify themselves when making HTTP requests",
+		Example:     "curl/8.2.5",
+		Output:      "string",
+		Aliases:     []string{"api ua", "api client ua", "http client ua", "api identifier", "client user agent"},
+		Keywords:    []string{"api", "useragent", "client", "http", "request", "curl", "python", "go", "java", "node", "postman", "tool", "library"},
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return apiUserAgent(f), nil
 		},
 	})
 

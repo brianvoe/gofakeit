@@ -404,3 +404,23 @@ func BenchmarkOperaUserAgent(b *testing.B) {
 		OperaUserAgent()
 	}
 }
+
+func ExampleAPIUserAgent() {
+	Seed(11)
+	fmt.Println(APIUserAgent())
+
+	// Output: httpie-go/8.1.2
+}
+
+func ExampleFaker_APIUserAgent() {
+	f := New(11)
+	fmt.Println(f.APIUserAgent())
+
+	// Output: httpie-go/8.1.2
+}
+
+func BenchmarkAPIUserAgent(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		APIUserAgent()
+	}
+}

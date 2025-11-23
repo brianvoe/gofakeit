@@ -647,6 +647,7 @@ ChromeUserAgent() string
 FirefoxUserAgent() string
 OperaUserAgent() string
 SafariUserAgent() string
+APIUserAgent() string
 ```
 
 ### HTML
