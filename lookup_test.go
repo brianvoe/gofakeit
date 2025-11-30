@@ -264,6 +264,14 @@ func TestLookupCheckFields(t *testing.T) {
 			}
 		}
 
+		// Make sure keywords dont contain the display name (case-insensitive)
+		displayLower := strings.ToLower(info.Display)
+		for _, keyword := range info.Keywords {
+			if strings.ToLower(keyword) == displayLower {
+				t.Fatalf("Keywords should not contain the display name. %s has display name %q which appears in keywords as %q", field, info.Display, keyword)
+			}
+		}
+
 		// Check params
 		if info.Params != nil {
 			for _, p := range info.Params {
