@@ -229,6 +229,26 @@ func BenchmarkAge(b *testing.B) {
 	}
 }
 
+func ExampleEthnicity() {
+	Seed(11)
+	fmt.Println(Ethnicity())
+
+	// Output: Swiss
+}
+
+func ExampleFaker_Ethnicity() {
+	f := New(11)
+	fmt.Println(f.Ethnicity())
+
+	// Output: Swiss
+}
+
+func BenchmarkEthnicity(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Ethnicity()
+	}
+}
+
 func ExampleHobby() {
 	Seed(11)
 	fmt.Println(Hobby())

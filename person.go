@@ -99,6 +99,14 @@ func (f *Faker) Age() int { return age(f) }
 
 func age(f *Faker) int { return randIntRange(f, 0, 100) }
 
+// Ethnicity will generate a random ethnicity string
+func Ethnicity() string { return ethnicity(GlobalFaker) }
+
+// Ethnicity will generate a random ethnicity string
+func (f *Faker) Ethnicity() string { return ethnicity(f) }
+
+func ethnicity(f *Faker) string { return getRandValue(f, []string{"person", "ethnicity"}) }
+
 // SSN will generate a random Social Security Number
 func SSN() string { return ssn(GlobalFaker) }
 
@@ -498,6 +506,28 @@ func addPersonLookup() {
 			"senior", "juvenile", "minor", "majority", "minority", "generation",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return age(f), nil },
+	})
+
+	// ethnicity
+	AddFuncLookup("ethnicity", Info{
+		Display:     "Ethnicity",
+		Category:    "person",
+		Description: "Classification that identifies a person's cultural or ethnic background",
+		Example:     "German",
+		Output:      "string",
+		Aliases: []string{
+			"ethnic background",
+			"ethnic identity",
+			"cultural background",
+			"cultural heritage",
+			"ethnic origin",
+		},
+		Keywords: []string{
+			"ethnic", "heritage", "ancestry",
+			"origin", "identity", "cultural", "nationality",
+			"background", "descent", "lineage",
+		},
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return ethnicity(f), nil },
 	})
 
 	// ssn

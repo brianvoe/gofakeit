@@ -428,6 +428,7 @@ MiddleName() string
 LastName() string
 Gender() string
 Age() int
+Ethnicity() string
 SSN() string
 EIN() string
 Hobby() string
