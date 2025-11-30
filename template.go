@@ -352,7 +352,7 @@ Markus Moen`,
 			"document template", "layout", "blueprint", "design pattern", "text template", "generator", "format schema",
 		},
 		Keywords: []string{
-			"template", "generates", "format", "structure", "engine", "document", "pattern", "design", "syntax", "render", "compile",
+			"generates", "format", "structure", "engine", "document", "pattern", "design", "syntax", "render", "compile",
 		},
 		Params: []Param{
 			{Field: "template", Display: "Template", Type: "string", Description: "Golang template to generate the document from"},

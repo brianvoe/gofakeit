@@ -342,7 +342,7 @@ func addNumberLookup() {
 			"discrete quantity",
 		},
 		Keywords: []string{
-			"number", "integer", "int", "random",
+			"integer", "int", "random",
 			"min", "max", "range", "bounded", "between", "inclusive",
 		},
 		Params: []Param{
@@ -376,7 +376,7 @@ func addNumberLookup() {
 			"cardinal quantity",
 		},
 		Keywords: []string{
-			"uint", "unsigned", "integer", "nonnegative",
+			"unsigned", "integer", "nonnegative",
 			"natural", "zero", "positive", "whole",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return uintFunc(f), nil },
@@ -396,7 +396,7 @@ func addNumberLookup() {
 			"limited-range unsigned",
 		},
 		Keywords: []string{
-			"uintn", "unsigned", "range", "upper",
+			"unsigned", "range", "upper",
 			"limit", "bound", "cap", "max", "exclusive",
 		},
 		Params: []Param{
@@ -425,7 +425,7 @@ func addNumberLookup() {
 			"0-255 whole",
 		},
 		Keywords: []string{
-			"uint8", "unsigned", "8bit", "byte", "octet", "range",
+			"unsigned", "8bit", "byte", "octet", "range", "integer",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return uint8Func(f), nil },
 	})
@@ -444,7 +444,7 @@ func addNumberLookup() {
 			"0-65535 whole",
 		},
 		Keywords: []string{
-			"uint16", "unsigned", "16bit", "word", "port", "range",
+			"unsigned", "16bit", "word", "port", "range", "integer",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return uint16Func(f), nil },
 	})
@@ -460,7 +460,7 @@ func addNumberLookup() {
 			"wide-range unsigned", "32-bit whole", "medium unsigned int", "standard unsigned int",
 		},
 		Keywords: []string{
-			"uint32", "unsigned", "32bit", "range", "ipv4", "integer", "binary", "numeric",
+			"unsigned", "32bit", "range", "ipv4", "integer", "binary", "numeric",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return uint32Func(f), nil },
 	})
@@ -475,7 +475,7 @@ func addNumberLookup() {
 			"eight-byte unsigned", "u64 numeric", "very-large unsigned", "wide whole count", "extended-range value", "large uint", "unsigned bigint",
 		},
 		Keywords: []string{
-			"uint64", "unsigned", "64bit", "range", "bigint", "integer", "numeric", "arithmetic",
+			"unsigned", "64bit", "range", "bigint", "integer", "numeric", "arithmetic",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return f.Uint64(), nil },
 	})
@@ -528,7 +528,7 @@ func addNumberLookup() {
 			"general int type",
 		},
 		Keywords: []string{
-			"int", "signed", "integer",
+			"signed", "integer",
 			"positive", "negative", "zero", "counting",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return intFunc(f), nil },
@@ -548,7 +548,7 @@ func addNumberLookup() {
 			"cap-limited integer",
 		},
 		Keywords: []string{
-			"intn", "range", "upper", "limit", "bound",
+			"range", "upper", "limit", "bound",
 			"cap", "max", "exclusive", "integer",
 		},
 		Params: []Param{
@@ -573,7 +573,7 @@ func addNumberLookup() {
 			"byte-sized signed", "small signed range", "one-byte integer", "8-bit whole signed", "narrow signed value", "tiny int", "signed byte",
 		},
 		Keywords: []string{
-			"int8", "signed", "8bit", "range", "twoscomplement", "integer", "arithmetic", "numeric", "binary", "storage",
+			"signed", "8bit", "range", "twoscomplement", "integer", "arithmetic", "numeric", "binary", "storage",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return int8Func(f), nil },
 	})
@@ -588,7 +588,7 @@ func addNumberLookup() {
 			"two-byte signed", "short integer signed", "16-bit whole signed", "narrow-mid signed", "twobyte int", "short int", "halfword signed",
 		},
 		Keywords: []string{
-			"int16", "signed", "16bit", "range", "word", "numeric", "arithmetic", "binary", "integer",
+			"signed", "16bit", "range", "word", "numeric", "arithmetic", "binary", "integer",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return int16Func(f), nil },
 	})
@@ -603,7 +603,7 @@ func addNumberLookup() {
 			"four-byte signed", "standard-width signed", "32-bit whole signed", "midrange integer", "int32 value", "long int", "standard signed int",
 		},
 		Keywords: []string{
-			"int32", "signed", "32bit", "range", "ipv4", "numeric", "arithmetic", "binary", "integer",
+			"signed", "32bit", "range", "ipv4", "numeric", "arithmetic", "binary", "integer",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return int32Func(f), nil },
 	})
@@ -622,7 +622,7 @@ func addNumberLookup() {
 			"extended signed range",
 		},
 		Keywords: []string{
-			"int64", "signed", "64bit", "bigint", "range", "timestamp", "nanosecond",
+			"signed", "64bit", "bigint", "range", "timestamp", "nanosecond",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return int64Func(f), nil },
 	})
@@ -641,7 +641,7 @@ func addNumberLookup() {
 			"ranged whole value",
 		},
 		Keywords: []string{
-			"intrange", "int", "range", "min", "max",
+			"int", "range", "min", "max",
 			"bounds", "limits", "interval", "span",
 		},
 		Params: []Param{
@@ -675,7 +675,7 @@ func addNumberLookup() {
 			"reduced-precision real",
 		},
 		Keywords: []string{
-			"float32", "single-precision", "ieee754",
+			"single-precision", "ieee754",
 			"fp32", "mantissa", "exponent", "decimal",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return float32Func(f), nil },
@@ -695,7 +695,7 @@ func addNumberLookup() {
 			"float single interval",
 		},
 		Keywords: []string{
-			"float32range", "float32", "range",
+			"float32", "range",
 			"min", "max", "bounds", "limits", "interval",
 		},
 		Params: []Param{
@@ -729,7 +729,7 @@ func addNumberLookup() {
 			"high-precision real",
 		},
 		Keywords: []string{
-			"float64", "double-precision", "ieee754",
+			"double-precision", "ieee754",
 			"fp64", "mantissa", "exponent", "decimal",
 			"precision", "scientific", "number",
 		},
@@ -750,7 +750,7 @@ func addNumberLookup() {
 			"float double interval",
 		},
 		Keywords: []string{
-			"float64range", "float64", "range",
+			"float64", "range",
 			"min", "max", "bounds", "limits", "interval",
 		},
 		Params: []Param{
@@ -784,7 +784,7 @@ func addNumberLookup() {
 			"jumbled int output",
 		},
 		Keywords: []string{
-			"shuffleints", "shuffle", "permute", "randomize",
+			"shuffle", "permute", "randomize",
 			"ints", "slice", "array", "permutation",
 		},
 		Params: []Param{
@@ -814,7 +814,7 @@ func addNumberLookup() {
 			"choose single int",
 		},
 		Keywords: []string{
-			"randomint", "random", "pick", "choose",
+			"random", "pick", "choose",
 			"select", "ints", "slice", "list",
 		},
 		Params: []Param{
@@ -843,7 +843,7 @@ func addNumberLookup() {
 			"choose single uint",
 		},
 		Keywords: []string{
-			"randomuint", "random", "pick", "choose",
+			"random", "pick", "choose",
 			"select", "uints", "slice", "list", "nonnegative",
 		},
 		Params: []Param{
@@ -872,7 +872,7 @@ func addNumberLookup() {
 			"formatted unsigned hex",
 		},
 		Keywords: []string{
-			"hexuint", "hex", "base16", "uint", "0x",
+			"hex", "base16", "uint", "0x",
 			"bits", "width", "format",
 		},
 		Params: []Param{

@@ -222,7 +222,7 @@ func addDateTimeLookup() {
 			"date string", "calendar date", "datetime", "timestamp", "chronological reference",
 		},
 		Keywords: []string{
-			"date", "time", "day", "month", "year", "format", "rfc3339", "iso8601", "utc",
+			"time", "day", "month", "year", "format", "rfc3339", "iso8601", "utc",
 		},
 		Params: []Param{
 			{
@@ -375,7 +375,7 @@ func addDateTimeLookup() {
 			"nano", "ns value", "tiny time", "ultra precision", "fractional second",
 		},
 		Keywords: []string{
-			"nanosecond", "time", "unit", "second", "billionth", "ultra", "high", "resolution",
+			"time", "unit", "second", "billionth", "ultra", "high", "resolution",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return nanoSecond(f), nil },
 	})
@@ -390,7 +390,7 @@ func addDateTimeLookup() {
 			"second value", "sec unit", "time second", "sixtieth minute", "time slice",
 		},
 		Keywords: []string{
-			"second", "time", "unit", "minute", "sixtieth", "duration", "interval", "sixty",
+			"time", "unit", "minute", "sixtieth", "duration", "interval", "sixty",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return second(f), nil },
 	})
@@ -405,7 +405,7 @@ func addDateTimeLookup() {
 			"minute value", "time minute", "sixty seconds", "short period", "clock minute",
 		},
 		Keywords: []string{
-			"minute", "time", "unit", "60", "seconds", "duration", "interval", "sixtieth", "hour",
+			"time", "unit", "60", "seconds", "duration", "interval", "sixtieth", "hour",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return minute(f), nil },
 	})
@@ -420,7 +420,7 @@ func addDateTimeLookup() {
 			"hour value", "time hour", "sixty minutes", "clock hour", "time period",
 		},
 		Keywords: []string{
-			"hour", "time", "unit", "60", "minutes", "duration", "interval", "day",
+			"time", "unit", "60", "minutes", "duration", "interval", "day",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return hour(f), nil },
 	})
@@ -435,7 +435,7 @@ func addDateTimeLookup() {
 			"calendar day", "day value", "earth rotation", "daily unit", "full day",
 		},
 		Keywords: []string{
-			"day", "time", "unit", "axis", "24-hour", "calendar", "sunrise", "sunset",
+			"time", "unit", "axis", "24-hour", "calendar", "sunrise", "sunset",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return day(f), nil },
 	})
@@ -450,7 +450,7 @@ func addDateTimeLookup() {
 			"weekday name", "business day", "work day", "monday to friday", "weekday label",
 		},
 		Keywords: []string{
-			"weekday", "day", "week", "workday", "business", "calendar", "monday", "tuesday", "wednesday", "thursday", "friday",
+			"day", "week", "workday", "business", "calendar", "monday", "tuesday", "wednesday", "thursday", "friday",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return weekDay(f), nil },
 	})
@@ -465,7 +465,7 @@ func addDateTimeLookup() {
 			"calendar month", "month value", "monthly unit", "date month", "time month",
 		},
 		Keywords: []string{
-			"month", "year", "time", "30", "31", "days", "calendar", "period",
+			"year", "time", "30", "31", "days", "calendar", "period",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return month(f), nil },
 	})
@@ -495,7 +495,7 @@ func addDateTimeLookup() {
 			"calendar year", "annual period", "orbit year", "year value", "fiscal year",
 		},
 		Keywords: []string{
-			"year", "time", "365", "days", "leap", "calendar", "decade", "century",
+			"time", "365", "days", "leap", "calendar", "decade", "century",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return year(f), nil },
 	})
@@ -510,7 +510,7 @@ func addDateTimeLookup() {
 			"time zone", "tz name", "standard time zone", "geographic zone", "regional time",
 		},
 		Keywords: []string{
-			"timezone", "time", "earth", "utc", "gmt", "pst", "est", "cst", "mst", "dst",
+			"time", "earth", "utc", "gmt", "pst", "est", "cst", "mst", "dst",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return timeZone(f), nil },
 	})
@@ -525,7 +525,7 @@ func addDateTimeLookup() {
 			"timezone abbr", "tz short code", "abbreviated zone", "short tz name", "zone abbreviation",
 		},
 		Keywords: []string{
-			"timezone", "time", "3-letter", "kst", "pst", "est", "gmt", "utc",
+			"time", "3-letter", "kst", "pst", "est", "gmt", "utc",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return timeZoneAbv(f), nil },
 	})
@@ -585,7 +585,7 @@ func addDateTimeLookup() {
 			"time string", "clock time", "time format", "time value", "hour minute second",
 		},
 		Keywords: []string{
-			"time", "clock", "hour", "minute", "second", "format", "24-hour", "12-hour", "am", "pm",
+			"clock", "hour", "minute", "second", "format", "24-hour", "12-hour", "am", "pm",
 		},
 		Params: []Param{
 			{

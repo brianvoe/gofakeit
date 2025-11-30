@@ -129,7 +129,7 @@ func addWordNounLookup() {
 			"random noun", "grammar noun", "word type", "part speech", "naming word", "lexical noun", "nominal word",
 		},
 		Keywords: []string{
-			"noun", "person", "place", "idea", "sentence", "grammar", "named", "referred", "subject", "object", "entity", "concept", "term", "substantive",
+			"person", "place", "idea", "sentence", "grammar", "named", "referred", "subject", "object", "entity", "concept", "term", "substantive",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return noun(f), nil

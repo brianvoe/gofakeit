@@ -267,7 +267,7 @@ func addPaymentLookup() {
 			"currency unit", "currency code", "money type", "exchange currency", "monetary unit", "legal tender", "fiat money",
 		},
 		Keywords: []string{
-			"currency", "money", "exchange", "fiat", "unit", "code", "iso", "usd", "eur", "gbp", "jpy", "cny", "trade", "transaction", "market",
+			"money", "exchange", "fiat", "unit", "code", "iso", "usd", "eur", "gbp", "jpy", "cny", "trade", "transaction", "market",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return currency(f), nil },
 	})
@@ -312,7 +312,7 @@ func addPaymentLookup() {
 			"amount", "cost", "value", "fee", "charge", "rate", "unit price",
 		},
 		Keywords: []string{
-			"price", "payment", "transaction", "retail", "wholesale", "market", "asset", "listing", "quote", "valuation",
+			"payment", "transaction", "retail", "wholesale", "market", "asset", "listing", "quote", "valuation",
 		},
 		Params: []Param{
 			{Field: "min", Display: "Min", Type: "float", Default: "0", Description: "Minimum price value"},

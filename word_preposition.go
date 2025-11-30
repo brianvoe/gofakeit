@@ -53,7 +53,7 @@ func addWordPrepositionLookup() {
 		Example:     "other than",
 		Output:      "string",
 		Aliases:     []string{"relationship connector", "grammar link", "sentence bridge", "word connector"},
-		Keywords:    []string{"preposition", "relationship", "noun", "pronoun", "sentence", "grammar", "express", "connector", "link", "relational"},
+		Keywords:    []string{"relationship", "noun", "pronoun", "sentence", "grammar", "express", "connector", "link", "relational"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return preposition(f), nil
 		},

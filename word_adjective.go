@@ -104,7 +104,7 @@ func addWordAdjectiveLookup() {
 			"noun qualifier",
 		},
 		Keywords: []string{
-			"adjective", "noun", "speech", "quality", "attribute",
+			"noun", "speech", "quality", "attribute",
 			"characteristic", "property", "trait", "descriptive", "modifier",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {

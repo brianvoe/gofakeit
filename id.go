@@ -106,7 +106,7 @@ func addIDLookup() {
 		Example:     "pfsfktb87rcmj6bqha2fz9",
 		Output:      "string",
 		Aliases:     []string{"unique id", "random id", "base32 id", "url-safe id", "slug id", "short id"},
-		Keywords:    []string{"id", "random", "base32", "slug", "token", "url", "identifier", "nonsequential"},
+		Keywords:    []string{"random", "base32", "slug", "token", "url", "identifier", "nonsequential"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return id(f), nil
 		},

@@ -85,7 +85,7 @@ func addCarLookup() {
 		Output:      "map[string]any",
 		ContentType: "application/json",
 		Aliases:     []string{"vehicle", "automobile", "transportation", "motor", "wheeled"},
-		Keywords:    []string{"car", "used", "passenger", "mini", "gasoline", "automatic", "fiat", "freestyle", "fwd"},
+		Keywords:    []string{"used", "passenger", "mini", "gasoline", "automatic", "fiat", "freestyle", "fwd"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return car(f), nil
 		},

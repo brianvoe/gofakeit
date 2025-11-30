@@ -64,7 +64,7 @@ func addColorLookup() {
 		Example:     "MediumOrchid",
 		Output:      "string",
 		Aliases:     []string{"color name", "hue name", "visual color", "shade name", "color label"},
-		Keywords:    []string{"color", "red", "blue", "green", "yellow", "purple", "orange", "pink", "hue", "chroma", "shade", "tone", "css", "name"},
+		Keywords:    []string{"hue", "chroma", "shade", "tone", "css", "name", "visual", "appearance", "pigment", "spectrum", "palette", "tint", "saturation", "brightness", "rgb", "hex"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return color(f), nil
 		},

@@ -236,7 +236,7 @@ func addAddressLookup() {
 		Output:      "map[string]any",
 		ContentType: "application/json",
 		Aliases:     []string{"full address", "residential address", "mailing address", "street address", "home address"},
-		Keywords:    []string{"address", "residential", "location", "street", "city", "state", "country", "postal", "code", "mailing", "home", "house", "apartment", "zipcode", "coordinates"},
+		Keywords:    []string{"residential", "location", "street", "city", "state", "country", "postal", "code", "mailing", "home", "house", "apartment", "zipcode", "coordinates"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return address(f), nil
 		},
@@ -249,7 +249,7 @@ func addAddressLookup() {
 		Example:     "Marcelside",
 		Output:      "string",
 		Aliases:     []string{"city name", "urban area", "municipality name", "town name", "metropolitan area"},
-		Keywords:    []string{"city", "town", "municipality", "urban", "area", "population", "hub", "culture", "commerce", "metropolitan", "settlement", "community", "district"},
+		Keywords:    []string{"town", "municipality", "urban", "area", "population", "hub", "culture", "commerce", "metropolitan", "settlement", "community", "district"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return city(f), nil
 		},
@@ -262,7 +262,7 @@ func addAddressLookup() {
 		Example:     "United States of America",
 		Output:      "string",
 		Aliases:     []string{"country name", "nation name", "sovereign state", "national territory", "independent country"},
-		Keywords:    []string{"country", "nation", "government", "territory", "sovereign", "independent", "state", "republic", "kingdom", "empire", "federation", "commonwealth"},
+		Keywords:    []string{"nation", "government", "territory", "sovereign", "independent", "state", "republic", "kingdom", "empire", "federation", "commonwealth"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return country(f), nil
 		},
@@ -288,7 +288,7 @@ func addAddressLookup() {
 		Example:     "Illinois",
 		Output:      "string",
 		Aliases:     []string{"state name", "province name", "region name", "administrative division", "territory name"},
-		Keywords:    []string{"state", "province", "region", "division", "governmental", "territory", "area", "laws", "government", "administrative", "subdivision", "district", "county"},
+		Keywords:    []string{"province", "region", "division", "governmental", "territory", "area", "laws", "government", "administrative", "subdivision", "district", "county"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return state(f), nil
 		},
@@ -314,7 +314,7 @@ func addAddressLookup() {
 		Example:     "364 East Rapidsborough",
 		Output:      "string",
 		Aliases:     []string{"street address", "shipping address", "billing address", "mailing address", "address line 1", "line 1", "road address", "avenue address", "drive address", "thoroughfare address"},
-		Keywords:    []string{"address", "street", "road", "avenue", "drive", "lane", "way", "public", "thoroughfare", "boulevard", "court", "place", "circle", "terrace", "highway"},
+		Keywords:    []string{"address", "road", "avenue", "drive", "lane", "way", "public", "thoroughfare", "boulevard", "court", "place", "circle", "terrace", "highway"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return street(f), nil
 		},
@@ -379,7 +379,7 @@ func addAddressLookup() {
 		Example:     "Apt 123",
 		Output:      "string",
 		Aliases:     []string{"apartment unit", "suite number", "office number", "building unit", "room number", "address line 2", "line 2"},
-		Keywords:    []string{"unit", "apartment", "suite", "office", "identifier", "building", "number", "within", "room", "floor", "level", "section", "compartment"},
+		Keywords:    []string{"apartment", "suite", "office", "identifier", "building", "number", "within", "room", "floor", "level", "section", "compartment"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return unit(f), nil
 		},
@@ -392,7 +392,7 @@ func addAddressLookup() {
 		Example:     "13645",
 		Output:      "string",
 		Aliases:     []string{"zip code", "postal code", "mail code", "delivery code"},
-		Keywords:    []string{"zip", "postal", "postcode", "code", "address", "sorting", "geographic", "area", "numerical", "mailing", "delivery", "zone", "district", "region", "identifier"},
+		Keywords:    []string{"postal", "postcode", "code", "address", "sorting", "geographic", "area", "numerical", "mailing", "delivery", "zone", "district", "region", "identifier"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return zip(f), nil
 		},
@@ -405,7 +405,7 @@ func addAddressLookup() {
 		Example:     "-73.534056",
 		Output:      "float",
 		Aliases:     []string{"lat coordinate", "north-south coordinate", "geographic latitude", "earth latitude", "position latitude"},
-		Keywords:    []string{"latitude", "lat", "coordinate", "north-south", "degrees", "gps", "wgs84", "geodesy", "parallel", "equator", "pole"},
+		Keywords:    []string{"lat", "coordinate", "north-south", "degrees", "gps", "wgs84", "geodesy", "parallel", "equator", "pole"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return latitude(f), nil
 		},
@@ -418,7 +418,7 @@ func addAddressLookup() {
 		Example:     "22.921026",
 		Output:      "float",
 		Aliases:     []string{"latitude bounds", "lat range", "north-south range", "geographic bounds", "coordinate range"},
-		Keywords:    []string{"latitude", "lat", "range", "min", "max", "degrees", "gps", "wgs84", "bounds", "interval"},
+		Keywords:    []string{"lat", "range", "min", "max", "degrees", "gps", "wgs84", "bounds", "interval"},
 		Params: []Param{
 			{Field: "min", Display: "Min", Type: "float", Default: "0", Description: "Minimum range"},
 			{Field: "max", Display: "Max", Type: "float", Default: "90", Description: "Maximum range"},
@@ -443,7 +443,7 @@ func addAddressLookup() {
 		Example:     "-147.068112",
 		Output:      "float",
 		Aliases:     []string{"long coordinate", "east-west coordinate", "geographic longitude", "earth longitude", "position longitude"},
-		Keywords:    []string{"longitude", "lon", "coordinate", "east-west", "degrees", "gps", "wgs84", "geodesy", "meridian", "idl"},
+		Keywords:    []string{"lon", "coordinate", "east-west", "degrees", "gps", "wgs84", "geodesy", "meridian", "idl"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return longitude(f), nil
 		},

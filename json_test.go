@@ -408,7 +408,7 @@ func TestJSONRawMessageWithCustomFuncTag(t *testing.T) {
 			"custom json", "json generator", "test data", "json mock", "synthetic json", "arbitrary json",
 		},
 		Keywords: []string{
-			"customjsontest", "json", "random", "mock", "payload", "structure", "keys", "values", "message", "testing", "dynamic", "data",
+			"json", "random", "mock", "payload", "structure", "keys", "values", "message", "testing", "dynamic", "data",
 		},
 		Params: []Param{},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
@@ -456,7 +456,7 @@ func TestJSONRawMessageWithInvalidCustomFuncTag(t *testing.T) {
 			"invalid json", "json fuzz", "broken json", "malformed json", "test data", "error json", "raw bytes",
 		},
 		Keywords: []string{
-			"invalidjsontest", "invalid", "json", "test", "custom", "function", "tag", "raw", "bytes", "corrupt", "fuzzing",
+			"invalid", "json", "test", "custom", "function", "tag", "raw", "bytes", "corrupt", "fuzzing",
 		},
 		Params: []Param{},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {

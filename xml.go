@@ -292,7 +292,7 @@ func addFileXMLLookup() {
 			"serialized tree",
 		},
 		Keywords: []string{
-			"xml", "extensible", "markup", "language", "elements", "format",
+			"extensible", "markup", "language", "elements", "format",
 			"structured", "generates", "tags", "attributes", "nested",
 		},
 		Params: []Param{

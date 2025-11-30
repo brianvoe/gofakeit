@@ -55,7 +55,7 @@ func addSongLookup() {
 			"audio selection",
 		},
 		Keywords: []string{
-			"song", "music", "track", "tune", "melody",
+			"music", "track", "tune", "melody",
 			"artist", "genre", "name", "composition", "recording",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
@@ -121,7 +121,7 @@ func addSongLookup() {
 			"genre label",
 		},
 		Keywords: []string{
-			"song", "genre", "style", "category", "type",
+			"song", "style", "category", "type",
 			"classification", "theme", "musical", "subgenre", "influence",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {

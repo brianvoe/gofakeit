@@ -239,7 +239,7 @@ func addEmojiLookup() {
 			"digital expression",
 		},
 		Keywords: []string{
-			"emoji", "symbol", "text", "message", "online", "chats", "ideas", "feelings", "digital", "reaction",
+			"symbol", "text", "message", "online", "chats", "ideas", "feelings", "digital", "reaction",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return emoji(f), nil

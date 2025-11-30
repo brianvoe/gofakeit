@@ -150,7 +150,7 @@ func addAuthLookup() {
 			"user handle",
 		},
 		Keywords: []string{
-			"username", "login", "handle", "userid", "screenname",
+			"login", "handle", "userid", "screenname",
 			"user", "account", "credential", "signin", "alias", "profile", "uid",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
@@ -172,7 +172,7 @@ func addAuthLookup() {
 			"auth secret",
 		},
 		Keywords: []string{
-			"password", "passphrase", "pwd", "secret",
+			"passphrase", "pwd", "secret",
 			"credential", "authentication", "auth",
 			"security", "signin", "login",
 			"access", "key", "token", "hash", "encryption",

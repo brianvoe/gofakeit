@@ -49,7 +49,7 @@ func addBookLookup() {
 		Output:      "map[string]string",
 		ContentType: "application/json",
 		Aliases:     []string{"printed", "pages", "bound", "subjects", "stories", "literature", "text"},
-		Keywords:    []string{"book", "written", "work", "consisting", "anna", "karenina", "toni", "morrison", "thriller"},
+		Keywords:    []string{"written", "work", "consisting", "anna", "karenina", "toni", "morrison", "thriller"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return book(f), nil
 		},

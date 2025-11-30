@@ -354,7 +354,7 @@ func addProductLookup() {
 			"commercial item",
 		},
 		Keywords: []string{
-			"product", "sale", "use", "trade", "manufactured",
+			"sale", "use", "trade", "manufactured",
 			"market", "inventory", "supply", "distribution", "commodity",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {

@@ -77,7 +77,7 @@ func addGameLookup() {
 			"profile name",
 		},
 		Keywords: []string{
-			"gamertag", "user-selected", "username",
+			"user-selected", "username",
 			"alias", "identification", "online", "gaming",
 			"video", "games", "player",
 		},
@@ -100,7 +100,7 @@ func addGameLookup() {
 			"luck blocks",
 		},
 		Keywords: []string{
-			"dice", "games", "cube-shaped", "chance",
+			"games", "cube-shaped", "chance",
 			"random", "outcomes", "roll", "sides",
 			"objects", "probability",
 		},

@@ -138,7 +138,7 @@ func addFileCSVLookup() {
 			"comma separated", "csv file", "data table", "flat file", "spreadsheet format", "tabular data",
 		},
 		Keywords: []string{
-			"csv", "comma", "separated", "values", "format", "data", "spreadsheet", "entries", "rows", "columns", "dataset", "records",
+			"comma", "separated", "values", "format", "data", "spreadsheet", "entries", "rows", "columns", "dataset", "records",
 		},
 		Params: []Param{
 			{Field: "delimiter", Display: "Delimiter", Type: "string", Default: ",", Description: "Separator in between row values"},

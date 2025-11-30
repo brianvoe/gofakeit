@@ -300,7 +300,7 @@ func addInternetLookup() {
 		Example:     "http://www.principalproductize.biz/target",
 		Output:      "string",
 		Aliases:     []string{"url string", "web address", "internet link", "website url", "resource locator"},
-		Keywords:    []string{"url", "web", "address", "http", "https", "www", "protocol", "scheme", "path", "domain", "location", "resource"},
+		Keywords:    []string{"web", "address", "http", "https", "www", "protocol", "scheme", "path", "domain", "location", "resource"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return url(f), nil
 		},

@@ -40,7 +40,7 @@ func addMovieLookup() {
 		Output:      "map[string]string",
 		ContentType: "application/json",
 		Aliases:     []string{"cinema", "picture", "story", "entertainment", "motion"},
-		Keywords:    []string{"movie", "film", "moving", "sound", "pictures", "told", "through", "psycho", "mystery"},
+		Keywords:    []string{"film", "moving", "sound", "pictures", "told", "through", "psycho", "mystery"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return movie(f), nil
 		},
@@ -83,7 +83,7 @@ func addMovieLookup() {
 			"movie classification",
 		},
 		Keywords: []string{
-			"genre", "category", "type", "classification",
+			"category", "type", "classification",
 			"movie", "film", "cinema", "style", "theme",
 			"drama", "comedy", "horror", "thriller", "romance",
 			"documentary", "animation", "sci-fi", "fantasy", "action",

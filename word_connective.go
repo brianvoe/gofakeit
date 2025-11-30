@@ -87,7 +87,7 @@ func addWordConnectiveLookup() {
 		Example:     "such as",
 		Output:      "string",
 		Aliases:     []string{"joining element", "grammar connector", "sentence bridge", "word linker"},
-		Keywords:    []string{"connective", "word", "connect", "sentence", "grammar", "used", "conjunction", "link", "joining"},
+		Keywords:    []string{"word", "connect", "sentence", "grammar", "used", "conjunction", "link", "joining"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return connective(f), nil
 		},

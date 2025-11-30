@@ -202,7 +202,7 @@ func addFileJSONLookup() {
 		Output:      "[]byte",
 		ContentType: "application/json",
 		Aliases:     []string{"data", "interchange", "structured", "format", "serialization", "api"},
-		Keywords:    []string{"json", "object", "array", "fields", "indent", "rowcount", "type", "serialize", "deserialize", "marshal", "unmarshal"},
+		Keywords:    []string{"object", "array", "fields", "indent", "rowcount", "type", "serialize", "deserialize", "marshal", "unmarshal"},
 		Params: []Param{
 			{Field: "type", Display: "Type", Type: "string", Default: "object", Options: []string{"object", "array"}, Description: "Type of JSON, object or array"},
 			{Field: "rowcount", Display: "Row Count", Type: "int", Default: "100", Description: "Number of rows in JSON array"},

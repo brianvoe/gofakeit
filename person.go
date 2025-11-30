@@ -329,7 +329,7 @@ func addPersonLookup() {
 			"individual data",
 		},
 		Keywords: []string{
-			"person", "profile", "identity", "individual",
+			"profile", "identity", "individual",
 			"user", "account", "record", "contact",
 			"name", "details", "attributes", "information",
 			"bio", "demographics", "personal", "data",
@@ -354,7 +354,7 @@ func addPersonLookup() {
 			"display name",
 		},
 		Keywords: []string{
-			"name", "fullname", "given", "family",
+			"fullname", "given", "family",
 			"first", "last", "forename", "surname",
 			"display", "legal",
 		},
@@ -484,7 +484,7 @@ func addPersonLookup() {
 			"presentation",
 		},
 		Keywords: []string{
-			"gender", "male", "female", "nonbinary",
+			"male", "female", "nonbinary",
 			"identity", "label", "category", "sex",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return gender(f), nil },
@@ -545,7 +545,7 @@ func addPersonLookup() {
 			"federal id",
 		},
 		Keywords: []string{
-			"ssn", "social", "security", "number",
+			"social", "security", "number",
 			"us", "tax", "irs", "employment",
 			"benefits", "identification",
 		},
@@ -566,7 +566,7 @@ func addPersonLookup() {
 			"irs number",
 		},
 		Keywords: []string{
-			"ein", "employer", "identification", "tax", "business", "federal", "irs", "number", "id",
+			"employer", "identification", "tax", "business", "federal", "irs", "number", "id",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) { return ein(f), nil },
 	})
@@ -586,7 +586,7 @@ func addPersonLookup() {
 			"free-time pursuit",
 		},
 		Keywords: []string{
-			"hobby", "leisure", "recreation",
+			"leisure", "recreation",
 			"activity", "sport", "craft",
 			"game", "collection",
 		},
@@ -677,7 +677,7 @@ func addPersonLookup() {
 			"electronic mailbox",
 		},
 		Keywords: []string{
-			"email", "address", "mail", "inbox",
+			"address", "mail", "inbox",
 			"account", "contact", "sender", "recipient",
 			"domain", "username",
 		},
@@ -699,7 +699,7 @@ func addPersonLookup() {
 			"voice number",
 		},
 		Keywords: []string{
-			"phone", "number", "telephone", "mobile",
+			"number", "telephone", "mobile",
 			"contact", "dial", "cell", "landline",
 			"e164", "voice",
 		},
@@ -758,7 +758,7 @@ func addPersonLookup() {
 			"roster builder",
 		},
 		Keywords: []string{
-			"teams", "randomly", "person", "into",
+			"randomly", "person", "into",
 			"distribution", "allocation", "roster", "squad",
 		},
 		Params: []Param{

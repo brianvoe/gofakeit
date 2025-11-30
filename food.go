@@ -101,7 +101,7 @@ func addFoodLookup() {
 			"dessert fruit",
 		},
 		Keywords: []string{
-			"fruit", "edible", "plant", "peach",
+			"edible", "plant", "peach",
 			"snack", "dessert", "sweet", "natural",
 			"produce", "fresh",
 		},
@@ -124,7 +124,7 @@ func addFoodLookup() {
 			"leafy edible",
 		},
 		Keywords: []string{
-			"vegetable", "greens", "produce", "amaranth",
+			"greens", "produce", "amaranth",
 			"leaves", "cooking", "salads", "plant",
 			"edible", "savory",
 		},
@@ -147,7 +147,7 @@ func addFoodLookup() {
 			"sunrise meal",
 		},
 		Keywords: []string{
-			"breakfast", "morning", "meal", "start",
+			"morning", "meal", "start",
 			"pancakes", "blueberry", "banana", "food",
 			"first", "early",
 		},
@@ -170,7 +170,7 @@ func addFoodLookup() {
 			"daytime meal",
 		},
 		Keywords: []string{
-			"lunch", "meal", "midday", "noon",
+			"meal", "midday", "noon",
 			"lighter", "food", "pie", "bar",
 			"afternoon",
 		},
@@ -193,7 +193,7 @@ func addFoodLookup() {
 			"hearty meal",
 		},
 		Keywords: []string{
-			"dinner", "supper", "evening", "meal",
+			"supper", "evening", "meal",
 			"main", "substantial", "night", "food",
 			"heavy", "course",
 		},
@@ -216,7 +216,7 @@ func addFoodLookup() {
 			"consumable fluid",
 		},
 		Keywords: []string{
-			"drink", "soda", "liquid",
+			"soda", "liquid",
 			"pleasure", "nutrition", "fluid", "quencher",
 			"consumed",
 		},
@@ -239,7 +239,7 @@ func addFoodLookup() {
 			"nibble",
 		},
 		Keywords: []string{
-			"snack", "between", "meals", "quick",
+			"between", "meals", "quick",
 			"small", "food", "item", "random",
 			"bite", "treat",
 		},
@@ -262,7 +262,7 @@ func addFoodLookup() {
 			"delicacy",
 		},
 		Keywords: []string{
-			"dessert", "sweet", "treat", "meal",
+			"sweet", "treat", "meal",
 			"after", "pastry", "cake", "enjoyed",
 			"final", "sugar",
 		},

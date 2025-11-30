@@ -316,7 +316,7 @@ func addTextLookup() {
 		Example:     "time will tell",
 		Output:      "string",
 		Aliases:     []string{"word group", "language unit", "text element", "expression block"},
-		Keywords:    []string{"phrase", "words", "group", "sentence", "text", "language", "grammar", "expression", "unit", "collection"},
+		Keywords:    []string{"words", "group", "sentence", "text", "language", "grammar", "expression", "unit", "collection"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return phrase(f), nil
 		},
@@ -381,7 +381,7 @@ func addTextLookup() {
 		Example:     "Guide person with kind affordances.",
 		Output:      "string",
 		Aliases:     []string{"complete thought", "grammatical unit", "word group", "linguistic element"},
-		Keywords:    []string{"sentence", "complete", "thought", "grammatical", "unit", "word", "group", "expression", "clause", "utterance"},
+		Keywords:    []string{"complete", "thought", "grammatical", "unit", "word", "group", "expression", "clause", "utterance"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return sentence(f), nil
 		},
@@ -394,7 +394,7 @@ func addTextLookup() {
 		Example:     "Protect the place under grumpy load. Decompose work into smaller group. Ruthlessly remove dead work.",
 		Output:      "string",
 		Aliases:     []string{"text block", "writing section", "thematic unit", "content block"},
-		Keywords:    []string{"paragraph", "text", "block", "writing", "section", "theme", "sentences", "composition", "distinct", "passage", "content"},
+		Keywords:    []string{"text", "block", "writing", "section", "theme", "sentences", "composition", "distinct", "passage", "content"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return paragraph(f), nil
 		},
@@ -414,7 +414,7 @@ func addTextLookup() {
 			"clarifying ask",
 		},
 		Keywords: []string{
-			"question", "inquiry", "clarification", "interrogative",
+			"inquiry", "clarification", "interrogative",
 			"ask", "who", "what", "when", "where", "why", "how", "mark",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
@@ -436,7 +436,7 @@ func addTextLookup() {
 			"pulled excerpt",
 		},
 		Keywords: []string{
-			"quote", "quotation", "citation", "reference", "excerpt",
+			"quotation", "citation", "reference", "excerpt",
 			"epigraph", "saying", "maxim", "attribution", "blockquote",
 		},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {

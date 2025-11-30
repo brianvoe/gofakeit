@@ -125,7 +125,7 @@ func addCompanyLookup() {
 			"legal entity",
 		},
 		Keywords: []string{
-			"company", "business", "organization", "corporation",
+			"business", "organization", "corporation",
 			"enterprise", "firm", "entity", "brand",
 			"employer", "vendor", "partner",
 		},
@@ -172,7 +172,7 @@ func addCompanyLookup() {
 			"consulting speak",
 		},
 		Keywords: []string{
-			"bs", "jargon", "buzzwords", "synergy", "leverage",
+			"jargon", "buzzwords", "synergy", "leverage",
 			"disrupt", "innovate", "scalable", "agile", "optimize",
 			"pipeline", "roadmap", "vision", "strategy", "corporate",
 		},
@@ -195,7 +195,7 @@ func addCompanyLookup() {
 			"about text",
 		},
 		Keywords: []string{
-			"blurb", "summary", "overview", "description",
+			"summary", "overview", "description",
 			"company", "profile", "about", "intro",
 			"purpose", "mission", "vision", "statement",
 			"services", "products", "offerings",
@@ -219,7 +219,7 @@ func addCompanyLookup() {
 			"marketing phrase",
 		},
 		Keywords: []string{
-			"buzzword", "jargon", "hype", "trend", "phrase",
+			"jargon", "hype", "trend", "phrase",
 			"term", "corporate", "management", "marketing",
 			"innovation", "paradigm", "disruptive", "visionary",
 			"fashionable", "impressive",
@@ -252,7 +252,7 @@ func addCompanyLookup() {
 			"occupation job",
 		},
 		Keywords: []string{
-			"job", "role", "position", "employment", "work",
+			"role", "position", "employment", "work",
 			"career", "profession", "title",
 			"responsibilities", "tasks", "duties",
 			"staff", "employee", "hiring", "positioning",
@@ -347,7 +347,7 @@ func addCompanyLookup() {
 			"advertising slogan",
 		},
 		Keywords: []string{
-			"slogan", "tagline", "motto", "catchphrase",
+			"tagline", "motto", "catchphrase",
 			"brand", "company", "marketing", "advertising",
 			"identity", "values", "mission", "vision",
 			"strapline", "promo", "campaign",

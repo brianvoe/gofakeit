@@ -108,7 +108,7 @@ func addWordPronounLookup() {
 		Example:     "me",
 		Output:      "string",
 		Aliases:     []string{"noun substitute", "word replacement", "grammar element", "reference word"},
-		Keywords:    []string{"pronoun", "noun", "replacement", "grammar", "repetition", "substitute", "reference", "avoidance"},
+		Keywords:    []string{"noun", "replacement", "grammar", "repetition", "substitute", "reference", "avoidance"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return pronoun(f), nil
 		},

@@ -119,7 +119,7 @@ func addAnimalLookup() {
 		Example:     "elk",
 		Output:      "string",
 		Aliases:     []string{"wild animal", "living creature", "wildlife species", "animal species", "creature name"},
-		Keywords:    []string{"animal", "creature", "living", "move", "eat", "environment", "wildlife", "species", "fauna", "beast", "organism", "vertebrate", "invertebrate"},
+		Keywords:    []string{"creature", "living", "move", "eat", "environment", "wildlife", "species", "fauna", "beast", "organism", "vertebrate", "invertebrate"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return animal(f), nil
 		},
@@ -158,7 +158,7 @@ func addAnimalLookup() {
 		Example:     "Chausie",
 		Output:      "string",
 		Aliases:     []string{"cat breed", "feline breed", "domestic cat", "pet cat", "kitty breed"},
-		Keywords:    []string{"cat", "breed", "feline", "pet", "domestic", "various", "persian", "siamese", "maine", "coon", "tabby", "calico", "tuxedo", "kitten"},
+		Keywords:    []string{"breed", "feline", "pet", "domestic", "various", "persian", "siamese", "maine", "coon", "tabby", "calico", "tuxedo", "kitten"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return cat(f), nil
 		},
@@ -171,7 +171,7 @@ func addAnimalLookup() {
 		Example:     "Norwich Terrier",
 		Output:      "string",
 		Aliases:     []string{"dog breed", "canine breed", "domestic dog", "pet dog", "fido breed"},
-		Keywords:    []string{"dog", "breed", "canine", "pet", "domestic", "various", "labrador", "retriever", "terrier", "shepherd", "bulldog", "poodle", "puppy", "hound"},
+		Keywords:    []string{"breed", "canine", "pet", "domestic", "various", "labrador", "retriever", "terrier", "shepherd", "bulldog", "poodle", "puppy", "hound"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return dog(f), nil
 		},
@@ -184,7 +184,7 @@ func addAnimalLookup() {
 		Example:     "goose",
 		Output:      "string",
 		Aliases:     []string{"bird species", "avian species", "feathered animal", "winged creature", "bird type"},
-		Keywords:    []string{"bird", "species", "avian", "feather", "wing", "distinct", "sparrow", "eagle", "hawk", "owl", "duck", "goose", "parrot", "finch", "robin"},
+		Keywords:    []string{"species", "avian", "feather", "wing", "distinct", "sparrow", "eagle", "hawk", "owl", "duck", "goose", "parrot", "finch", "robin"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return bird(f), nil
 		},

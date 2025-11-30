@@ -42,7 +42,7 @@ func addLanguagesLookup() {
 		Example:     "Kazakh",
 		Output:      "string",
 		Aliases:     []string{"spoken tongue", "dialect name", "native language", "speech form", "linguistic system"},
-		Keywords:    []string{"language", "communication", "symbols", "words", "grammar", "meaning", "system", "convey", "individuals"},
+		Keywords:    []string{"communication", "symbols", "words", "grammar", "meaning", "system", "convey", "individuals"},
 		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
 			return language(f), nil
 		},
