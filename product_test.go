@@ -23,19 +23,19 @@ func ExampleProduct() {
 	fmt.Println(product.Benefit)
 	fmt.Println(product.Suffix)
 
-	// Output: Wave Precision Lamp
-	// This upset product is crafted from wood and includes wireless, making it perfect for personal grooming and delivering comfort for travelers and professionals.
-	// [cosmetics outdoor gear]
+	// Output: Upgradeable Side Table
+	// This upset product is crafted from gel and includes 4k ready, making it perfect for learning and delivering advanced technology for gamers and DIY enthusiasts.
+	// [smart home devices camping gear]
 	// 73.93
-	// [touchscreen ultra-lightweight gps-enabled biometric]
+	// [multi-functional self-adjusting water-resistant underwater-capable]
 	// maroon
-	// silver
+	// oak wood
 	// 041026894059
-	// [gamers musicians]
-	// heavy
-	// learning
-	// efficiency
-	// dash
+	// [photographers travelers]
+	// regular
+	// dining
+	// aesthetic appeal
+	// plus
 }
 
 func ExampleFaker_Product() {
@@ -55,19 +55,19 @@ func ExampleFaker_Product() {
 	fmt.Println(product.Benefit)
 	fmt.Println(product.Suffix)
 
-	// Output: Wave Precision Lamp
-	// This upset product is crafted from wood and includes wireless, making it perfect for personal grooming and delivering comfort for travelers and professionals.
-	// [cosmetics outdoor gear]
+	// Output: Upgradeable Side Table
+	// This upset product is crafted from gel and includes 4k ready, making it perfect for learning and delivering advanced technology for gamers and DIY enthusiasts.
+	// [smart home devices camping gear]
 	// 73.93
-	// [touchscreen ultra-lightweight gps-enabled biometric]
+	// [multi-functional self-adjusting water-resistant underwater-capable]
 	// maroon
-	// silver
+	// oak wood
 	// 041026894059
-	// [gamers musicians]
-	// heavy
-	// learning
-	// efficiency
-	// dash
+	// [photographers travelers]
+	// regular
+	// dining
+	// aesthetic appeal
+	// plus
 }
 
 func TestProduct(t *testing.T) {
@@ -137,14 +137,14 @@ func ExampleProductName() {
 	Seed(11)
 	fmt.Println(ProductName())
 
-	// Output: Green Glass Hair Dryer
+	// Output: Luxurious Trophy
 }
 
 func ExampleFaker_ProductName() {
 	f := New(11)
 	fmt.Println(f.ProductName())
 
-	// Output: Green Glass Hair Dryer
+	// Output: Luxurious Trophy
 }
 
 func BenchmarkProductName(b *testing.B) {
@@ -157,14 +157,14 @@ func ExampleProductDescription() {
 	Seed(11)
 	fmt.Println(ProductDescription())
 
-	// Output: This product, ideal for seniors and families, features puzzled gold and incorporates gps-enabled to ensure robust construction during remote work.
+	// Output: This product, ideal for collectors and hobbyists, features puzzled mica and incorporates water-resistant to ensure safety during sports.
 }
 
 func ExampleFaker_ProductDescription() {
 	f := New(11)
 	fmt.Println(f.ProductDescription())
 
-	// Output: This product, ideal for seniors and families, features puzzled gold and incorporates gps-enabled to ensure robust construction during remote work.
+	// Output: This product, ideal for collectors and hobbyists, features puzzled mica and incorporates water-resistant to ensure safety during sports.
 }
 
 // Runs 10,000 tests to ensure description doesnt have any { or } in it
@@ -187,14 +187,14 @@ func ExampleProductCategory() {
 	Seed(11)
 	fmt.Println(ProductCategory())
 
-	// Output: pet food
+	// Output: tableware
 }
 
 func ExampleFaker_ProductCategory() {
 	f := New(11)
 	fmt.Println(f.ProductCategory())
 
-	// Output: pet food
+	// Output: tableware
 }
 
 func BenchmarkProductCategory(b *testing.B) {
@@ -207,14 +207,14 @@ func ExampleProductFeature() {
 	Seed(11)
 	fmt.Println(ProductFeature())
 
-	// Output: fast-charging
+	// Output: ultrasonic
 }
 
 func ExampleFaker_ProductFeature() {
 	f := New(11)
 	fmt.Println(f.ProductFeature())
 
-	// Output: fast-charging
+	// Output: ultrasonic
 }
 
 func BenchmarkProductFeature(b *testing.B) {
@@ -227,14 +227,14 @@ func ExampleProductMaterial() {
 	Seed(11)
 	fmt.Println(ProductMaterial())
 
-	// Output: quartz
+	// Output: textile
 }
 
 func ExampleFaker_ProductMaterial() {
 	f := New(11)
 	fmt.Println(f.ProductMaterial())
 
-	// Output: quartz
+	// Output: textile
 }
 
 func BenchmarkProductMaterial(b *testing.B) {
@@ -267,14 +267,14 @@ func ExampleProductAudience() {
 	Seed(11)
 	fmt.Println(ProductAudience())
 
-	// Output: [DIY enthusiasts students]
+	// Output: [students collectors]
 }
 
 func ExampleFaker_ProductAudience() {
 	f := New(11)
 	fmt.Println(f.ProductAudience())
 
-	// Output: [DIY enthusiasts students]
+	// Output: [students collectors]
 }
 
 func BenchmarkProductAudience(b *testing.B) {
@@ -287,14 +287,14 @@ func ExampleProductDimension() {
 	Seed(11)
 	fmt.Println(ProductDimension())
 
-	// Output: standard
+	// Output: x-small
 }
 
 func ExampleFaker_ProductDimension() {
 	f := New(11)
 	fmt.Println(f.ProductDimension())
 
-	// Output: standard
+	// Output: x-small
 }
 
 func BenchmarkProductDimension(b *testing.B) {
@@ -307,14 +307,14 @@ func ExampleProductUseCase() {
 	Seed(11)
 	fmt.Println(ProductUseCase())
 
-	// Output: remote work
+	// Output: sports
 }
 
 func ExampleFaker_ProductUseCase() {
 	f := New(11)
 	fmt.Println(f.ProductUseCase())
 
-	// Output: remote work
+	// Output: sports
 }
 
 func BenchmarkProductUseCase(b *testing.B) {
@@ -327,14 +327,14 @@ func ExampleProductBenefit() {
 	Seed(11)
 	fmt.Println(ProductBenefit())
 
-	// Output: minimal maintenance
+	// Output: time-saving
 }
 
 func ExampleFaker_ProductBenefit() {
 	f := New(11)
 	fmt.Println(f.ProductBenefit())
 
-	// Output: minimal maintenance
+	// Output: time-saving
 }
 
 func BenchmarkProductBenefit(b *testing.B) {
