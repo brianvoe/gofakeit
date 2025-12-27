@@ -72,38 +72,62 @@ func (f *Faker) ProductName() string { return productName(f) }
 
 func productName(f *Faker) string {
 	name := getRandValue(f, []string{"product", "name"})
-	switch number(f, 0, 9) {
-	case 1:
-		// Name + Adjective + Feature
-		return title(fmt.Sprintf("%s %s %s", name, getRandValue(f, []string{"product", "adjective"}), productFeature(f)))
-	case 2:
-		// Adjective + Material + Name
-		return title(fmt.Sprintf("%s %s %s", getRandValue(f, []string{"product", "adjective"}), productMaterial(f), name))
-	case 3:
-		// Color + Name + Suffix
-		return title(fmt.Sprintf("%s %s %s", safeColor(f), name, getRandValue(f, []string{"product", "suffix"})))
-	case 4:
-		// Feature + Name + Adjective
-		return title(fmt.Sprintf("%s %s %s", productFeature(f), name, getRandValue(f, []string{"product", "adjective"})))
-	case 5:
-		// Material + Color + Name
-		return title(fmt.Sprintf("%s %s %s", productMaterial(f), safeColor(f), name))
-	case 6:
-		// Name + Suffix + Material
-		return title(fmt.Sprintf("%s %s %s", name, getRandValue(f, []string{"product", "suffix"}), productMaterial(f)))
-	case 7:
-		// Adjective + Feature + Name
-		return title(fmt.Sprintf("%s %s %s", getRandValue(f, []string{"product", "adjective"}), productFeature(f), name))
-	case 8:
-		// Color + Material + Name
-		return title(fmt.Sprintf("%s %s %s", safeColor(f), productMaterial(f), name))
-	case 9:
-		// Suffix + Adjective + Name
-		return title(fmt.Sprintf("%s %s %s", getRandValue(f, []string{"product", "suffix"}), getRandValue(f, []string{"product", "adjective"}), name))
+	adj := func() string { return getRandValue(f, []string{"product", "adjective"}) }
+	suf := func() string { return getRandValue(f, []string{"product", "suffix"}) }
+	mat := func() string { return productMaterial(f) }
+	feat := func() string { return productFeature(f) }
+
+	// Small realism helpers: occasional compound/connector without turning into a listing
+	compoundAdj := func() string {
+		// 1 in 5: "adj-adj" (e.g., "Ultra-Light", "Quick-Dry")
+		if number(f, 1, 5) == 1 {
+			return fmt.Sprintf("%s-%s", adj(), adj())
+		}
+		return adj()
 	}
 
-	// case: 0 - Adjective + Name + Suffix
-	return title(fmt.Sprintf("%s %s %s", getRandValue(f, []string{"product", "adjective"}), name, getRandValue(f, []string{"product", "suffix"})))
+	// Keep it "product name"-ish: 2–3 chunks, no specs/colors/for-phrases.
+	// Weighted: 2-word names (~70%), 3-word names (~30%)
+	wordCount, _ := weighted(f, []any{"2word", "3word"}, []float32{70, 30})
+
+	switch wordCount {
+	case "2word":
+		// 2-word names (most common in real products)
+		switch number(f, 0, 4) {
+		case 0, 1:
+			// Adjective + Name (most common 2-word pattern)
+			return title(fmt.Sprintf("%s %s", compoundAdj(), name))
+		case 2:
+			// Name + Suffix
+			return title(fmt.Sprintf("%s %s", name, suf()))
+		case 3:
+			// Material + Name
+			return title(fmt.Sprintf("%s %s", mat(), name))
+		case 4:
+			// Feature + Name
+			return title(fmt.Sprintf("%s %s", feat(), name))
+		}
+
+	case "3word":
+		// 3-word names (less common)
+		switch number(f, 0, 4) {
+		case 0, 1:
+			// Adjective + Name + Suffix (most common 3-word pattern)
+			return title(fmt.Sprintf("%s %s %s", compoundAdj(), name, suf()))
+		case 2:
+			// Name + Feature + Suffix
+			return title(fmt.Sprintf("%s %s %s", name, feat(), suf()))
+		case 3:
+			// Adjective + Feature + Name
+			return title(fmt.Sprintf("%s %s %s", compoundAdj(), feat(), name))
+		case 4:
+			// Name + Material + Suffix
+			return title(fmt.Sprintf("%s %s %s", name, mat(), suf()))
+		}
+	}
+
+	// Fallback to 2-word name
+	return title(fmt.Sprintf("%s %s", compoundAdj(), name))
 }
 
 // ProductDescription will generate a random product description
