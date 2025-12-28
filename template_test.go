@@ -20,10 +20,10 @@ func ExampleTemplate() {
 
 	fmt.Println(string(value))
 
-	// Output: Sonny Stiedemann
-	// Cody Donnelly
-	// Julius Farrell
-	// Mollie Legros
+	// Output: Priscilla Thornton
+	// Brooke Duncan
+	// Gregg Ford
+	// Laurel McClure
 
 }
 
@@ -39,10 +39,10 @@ func ExampleFaker_Template() {
 
 	fmt.Println(string(value))
 
-	// Output: Sonny Stiedemann
-	// Cody Donnelly
-	// Julius Farrell
-	// Mollie Legros
+	// Output: Priscilla Thornton
+	// Brooke Duncan
+	// Gregg Ford
+	// Laurel McClure
 }
 
 func TestPassedInFunctionMap(t *testing.T) {
@@ -228,9 +228,9 @@ func ExampleEmailText() {
 
 	fmt.Println(string(value))
 
-	// Output: Subject: Hi from Russ!
+	// Output: Subject: Hi from Nannie!
 	//
-	// Dear Donnelly,
+	// Dear Duncan,
 	//
 	// Greetings! I hope your day is going well.
 	//
@@ -249,8 +249,8 @@ func ExampleEmailText() {
 	// I appreciate your attention to this matter. Wishing you a wonderful day!
 	//
 	// Warm regards
-	// Landen Doyle
-	// lavernerobel@bailey.io
+	// Jamal Elliott
+	// janierussell@bailey.io
 	// 1-875-720-1747
 }
 
@@ -264,9 +264,9 @@ func ExampleFaker_EmailText() {
 
 	fmt.Println(string(value))
 
-	// Output: Subject: Hi from Russ!
+	// Output: Subject: Hi from Nannie!
 	//
-	// Dear Donnelly,
+	// Dear Duncan,
 	//
 	// Greetings! I hope your day is going well.
 	//
@@ -285,8 +285,8 @@ func ExampleFaker_EmailText() {
 	// I appreciate your attention to this matter. Wishing you a wonderful day!
 	//
 	// Warm regards
-	// Landen Doyle
-	// lavernerobel@bailey.io
+	// Jamal Elliott
+	// janierussell@bailey.io
 	// 1-875-720-1747
 }
 
@@ -303,7 +303,7 @@ func ExampleMarkdown() {
 
 	// Output: # TurkeyThinker
 	//
-	// *Author: Tomasa Waters*
+	// *Author: Roxane Webb*
 	//
 	// He open safely to stabilize the world. Automate problem recovery gracefully. Choose lovely defaults. Deliberately wake the part. Clear time were better than clever week.
 	//
@@ -341,7 +341,7 @@ func ExampleFaker_Markdown() {
 
 	// Output: # TurkeyThinker
 	//
-	// *Author: Tomasa Waters*
+	// *Author: Roxane Webb*
 	//
 	// He open safely to stabilize the world. Automate problem recovery gracefully. Choose lovely defaults. Deliberately wake the part. Clear time were better than clever week.
 	//

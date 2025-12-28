@@ -26,8 +26,8 @@ func ExampleJSON_object() {
 	fmt.Println(string(value))
 
 	// Output: {
-	//     "first_name": "Sonny",
-	//     "last_name": "Stiedemann",
+	//     "first_name": "Priscilla",
+	//     "last_name": "Thornton",
 	//     "address": {
 	//         "address": "52759 Stationside, San Diego, Oregon 99344",
 	//         "street": "52759 Stationside",
@@ -63,8 +63,8 @@ func ExampleFaker_JSON_object() {
 	fmt.Println(string(value))
 
 	// Output: {
-	//     "first_name": "Sonny",
-	//     "last_name": "Stiedemann",
+	//     "first_name": "Priscilla",
+	//     "last_name": "Thornton",
 	//     "address": {
 	//         "address": "52759 Stationside, San Diego, Oregon 99344",
 	//         "street": "52759 Stationside",
@@ -103,20 +103,20 @@ func ExampleJSON_array() {
 	// Output: [
 	//     {
 	//         "id": 1,
-	//         "first_name": "Sonny",
-	//         "last_name": "Stiedemann",
+	//         "first_name": "Priscilla",
+	//         "last_name": "Thornton",
 	//         "password": "3lGftNp9S908"
 	//     },
 	//     {
 	//         "id": 2,
-	//         "first_name": "Verda",
-	//         "last_name": "Brakus",
+	//         "first_name": "Shaun",
+	//         "last_name": "Byrd",
 	//         "password": "Lc3G00tpPp7U"
 	//     },
 	//     {
 	//         "id": 3,
-	//         "first_name": "Jules",
-	//         "last_name": "Cremin",
+	//         "first_name": "Grady",
+	//         "last_name": "Craig",
 	//         "password": "LGAvzZ5xUB6Z"
 	//     }
 	// ]
@@ -145,20 +145,20 @@ func ExampleFaker_JSON_array() {
 	// Output: [
 	//     {
 	//         "id": 1,
-	//         "first_name": "Sonny",
-	//         "last_name": "Stiedemann",
+	//         "first_name": "Priscilla",
+	//         "last_name": "Thornton",
 	//         "password": "3lGftNp9S908"
 	//     },
 	//     {
 	//         "id": 2,
-	//         "first_name": "Verda",
-	//         "last_name": "Brakus",
+	//         "first_name": "Shaun",
+	//         "last_name": "Byrd",
 	//         "password": "Lc3G00tpPp7U"
 	//     },
 	//     {
 	//         "id": 3,
-	//         "first_name": "Jules",
-	//         "last_name": "Cremin",
+	//         "first_name": "Grady",
+	//         "last_name": "Craig",
 	//         "password": "LGAvzZ5xUB6Z"
 	//     }
 	// ]

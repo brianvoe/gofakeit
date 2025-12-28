@@ -145,14 +145,14 @@ func ExampleSentence() {
 	Seed(11)
 	fmt.Println(Sentence())
 
-	// Output: Weekends reserve time for Disc golf and day.
+	// Output: Weekends reserve time for Sun Bathing and day.
 }
 
 func ExampleFaker_Sentence() {
 	f := New(11)
 	fmt.Println(f.Sentence())
 
-	// Output: Weekends reserve time for Disc golf and day.
+	// Output: Weekends reserve time for Sun Bathing and day.
 }
 
 func TestSentence(t *testing.T) {

@@ -122,7 +122,7 @@ func ExampleStruct() {
 	// Output: sKKbMlbxqu
 	// 1365845625386394310
 	// 4415419407664574903
-	// Tomasa
+	// Roxane
 	// 10
 	// <nil>
 	// <nil>
@@ -173,7 +173,7 @@ func ExampleFaker_Struct() {
 	// Output: sKKbMlbxqu
 	// 1365845625386394310
 	// 4415419407664574903
-	// Tomasa
+	// Roxane
 	// 10
 	// <nil>
 	// [RWVlPmwRAe wVHB]
@@ -206,9 +206,9 @@ func ExampleStruct_array() {
 	fmt.Printf("%v\n", fm.Names)
 	fmt.Printf("%v\n", fm.NamesRange)
 
-	// Output: [{sKKbMlbxqu 1365845625386394310 Myrtis 10 <nil>}]
-	// [Tomasa Sunny Ernest]
-	// [Hassan Missouri Elisabeth Nedra Tiana Evan]
+	// Output: [{sKKbMlbxqu 1365845625386394310 Lesley 10 <nil>}]
+	// [Roxanne Randy Daija]
+	// [Edna Lance Colton Lila Rocky Danyka]
 }
 
 func ExampleFaker_Struct_array() {
@@ -235,9 +235,9 @@ func ExampleFaker_Struct_array() {
 	fmt.Printf("%v\n", fm.Names)
 	fmt.Printf("%v\n", fm.NamesRange)
 
-	// Output: [{sKKbMlbxqu 1365845625386394310 Myrtis 10 <nil>}]
-	// [Tomasa Sunny Ernest]
-	// [Hassan Missouri Elisabeth Nedra Tiana Evan]
+	// Output: [{sKKbMlbxqu 1365845625386394310 Lesley 10 <nil>}]
+	// [Roxanne Randy Daija]
+	// [Edna Lance Colton Lila Rocky Danyka]
 }
 
 func TestStructBasic(t *testing.T) {

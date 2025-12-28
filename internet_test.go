@@ -10,14 +10,14 @@ func ExampleDomainName() {
 	Seed(11)
 	fmt.Println(DomainName())
 
-	// Output: productinfrastructures.biz
+	// Output: strategicinfrastructures.biz
 }
 
 func ExampleFaker_DomainName() {
 	f := New(11)
 	fmt.Println(f.DomainName())
 
-	// Output: productinfrastructures.biz
+	// Output: strategicinfrastructures.biz
 }
 
 func BenchmarkDomainName(b *testing.B) {
@@ -50,14 +50,14 @@ func ExampleURL() {
 	Seed(11)
 	fmt.Println(URL())
 
-	// Output: http://www.directinnovative.biz/infrastructures
+	// Output: http://www.deputyinnovative.biz/infrastructures
 }
 
 func ExampleFaker_URL() {
 	f := New(11)
 	fmt.Println(f.URL())
 
-	// Output: http://www.directinnovative.biz/infrastructures
+	// Output: http://www.deputyinnovative.biz/infrastructures
 }
 
 func ExampleUrlSlug() {

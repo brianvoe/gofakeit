@@ -27,8 +27,8 @@ func ExampleXML_single() {
 	fmt.Println(string(value))
 
 	// Output: <xml>
-	//     <first_name>Sonny</first_name>
-	//     <last_name>Stiedemann</last_name>
+	//     <first_name>Priscilla</first_name>
+	//     <last_name>Thornton</last_name>
 	//     <password>3lGftNp9S908</password>
 	// </xml>
 }
@@ -55,8 +55,8 @@ func ExampleFaker_XML_single() {
 	fmt.Println(string(value))
 
 	// Output: <xml>
-	//     <first_name>Sonny</first_name>
-	//     <last_name>Stiedemann</last_name>
+	//     <first_name>Priscilla</first_name>
+	//     <last_name>Thornton</last_name>
 	//     <password>3lGftNp9S908</password>
 	// </xml>
 }
@@ -84,13 +84,13 @@ func ExampleXML_array() {
 
 	// Output: <xml>
 	//     <record>
-	//         <first_name>Sonny</first_name>
-	//         <last_name>Stiedemann</last_name>
+	//         <first_name>Priscilla</first_name>
+	//         <last_name>Thornton</last_name>
 	//         <password>3lGftNp9S908</password>
 	//     </record>
 	//     <record>
-	//         <first_name>Verda</first_name>
-	//         <last_name>Brakus</last_name>
+	//         <first_name>Shaun</first_name>
+	//         <last_name>Byrd</last_name>
 	//         <password>Lc3G00tpPp7U</password>
 	//     </record>
 	// </xml>
@@ -119,13 +119,13 @@ func ExampleFaker_XML_array() {
 
 	// Output: <xml>
 	//     <record>
-	//         <first_name>Sonny</first_name>
-	//         <last_name>Stiedemann</last_name>
+	//         <first_name>Priscilla</first_name>
+	//         <last_name>Thornton</last_name>
 	//         <password>3lGftNp9S908</password>
 	//     </record>
 	//     <record>
-	//         <first_name>Verda</first_name>
-	//         <last_name>Brakus</last_name>
+	//         <first_name>Shaun</first_name>
+	//         <last_name>Byrd</last_name>
 	//         <password>Lc3G00tpPp7U</password>
 	//     </record>
 	// </xml>

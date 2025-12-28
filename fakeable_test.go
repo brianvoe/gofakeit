@@ -75,10 +75,10 @@ func ExampleFakeable() {
 	fmt.Printf("%#v\n", t3)
 	fmt.Printf("%#v\n", t4)
 
-	// Output: gofakeit.testStruct1{B:"Colton"}
-	// gofakeit.testStruct1{B:"Colton"}
-	// gofakeit.testStruct2{B:"Colton"}
-	// gofakeit.testStruct2{B:"Colton"}
+	// Output: gofakeit.testStruct1{B:"Bryce"}
+	// gofakeit.testStruct1{B:"Bryce"}
+	// gofakeit.testStruct2{B:"Bryce"}
+	// gofakeit.testStruct2{B:"Bryce"}
 }
 
 type gammaFloat64 float64
@@ -158,7 +158,7 @@ func ExampleFakeable_employee() {
 	fmt.Printf("%#v\n", A2)
 	fmt.Printf("%#v\n", A3)
 
-	// Output: gofakeit.employee{Name:"Madelynn Hickle", CallCountPerHour:17}
-	// gofakeit.employee{Name:"Brooke Berge", CallCountPerHour:8}
-	// gofakeit.employee{Name:"Rosalee Roberts", CallCountPerHour:10}
+	// Output: gofakeit.employee{Name:"Julio Hicks", CallCountPerHour:17}
+	// gofakeit.employee{Name:"Autumn Berge", CallCountPerHour:8}
+	// gofakeit.employee{Name:"Mohammed Rutherford", CallCountPerHour:10}
 }

@@ -10,14 +10,14 @@ func ExampleName() {
 	Seed(11)
 	fmt.Println(Name())
 
-	// Output: Sonny Stiedemann
+	// Output: Priscilla Thornton
 }
 
 func ExampleFaker_Name() {
 	f := New(11)
 	fmt.Println(f.Name())
 
-	// Output: Sonny Stiedemann
+	// Output: Priscilla Thornton
 }
 
 func BenchmarkName(b *testing.B) {
@@ -30,14 +30,14 @@ func ExampleFirstName() {
 	Seed(11)
 	fmt.Println(FirstName())
 
-	// Output: Sonny
+	// Output: Priscilla
 }
 
 func ExampleFaker_FirstName() {
 	f := New(11)
 	fmt.Println(f.FirstName())
 
-	// Output: Sonny
+	// Output: Priscilla
 }
 
 func BenchmarkFirstName(b *testing.B) {
@@ -50,14 +50,14 @@ func ExampleMiddleName() {
 	Seed(11)
 	fmt.Println(MiddleName())
 
-	// Output: Star
+	// Output: Jose
 }
 
 func ExampleFaker_MiddleName() {
 	f := New(11)
 	fmt.Println(f.MiddleName())
 
-	// Output: Star
+	// Output: Jose
 }
 
 func BenchmarkMiddleName(b *testing.B) {
@@ -70,14 +70,14 @@ func ExampleLastName() {
 	Seed(11)
 	fmt.Println(LastName())
 
-	// Output: Treutel
+	// Output: Wagner
 }
 
 func ExampleFaker_LastName() {
 	f := New(11)
 	fmt.Println(f.LastName())
 
-	// Output: Treutel
+	// Output: Wagner
 }
 
 func BenchmarkLastName(b *testing.B) {
@@ -253,14 +253,14 @@ func ExampleHobby() {
 	Seed(11)
 	fmt.Println(Hobby())
 
-	// Output: Marching band
+	// Output: Travel
 }
 
 func ExampleFaker_Hobby() {
 	f := New(11)
 	fmt.Println(f.Hobby())
 
-	// Output: Marching band
+	// Output: Travel
 }
 
 func BenchmarkHobby(b *testing.B) {
@@ -295,8 +295,8 @@ func ExampleBio() {
 	fmt.Println(Bio())
 	fmt.Println(Bio())
 
-	// Output: Brews Fruit Beer while streaming Country, day job in Memphis as Facilitator
-	// Planner with a soft spot for Diesel builds and hands-on Ultimate frisbee in Laredo
+	// Output: Brews Fruit Beer while streaming Country, day job in Memphis as Musician
+	// Singer with a soft spot for Diesel builds and hands-on Weaving in Laredo
 	// Known for a hoodie look and a shelf of PaleGreen weasel art
 }
 
@@ -306,8 +306,8 @@ func ExampleFaker_Bio() {
 	fmt.Println(f.Bio())
 	fmt.Println(f.Bio())
 
-	// Output: Brews Fruit Beer while streaming Country, day job in Memphis as Facilitator
-	// Planner with a soft spot for Diesel builds and hands-on Ultimate frisbee in Laredo
+	// Output: Brews Fruit Beer while streaming Country, day job in Memphis as Musician
+	// Singer with a soft spot for Diesel builds and hands-on Weaving in Laredo
 	// Known for a hoodie look and a shelf of PaleGreen weasel art
 }
 
@@ -388,15 +388,15 @@ func ExamplePerson() {
 	fmt.Println(creditCard.Exp)
 	fmt.Println(creditCard.Cvv)
 
-	// Output: Sonny
-	// Stiedemann
+	// Output: Priscilla
+	// Thornton
 	// male
 	// 20
 	// 575624882
-	// Photography
+	// Cosplaying
 	// Qado Energy, Inc.
-	// Facilitator
-	// Regional
+	// Nail Technician
+	// Technical
 	// Quality
 	// 79993 Lanebury, Lincoln, Kansas 93050
 	// 79993 Lanebury
@@ -407,7 +407,7 @@ func ExamplePerson() {
 	// -26.936948
 	// -28.374174
 	// 2689405915
-	// hopeprohaska@metz.io
+	// elsareynolds@nichols.io
 	// American Express
 	// 4570938757201747
 	// 11/28
@@ -451,15 +451,15 @@ func ExampleFaker_Person() {
 	fmt.Println(creditCard.Exp)
 	fmt.Println(creditCard.Cvv)
 
-	// Output: Sonny
-	// Stiedemann
+	// Output: Priscilla
+	// Thornton
 	// male
 	// 20
 	// 575624882
-	// Photography
+	// Cosplaying
 	// Qado Energy, Inc.
-	// Facilitator
-	// Regional
+	// Nail Technician
+	// Technical
 	// Quality
 	// 79993 Lanebury, Lincoln, Kansas 93050
 	// 79993 Lanebury
@@ -470,7 +470,7 @@ func ExampleFaker_Person() {
 	// -26.936948
 	// -28.374174
 	// 2689405915
-	// hopeprohaska@metz.io
+	// elsareynolds@nichols.io
 	// American Express
 	// 4570938757201747
 	// 11/28
@@ -490,7 +490,7 @@ func ExampleContact() {
 	fmt.Println(contact.Email)
 
 	// Output: 8812527598
-	// stevebins@robel.io
+	// ramonblack@rutherford.io
 }
 
 func ExampleFaker_Contact() {
@@ -500,7 +500,7 @@ func ExampleFaker_Contact() {
 	fmt.Println(contact.Email)
 
 	// Output: 8812527598
-	// stevebins@robel.io
+	// ramonblack@rutherford.io
 }
 
 func BenchmarkContact(b *testing.B) {
@@ -553,14 +553,14 @@ func ExampleEmail() {
 	Seed(11)
 	fmt.Println(Email())
 
-	// Output: sonnystiedemann@donnelly.biz
+	// Output: priscillathornton@duncan.biz
 }
 
 func ExampleFaker_Email() {
 	f := New(11)
 	fmt.Println(f.Email())
 
-	// Output: sonnystiedemann@donnelly.biz
+	// Output: priscillathornton@duncan.biz
 }
 
 func BenchmarkEmail(b *testing.B) {

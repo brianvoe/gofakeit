@@ -23,7 +23,7 @@ func ExampleSQL() {
 
 	fmt.Println(string(res))
 
-	// Output: INSERT INTO people (id, first_name, price, age, created_at) VALUES (1, 'Sonny', 985.96, 20, '1925-07-08 17:32:57'),(2, 'Steve', 639.32, 74, '2017-12-29 07:25:24');
+	// Output: INSERT INTO people (id, first_name, price, age, created_at) VALUES (1, 'Priscilla', 985.96, 20, '1925-07-08 17:32:57'),(2, 'Ramon', 639.32, 74, '2017-12-29 07:25:24');
 }
 
 func ExampleFaker_SQL() {
@@ -43,7 +43,7 @@ func ExampleFaker_SQL() {
 
 	fmt.Println(string(res))
 
-	// Output: INSERT INTO people (id, first_name, price, age, created_at) VALUES (1, 'Sonny', 985.96, 20, '1925-07-08 17:32:57'),(2, 'Steve', 639.32, 74, '2017-12-29 07:25:24');
+	// Output: INSERT INTO people (id, first_name, price, age, created_at) VALUES (1, 'Priscilla', 985.96, 20, '1925-07-08 17:32:57'),(2, 'Ramon', 639.32, 74, '2017-12-29 07:25:24');
 }
 
 func TestSQLJSON(t *testing.T) {
@@ -81,7 +81,7 @@ func TestSQLJSON(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if res != `INSERT INTO people (data) VALUES ('{"first_name":"Sonny","last_name":"Stiedemann"}'),('{"first_name":"Cody","last_name":"Donnelly"}');` {
+	if res != `INSERT INTO people (data) VALUES ('{"first_name":"Priscilla","last_name":"Thornton"}'),('{"first_name":"Brooke","last_name":"Duncan"}');` {
 		t.Errorf("SQL query did not match expected output: %s", res)
 	}
 }

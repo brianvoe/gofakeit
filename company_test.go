@@ -119,8 +119,8 @@ func ExampleJob() {
 	fmt.Println(jobInfo.Level)
 
 	// Output: TransparaGov
-	// Specialist
-	// Direct
+	// Teacher
+	// Deputy
 	// Configuration
 }
 
@@ -133,8 +133,8 @@ func ExampleFaker_Job() {
 	fmt.Println(jobInfo.Level)
 
 	// Output: TransparaGov
-	// Specialist
-	// Direct
+	// Teacher
+	// Deputy
 	// Configuration
 }
 
@@ -148,14 +148,14 @@ func ExampleJobTitle() {
 	Seed(11)
 	fmt.Println(JobTitle())
 
-	// Output: Strategist
+	// Output: Traffic Controller
 }
 
 func ExampleFaker_JobTitle() {
 	f := New(11)
 	fmt.Println(f.JobTitle())
 
-	// Output: Strategist
+	// Output: Traffic Controller
 }
 
 func BenchmarkJobTitle(b *testing.B) {
@@ -168,14 +168,14 @@ func ExampleJobDescriptor() {
 	Seed(11)
 	fmt.Println(JobDescriptor())
 
-	// Output: Product
+	// Output: Strategic
 }
 
 func ExampleFaker_JobDescriptor() {
 	f := New(11)
 	fmt.Println(f.JobDescriptor())
 
-	// Output: Product
+	// Output: Strategic
 }
 
 func BenchmarkJobDescriptor(b *testing.B) {

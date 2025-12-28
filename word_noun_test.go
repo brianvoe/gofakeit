@@ -189,14 +189,14 @@ func ExampleNounProper() {
 	Seed(11)
 	fmt.Println(NounProper())
 
-	// Output: Russ
+	// Output: Nannie
 }
 
 func ExampleFaker_NounProper() {
 	f := New(11)
 	fmt.Println(f.NounProper())
 
-	// Output: Russ
+	// Output: Nannie
 }
 
 func TestNounProper(t *testing.T) {

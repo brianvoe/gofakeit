@@ -23,8 +23,8 @@ func Example() {
 	fmt.Println("Job Title:", JobTitle())
 	fmt.Println("Password:", Password(true, true, true, true, false, 32))
 
-	// Output: Name: Sonny Stiedemann
-	// Email: codydonnelly@leannon.biz
+	// Output: Name: Priscilla Thornton
+	// Email: brookeduncan@maxwell.biz
 	// Phone: 7598907999
 	// Address: 4737 Port Hillstown, Santa Ana, Alabama 41026
 	// BS: interactive
@@ -33,7 +33,7 @@ func Example() {
 	// Company: Municode
 	// Credit Card: 6449062052570938760
 	// Hacker Phrase: I'll override the back-end USB system, that should encrypt the SCSI port!
-	// Job Title: Engineer
+	// Job Title: Journalist
 	// Password: 4i86u.-1.NM4DtZ5M@!@-.Cz4vY*wTqs
 }
 
@@ -47,8 +47,8 @@ func ExampleNew() {
 	fmt.Println("Phone:", fake.Phone())
 
 	// Output:
-	// Name: Sonny Stiedemann
-	// Email: codydonnelly@leannon.biz
+	// Name: Priscilla Thornton
+	// Email: brookeduncan@maxwell.biz
 	// Phone: 7598907999
 }
 
@@ -66,7 +66,7 @@ func ExampleNewFaker() {
 	fmt.Println("Name:", fake.Name())
 
 	// Output:
-	// Name: Damian Pagac
+	// Name: Carey Ramirez
 }
 
 func TestSeed(t *testing.T) {
