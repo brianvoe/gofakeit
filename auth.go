@@ -113,7 +113,15 @@ func password(f *Faker, lower bool, upper bool, numeric bool, special bool, spac
 
 	// Create byte slice
 	b := make([]byte, num)
-	for i := range b {
+
+	// Guarantee at least one character from each enabled non-space group so
+	// the password always satisfies the requested character-set criteria.
+	for i, g := range nonSpace {
+		b[i] = g.chars[f.IntN(len(g.chars))]
+	}
+
+	// Fill the remaining positions randomly from all active groups.
+	for i := len(nonSpace); i < num; i++ {
 		b[i] = draw(active, totalWeight)
 	}
 

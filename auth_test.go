@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -49,6 +50,43 @@ func TestPassword(t *testing.T) {
 	}
 }
 
+func TestPasswordCharacterSetGuarantee(t *testing.T) {
+	// Every generated password must contain at least one character from each
+	// enabled character set, regardless of length or randomness.
+	for i := 0; i < 1000; i++ {
+		pass := Password(true, true, true, true, false, 8)
+
+		var hasLower, hasUpper, hasNumeric, hasSpecial bool
+		for _, c := range pass {
+			if strings.ContainsRune(lowerStr, c) {
+				hasLower = true
+			}
+			if strings.ContainsRune(upperStr, c) {
+				hasUpper = true
+			}
+			if strings.ContainsRune(numericStr, c) {
+				hasNumeric = true
+			}
+			if strings.ContainsRune(specialSafeStr, c) {
+				hasSpecial = true
+			}
+		}
+
+		if !hasLower {
+			t.Errorf("iteration %d: password %q missing lowercase character", i, pass)
+		}
+		if !hasUpper {
+			t.Errorf("iteration %d: password %q missing uppercase character", i, pass)
+		}
+		if !hasNumeric {
+			t.Errorf("iteration %d: password %q missing numeric character", i, pass)
+		}
+		if !hasSpecial {
+			t.Errorf("iteration %d: password %q missing special character", i, pass)
+		}
+	}
+}
+
 func ExamplePassword() {
 	Seed(11)
 	fmt.Println(Password(true, false, false, false, false, 32))
@@ -58,12 +96,12 @@ func ExamplePassword() {
 	fmt.Println(Password(true, true, true, true, true, 32))
 	fmt.Println(Password(true, true, true, true, true, 4))
 
-	// Output: tcvncypbfolpftvlyplgdxiwibpsautg
-	// ZXVXDVFQGCECFDBRWEKPWATHKRGKWDIZ
-	// 78902501101475351179812748788830
-	// !!._-._*--@@.@---@_@.-_!_!-*_!*@
-	// 96 rvcB@f0.PNzL!qp 7hP_V 7g!vV 9
-	// 6hJDB
+	// Output: bakyxpaaiytqtynbqyfssyhweynxkxhf
+	// DPETVGIXXHDGKFXKBZEAQRKZRFDCWVWC
+	// 98102640783120607214363311930963
+	// --*!_---!__!@--.!_.!@*--@.@__*@*
+	// 63.0NpLPR Pv9 h! c!V *gzBv97rvf7
+	// mZO-4
 }
 
 func ExampleFaker_Password() {
@@ -75,12 +113,12 @@ func ExampleFaker_Password() {
 	fmt.Println(f.Password(true, true, true, true, true, 32))
 	fmt.Println(f.Password(true, true, true, true, true, 4))
 
-	// Output: tcvncypbfolpftvlyplgdxiwibpsautg
-	// ZXVXDVFQGCECFDBRWEKPWATHKRGKWDIZ
-	// 78902501101475351179812748788830
-	// !!._-._*--@@.@---@_@.-_!_!-*_!*@
-	// 96 rvcB@f0.PNzL!qp 7hP_V 7g!vV 9
-	// 6hJDB
+	// Output: bakyxpaaiytqtynbqyfssyhweynxkxhf
+	// DPETVGIXXHDGKFXKBZEAQRKZRFDCWVWC
+	// 98102640783120607214363311930963
+	// --*!_---!__!@--.!_.!@*--@.@__*@*
+	// 63.0NpLPR Pv9 h! c!V *gzBv97rvf7
+	// mZO-4
 }
 
 func BenchmarkPassword(b *testing.B) {

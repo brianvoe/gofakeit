@@ -25,9 +25,9 @@ func ExampleCSV_array() {
 	fmt.Println(string(value))
 
 	// Output: id,first_name,last_name,password
-	// 1,Priscilla,Thornton,3lGftNp9S908
-	// 2,Shaun,Byrd,Lc3G00tpPp7U
-	// 3,Grady,Craig,LGAvzZ5xUB6Z
+	// 1,Priscilla,Thornton,F395YfK9tHs9
+	// 2,Emmett,Black,PL0G37o1pY0p
+	// 3,Liza,Vincent,q11fR4MwsM4N
 }
 
 func ExampleFaker_CSV_array() {
@@ -49,9 +49,9 @@ func ExampleFaker_CSV_array() {
 	fmt.Println(string(value))
 
 	// Output: id,first_name,last_name,password
-	// 1,Priscilla,Thornton,3lGftNp9S908
-	// 2,Shaun,Byrd,Lc3G00tpPp7U
-	// 3,Grady,Craig,LGAvzZ5xUB6Z
+	// 1,Priscilla,Thornton,F395YfK9tHs9
+	// 2,Emmett,Black,PL0G37o1pY0p
+	// 3,Liza,Vincent,q11fR4MwsM4N
 }
 
 func TestCSVLookup(t *testing.T) {

@@ -39,7 +39,7 @@ func ExampleJSON_object() {
 	//         "latitude": 77.259885,
 	//         "longitude": 101.656736
 	//     },
-	//     "password": "B4qp9aqaXYSA"
+	//     "password": "1VAfP4oi5DLy"
 	// }
 }
 
@@ -76,7 +76,7 @@ func ExampleFaker_JSON_object() {
 	//         "latitude": 77.259885,
 	//         "longitude": 101.656736
 	//     },
-	//     "password": "B4qp9aqaXYSA"
+	//     "password": "1VAfP4oi5DLy"
 	// }
 }
 
@@ -105,19 +105,19 @@ func ExampleJSON_array() {
 	//         "id": 1,
 	//         "first_name": "Priscilla",
 	//         "last_name": "Thornton",
-	//         "password": "3lGftNp9S908"
+	//         "password": "F395YfK9tHs9"
 	//     },
 	//     {
 	//         "id": 2,
-	//         "first_name": "Shaun",
-	//         "last_name": "Byrd",
-	//         "password": "Lc3G00tpPp7U"
+	//         "first_name": "Emmett",
+	//         "last_name": "Black",
+	//         "password": "PL0G37o1pY0p"
 	//     },
 	//     {
 	//         "id": 3,
-	//         "first_name": "Grady",
-	//         "last_name": "Craig",
-	//         "password": "LGAvzZ5xUB6Z"
+	//         "first_name": "Liza",
+	//         "last_name": "Vincent",
+	//         "password": "q11fR4MwsM4N"
 	//     }
 	// ]
 }
@@ -147,19 +147,19 @@ func ExampleFaker_JSON_array() {
 	//         "id": 1,
 	//         "first_name": "Priscilla",
 	//         "last_name": "Thornton",
-	//         "password": "3lGftNp9S908"
+	//         "password": "F395YfK9tHs9"
 	//     },
 	//     {
 	//         "id": 2,
-	//         "first_name": "Shaun",
-	//         "last_name": "Byrd",
-	//         "password": "Lc3G00tpPp7U"
+	//         "first_name": "Emmett",
+	//         "last_name": "Black",
+	//         "password": "PL0G37o1pY0p"
 	//     },
 	//     {
 	//         "id": 3,
-	//         "first_name": "Grady",
-	//         "last_name": "Craig",
-	//         "password": "LGAvzZ5xUB6Z"
+	//         "first_name": "Liza",
+	//         "last_name": "Vincent",
+	//         "password": "q11fR4MwsM4N"
 	//     }
 	// ]
 }

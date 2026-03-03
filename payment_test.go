@@ -101,7 +101,7 @@ func ExampleCreditCard() {
 
 	// Output: American Express
 	// 6376095989079994
-	// 06/30
+	// 06/31
 	// 125
 }
 
@@ -115,7 +115,7 @@ func ExampleFaker_CreditCard() {
 
 	// Output: American Express
 	// 6376095989079994
-	// 06/30
+	// 06/31
 	// 125
 }
 
@@ -216,14 +216,14 @@ func ExampleCreditCardExp() {
 	Seed(11)
 	fmt.Println(CreditCardExp())
 
-	// Output: 11/34
+	// Output: 11/35
 }
 
 func ExampleFaker_CreditCardExp() {
 	f := New(11)
 	fmt.Println(f.CreditCardExp())
 
-	// Output: 11/34
+	// Output: 11/35
 }
 
 func BenchmarkCreditCardExp(b *testing.B) {
@@ -296,14 +296,14 @@ func ExampleBitcoinAddress() {
 	Seed(11)
 	fmt.Println(BitcoinAddress())
 
-	// Output: 1Lcy9SN3ffStpUpP0VlGp4oD9G7t083012
+	// Output: 1X4a9BH9F9eSbFyq3qY9AYT54tpas2Kwf5
 }
 
 func ExampleFaker_BitcoinAddress() {
 	f := New(11)
 	fmt.Println(f.BitcoinAddress())
 
-	// Output: 1Lcy9SN3ffStpUpP0VlGp4oD9G7t083012
+	// Output: 1X4a9BH9F9eSbFyq3qY9AYT54tpas2Kwf5
 }
 
 func BenchmarkBitcoinAddress(b *testing.B) {
