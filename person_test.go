@@ -410,7 +410,7 @@ func ExamplePerson() {
 	// elsareynolds@nichols.io
 	// American Express
 	// 4570938757201747
-	// 11/28
+	// 11/29
 	// 205
 }
 
@@ -473,7 +473,7 @@ func ExampleFaker_Person() {
 	// elsareynolds@nichols.io
 	// American Express
 	// 4570938757201747
-	// 11/28
+	// 11/29
 	// 205
 }
 

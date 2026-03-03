@@ -649,12 +649,12 @@ func TestStructToDateTime(t *testing.T) {
 		{
 			name:     "Simple",
 			observed: datetime.Simple.String(),
-			expected: "2012-11-07 04:31:13.726582492 +0000 UTC",
+			expected: "2013-11-07 04:31:13.726582492 +0000 UTC",
 		},
 		{
 			name:     "Tag",
 			observed: datetime.Tag.String(),
-			expected: "1967-12-26 21:04:44 +0000 UTC",
+			expected: "1968-12-26 21:04:44 +0000 UTC",
 		},
 		{
 			name:     "TagCustom",
