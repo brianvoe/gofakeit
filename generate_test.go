@@ -246,9 +246,9 @@ func ExampleFixedWidth() {
 	fmt.Println(string(value))
 
 	// Output: Name                   Email                          Password         Age
-	// Priscilla Thornton     laurelmcclure@wiley.org        L43ypoSV1tDf     62
-	// Brooke Duncan          ramonblack@rutherford.io       rSM78E2ncUt3     9
-	// Gregg Ford             roxannewalsh@hamilton.name     DUB69zQ1WZx8     77
+	// Priscilla Thornton     laurelmcclure@wiley.org        93Ya9ABSa4kq     92
+	// Brooke Duncan          ramonblack@rutherford.io       US8ptM3c2T07     64
+	// Gregg Ford             roxannewalsh@hamilton.name     4wP4V90iMs44     59
 }
 
 func ExampleFixedWidth_default() {
@@ -262,15 +262,15 @@ func ExampleFixedWidth_default() {
 	fmt.Println(string(value))
 
 	// Output: Name                  Email                        Password
-	// Nannie Duncan         lancegraves@sandoval.io      1T2elqD45w8N
-	// Brooklyn Maxwell      danykaadams@morgan.com       V444uNv59i04
-	// Carmen Romero         robinjenkins@cormier.com     eiZz6ipistlz
-	// Hailie Wiley          buddypearson@summers.io      623DddowdELF
-	// Marion Wallace        emmettblack@mcdermott.io     3Ydc69Z00Mcj
-	// Amalia Rutherford     aprilmuller@joseph.net       31mk7arUdpNi
-	// Roxane Webb           jaywashington@barton.net     t9fPK4m8497T
-	// Randy Hamilton        caseybartell@myers.biz       x4KU3IhQ6im7
-	// Elliott Jacobson      janierussell@bailey.io       5aHeXXT8vjF5
+	// Nannie Duncan         lancegraves@sandoval.io      n7iSUr2MWt8c
+	// Brooklyn Maxwell      danykaadams@morgan.com       4v940LNiV44s
+	// Carmen Romero         robinjenkins@cormier.com     472CR3CDG0ke
+	// Hailie Wiley          buddypearson@summers.io      Hd692w44DlzL
+	// Marion Wallace        emmettblack@mcdermott.io     K187He5tUfFj
+	// Amalia Rutherford     aprilmuller@joseph.net       2ibBGsrc0mW3
+	// Roxane Webb           jaywashington@barton.net     s0HNN9fkEL1u
+	// Randy Hamilton        caseybartell@myers.biz       ORe9uGIuP4m0
+	// Elliott Jacobson      janierussell@bailey.io       Hd5Kl6T2g7pi
 }
 
 func ExampleFixedWidth_noHeader() {
@@ -291,9 +291,9 @@ func ExampleFixedWidth_noHeader() {
 
 	fmt.Println(value)
 
-	// Output: Priscilla Thornton     laurelmcclure@wiley.org        L43ypoSV1tDf     62
-	// Brooke Duncan          ramonblack@rutherford.io       rSM78E2ncUt3     9
-	// Gregg Ford             roxannewalsh@hamilton.name     DUB69zQ1WZx8     77
+	// Output: Priscilla Thornton     laurelmcclure@wiley.org        93Ya9ABSa4kq     92
+	// Brooke Duncan          ramonblack@rutherford.io       US8ptM3c2T07     64
+	// Gregg Ford             roxannewalsh@hamilton.name     4wP4V90iMs44     59
 }
 
 func ExampleFaker_FixedWidth() {
@@ -315,9 +315,9 @@ func ExampleFaker_FixedWidth() {
 	fmt.Println(string(value))
 
 	// Output: Name                   Email                          Password         Age
-	// Priscilla Thornton     laurelmcclure@wiley.org        L43ypoSV1tDf     62
-	// Brooke Duncan          ramonblack@rutherford.io       rSM78E2ncUt3     9
-	// Gregg Ford             roxannewalsh@hamilton.name     DUB69zQ1WZx8     77
+	// Priscilla Thornton     laurelmcclure@wiley.org        93Ya9ABSa4kq     92
+	// Brooke Duncan          ramonblack@rutherford.io       US8ptM3c2T07     64
+	// Gregg Ford             roxannewalsh@hamilton.name     4wP4V90iMs44     59
 }
 
 func TestFixedWidthLookup(t *testing.T) {

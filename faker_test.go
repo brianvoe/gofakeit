@@ -34,7 +34,7 @@ func Example() {
 	// Credit Card: 6449062052570938760
 	// Hacker Phrase: I'll override the back-end USB system, that should encrypt the SCSI port!
 	// Job Title: Journalist
-	// Password: 4i86u.-1.NM4DtZ5M@!@-.Cz4vY*wTqs
+	// Password: @M85m-v-4Nt*4T4.qsuw!.MC1Y68i@D.
 }
 
 func ExampleNew() {
