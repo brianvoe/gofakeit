@@ -33,11 +33,13 @@ func (f *Faker) Password(lower bool, upper bool, numeric bool, special bool, spa
 }
 
 func password(f *Faker, lower bool, upper bool, numeric bool, special bool, space bool, num int) string {
-	// Make sure the num minimum is at least 5
+	// Minimum length
 	if num < 5 {
 		num = 5
 	}
 
+	// Character group types and defaults
+	// Each group has a weight for random selection; non-space groups are used for guaranteed slots.
 	type charGroup struct {
 		chars   string
 		weight  int
@@ -54,12 +56,13 @@ func password(f *Faker, lower bool, upper bool, numeric bool, special bool, spac
 	var (
 		activeBuf      [5]charGroup
 		nonSpaceBuf    [5]charGroup
-		active         []charGroup
+		active         []charGroup // all enabled groups (used for random fill)
 		totalWeight    int
-		nonSpace       []charGroup
+		nonSpace       []charGroup // enabled groups excluding space (for guaranteed slots and edge fixes)
 		nonSpaceWeight int
 	)
 
+	// Build active character sets from enabled options
 	appendGroup := func(enabled bool, chars string, weight int, isSpace bool) {
 		if !enabled {
 			return
@@ -80,18 +83,18 @@ func password(f *Faker, lower bool, upper bool, numeric bool, special bool, spac
 	appendGroup(special, specialSafeStr, 2, false)
 	appendGroup(space, spaceStr, 1, true)
 
-	// If no items are selected then default to lower, upper, numeric
+	// Fallbacks when nothing or only space is selected
 	if len(active) == 0 {
 		active = defaultNonSpace[:]
 		totalWeight = defaultNonSpaceWeight
 		nonSpace = active
 		nonSpaceWeight = totalWeight
 	} else if nonSpaceWeight == 0 {
-		// No non-space characters were added (only spaces); fall back to defaults.
 		nonSpace = defaultNonSpace[:]
 		nonSpaceWeight = defaultNonSpaceWeight
 	}
 
+	// Helper: draw one random character from a weighted set of groups
 	draw := func(groups []charGroup, total int) byte {
 		if total <= 0 {
 			groups = defaultNonSpace[:]
@@ -111,32 +114,52 @@ func password(f *Faker, lower bool, upper bool, numeric bool, special bool, spac
 		return g.chars[f.IntN(len(g.chars))]
 	}
 
-	// Create byte slice
+	// Guaranteed slots: one character from each enabled set
+	// First slots: one from each enabled non-space group. Then one space if space is enabled.
 	b := make([]byte, num)
-
-	// Guarantee at least one character from each enabled non-space group so
-	// the password always satisfies the requested character-set criteria.
+	end := len(nonSpace)
 	for i, g := range nonSpace {
 		b[i] = g.chars[f.IntN(len(g.chars))]
 	}
+	if space {
+		b[end] = ' '
+		end++
+	}
 
-	// Fill the remaining positions randomly from all active groups.
-	for i := len(nonSpace); i < num; i++ {
+	// Fill remaining positions randomly from all active groups
+	for i := end; i < num; i++ {
 		b[i] = draw(active, totalWeight)
 	}
 
-	// Shuffle bytes
+	// Shuffle so guaranteed characters are not in fixed positions
 	for i := range b {
 		j := f.IntN(i + 1)
 		b[i], b[j] = b[j], b[i]
 	}
 
-	// Replace first or last character if it's a space, and other options are available
+	// Ensure password does not start or end with a space
+	// Swap with an interior non-space so we keep one space in the password; fallback to overwrite if no interior non-space.
 	if b[0] == ' ' {
-		b[0] = draw(nonSpace, nonSpaceWeight)
+		for i := 1; i < len(b)-1; i++ {
+			if b[i] != ' ' {
+				b[0], b[i] = b[i], b[0]
+				break
+			}
+		}
+		if b[0] == ' ' {
+			b[0] = draw(nonSpace, nonSpaceWeight)
+		}
 	}
 	if b[len(b)-1] == ' ' {
-		b[len(b)-1] = draw(nonSpace, nonSpaceWeight)
+		for i := len(b) - 2; i >= 1; i-- {
+			if b[i] != ' ' {
+				b[len(b)-1], b[i] = b[i], b[len(b)-1]
+				break
+			}
+		}
+		if b[len(b)-1] == ' ' {
+			b[len(b)-1] = draw(nonSpace, nonSpaceWeight)
+		}
 	}
 
 	return string(b)

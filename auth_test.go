@@ -53,10 +53,11 @@ func TestPassword(t *testing.T) {
 func TestPasswordCharacterSetGuarantee(t *testing.T) {
 	// Every generated password must contain at least one character from each
 	// enabled character set, regardless of length or randomness.
+	lower, upper, numeric, special, space := true, true, true, true, true
 	for i := 0; i < 1000; i++ {
-		pass := Password(true, true, true, true, false, 8)
+		pass := Password(lower, upper, numeric, special, space, 8)
 
-		var hasLower, hasUpper, hasNumeric, hasSpecial bool
+		var hasLower, hasUpper, hasNumeric, hasSpecial, hasSpace bool
 		for _, c := range pass {
 			if strings.ContainsRune(lowerStr, c) {
 				hasLower = true
@@ -69,6 +70,9 @@ func TestPasswordCharacterSetGuarantee(t *testing.T) {
 			}
 			if strings.ContainsRune(specialSafeStr, c) {
 				hasSpecial = true
+			}
+			if strings.ContainsRune(spaceStr, c) {
+				hasSpace = true
 			}
 		}
 
@@ -83,6 +87,9 @@ func TestPasswordCharacterSetGuarantee(t *testing.T) {
 		}
 		if !hasSpecial {
 			t.Errorf("iteration %d: password %q missing special character", i, pass)
+		}
+		if !hasSpace {
+			t.Errorf("iteration %d: password %q missing space character", i, pass)
 		}
 	}
 }
@@ -100,8 +107,8 @@ func ExamplePassword() {
 	// DPETVGIXXHDGKFXKBZEAQRKZRFDCWVWC
 	// 98102640783120607214363311930963
 	// --*!_---!__!@--.!_.!@*--@.@__*@*
-	// 63.0NpLPR Pv9 h! c!V *gzBv97rvf7
-	// mZO-4
+	// .P96L B7  r3p!!f9gzV 0hv*PNR7c v
+	// t4H -
 }
 
 func ExampleFaker_Password() {
@@ -117,8 +124,8 @@ func ExampleFaker_Password() {
 	// DPETVGIXXHDGKFXKBZEAQRKZRFDCWVWC
 	// 98102640783120607214363311930963
 	// --*!_---!__!@--.!_.!@*--@.@__*@*
-	// 63.0NpLPR Pv9 h! c!V *gzBv97rvf7
-	// mZO-4
+	// .P96L B7  r3p!!f9gzV 0hv*PNR7c v
+	// t4H -
 }
 
 func BenchmarkPassword(b *testing.B) {
