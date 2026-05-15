@@ -3,7 +3,6 @@ package gofakeit
 import (
 	"math"
 	"strconv"
-	"strings"
 )
 
 // PersonInfo is a struct of person information
@@ -240,11 +239,78 @@ func Email() string { return email(GlobalFaker) }
 func (f *Faker) Email() string { return email(f) }
 
 func email(f *Faker) string {
-	email := getRandValue(f, []string{"person", "first"}) + getRandValue(f, []string{"person", "last"})
-	email += "@"
-	email += getRandValue(f, []string{"person", "last"}) + "." + getRandValue(f, []string{"internet", "domain_suffix"})
+	first := getRandValue(f, []string{"person", "first"})
+	last := getRandValue(f, []string{"person", "last"})
+	domain := getRandValue(f, []string{"person", "last"})
+	suffix := getRandValue(f, []string{"internet", "domain_suffix"})
 
-	return strings.ToLower(email)
+	b := make([]byte, 0, len(first)+len(last)+len(domain)+len(suffix)+6)
+	appendLower := func(s string) {
+		for i := 0; i < len(s); i++ {
+			c := s[i]
+			if c >= 'A' && c <= 'Z' {
+				c += 'a' - 'A'
+			}
+			b = append(b, c)
+		}
+	}
+	appendFirstLower := func(s string) {
+		if len(s) == 0 {
+			return
+		}
+		c := s[0]
+		if c >= 'A' && c <= 'Z' {
+			c += 'a' - 'A'
+		}
+		b = append(b, c)
+	}
+
+	// One draw encodes local-part style and optional numeric suffix so we only
+	// advance RNG once beyond the name/domain lookups.
+	mix := f.Uint64()
+	w := mix % 100
+	mix /= 100
+
+	// Weighted local-part styles (no role-style addresses; numbers are rarer).
+	switch {
+	case w < 38:
+		appendLower(first)
+		appendLower(last)
+	case w < 66:
+		appendLower(first)
+		b = append(b, '.')
+		appendLower(last)
+	case w < 80:
+		appendFirstLower(first)
+		appendLower(last)
+	case w < 88:
+		appendLower(first)
+		appendFirstLower(last)
+	case w < 94:
+		appendLower(first)
+		b = append(b, '_')
+		appendLower(last)
+	default:
+		appendLower(first)
+		b = append(b, '-')
+		appendLower(last)
+	}
+
+	if mix%100 < 10 {
+		mix /= 100
+		sub := mix % 100
+		if sub < 30 {
+			b = append(b, byte('0'+byte(2+sub%8))) // 2–9
+		} else {
+			b = strconv.AppendInt(b, int64(sub%90+10), 10) // 10–99
+		}
+	}
+
+	b = append(b, '@')
+	appendLower(domain)
+	b = append(b, '.')
+	b = append(b, suffix...)
+	return string(b)
 }
 
 // Teams takes in an array of people and team names and randomly places the people into teams as evenly as possible

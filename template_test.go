@@ -250,8 +250,8 @@ func ExampleEmailText() {
 	//
 	// Warm regards
 	// Jamal Elliott
-	// janierussell@bailey.io
-	// 1-875-720-1747
+	// janie.russell@bailey.io
+	// 757.201.7478
 }
 
 func ExampleFaker_EmailText() {
@@ -286,8 +286,8 @@ func ExampleFaker_EmailText() {
 	//
 	// Warm regards
 	// Jamal Elliott
-	// janierussell@bailey.io
-	// 1-875-720-1747
+	// janie.russell@bailey.io
+	// 757.201.7478
 }
 
 // TemplateMarkdown examples and tests

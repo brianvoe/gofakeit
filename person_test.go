@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	"net/mail"
 	"strings"
 	"testing"
 )
@@ -407,11 +408,11 @@ func ExamplePerson() {
 	// -26.936948
 	// -28.374174
 	// 2689405915
-	// elsareynolds@nichols.io
-	// American Express
-	// 4570938757201747
-	// 11/29
-	// 205
+	// elsar@nichols.io
+	// Visa
+	// 506779875720177
+	// 09/35
+	// 1525
 }
 
 func ExampleFaker_Person() {
@@ -470,11 +471,11 @@ func ExampleFaker_Person() {
 	// -26.936948
 	// -28.374174
 	// 2689405915
-	// elsareynolds@nichols.io
-	// American Express
-	// 4570938757201747
-	// 11/29
-	// 205
+	// elsar@nichols.io
+	// Visa
+	// 506779875720177
+	// 09/35
+	// 1525
 }
 
 func BenchmarkPerson(b *testing.B) {
@@ -490,7 +491,7 @@ func ExampleContact() {
 	fmt.Println(contact.Email)
 
 	// Output: 8812527598
-	// ramonblack@rutherford.io
+	// rblack7@rutherford.io
 }
 
 func ExampleFaker_Contact() {
@@ -500,7 +501,7 @@ func ExampleFaker_Contact() {
 	fmt.Println(contact.Email)
 
 	// Output: 8812527598
-	// ramonblack@rutherford.io
+	// rblack7@rutherford.io
 }
 
 func BenchmarkContact(b *testing.B) {
@@ -549,18 +550,57 @@ func BenchmarkPhoneFormatted(b *testing.B) {
 	}
 }
 
+func TestEmail(t *testing.T) {
+	for i := 0; i < 100000; i++ {
+		e := Email()
+		if e == "" {
+			t.Fatalf("empty email at iteration %d", i)
+		}
+
+		addr, err := mail.ParseAddress(e)
+		if err != nil || addr.Address != e {
+			t.Fatalf("invalid email at iteration %d: %q err=%v", i, e, err)
+		}
+
+		at := strings.LastIndex(e, "@")
+		if at <= 0 || at >= len(e)-1 {
+			t.Fatalf("invalid email at iteration %d: %q", i, e)
+		}
+
+		local := e[:at]
+		domain := e[at+1:]
+		if len(local) > 64 || len(e) > 254 {
+			t.Fatalf("invalid email at iteration %d: %q", i, e)
+		}
+		if strings.Contains(local, "..") || strings.Contains(domain, "..") {
+			t.Fatalf("invalid email at iteration %d: %q", i, e)
+		}
+		if strings.HasPrefix(domain, ".") || strings.HasSuffix(domain, ".") {
+			t.Fatalf("invalid email at iteration %d: %q", i, e)
+		}
+		if !strings.Contains(domain, ".") {
+			t.Fatalf("invalid email at iteration %d: %q", i, e)
+		}
+		for j := 0; j < len(e); j++ {
+			if e[j] <= ' ' {
+				t.Fatalf("invalid email at iteration %d: %q", i, e)
+			}
+		}
+	}
+}
+
 func ExampleEmail() {
 	Seed(11)
 	fmt.Println(Email())
 
-	// Output: priscillathornton@duncan.biz
+	// Output: priscilla.thornton@duncan.biz
 }
 
 func ExampleFaker_Email() {
 	f := New(11)
 	fmt.Println(f.Email())
 
-	// Output: priscillathornton@duncan.biz
+	// Output: priscilla.thornton@duncan.biz
 }
 
 func BenchmarkEmail(b *testing.B) {

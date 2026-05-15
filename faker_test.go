@@ -24,9 +24,9 @@ func Example() {
 	fmt.Println("Password:", Password(true, true, true, true, false, 32))
 
 	// Output: Name: Priscilla Thornton
-	// Email: brookeduncan@maxwell.biz
-	// Phone: 7598907999
-	// Address: 4737 Port Hillstown, Santa Ana, Alabama 41026
+	// Email: bduncan@maxwell.biz
+	// Phone: 5989079993
+	// Address: 7379 Hillstown, Santa Ana, Alabama 41026
 	// BS: interactive
 	// Beer Name: Hercules Double IPA
 	// Color: Chartreuse
@@ -48,8 +48,8 @@ func ExampleNew() {
 
 	// Output:
 	// Name: Priscilla Thornton
-	// Email: brookeduncan@maxwell.biz
-	// Phone: 7598907999
+	// Email: bduncan@maxwell.biz
+	// Phone: 5989079993
 }
 
 func ExampleNewFaker() {

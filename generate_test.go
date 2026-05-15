@@ -67,8 +67,8 @@ func ExampleGenerate() {
 	genStr, _ = Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}")
 	fmt.Println(genStr)
 
-	// Output: Laurel McClure sethsoto@wallace.com 8K8b1M
-	// Automate problem recovery victoriously.
+	// Output: Laurel McClure sethsoto45@wallace.com 8K8b1M
+	// Retire outdated problem each quarter.
 	// [2 3 1]
 	// 2
 	// 4
@@ -94,8 +94,8 @@ func ExampleFaker_Generate() {
 	genStr, _ = f.Generate("{shufflestrings:[key:value,int:string,1:2,a:b]}")
 	fmt.Println(genStr)
 
-	// Output: Laurel McClure sethsoto@wallace.com 8K8b1M
-	// Automate problem recovery victoriously.
+	// Output: Laurel McClure sethsoto45@wallace.com 8K8b1M
+	// Retire outdated problem each quarter.
 	// [2 3 1]
 	// 2
 	// 4
@@ -245,10 +245,10 @@ func ExampleFixedWidth() {
 
 	fmt.Println(string(value))
 
-	// Output: Name                   Email                          Password         Age
-	// Priscilla Thornton     laurelmcclure@wiley.org        93Ya9ABSa4kq     92
-	// Brooke Duncan          ramonblack@rutherford.io       US8ptM3c2T07     64
-	// Gregg Ford             roxannewalsh@hamilton.name     4wP4V90iMs44     59
+	// Output: Name                   Email                         Password         Age
+	// Priscilla Thornton     laurelm@wiley.org             L43ypotV1YDf     12
+	// Brooke Duncan          amaliarutherford@webb.io      8el82D1ITy54     42
+	// Gregg Ford             daija_jordan@jacobson.org     aSZ4zxUD68BQ     8
 }
 
 func ExampleFixedWidth_default() {
@@ -261,16 +261,16 @@ func ExampleFixedWidth_default() {
 
 	fmt.Println(string(value))
 
-	// Output: Name                  Email                        Password
-	// Nannie Duncan         lancegraves@sandoval.io      n7iSUr2MWt8c
-	// Brooklyn Maxwell      danykaadams@morgan.com       4v940LNiV44s
-	// Carmen Romero         robinjenkins@cormier.com     472CR3CDG0ke
-	// Hailie Wiley          buddypearson@summers.io      Hd692w44DlzL
-	// Marion Wallace        emmettblack@mcdermott.io     K187He5tUfFj
-	// Amalia Rutherford     aprilmuller@joseph.net       2ibBGsrc0mW3
-	// Roxane Webb           jaywashington@barton.net     s0HNN9fkEL1u
-	// Randy Hamilton        caseybartell@myers.biz       ORe9uGIuP4m0
-	// Elliott Jacobson      janierussell@bailey.io       Hd5Kl6T2g7pi
+	// Output: Name                  Email                          Password
+	// Nannie Duncan         lgraves@sandoval.io            1SNllwT1q48D
+	// Brooklyn Maxwell      abner.morgan@armstrong.io      WIDb9916K89Q
+	// Carmen Romero         beau_barker@elliott.net        eiA96ipiszlz
+	// Hailie Wiley          sethking@black.name            Wihnxm3xH5DI
+	// Marion Wallace        april_muller@joseph.net        3s68UYM9Z0jd
+	// Amalia Rutherford     ritabarton@paul.biz            CSi57aHEevd7
+	// Roxane Webb           jelliott@nelson.org            4fQ7g89ln4Ht
+	// Randy Hamilton        sadie_harrison@vasquez.org     roG6U7HNgvcz
+	// Elliott Jacobson      mgleason@brooks.biz            NEDfHa2s5Xcu
 }
 
 func ExampleFixedWidth_noHeader() {
@@ -291,9 +291,9 @@ func ExampleFixedWidth_noHeader() {
 
 	fmt.Println(value)
 
-	// Output: Priscilla Thornton     laurelmcclure@wiley.org        93Ya9ABSa4kq     92
-	// Brooke Duncan          ramonblack@rutherford.io       US8ptM3c2T07     64
-	// Gregg Ford             roxannewalsh@hamilton.name     4wP4V90iMs44     59
+	// Output: Priscilla Thornton     laurelm@wiley.org             L43ypotV1YDf     12
+	// Brooke Duncan          amaliarutherford@webb.io      8el82D1ITy54     42
+	// Gregg Ford             daija_jordan@jacobson.org     aSZ4zxUD68BQ     8
 }
 
 func ExampleFaker_FixedWidth() {
@@ -314,10 +314,10 @@ func ExampleFaker_FixedWidth() {
 
 	fmt.Println(string(value))
 
-	// Output: Name                   Email                          Password         Age
-	// Priscilla Thornton     laurelmcclure@wiley.org        93Ya9ABSa4kq     92
-	// Brooke Duncan          ramonblack@rutherford.io       US8ptM3c2T07     64
-	// Gregg Ford             roxannewalsh@hamilton.name     4wP4V90iMs44     59
+	// Output: Name                   Email                         Password         Age
+	// Priscilla Thornton     laurelm@wiley.org             L43ypotV1YDf     12
+	// Brooke Duncan          amaliarutherford@webb.io      8el82D1ITy54     42
+	// Gregg Ford             daija_jordan@jacobson.org     aSZ4zxUD68BQ     8
 }
 
 func TestFixedWidthLookup(t *testing.T) {
