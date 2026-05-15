@@ -186,6 +186,38 @@ func BenchmarkGenerate(b *testing.B) {
 	})
 }
 
+// FuzzGenerate: random `{...}` templates must not panic; errors are OK.
+func FuzzGenerate(f *testing.F) {
+	seeds := []string{
+		"",
+		"plain",
+		"{firstname}",
+		"{email}",
+		"{firstname} {lastname}",
+		"{unknown}",
+		"{firstname",
+		"firstname}",
+		"{}",
+		"{shufflestrings:[hello,world]}",
+		"{randomstring:[{firstname},{lastname}]}",
+		"#?#-{email}-{number:1,10}",
+	}
+	for _, s := range seeds {
+		f.Add(s)
+	}
+
+	f.Fuzz(func(t *testing.T, template string) {
+		const maxLen = 1 << 12
+		if len(template) > maxLen {
+			template = template[:maxLen]
+		}
+
+		fk := New(0)
+		_, err := fk.Generate(template)
+		_ = err
+	})
+}
+
 // Test generate function with various edge cases
 func TestGenerateEdgeCases(t *testing.T) {
 	testCases := []struct {
@@ -521,6 +553,27 @@ func BenchmarkRegexEmail(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		Regex("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
 	}
+}
+
+// FuzzRegex: random RE2 patterns must not panic Regex().
+func FuzzRegex(f *testing.F) {
+	for _, s := range []string{
+		"",
+		`a`,
+		`[a-z]+`,
+		`(hello|world)`,
+		`(^)$`,
+	} {
+		f.Add(s)
+	}
+
+	f.Fuzz(func(t *testing.T, pattern string) {
+		const maxLen = 512
+		if len(pattern) > maxLen {
+			pattern = pattern[:maxLen]
+		}
+		_ = New(0).Regex(pattern)
+	})
 }
 
 func ExampleMap() {

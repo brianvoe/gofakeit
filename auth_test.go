@@ -133,3 +133,24 @@ func BenchmarkPassword(b *testing.B) {
 		Password(true, true, true, true, true, 50)
 	}
 }
+
+// FuzzPassword: any flags and length must not panic; length capped to limit alloc.
+func FuzzPassword(f *testing.F) {
+	for _, flags := range []uint8{0x00, 0x01, 0xff, 0x1f} {
+		f.Add(flags, uint16(0))
+		f.Add(flags, uint16(128))
+	}
+	f.Fuzz(func(t *testing.T, flags uint8, num uint16) {
+		n := int(num)
+		const maxLen = 4096
+		if n > maxLen {
+			n = maxLen
+		}
+		lower := flags&1 != 0
+		upper := flags&2 != 0
+		numeric := flags&4 != 0
+		special := flags&8 != 0
+		space := flags&16 != 0
+		_ = New(0).Password(lower, upper, numeric, special, space, n)
+	})
+}

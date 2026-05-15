@@ -377,3 +377,25 @@ func BenchmarkTemplate(b *testing.B) {
 		}
 	}
 }
+
+// FuzzTemplate: random text/template bodies must not panic; errors are OK.
+func FuzzTemplate(f *testing.F) {
+	for _, s := range []string{
+		`{{FirstName}}`,
+		`{{range IntRange 1 2}}{{.}}{{end}}`,
+		`{{.}}`,
+		`invalid {{`,
+		`{{printf "%s"}}`,
+	} {
+		f.Add(s)
+	}
+
+	f.Fuzz(func(t *testing.T, body string) {
+		const maxLen = 1 << 12
+		if len(body) > maxLen {
+			body = body[:maxLen]
+		}
+		_, err := New(0).Template(body, &TemplateOptions{})
+		_ = err
+	})
+}
