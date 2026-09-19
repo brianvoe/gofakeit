@@ -224,7 +224,11 @@ func float32Range(f *Faker, min, max float32) float32 {
 	if min == max {
 		return min
 	}
-	return f.Float32()*(max-min) + min
+	value := f.Float32()
+	if math.IsInf(float64(max-min), 0) && !math.IsInf(float64(min), 0) && !math.IsInf(float64(max), 0) {
+		return min*(1-value) + max*value
+	}
+	return value*(max-min) + min
 }
 
 // Float64 will generate a random float64 value
@@ -256,7 +260,11 @@ func float64Range(f *Faker, min, max float64) float64 {
 	if min == max {
 		return min
 	}
-	return f.Float64()*(max-min) + min
+	value := f.Float64()
+	if math.IsInf(max-min, 0) && !math.IsInf(min, 0) && !math.IsInf(max, 0) {
+		return min*(1-value) + max*value
+	}
+	return value*(max-min) + min
 }
 
 // ShuffleInts will randomize a slice of ints
