@@ -630,6 +630,19 @@ func rTime(f *Faker, t reflect.StructField, v reflect.Value, tag string) error {
 		// Attempt to parse the time
 		timeStruct, err := time.Parse(timeFormat, timeOutput)
 		if err != nil {
+			// If timeFormat uses 2-digit month/day (e.g. 2006-01-02), attempt parsing
+			// with flexible 1-digit format (e.g. 2006-1-2) in case generated output
+			// has unpadded month/day values (such as {year}-{month}-{day}).
+			fallbackFormat := strings.Replace(timeFormat, "01", "1", 1)
+			fallbackFormat = strings.Replace(fallbackFormat, "02", "2", 1)
+			if fallbackFormat != timeFormat {
+				if ts, fallbackErr := time.Parse(fallbackFormat, timeOutput); fallbackErr == nil {
+					timeStruct = ts
+					err = nil
+				}
+			}
+		}
+		if err != nil {
 			return err
 		}
 

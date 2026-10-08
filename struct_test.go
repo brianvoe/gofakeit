@@ -1044,3 +1044,23 @@ func TestStructRecursiveInCollections(t *testing.T) {
 		t.Fatalf("recursive collections exceeded max depth: %d", depth)
 	}
 }
+
+func TestStructDateTimeUnpaddedFormat(t *testing.T) {
+	Seed(11)
+
+	var data struct {
+		DateGolangFormat time.Time `fake:"{number:1980,2020}-5-8" format:"2006-01-02"`
+		DateJavaFormat   time.Time `fake:"{number:1980,2020}-5-8" format:"yyyy-MM-dd"`
+		DateOnlyWithDate time.Time `fake:"{date}" format:"2006-01-02"`
+	}
+
+	for i := 0; i < 50; i++ {
+		err := Struct(&data)
+		if err != nil {
+			t.Fatalf("unexpected error parsing time struct: %v", err)
+		}
+		if data.DateGolangFormat.IsZero() || data.DateJavaFormat.IsZero() || data.DateOnlyWithDate.IsZero() {
+			t.Fatal("expected non-zero time")
+		}
+	}
+}
