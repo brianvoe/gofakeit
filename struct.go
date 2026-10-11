@@ -621,21 +621,7 @@ func rTime(f *Faker, t reflect.StructField, v reflect.Value, tag string) error {
 			}
 		}
 
-		// If output is larger than format cut the output
-		// This helps us avoid errors from time.Parse
-		if len(timeOutput) > len(timeFormat) {
-			timeOutput = timeOutput[:len(timeFormat)]
-		}
-
-		// Attempt to parse the time
-		timeStruct, err := time.Parse(timeFormat, timeOutput)
-		if err != nil && timeFormat == "2006-01-02" {
-			// Support unpadded {year}-{month}-{day} without rewriting other layouts.
-			if ts, fallbackErr := time.Parse("2006-1-2", timeOutput); fallbackErr == nil {
-				timeStruct = ts
-				err = nil
-			}
-		}
+		timeStruct, err := parseStructTime(timeFormat, timeOutput)
 		if err != nil {
 			return err
 		}
@@ -646,4 +632,40 @@ func rTime(f *Faker, t reflect.StructField, v reflect.Value, tag string) error {
 
 	v.Set(reflect.ValueOf(date(f)))
 	return nil
+}
+
+// parseStructTime parses value with format. It retries with one-or-two-digit
+// numeric fields, then with the value cut to the format length. The length cut
+// is last so a long month name is not trimmed before a real parse.
+func parseStructTime(format, value string) (time.Time, error) {
+	if parsed, err := time.Parse(format, value); err == nil {
+		return parsed, nil
+	} else if parsed, ok := parseUnpaddedTime(format, value); ok {
+		return parsed, nil
+	}
+
+	if len(value) > len(format) {
+		prefix := value[:len(format)]
+		if parsed, err := time.Parse(format, prefix); err == nil {
+			return parsed, nil
+		}
+		if parsed, ok := parseUnpaddedTime(format, prefix); ok {
+			return parsed, nil
+		}
+	}
+
+	parsed, err := time.Parse(format, value)
+	return parsed, err
+}
+
+func parseUnpaddedTime(format, value string) (time.Time, bool) {
+	flexible, ok := unpaddedTimeFormat(format)
+	if !ok {
+		return time.Time{}, false
+	}
+	parsed, err := time.Parse(flexible, value)
+	if err != nil {
+		return time.Time{}, false
+	}
+	return parsed, true
 }

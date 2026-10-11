@@ -1047,25 +1047,63 @@ func TestStructRecursiveInCollections(t *testing.T) {
 }
 
 func TestStructDateTimeUnpaddedFormat(t *testing.T) {
-	for _, format := range []string{"2006-01-02", "yyyy-MM-dd"} {
-		t.Run(format, func(t *testing.T) {
+	cases := []struct {
+		name, template, format, scan string
+		fields                       int
+		year, month, day             int
+		hour, minute, second         int
+	}{
+		{name: "dash", template: "{year}-{month}-{day}", format: "2006-01-02", scan: "%d-%d-%d", fields: 3, year: 0, month: 1, day: 2, hour: -1, minute: -1, second: -1},
+		{name: "dash java", template: "{year}-{month}-{day}", format: "yyyy-MM-dd", scan: "%d-%d-%d", fields: 3, year: 0, month: 1, day: 2, hour: -1, minute: -1, second: -1},
+		{name: "slash", template: "{year}/{month}/{day}", format: "2006/01/02", scan: "%d/%d/%d", fields: 3, year: 0, month: 1, day: 2, hour: -1, minute: -1, second: -1},
+		{name: "slash java", template: "{year}/{month}/{day}", format: "yyyy/MM/dd", scan: "%d/%d/%d", fields: 3, year: 0, month: 1, day: 2, hour: -1, minute: -1, second: -1},
+		{name: "month day year", template: "{month}/{day}/{year}", format: "01/02/2006", scan: "%d/%d/%d", fields: 3, year: 2, month: 0, day: 1, hour: -1, minute: -1, second: -1},
+		{name: "month day year java", template: "{month}/{day}/{year}", format: "MM/dd/yyyy", scan: "%d/%d/%d", fields: 3, year: 2, month: 0, day: 1, hour: -1, minute: -1, second: -1},
+		{name: "day month year", template: "{day}/{month}/{year}", format: "02/01/2006", scan: "%d/%d/%d", fields: 3, year: 2, month: 1, day: 0, hour: -1, minute: -1, second: -1},
+		{name: "day month year java", template: "{day}/{month}/{year}", format: "dd/MM/yyyy", scan: "%d/%d/%d", fields: 3, year: 2, month: 1, day: 0, hour: -1, minute: -1, second: -1},
+		{name: "dots", template: "{day}.{month}.{year}", format: "02.01.2006", scan: "%d.%d.%d", fields: 3, year: 2, month: 1, day: 0, hour: -1, minute: -1, second: -1},
+		{name: "dots java", template: "{day}.{month}.{year}", format: "dd.MM.yyyy", scan: "%d.%d.%d", fields: 3, year: 2, month: 1, day: 0, hour: -1, minute: -1, second: -1},
+		{name: "datetime", template: "{year}-{month}-{day} {hour}:{minute}:{second}", format: "2006-01-02 15:04:05", scan: "%d-%d-%d %d:%d:%d", fields: 6, year: 0, month: 1, day: 2, hour: 3, minute: 4, second: 5},
+		{name: "datetime java", template: "{year}-{month}-{day} {hour}:{minute}:{second}", format: "yyyy-MM-dd HH:mm:ss", scan: "%d-%d-%d %d:%d:%d", fields: 6, year: 0, month: 1, day: 2, hour: 3, minute: 4, second: 5},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
 			generated, parsed := New(11), New(11)
 			typ := reflect.StructOf([]reflect.StructField{{
 				Name: "Date", Type: reflect.TypeOf(time.Time{}),
-				Tag: reflect.StructTag(fmt.Sprintf(`fake:"{year}-{month}-{day}" format:"%s"`, format)),
+				Tag: reflect.StructTag(fmt.Sprintf(`fake:"%s" format:"%s"`, tc.template, tc.format)),
 			}})
 			var february, invalidFebruary, singleMonth, singleDay bool
+			var singleHour, singleMinute, singleSecond bool
 			for i := 0; i < 1000; i++ {
-				output, err := generated.Generate("{year}-{month}-{day}")
+				output, err := generated.Generate(tc.template)
 				if err != nil {
 					t.Fatal(err)
 				}
-				var year, month, day int
-				if n, err := fmt.Sscanf(output, "%d-%d-%d", &year, &month, &day); err != nil || n != 3 {
-					t.Fatalf("invalid generated date %q: %v", output, err)
+				var nums [6]int
+				var n int
+				switch tc.fields {
+				case 3:
+					n, err = fmt.Sscanf(output, tc.scan, &nums[0], &nums[1], &nums[2])
+				case 6:
+					n, err = fmt.Sscanf(output, tc.scan, &nums[0], &nums[1], &nums[2], &nums[3], &nums[4], &nums[5])
+				default:
+					t.Fatalf("unsupported field count %d", tc.fields)
 				}
-				want := time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.UTC)
-				valid := want.Year() == year && int(want.Month()) == month && want.Day() == day
+				if err != nil || n != tc.fields {
+					t.Fatalf("invalid generated date %q: n=%d err=%v", output, n, err)
+				}
+				at := func(index int) int {
+					if index < 0 {
+						return 0
+					}
+					return nums[index]
+				}
+				year, month, day := at(tc.year), at(tc.month), at(tc.day)
+				hour, minute, second := at(tc.hour), at(tc.minute), at(tc.second)
+				want := time.Date(year, time.Month(month), day, hour, minute, second, 0, time.UTC)
+				valid := want.Year() == year && int(want.Month()) == month && want.Day() == day &&
+					want.Hour() == hour && want.Minute() == minute && want.Second() == second
 				data := reflect.New(typ)
 				err = parsed.Struct(data.Interface())
 				got := data.Elem().Field(0).Interface().(time.Time)
@@ -1079,16 +1117,23 @@ func TestStructDateTimeUnpaddedFormat(t *testing.T) {
 				if err != nil {
 					t.Fatalf("valid date %q: %v", output, err)
 				}
-				if got.Year() != year || int(got.Month()) != month || got.Day() != day || !got.Equal(want) {
+				if got.Year() != year || int(got.Month()) != month || got.Day() != day ||
+					got.Hour() != hour || got.Minute() != minute || got.Second() != second || !got.Equal(want) {
 					t.Fatalf("generated %q: got %v, want %v", output, got, want)
 				}
 				february = february || month == 2
 				singleMonth = singleMonth || month < 10
 				singleDay = singleDay || day < 10
+				singleHour = singleHour || (tc.hour >= 0 && hour < 10)
+				singleMinute = singleMinute || (tc.minute >= 0 && minute < 10)
+				singleSecond = singleSecond || (tc.second >= 0 && second < 10)
 			}
 			if !february || !invalidFebruary || !singleMonth || !singleDay {
 				t.Fatalf("missing coverage: February=%v invalid February=%v single month=%v single day=%v",
 					february, invalidFebruary, singleMonth, singleDay)
+			}
+			if tc.hour >= 0 && (!singleHour || !singleMinute || !singleSecond) {
+				t.Fatalf("missing time coverage: hour=%v minute=%v second=%v", singleHour, singleMinute, singleSecond)
 			}
 		})
 	}
@@ -1104,13 +1149,36 @@ func TestStructDateTimeParsingBoundaries(t *testing.T) {
 		{name: "issue382 both unpadded", tag: "1955-9-8", format: "yyyy-MM-dd", want: time.Date(1955, 9, 8, 0, 0, 0, 0, time.UTC)},
 		{name: "February", tag: "2020-2-8", format: "2006-01-02", want: time.Date(2020, 2, 8, 0, 0, 0, 0, time.UTC)},
 		{name: "leap day", tag: "2020-2-29", format: "2006-01-02", want: time.Date(2020, 2, 29, 0, 0, 0, 0, time.UTC)},
+		{name: "slash", tag: "1912/8/13", format: "2006/01/02", want: time.Date(1912, 8, 13, 0, 0, 0, 0, time.UTC)},
+		{name: "slash java", tag: "1912/10/8", format: "yyyy/MM/dd", want: time.Date(1912, 10, 8, 0, 0, 0, 0, time.UTC)},
+		{name: "month day year", tag: "8/13/1912", format: "01/02/2006", want: time.Date(1912, 8, 13, 0, 0, 0, 0, time.UTC)},
+		{name: "month day year java", tag: "8/13/1912", format: "MM/dd/yyyy", want: time.Date(1912, 8, 13, 0, 0, 0, 0, time.UTC)},
+		{name: "day month year", tag: "13/8/1912", format: "02/01/2006", want: time.Date(1912, 8, 13, 0, 0, 0, 0, time.UTC)},
+		{name: "day month year java", tag: "13/8/1912", format: "dd/MM/yyyy", want: time.Date(1912, 8, 13, 0, 0, 0, 0, time.UTC)},
+		{name: "dots", tag: "13.8.1912", format: "02.01.2006", want: time.Date(1912, 8, 13, 0, 0, 0, 0, time.UTC)},
+		{name: "dots java", tag: "13.8.1912", format: "dd.MM.yyyy", want: time.Date(1912, 8, 13, 0, 0, 0, 0, time.UTC)},
+		{name: "unpadded time", tag: "1912-8-13 3:4:5", format: "2006-01-02 15:04:05", want: time.Date(1912, 8, 13, 3, 4, 5, 0, time.UTC)},
+		{name: "unpadded time java", tag: "1912-8-13 3:4:5", format: "yyyy-MM-dd HH:mm:ss", want: time.Date(1912, 8, 13, 3, 4, 5, 0, time.UTC)},
+		{name: "iso zulu", tag: "1912-8-13T3:4:5Z", format: "2006-01-02T15:04:05Z07:00", want: time.Date(1912, 8, 13, 3, 4, 5, 0, time.UTC)},
+		{name: "quoted T", tag: "1912-8-13T3:4:5", format: "yyyy-MM-dd'T'HH:mm:ss", want: time.Date(1912, 8, 13, 3, 4, 5, 0, time.UTC)},
+		{name: "month name", tag: "8 January 1912", format: "02 January 2006", want: time.Date(1912, 1, 8, 0, 0, 0, 0, time.UTC)},
+		{name: "month name java", tag: "8 January 1912", format: "dd MMMM yyyy", want: time.Date(1912, 1, 8, 0, 0, 0, 0, time.UTC)},
+		{name: "month first", tag: "January 8, 1912", format: "January 02, 2006", want: time.Date(1912, 1, 8, 0, 0, 0, 0, time.UTC)},
+		{name: "month abbrev", tag: "8 Jan 1912", format: "02 Jan 2006", want: time.Date(1912, 1, 8, 0, 0, 0, 0, time.UTC)},
+		{name: "month abbrev java", tag: "8 Jan 1912", format: "dd MMM yyyy", want: time.Date(1912, 1, 8, 0, 0, 0, 0, time.UTC)},
+		{name: "weekday", tag: "Monday, 8 January 1912 3:4:5", format: "Monday, 02 January 2006 15:04:05", want: time.Date(1912, 1, 8, 3, 4, 5, 0, time.UTC)},
+		{name: "weekday java", tag: "Monday, 8 January 1912 3:4:5", format: "EEEE, dd MMMM yyyy HH:mm:ss", want: time.Date(1912, 1, 8, 3, 4, 5, 0, time.UTC)},
+		{name: "12 hour", tag: "1912-8-13 3:4:5 PM", format: "2006-01-02 03:04:05 PM", want: time.Date(1912, 8, 13, 15, 4, 5, 0, time.UTC)},
+		{name: "12 hour java", tag: "1912-8-13 3:4:5 pm", format: "yyyy-MM-dd hh:mm:ss a", want: time.Date(1912, 8, 13, 15, 4, 5, 0, time.UTC)},
+		{name: "invalid month name", tag: "31 February 2013", format: "02 January 2006", wantError: true},
 		{name: "invalid February", tag: "2020-2-31", format: "2006-01-02", wantError: true},
+		{name: "invalid slash", tag: "2020/2/31", format: "yyyy/MM/dd", wantError: true},
 		{name: "non leap year", tag: "2019-2-29", format: "2006-01-02", wantError: true},
 		{name: "missing time", tag: "1912-8-13", format: "2006-01-02 15:04:05", wantError: true},
-		{name: "unpadded time", tag: "1912-8-13 3:4:5", format: "2006-01-02 15:04:05", wantError: true},
 		{name: "compact ambiguous", tag: "1912113", format: "20060102", wantError: true},
 		{name: "compact padded", tag: "19120813", format: "20060102", want: time.Date(1912, 8, 13, 0, 0, 0, 0, time.UTC)},
 		{name: "padded datetime", tag: "1912-08-13 03:04:05", format: "2006-01-02 15:04:05", want: time.Date(1912, 8, 13, 3, 4, 5, 0, time.UTC)},
+		{name: "longer timestamp prefix", tag: "1912-08-13T03:04:05Z", format: "2006-01-02", want: time.Date(1912, 8, 13, 0, 0, 0, 0, time.UTC)},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -1126,6 +1194,47 @@ func TestStructDateTimeParsingBoundaries(t *testing.T) {
 			}
 			if !got.Equal(tt.want) {
 				t.Fatalf("got %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestStructDateTimeMonthName(t *testing.T) {
+	for _, format := range []string{"02 January 2006", "dd MMMM yyyy"} {
+		t.Run(format, func(t *testing.T) {
+			generated, parsed := New(11), New(11)
+			typ := reflect.StructOf([]reflect.StructField{{
+				Name: "Date", Type: reflect.TypeOf(time.Time{}),
+				Tag: reflect.StructTag(fmt.Sprintf(`fake:"{day} {monthstring} {year}" format:"%s"`, format)),
+			}})
+			var february, invalidFebruary, singleDay bool
+			for i := 0; i < 1000; i++ {
+				output, err := generated.Generate("{day} {monthstring} {year}")
+				if err != nil {
+					t.Fatal(err)
+				}
+				want, parseErr := time.Parse("2 January 2006", output)
+				data := reflect.New(typ)
+				err = parsed.Struct(data.Interface())
+				got := data.Elem().Field(0).Interface().(time.Time)
+				if parseErr != nil {
+					if err == nil || !got.IsZero() {
+						t.Fatalf("invalid date %q: got %v, error %v", output, got, err)
+					}
+					invalidFebruary = invalidFebruary || strings.Contains(output, "February")
+					continue
+				}
+				if err != nil {
+					t.Fatalf("valid date %q: %v", output, err)
+				}
+				if !got.Equal(want) {
+					t.Fatalf("generated %q: got %v, want %v", output, got, want)
+				}
+				february = february || want.Month() == time.February
+				singleDay = singleDay || want.Day() < 10
+			}
+			if !february || !invalidFebruary || !singleDay {
+				t.Fatalf("missing coverage: February=%v invalid February=%v single day=%v", february, invalidFebruary, singleDay)
 			}
 		})
 	}

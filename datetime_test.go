@@ -383,3 +383,67 @@ func BenchmarkTimeZoneRegion(b *testing.B) {
 		TimeZoneRegion()
 	}
 }
+
+func TestJavaDateTimeFormatToGolangFormat(t *testing.T) {
+	tests := []struct{ in, out string }{
+		{in: "yyyy-MM-dd", out: "2006-01-02"},
+		{in: "yyyy/MM/dd", out: "2006/01/02"},
+		{in: "MM/dd/yyyy", out: "01/02/2006"},
+		{in: "dd/MM/yyyy", out: "02/01/2006"},
+		{in: "dd.MM.yyyy", out: "02.01.2006"},
+		{in: "yyyy-MM-dd HH:mm:ss", out: "2006-01-02 15:04:05"},
+		{in: "yyyy-MM-dd'T'HH:mm:ss", out: "2006-01-02T15:04:05"},
+		{in: "dd MMMM yyyy", out: "02 January 2006"},
+		{in: "dd MMM yyyy", out: "02 Jan 2006"},
+		{in: "EEEE, dd MMMM yyyy HH:mm:ss", out: "Monday, 02 January 2006 15:04:05"},
+		{in: "yyyy-MM-dd hh:mm:ss a", out: "2006-01-02 03:04:05 pm"},
+		{in: "yyyy-MM-dd hh:mm:ss aa", out: "2006-01-02 03:04:05 PM"},
+		{in: "yyyy-MM-dd HH:mm:ss Z", out: "2006-01-02 15:04:05 -07"},
+		{in: "02 January 2006", out: "02 January 2006"},
+		{in: "January 02, 2006", out: "January 02, 2006"},
+		{in: "02 Jan 2006", out: "02 Jan 2006"},
+		{in: "Monday, 02 January 2006", out: "Monday, 02 January 2006"},
+		{in: "Mon, 02 Jan 2006 15:04:05 MST", out: "Mon, 02 Jan 2006 15:04:05 MST"},
+		{in: "2006-01-02 03:04:05 PM", out: "2006-01-02 03:04:05 PM"},
+		{in: "2006-01-02T15:04:05Z07:00", out: "2006-01-02T15:04:05Z07:00"},
+		{in: "2006-01-02", out: "2006-01-02"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.in, func(t *testing.T) {
+			if got := javaDateTimeFormatToGolangFormat(tt.in); got != tt.out {
+				t.Fatalf("javaDateTimeFormatToGolangFormat(%q) = %q, want %q", tt.in, got, tt.out)
+			}
+		})
+	}
+}
+
+func TestUnpaddedTimeFormat(t *testing.T) {
+	tests := []struct {
+		in, out string
+		ok      bool
+	}{
+		{in: "2006-01-02", out: "2006-1-2", ok: true},
+		{in: "2006/01/02", out: "2006/1/2", ok: true},
+		{in: "01/02/2006", out: "1/2/2006", ok: true},
+		{in: "02/01/2006", out: "2/1/2006", ok: true},
+		{in: "02.01.2006", out: "2.1.2006", ok: true},
+		{in: "02 January 2006", out: "2 January 2006", ok: true},
+		{in: "2006-01-02 15:04:05", out: "2006-1-2 15:4:5", ok: true},
+		{in: "2006-01-02 03:04:05 PM", out: "2006-1-2 3:4:5 PM", ok: true},
+		{in: "2006-01-02T15:04:05Z07:00", out: "2006-1-2T15:4:5Z07:00", ok: true},
+		{in: "Mon, 02 Jan 2006 15:04:05 MST", out: "Mon, 2 Jan 2006 15:4:5 MST", ok: true},
+		{in: "15:04:05.000", out: "15:4:5.000", ok: true},
+		{in: "2006-1-2", ok: false},
+		{in: "20060102", ok: false},
+		{in: "20060102150405", ok: false},
+		{in: "2006-0102", ok: false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.in, func(t *testing.T) {
+			got, ok := unpaddedTimeFormat(tt.in)
+			if ok != tt.ok || (tt.ok && got != tt.out) {
+				t.Fatalf("unpaddedTimeFormat(%q) = %q, %v; want %q, %v", tt.in, got, ok, tt.out, tt.ok)
+			}
+		})
+	}
+}
