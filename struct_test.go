@@ -3,6 +3,7 @@ package gofakeit
 import (
 	"fmt"
 	"net"
+	"reflect"
 	"regexp"
 	"strings"
 	"testing"
@@ -1042,5 +1043,90 @@ func TestStructRecursiveInCollections(t *testing.T) {
 	}
 	if depth > max {
 		t.Fatalf("recursive collections exceeded max depth: %d", depth)
+	}
+}
+
+func TestStructDateTimeUnpaddedFormat(t *testing.T) {
+	for _, format := range []string{"2006-01-02", "yyyy-MM-dd"} {
+		t.Run(format, func(t *testing.T) {
+			generated, parsed := New(11), New(11)
+			typ := reflect.StructOf([]reflect.StructField{{
+				Name: "Date", Type: reflect.TypeOf(time.Time{}),
+				Tag: reflect.StructTag(fmt.Sprintf(`fake:"{year}-{month}-{day}" format:"%s"`, format)),
+			}})
+			var february, invalidFebruary, singleMonth, singleDay bool
+			for i := 0; i < 1000; i++ {
+				output, err := generated.Generate("{year}-{month}-{day}")
+				if err != nil {
+					t.Fatal(err)
+				}
+				var year, month, day int
+				if n, err := fmt.Sscanf(output, "%d-%d-%d", &year, &month, &day); err != nil || n != 3 {
+					t.Fatalf("invalid generated date %q: %v", output, err)
+				}
+				want := time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.UTC)
+				valid := want.Year() == year && int(want.Month()) == month && want.Day() == day
+				data := reflect.New(typ)
+				err = parsed.Struct(data.Interface())
+				got := data.Elem().Field(0).Interface().(time.Time)
+				if !valid {
+					if err == nil || !got.IsZero() {
+						t.Fatalf("invalid date %q: got %v, error %v", output, got, err)
+					}
+					invalidFebruary = invalidFebruary || month == 2
+					continue
+				}
+				if err != nil {
+					t.Fatalf("valid date %q: %v", output, err)
+				}
+				if got.Year() != year || int(got.Month()) != month || got.Day() != day || !got.Equal(want) {
+					t.Fatalf("generated %q: got %v, want %v", output, got, want)
+				}
+				february = february || month == 2
+				singleMonth = singleMonth || month < 10
+				singleDay = singleDay || day < 10
+			}
+			if !february || !invalidFebruary || !singleMonth || !singleDay {
+				t.Fatalf("missing coverage: February=%v invalid February=%v single month=%v single day=%v",
+					february, invalidFebruary, singleMonth, singleDay)
+			}
+		})
+	}
+}
+
+func TestStructDateTimeParsingBoundaries(t *testing.T) {
+	tests := []struct {
+		name, tag, format string
+		want              time.Time
+		wantError         bool
+	}{
+		{name: "issue382", tag: "1912-8-13", format: "2006-01-02", want: time.Date(1912, 8, 13, 0, 0, 0, 0, time.UTC)},
+		{name: "issue382 both unpadded", tag: "1955-9-8", format: "yyyy-MM-dd", want: time.Date(1955, 9, 8, 0, 0, 0, 0, time.UTC)},
+		{name: "February", tag: "2020-2-8", format: "2006-01-02", want: time.Date(2020, 2, 8, 0, 0, 0, 0, time.UTC)},
+		{name: "leap day", tag: "2020-2-29", format: "2006-01-02", want: time.Date(2020, 2, 29, 0, 0, 0, 0, time.UTC)},
+		{name: "invalid February", tag: "2020-2-31", format: "2006-01-02", wantError: true},
+		{name: "non leap year", tag: "2019-2-29", format: "2006-01-02", wantError: true},
+		{name: "missing time", tag: "1912-8-13", format: "2006-01-02 15:04:05", wantError: true},
+		{name: "unpadded time", tag: "1912-8-13 3:4:5", format: "2006-01-02 15:04:05", wantError: true},
+		{name: "compact ambiguous", tag: "1912113", format: "20060102", wantError: true},
+		{name: "compact padded", tag: "19120813", format: "20060102", want: time.Date(1912, 8, 13, 0, 0, 0, 0, time.UTC)},
+		{name: "padded datetime", tag: "1912-08-13 03:04:05", format: "2006-01-02 15:04:05", want: time.Date(1912, 8, 13, 3, 4, 5, 0, time.UTC)},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			typ := reflect.StructOf([]reflect.StructField{{
+				Name: "Date", Type: reflect.TypeOf(time.Time{}),
+				Tag: reflect.StructTag(fmt.Sprintf(`fake:%q format:%q`, tt.tag, tt.format)),
+			}})
+			data := reflect.New(typ)
+			err := New(11).Struct(data.Interface())
+			got := data.Elem().Field(0).Interface().(time.Time)
+			if (err != nil) != tt.wantError {
+				t.Fatalf("got %v, error %v; want error %v", got, err, tt.wantError)
+			}
+			if !got.Equal(tt.want) {
+				t.Fatalf("got %v, want %v", got, tt.want)
+			}
+		})
 	}
 }

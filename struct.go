@@ -629,6 +629,13 @@ func rTime(f *Faker, t reflect.StructField, v reflect.Value, tag string) error {
 
 		// Attempt to parse the time
 		timeStruct, err := time.Parse(timeFormat, timeOutput)
+		if err != nil && timeFormat == "2006-01-02" {
+			// Support unpadded {year}-{month}-{day} without rewriting other layouts.
+			if ts, fallbackErr := time.Parse("2006-1-2", timeOutput); fallbackErr == nil {
+				timeStruct = ts
+				err = nil
+			}
+		}
 		if err != nil {
 			return err
 		}
