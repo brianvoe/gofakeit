@@ -98,6 +98,20 @@ func ExampleFaker_DateRange() {
 	// Output: 2012-03-26 09:20:49.250961474 +0000 UTC
 }
 
+func TestDateRangeGenerate(t *testing.T) {
+	original := GlobalFaker
+	GlobalFaker = New(1234)
+	t.Cleanup(func() { GlobalFaker = original })
+
+	got, err := New(11).Generate("{daterange:2020-01-01,2030-01-01,yyyy-MM-dd}")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if want := "2028-12-16"; got != want {
+		t.Errorf("Expected %s, got %s", want, got)
+	}
+}
+
 func BenchmarkDateRange(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		DateRange(time.Now().AddDate(-30, 0, 0), time.Now())

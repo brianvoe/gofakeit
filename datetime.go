@@ -440,7 +440,7 @@ func addDateTimeLookup() {
 				return nil, err
 			}
 
-			return DateRange(startDateTime, endDateTime).Format(format), nil
+			return f.DateRange(startDateTime, endDateTime).Format(format), nil
 		},
 	})
 
