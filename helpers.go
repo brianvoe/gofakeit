@@ -129,8 +129,12 @@ func randIntRange(f *Faker, min, max int) int {
 		min, max = max, min // Swap if min is greater than max
 	}
 
-	// Use f.IntN to generate a random number in [0, rangeSize) and shift it into [min, max].
-	return f.IntN(max-min+1) + min
+	// Compute the span as uint so ranges wider than maxInt do not overflow.
+	span := uint(max) - uint(min)
+	if span == maxUint {
+		return int(f.Uint())
+	}
+	return int(f.UintN(span+1)) + min
 }
 
 // Generate random uint between min and max
@@ -141,6 +145,11 @@ func randUintRange(f *Faker, min, max uint) uint {
 
 	if min > max {
 		min, max = max, min // Swap if min is greater than max
+	}
+
+	// Full range: max-min+1 would wrap to 0.
+	if max-min == maxUint {
+		return f.Uint()
 	}
 
 	// Use f.UintN to generate a random number in [0, rangeSize) and shift it into [min, max].

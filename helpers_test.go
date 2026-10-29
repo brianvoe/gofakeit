@@ -100,6 +100,38 @@ func TestRandUintRange(t *testing.T) {
 	}
 }
 
+func TestRandRangeWideSpan(t *testing.T) {
+	f := New(11)
+
+	for _, bounds := range [][2]int{
+		{minInt, maxInt},
+		{minInt, 0},
+		{-1, maxInt},
+		{maxInt, minInt},
+	} {
+		low, high := min(bounds[0], bounds[1]), max(bounds[0], bounds[1])
+		seen := map[int]bool{}
+		for i := 0; i < 100; i++ {
+			v := f.IntRange(bounds[0], bounds[1])
+			if v < low || v > high {
+				t.Fatalf("IntRange(%d, %d) = %d, out of range", bounds[0], bounds[1], v)
+			}
+			seen[v] = true
+		}
+		if len(seen) < 2 {
+			t.Errorf("IntRange(%d, %d) returned %d distinct values in 100 calls", bounds[0], bounds[1], len(seen))
+		}
+	}
+
+	seen := map[uint]bool{}
+	for i := 0; i < 100; i++ {
+		seen[f.UintRange(minUint, maxUint)] = true
+	}
+	if len(seen) < 2 {
+		t.Errorf("UintRange(%d, %d) returned %d distinct values in 100 calls", minUint, maxUint, len(seen))
+	}
+}
+
 func TestGetRandValueFail(t *testing.T) {
 	for _, test := range [][]string{nil, {}, {"not", "found"}, {"person", "notfound"}} {
 		if getRandValue(GlobalFaker, test) != "" {
