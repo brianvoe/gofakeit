@@ -62,7 +62,7 @@ func replaceWithNumbers(f *Faker, str string) string {
 			bytestr[i] = byte(randDigit(f))
 		}
 	}
-	if bytestr[0] == '0' {
+	if str[0] == hashtag && bytestr[0] == '0' {
 		bytestr[0] = byte(f.IntN(8)+1) + '0'
 	}
 

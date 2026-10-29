@@ -147,6 +147,12 @@ func BenchmarkDigitN(b *testing.B) {
 	}
 }
 
+func TestNumerifyLeadingZero(t *testing.T) {
+	if got := New(11).Numerify("001-###"); got != "001-881" {
+		t.Errorf("Expected %s, got %s", "001-881", got)
+	}
+}
+
 func ExampleNumerify() {
 	Seed(11)
 	fmt.Println(Numerify("###-###-####"))
