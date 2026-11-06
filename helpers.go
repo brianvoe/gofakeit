@@ -156,6 +156,43 @@ func randUintRange(f *Faker, min, max uint) uint {
 	return f.UintN(max-min+1) + min
 }
 
+// Generate random int64 between min and max
+func randInt64Range(f *Faker, min, max int64) int64 {
+	if min == max {
+		return min
+	}
+
+	if min > max {
+		min, max = max, min // Swap if min is greater than max
+	}
+
+	// Compute the span as uint64 so ranges wider than maxInt64 do not overflow.
+	span := uint64(max) - uint64(min)
+	if span == math.MaxUint64 {
+		return int64(f.Uint64())
+	}
+	return int64(uint64NFunc(f, span+1)) + min
+}
+
+// Generate random uint64 between min and max
+func randUint64Range(f *Faker, min, max uint64) uint64 {
+	if min == max {
+		return min // Immediate return if range is zero
+	}
+
+	if min > max {
+		min, max = max, min // Swap if min is greater than max
+	}
+
+	// Full range: max-min+1 would wrap to 0.
+	if max-min == math.MaxUint64 {
+		return f.Uint64()
+	}
+
+	// Use uint64NFunc to generate a random number in [0, rangeSize) and shift it into [min, max].
+	return uint64NFunc(f, max-min+1) + min
+}
+
 func toFixed(num float64, precision int) float64 {
 	output := math.Pow(10, float64(precision))
 	return float64(math.Floor(num*output)) / output

@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	"math"
 	"testing"
 )
 
@@ -132,6 +133,70 @@ func TestRandRangeWideSpan(t *testing.T) {
 	}
 }
 
+
+func TestRandRange64WideSpan(t *testing.T) {
+	f := New(11)
+
+	for _, bounds := range [][2]int64{
+		{math.MinInt64, math.MaxInt64},
+		{math.MinInt64, 0},
+		{-1, math.MaxInt64},
+		{math.MaxInt64, math.MinInt64},
+	} {
+		low, high := min(bounds[0], bounds[1]), max(bounds[0], bounds[1])
+		seen := map[int64]bool{}
+		for i := 0; i < 100; i++ {
+			v := f.Int64Range(bounds[0], bounds[1])
+			if v < low || v > high {
+				t.Fatalf("Int64Range(%d, %d) = %d, out of range", bounds[0], bounds[1], v)
+			}
+			seen[v] = true
+		}
+		if len(seen) < 2 {
+			t.Errorf("Int64Range(%d, %d) returned %d distinct values in 100 calls", bounds[0], bounds[1], len(seen))
+		}
+	}
+
+	seen := map[uint64]bool{}
+	for i := 0; i < 100; i++ {
+		seen[f.Uint64Range(0, math.MaxUint64)] = true
+	}
+	if len(seen) < 2 {
+		t.Errorf("Uint64Range(0, %d) returned %d distinct values in 100 calls", uint64(math.MaxUint64), len(seen))
+	}
+}
+
+func TestInt64Range(t *testing.T) {
+	for i := 0; i < 100; i++ {
+		v := Int64Range(-1000, 1000)
+		if v < -1000 || v > 1000 {
+			t.Fatalf("Int64Range(-1000, 1000) = %d, out of range", v)
+		}
+	}
+	if Int64Range(5, 5) != 5 {
+		t.Fatal("Int64Range(5, 5) should equal 5")
+	}
+	v := Int64Range(10, 5)
+	if v < 5 || v > 10 {
+		t.Fatalf("Int64Range(10, 5) = %d, should be between 5 and 10", v)
+	}
+}
+
+func TestUint64Range(t *testing.T) {
+	for i := 0; i < 100; i++ {
+		v := Uint64Range(100, 500)
+		if v < 100 || v > 500 {
+			t.Fatalf("Uint64Range(100, 500) = %d, out of range", v)
+		}
+	}
+	if Uint64Range(5, 5) != 5 {
+		t.Fatal("Uint64Range(5, 5) should equal 5")
+	}
+	v := Uint64Range(10, 5)
+	if v < 5 || v > 10 {
+		t.Fatalf("Uint64Range(10, 5) = %d, should be between 5 and 10", v)
+	}
+}
 func TestGetRandValueFail(t *testing.T) {
 	for _, test := range [][]string{nil, {}, {"not", "found"}, {"person", "notfound"}} {
 		if getRandValue(GlobalFaker, test) != "" {
