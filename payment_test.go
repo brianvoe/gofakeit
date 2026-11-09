@@ -2,7 +2,11 @@ package gofakeit
 
 import (
 	"fmt"
+	"strconv"
+	"strings"
 	"testing"
+
+	"github.com/brianvoe/gofakeit/v7/data"
 )
 
 func ExampleCurrency() {
@@ -99,10 +103,10 @@ func ExampleCreditCard() {
 	fmt.Println(ccInfo.Exp)
 	fmt.Println(ccInfo.Cvv)
 
-	// Output: American Express
-	// 6376095989079994
-	// 06/31
-	// 125
+	// Output: Hiper
+	// 6375992759890801
+	// 11/30
+	// 812
 }
 
 func ExampleFaker_CreditCard() {
@@ -113,10 +117,53 @@ func ExampleFaker_CreditCard() {
 	fmt.Println(ccInfo.Exp)
 	fmt.Println(ccInfo.Cvv)
 
-	// Output: American Express
-	// 6376095989079994
-	// 06/31
-	// 125
+	// Output: Hiper
+	// 6375992759890801
+	// 11/30
+	// 812
+}
+
+// The type, the number and the security code of a card all belong to the same card type
+func TestCreditCardMatchesItsType(t *testing.T) {
+	keys := map[string]string{}
+	for key, info := range data.CreditCards {
+		keys[info.Display] = key
+	}
+
+	f := New(11)
+	for i := 0; i < 1000; i++ {
+		cc := f.CreditCard()
+
+		key, ok := keys[cc.Type]
+		if !ok {
+			t.Fatalf("Unknown card type %q", cc.Type)
+		}
+		info := data.CreditCards[key]
+
+		fitsLength := false
+		for _, length := range info.Lengths {
+			if uint(len(cc.Number)) == length {
+				fitsLength = true
+			}
+		}
+		if !fitsLength {
+			t.Errorf("Number %s of a %s card should have one of the lengths %v", cc.Number, cc.Type, info.Lengths)
+		}
+
+		startsRight := false
+		for _, pattern := range info.Patterns {
+			if strings.HasPrefix(cc.Number, strconv.Itoa(int(pattern))) {
+				startsRight = true
+			}
+		}
+		if !startsRight {
+			t.Errorf("Number %s of a %s card should start with one of %v", cc.Number, cc.Type, info.Patterns)
+		}
+
+		if uint(len(cc.Cvv)) != info.Code.Size {
+			t.Errorf("Code %s of a %s card should have %d digits", cc.Cvv, cc.Type, info.Code.Size)
+		}
+	}
 }
 
 func BenchmarkCreditCard(b *testing.B) {

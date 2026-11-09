@@ -71,10 +71,10 @@ func (f *Faker) CreditCard() *CreditCardInfo { return creditCard(f) }
 
 func creditCard(f *Faker) *CreditCardInfo {
 	ccType := randomString(f, data.CreditCardTypes)
-	ccv, _ := generate(f, strings.Repeat("#", int(data.CreditCards[randomString(f, data.CreditCardTypes)].Code.Size)))
+	ccv, _ := generate(f, strings.Repeat("#", int(data.CreditCards[ccType].Code.Size)))
 
 	return &CreditCardInfo{
-		Type:   data.CreditCards[randomString(f, data.CreditCardTypes)].Display,
+		Type:   data.CreditCards[ccType].Display,
 		Number: creditCardNumber(f, &CreditCardOptions{Types: []string{ccType}}),
 		Exp:    creditCardExp(f),
 		Cvv:    ccv,
