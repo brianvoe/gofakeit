@@ -92,12 +92,17 @@ func sqlFunc(f *Faker, so *SQLOptions) (string, error) {
 func sqlConvertType(t string, val any) string {
 	switch t {
 	case "string":
-		return `'` + fmt.Sprintf("%v", val) + `'`
+		return sqlQuote(fmt.Sprintf("%v", val))
 	case "[]byte":
-		return `'` + fmt.Sprintf("%s", val) + `'`
+		return sqlQuote(fmt.Sprintf("%s", val))
 	default:
 		return fmt.Sprintf("%v", val)
 	}
+}
+
+// sqlQuote puts a string between single quotes, a single quote inside it is written twice
+func sqlQuote(s string) string {
+	return `'` + strings.ReplaceAll(s, `'`, `''`) + `'`
 }
 
 func addDatabaseSQLLookup() {
