@@ -112,6 +112,20 @@ func TestDateRangeGenerate(t *testing.T) {
 	}
 }
 
+func TestTimeRangeGenerate(t *testing.T) {
+	original := GlobalFaker
+	GlobalFaker = New(1234)
+	t.Cleanup(func() { GlobalFaker = original })
+
+	got, err := New(11).Generate("{timerange:10:00,12:00,15:04}")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got < "10:00" || got > "12:00" {
+		t.Errorf("Expected time between 10:00 and 12:00, got %s", got)
+	}
+}
+
 func BenchmarkDateRange(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		DateRange(time.Now().AddDate(-30, 0, 0), time.Now())

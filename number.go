@@ -129,14 +129,6 @@ func (f *Faker) UintRange(min, max uint) uint { return uintRangeFunc(f, min, max
 
 func uintRangeFunc(f *Faker, min, max uint) uint { return randUintRange(f, min, max) }
 
-// Uint64Range will generate a random uint64 value between min and max
-func Uint64Range(min, max uint64) uint64 { return uint64RangeFunc(GlobalFaker, min, max) }
-
-// Uint64Range will generate a random uint64 value between min and max
-func (f *Faker) Uint64Range(min, max uint64) uint64 { return uint64RangeFunc(f, min, max) }
-
-func uint64RangeFunc(f *Faker, min, max uint64) uint64 { return randUint64Range(f, min, max) }
-
 // Int will generate a random int value
 func Int() int { return intFunc(GlobalFaker) }
 
@@ -198,14 +190,6 @@ func Int64() int64 { return int64Func(GlobalFaker) }
 func (f *Faker) Int64() int64 { return int64Func(f) }
 
 func int64Func(f *Faker) int64 { return int64(f.Uint64() &^ (1 << 63)) }
-
-// Int64Range will generate a random int64 value between min and max
-func Int64Range(min, max int64) int64 { return int64RangeFunc(GlobalFaker, min, max) }
-
-// Int64Range will generate a random int64 value between min and max
-func (f *Faker) Int64Range(min, max int64) int64 { return int64RangeFunc(f, min, max) }
-
-func int64RangeFunc(f *Faker, min, max int64) int64 { return randInt64Range(f, min, max) }
 
 // IntRange will generate a random int value between min and max
 func IntRange(min, max int) int { return intRangeFunc(GlobalFaker, min, max) }

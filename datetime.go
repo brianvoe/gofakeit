@@ -45,7 +45,7 @@ func DateRange(start, end time.Time) time.Time { return dateRange(GlobalFaker, s
 func (f *Faker) DateRange(start, end time.Time) time.Time { return dateRange(f, start, end) }
 
 func dateRange(f *Faker, start time.Time, end time.Time) time.Time {
-	return time.Unix(0, int64(randInt64Range(f, start.UnixNano(), end.UnixNano()))).UTC()
+	return time.Unix(0, randInt64Range(f, start.UnixNano(), end.UnixNano())).UTC()
 }
 
 // NanoSecond will generate a random nano second
@@ -794,11 +794,7 @@ func addDateTimeLookup() {
 			startNano := start.UnixNano()
 			endNano := end.UnixNano()
 
-			if startNano > endNano {
-				startNano, endNano = endNano, startNano
-			}
-
-			randomNano := int64(number(f, int(startNano), int(endNano)))
+			randomNano := randInt64Range(f, startNano, endNano)
 			randomTime := time.Unix(0, randomNano).UTC()
 
 			return randomTime.Format(golangFormat), nil

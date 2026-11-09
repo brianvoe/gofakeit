@@ -146,55 +146,97 @@ func TestRandRange64WideSpan(t *testing.T) {
 		low, high := min(bounds[0], bounds[1]), max(bounds[0], bounds[1])
 		seen := map[int64]bool{}
 		for i := 0; i < 100; i++ {
-			v := f.Int64Range(bounds[0], bounds[1])
+			v := randInt64Range(f, bounds[0], bounds[1])
 			if v < low || v > high {
-				t.Fatalf("Int64Range(%d, %d) = %d, out of range", bounds[0], bounds[1], v)
+				t.Fatalf("randInt64Range(%d, %d) = %d, out of range", bounds[0], bounds[1], v)
 			}
 			seen[v] = true
 		}
 		if len(seen) < 2 {
-			t.Errorf("Int64Range(%d, %d) returned %d distinct values in 100 calls", bounds[0], bounds[1], len(seen))
+			t.Errorf("randInt64Range(%d, %d) returned %d distinct values in 100 calls", bounds[0], bounds[1], len(seen))
 		}
 	}
 
 	seen := map[uint64]bool{}
 	for i := 0; i < 100; i++ {
-		seen[f.Uint64Range(0, math.MaxUint64)] = true
+		seen[randUint64Range(f, 0, math.MaxUint64)] = true
 	}
 	if len(seen) < 2 {
-		t.Errorf("Uint64Range(0, %d) returned %d distinct values in 100 calls", uint64(math.MaxUint64), len(seen))
+		t.Errorf("randUint64Range(0, %d) returned %d distinct values in 100 calls", uint64(math.MaxUint64), len(seen))
 	}
 }
 
-func TestInt64Range(t *testing.T) {
-	for i := 0; i < 100; i++ {
-		v := Int64Range(-1000, 1000)
-		if v < -1000 || v > 1000 {
-			t.Fatalf("Int64Range(-1000, 1000) = %d, out of range", v)
+func TestRandInt64Range(t *testing.T) {
+	type testStruct struct {
+		min, max int64
+	}
+
+	tests := []testStruct{
+		{0, 0},
+		{1000, -1000},
+		{math.MinInt64, math.MaxInt64},
+		{math.MinInt64, math.MinInt64 + 100}, // Test min only
+		{math.MaxInt64 - 100, math.MaxInt64}, // Test max only
+		{math.MaxInt64 - 20000, math.MaxInt64 - 10000},
+		{math.MinInt64 + 10000, math.MaxInt64 - 10000},
+		{-1000, 1000},                        // span that crosses zero
+	}
+
+	for i := 0; i < 5000; i++ {
+		tests = append(tests, testStruct{
+			min: randInt64Range(GlobalFaker, 0, math.MaxInt64),
+			max: randInt64Range(GlobalFaker, 0, math.MaxInt64),
+		})
+	}
+	for i := 0; i < 5000; i++ {
+		tests = append(tests, testStruct{
+			min: randInt64Range(GlobalFaker, math.MinInt64, 0),
+			max: randInt64Range(GlobalFaker, 0, math.MaxInt64),
+		})
+	}
+
+	for _, test := range tests {
+		result := randInt64Range(GlobalFaker, test.min, test.max)
+		if test.min > test.max {
+			if result > test.min || result < test.max {
+				t.Fatalf("The result should be between %d and %d. Got: %d", test.min, test.max, result)
+			}
+		} else if result < test.min || result > test.max {
+			t.Fatalf("The result should be between %d and %d. Got: %d", test.min, test.max, result)
 		}
-	}
-	if Int64Range(5, 5) != 5 {
-		t.Fatal("Int64Range(5, 5) should equal 5")
-	}
-	v := Int64Range(10, 5)
-	if v < 5 || v > 10 {
-		t.Fatalf("Int64Range(10, 5) = %d, should be between 5 and 10", v)
 	}
 }
 
-func TestUint64Range(t *testing.T) {
-	for i := 0; i < 100; i++ {
-		v := Uint64Range(100, 500)
-		if v < 100 || v > 500 {
-			t.Fatalf("Uint64Range(100, 500) = %d, out of range", v)
+func TestRandUint64Range(t *testing.T) {
+	type testStruct struct {
+		min, max uint64
+	}
+
+	tests := []testStruct{
+		{0, 0},
+		{100000, 100},
+		{0, math.MaxUint64},
+		{0, 100},
+		{math.MaxUint64 - 100, math.MaxUint64},
+		{10000, math.MaxUint64 - 10000},
+	}
+
+	for i := 0; i < 5000; i++ {
+		tests = append(tests, testStruct{
+			min: randUint64Range(GlobalFaker, 0, math.MaxUint64),
+			max: randUint64Range(GlobalFaker, 0, math.MaxUint64),
+		})
+	}
+
+	for _, test := range tests {
+		result := randUint64Range(GlobalFaker, test.min, test.max)
+		if test.min > test.max {
+			if result > test.min || result < test.max {
+				t.Fatalf("The result should be between %d and %d. Got: %d", test.min, test.max, result)
+			}
+		} else if result < test.min || result > test.max {
+			t.Fatalf("The result should be between %d and %d. Got: %d", test.min, test.max, result)
 		}
-	}
-	if Uint64Range(5, 5) != 5 {
-		t.Fatal("Uint64Range(5, 5) should equal 5")
-	}
-	v := Uint64Range(10, 5)
-	if v < 5 || v > 10 {
-		t.Fatalf("Uint64Range(10, 5) = %d, should be between 5 and 10", v)
 	}
 }
 func TestGetRandValueFail(t *testing.T) {
