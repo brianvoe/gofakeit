@@ -82,24 +82,25 @@ func isinChecksumDigit(isin string) string {
 		}
 	}
 
-	oddSum := 0
-	evenSum := 0
+	plainSum := 0
+	doubledSum := 0
 
-	// Take the per digit sum of the digitized ISIN, doubling even indexed digits
+	// Take the per digit sum of the digitized ISIN, doubling every second digit counted from the
+	// right, starting with the last one (the check digit goes after it, so it is not doubled)
 	for i, d := range isinDigits {
-		if i%2 == 0 {
+		if (len(isinDigits)-1-i)%2 == 0 {
 			elem := 2 * d
 			if elem > 9 {
 				// If the element now has two digits, sum those digits
 				elem = (elem % 10) + (elem / 10)
 			}
-			evenSum += elem
+			doubledSum += elem
 		} else {
-			oddSum += d
+			plainSum += d
 		}
 	}
 
-	return strconv.Itoa((10 - (oddSum+evenSum)%10) % 10)
+	return strconv.Itoa((10 - (plainSum+doubledSum)%10) % 10)
 }
 
 // Lookup Adds

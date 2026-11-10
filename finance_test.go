@@ -2,6 +2,8 @@ package gofakeit
 
 import (
 	"fmt"
+	"strconv"
+	"strings"
 	"testing"
 )
 
@@ -64,14 +66,14 @@ func ExampleIsin() {
 	Seed(11)
 	fmt.Println(Isin())
 
-	// Output: TO4HHTI0T819
+	// Output: TO4HHTI0T813
 }
 
 func ExampleFaker_Isin() {
 	f := New(11)
 	fmt.Println(f.Isin())
 
-	// Output: TO4HHTI0T819
+	// Output: TO4HHTI0T813
 }
 
 func TestIsin(t *testing.T) {
@@ -98,11 +100,47 @@ func TestIsinCheckDigit(t *testing.T) {
 		{base: "US037833100", want: "5"},
 		{base: "GB000263494", want: "6"},
 		{base: "US000402625", want: "0"},
+		{base: "US02079K305", want: "9"},
+		{base: "IE00B4L5Y98", want: "3"},
+		{base: "DE000BAY001", want: "7"},
+		{base: "AU0000XVGZA", want: "3"},
+		{base: "US88160R101", want: "4"},
+		{base: "US67066G104", want: "0"},
 	}
 	for _, tc := range tests {
 		digit := isinChecksumDigit(tc.base)
 		if digit != tc.want {
 			t.Errorf("Expected check digit of %s, got %s", tc.want, digit)
+		}
+	}
+}
+
+// isinDigits expands the letters of an ISIN to two digits each, A is 10 and Z is 35
+func isinDigits(isin string) string {
+	var digits strings.Builder
+	for _, c := range isin {
+		if c >= 'A' && c <= 'Z' {
+			digits.WriteString(strconv.Itoa(int(c-'A') + 10))
+		} else {
+			digits.WriteRune(c)
+		}
+	}
+	return digits.String()
+}
+
+// A valid ISIN passes the Luhn test on its digits, check digit included
+func TestIsinLuhn(t *testing.T) {
+	for _, isin := range []string{"US0378331005", "US02079K3059", "IE00B4L5Y983", "DE000BAY0017", "AU0000XVGZA3"} {
+		if !isLuhn(isinDigits(isin)) {
+			t.Errorf("Known ISIN %s should pass the Luhn test", isin)
+		}
+	}
+
+	f := New(11)
+	for i := 0; i < 1000; i++ {
+		isin := f.Isin()
+		if !isLuhn(isinDigits(isin)) {
+			t.Fatalf("Generated ISIN %s has an invalid check digit", isin)
 		}
 	}
 }
