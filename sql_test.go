@@ -112,6 +112,86 @@ func TestSQLAll(t *testing.T) {
 	}
 }
 
+func TestSQLQuotes(t *testing.T) {
+	AddFuncLookup("withquote", Info{
+		Category:    "custom",
+		Description: "a string with a single quote",
+		Example:     "O'Brien",
+		Output:      "string",
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return "O'Brien", nil
+		},
+	})
+	defer RemoveFuncLookup("withquote")
+
+	AddFuncLookup("withquotebytes", Info{
+		Category:    "custom",
+		Description: "bytes with a single quote",
+		Example:     "it's",
+		Output:      "[]byte",
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return []byte("it's"), nil
+		},
+	})
+	defer RemoveFuncLookup("withquotebytes")
+
+	res, err := SQL(&SQLOptions{
+		Table: "people",
+		Count: 1,
+		Fields: []Field{
+			{Name: "last_name", Function: "withquote"},
+			{Name: "note", Function: "withquotebytes"},
+		},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// A single quote inside a string is written twice
+	if res != `INSERT INTO people (last_name, note) VALUES ('O''Brien', 'it''s');` {
+		t.Errorf("SQL query did not match expected output: %s", res)
+	}
+}
+
+// sqlStringsClosed reports whether every string in a statement is closed, a doubled quote inside a
+// string is part of it
+func sqlStringsClosed(sql string) bool {
+	inString := false
+	for i := 0; i < len(sql); i++ {
+		if sql[i] != '\'' {
+			continue
+		}
+		if inString && i+1 < len(sql) && sql[i+1] == '\'' {
+			i++
+			continue
+		}
+		inString = !inString
+	}
+	return !inString
+}
+
+// Some names, companies and hobbies have a single quote in them, like Rubik's Cube
+func TestSQLGeneratedStringsAreClosed(t *testing.T) {
+	f := New(11)
+	for i := 0; i < 2000; i++ {
+		res, err := f.SQL(&SQLOptions{
+			Table: "things",
+			Count: 1,
+			Fields: []Field{
+				{Name: "company", Function: "company"},
+				{Name: "hobby", Function: "hobby"},
+				{Name: "quote", Function: "quote"},
+			},
+		})
+		if err != nil {
+			t.Fatal(err)
+		}
+		if !sqlStringsClosed(res) {
+			t.Fatalf("A string in the SQL query is not closed: %s", res)
+		}
+	}
+}
+
 func TestSingleSQL(t *testing.T) {
 	Seed(11)
 
