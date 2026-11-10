@@ -369,7 +369,7 @@ func addProductLookup() {
 	],
 	"color": "navy",
 	"material": "brass",
-	"upc": "012780949980",
+	"upc": "012780949981",
 	"audience": [
 		"adults"
 	],

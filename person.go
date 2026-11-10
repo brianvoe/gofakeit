@@ -379,7 +379,7 @@ func addPersonLookup() {
 		"email": "lamarkoelpin@heaney.biz"
 	},
 	"credit_card": {
-		"type": "Maestro",
+		"type": "Diners Club",
 		"number": "39800889982276",
 		"exp": "01/29",
 		"cvv": "932"
