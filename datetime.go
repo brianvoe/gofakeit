@@ -320,6 +320,17 @@ func isASCIIDigit(b byte) bool {
 	return b >= '0' && b <= '9'
 }
 
+// clockOnSafeDay keeps the clock of t. A clock-only layout parses as year 0, and
+// UnixNano of that year does not fit in an int64, so the value wraps and the clock
+// comes back shifted. Move those times onto 2000-01-01. A time UnixNano can already
+// represent is left as it is.
+func clockOnSafeDay(t time.Time) time.Time {
+	if y := t.Year(); y >= 1678 && y <= 2261 {
+		return t
+	}
+	return time.Date(2000, 1, 1, t.Hour(), t.Minute(), t.Second(), t.Nanosecond(), time.UTC)
+}
+
 func addDateTimeLookup() {
 	AddFuncLookup("date", Info{
 		Display:     "Date",
@@ -791,6 +802,8 @@ func addDateTimeLookup() {
 			}
 
 			// Generate random time between start and end
+			start = clockOnSafeDay(start)
+			end = clockOnSafeDay(end)
 			startNano := start.UnixNano()
 			endNano := end.UnixNano()
 

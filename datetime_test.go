@@ -113,16 +113,15 @@ func TestDateRangeGenerate(t *testing.T) {
 }
 
 func TestTimeRangeGenerate(t *testing.T) {
-	original := GlobalFaker
-	GlobalFaker = New(1234)
-	t.Cleanup(func() { GlobalFaker = original })
-
-	got, err := New(11).Generate("{timerange:10:00,12:00,15:04}")
-	if err != nil {
-		t.Fatal(err)
-	}
-	if got < "10:00" || got > "12:00" {
-		t.Errorf("Expected time between 10:00 and 12:00, got %s", got)
+	f := New(11)
+	for i := 0; i < 200; i++ {
+		got, err := f.Generate("{timerange:10:00,12:00,15:04}")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if got < "10:00" || got > "12:00" {
+			t.Fatalf("Expected time between 10:00 and 12:00, got %s", got)
+		}
 	}
 }
 

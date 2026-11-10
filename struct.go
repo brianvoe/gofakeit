@@ -33,22 +33,25 @@ func structFunc(f *Faker, v any) error {
 	return r(f, reflect.TypeOf(v), reflect.ValueOf(v), "", 0, 0)
 }
 
+// isJSONRawMessage reports whether t is encoding/json.RawMessage.
+func isJSONRawMessage(t reflect.Type) bool {
+	if t.PkgPath() == "encoding/json" && t.Name() == "RawMessage" {
+		return true
+	}
+	return t.PkgPath() == "encoding/json/jsontext" && t.Name() == "Value" && t.Kind() == reflect.Slice && t.Elem().Kind() == reflect.Uint8
+}
+
 func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int, depth int) error {
 	// Handle special types
 
-	if t.PkgPath() == "encoding/json" {
-		// encoding/json has two special types:
-		// - RawMessage
-		// - Number
-
-		switch t.Name() {
-		case "RawMessage":
-			return rJsonRawMessage(f, v, tag)
-		case "Number":
-			return rJsonNumber(f, v, tag)
-		default:
-			return errors.New("unknown encoding/json type: " + t.Name())
-		}
+	// encoding/json has two special types: RawMessage and Number.
+	// As of Go 1.27, RawMessage is an alias of encoding/json/jsontext.Value,
+	// so reflect reports that name instead of RawMessage.
+	if isJSONRawMessage(t) {
+		return rJsonRawMessage(f, v, tag)
+	}
+	if t.PkgPath() == "encoding/json" && t.Name() == "Number" {
+		return rJsonNumber(f, v, tag)
 	}
 
 	// Handle generic types

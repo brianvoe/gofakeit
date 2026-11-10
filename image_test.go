@@ -1,7 +1,9 @@
 package gofakeit
 
 import (
+	"bytes"
 	"fmt"
+	"image/png"
 	"testing"
 )
 
@@ -47,16 +49,26 @@ func BenchmarkImageJpeg(b *testing.B) {
 
 func ExampleImagePng() {
 	Seed(11)
-	fmt.Println(ImagePng(1, 1))
+	img, err := png.Decode(bytes.NewReader(ImagePng(1, 1)))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(img.Bounds().Dx(), img.Bounds().Dy(), img.At(0, 0))
 
-	// Output: [137 80 78 71 13 10 26 10 0 0 0 13 73 72 68 82 0 0 0 1 0 0 0 1 8 2 0 0 0 144 119 83 222 0 0 0 16 73 68 65 84 120 156 98 218 34 180 21 16 0 0 255 255 3 1 1 126 242 54 123 184 0 0 0 0 73 69 78 68 174 66 96 130]
+	// Output: 1 1 {180 18 181 255}
 }
 
 func ExampleFaker_ImagePng() {
 	f := New(11)
-	fmt.Println(f.ImagePng(1, 1))
+	img, err := png.Decode(bytes.NewReader(f.ImagePng(1, 1)))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(img.Bounds().Dx(), img.Bounds().Dy(), img.At(0, 0))
 
-	// Output: [137 80 78 71 13 10 26 10 0 0 0 13 73 72 68 82 0 0 0 1 0 0 0 1 8 2 0 0 0 144 119 83 222 0 0 0 16 73 68 65 84 120 156 98 218 34 180 21 16 0 0 255 255 3 1 1 126 242 54 123 184 0 0 0 0 73 69 78 68 174 66 96 130]
+	// Output: 1 1 {180 18 181 255}
 }
 
 func BenchmarkImagePng(b *testing.B) {
