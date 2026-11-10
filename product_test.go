@@ -28,14 +28,14 @@ func ExampleProduct() {
 	// [smart home devices camping gear]
 	// 73.93
 	// [multi-functional self-adjusting water-resistant underwater-capable]
-	// maroon
-	// oak wood
-	// 041026894059
-	// [photographers travelers]
-	// regular
-	// dining
-	// aesthetic appeal
-	// plus
+	// white
+	// canvas
+	// 041026894051
+	// [gamers outdoor enthusiasts]
+	// compact
+	// office
+	// energy savings
+	// art
 }
 
 func ExampleFaker_Product() {
@@ -60,14 +60,14 @@ func ExampleFaker_Product() {
 	// [smart home devices camping gear]
 	// 73.93
 	// [multi-functional self-adjusting water-resistant underwater-capable]
-	// maroon
-	// oak wood
-	// 041026894059
-	// [photographers travelers]
-	// regular
-	// dining
-	// aesthetic appeal
-	// plus
+	// white
+	// canvas
+	// 041026894051
+	// [gamers outdoor enthusiasts]
+	// compact
+	// office
+	// energy savings
+	// art
 }
 
 func TestProduct(t *testing.T) {
@@ -247,14 +247,53 @@ func ExampleProductUPC() {
 	Seed(11)
 	fmt.Println(ProductUPC())
 
-	// Output: 088125275989
+	// Output: 088125275985
 }
 
 func ExampleFaker_ProductUPC() {
 	f := New(11)
 	fmt.Println(f.ProductUPC())
 
-	// Output: 088125275989
+	// Output: 088125275985
+}
+
+// A UPC-A has 12 digits and the weighted sum of them, with weights 3 and 1, is a multiple of ten
+func isUPC(upc string) bool {
+	if len(upc) != 12 {
+		return false
+	}
+
+	sum := 0
+	for i, c := range upc {
+		if c < '0' || c > '9' {
+			return false
+		}
+		weight := 1
+		if i%2 == 0 {
+			weight = 3
+		}
+		sum += weight * int(c-'0')
+	}
+	return sum%10 == 0
+}
+
+func TestProductUPC(t *testing.T) {
+	for _, upc := range []string{"036000291452", "012345678905", "042100005264"} {
+		if !isUPC(upc) {
+			t.Errorf("Known UPC %s should be valid", upc)
+		}
+	}
+	if isUPC("036000291453") {
+		t.Error("A UPC with a wrong check digit should be invalid")
+	}
+
+	f := New(11)
+	for i := 0; i < 1000; i++ {
+		upc := f.ProductUPC()
+		if !isUPC(upc) {
+			t.Fatalf("Generated UPC %s has an invalid check digit", upc)
+		}
+	}
 }
 
 func BenchmarkProductUPC(b *testing.B) {

@@ -188,13 +188,23 @@ func productUPC(f *Faker) string {
 	// The first digit of a UPC is a fixed digit (usually 0)
 	upc := "0"
 
-	// Generate the remaining 11 digits randomly
-	for i := 1; i < 12; i++ {
+	// Generate the next 10 digits randomly
+	for i := 1; i < 11; i++ {
 		digit := number(f, 0, 9)
 		upc += fmt.Sprintf("%d", digit)
 	}
 
-	return upc
+	// The last digit is the check digit, the digits in odd positions count three times
+	sum := 0
+	for i, c := range upc {
+		digit := int(c - '0')
+		if i%2 == 0 {
+			digit *= 3
+		}
+		sum += digit
+	}
+
+	return upc + strconv.Itoa((10-sum%10)%10)
 }
 
 // ProductAudience will generate a random target audience
@@ -510,7 +520,7 @@ func addProductLookup() {
 		Display:     "Product UPC",
 		Category:    "product",
 		Description: "Standardized barcode used for product identification and tracking in retail and commerce",
-		Example:     "012780949980",
+		Example:     "012780949981",
 		Output:      "string",
 		Aliases: []string{
 			"upc code",
