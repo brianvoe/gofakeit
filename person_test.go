@@ -409,10 +409,10 @@ func ExamplePerson() {
 	// -28.374174
 	// 2689405915
 	// elsar@nichols.io
-	// Visa
-	// 506779875720177
-	// 09/35
-	// 1525
+	// Maestro
+	// 56709387572018
+	// 06/34
+	// 205
 }
 
 func ExampleFaker_Person() {
@@ -472,10 +472,10 @@ func ExampleFaker_Person() {
 	// -28.374174
 	// 2689405915
 	// elsar@nichols.io
-	// Visa
-	// 506779875720177
-	// 09/35
-	// 1525
+	// Maestro
+	// 56709387572018
+	// 06/34
+	// 205
 }
 
 func BenchmarkPerson(b *testing.B) {
