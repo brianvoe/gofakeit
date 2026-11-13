@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 	"testing"
 )
@@ -215,14 +216,40 @@ func ExampleMacAddress() {
 	Seed(11)
 	fmt.Println(MacAddress())
 
-	// Output: e4:da:32:33:86:3b
+	// Output: b4:12:b5:fb:33:a4
 }
 
 func ExampleFaker_MacAddress() {
 	f := New(11)
 	fmt.Println(f.MacAddress())
 
-	// Output: e4:da:32:33:86:3b
+	// Output: b4:12:b5:fb:33:a4
+}
+
+func TestMacAddress(t *testing.T) {
+	f := New(11)
+	format := regexp.MustCompile(`^[0-9a-f]{2}(:[0-9a-f]{2}){5}$`)
+
+	// every octet can be 00 to ff, the highest value used to be left out
+	sawFF := make([]bool, 6)
+	for i := 0; i < 10000; i++ {
+		mac := f.MacAddress()
+		if !format.MatchString(mac) {
+			t.Fatalf("invalid mac address %q", mac)
+		}
+
+		for j, octet := range strings.Split(mac, ":") {
+			if octet == "ff" {
+				sawFF[j] = true
+			}
+		}
+	}
+
+	for j, saw := range sawFF {
+		if !saw {
+			t.Errorf("octet %d was never ff in 10000 mac addresses", j+1)
+		}
+	}
 }
 
 func BenchmarkMacAddress(b *testing.B) {
