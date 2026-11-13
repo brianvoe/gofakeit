@@ -416,6 +416,65 @@ func ExampleFaker_ProductISBN() {
 	// Output: 978-8-8125-2759-5
 }
 
+func TestProductISBN(t *testing.T) {
+	f := New(11)
+
+	// ISBN-10: nine digits and a check digit (0-9 or X), the weighted sum with weights 10 to 1 is a multiple of 11
+	validISBN10 := func(isbn string) bool {
+		if len(isbn) != 10 {
+			return false
+		}
+
+		sum := 0
+		for i, c := range isbn {
+			value := int(c - '0')
+			if i == 9 && c == 'X' {
+				value = 10
+			} else if c < '0' || c > '9' {
+				return false
+			}
+
+			sum += value * (10 - i)
+		}
+
+		return sum%11 == 0
+	}
+
+	// ISBN-13: thirteen digits, the sum with weights 1 and 3 is a multiple of 10
+	validISBN13 := func(isbn string) bool {
+		if len(isbn) != 13 {
+			return false
+		}
+
+		sum := 0
+		for i, c := range isbn {
+			if c < '0' || c > '9' {
+				return false
+			}
+
+			if i%2 == 0 {
+				sum += int(c - '0')
+			} else {
+				sum += 3 * int(c-'0')
+			}
+		}
+
+		return sum%10 == 0
+	}
+
+	for i := 0; i < 10000; i++ {
+		isbn10 := f.ProductISBN(&ISBNOptions{Version: "10", Separator: "-"})
+		if !validISBN10(strings.ReplaceAll(isbn10, "-", "")) {
+			t.Fatalf("ISBN-10 %q is not valid", isbn10)
+		}
+
+		isbn13 := f.ProductISBN(&ISBNOptions{Version: "13", Separator: "-"})
+		if !validISBN13(strings.ReplaceAll(isbn13, "-", "")) {
+			t.Fatalf("ISBN-13 %q is not valid", isbn13)
+		}
+	}
+}
+
 func BenchmarkProductISBN(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		ProductISBN(&ISBNOptions{Version: "13", Separator: "-"})
@@ -426,12 +485,12 @@ func ExampleProductISBN_isbn10() {
 	Seed(11)
 	fmt.Println(ProductISBN(&ISBNOptions{Version: "10", Separator: "-"}))
 
-	// Output: 8-8125-275-7
+	// Output: 8-8125-2759-0
 }
 
 func ExampleFaker_ProductISBN_isbn10() {
 	f := New(11)
 	fmt.Println(f.ProductISBN(&ISBNOptions{Version: "10", Separator: "-"}))
 
-	// Output: 8-8125-275-7
+	// Output: 8-8125-2759-0
 }
