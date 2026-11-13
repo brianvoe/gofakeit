@@ -302,10 +302,10 @@ func productISBN(f *Faker, opts *ISBNOptions) string {
 
 	switch opts.Version {
 	case "10":
-		// ISBN-10 format: group(1)-registrant(4)-publication(3)-check(1)
+		// ISBN-10 format: group(1)-registrant(4)-publication(4)-check(1)
 		group := randomDigits(f, 1)
 		registrant := randomDigits(f, 4)
-		publication := randomDigits(f, 3)
+		publication := randomDigits(f, 4)
 		base := group + registrant + publication
 
 		// checksum
