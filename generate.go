@@ -7,6 +7,7 @@ import (
 	"math"
 	"regexp/syntax"
 	"strings"
+	"unicode/utf8"
 )
 
 // Generate fake information from given string.
@@ -270,13 +271,43 @@ func regex(f *Faker, regexStr string) (gen string) {
 	// Panic catch
 	defer func() {
 		if r := recover(); r != nil {
-			gen = fmt.Sprint(f)
+			gen = fmt.Sprint(r)
 			return
 
 		}
 	}()
 
-	return regexGenerate(f, re, len(regexStr)*100)
+	// The limit has to hold the shortest match, a{1000} is 1000 characters from 7 of the pattern
+	limit := max(len(regexStr)*100, regexMinLength(re)*utf8.UTFMax)
+	return regexGenerate(f, re, limit)
+}
+
+// regexMinLength is the number of characters in the shortest string that the regexp matches
+func regexMinLength(re *syntax.Regexp) int {
+	switch re.Op {
+	case syntax.OpLiteral:
+		return len(re.Rune)
+	case syntax.OpCharClass, syntax.OpAnyCharNotNL, syntax.OpAnyChar:
+		return 1
+	case syntax.OpCapture, syntax.OpPlus:
+		return regexMinLength(re.Sub[0])
+	case syntax.OpRepeat:
+		return re.Min * regexMinLength(re.Sub[0])
+	case syntax.OpConcat:
+		sum := 0
+		for _, sub := range re.Sub {
+			sum += regexMinLength(sub)
+		}
+		return sum
+	case syntax.OpAlternate:
+		shortest := regexMinLength(re.Sub[0])
+		for _, sub := range re.Sub[1:] {
+			shortest = min(shortest, regexMinLength(sub))
+		}
+		return shortest
+	}
+
+	return 0
 }
 
 func regexGenerate(f *Faker, re *syntax.Regexp, limit int) string {
