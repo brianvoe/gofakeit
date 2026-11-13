@@ -1,7 +1,9 @@
 package gofakeit
 
 import (
+	"fmt"
 	"reflect"
+	"sort"
 
 	"github.com/brianvoe/gofakeit/v7/data"
 )
@@ -74,7 +76,39 @@ func (f *Faker) RandomMapKey(mapI any) any { return randomMapKey(f, mapI) }
 
 func randomMapKey(f *Faker, mapI any) any {
 	keys := reflect.ValueOf(mapI).MapKeys()
+
+	// A map is read in a random order, sort the keys so the same seed picks the same key
+	sort.Slice(keys, func(i, j int) bool { return lessMapKey(keys[i], keys[j]) })
+
 	return keys[f.IntN(len(keys))].Interface()
+}
+
+// lessMapKey orders strings, integers and floats by value, and any other key by its printed form
+func lessMapKey(a, b reflect.Value) bool {
+	// The keys of a map[any]T hold their value in an interface
+	if a.Kind() == reflect.Interface {
+		a = a.Elem()
+	}
+	if b.Kind() == reflect.Interface {
+		b = b.Elem()
+	}
+
+	// Keys of different types, like 1 and "1" in a map[any]T, are ordered by type first
+	if a.Type() != b.Type() {
+		return a.Type().String() < b.Type().String()
+	}
+
+	switch a.Kind() {
+	case reflect.String:
+		return a.String() < b.String()
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		return a.Int() < b.Int()
+	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
+		return a.Uint() < b.Uint()
+	case reflect.Float32, reflect.Float64:
+		return a.Float() < b.Float()
+	}
+	return fmt.Sprint(a.Interface()) < fmt.Sprint(b.Interface())
 }
 
 // Categories will return a map string array of available data categories and sub categories
