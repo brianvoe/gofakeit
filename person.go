@@ -1,6 +1,7 @@
 package gofakeit
 
 import (
+	"fmt"
 	"math"
 	"strconv"
 )
@@ -112,7 +113,15 @@ func SSN() string { return ssn(GlobalFaker) }
 // SSN will generate a random Social Security Number
 func (f *Faker) SSN() string { return ssn(f) }
 
-func ssn(f *Faker) string { return strconv.Itoa(randIntRange(f, 100000000, 999999999)) }
+func ssn(f *Faker) string {
+	// The SSA does not issue area numbers 000, 666 and 900 to 999, group 00 or serial 0000
+	area := randIntRange(f, 1, 898)
+	if area >= 666 {
+		area++ // skip 666
+	}
+
+	return fmt.Sprintf("%03d%02d%04d", area, randIntRange(f, 1, 99), randIntRange(f, 1, 9999))
+}
 
 // EIN will generate a random Employer Identification Number
 func EIN() string { return ein(GlobalFaker) }

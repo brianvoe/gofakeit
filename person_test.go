@@ -132,14 +132,38 @@ func ExampleSSN() {
 	Seed(11)
 	fmt.Println(SSN())
 
-	// Output: 906295542
+	// Output: 806851996
 }
 
 func ExampleFaker_SSN() {
 	f := New(11)
 	fmt.Println(f.SSN())
 
-	// Output: 906295542
+	// Output: 806851996
+}
+
+func TestSSN(t *testing.T) {
+	f := New(11)
+	format := regexp.MustCompile(`^\d{9}$`)
+
+	for i := 0; i < 10000; i++ {
+		ssn := f.SSN()
+		if !format.MatchString(ssn) {
+			t.Fatalf("SSN %q should be 9 digits", ssn)
+		}
+
+		// The SSA does not issue area numbers 000, 666 and 900 to 999, group 00 or serial 0000
+		area, group, serial := ssn[:3], ssn[3:5], ssn[5:]
+		if area == "000" || area == "666" || area[0] == '9' {
+			t.Fatalf("SSN %q has an area number that is never issued", ssn)
+		}
+		if group == "00" {
+			t.Fatalf("SSN %q has group 00", ssn)
+		}
+		if serial == "0000" {
+			t.Fatalf("SSN %q has serial 0000", ssn)
+		}
+	}
 }
 
 func BenchmarkSSN(b *testing.B) {
@@ -407,14 +431,14 @@ func ExamplePerson() {
 	// Thornton
 	// male
 	// 20
-	// 575624882
-	// Cosplaying
-	// Qado Energy, Inc.
-	// Nail Technician
-	// Technical
-	// Quality
-	// 79993 Lanebury, Lincoln, Kansas 93050
-	// 79993 Lanebury
+	// 475237266
+	// Lacrosse
+	// Weather Channel
+	// Substitute Teacher
+	// Strategic
+	// Applications
+	// 993 Lanebury, Lincoln, Kansas 93050
+	// 993 Lanebury
 	// Lincoln
 	// Kansas
 	// 93050
@@ -470,14 +494,14 @@ func ExampleFaker_Person() {
 	// Thornton
 	// male
 	// 20
-	// 575624882
-	// Cosplaying
-	// Qado Energy, Inc.
-	// Nail Technician
-	// Technical
-	// Quality
-	// 79993 Lanebury, Lincoln, Kansas 93050
-	// 79993 Lanebury
+	// 475237266
+	// Lacrosse
+	// Weather Channel
+	// Substitute Teacher
+	// Strategic
+	// Applications
+	// 993 Lanebury, Lincoln, Kansas 93050
+	// 993 Lanebury
 	// Lincoln
 	// Kansas
 	// 93050
