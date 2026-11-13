@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"reflect"
+	"sort"
 	"strconv"
 	"strings"
 	"sync"
@@ -204,6 +205,9 @@ func GetRandomSimpleFunc(f *Faker) (string, Info) {
 			keys = append(keys, k)
 		}
 	}
+
+	// A map is read in a random order, sort the keys so the same seed picks the same function
+	sort.Strings(keys)
 
 	// Randomly grab a function from the slice
 	randomKey := randomString(f, keys)
