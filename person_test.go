@@ -146,7 +146,7 @@ func TestSSN(t *testing.T) {
 	f := New(11)
 	format := regexp.MustCompile(`^\d{9}$`)
 
-	for i := 0; i < 10000; i++ {
+	for range 10000 {
 		ssn := f.SSN()
 		if !format.MatchString(ssn) {
 			t.Fatalf("SSN %q should be 9 digits", ssn)
@@ -214,7 +214,7 @@ func TestEINPrefix(t *testing.T) {
 
 	// The IRS assigns 01 to 06, 10 to 16, 20 to 27, 30 to 48, 50 to 68, 71 to 77, 80 to 88, 90 to 95, 98 and 99
 	valid := regexp.MustCompile(`^(0[1-6]|1[0-6]|2[0-7]|3[0-9]|4[0-8]|5[0-9]|6[0-8]|7[1-7]|8[0-8]|9[0-5]|9[89])-\d{7}$`)
-	for i := 0; i < 10000; i++ {
+	for range 10000 {
 		ein := f.EIN()
 		if !valid.MatchString(ein) {
 			t.Fatalf("EIN %q does not start with a prefix the IRS assigns", ein)
@@ -376,7 +376,7 @@ func TestBio(t *testing.T) {
 
 // Test to make sure all curly braces are replaced
 func TestBioReplace(t *testing.T) {
-	for i := 0; i < 100000; i++ {
+	for range 100000 {
 		bio := Bio()
 		if strings.Contains(bio, "{") || strings.Contains(bio, "}") {
 			t.Error("Bio contains { or }")
@@ -589,7 +589,7 @@ func BenchmarkPhoneFormatted(b *testing.B) {
 }
 
 func TestEmail(t *testing.T) {
-	for i := 0; i < 100000; i++ {
+	for i := range 100000 {
 		e := Email()
 		if e == "" {
 			t.Fatalf("empty email at iteration %d", i)

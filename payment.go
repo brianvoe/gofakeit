@@ -255,7 +255,7 @@ func (f *Faker) BitcoinPrivateKey() string { return bitcoinPrivateKey(f) }
 
 func bitcoinPrivateKey(f *Faker) string {
 	var b strings.Builder
-	for i := 0; i < 49; i++ {
+	for range 49 {
 		b.WriteString(randCharacter(f, base58))
 	}
 	return "5" + randomString(f, []string{"H", "J", "K"}) + b.String()

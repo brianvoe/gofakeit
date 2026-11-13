@@ -199,7 +199,7 @@ func templateFuncMap(f *Faker, fm *template.FuncMap) *template.FuncMap {
 	funcMap["IntRange"] = func(start, end int) []int {
 		n := end - start + 1
 		result := make([]int, n)
-		for i := 0; i < n; i++ {
+		for i := range n {
 			result[i] = start + i
 		}
 		return result

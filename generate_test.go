@@ -12,7 +12,7 @@ func TestGenerate(t *testing.T) {
 	var err error
 
 	numTests := 1000
-	for i := 0; i < numTests; i++ {
+	for range numTests {
 		output, err = Generate("{firstname} {lastname} {email} #?#?#?")
 		if err != nil {
 			t.Error(err)
@@ -243,7 +243,7 @@ func TestGenerateEdgeCases(t *testing.T) {
 
 	for _, tc := range testCases {
 		// Test multiple times with different seeds
-		for seed := uint64(0); seed < 10; seed++ {
+		for seed := range uint64(10) {
 			f := New(seed)
 			result, err := generate(f, tc.template)
 
@@ -463,7 +463,7 @@ var regexes = []struct{ test string }{
 
 func TestRegex(t *testing.T) {
 	for _, r := range regexes {
-		for i := 0; i < 100; i++ {
+		for range 100 {
 			// Try to compile regexTest
 			regCompile, err := regexp.Compile(r.test)
 			if err != nil {
@@ -591,7 +591,7 @@ func ExampleFaker_Map() {
 }
 
 func TestMap(t *testing.T) {
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		Map()
 	}
 }

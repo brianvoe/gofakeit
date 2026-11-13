@@ -111,7 +111,7 @@ func slogan(f *Faker) string {
 	// given spot.
 	b := []byte(strings.ToLower(slogan))
 	capNext := true
-	for i := 0; i < len(b); i++ {
+	for i := range b {
 		switch c := b[i]; {
 		case c == '.' || c == '!' || c == '?':
 			capNext = true

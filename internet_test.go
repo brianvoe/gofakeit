@@ -104,7 +104,7 @@ func TestUrlSlug(t *testing.T) {
 	}
 
 	// Test that slug is lowercase and has no spaces
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		slug := UrlSlug(3)
 		if strings.Contains(slug, " ") {
 			t.Errorf("Slug should not contain spaces: %s", slug)
@@ -122,7 +122,7 @@ func BenchmarkUrlSlug(b *testing.B) {
 }
 
 func TestURLValid(t *testing.T) {
-	for i := 0; i < 10000; i++ {
+	for range 10000 {
 		url := URL()
 
 		// Check if url has spaces in it
@@ -232,7 +232,7 @@ func TestMacAddress(t *testing.T) {
 
 	// every octet can be 00 to ff, the highest value used to be left out
 	sawFF := make([]bool, 6)
-	for i := 0; i < 10000; i++ {
+	for range 10000 {
 		mac := f.MacAddress()
 		if !format.MatchString(mac) {
 			t.Fatalf("invalid mac address %q", mac)
@@ -347,7 +347,7 @@ func BenchmarkUserAgent(b *testing.B) {
 }
 
 func TestUserAgent(t *testing.T) {
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		UserAgent()
 	}
 }

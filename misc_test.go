@@ -111,7 +111,7 @@ func ExampleFaker_FlipACoin() {
 }
 
 func TestFlipACoin(t *testing.T) {
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		FlipACoin()
 	}
 }
@@ -129,7 +129,7 @@ func TestRandomMapKey(t *testing.T) {
 		"c": 3,
 	}
 
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		key := RandomMapKey(mStr)
 		if _, ok := mStr[key.(string)]; !ok {
 			t.Errorf("key %s not found in map", key)
@@ -142,7 +142,7 @@ func TestRandomMapKey(t *testing.T) {
 		3: "c",
 	}
 
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		f := New(11)
 		key := f.RandomMapKey(mInt)
 		if _, ok := mInt[key.(int)]; !ok {

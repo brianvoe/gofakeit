@@ -63,7 +63,7 @@ func uuid(f *Faker) string {
 	var r uint64
 
 	r = f.Uint64()
-	for i := 0; i < 8; i++ {
+	for i := range 8 {
 		uuid[i] = byte(r)
 		r >>= 8
 	}

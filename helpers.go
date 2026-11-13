@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math"
 	"reflect"
+	"slices"
 	"strings"
 	"unicode"
 
@@ -57,7 +58,7 @@ func replaceWithNumbers(f *Faker, str string) string {
 		return str
 	}
 	bytestr := []byte(str)
-	for i := 0; i < len(bytestr); i++ {
+	for i := range bytestr {
 		if bytestr[i] == hashtag {
 			bytestr[i] = byte(randDigit(f))
 		}
@@ -75,7 +76,7 @@ func replaceWithLetters(f *Faker, str string) string {
 		return str
 	}
 	bytestr := []byte(str)
-	for i := 0; i < len(bytestr); i++ {
+	for i := range bytestr {
 		if bytestr[i] == questionmark {
 			bytestr[i] = byte(randLetter(f))
 		}
@@ -90,7 +91,7 @@ func replaceWithHexLetters(f *Faker, str string) string {
 		return str
 	}
 	bytestr := []byte(str)
-	for i := 0; i < len(bytestr); i++ {
+	for i := range bytestr {
 		if bytestr[i] == questionmark {
 			bytestr[i] = byte(randHexLetter(f))
 		}
@@ -245,12 +246,7 @@ func equalSliceInterface(a, b []any) bool {
 }
 
 func stringInSlice(a string, list []string) bool {
-	for _, b := range list {
-		if b == a {
-			return true
-		}
-	}
-	return false
+	return slices.Contains(list, a)
 }
 
 func anyToString(a any) string {
@@ -400,7 +396,7 @@ func parseMapParams(info *Info, fParams string) (*MapParams, error) {
 
 // Used for splitting the values
 func addSplitValsToMapParams(splitVals []string, info *Info, mapParams *MapParams) (*MapParams, error) {
-	for ii := 0; ii < len(splitVals); ii++ {
+	for ii := range splitVals {
 		if len(info.Params)-1 >= ii {
 			if strings.HasPrefix(splitVals[ii], "[") {
 				lookupSplits, err := funcLookupSplit(strings.TrimRight(strings.TrimLeft(splitVals[ii], "["), "]"))

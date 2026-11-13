@@ -34,7 +34,7 @@ func TestWeighted(t *testing.T) {
 	weights := []float32{1, 2, 3}
 
 	foundOptions := []any{}
-	for i := 0; i < 100000; i++ {
+	for range 100000 {
 		o, _ := Weighted(options, weights)
 		foundOptions = append(foundOptions, o)
 	}

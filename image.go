@@ -22,8 +22,8 @@ func image(f *Faker, width int, height int) *img.RGBA {
 	img := img.NewRGBA(img.Rectangle{upLeft, lowRight})
 
 	// Set color for each pixel
-	for x := 0; x < width; x++ {
-		for y := 0; y < height; y++ {
+	for x := range width {
+		for y := range height {
 			img.Set(x, y, imgCol.RGBA{uint8(number(f, 0, 255)), uint8(number(f, 0, 255)), uint8(number(f, 0, 255)), 0xff})
 		}
 	}

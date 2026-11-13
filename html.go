@@ -62,34 +62,35 @@ func svg(f *Faker, options *SVGOptions) string {
 	}
 
 	// Start svg string
-	svgStr := `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ` + widthStr + ` ` + heightStr + `" width="` + widthStr + `" height="` + heightStr + `">`
+	var svgStr strings.Builder
+	svgStr.WriteString(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ` + widthStr + ` ` + heightStr + `" width="` + widthStr + `" height="` + heightStr + `">`)
 
 	// Add a rect for the background
-	svgStr += `<rect x="0" y="0" width="100%" height="100%" fill="` + randomString(f, options.Colors) + `" />`
+	svgStr.WriteString(`<rect x="0" y="0" width="100%" height="100%" fill="` + randomString(f, options.Colors) + `" />`)
 
 	// Add a random number of shapes
 	for i := 0; i < number(f, 10, 20); i++ {
 		// Add a random shape
 		switch options.Type {
 		case "rect":
-			svgStr += `<rect x="` + strconv.Itoa(number(f, 0, options.Width)) + `" y="` + strconv.Itoa(number(f, 0, options.Height)) + `" width="` + strconv.Itoa(number(f, 0, options.Width)) + `" height="` + strconv.Itoa(number(f, 0, options.Height)) + `" fill="` + randomString(f, options.Colors) + `" />`
+			svgStr.WriteString(`<rect x="` + strconv.Itoa(number(f, 0, options.Width)) + `" y="` + strconv.Itoa(number(f, 0, options.Height)) + `" width="` + strconv.Itoa(number(f, 0, options.Width)) + `" height="` + strconv.Itoa(number(f, 0, options.Height)) + `" fill="` + randomString(f, options.Colors) + `" />`)
 		case "circle":
-			svgStr += `<circle cx="` + strconv.Itoa(number(f, 0, options.Width)) + `" cy="` + strconv.Itoa(number(f, 0, options.Height)) + `" r="` + strconv.Itoa(number(f, 0, options.Width)) + `" fill="` + randomString(f, options.Colors) + `" />`
+			svgStr.WriteString(`<circle cx="` + strconv.Itoa(number(f, 0, options.Width)) + `" cy="` + strconv.Itoa(number(f, 0, options.Height)) + `" r="` + strconv.Itoa(number(f, 0, options.Width)) + `" fill="` + randomString(f, options.Colors) + `" />`)
 		case "ellipse":
-			svgStr += `<ellipse cx="` + strconv.Itoa(number(f, 0, options.Width)) + `" cy="` + strconv.Itoa(number(f, 0, options.Height)) + `" rx="` + strconv.Itoa(number(f, 0, options.Width)) + `" ry="` + strconv.Itoa(number(f, 0, options.Height)) + `" fill="` + randomString(f, options.Colors) + `" />`
+			svgStr.WriteString(`<ellipse cx="` + strconv.Itoa(number(f, 0, options.Width)) + `" cy="` + strconv.Itoa(number(f, 0, options.Height)) + `" rx="` + strconv.Itoa(number(f, 0, options.Width)) + `" ry="` + strconv.Itoa(number(f, 0, options.Height)) + `" fill="` + randomString(f, options.Colors) + `" />`)
 		case "line":
-			svgStr += `<line x1="` + strconv.Itoa(number(f, 0, options.Width)) + `" y1="` + strconv.Itoa(number(f, 0, options.Height)) + `" x2="` + strconv.Itoa(number(f, 0, options.Width)) + `" y2="` + strconv.Itoa(number(f, 0, options.Height)) + `" stroke="` + randomString(f, options.Colors) + `" />`
+			svgStr.WriteString(`<line x1="` + strconv.Itoa(number(f, 0, options.Width)) + `" y1="` + strconv.Itoa(number(f, 0, options.Height)) + `" x2="` + strconv.Itoa(number(f, 0, options.Width)) + `" y2="` + strconv.Itoa(number(f, 0, options.Height)) + `" stroke="` + randomString(f, options.Colors) + `" />`)
 		case "polyline":
-			svgStr += `<polyline points="` + strconv.Itoa(number(f, 0, options.Width)) + `,` + strconv.Itoa(number(f, 0, options.Height)) + ` ` + strconv.Itoa(number(f, 0, options.Width)) + `,` + strconv.Itoa(number(f, 0, options.Height)) + ` ` + strconv.Itoa(number(f, 0, options.Width)) + `,` + strconv.Itoa(number(f, 0, options.Height)) + `" fill="` + randomString(f, options.Colors) + `" />`
+			svgStr.WriteString(`<polyline points="` + strconv.Itoa(number(f, 0, options.Width)) + `,` + strconv.Itoa(number(f, 0, options.Height)) + ` ` + strconv.Itoa(number(f, 0, options.Width)) + `,` + strconv.Itoa(number(f, 0, options.Height)) + ` ` + strconv.Itoa(number(f, 0, options.Width)) + `,` + strconv.Itoa(number(f, 0, options.Height)) + `" fill="` + randomString(f, options.Colors) + `" />`)
 		case "polygon":
-			svgStr += `<polygon points="` + strconv.Itoa(number(f, 0, options.Width)) + `,` + strconv.Itoa(number(f, 0, options.Height)) + ` ` + strconv.Itoa(number(f, 0, options.Width)) + `,` + strconv.Itoa(number(f, 0, options.Height)) + ` ` + strconv.Itoa(number(f, 0, options.Width)) + `,` + strconv.Itoa(number(f, 0, options.Height)) + `" fill="` + randomString(f, options.Colors) + `" />`
+			svgStr.WriteString(`<polygon points="` + strconv.Itoa(number(f, 0, options.Width)) + `,` + strconv.Itoa(number(f, 0, options.Height)) + ` ` + strconv.Itoa(number(f, 0, options.Width)) + `,` + strconv.Itoa(number(f, 0, options.Height)) + ` ` + strconv.Itoa(number(f, 0, options.Width)) + `,` + strconv.Itoa(number(f, 0, options.Height)) + `" fill="` + randomString(f, options.Colors) + `" />`)
 		}
 	}
 
 	// End svg string
-	svgStr += `</svg>`
+	svgStr.WriteString(`</svg>`)
 
-	return svgStr
+	return svgStr.String()
 }
 
 func addHtmlLookup() {

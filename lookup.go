@@ -196,7 +196,7 @@ func (m *MapParamsValue) UnmarshalJSON(data []byte) error {
 func GetRandomSimpleFunc(f *Faker) (string, Info) {
 	lockFuncLookups.RLock()
 	defer lockFuncLookups.RUnlock()
-	
+
 	// Loop through all the functions and add them to a slice
 	var keys []string
 	for k, info := range FuncLookups {
@@ -225,11 +225,11 @@ func AddFuncLookup(functionName string, info Info) {
 
 	lockFuncLookups.Lock()
 	defer lockFuncLookups.Unlock()
-	
+
 	if FuncLookups == nil {
 		FuncLookups = make(map[string]Info)
 	}
-	
+
 	FuncLookups[functionName] = info
 }
 
@@ -247,7 +247,7 @@ func GetFuncLookup(functionName string) *Info {
 	lockFuncLookups.RLock()
 	info, ok = FuncLookups[functionName]
 	lockFuncLookups.RUnlock()
-	
+
 	if ok {
 		return &info
 	}
@@ -259,7 +259,7 @@ func GetFuncLookup(functionName string) *Info {
 func RemoveFuncLookup(functionName string) {
 	lockFuncLookups.Lock()
 	defer lockFuncLookups.Unlock()
-	
+
 	_, ok := FuncLookups[functionName]
 	if !ok {
 		return
@@ -478,7 +478,7 @@ func (i *Info) GetIntArray(m *MapParams, field string) ([]int, error) {
 	}
 
 	var ints []int
-	for i := 0; i < len(value); i++ {
+	for i := range value {
 		valueInt, err := strconv.ParseInt(value[i], 10, 64)
 		if err != nil {
 			return nil, fmt.Errorf("%s value could not parse to int", value[i])
@@ -497,7 +497,7 @@ func (i *Info) GetUintArray(m *MapParams, field string) ([]uint, error) {
 	}
 
 	var uints []uint
-	for i := 0; i < len(value); i++ {
+	for i := range value {
 		valueUint, err := strconv.ParseUint(value[i], 10, 64)
 		if err != nil {
 			return nil, fmt.Errorf("%s value could not parse to uint", value[i])
@@ -516,7 +516,7 @@ func (i *Info) GetFloat32Array(m *MapParams, field string) ([]float32, error) {
 	}
 
 	var floats []float32
-	for i := 0; i < len(value); i++ {
+	for i := range value {
 		valueFloat, err := strconv.ParseFloat(value[i], 32)
 		if err != nil {
 			return nil, fmt.Errorf("%s value could not parse to float", value[i])

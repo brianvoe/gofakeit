@@ -137,7 +137,7 @@ func TestIsinLuhn(t *testing.T) {
 	}
 
 	f := New(11)
-	for i := 0; i < 1000; i++ {
+	for range 1000 {
 		isin := f.Isin()
 		if !isLuhn(isinDigits(isin)) {
 			t.Fatalf("Generated ISIN %s has an invalid check digit", isin)

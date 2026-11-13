@@ -27,7 +27,7 @@ func BenchmarkCompany(b *testing.B) {
 }
 
 func TestCompany(t *testing.T) {
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		Company()
 	}
 }
@@ -221,7 +221,7 @@ func ExampleFaker_Slogan() {
 
 func TestSlogan(t *testing.T) {
 	f := New(0)
-	for i := 0; i < 1000; i++ {
+	for range 1000 {
 		slogan := f.Slogan()
 
 		if slogan == "" {

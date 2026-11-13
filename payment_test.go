@@ -131,7 +131,7 @@ func TestCreditCardMatchesItsType(t *testing.T) {
 	}
 
 	f := New(11)
-	for i := 0; i < 1000; i++ {
+	for range 1000 {
 		cc := f.CreditCard()
 
 		key, ok := keys[cc.Type]
@@ -219,7 +219,7 @@ func ExampleFaker_CreditCardNumber() {
 }
 
 func TestCreditCardNumber(t *testing.T) {
-	for i := 0; i < 100000; i++ {
+	for range 100000 {
 		if !isLuhn(CreditCardNumber(nil)) {
 			t.Error("Number was not luhn")
 		}
@@ -316,7 +316,7 @@ func ExampleFaker_AchRouting() {
 func TestAchRouting(t *testing.T) {
 	f := New(11)
 
-	for i := 0; i < 10000; i++ {
+	for range 10000 {
 		routing := f.AchRouting()
 		if len(routing) != 9 {
 			t.Fatalf("routing number %q should have 9 digits", routing)

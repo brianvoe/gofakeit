@@ -99,7 +99,7 @@ func csvFunc(f *Faker, co *CSVOptions) ([]byte, error) {
 
 			// If the value is a list of possible values, marsha it into a string
 			if reflect.TypeOf(value).Kind() == reflect.Struct ||
-				reflect.TypeOf(value).Kind() == reflect.Ptr ||
+				reflect.TypeOf(value).Kind() == reflect.Pointer ||
 				reflect.TypeOf(value).Kind() == reflect.Map ||
 				reflect.TypeOf(value).Kind() == reflect.Slice {
 				b, err := json.Marshal(value)

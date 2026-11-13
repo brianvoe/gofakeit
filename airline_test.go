@@ -107,7 +107,7 @@ func BenchmarkAirlineFlightNumber(b *testing.B) {
 }
 
 func TestAirlineFlightNumber(t *testing.T) {
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		flightNum := AirlineFlightNumber()
 
 		// Should be 3-6 characters (2 letters + 1-4 digits)
@@ -143,7 +143,7 @@ func BenchmarkAirlineRecordLocator(b *testing.B) {
 }
 
 func TestAirlineRecordLocator(t *testing.T) {
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		locator := AirlineRecordLocator()
 
 		// Should be exactly 6 characters
@@ -182,7 +182,7 @@ func BenchmarkAirlineSeat(b *testing.B) {
 }
 
 func TestAirlineSeat(t *testing.T) {
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		seat := AirlineSeat()
 
 		// Should be 2-3 characters (row number + letter)

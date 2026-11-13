@@ -180,7 +180,7 @@ func paragraph(f *Faker) string {
 	// generate 2-5 sentences
 	sentenceCount := f.Number(2, 5)
 	sentences := make([]string, sentenceCount)
-	for i := 0; i < sentenceCount; i++ {
+	for i := range sentenceCount {
 		sentences[i] = sentence(f)
 	}
 
@@ -241,7 +241,7 @@ func loremIpsumSentence(f *Faker, wordCount int) string {
 	sentence := bytes.Buffer{}
 	sentence.Grow(wordCount * 6) // estimate 6 bytes per word
 
-	for i := 0; i < wordCount; i++ {
+	for i := range wordCount {
 		word := loremIpsumWord(f)
 		if i == 0 {
 			runes := []rune(word)
@@ -275,8 +275,8 @@ func loremIpsumParagraph(f *Faker, paragraphCount int, sentenceCount int, wordCo
 	paragraphs := bytes.Buffer{}
 	paragraphs.Grow(paragraphCount * sentenceCount * wordCount * 6) // estimate 6 bytes per word
 
-	for i := 0; i < paragraphCount; i++ {
-		for e := 0; e < sentenceCount; e++ {
+	for i := range paragraphCount {
+		for e := range sentenceCount {
 			paragraphs.WriteString(loremIpsumSentence(f, wordCount))
 			if e < sentenceCount-1 {
 				paragraphs.WriteRune(' ')

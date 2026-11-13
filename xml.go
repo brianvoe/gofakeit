@@ -74,7 +74,7 @@ func xmlMapLoop(e *xml.Encoder, m *xmlMap) error {
 		v := reflect.ValueOf(m.Map[key])
 
 		// Always get underlyning Value of value
-		if v.Kind() == reflect.Ptr {
+		if v.Kind() == reflect.Pointer {
 			v = reflect.Indirect(v)
 		}
 

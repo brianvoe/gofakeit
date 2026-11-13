@@ -40,7 +40,7 @@ func url(f *Faker) string {
 	// Slugs
 	num := number(f, 1, 4)
 	slug := make([]string, num)
-	for i := 0; i < num; i++ {
+	for i := range num {
 		slug[i] = bs(f)
 	}
 

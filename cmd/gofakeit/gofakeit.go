@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"slices"
 	"sort"
 	"strconv"
 	"strings"
@@ -98,7 +99,7 @@ func mainFunc(seed uint64, args []string, loop int) (string, error) {
 
 	// Loop through loop and append to output and join on \n
 	sa := []string{}
-	for i := 0; i < loop; i++ {
+	for range loop {
 		funcStr, err := runFunction(faker, function, args)
 		if err != nil {
 			return "", err
@@ -122,7 +123,7 @@ func runFunction(faker *gofakeit.Faker, function string, args []string) (string,
 	params := gofakeit.NewMapParams()
 	paramsLen := len(info.Params)
 	if paramsLen > 0 {
-		for i := 0; i < argsLen; i++ {
+		for i := range argsLen {
 			if i == 0 {
 				continue
 			}
@@ -151,12 +152,7 @@ func runFunction(faker *gofakeit.Faker, function string, args []string) (string,
 }
 
 func stringInSlice(a string, list []string) bool {
-	for _, b := range list {
-		if b == a {
-			return true
-		}
-	}
-	return false
+	return slices.Contains(list, a)
 }
 
 func listOutput(selectedCategory string, selectedFunction string) string {

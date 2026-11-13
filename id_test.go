@@ -22,7 +22,7 @@ func TestID(t *testing.T) {
 	}
 
 	// Generate a 100,000 and check that it only contains the allowed characters
-	for i := 0; i < 100000; i++ {
+	for range 100000 {
 		idValue := ID()
 		for j := 0; j < len(idValue); j++ {
 			if bytes.IndexByte(idAlphabet, idValue[j]) == -1 {
@@ -44,7 +44,7 @@ func TestIDUniquenessConcurrent(t *testing.T) {
 	var wg sync.WaitGroup
 	worker := func() {
 		defer wg.Done()
-		for i := 0; i < idsPerRoutine; i++ {
+		for range idsPerRoutine {
 			if duplicate.Load() {
 				return
 			}
@@ -65,7 +65,7 @@ func TestIDUniquenessConcurrent(t *testing.T) {
 	}
 
 	wg.Add(goroutines)
-	for i := 0; i < goroutines; i++ {
+	for range goroutines {
 		go worker()
 	}
 
@@ -107,7 +107,7 @@ func TestUUID(t *testing.T) {
 	}
 
 	var wg sync.WaitGroup
-	for i := 0; i < 1000; i++ {
+	for range 1000 {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()

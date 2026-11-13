@@ -20,7 +20,7 @@ func ExampleFaker_AppName() {
 }
 
 func TestAppName(t *testing.T) {
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		name := AppName()
 		if name == "" {
 			t.Error("app name should not be empty")
@@ -69,7 +69,7 @@ func ExampleFaker_AppAuthor() {
 }
 
 func TestAuthor(t *testing.T) {
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		author := AppAuthor()
 		if author == "" {
 			t.Error("app author should not be empty")

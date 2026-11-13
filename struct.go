@@ -56,7 +56,7 @@ func r(f *Faker, t reflect.Type, v reflect.Value, tag string, size int, depth in
 
 	// Handle generic types
 	switch t.Kind() {
-	case reflect.Ptr:
+	case reflect.Pointer:
 		return rPointer(f, t, v, tag, size, depth)
 	case reflect.Struct:
 		return rStruct(f, t, v, tag, depth)
@@ -112,7 +112,7 @@ func rCustom(f *Faker, v reflect.Value, tag string) error {
 	// Check if element is pointer if so
 	// grab the underlying value
 	fieldElem := field.Elem()
-	if fieldElem.Kind() == reflect.Ptr {
+	if fieldElem.Kind() == reflect.Pointer {
 		fieldElem = fieldElem.Elem()
 	}
 
@@ -154,7 +154,7 @@ func rStruct(f *Faker, t reflect.Type, v reflect.Value, tag string, depth int) e
 
 	// Loop through all the fields of the struct
 	n := t.NumField()
-	for i := 0; i < n; i++ {
+	for i := range n {
 		elementT := t.Field(i)
 		elementV := v.Field(i)
 		fakeTag, ok := elementT.Tag.Lookup("fake")
@@ -376,7 +376,7 @@ func rMap(f *Faker, t reflect.Type, v reflect.Value, tag string, size int, depth
 	}
 
 	// Set newMap into struct field
-	if t.Kind() == reflect.Ptr {
+	if t.Kind() == reflect.Pointer {
 		v.Set(newMap.Elem())
 	} else {
 		v.Set(newMap)

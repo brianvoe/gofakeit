@@ -841,7 +841,7 @@ func TestStructSliceLoopGeneration(t *testing.T) {
 	}
 
 	s := &S{}
-	for i := 0; i < 2; i++ {
+	for range 2 {
 		if err := Struct(s); err != nil {
 			t.Fatal(err)
 		}
@@ -1070,12 +1070,12 @@ func TestStructDateTimeUnpaddedFormat(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			generated, parsed := New(11), New(11)
 			typ := reflect.StructOf([]reflect.StructField{{
-				Name: "Date", Type: reflect.TypeOf(time.Time{}),
+				Name: "Date", Type: reflect.TypeFor[time.Time](),
 				Tag: reflect.StructTag(fmt.Sprintf(`fake:"%s" format:"%s"`, tc.template, tc.format)),
 			}})
 			var february, invalidFebruary, singleMonth, singleDay bool
 			var singleHour, singleMinute, singleSecond bool
-			for i := 0; i < 1000; i++ {
+			for range 1000 {
 				output, err := generated.Generate(tc.template)
 				if err != nil {
 					t.Fatal(err)
@@ -1183,7 +1183,7 @@ func TestStructDateTimeParsingBoundaries(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			typ := reflect.StructOf([]reflect.StructField{{
-				Name: "Date", Type: reflect.TypeOf(time.Time{}),
+				Name: "Date", Type: reflect.TypeFor[time.Time](),
 				Tag: reflect.StructTag(fmt.Sprintf(`fake:%q format:%q`, tt.tag, tt.format)),
 			}})
 			data := reflect.New(typ)
@@ -1204,11 +1204,11 @@ func TestStructDateTimeMonthName(t *testing.T) {
 		t.Run(format, func(t *testing.T) {
 			generated, parsed := New(11), New(11)
 			typ := reflect.StructOf([]reflect.StructField{{
-				Name: "Date", Type: reflect.TypeOf(time.Time{}),
+				Name: "Date", Type: reflect.TypeFor[time.Time](),
 				Tag: reflect.StructTag(fmt.Sprintf(`fake:"{day} {monthstring} {year}" format:"%s"`, format)),
 			}})
 			var february, invalidFebruary, singleDay bool
-			for i := 0; i < 1000; i++ {
+			for range 1000 {
 				output, err := generated.Generate("{day} {monthstring} {year}")
 				if err != nil {
 					t.Fatal(err)

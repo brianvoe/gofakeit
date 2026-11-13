@@ -415,7 +415,7 @@ func TestJSONRawMessageWithCustomFuncTag(t *testing.T) {
 			length := f.Number(5, 15)
 			dataSet := []string{"word", "phrase", "loremipsumsentence", "{hackeradjective}-{hackernoun}", "float64", "bool"}
 			resultMap := make(map[string]any)
-			for i := 0; i < length; i++ {
+			for range length {
 				key := f.LetterN(uint(f.Number(3, 30)))
 				val, err := f.Generate(RandomString(dataSet))
 				if err != nil {

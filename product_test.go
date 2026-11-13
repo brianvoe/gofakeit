@@ -71,7 +71,7 @@ func ExampleFaker_Product() {
 }
 
 func TestProduct(t *testing.T) {
-	for i := 0; i < 1000; i++ {
+	for range 1000 {
 		product := Product()
 		if product.Name == "" {
 			t.Error("Name is empty")
@@ -169,7 +169,7 @@ func ExampleFaker_ProductDescription() {
 
 // Runs 10,000 tests to ensure description doesnt have any { or } in it
 func TestProductDescriptionReplacement(t *testing.T) {
-	for i := 0; i < 100000; i++ {
+	for range 100000 {
 		desc := ProductDescription()
 		if strings.ContainsAny(desc, "{") || strings.ContainsAny(desc, "}") {
 			t.Error("Description contains { or }")
@@ -288,7 +288,7 @@ func TestProductUPC(t *testing.T) {
 	}
 
 	f := New(11)
-	for i := 0; i < 1000; i++ {
+	for range 1000 {
 		upc := f.ProductUPC()
 		if !isUPC(upc) {
 			t.Fatalf("Generated UPC %s has an invalid check digit", upc)
@@ -462,7 +462,7 @@ func TestProductISBN(t *testing.T) {
 		return sum%10 == 0
 	}
 
-	for i := 0; i < 10000; i++ {
+	for range 10000 {
 		isbn10 := f.ProductISBN(&ISBNOptions{Version: "10", Separator: "-"})
 		if !validISBN10(strings.ReplaceAll(isbn10, "-", "")) {
 			t.Fatalf("ISBN-10 %q is not valid", isbn10)

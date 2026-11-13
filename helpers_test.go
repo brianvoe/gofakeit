@@ -25,13 +25,13 @@ func TestRandIntRange(t *testing.T) {
 	}
 
 	// Add 10000 random values to the test set
-	for i := 0; i < 5000; i++ {
+	for range 5000 {
 		tests = append(tests, testStruct{
 			min: randIntRange(GlobalFaker, 0, maxInt),
 			max: randIntRange(GlobalFaker, 0, maxInt),
 		})
 	}
-	for i := 0; i < 5000; i++ {
+	for range 5000 {
 		tests = append(tests, testStruct{
 			min: randIntRange(GlobalFaker, minInt, 0),
 			max: randIntRange(GlobalFaker, 0, maxInt),
@@ -71,13 +71,13 @@ func TestRandUintRange(t *testing.T) {
 	}
 
 	// Add 10000 random values to the test set
-	for i := 0; i < 5000; i++ {
+	for range 5000 {
 		tests = append(tests, testStruct{
 			min: randUintRange(GlobalFaker, 0, maxUint),
 			max: randUintRange(GlobalFaker, 0, maxUint),
 		})
 	}
-	for i := 0; i < 5000; i++ {
+	for range 5000 {
 		tests = append(tests, testStruct{
 			min: randUintRange(GlobalFaker, 0, maxUint/2),
 			max: randUintRange(GlobalFaker, maxUint/2, maxUint),
@@ -112,7 +112,7 @@ func TestRandRangeWideSpan(t *testing.T) {
 	} {
 		low, high := min(bounds[0], bounds[1]), max(bounds[0], bounds[1])
 		seen := map[int]bool{}
-		for i := 0; i < 100; i++ {
+		for range 100 {
 			v := f.IntRange(bounds[0], bounds[1])
 			if v < low || v > high {
 				t.Fatalf("IntRange(%d, %d) = %d, out of range", bounds[0], bounds[1], v)
@@ -125,14 +125,13 @@ func TestRandRangeWideSpan(t *testing.T) {
 	}
 
 	seen := map[uint]bool{}
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		seen[f.UintRange(minUint, maxUint)] = true
 	}
 	if len(seen) < 2 {
 		t.Errorf("UintRange(%d, %d) returned %d distinct values in 100 calls", minUint, maxUint, len(seen))
 	}
 }
-
 
 func TestRandRange64WideSpan(t *testing.T) {
 	f := New(11)
@@ -145,7 +144,7 @@ func TestRandRange64WideSpan(t *testing.T) {
 	} {
 		low, high := min(bounds[0], bounds[1]), max(bounds[0], bounds[1])
 		seen := map[int64]bool{}
-		for i := 0; i < 100; i++ {
+		for range 100 {
 			v := randInt64Range(f, bounds[0], bounds[1])
 			if v < low || v > high {
 				t.Fatalf("randInt64Range(%d, %d) = %d, out of range", bounds[0], bounds[1], v)
@@ -158,7 +157,7 @@ func TestRandRange64WideSpan(t *testing.T) {
 	}
 
 	seen := map[uint64]bool{}
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		seen[randUint64Range(f, 0, math.MaxUint64)] = true
 	}
 	if len(seen) < 2 {
@@ -179,16 +178,16 @@ func TestRandInt64Range(t *testing.T) {
 		{math.MaxInt64 - 100, math.MaxInt64}, // Test max only
 		{math.MaxInt64 - 20000, math.MaxInt64 - 10000},
 		{math.MinInt64 + 10000, math.MaxInt64 - 10000},
-		{-1000, 1000},                        // span that crosses zero
+		{-1000, 1000}, // span that crosses zero
 	}
 
-	for i := 0; i < 5000; i++ {
+	for range 5000 {
 		tests = append(tests, testStruct{
 			min: randInt64Range(GlobalFaker, 0, math.MaxInt64),
 			max: randInt64Range(GlobalFaker, 0, math.MaxInt64),
 		})
 	}
-	for i := 0; i < 5000; i++ {
+	for range 5000 {
 		tests = append(tests, testStruct{
 			min: randInt64Range(GlobalFaker, math.MinInt64, 0),
 			max: randInt64Range(GlobalFaker, 0, math.MaxInt64),
@@ -221,7 +220,7 @@ func TestRandUint64Range(t *testing.T) {
 		{10000, math.MaxUint64 - 10000},
 	}
 
-	for i := 0; i < 5000; i++ {
+	for range 5000 {
 		tests = append(tests, testStruct{
 			min: randUint64Range(GlobalFaker, 0, math.MaxUint64),
 			max: randUint64Range(GlobalFaker, 0, math.MaxUint64),
@@ -450,7 +449,7 @@ func TestFuncLookupSplit(t *testing.T) {
 		if len(values) != len(expected) {
 			t.Fatalf("%s was not %s", values, expected)
 		}
-		for i := 0; i < len(values); i++ {
+		for i := range values {
 			if values[i] != expected[i] {
 				t.Fatalf("expected %s got %s", expected[i], values[i])
 			}

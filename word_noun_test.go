@@ -201,7 +201,7 @@ func ExampleFaker_NounProper() {
 
 func TestNounProper(t *testing.T) {
 	f := New(11)
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		if f.NounProper() == "" {
 			t.Errorf("Expected a non-empty string, got nothing")
 		}
@@ -230,7 +230,7 @@ func ExampleFaker_NounDeterminer() {
 
 func TestNounDeterminer(t *testing.T) {
 	f := New(11)
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		if f.NounDeterminer() == "" {
 			t.Errorf("Expected a non-empty string, got nothing")
 		}

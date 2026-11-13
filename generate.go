@@ -310,7 +310,7 @@ func regexGenerate(f *Faker, re *syntax.Regexp, limit int) string {
 		// pick random char in range (inverse match group)
 		if sum == -1 {
 			chars := []uint8{}
-			for j := 0; j < len(allStr); j++ {
+			for j := range len(allStr) {
 				c := allStr[j]
 
 				// Check c in range

@@ -22,7 +22,7 @@ func ExampleFaker_Comment() {
 
 func TestComment(t *testing.T) {
 	f := New(11)
-	for i := 0; i < 10000; i++ {
+	for range 10000 {
 		comment := f.Comment()
 		if comment == "" {
 			t.Error("Comment is empty")
@@ -156,7 +156,7 @@ func ExampleFaker_Sentence() {
 }
 
 func TestSentence(t *testing.T) {
-	for i := 0; i < 1000; i++ {
+	for range 1000 {
 		sentence := Sentence()
 		if sentence == "" {
 			t.Error("sentence should not be empty")
@@ -190,7 +190,7 @@ func ExampleFaker_Paragraph() {
 }
 
 func TestParagraph(t *testing.T) {
-	for i := 0; i < 1000; i++ {
+	for range 1000 {
 		paragraph := Paragraph()
 		if paragraph == "" {
 			t.Error("paragraph should not be empty")

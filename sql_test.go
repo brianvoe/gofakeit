@@ -173,7 +173,7 @@ func sqlStringsClosed(sql string) bool {
 // Some names, companies and hobbies have a single quote in them, like Rubik's Cube
 func TestSQLGeneratedStringsAreClosed(t *testing.T) {
 	f := New(11)
-	for i := 0; i < 2000; i++ {
+	for range 2000 {
 		res, err := f.SQL(&SQLOptions{
 			Table: "things",
 			Count: 1,

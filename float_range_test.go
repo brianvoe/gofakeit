@@ -14,7 +14,7 @@ func TestFloat32RangeLargeFiniteBounds(t *testing.T) {
 	} {
 		f := New(42)
 		low, high := math.Min(float64(bounds[0]), float64(bounds[1])), math.Max(float64(bounds[0]), float64(bounds[1]))
-		for i := 0; i < 100; i++ {
+		for range 100 {
 			value := float64(f.Float32Range(bounds[0], bounds[1]))
 			if math.IsNaN(value) || math.IsInf(value, 0) || value < low || value > high {
 				t.Fatalf("Float32Range(%v, %v) = %v, want a finite value within the bounds", bounds[0], bounds[1], value)
@@ -32,7 +32,7 @@ func TestFloat64RangeLargeFiniteBounds(t *testing.T) {
 	} {
 		f := New(42)
 		low, high := math.Min(bounds[0], bounds[1]), math.Max(bounds[0], bounds[1])
-		for i := 0; i < 100; i++ {
+		for range 100 {
 			value := f.Float64Range(bounds[0], bounds[1])
 			if math.IsNaN(value) || math.IsInf(value, 0) || value < low || value > high {
 				t.Fatalf("Float64Range(%v, %v) = %v, want a finite value within the bounds", bounds[0], bounds[1], value)

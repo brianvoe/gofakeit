@@ -186,17 +186,18 @@ func (f *Faker) ProductUPC() string { return productUPC(f) }
 
 func productUPC(f *Faker) string {
 	// The first digit of a UPC is a fixed digit (usually 0)
-	upc := "0"
+	var upc strings.Builder
+	upc.WriteString("0")
 
 	// Generate the next 10 digits randomly
 	for i := 1; i < 11; i++ {
 		digit := number(f, 0, 9)
-		upc += fmt.Sprintf("%d", digit)
+		upc.WriteString(fmt.Sprintf("%d", digit))
 	}
 
 	// The last digit is the check digit, the digits in odd positions count three times
 	sum := 0
-	for i, c := range upc {
+	for i, c := range upc.String() {
 		digit := int(c - '0')
 		if i%2 == 0 {
 			digit *= 3
@@ -204,7 +205,7 @@ func productUPC(f *Faker) string {
 		sum += digit
 	}
 
-	return upc + strconv.Itoa((10-sum%10)%10)
+	return upc.String() + strconv.Itoa((10-sum%10)%10)
 }
 
 // ProductAudience will generate a random target audience
@@ -294,7 +295,7 @@ func productISBN(f *Faker, opts *ISBNOptions) string {
 	// string of n random digits
 	randomDigits := func(f *Faker, n int) string {
 		digits := make([]byte, n)
-		for i := 0; i < n; i++ {
+		for i := range n {
 			digits[i] = byte('0' + number(f, 0, 9))
 		}
 		return string(digits)

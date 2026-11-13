@@ -42,7 +42,7 @@ func TestPassword(t *testing.T) {
 	}
 
 	// Test it doesnt start or end with a space
-	for i := 0; i < 1000; i++ {
+	for range 1000 {
 		pass = Password(true, true, true, true, true, length)
 		if pass[0] == ' ' || pass[len(pass)-1] == ' ' {
 			t.Error("Password should not start or end with a space")
@@ -54,7 +54,7 @@ func TestPasswordCharacterSetGuarantee(t *testing.T) {
 	// Every generated password must contain at least one character from each
 	// enabled character set, regardless of length or randomness.
 	lower, upper, numeric, special, space := true, true, true, true, true
-	for i := 0; i < 1000; i++ {
+	for i := range 1000 {
 		pass := Password(lower, upper, numeric, special, space, 8)
 
 		var hasLower, hasUpper, hasNumeric, hasSpecial, hasSpace bool

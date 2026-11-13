@@ -32,7 +32,7 @@ func BenchmarkMovie(b *testing.B) {
 }
 
 func TestMovie(t *testing.T) {
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		Movie()
 	}
 }

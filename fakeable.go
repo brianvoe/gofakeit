@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"reflect"
+	"slices"
 )
 
 // Fakeable is an interface that can be implemented by a type to provide a custom fake value.
@@ -13,7 +14,7 @@ type Fakeable interface {
 }
 
 func isFakeable(t reflect.Type) bool {
-	fakeableTyp := reflect.TypeOf((*Fakeable)(nil)).Elem()
+	fakeableTyp := reflect.TypeFor[Fakeable]()
 
 	return t.Implements(fakeableTyp) || reflect.PointerTo(t).Implements(fakeableTyp)
 }
@@ -75,10 +76,5 @@ func callFake(faker *Faker, v reflect.Value, possibleKinds ...reflect.Kind) (any
 }
 
 func containsKind(possibleKinds []reflect.Kind, kind reflect.Kind) bool {
-	for _, k := range possibleKinds {
-		if k == kind {
-			return true
-		}
-	}
-	return false
+	return slices.Contains(possibleKinds, kind)
 }

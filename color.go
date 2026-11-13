@@ -39,7 +39,7 @@ func (f *Faker) HexColor() string { return hexColor(f) }
 func hexColor(f *Faker) string {
 	color := make([]byte, 6)
 	hashQuestion := []byte("?#")
-	for i := 0; i < 6; i++ {
+	for i := range 6 {
 		color[i] = hashQuestion[f.IntN(2)]
 	}
 
@@ -147,6 +147,5 @@ func addColorLookup() {
 			return hslColor(f), nil
 		},
 	})
-
 
 }

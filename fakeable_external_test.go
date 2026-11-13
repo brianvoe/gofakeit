@@ -690,7 +690,7 @@ func TestNestedOverrideCustom(t *testing.T) {
 
 func TestNestedOverrideCustomMultiple(t *testing.T) {
 	// Run the override test multiple times to catch intermittent failures
-	for i := 0; i < 50; i++ {
+	for i := range 50 {
 		t.Run(fmt.Sprintf("iteration_%d", i), func(t *testing.T) {
 			gofakeit.AddFuncLookup("raw_test_date", gofakeit.Info{
 				Display:     "Date",

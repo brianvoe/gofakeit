@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math"
 	"strconv"
+	"strings"
 )
 
 // PersonInfo is a struct of person information
@@ -150,12 +151,12 @@ func ein(f *Faker) string {
 	prefix := einPrefixes[f.IntN(len(einPrefixes))]
 
 	// Generate 7 random digits
-	sevenDigits := ""
-	for i := 0; i < 7; i++ {
-		sevenDigits += string(rune('0' + f.IntN(10)))
+	var sevenDigits strings.Builder
+	for range 7 {
+		sevenDigits.WriteString(string(rune('0' + f.IntN(10))))
 	}
 
-	return prefix + "-" + sevenDigits
+	return prefix + "-" + sevenDigits.String()
 }
 
 // Gender will generate a random gender string

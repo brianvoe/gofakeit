@@ -20,7 +20,7 @@ func ExampleFaker_Gamertag() {
 }
 
 func TestGamertag(t *testing.T) {
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		g := Gamertag()
 		if g == "" {
 			t.Errorf("Gamertag() returned empty string")
@@ -49,7 +49,7 @@ func ExampleFaker_Dice() {
 }
 
 func TestDice(t *testing.T) {
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		// put together random number of dice and sides
 		numDice := uint(Number(1, 10))
 		sides := make([]uint, numDice)
@@ -70,7 +70,7 @@ func TestDice(t *testing.T) {
 }
 
 func TestDiceNoSides(t *testing.T) {
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		g := Dice(1, []uint{})
 		if len(g) != 1 {
 			t.Errorf("Dice() returned non-empty array")
@@ -84,7 +84,7 @@ func TestDiceNoSides(t *testing.T) {
 }
 
 func TestDiceOneSide(t *testing.T) {
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		g := Dice(10, []uint{1})
 		if len(g) != 10 {
 			t.Errorf("Dice() returned non 10 value array")

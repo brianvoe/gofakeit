@@ -18,7 +18,7 @@ func (f *Faker) Cusip() string {
 
 func cusip(f *Faker) string {
 	cusipBytes := make([]byte, 8)
-	for i := 0; i < len(cusipBytes); i++ {
+	for i := range cusipBytes {
 		cusipBytes[i] = byte(cusipStr[f.IntN(len(cusipStr))])
 	}
 

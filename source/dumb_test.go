@@ -8,7 +8,7 @@ func TestDumb(t *testing.T) {
 
 	// test for duplicates
 	m := make(map[uint64]bool)
-	for i := 0; i < 10000; i++ {
+	for range 10000 {
 		v := dumb.Uint64()
 		if m[v] {
 			t.Errorf("Duplicate value: %v", v)

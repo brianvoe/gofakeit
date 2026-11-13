@@ -114,7 +114,7 @@ func TestDateRangeGenerate(t *testing.T) {
 
 func TestTimeRangeGenerate(t *testing.T) {
 	f := New(11)
-	for i := 0; i < 200; i++ {
+	for range 200 {
 		got, err := f.Generate("{timerange:10:00,12:00,15:04}")
 		if err != nil {
 			t.Fatal(err)

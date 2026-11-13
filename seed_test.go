@@ -16,7 +16,7 @@ func TestRandomMapKeySeed(t *testing.T) {
 	mFloat := make(map[float64]bool)
 	mArray := make(map[[2]int]bool)
 	mAny := make(map[any]bool)
-	for i := 0; i < 50; i++ {
+	for i := range 50 {
 		mStr[fmt.Sprintf("key%d", i)] = i
 		mInt[i] = fmt.Sprintf("value%d", i)
 		mUint[uint8(i)] = true
@@ -27,7 +27,7 @@ func TestRandomMapKeySeed(t *testing.T) {
 		mAny[float64(i)] = true
 	}
 
-	for i := 0; i < 20; i++ {
+	for range 20 {
 		for _, m := range []any{mStr, mInt, mUint, mFloat, mArray, mAny} {
 			if a, b := New(11).RandomMapKey(m), New(11).RandomMapKey(m); a != b {
 				t.Fatalf("%T: the same seed gave %v and %v", m, a, b)
@@ -106,7 +106,7 @@ func TestRandomMapKeyNilKey(t *testing.T) {
 	if _, ok := m[first]; !ok {
 		t.Fatalf("RandomMapKey returned %#v, which is not a key", first)
 	}
-	for i := 0; i < 20; i++ {
+	for range 20 {
 		if got := New(11).RandomMapKey(m); got != first {
 			t.Fatalf("the same seed gave %#v and %#v", first, got)
 		}
@@ -119,7 +119,7 @@ func TestRandomMapKeyNilKey(t *testing.T) {
 	if _, ok := typed[first]; !ok {
 		t.Fatalf("RandomMapKey returned %#v, which is not a key", first)
 	}
-	for i := 0; i < 20; i++ {
+	for range 20 {
 		if got := New(11).RandomMapKey(typed); got != first {
 			t.Fatalf("the same seed gave %#v and %#v", first, got)
 		}
@@ -132,7 +132,7 @@ func TestRandomMapKeyNilKey(t *testing.T) {
 }
 
 func TestGetRandomSimpleFuncSeed(t *testing.T) {
-	for i := 0; i < 20; i++ {
+	for range 20 {
 		a, _ := GetRandomSimpleFunc(New(11))
 		b, _ := GetRandomSimpleFunc(New(11))
 		if a != b {
@@ -144,7 +144,7 @@ func TestGetRandomSimpleFuncSeed(t *testing.T) {
 // A nil option struct is filled with random fields, and the random fields are picked
 // from all the functions without parameters
 func TestRandomOptionsSeed(t *testing.T) {
-	for i := 0; i < 20; i++ {
+	for range 20 {
 		var j1, j2 JSONOptions
 		New(11).Struct(&j1)
 		New(11).Struct(&j2)
@@ -189,7 +189,7 @@ func TestXMLNestedSeed(t *testing.T) {
 	}
 
 	first := gen()
-	for i := 0; i < 20; i++ {
+	for range 20 {
 		if got := gen(); got != first {
 			t.Fatalf("the same seed gave different XML:\n%s\n%s", first, got)
 		}

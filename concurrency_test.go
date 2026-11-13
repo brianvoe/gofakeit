@@ -20,7 +20,7 @@ func TestConcurrentFuncLookupOperations(t *testing.T) {
 		var wg sync.WaitGroup
 		iterations := 100
 
-		for i := 0; i < iterations; i++ {
+		for i := range iterations {
 			wg.Add(2)
 
 			go func(id int) {
@@ -63,7 +63,7 @@ func TestConcurrentFuncLookupOperations(t *testing.T) {
 		})
 
 		var wg sync.WaitGroup
-		for i := 0; i < 100; i++ {
+		for range 100 {
 			wg.Add(1)
 			go func() {
 				defer wg.Done()
@@ -77,7 +77,7 @@ func TestConcurrentFuncLookupOperations(t *testing.T) {
 
 	t.Run("Concurrent Add and Remove", func(t *testing.T) {
 		var wg sync.WaitGroup
-		for i := 0; i < 100; i++ {
+		for i := range 100 {
 			wg.Add(2)
 
 			go func(id int) {
@@ -104,7 +104,7 @@ func TestConcurrentFuncLookupOperations(t *testing.T) {
 		var wg sync.WaitGroup
 		iterations := 50
 
-		for i := 0; i < iterations; i++ {
+		for i := range iterations {
 			wg.Add(4)
 
 			go func(id int) {
@@ -151,7 +151,7 @@ func TestConcurrentNilMapInitialization(t *testing.T) {
 	FuncLookups = nil
 
 	var wg sync.WaitGroup
-	for i := 0; i < 100; i++ {
+	for i := range 100 {
 		wg.Add(1)
 		go func(id int) {
 			defer wg.Done()
@@ -195,7 +195,7 @@ func TestConcurrentStructGeneration(t *testing.T) {
 	}
 
 	var wg sync.WaitGroup
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()

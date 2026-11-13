@@ -42,7 +42,7 @@ func hipsterParagraph(f *Faker) string {
 	// generate 2-5 sentences
 	sentenceCount := f.Number(2, 5)
 	sentences := make([]string, sentenceCount)
-	for i := 0; i < sentenceCount; i++ {
+	for i := range sentenceCount {
 		sentences[i] = hipsterSentence(f)
 	}
 

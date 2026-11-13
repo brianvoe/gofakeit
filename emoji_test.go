@@ -201,7 +201,7 @@ func ExampleFaker_EmojiSentence() {
 }
 
 func TestEmojiSentence(t *testing.T) {
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		sentence := EmojiSentence()
 
 		// Should not be empty
