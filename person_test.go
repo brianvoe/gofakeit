@@ -3,6 +3,7 @@ package gofakeit
 import (
 	"fmt"
 	"net/mail"
+	"regexp"
 	"strings"
 	"testing"
 )
@@ -151,14 +152,14 @@ func ExampleEIN() {
 	Seed(11)
 	fmt.Println(EIN())
 
-	// Output: 90-8125275
+	// Output: 88-8125275
 }
 
 func ExampleFaker_EIN() {
 	f := New(11)
 	fmt.Println(f.EIN())
 
-	// Output: 90-8125275
+	// Output: 88-8125275
 }
 
 func TestEIN(t *testing.T) {
@@ -180,6 +181,19 @@ func TestEIN(t *testing.T) {
 			if char < '0' || char > '9' {
 				t.Errorf("EIN should contain only digits (except dash), got %c", char)
 			}
+		}
+	}
+}
+
+func TestEINPrefix(t *testing.T) {
+	f := New(11)
+
+	// The IRS assigns 01 to 06, 10 to 16, 20 to 27, 30 to 48, 50 to 68, 71 to 77, 80 to 88, 90 to 95, 98 and 99
+	valid := regexp.MustCompile(`^(0[1-6]|1[0-6]|2[0-7]|3[0-9]|4[0-8]|5[0-9]|6[0-8]|7[1-7]|8[0-8]|9[0-5]|9[89])-\d{7}$`)
+	for i := 0; i < 10000; i++ {
+		ein := f.EIN()
+		if !valid.MatchString(ein) {
+			t.Fatalf("EIN %q does not start with a prefix the IRS assigns", ein)
 		}
 	}
 }
