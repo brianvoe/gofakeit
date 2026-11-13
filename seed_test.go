@@ -54,6 +54,9 @@ func TestLessMapKey(t *testing.T) {
 		{"1", 1, false},
 		{[2]int{1, 2}, [2]int{1, 3}, true},
 		{false, true, true},
+		{nil, "a", true},
+		{"a", nil, false},
+		{nil, nil, false},
 	}
 	for _, test := range tests {
 		if got := lessMapKey(reflect.ValueOf(test.a), reflect.ValueOf(test.b)); got != test.want {
@@ -65,6 +68,66 @@ func TestLessMapKey(t *testing.T) {
 	keys := reflect.ValueOf(map[any]bool{2: true, 10: true}).MapKeys()
 	if lessMapKey(keys[0], keys[1]) == lessMapKey(keys[1], keys[0]) {
 		t.Error("wrapped keys 2 and 10 are not ordered")
+	}
+
+	// A nil key is a nil interface. Elem makes it invalid, which used to panic in Type.
+	nilKeys := reflect.ValueOf(map[any]bool{nil: true, "a": true, 1: true}).MapKeys()
+	var nilKey reflect.Value
+	var foundNil bool
+	for _, key := range nilKeys {
+		if key.Kind() == reflect.Interface && key.IsNil() {
+			nilKey = key
+			foundNil = true
+			break
+		}
+	}
+	if !foundNil {
+		t.Fatal("map[any] nil key was missing")
+	}
+	for _, key := range nilKeys {
+		if key.Kind() == reflect.Interface && key.IsNil() {
+			continue
+		}
+		if !lessMapKey(nilKey, key) || lessMapKey(key, nilKey) {
+			t.Errorf("nil key should sort before %#v", key.Interface())
+		}
+	}
+}
+
+func TestRandomMapKeyNilKey(t *testing.T) {
+	defer func() {
+		if r := recover(); r != nil {
+			t.Fatalf("RandomMapKey panicked on a nil key: %v", r)
+		}
+	}()
+
+	m := map[any]int{nil: 1, "a": 2, 3: 4}
+	first := New(11).RandomMapKey(m)
+	if _, ok := m[first]; !ok {
+		t.Fatalf("RandomMapKey returned %#v, which is not a key", first)
+	}
+	for i := 0; i < 20; i++ {
+		if got := New(11).RandomMapKey(m); got != first {
+			t.Fatalf("the same seed gave %#v and %#v", first, got)
+		}
+	}
+
+	// A typed nil is a real key and takes the printed-form path
+	var p *int
+	typed := map[any]int{p: 1, "a": 2, 3: 4}
+	first = New(11).RandomMapKey(typed)
+	if _, ok := typed[first]; !ok {
+		t.Fatalf("RandomMapKey returned %#v, which is not a key", first)
+	}
+	for i := 0; i < 20; i++ {
+		if got := New(11).RandomMapKey(typed); got != first {
+			t.Fatalf("the same seed gave %#v and %#v", first, got)
+		}
+	}
+
+	onlyNil := map[any]int{nil: 1}
+	if got := New(11).RandomMapKey(onlyNil); got != nil {
+		t.Fatalf("the only key is nil, got %#v", got)
 	}
 }
 

@@ -93,6 +93,11 @@ func lessMapKey(a, b reflect.Value) bool {
 		b = b.Elem()
 	}
 
+	// A nil interface key unwraps to an invalid Value, and Type panics on it. Nil sorts first.
+	if !a.IsValid() || !b.IsValid() {
+		return !a.IsValid() && b.IsValid()
+	}
+
 	// Keys of different types, like 1 and "1" in a map[any]T, are ordered by type first
 	if a.Type() != b.Type() {
 		return a.Type().String() < b.Type().String()
