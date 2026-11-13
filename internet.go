@@ -113,7 +113,7 @@ func MacAddress() string { return macAddress(GlobalFaker) }
 func (f *Faker) MacAddress() string { return macAddress(f) }
 
 func macAddress(f *Faker) string {
-	num := 255
+	num := 256
 
 	return fmt.Sprintf("%02x:%02x:%02x:%02x:%02x:%02x", f.IntN(num), f.IntN(num), f.IntN(num), f.IntN(num), f.IntN(num), f.IntN(num))
 }
