@@ -303,14 +303,46 @@ func ExampleAchRouting() {
 	Seed(11)
 	fmt.Println(AchRouting())
 
-	// Output: 881252759
+	// Output: 708125274
 }
 
 func ExampleFaker_AchRouting() {
 	f := New(11)
 	fmt.Println(f.AchRouting())
 
-	// Output: 881252759
+	// Output: 708125274
+}
+
+func TestAchRouting(t *testing.T) {
+	f := New(11)
+
+	for i := 0; i < 10000; i++ {
+		routing := f.AchRouting()
+		if len(routing) != 9 {
+			t.Fatalf("routing number %q should have 9 digits", routing)
+		}
+
+		digits := make([]int, 9)
+		for j, c := range routing {
+			if c < '0' || c > '9' {
+				t.Fatalf("routing number %q should only have digits", routing)
+			}
+
+			digits[j] = int(c - '0')
+		}
+
+		// The first two digits are a Federal Reserve routing symbol: 01 to 12, 21 to 32, 61 to 72 or 80
+		symbol := digits[0]*10 + digits[1]
+		if !(symbol >= 1 && symbol <= 12 || symbol >= 21 && symbol <= 32 || symbol >= 61 && symbol <= 72 || symbol == 80) {
+			t.Fatalf("routing number %q starts with %02d", routing, symbol)
+		}
+
+		// 3*(d1+d4+d7) + 7*(d2+d5+d8) + (d3+d6+d9) is a multiple of 10
+		sum := 3*(digits[0]+digits[3]+digits[6]) + 7*(digits[1]+digits[4]+digits[7]) + digits[2] + digits[5] + digits[8]
+		if sum%10 != 0 {
+			t.Fatalf("routing number %q has a wrong check digit", routing)
+		}
+	}
 }
 
 func BenchmarkAchRouting(b *testing.B) {
