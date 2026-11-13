@@ -1,6 +1,7 @@
 package gofakeit
 
 import (
+	"fmt"
 	"math"
 	"strconv"
 	"strings"
@@ -206,7 +207,27 @@ func AchRouting() string { return achRouting(GlobalFaker) }
 // AchRouting will generate a 9 digit routing number
 func (f *Faker) AchRouting() string { return achRouting(f) }
 
-func achRouting(f *Faker) string { return numerify(f, "#########") }
+func achRouting(f *Faker) string {
+	// The first two digits are a Federal Reserve routing symbol: 01 to 12, 21 to 32, 61 to 72 or 80
+	symbol := 80
+	switch n := f.IntN(37); {
+	case n < 12:
+		symbol = n + 1
+	case n < 24:
+		symbol = n - 12 + 21
+	case n < 36:
+		symbol = n - 24 + 61
+	}
+
+	// Six more digits, then the check digit: 3*(d1+d4+d7) + 7*(d2+d5+d8) + (d3+d6+d9) is a multiple of 10
+	digits := fmt.Sprintf("%02d%s", symbol, numerify(f, "######"))
+	sum := 0
+	for i, weight := range [...]int{3, 7, 1, 3, 7, 1, 3, 7} {
+		sum += weight * int(digits[i]-'0')
+	}
+
+	return digits + strconv.Itoa((10-sum%10)%10)
+}
 
 // AchAccount will generate a 12 digit account number
 func AchAccount() string { return achAccount(GlobalFaker) }
@@ -440,7 +461,7 @@ func addPaymentLookup() {
 		Display:     "ACH Routing Number",
 		Category:    "payment",
 		Description: "Nine-digit code used in the U.S. for identifying a bank in ACH transactions",
-		Example:     "513715684",
+		Example:     "708125274",
 		Output:      "string",
 		Aliases: []string{
 			"routing number", "aba number", "routing transit number", "rtn code", "bank routing id",
