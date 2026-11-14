@@ -479,6 +479,28 @@ func TestRegex(t *testing.T) {
 	}
 }
 
+func TestRegexLongRepeat(t *testing.T) {
+	for _, pattern := range []string{`a{1000}`, `\d{1000}`, `x{700}$`, `^[a-z]{999}$`, `(ab){500}`, `[^0-9]{600}`, `\w{900}!`} {
+		compiled := regexp.MustCompile("^(?:" + pattern + ")$")
+		for i := 0; i < 10; i++ {
+			if got := Regex(pattern); !compiled.MatchString(got) {
+				t.Errorf("Generated data does not match regex. Regex: %s output: %.60q (length %d)", pattern, got, len(got))
+			}
+		}
+	}
+}
+
+type panicSource struct{}
+
+func (panicSource) Uint64() uint64 { panic("source gave up") }
+
+// A panic while generating gives the message of the panic, not a dump of the faker
+func TestRegexPanic(t *testing.T) {
+	if got := NewFaker(panicSource{}, false).Regex(`[a-z]{5}`); got != "source gave up" {
+		t.Errorf("Regex gave %q after a panic, want the message of the panic", got)
+	}
+}
+
 func TestRegex_Struct(t *testing.T) {
 	Seed(11)
 
