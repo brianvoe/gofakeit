@@ -16,6 +16,20 @@ func TestList(t *testing.T) {
 	}
 }
 
+// A value of a list has no space at either end and no two spaces in a row, the lists are joined with
+// other words and a gap would show
+func TestListSpacing(t *testing.T) {
+	for category, lists := range Data {
+		for name, list := range lists {
+			for _, value := range list {
+				if value == "" || strings.TrimSpace(value) != value || strings.Contains(value, "  ") {
+					t.Errorf("%s.%s has the value %q", category, name, value)
+				}
+			}
+		}
+	}
+}
+
 func ExampleGet() {
 	// Get data
 	data := Get("person")
