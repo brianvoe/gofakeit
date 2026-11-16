@@ -195,6 +195,41 @@ func TestMapParamsValueUnmarshalJSONLargeNumbers(t *testing.T) {
 	}
 }
 
+func TestMapParamsValueUnmarshalJSONFloatNumbers(t *testing.T) {
+	// A number with a decimal point or an exponent is written out in full,
+	// so a whole number like 1.0 (Python's json.dumps writes floats this way) still reads as an int
+	mapParamStr := `{"min":1.0,"max":1e3,"neg":-2.50,"small":1.5e-7,"big":1E+21,"list":[10.0,2e2]}`
+
+	var mapData MapParams
+	if err := json.Unmarshal([]byte(mapParamStr), &mapData); err != nil {
+		t.Fatal(err)
+	}
+
+	expected := map[string][]string{
+		"min":   {"1"},
+		"max":   {"1000"},
+		"neg":   {"-2.5"},
+		"small": {"0.00000015"},
+		"big":   {"1000000000000000000000"},
+		"list":  {"10", "200"},
+	}
+	for field, values := range expected {
+		if !slices.Equal(mapData[field], values) {
+			t.Fatalf("Expected %s to be %q but got %q", field, values, mapData[field])
+		}
+	}
+
+	// number takes int params, 1.0 and 1e3 must parse as ints
+	info := GetFuncLookup("number")
+	value, err := info.Generate(New(0), &mapData, info)
+	if err != nil {
+		t.Fatalf("number with min 1.0 and max 1e3 returned an error: %v", err)
+	}
+	if n := value.(int); n < 1 || n > 1000 {
+		t.Fatalf("Expected a number between 1 and 1000 but got %d", n)
+	}
+}
+
 func TestLookupChecking(t *testing.T) {
 	faker := New(0)
 

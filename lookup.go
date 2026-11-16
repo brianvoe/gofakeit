@@ -185,7 +185,7 @@ func (m *MapParamsValue) UnmarshalJSON(data []byte) error {
 				}
 				*m = append(*m, string(v))
 			} else {
-				*m = append(*m, fmt.Sprintf("%v", value))
+				*m = append(*m, mapParamsValueString(value))
 			}
 		}
 		return nil
@@ -197,8 +197,29 @@ func (m *MapParamsValue) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
-	*m = append(*m, fmt.Sprintf("%v", s))
+	*m = append(*m, mapParamsValueString(s))
 	return nil
+}
+
+// mapParamsValueString turns a decoded json value into the string a param getter can parse
+func mapParamsValueString(v any) string {
+	n, ok := v.(json.Number)
+	if !ok {
+		return fmt.Sprintf("%v", v)
+	}
+
+	// A whole number keeps the digits it was written with, so large ints stay exact
+	s := n.String()
+	if !strings.ContainsAny(s, ".eE") {
+		return s
+	}
+
+	// 1.0 becomes 1 and 1e3 becomes 1000, without an exponent like 1e+06
+	f, err := strconv.ParseFloat(s, 64)
+	if err != nil {
+		return s
+	}
+	return strconv.FormatFloat(f, 'f', -1, 64)
 }
 
 func GetRandomSimpleFunc(f *Faker) (string, Info) {
