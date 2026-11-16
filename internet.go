@@ -66,7 +66,13 @@ func urlSlug(f *Faker, words int) string {
 
 	slug := make([]string, words)
 	for i := 0; i < words; i++ {
-		slug[i] = strings.ToLower(word(f))
+		// The word list has "e.g.", "i.e." and "(space)" in it, a slug keeps the letters and digits
+		slug[i] = strings.Map(func(r rune) rune {
+			if r >= 'a' && r <= 'z' || r >= '0' && r <= '9' {
+				return r
+			}
+			return -1
+		}, strings.ToLower(word(f)))
 	}
 
 	return strings.Join(slug, "-")

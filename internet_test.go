@@ -113,6 +113,17 @@ func TestUrlSlug(t *testing.T) {
 			t.Errorf("Slug should be lowercase: %s", slug)
 		}
 	}
+
+	// Test that slug only has letters and digits split by single hyphens,
+	// the word list has "e.g.", "i.e." and "(space)" in it
+	valid := regexp.MustCompile(`^[a-z0-9]+(-[a-z0-9]+)*$`)
+	f := New(11)
+	for i := range 20000 {
+		slug := f.UrlSlug(1 + i%5)
+		if !valid.MatchString(slug) {
+			t.Fatalf("Slug should only have letters, digits and hyphens: %s", slug)
+		}
+	}
 }
 
 func BenchmarkUrlSlug(b *testing.B) {
