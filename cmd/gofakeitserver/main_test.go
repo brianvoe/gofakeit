@@ -1,8 +1,12 @@
 package main
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
+	"io"
 	"math/rand/v2"
+	"net/http"
 	"net/url"
 	"strings"
 	"testing"
@@ -158,6 +162,59 @@ func TestGetLookupWithParams(t *testing.T) {
 
 	if len(response) != 5 {
 		t.Fatalf("Was expecting a string length of 5 got %d", len(response))
+	}
+}
+
+// getRaw makes a GET request and returns the status code, the content type and the body as they came
+func getRaw(t *testing.T, path string, query url.Values) (int, string, []byte) {
+	t.Helper()
+
+	resp, err := http.Get(ts.URL + path + "?" + query.Encode())
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	return resp.StatusCode, resp.Header.Get("Content-Type"), body
+}
+
+func TestGetFunctionsReturningBytes(t *testing.T) {
+	// The functions that return a finished document (json, csv, xml, images) are sent as they are
+	// with their own content type, not as a base64 string inside json
+	field := `{"name":"id","function":"autoincrement"}`
+
+	status, contentType, body := getRaw(t, "/json", url.Values{"type": {"array"}, "rowcount": {"2"}, "fields": {field}})
+	if status != 200 || contentType != "application/json" {
+		t.Fatalf("json: expected 200 and application/json, got %d and %q", status, contentType)
+	}
+	var rows []map[string]any
+	if err := json.Unmarshal(body, &rows); err != nil || len(rows) != 2 {
+		t.Fatalf("json: expected 2 rows, got %q (%v)", body, err)
+	}
+
+	status, contentType, body = getRaw(t, "/csv", url.Values{"rowcount": {"2"}, "fields": {field}})
+	if status != 200 || contentType != "text/csv" || string(body) != "id\n1\n2\n" {
+		t.Fatalf("csv: expected 200, text/csv and the 3 lines, got %d, %q and %q", status, contentType, body)
+	}
+
+	status, contentType, body = getRaw(t, "/xml", url.Values{"type": {"single"}, "rowcount": {"1"}, "fields": {`{"name":"first","function":"firstname"}`}})
+	if status != 200 || contentType != "application/xml" || !strings.HasPrefix(string(body), "<") {
+		t.Fatalf("xml: expected 200, application/xml and a document, got %d, %q and %q", status, contentType, body)
+	}
+
+	status, contentType, body = getRaw(t, "/imagepng", url.Values{"width": {"16"}, "height": {"16"}})
+	if status != 200 || contentType != "image/png" || !bytes.HasPrefix(body, []byte("\x89PNG\r\n\x1a\n")) {
+		t.Fatalf("imagepng: expected 200, image/png and a png, got %d, %q and %.12q", status, contentType, body)
+	}
+
+	status, contentType, body = getRaw(t, "/imagejpeg", url.Values{"width": {"16"}, "height": {"16"}})
+	if status != 200 || contentType != "image/jpeg" || !bytes.HasPrefix(body, []byte("\xff\xd8")) {
+		t.Fatalf("imagejpeg: expected 200, image/jpeg and a jpeg, got %d, %q and %.12q", status, contentType, body)
 	}
 }
 
