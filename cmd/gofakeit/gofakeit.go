@@ -15,32 +15,11 @@ import (
 var errNoFuncRunMsg = errors.New("could not find function to run\nrun gofakeit help or gofakeit list for available functions")
 
 func main() {
-	var loop int = 1
-	args := os.Args[1:]
-
-	// Loop through args and remove any that begin with - as an indicator of flags
-	cleanArgs := []string{}
-	for i := 0; i < len(args); i++ {
-		// If loop flag is set, set loop
-		if strings.Contains(args[i], "-loop") {
-			// Split on =
-			split := strings.Split(args[i], "=")
-
-			// convert string to int
-			var err error
-			loop, err = strconv.Atoi(split[1])
-			if err != nil {
-				fmt.Println("Error converting loop flag to int")
-				os.Exit(1)
-			}
-		}
-
-		// remove anything with a -
-		if !strings.HasPrefix(args[i], "-") {
-			cleanArgs = append(cleanArgs, args[i])
-		}
+	args, loop, err := parseArgs(os.Args[1:])
+	if err != nil {
+		fmt.Println(err.Error())
+		os.Exit(1)
 	}
-	args = cleanArgs
 
 	out, err := mainFunc(0, args, loop)
 	if err != nil {
@@ -49,6 +28,52 @@ func main() {
 	}
 
 	fmt.Printf("%s", out)
+}
+
+// parseArgs splits the flags from the arguments of the function. The loop flag is read as -loop=5 or -loop 5,
+// any other flag is ignored. A dash before a number is a sign and not a flag, so a negative number stays an argument.
+func parseArgs(args []string) ([]string, int, error) {
+	loop := 1
+	cleanArgs := []string{}
+	for i := 0; i < len(args); i++ {
+		if !isFlag(args[i]) {
+			cleanArgs = append(cleanArgs, args[i])
+			continue
+		}
+
+		name, value, hasValue := strings.Cut(strings.TrimLeft(args[i], "-"), "=")
+		if name != "loop" {
+			continue
+		}
+
+		// The value can be the next argument
+		if !hasValue {
+			if i+1 >= len(args) {
+				return nil, 0, errors.New("The loop flag needs a number, like -loop=5")
+			}
+			i++
+			value = args[i]
+		}
+
+		// convert string to int
+		var err error
+		loop, err = strconv.Atoi(value)
+		if err != nil {
+			return nil, 0, errors.New("Error converting loop flag to int")
+		}
+	}
+
+	return cleanArgs, loop, nil
+}
+
+// isFlag reports if an argument is a flag, a dash or two followed by a letter
+func isFlag(arg string) bool {
+	if len(arg) < 2 || arg[0] != '-' {
+		return false
+	}
+
+	c := arg[1]
+	return c == '-' || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
 }
 
 func mainFunc(seed uint64, args []string, loop int) (string, error) {
