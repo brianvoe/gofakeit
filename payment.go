@@ -237,14 +237,19 @@ func (f *Faker) AchAccount() string { return achAccount(f) }
 
 func achAccount(f *Faker) string { return numerify(f, "############") }
 
-// BitcoinAddress will generate a random bitcoin address consisting of numbers, upper and lower characters
+// BitcoinAddress will generate a random bitcoin address base58 consisting of numbers, upper and lower characters
 func BitcoinAddress() string { return bitcoinAddress(GlobalFaker) }
 
-// BitcoinAddress will generate a random bitcoin address consisting of numbers, upper and lower characters
+// BitcoinAddress will generate a random bitcoin address base58 consisting of numbers, upper and lower characters
 func (f *Faker) BitcoinAddress() string { return bitcoinAddress(f) }
 
 func bitcoinAddress(f *Faker) string {
-	return randomString(f, []string{"1", "3"}) + password(f, true, true, true, false, false, number(f, 25, 34))
+	prefix := randomString(f, []string{"1", "3"})
+	var b strings.Builder
+	for range number(f, 25, 34) {
+		b.WriteString(randCharacter(f, base58))
+	}
+	return prefix + b.String()
 }
 
 // BitcoinPrivateKey will generate a random bitcoin private key base58 consisting of numbers, upper and lower characters
