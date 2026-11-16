@@ -439,6 +439,14 @@ func TestFuncLookupSplit(t *testing.T) {
 		"[a,b,c]":           {"[a,b,c]"},
 		"a,[1,2,3],b":       {"a", "[1,2,3]", "b"},
 		"[1,2,3],a,[1,2,3]": {"[1,2,3]", "a", "[1,2,3]"},
+		// spaces around an array
+		" [a,b]":        {"[a,b]"},
+		"2, [6,20]":     {"2", "[6,20]"},
+		"a, [1,2,3], b": {"a", "[1,2,3]", "b"},
+		"[1,2] , [3,4]": {"[1,2]", "[3,4]"},
+		"[1,2],  [3,4]": {"[1,2]", "[3,4]"},
+		"[1, 2, 3] ,a":  {"[1, 2, 3]", "a"},
+		"a,\t[1,2]":     {"a", "[1,2]"},
 	}
 
 	for input, expected := range tests {
@@ -447,12 +455,47 @@ func TestFuncLookupSplit(t *testing.T) {
 			t.Fatalf("unexpected error: %v", err)
 		}
 		if len(values) != len(expected) {
-			t.Fatalf("%s was not %s", values, expected)
+			t.Fatalf("%q was %q, expected %q", input, values, expected)
 		}
 		for i := range values {
 			if values[i] != expected[i] {
-				t.Fatalf("expected %s got %s", expected[i], values[i])
+				t.Fatalf("%q: expected %s got %s", input, expected[i], values[i])
 			}
 		}
+	}
+}
+
+func TestFuncLookupSplitSpaceBeforeArray(t *testing.T) {
+	// A space between the colon or a comma and an array must not change which values are picked
+	for _, tmpl := range []string{"{randomstring:[a,b]}", "{randomstring: [a,b]}", "{randomstring: [ a, b ]}"} {
+		seen := map[string]bool{}
+		for range 200 {
+			got, err := Generate(tmpl)
+			if err != nil {
+				t.Fatalf("%s returned an error: %v", tmpl, err)
+			}
+			seen[got] = true
+		}
+		if len(seen) != 2 || !seen["a"] || !seen["b"] {
+			t.Fatalf("%s should give a and b, got %v", tmpl, seen)
+		}
+	}
+
+	// dice:2, [1,6] has one die with 1 side and one with 6 sides
+	sixes := 0
+	for range 200 {
+		got, err := Generate("{dice:2, [1,6]}")
+		if err != nil {
+			t.Fatalf("{dice:2, [1,6]} returned an error: %v", err)
+		}
+		if got == "[1 6]" {
+			sixes++
+		}
+		if got[:3] != "[1 " {
+			t.Fatalf("the first die has 1 side, got %s", got)
+		}
+	}
+	if sixes == 0 {
+		t.Fatal("the second die has 6 sides, it never rolled a 6")
 	}
 }
