@@ -344,7 +344,7 @@ func (i *Info) GetField(m *MapParams, field string) (*Param, []string, error) {
 		if !ok {
 			// If default isnt empty use default
 			if p.Default != "" {
-				return p, []string{p.Default}, nil
+				return p, paramDefault(p), nil
 			}
 
 			return nil, nil, fmt.Errorf("could not find field: %s", field)
@@ -352,22 +352,25 @@ func (i *Info) GetField(m *MapParams, field string) (*Param, []string, error) {
 
 		return p, value, nil
 	} else if p.Default != "" {
-		// If p.Type is []uint, then we need to convert it to []string
-		if strings.HasPrefix(p.Default, "[") {
-			// Remove [] from type
-			defaultClean := p.Default[1 : len(p.Default)-1]
-
-			// Split on comma
-			defaultSplit := strings.Split(defaultClean, ",")
-
-			return p, defaultSplit, nil
-		}
-
 		// If default isnt empty use default
-		return p, []string{p.Default}, nil
+		return p, paramDefault(p), nil
 	}
 
 	return nil, nil, fmt.Errorf("could not find field: %s", field)
+}
+
+// paramDefault returns the default of a param as a list of values
+func paramDefault(p *Param) []string {
+	// If p.Type is []uint, then we need to convert it to []string
+	if strings.HasPrefix(p.Default, "[") {
+		// Remove [] from type
+		defaultClean := p.Default[1 : len(p.Default)-1]
+
+		// Split on comma
+		return strings.Split(defaultClean, ",")
+	}
+
+	return []string{p.Default}
 }
 
 // GetBool will retrieve boolean field from data
