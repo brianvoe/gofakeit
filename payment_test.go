@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	"regexp"
 	"strconv"
 	"strings"
 	"testing"
@@ -375,14 +376,27 @@ func ExampleBitcoinAddress() {
 	Seed(11)
 	fmt.Println(BitcoinAddress())
 
-	// Output: 1X4a9BH9F9eSbFyq3qY9AYT54tpas2Kwf5
+	// Output: 1xkQX2PgaasaHc8wnWLNdMu7rxeU7xS64e
 }
 
 func ExampleFaker_BitcoinAddress() {
 	f := New(11)
 	fmt.Println(f.BitcoinAddress())
 
-	// Output: 1X4a9BH9F9eSbFyq3qY9AYT54tpas2Kwf5
+	// Output: 1xkQX2PgaasaHc8wnWLNdMu7rxeU7xS64e
+}
+
+func TestBitcoinAddress(t *testing.T) {
+	f := New(11)
+
+	// 26 to 35 characters from the Base58 alphabet (no 0, O, I and l), starting with 1 or 3
+	address := regexp.MustCompile(`^[13][1-9A-HJ-NP-Za-km-z]{25,34}$`)
+	for range 10000 {
+		got := f.BitcoinAddress()
+		if !address.MatchString(got) {
+			t.Fatalf("bitcoin address %q is not made of Base58 characters", got)
+		}
+	}
 }
 
 func BenchmarkBitcoinAddress(b *testing.B) {
