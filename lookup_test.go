@@ -159,6 +159,42 @@ func TestMapParamsValueUnmarshalJSON(t *testing.T) {
 	}
 }
 
+func TestMapParamsValueUnmarshalJSONLargeNumbers(t *testing.T) {
+	// A number keeps the digits it was written with, 1000000 must not become 1e+06
+	mapParamStr := `{"min":1,"max":1000000,"big":9223372036854775807,"list":[1000000,20000000],"float":2500000.5,"text":"1000000","flag":true,"obj":[{"a":1000000}]}`
+
+	var mapData MapParams
+	if err := json.Unmarshal([]byte(mapParamStr), &mapData); err != nil {
+		t.Fatal(err)
+	}
+
+	expected := map[string][]string{
+		"min":   {"1"},
+		"max":   {"1000000"},
+		"big":   {"9223372036854775807"},
+		"list":  {"1000000", "20000000"},
+		"float": {"2500000.5"},
+		"text":  {"1000000"},
+		"flag":  {"true"},
+		"obj":   {`{"a":1000000}`},
+	}
+	for field, values := range expected {
+		if !slices.Equal(mapData[field], values) {
+			t.Fatalf("Expected %s to be %q but got %q", field, values, mapData[field])
+		}
+	}
+
+	// And a function can read them back as numbers
+	info := GetFuncLookup("number")
+	value, err := info.Generate(New(0), &mapData, info)
+	if err != nil {
+		t.Fatalf("number with max 1000000 returned an error: %v", err)
+	}
+	if n := value.(int); n < 1 || n > 1000000 {
+		t.Fatalf("Expected a number between 1 and 1000000 but got %d", n)
+	}
+}
+
 func TestLookupChecking(t *testing.T) {
 	faker := New(0)
 
