@@ -316,6 +316,9 @@ func title(s string) string {
 func funcLookupSplit(str string) ([]string, error) {
 	out := []string{}
 	for str != "" {
+		// An array can come after spaces, like the second value in "2, [6,20]"
+		str = strings.TrimLeftFunc(str, unicode.IsSpace)
+
 		if strings.HasPrefix(str, "[") {
 			startIndex := strings.Index(str, "[")
 			endIndex := strings.Index(str, "]")
@@ -327,7 +330,8 @@ func funcLookupSplit(str string) ([]string, error) {
 			out = append(out, strings.TrimSpace(val))
 			str = strings.Replace(str, val, "", 1)
 
-			// Trim off comma if it has it
+			// Trim off comma if it has it, spaces can come before it
+			str = strings.TrimLeftFunc(str, unicode.IsSpace)
 			if strings.HasPrefix(str, ",") {
 				str = strings.Replace(str, ",", "", 1)
 			}
