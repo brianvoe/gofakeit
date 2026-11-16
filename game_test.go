@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"fmt"
+	"regexp"
 	"testing"
 )
 
@@ -96,6 +97,52 @@ func TestDiceOneSide(t *testing.T) {
 				t.Errorf("Dice() returned wrong number")
 			}
 		}
+	}
+}
+
+func TestDiceLookupDefaultSides(t *testing.T) {
+	// Only the number of dice is given, the sides fall back to their default of [6]
+	info := GetFuncLookup("dice")
+	m := NewMapParams()
+	m.Add("numdice", "3")
+
+	for range 100 {
+		value, err := info.Generate(GlobalFaker, m, info)
+		if err != nil {
+			t.Fatalf("dice with only numdice returned an error: %v", err)
+		}
+
+		g := value.([]uint)
+		if len(g) != 3 {
+			t.Fatalf("expected 3 dice, got %v", g)
+		}
+		for _, v := range g {
+			if v < 1 || v > 6 {
+				t.Fatalf("expected dice with 6 sides, got %v", g)
+			}
+		}
+	}
+
+	// The same through a template and a struct tag, the list is printed like [4 5 5]
+	rolls := regexp.MustCompile(`^\[[1-6] [1-6] [1-6]\]$`)
+
+	got, err := Generate("{dice:3}")
+	if err != nil {
+		t.Fatalf("{dice:3} returned an error: %v", err)
+	}
+	if !rolls.MatchString(got) {
+		t.Fatalf("expected 3 dice with 6 sides, got %q", got)
+	}
+
+	type roll struct {
+		Dice string `fake:"{dice:3}"`
+	}
+	var r roll
+	if err := Struct(&r); err != nil {
+		t.Fatalf("struct tag {dice:3} returned an error: %v", err)
+	}
+	if !rolls.MatchString(r.Dice) {
+		t.Fatalf("expected 3 dice with 6 sides, got %q", r.Dice)
 	}
 }
 
