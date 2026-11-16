@@ -195,6 +195,28 @@ func TestMapParamsValueUnmarshalJSONLargeNumbers(t *testing.T) {
 	}
 }
 
+func TestMapParamsValueUnmarshalJSONNull(t *testing.T) {
+	// null is no value, inside an array it used to panic
+	mapParamStr := `{"list":[null,1,null],"nulls":[null],"single":null,"text":"a"}`
+
+	var mapData MapParams
+	if err := json.Unmarshal([]byte(mapParamStr), &mapData); err != nil {
+		t.Fatal(err)
+	}
+
+	expected := map[string][]string{
+		"list":   {"1"},
+		"nulls":  nil,
+		"single": nil,
+		"text":   {"a"},
+	}
+	for field, values := range expected {
+		if !slices.Equal(mapData[field], values) {
+			t.Fatalf("Expected %s to be %q but got %q", field, values, mapData[field])
+		}
+	}
+}
+
 func TestMapParamsValueUnmarshalJSONFloatNumbers(t *testing.T) {
 	// A number with a decimal point or an exponent is written out in full,
 	// so a whole number like 1.0 (Python's json.dumps writes floats this way) still reads as an int

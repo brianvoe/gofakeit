@@ -467,3 +467,36 @@ func TestPostLookupWithFieldObjects(t *testing.T) {
 		t.Fatalf("Was expecting 200 got %d: %s", statusCode, response)
 	}
 }
+
+func TestPostLookupWithNullInArray(t *testing.T) {
+	// A null inside an array is skipped, it used to panic the handler
+	var response string
+	var statusCode int
+	testRequest(&testRequestStruct{
+		Testing:    t,
+		Method:     "POST",
+		Path:       "/randomint",
+		Body:       `{"ints":[null,7,null]}`,
+		Response:   &response,
+		StatusCode: &statusCode,
+	})
+
+	if statusCode != 200 || response != "7" {
+		t.Fatalf("Was expecting 200 and 7 got %d: %s", statusCode, response)
+	}
+
+	// An array of only nulls is no value, the defaults are used
+	response = ""
+	testRequest(&testRequestStruct{
+		Testing:    t,
+		Method:     "POST",
+		Path:       "/number",
+		Body:       `{"min":[null],"max":[null]}`,
+		Response:   &response,
+		StatusCode: &statusCode,
+	})
+
+	if statusCode != 200 {
+		t.Fatalf("Was expecting 200 got %d: %s", statusCode, response)
+	}
+}

@@ -176,6 +176,11 @@ func (m *MapParamsValue) UnmarshalJSON(data []byte) error {
 
 		// convert the values to array of strings
 		for _, value := range values {
+			// null is no value, reflect.TypeOf(nil) would panic below
+			if value == nil {
+				continue
+			}
+
 			typeOf := reflect.TypeOf(value).Kind().String()
 
 			if typeOf == "map" {
@@ -195,6 +200,11 @@ func (m *MapParamsValue) UnmarshalJSON(data []byte) error {
 	var s any
 	if err := decode(&s); err != nil {
 		return err
+	}
+
+	// null is no value, instead of the string "<nil>"
+	if s == nil {
+		return nil
 	}
 
 	*m = append(*m, mapParamsValueString(s))
