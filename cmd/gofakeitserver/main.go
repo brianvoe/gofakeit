@@ -48,7 +48,7 @@ func favicon(w http.ResponseWriter, r *http.Request) {
 }
 
 func list(w http.ResponseWriter, r *http.Request) {
-	ok(w, gofakeit.FuncLookups)
+	ok(w, gofakeit.FuncLookups, "")
 }
 
 func lookup(w http.ResponseWriter, r *http.Request) {
@@ -89,7 +89,7 @@ func lookupGet(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ok(w, data)
+	ok(w, data, info.ContentType)
 }
 
 func lookupPost(w http.ResponseWriter, r *http.Request) {
@@ -155,7 +155,7 @@ func lookupPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ok(w, data)
+	ok(w, data, info.ContentType)
 }
 
 func getInfoFromPath(r *http.Request) (*gofakeit.Info, error) {
@@ -182,7 +182,19 @@ func encodeResponse(v any) []byte {
 	return buf.Bytes()
 }
 
-func ok(w http.ResponseWriter, data any) {
+func ok(w http.ResponseWriter, data any, contentType string) {
+	// Bytes are a finished document (json, csv, xml, images), send them as they are with the content type
+	// of the function. Encoded as json they would come back as a base64 string.
+	if b, isBytes := data.([]byte); isBytes {
+		if contentType == "" {
+			contentType = "application/octet-stream"
+		}
+		w.Header().Set("Content-Type", contentType)
+		w.WriteHeader(http.StatusOK)
+		w.Write(b)
+		return
+	}
+
 	var resp []byte
 	d := reflect.ValueOf(data)
 	switch d.Kind() {
