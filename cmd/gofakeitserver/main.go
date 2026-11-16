@@ -112,39 +112,32 @@ func lookupPost(w http.ResponseWriter, r *http.Request) {
 	// Try to decode body if params are needed
 	if len(info.Params) > 0 {
 		mapString = gofakeit.NewMapParams()
-		mapInterface := map[string]any{}
-		err = json.NewDecoder(r.Body).Decode(&mapInterface)
+		mapRaw := map[string]json.RawMessage{}
+		err = json.NewDecoder(r.Body).Decode(&mapRaw)
 		if err != nil {
 			badrequest(w, "Could not parse post body. Expects key(string) - value or []value")
 			return
 		}
 		defer r.Body.Close()
 
-		for key, value := range mapInterface {
-			v := reflect.ValueOf(value)
-			switch v.Kind() {
-			case reflect.Bool:
-				mapString.Add(key, fmt.Sprintf("%v", value))
-			case reflect.Int, reflect.Int8, reflect.Int32, reflect.Int64:
-				mapString.Add(key, fmt.Sprintf("%v", value))
-			case reflect.Uint, reflect.Uint8, reflect.Uint32, reflect.Uint64:
-				mapString.Add(key, fmt.Sprintf("%v", value))
-			case reflect.Float32, reflect.Float64:
-				mapString.Add(key, fmt.Sprintf("%v", value))
-			case reflect.String:
-				mapString.Add(key, fmt.Sprintf("%v", value))
-			case reflect.Map:
-				mapString.Add(key, fmt.Sprintf("%v", value))
-			case reflect.Slice:
-				var vals []string
-				for i := 0; i < v.Len(); i++ {
-					vals = append(vals, fmt.Sprintf("%v", v.Index(i).Interface()))
-				}
-
-				for _, val := range vals {
-					mapString.Add(key, val)
-				}
+		for key, raw := range mapRaw {
+			// null is no value
+			if string(raw) == "null" {
+				continue
 			}
+
+			// Read the value like the params of a field in a json document are read: a number keeps its digits,
+			// an array has a value for each item and an object in an array stays json.
+			var value gofakeit.MapParamsValue
+			if err := json.Unmarshal(raw, &value); err != nil {
+				badrequest(w, "Could not parse post body. Expects key(string) - value or []value")
+				return
+			}
+			if len(value) == 0 {
+				continue
+			}
+
+			(*mapString)[key] = value
 		}
 	}
 

@@ -8,6 +8,7 @@ import (
 	"math/rand/v2"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -360,5 +361,109 @@ func TestPostLookupWithParamsArray(t *testing.T) {
 
 	if len(response) != 6 {
 		t.Fatalf("Was expecting a array length of 6 got %d", len(response))
+	}
+}
+
+func TestPostLookupWithLargeNumbers(t *testing.T) {
+	// A number of a million or more must reach the function with its digits, not as 1e+06
+	var response string
+	var statusCode int
+	testRequest(&testRequestStruct{
+		Testing: t,
+		Method:  "POST",
+		Path:    "/number",
+		Body: map[string]any{
+			"min": 1000000,
+			"max": 2000000,
+		},
+		Response:   &response,
+		StatusCode: &statusCode,
+	})
+
+	if statusCode != 200 {
+		t.Fatalf("Was expecting 200 got %d: %s", statusCode, response)
+	}
+	if n, err := strconv.Atoi(response); err != nil || n < 1000000 || n > 2000000 {
+		t.Fatalf("Was expecting a number from 1000000 to 2000000 got %q", response)
+	}
+
+	// The same inside an array
+	response = ""
+	testRequest(&testRequestStruct{
+		Testing: t,
+		Method:  "POST",
+		Path:    "/randomint",
+		Body: map[string]any{
+			"ints": []int{1000000, 2000000},
+		},
+		Response:   &response,
+		StatusCode: &statusCode,
+	})
+
+	if statusCode != 200 {
+		t.Fatalf("Was expecting 200 got %d: %s", statusCode, response)
+	}
+	if response != "1000000" && response != "2000000" {
+		t.Fatalf("Was expecting 1000000 or 2000000 got %q", response)
+	}
+
+	// A whole number written as a float, like Python's json.dumps does, is still a whole number
+	response = ""
+	testRequest(&testRequestStruct{
+		Testing:    t,
+		Method:     "POST",
+		Path:       "/number",
+		Body:       `{"min":1.0,"max":10.0}`,
+		Response:   &response,
+		StatusCode: &statusCode,
+	})
+
+	if statusCode != 200 {
+		t.Fatalf("Was expecting 200 got %d: %s", statusCode, response)
+	}
+	if n, err := strconv.Atoi(response); err != nil || n < 1 || n > 10 {
+		t.Fatalf("Was expecting a number from 1 to 10 got %q", response)
+	}
+}
+
+func TestPostLookupWithFieldObjects(t *testing.T) {
+	// The fields of json, csv and xml are an array of objects
+	for _, path := range []string{"/json", "/csv", "/xml"} {
+		var response string
+		var statusCode int
+		testRequest(&testRequestStruct{
+			Testing: t,
+			Method:  "POST",
+			Path:    path,
+			Body: map[string]any{
+				"rowcount": 2,
+				"fields": []map[string]any{
+					{"name": "first_name", "function": "firstname"},
+					{"name": "age", "function": "number", "params": map[string]any{"min": 18, "max": 99}},
+				},
+			},
+			Response:   &response,
+			StatusCode: &statusCode,
+		})
+
+		if statusCode != 200 {
+			t.Fatalf("%s: was expecting 200 got %d: %s", path, statusCode, response)
+		}
+	}
+
+	// A null or an empty array is no value, the defaults are used
+	var response string
+	var statusCode int
+	testRequest(&testRequestStruct{
+		Testing:    t,
+		Method:     "POST",
+		Path:       "/number",
+		Body:       `{"min":null,"max":[]}`,
+		Response:   &response,
+		StatusCode: &statusCode,
+	})
+
+	if statusCode != 200 {
+		t.Fatalf("Was expecting 200 got %d: %s", statusCode, response)
 	}
 }
