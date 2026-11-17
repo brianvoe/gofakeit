@@ -217,6 +217,30 @@ func TestMapParamsValueUnmarshalJSONNull(t *testing.T) {
 	}
 }
 
+func TestFieldParamsWithoutValue(t *testing.T) {
+	// null, [null] and [] are no value, so the param counts as not given and the default is used.
+	// Reading the param used to panic with index out of range.
+	generate := func(params string) string {
+		var fields []Field
+		if err := json.Unmarshal([]byte(`[{"name":"n","function":"number","params":`+params+`}]`), &fields); err != nil {
+			t.Fatal(err)
+		}
+
+		data, err := New(11).JSON(&JSONOptions{Type: "object", Fields: fields})
+		if err != nil {
+			t.Fatal(err)
+		}
+		return string(data)
+	}
+
+	expected := generate(`{"max":5}`)
+	for _, min := range []string{`null`, `[null]`, `[]`} {
+		if got := generate(`{"min":` + min + `,"max":5}`); got != expected {
+			t.Errorf("Expected min %s to give %s but got %s", min, expected, got)
+		}
+	}
+}
+
 func TestMapParamsValueUnmarshalJSONFloatNumbers(t *testing.T) {
 	// A number with a decimal point or an exponent is written out in full,
 	// so a whole number like 1.0 (Python's json.dumps writes floats this way) still reads as an int
@@ -582,6 +606,7 @@ func TestLookupCallsErrorParams(t *testing.T) {
 			mapData := NewMapParams()
 			skip := false
 			currentEmptyParam := ""
+			currentEmptyType := ""
 
 			// Loop through params and add fields to mapdata
 			for ii, p := range info.Params {
@@ -589,6 +614,7 @@ func TestLookupCallsErrorParams(t *testing.T) {
 				// purposly not add that field to trigger an error
 				if i == ii {
 					currentEmptyParam = p.Field
+					currentEmptyType = p.Type
 
 					// If param is optional skip it
 					if p.Optional {
@@ -645,6 +671,23 @@ func TestLookupCallsErrorParams(t *testing.T) {
 				_, err := info.Generate(faker, mapData, &info)
 				if err == nil {
 					t.Error(funcName+" should have failed on param", currentEmptyParam)
+				}
+
+				// A param without a value (null or []) is not given either, it has to fail
+				// the same way and not panic. For a list [] is an empty list, so skip those.
+				if !strings.HasPrefix(currentEmptyType, "[") {
+					func() {
+						defer func() {
+							if r := recover(); r != nil {
+								t.Errorf("%s panicked on param %s without a value: %v", funcName, currentEmptyParam, r)
+							}
+						}()
+
+						(*mapData)[currentEmptyParam] = nil
+						if _, err := info.Generate(faker, mapData, &info); err == nil {
+							t.Error(funcName+" should have failed on param", currentEmptyParam, "without a value")
+						}
+					}()
 				}
 			}
 		}

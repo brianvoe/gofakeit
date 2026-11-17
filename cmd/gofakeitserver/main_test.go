@@ -500,3 +500,24 @@ func TestPostLookupWithNullInArray(t *testing.T) {
 		t.Fatalf("Was expecting 200 got %d: %s", statusCode, response)
 	}
 }
+
+func TestPostFieldParamWithoutValue(t *testing.T) {
+	// A param of a field that is null, [null] or [] is no value, the default is used.
+	// It used to panic the handler and the client got no response.
+	for _, min := range []string{`null`, `[null]`, `[]`} {
+		var response string
+		var statusCode int
+		testRequest(&testRequestStruct{
+			Testing:    t,
+			Method:     "POST",
+			Path:       "/json",
+			Body:       `{"rowcount":1,"fields":[{"name":"n","function":"number","params":{"min":` + min + `,"max":5}}]}`,
+			Response:   &response,
+			StatusCode: &statusCode,
+		})
+
+		if statusCode != 200 {
+			t.Fatalf("min %s: was expecting 200 got %d: %s", min, statusCode, response)
+		}
+	}
+}

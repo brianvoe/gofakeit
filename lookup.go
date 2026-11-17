@@ -380,7 +380,10 @@ func (i *Info) GetField(m *MapParams, field string) (*Param, []string, error) {
 	// Get value from map
 	if m != nil {
 		value, ok := (*m)[field]
-		if !ok {
+
+		// A param without a value (null or []) is not given either, the getters read value[0].
+		// For a list [] is an empty list.
+		if !ok || (len(value) == 0 && !strings.HasPrefix(p.Type, "[")) {
 			// If default isnt empty use default
 			if p.Default != "" {
 				return p, paramDefault(p), nil
