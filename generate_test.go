@@ -501,6 +501,23 @@ func TestRegexPanic(t *testing.T) {
 	}
 }
 
+// The number of repeats of * (0 to 10) and + (1 to 10) is drawn once, it used to be drawn again on each pass of the loop,
+// so 8 or more repeats were rare
+func TestRegexRepeatCounts(t *testing.T) {
+	f := New(11)
+
+	for _, tc := range []struct {
+		pattern string
+		min     int
+	}{{`a*`, 0}, {`a+`, 1}} {
+		var lengths []int
+		for range 20000 {
+			lengths = append(lengths, len(f.Regex(tc.pattern)))
+		}
+		checkUniformCounts(t, tc.pattern, tc.min, 10, lengths)
+	}
+}
+
 func TestRegex_Struct(t *testing.T) {
 	Seed(11)
 
@@ -602,19 +619,35 @@ func ExampleMap() {
 	Seed(11)
 	fmt.Println(Map())
 
-	// Output: map[a:map[that:could] above:[sometimes vast whom us scarcely these huh] am:map[how:9310653] depend:map[hey:5402877] out:381794.78 since:916659.94 these:map[frequently:2314010]]
+	// Output: map[cackle:557305.94 galaxy:heels occur:map[fight:[shall cut lastly that someone additionally ambulance could a tennis]] school:930252.94 these:map[frequently:2314010] tour:[fire anyone sometimes that leap whom troop now scarcely since] under:map[huh:[think beyond pack positively were yours]]]
 }
 
 func ExampleFaker_Map() {
 	f := New(11)
 	fmt.Println(f.Map())
 
-	// Output: map[a:map[that:could] above:[sometimes vast whom us scarcely these huh] am:map[how:9310653] depend:map[hey:5402877] out:381794.78 since:916659.94 these:map[frequently:2314010]]
+	// Output: map[cackle:557305.94 galaxy:heels occur:map[fight:[shall cut lastly that someone additionally ambulance could a tennis]] school:930252.94 these:map[frequently:2314010] tour:[fire anyone sometimes that leap whom troop now scarcely since] under:map[huh:[think beyond pack positively were yours]]]
 }
 
 func TestMap(t *testing.T) {
 	for range 100 {
 		Map()
+	}
+}
+
+// The number of entries (3 to 10) is drawn once, it used to be drawn again on each pass of the loop,
+// so 8 or more entries were rare (7% of the maps, 37% is right, a few less when a key repeats)
+func TestMapEntries(t *testing.T) {
+	f := New(11)
+
+	big := 0
+	for range 2000 {
+		if len(f.Map()) >= 8 {
+			big++
+		}
+	}
+	if big < 500 {
+		t.Errorf("%d of 2000 maps have 8 or more entries, want about 700", big)
 	}
 }
 

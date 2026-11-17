@@ -41,7 +41,7 @@ func product(f *Faker) *ProductInfo {
 
 	// Features
 	features := []string{}
-	for i := 0; i < number(f, 1, 5); i++ {
+	for range number(f, 1, 5) {
 		features = append(features, productFeature(f))
 	}
 

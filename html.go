@@ -69,7 +69,7 @@ func svg(f *Faker, options *SVGOptions) string {
 	svgStr.WriteString(`<rect x="0" y="0" width="100%" height="100%" fill="` + randomString(f, options.Colors) + `" />`)
 
 	// Add a random number of shapes
-	for i := 0; i < number(f, 10, 20); i++ {
+	for range number(f, 10, 20) {
 		// Add a random shape
 		switch options.Type {
 		case "rect":
