@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/mail"
 	"regexp"
+	"slices"
 	"strings"
 	"testing"
 )
@@ -445,12 +446,12 @@ func ExamplePerson() {
 	// India
 	// -26.936948
 	// -28.374174
-	// 2689405915
-	// elsar@nichols.io
-	// Maestro
-	// 56709387572018
-	// 06/34
-	// 205
+	// 5643954059
+	// april_muller@joseph.net
+	// Hipercard
+	// 6062825257093882
+	// 10/29
+	// 162
 }
 
 func ExampleFaker_Person() {
@@ -508,12 +509,12 @@ func ExampleFaker_Person() {
 	// India
 	// -26.936948
 	// -28.374174
-	// 2689405915
-	// elsar@nichols.io
-	// Maestro
-	// 56709387572018
-	// 06/34
-	// 205
+	// 5643954059
+	// april_muller@joseph.net
+	// Hipercard
+	// 6062825257093882
+	// 10/29
+	// 162
 }
 
 func BenchmarkPerson(b *testing.B) {
@@ -528,8 +529,8 @@ func ExampleContact() {
 	fmt.Println(contact.Phone)
 	fmt.Println(contact.Email)
 
-	// Output: 8812527598
-	// rblack7@rutherford.io
+	// Output: 6857205275
+	// sethsoto45@wallace.com
 }
 
 func ExampleFaker_Contact() {
@@ -538,8 +539,8 @@ func ExampleFaker_Contact() {
 	fmt.Println(contact.Phone)
 	fmt.Println(contact.Email)
 
-	// Output: 8812527598
-	// rblack7@rutherford.io
+	// Output: 6857205275
+	// sethsoto45@wallace.com
 }
 
 func BenchmarkContact(b *testing.B) {
@@ -552,14 +553,38 @@ func ExamplePhone() {
 	Seed(11)
 	fmt.Println(Phone())
 
-	// Output: 8812527598
+	// Output: 6857205275
 }
 
 func ExampleFaker_Phone() {
 	f := New(11)
 	fmt.Println(f.Phone())
 
-	// Output: 8812527598
+	// Output: 6857205275
+}
+
+// checkNANPDigits checks the ten digits of a phone number against the North American numbering plan:
+// the area code and the exchange start with 2 to 9 and neither of them is N11
+func checkNANPDigits(t *testing.T, phone, digits string) {
+	t.Helper()
+
+	if len(digits) != 10 {
+		t.Fatalf("Phone %q should have 10 digits", phone)
+	}
+	for _, part := range []string{digits[:3], digits[3:6]} {
+		if part[0] < '2' || part[1:] == "11" {
+			t.Fatalf("Phone %q has the area code or exchange %s, which is not used", phone, part)
+		}
+	}
+}
+
+func TestPhone(t *testing.T) {
+	f := New(11)
+
+	for range 10000 {
+		phone := f.Phone()
+		checkNANPDigits(t, phone, phone)
+	}
 }
 
 func BenchmarkPhone(b *testing.B) {
@@ -572,14 +597,33 @@ func ExamplePhoneFormatted() {
 	Seed(11)
 	fmt.Println(PhoneFormatted())
 
-	// Output: 812-527-5989
+	// Output: 420-553-2759
 }
 
 func ExampleFaker_PhoneFormatted() {
 	f := New(11)
 	fmt.Println(f.PhoneFormatted())
 
-	// Output: 812-527-5989
+	// Output: 420-553-2759
+}
+
+func TestPhoneFormatted(t *testing.T) {
+	f := New(11)
+	formats := []string{"###-###-####", "(###)###-####", "###.###.####"}
+	digit := regexp.MustCompile(`\d`)
+	nonDigit := regexp.MustCompile(`\D`)
+
+	for range 10000 {
+		phone := f.PhoneFormatted()
+
+		// 1-###-###-#### is one of the formats above with the country code in front
+		number := strings.TrimPrefix(phone, "1-")
+		if shape := digit.ReplaceAllString(number, "#"); !slices.Contains(formats, shape) {
+			t.Fatalf("Phone %q is not in one of the formats %v", phone, formats)
+		}
+
+		checkNANPDigits(t, phone, nonDigit.ReplaceAllString(number, ""))
+	}
 }
 
 func BenchmarkPhoneFormatted(b *testing.B) {

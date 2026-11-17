@@ -244,7 +244,7 @@ func Phone() string { return phone(GlobalFaker) }
 // Phone will generate a random phone number string
 func (f *Faker) Phone() string { return phone(f) }
 
-func phone(f *Faker) string { return replaceWithNumbers(f, "##########") }
+func phone(f *Faker) string { return string(phoneDigits(f)) }
 
 // PhoneFormatted will generate a random phone number string
 func PhoneFormatted() string { return phoneFormatted(GlobalFaker) }
@@ -253,7 +253,49 @@ func PhoneFormatted() string { return phoneFormatted(GlobalFaker) }
 func (f *Faker) PhoneFormatted() string { return phoneFormatted(f) }
 
 func phoneFormatted(f *Faker) string {
-	return replaceWithNumbers(f, getRandValue(f, []string{"person", "phone"}))
+	format := []byte(getRandValue(f, []string{"person", "phone"}))
+
+	// The first ten # are the digits of a number that follows the numbering plan, any more are random
+	digits := phoneDigits(f)
+	next := 0
+	for i := range format {
+		if format[i] != hashtag {
+			continue
+		}
+
+		if next < len(digits) {
+			format[i] = digits[next]
+			next++
+		} else {
+			format[i] = byte(randDigit(f))
+		}
+	}
+
+	return string(format)
+}
+
+// phoneDigits returns the ten digits of a number from the North American numbering plan, NXX NXX XXXX:
+// the area code and the exchange start with 2 to 9 and neither of them is N11
+func phoneDigits(f *Faker) []byte {
+	digits := make([]byte, 10)
+
+	for _, start := range []int{0, 3} {
+		digits[start] = byte(f.IntN(8)+2) + '0'
+
+		// The other two digits are anything but 11, pick one of the 99 values and skip 11
+		xx := f.IntN(99)
+		if xx >= 11 {
+			xx++
+		}
+		digits[start+1] = byte(xx/10) + '0'
+		digits[start+2] = byte(xx%10) + '0'
+	}
+
+	for i := 6; i < len(digits); i++ {
+		digits[i] = byte(randDigit(f))
+	}
+
+	return digits
 }
 
 // Email will generate a random email string
@@ -801,7 +843,7 @@ func addPersonLookup() {
 		Display:     "Phone Formatted",
 		Category:    "person",
 		Description: "Formatted phone number of a person",
-		Example:     "136-459-9489",
+		Example:     "613-645-9948",
 		Output:      "string",
 		Aliases: []string{
 			"formatted phone",
