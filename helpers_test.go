@@ -6,6 +6,26 @@ import (
 	"testing"
 )
 
+// checkUniformCounts checks that every value from lo to hi came up about as often as the others:
+// each count is within 5 standard deviations of len(values) / (hi - lo + 1)
+func checkUniformCounts(t *testing.T, name string, lo, hi int, values []int) {
+	t.Helper()
+
+	counts := make(map[int]int)
+	for _, v := range values {
+		counts[v]++
+	}
+
+	n := float64(len(values))
+	p := 1 / float64(hi-lo+1)
+	sigma := math.Sqrt(n * p * (1 - p))
+	for v := lo; v <= hi; v++ {
+		if math.Abs(float64(counts[v])-n*p) > 5*sigma {
+			t.Errorf("%s: %d came up %d times in %d, want about %.0f", name, v, counts[v], len(values), n*p)
+		}
+	}
+}
+
 // Test taking in two random int values and making sure the output is within the range
 func TestRandIntRange(t *testing.T) {
 	// Create a set of structs to test

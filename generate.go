@@ -382,7 +382,7 @@ func regexGenerate(f *Faker, re *syntax.Regexp, limit int) string {
 		return regexGenerate(f, re.Sub0[0], limit)
 	case syntax.OpStar: // matches Sub[0] zero or more times
 		var b strings.Builder
-		for i := 0; i < number(f, 0, 10); i++ {
+		for range number(f, 0, 10) {
 			for _, rs := range re.Sub {
 				b.WriteString(regexGenerate(f, rs, limit-b.Len()))
 			}
@@ -390,7 +390,7 @@ func regexGenerate(f *Faker, re *syntax.Regexp, limit int) string {
 		return b.String()
 	case syntax.OpPlus: // matches Sub[0] one or more times
 		var b strings.Builder
-		for i := 0; i < number(f, 1, 10); i++ {
+		for range number(f, 1, 10) {
 			for _, rs := range re.Sub {
 				b.WriteString(regexGenerate(f, rs, limit-b.Len()))
 			}
@@ -456,13 +456,13 @@ func mapFunc(f *Faker) map[string]any {
 
 	randSlice := func() []string {
 		var sl []string
-		for ii := 0; ii < number(f, 3, 10); ii++ {
+		for range number(f, 3, 10) {
 			sl = append(sl, word(f))
 		}
 		return sl
 	}
 
-	for i := 0; i < number(f, 3, 10); i++ {
+	for range number(f, 3, 10) {
 		t := randomString(f, []string{"string", "int", "float", "slice", "map"})
 		switch t {
 		case "string":

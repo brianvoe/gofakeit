@@ -23,19 +23,19 @@ func ExampleProduct() {
 	fmt.Println(product.Benefit)
 	fmt.Println(product.Suffix)
 
-	// Output: Upgradeable Side Table
-	// This upset product is crafted from gel and includes 4k ready, making it perfect for learning and delivering advanced technology for gamers and DIY enthusiasts.
+	// Output: Steam-Powered Shoelace
+	// Built with twill, this troubling item is perfect for fitness and features ip-rated to provide health benefits to professionals.
 	// [smart home devices camping gear]
-	// 73.93
-	// [multi-functional self-adjusting water-resistant underwater-capable]
-	// white
-	// canvas
-	// 041026894051
-	// [gamers outdoor enthusiasts]
-	// compact
-	// office
-	// energy savings
-	// art
+	// 8.41
+	// [multi-functional dual-mode]
+	// black
+	// cobalt
+	// 037930509419
+	// [students gamers]
+	// petite
+	// videography
+	// comfort
+	// pixel
 }
 
 func ExampleFaker_Product() {
@@ -55,19 +55,19 @@ func ExampleFaker_Product() {
 	fmt.Println(product.Benefit)
 	fmt.Println(product.Suffix)
 
-	// Output: Upgradeable Side Table
-	// This upset product is crafted from gel and includes 4k ready, making it perfect for learning and delivering advanced technology for gamers and DIY enthusiasts.
+	// Output: Steam-Powered Shoelace
+	// Built with twill, this troubling item is perfect for fitness and features ip-rated to provide health benefits to professionals.
 	// [smart home devices camping gear]
-	// 73.93
-	// [multi-functional self-adjusting water-resistant underwater-capable]
-	// white
-	// canvas
-	// 041026894051
-	// [gamers outdoor enthusiasts]
-	// compact
-	// office
-	// energy savings
-	// art
+	// 8.41
+	// [multi-functional dual-mode]
+	// black
+	// cobalt
+	// 037930509419
+	// [students gamers]
+	// petite
+	// videography
+	// comfort
+	// pixel
 }
 
 func TestProduct(t *testing.T) {
@@ -125,6 +125,18 @@ func TestProduct(t *testing.T) {
 			t.Error("Suffix is empty")
 		}
 	}
+}
+
+// The number of features (1 to 5) is drawn once, it used to be drawn again on each pass of the loop,
+// so 4 or 5 features were rare
+func TestProductFeatureCount(t *testing.T) {
+	f := New(11)
+
+	var counts []int
+	for range 20000 {
+		counts = append(counts, len(f.Product().Features))
+	}
+	checkUniformCounts(t, "product features", 1, 5, counts)
 }
 
 func BenchmarkProduct(b *testing.B) {
