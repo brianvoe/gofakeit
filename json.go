@@ -122,12 +122,10 @@ func jsonFunc(f *Faker, jo *JSONOptions) ([]byte, error) {
 
 		// Marshal into bytes
 		if jo.Indent {
-			j, _ := json.MarshalIndent(v, "", "    ")
-			return j, nil
+			return json.MarshalIndent(v, "", "    ")
 		}
 
-		j, _ := json.Marshal(v)
-		return j, nil
+		return json.Marshal(v)
 	}
 
 	if jo.Type == "array" {
@@ -178,12 +176,10 @@ func jsonFunc(f *Faker, jo *JSONOptions) ([]byte, error) {
 
 		// Marshal into bytes
 		if jo.Indent {
-			j, _ := json.MarshalIndent(v, "", "    ")
-			return j, nil
+			return json.MarshalIndent(v, "", "    ")
 		}
 
-		j, _ := json.Marshal(v)
-		return j, nil
+		return json.Marshal(v)
 	}
 
 	return nil, errors.New("invalid type, must be array or object")
