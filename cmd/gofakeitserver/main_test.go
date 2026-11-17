@@ -166,6 +166,19 @@ func TestGetLookupWithParams(t *testing.T) {
 	}
 }
 
+func TestGetLookupWithoutOptionalParams(t *testing.T) {
+	// The type and colors of svg and the data of template are optional
+	status, _, body := getRaw(t, "/svg", url.Values{"width": {"20"}, "height": {"20"}})
+	if status != 200 || !strings.HasPrefix(string(body), "<svg") {
+		t.Fatalf("svg: expected 200 and an svg, got %d and %.60q", status, body)
+	}
+
+	status, _, body = getRaw(t, "/template", url.Values{"template": {"hello"}})
+	if status != 200 || string(body) != "hello" {
+		t.Fatalf("template: expected 200 and hello, got %d and %.60q", status, body)
+	}
+}
+
 // getRaw makes a GET request and returns the status code, the content type and the body as they came
 func getRaw(t *testing.T, path string, query url.Values) (int, string, []byte) {
 	t.Helper()

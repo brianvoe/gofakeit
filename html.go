@@ -155,11 +155,9 @@ func addHtmlLookup() {
 				return nil, errors.New("invalid image height, must be greater than 10, less than 1000")
 			}
 
-			options.Type, err = info.GetString(m, "type")
+			// The type and the colors are optional, a missing one is the same as an empty one
+			options.Type, _ = info.GetString(m, "type")
 			svgData := data.GetSubData("html", "svg")
-			if err != nil {
-				return nil, err
-			}
 
 			// If type is empty, set with random type
 			if options.Type == "" {
@@ -172,10 +170,7 @@ func addHtmlLookup() {
 			}
 
 			// Get colors
-			options.Colors, err = info.GetStringArray(m, "colors")
-			if err != nil {
-				return nil, err
-			}
+			options.Colors, _ = info.GetStringArray(m, "colors")
 
 			// If colors is empty, set with random colors
 			if len(options.Colors) == 0 {
