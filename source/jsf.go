@@ -1,9 +1,12 @@
 package source
 
+import "math/bits"
+
 // The JSF(Jenkins Small Fast) pseudo-random number generator.
 // Developed by Bob Jenkins, JSF is known for its speed and efficiency, making it suitable
 // for applications requiring fast, non-cryptographic quality random numbers. This implementation
 // offers seamless integration with Go's math/rand package and includes an improved seeding mechanism.
+// It is the 64 bit version from https://burtleburtle.net/bob/rand/smallprng.html
 
 // Pros:
 // - Fast and efficient, ideal for high-performance requirements.
@@ -15,7 +18,7 @@ package source
 // - Quality of randomness may not match that of more complex algorithms.
 
 type JSF struct {
-	a, b, c, d uint32
+	a, b, c, d uint64
 }
 
 // NewJSF creates and returns a new JSF pseudo-random number generator.
@@ -25,26 +28,24 @@ func NewJSF(seed uint64) *JSF {
 	return jsf
 }
 
-// Seed sets the seed of the JSF with an improved seeding mechanism.
+// Seed sets the seed of the JSF like raninit does: a is a constant, b, c and d are the seed
+// and the first 20 outputs are thrown away, so that neighbouring seeds do not give neighbouring sequences.
 func (jsf *JSF) Seed(seed uint64) {
-	// Use the seed to derive initial values for a, b, c, d with better distribution
-	// Splitting the 64-bit seed into parts and using different operations to diversify
-	s1 := uint32(seed)
-	s2 := uint32(seed >> 32)
 	jsf.a = 0xf1ea5eed
-	jsf.b = s1 ^ jsf.a
-	jsf.c = s2 ^ jsf.b
-	jsf.d = s1
+	jsf.b = seed
+	jsf.c = seed
+	jsf.d = seed
+	for range 20 {
+		jsf.Uint64()
+	}
 }
 
-// Uint64 generates a pseudo-random 64-bit value using the improved JSF algorithm.
+// Uint64 generates a pseudo-random 64-bit value using the 64 bit ranval of Bob Jenkins.
 func (jsf *JSF) Uint64() uint64 {
-	e := jsf.a - (jsf.b<<27 | jsf.b>>(32-27))
-	f := jsf.b ^ (jsf.c << 17)
-	jsf.c += jsf.d
-	jsf.d += e
-	jsf.a = jsf.b + f
-	jsf.b = jsf.c + e
-	jsf.c = f + jsf.a
-	return uint64(jsf.d)<<32 | uint64(jsf.a)
+	e := jsf.a - bits.RotateLeft64(jsf.b, 7)
+	jsf.a = jsf.b ^ bits.RotateLeft64(jsf.c, 13)
+	jsf.b = jsf.c + bits.RotateLeft64(jsf.d, 37)
+	jsf.c = jsf.d + e
+	jsf.d = e + jsf.a
+	return jsf.d
 }
