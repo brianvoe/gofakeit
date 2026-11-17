@@ -278,8 +278,58 @@ func regex(f *Faker, regexStr string) (gen string) {
 	}()
 
 	// The limit has to hold the shortest match, a{1000} is 1000 characters from 7 of the pattern
-	limit := max(len(regexStr)*100, regexMinLength(re)*utf8.UTFMax)
+	limit := max(len(regexStr)*100, regexReserve(re))
 	return regexGenerate(f, re, limit)
+}
+
+// regexReserve is the number of bytes to keep free for the shortest match of re,
+// a character can be up to utf8.UTFMax bytes
+func regexReserve(re *syntax.Regexp) int {
+	return regexMinLength(re) * utf8.UTFMax
+}
+
+// regexConcat writes each of subs to b one after the other. Each sub gets what is left of the limit
+// after the room the subs behind it need, so a sub never takes the room of the ones that follow.
+func regexConcat(f *Faker, b *strings.Builder, subs []*syntax.Regexp, limit int) {
+	// A single sub needs no room kept behind it
+	if len(subs) == 1 {
+		b.WriteString(regexGenerate(f, subs[0], limit))
+		return
+	}
+
+	reserved := 0
+	for _, rs := range subs {
+		reserved += regexReserve(rs)
+	}
+
+	start := b.Len()
+	for _, rs := range subs {
+		reserved -= regexReserve(rs)
+		b.WriteString(regexGenerate(f, rs, limit-(b.Len()-start)-reserved))
+	}
+}
+
+// regexRepeat generates the subs of re mandatory times and then up to optional more times.
+// An optional repeat is only added while the rest of the limit can hold it, so the output stays a match
+// even when repeats are nested, like (((a+)+)+)+.
+func regexRepeat(f *Faker, re *syntax.Regexp, mandatory, optional, limit int) string {
+	size := 0
+	for _, rs := range re.Sub {
+		size += regexReserve(rs)
+	}
+
+	var b strings.Builder
+	for i := range mandatory + optional {
+		left := limit - b.Len()
+		if i < mandatory {
+			// Keep room for the mandatory repeats after this one
+			left -= (mandatory - 1 - i) * size
+		} else if left < size {
+			break
+		}
+		regexConcat(f, &b, re.Sub, left)
+	}
+	return b.String()
 }
 
 // regexMinLength is the number of characters in the shortest string that the regexp matches
@@ -311,7 +361,9 @@ func regexMinLength(re *syntax.Regexp) int {
 }
 
 func regexGenerate(f *Faker, re *syntax.Regexp, limit int) string {
-	if limit <= 0 {
+	// Every part gets at least the room for its shortest match (regexConcat and regexRepeat keep it free),
+	// so this is a safety net that should not be reached
+	if limit < 0 {
 		panic("Length limit reached when generating output")
 	}
 
@@ -381,50 +433,53 @@ func regexGenerate(f *Faker, re *syntax.Regexp, limit int) string {
 	case syntax.OpCapture: // capturing subexpression with index Cap, optional name Name
 		return regexGenerate(f, re.Sub0[0], limit)
 	case syntax.OpStar: // matches Sub[0] zero or more times
-		var b strings.Builder
-		for range number(f, 0, 10) {
-			for _, rs := range re.Sub {
-				b.WriteString(regexGenerate(f, rs, limit-b.Len()))
-			}
-		}
-		return b.String()
+		return regexRepeat(f, re, 0, number(f, 0, 10), limit)
 	case syntax.OpPlus: // matches Sub[0] one or more times
-		var b strings.Builder
-		for range number(f, 1, 10) {
-			for _, rs := range re.Sub {
-				b.WriteString(regexGenerate(f, rs, limit-b.Len()))
-			}
-		}
-		return b.String()
+		return regexRepeat(f, re, 1, number(f, 1, 10)-1, limit)
 	case syntax.OpQuest: // matches Sub[0] zero or one times
+		size := 0
+		for _, rs := range re.Sub {
+			size += regexReserve(rs)
+		}
+
+		// The bound is drawn on each pass on purpose, it is at most 1 so the count is right,
+		// and drawing it once would change the seeded output
 		var b strings.Builder
 		for i := 0; i < number(f, 0, 1); i++ {
-			for _, rs := range re.Sub {
-				b.WriteString(regexGenerate(f, rs, limit-b.Len()))
+			if limit-b.Len() < size {
+				break
 			}
+			regexConcat(f, &b, re.Sub, limit-b.Len())
 		}
 		return b.String()
 	case syntax.OpRepeat: // matches Sub[0] at least Min times, at most Max (Max == -1 is no limit)
-		var b strings.Builder
 		count := 0
 		re.Max = int(math.Min(float64(re.Max), float64(10)))
 		if re.Max > re.Min {
 			count = f.IntN(re.Max - re.Min + 1)
 		}
-		for i := 0; i < re.Min || i < (re.Min+count); i++ {
-			for _, rs := range re.Sub {
-				b.WriteString(regexGenerate(f, rs, limit-b.Len()))
-			}
-		}
-		return b.String()
+		return regexRepeat(f, re, re.Min, count, limit)
 	case syntax.OpConcat: // matches concatenation of Subs
 		var b strings.Builder
-		for _, rs := range re.Sub {
-			b.WriteString(regexGenerate(f, rs, limit-b.Len()))
-		}
+		regexConcat(f, &b, re.Sub, limit)
 		return b.String()
 	case syntax.OpAlternate: // matches alternation of Subs
-		return regexGenerate(f, re.Sub[number(f, 0, len(re.Sub)-1)], limit)
+		// Pick from the subs that fit in the limit, at least the shortest one does
+		subs := re.Sub
+		for _, rs := range re.Sub {
+			if regexReserve(rs) > limit {
+				subs = nil
+				break
+			}
+		}
+		if subs == nil {
+			for _, rs := range re.Sub {
+				if regexReserve(rs) <= limit {
+					subs = append(subs, rs)
+				}
+			}
+		}
+		return regexGenerate(f, subs[number(f, 0, len(subs)-1)], limit)
 	}
 
 	return ""

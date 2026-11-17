@@ -518,6 +518,30 @@ func TestRegexRepeatCounts(t *testing.T) {
 	}
 }
 
+// Nested repeats can ask for far more than the length limit (10 repeats on each level), the output has to stay
+// a match instead of returning the "Length limit reached" message
+func TestRegexNestedRepeats(t *testing.T) {
+	f := New(11)
+
+	for _, pattern := range []string{
+		`(((a+)+)+)+`,
+		`((((a*)*)*)*)*`,
+		`((((ab)+c)+d)+e)+f`,
+		`(((a+)+)+)+b{5}c`,
+		`(((x*)*)*|((y+)+)+)+z`,
+		`((a+){3,5}){4}`,
+		`(((é+)+)+)+`,
+		`((((\w+\s)+)+)+)+\d{3}`,
+	} {
+		re := regexp.MustCompile(`^` + pattern + `$`)
+		for range 1000 {
+			if got := f.Regex(pattern); !re.MatchString(got) {
+				t.Fatalf("%s gave %.80q, which does not match", pattern, got)
+			}
+		}
+	}
+}
+
 func TestRegex_Struct(t *testing.T) {
 	Seed(11)
 
