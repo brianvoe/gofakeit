@@ -364,10 +364,8 @@ Markus Moen`,
 				return nil, err
 			}
 
-			data, err := info.GetAny(m, "data")
-			if err != nil {
-				return nil, err
-			}
+			// The data is optional, a missing one is the same as an empty one
+			data, _ := info.GetAny(m, "data")
 
 			templateOut, err := templateFunc(tpl, templateFuncMap(f, nil), &TemplateOptions{Data: data})
 			if err != nil {

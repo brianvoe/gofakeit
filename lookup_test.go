@@ -553,6 +553,41 @@ func TestLookupCalls(t *testing.T) {
 	}
 }
 
+// A param that is optional and has no default can be left out, the function falls back to its own choice
+func TestLookupCallsWithoutOptionalParams(t *testing.T) {
+	faker := New(0)
+
+	for funcName, info := range FuncLookups {
+		for _, optional := range info.Params {
+			if !optional.Optional || optional.Default != "" {
+				continue
+			}
+
+			// Give every other param a value that works and leave this one out
+			mapData := NewMapParams()
+			for _, p := range info.Params {
+				switch {
+				case p.Field == optional.Field:
+				case p.Default != "":
+					for _, value := range paramDefault(&p) {
+						mapData.Add(p.Field, value)
+					}
+				case len(p.Options) != 0:
+					mapData.Add(p.Field, p.Options[0])
+				case p.Type == "int" || p.Type == "uint":
+					mapData.Add(p.Field, "1")
+				default:
+					mapData.Add(p.Field, "a")
+				}
+			}
+
+			if _, err := info.Generate(faker, mapData, &info); err != nil {
+				t.Errorf("%s fails without the optional param %s: %v", funcName, optional.Field, err)
+			}
+		}
+	}
+}
+
 func TestLookupCallsErrorParams(t *testing.T) {
 	// Look through lookups and empty defaults values to help with tests
 	for funcName, info := range FuncLookups {
