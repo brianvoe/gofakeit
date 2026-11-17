@@ -25,16 +25,16 @@ func Example() {
 
 	// Output: Name: Priscilla Thornton
 	// Email: bduncan@maxwell.biz
-	// Phone: 5989079993
-	// Address: 7379 Hillstown, Santa Ana, Alabama 41026
-	// BS: interactive
-	// Beer Name: Hercules Double IPA
-	// Color: Chartreuse
-	// Company: Municode
-	// Credit Card: 6449062052570938760
-	// Hacker Phrase: I'll override the back-end USB system, that should encrypt the SCSI port!
-	// Job Title: Journalist
-	// Password: @M85m-v-4Nt*4T4.qsuw!.MC1Y68i@D.
+	// Phone: 8955900799
+	// Address: 44737 Viaborough, New York City, New Hampshire 94102
+	// BS: enable
+	// Beer Name: Chocolate St
+	// Color: Turquoise
+	// Company: Boundless
+	// Credit Card: 6282690620525711
+	// Hacker Phrase: Try to bundle the PNG firewall, maybe it will deconstruct the open-source bandwidth!
+	// Job Title: Carpenter
+	// Password: N4vM.*MD-qL1i7@5C!T-.@.Ywl*us48t
 }
 
 func ExampleNew() {
@@ -49,7 +49,7 @@ func ExampleNew() {
 	// Output:
 	// Name: Priscilla Thornton
 	// Email: bduncan@maxwell.biz
-	// Phone: 5989079993
+	// Phone: 8955900799
 }
 
 func ExampleNewFaker() {
