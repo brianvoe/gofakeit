@@ -711,6 +711,57 @@ func ExampleFaker_Teams() {
 	// Output: map[Team 1:[Jeff Robert Billy] Team 2:[Connor Fabian Sharon] Team 3:[Justin Steve]]
 }
 
+// Teams places the people into the teams as evenly as possible: every person once, and no team
+// more than one person smaller than another. 4 people in 3 teams used to be 2, 2 and 0
+func TestTeams(t *testing.T) {
+	f := New(11)
+	for numPeople := 0; numPeople <= 30; numPeople++ {
+		for numTeams := 1; numTeams <= 8; numTeams++ {
+			people := make([]string, numPeople)
+			for i := range people {
+				people[i] = fmt.Sprintf("person %d", i)
+			}
+
+			names := make([]string, numTeams)
+			for i := range names {
+				names[i] = fmt.Sprintf("team %d", i)
+			}
+
+			assigned := f.Teams(people, names)
+			if len(assigned) != numTeams {
+				t.Fatalf("%d people in %d teams: got %d teams", numPeople, numTeams, len(assigned))
+			}
+
+			smallest, largest, total := numPeople, 0, 0
+			seen := map[string]bool{}
+			for _, name := range names {
+				members, ok := assigned[name]
+				if !ok {
+					t.Fatalf("%d people in %d teams: %q is missing", numPeople, numTeams, name)
+				}
+
+				total += len(members)
+				smallest, largest = min(smallest, len(members)), max(largest, len(members))
+				for _, member := range members {
+					if seen[member] {
+						t.Fatalf("%d people in %d teams: %q is in two teams", numPeople, numTeams, member)
+					}
+
+					seen[member] = true
+				}
+			}
+
+			if total != numPeople {
+				t.Errorf("%d people in %d teams: %d placed", numPeople, numTeams, total)
+			}
+
+			if largest-smallest > 1 {
+				t.Errorf("%d people in %d teams: the teams have %d to %d people, not as even as possible", numPeople, numTeams, smallest, largest)
+			}
+		}
+	}
+}
+
 func BenchmarkTeams(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		Teams(

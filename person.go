@@ -2,7 +2,6 @@ package gofakeit
 
 import (
 	"fmt"
-	"math"
 	"strconv"
 	"strings"
 )
@@ -395,16 +394,26 @@ func teams(f *Faker, people []string, teams []string) map[string][]string {
 		shuffleStrings(f, people)
 	}
 
-	peopleIndex := 0
 	teamsOutput := make(map[string][]string)
-	numPer := math.Ceil(float64(len(people)) / float64(len(teams)))
-	for _, team := range teams {
+	if len(teams) == 0 {
+		return teamsOutput
+	}
+
+	// The first len(people) % len(teams) teams get one person more, so no team is
+	// more than one person smaller than another
+	perTeam, extra := len(people)/len(teams), len(people)%len(teams)
+
+	peopleIndex := 0
+	for i, team := range teams {
+		numPer := perTeam
+		if i < extra {
+			numPer++
+		}
+
 		teamsOutput[team] = []string{}
-		for i := 0.00; i < numPer; i++ {
-			if peopleIndex < len(people) {
-				teamsOutput[team] = append(teamsOutput[team], people[peopleIndex])
-				peopleIndex++
-			}
+		for range numPer {
+			teamsOutput[team] = append(teamsOutput[team], people[peopleIndex])
+			peopleIndex++
 		}
 	}
 
