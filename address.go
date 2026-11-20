@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 )
 
@@ -215,6 +216,16 @@ func longitudeInRange(f *Faker, min, max float64) (float64, error) {
 		return 0, errors.New("invalid min or max range, must be valid floats and between -180 and 180")
 	}
 	return toFixed(float64Range(f, min, max), 6), nil
+}
+
+// WKTPoint returns a random two-dimensional WKT point with longitude first.
+func WKTPoint() string { return wktPoint(GlobalFaker) }
+
+// WKTPoint returns a random two-dimensional WKT point with longitude first.
+func (f *Faker) WKTPoint() string { return wktPoint(f) }
+
+func wktPoint(f *Faker) string {
+	return fmt.Sprintf("POINT (%.6f %.6f)", longitude(f), latitude(f))
 }
 
 func addAddressLookup() {
@@ -474,4 +485,16 @@ func addAddressLookup() {
 		},
 	})
 
+	AddFuncLookup("wktpoint", Info{
+		Display:     "WKT Point",
+		Category:    "address",
+		Description: "Two-dimensional WKT point with longitude (-180 to 180) followed by latitude (-90 to 90)",
+		Example:     "POINT (97.308335 87.473326)",
+		Output:      "string",
+		Aliases:     []string{"wkt point", "geographic point", "well-known text point"},
+		Keywords:    []string{"gis", "wkt", "geometry", "coordinates", "longitude", "latitude"},
+		Generate: func(f *Faker, m *MapParams, info *Info) (any, error) {
+			return wktPoint(f), nil
+		},
+	})
 }

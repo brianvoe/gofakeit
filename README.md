@@ -484,6 +484,7 @@ Latitude() float64
 LatitudeInRange(min, max float64) (float64, error)
 Longitude() float64
 LongitudeInRange(min, max float64) (float64, error)
+WKTPoint() string
 ```
 
 ### Airline

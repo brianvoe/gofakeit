@@ -432,3 +432,33 @@ func BenchmarkLongitudeInRange(b *testing.B) {
 		LongitudeInRange(-180, 180)
 	}
 }
+
+func ExampleWKTPoint() {
+	Seed(11)
+	fmt.Println(WKTPoint())
+
+	// Output: POINT (97.308335 87.473326)
+}
+
+func ExampleFaker_WKTPoint() {
+	f := New(11)
+	fmt.Println(f.WKTPoint())
+
+	// Output: POINT (97.308335 87.473326)
+}
+
+func TestWKTPointGenerate(t *testing.T) {
+	got, err := New(11).Generate("{wktpoint}")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if want := "POINT (97.308335 87.473326)"; got != want {
+		t.Errorf("Generate(\"{wktpoint}\") = %q, want %q", got, want)
+	}
+}
+
+func BenchmarkWKTPoint(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		WKTPoint()
+	}
+}
