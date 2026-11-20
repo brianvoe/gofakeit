@@ -2,6 +2,7 @@ package gofakeit
 
 import (
 	"errors"
+	"math"
 )
 
 // Weighted will take in an array of options and weights and return a random selection based upon its indexed weight
@@ -51,6 +52,29 @@ func weighted(f *Faker, options []any, weights []float32) (any, error) {
 
 		cdf[i] = weight
 		sumOfWeights += weight
+	}
+
+	// Keep ordinary seeded selections unchanged; widen only overflowing finite CDFs.
+	if math.IsInf(float64(sumOfWeights), 1) {
+		var total float64
+		finite := true
+		for _, weight := range weights {
+			if math.IsInf(float64(weight), 0) || math.IsNaN(float64(weight)) || weight < 0 {
+				finite = false
+				break
+			}
+			total += float64(weight)
+		}
+		if finite {
+			draw := float64(f.Float32()) * total
+			var cumulative float64
+			for i, weight := range weights {
+				cumulative += float64(weight)
+				if draw <= cumulative {
+					return options[i], nil
+				}
+			}
+		}
 	}
 
 	// Get rand value from a multple of sumOfWeights
