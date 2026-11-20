@@ -37,13 +37,17 @@ func HexColor() string { return hexColor(GlobalFaker) }
 func (f *Faker) HexColor() string { return hexColor(f) }
 
 func hexColor(f *Faker) string {
-	color := make([]byte, 6)
-	hashQuestion := []byte("?#")
-	for i := range 6 {
-		color[i] = hashQuestion[f.IntN(2)]
+	// 24 random bits, so each of the 16,777,216 colors is equally likely, #000000 and #00ff00 included
+	const digits = "0123456789abcdef"
+	n := f.IntN(1 << 24)
+
+	color := [7]byte{'#'}
+	for i := 6; i > 0; i-- {
+		color[i] = digits[n&0xf]
+		n >>= 4
 	}
 
-	return "#" + replaceWithHexLetters(f, replaceWithNumbers(f, string(color)))
+	return string(color[:])
 }
 
 // RGBColor will generate a random int slice color
