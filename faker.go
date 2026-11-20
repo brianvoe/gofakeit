@@ -50,9 +50,9 @@ func (f *Faker) Seed(args ...any) error {
 		defer f.mu.Unlock()
 	}
 
-	// Ensure GlobalFaker is not nil and Rand is initialized
-	if GlobalFaker == nil || GlobalFaker.Rand == nil {
-		return errors.New("GlobalFaker or GlobalFaker.Rand is nil")
+	// Ensure the receiver has a random source.
+	if f.Rand == nil {
+		return errors.New("Faker.Rand is nil")
 	}
 
 	// If args is empty or 0, seed with a random crypto seed
@@ -67,7 +67,7 @@ func (f *Faker) Seed(args ...any) error {
 	}
 
 	// Retrieve the Seed method
-	method := reflect.ValueOf(GlobalFaker.Rand).MethodByName("Seed")
+	method := reflect.ValueOf(f.Rand).MethodByName("Seed")
 	if !method.IsValid() {
 		return errors.New("Seed method not found")
 	}
