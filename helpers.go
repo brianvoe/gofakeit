@@ -1,6 +1,7 @@
 package gofakeit
 
 import (
+	"encoding"
 	"encoding/json"
 	"fmt"
 	"math"
@@ -311,6 +312,29 @@ func title(s string) string {
 			return r
 		},
 		s)
+}
+
+// fieldValue turns a field value that the json, csv and xml encoders do not write well into its text.
+// An error is its message, the encoders would write the struct behind it as {}, and a value with
+// a MarshalText method, like the time.Time of pastdate, is that text. Anything else, a nil pointer
+// too, comes back as it is.
+func fieldValue(value any) (any, error) {
+	if v := reflect.ValueOf(value); v.Kind() == reflect.Pointer && v.IsNil() {
+		return value, nil
+	}
+
+	switch val := value.(type) {
+	case error:
+		return val.Error(), nil
+	case encoding.TextMarshaler:
+		text, err := val.MarshalText()
+		if err != nil {
+			return nil, err
+		}
+		return string(text), nil
+	}
+
+	return value, nil
 }
 
 func funcLookupSplit(str string) ([]string, error) {

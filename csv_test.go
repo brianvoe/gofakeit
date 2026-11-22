@@ -1,9 +1,11 @@
 package gofakeit
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 	"testing"
+	"time"
 )
 
 func ExampleCSV_array() {
@@ -127,5 +129,25 @@ func BenchmarkCSVLookup100(b *testing.B) {
 		if err != nil {
 			b.Fatal(err.Error())
 		}
+	}
+}
+
+func TestCSVErrorAndTimeValues(t *testing.T) {
+	// An error used to be written as {} and a time with the quotes of json around it
+	AddFuncLookup("csv_error_value", Info{Generate: func(*Faker, *MapParams, *Info) (any, error) { return errors.New("not found"), nil }})
+	AddFuncLookup("csv_time_value", Info{Generate: func(*Faker, *MapParams, *Info) (any, error) {
+		return time.Date(2026, 11, 22, 10, 30, 0, 0, time.UTC), nil
+	}})
+	t.Cleanup(func() {
+		RemoveFuncLookup("csv_error_value")
+		RemoveFuncLookup("csv_time_value")
+	})
+
+	got, err := New(11).CSV(&CSVOptions{RowCount: 1, Fields: []Field{{Name: "e", Function: "csv_error_value"}, {Name: "t", Function: "csv_time_value"}}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if want := "e,t\nnot found,2026-11-22T10:30:00Z\n"; string(got) != want {
+		t.Fatalf("got %q, want %q", got, want)
 	}
 }

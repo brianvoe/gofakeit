@@ -116,6 +116,12 @@ func jsonFunc(f *Faker, jo *JSONOptions) ([]byte, error) {
 				value = val
 			}
 
+			// An error is written as its message instead of {}
+			value, err = fieldValue(value)
+			if err != nil {
+				return nil, err
+			}
+
 			v[i] = &jsonKeyVal{Key: field.Name, Value: value}
 
 		}
@@ -166,6 +172,12 @@ func jsonFunc(f *Faker, jo *JSONOptions) ([]byte, error) {
 						return nil, err
 					}
 					value = val
+				}
+
+				// An error is written as its message instead of {}
+				value, err = fieldValue(value)
+				if err != nil {
+					return nil, err
 				}
 
 				vr[ii] = &jsonKeyVal{Key: field.Name, Value: value}

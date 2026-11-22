@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
+	"fmt"
 	"reflect"
 	"sort"
 )
@@ -56,8 +57,6 @@ func (m xmlMap) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 }
 
 func xmlMapLoop(e *xml.Encoder, m *xmlMap) error {
-	var err error
-
 	// Check if xmlmap has key order if not create it
 	// Get key order by order of fields array
 	if m.KeyOrder == nil {
@@ -71,63 +70,86 @@ func xmlMapLoop(e *xml.Encoder, m *xmlMap) error {
 	}
 
 	for _, key := range m.KeyOrder {
-		v := reflect.ValueOf(m.Map[key])
-
-		// Always get underlyning Value of value
-		if v.Kind() == reflect.Pointer {
-			v = reflect.Indirect(v)
-		}
-
-		switch v.Kind() {
-		case reflect.Bool,
-			reflect.String,
-			reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,
-			reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64,
-			reflect.Float32, reflect.Float64:
-			err = e.Encode(xmlEntry{XMLName: xml.Name{Local: key}, Value: m.Map[key]})
-			if err != nil {
-				return err
-			}
-		case reflect.Slice:
-			e.EncodeToken(xml.StartElement{Name: xml.Name{Local: key}})
-			for i := 0; i < v.Len(); i++ {
-				err = e.Encode(xmlEntry{XMLName: xml.Name{Local: "value"}, Value: v.Index(i).Interface()})
-				if err != nil {
-					return err
-				}
-			}
-			e.EncodeToken(xml.EndElement{Name: xml.Name{Local: key}})
-		case reflect.Map:
-			err = e.Encode(xmlMap{
-				XMLName: xml.Name{Local: key},
-				Map:     m.Map[key].(map[string]any),
-			})
-			if err != nil {
-				return err
-			}
-		case reflect.Struct:
-			// Convert struct to map[string]any
-			// So we can rewrap element
-			var inInterface map[string]any
-			inrec, _ := json.Marshal(m.Map[key])
-			json.Unmarshal(inrec, &inInterface)
-
-			err = e.Encode(xmlMap{
-				XMLName: xml.Name{Local: key},
-				Map:     inInterface,
-			})
-			if err != nil {
-				return err
-			}
-		default:
-			err = e.Encode(m.Map[key])
-			if err != nil {
-				return err
-			}
+		if err := xmlEncodeValue(e, key, m.Map[key]); err != nil {
+			return err
 		}
 	}
 
 	return nil
+}
+
+// xmlEncodeValue writes value as an element called name. A scalar is its text, an item of a slice is
+// a value element of its own and a map or struct has an element for each of its keys, at any depth.
+// A nil value or nil pointer writes nothing.
+func xmlEncodeValue(e *xml.Encoder, name string, value any) error {
+	if v := reflect.ValueOf(value); !v.IsValid() || (v.Kind() == reflect.Pointer && v.IsNil()) {
+		return nil
+	}
+
+	// An error is its message and a time is its text, they would come out empty below
+	value, err := fieldValue(value)
+	if err != nil {
+		return err
+	}
+
+	start := xml.StartElement{Name: xml.Name{Local: name}}
+
+	switch val := value.(type) {
+	case map[string]any:
+		return e.Encode(xmlMap{XMLName: start.Name, Map: val})
+	case []byte:
+		// The output of a function like json is written as its data, like the json and csv output do
+		if json.Valid(val) {
+			var data any
+			if err := json.Unmarshal(val, &data); err != nil {
+				return err
+			}
+			return xmlEncodeValue(e, name, data)
+		}
+	}
+
+	v := reflect.ValueOf(value)
+	switch v.Kind() {
+	case reflect.Pointer:
+		return xmlEncodeValue(e, name, v.Elem().Interface())
+	case reflect.Bool,
+		reflect.String,
+		reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,
+		reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64,
+		reflect.Float32, reflect.Float64:
+		return e.Encode(xmlEntry{XMLName: start.Name, Value: value})
+	case reflect.Slice, reflect.Array:
+		if err := e.EncodeToken(start); err != nil {
+			return err
+		}
+		for i := range v.Len() {
+			if err := xmlEncodeValue(e, "value", v.Index(i).Interface()); err != nil {
+				return err
+			}
+		}
+		return e.EncodeToken(start.End())
+	case reflect.Map:
+		// Any map, like the map[string][]string of teams, gets an element for each key
+		m := make(map[string]any, v.Len())
+		iter := v.MapRange()
+		for iter.Next() {
+			m[fmt.Sprint(iter.Key().Interface())] = iter.Value().Interface()
+		}
+		return e.Encode(xmlMap{XMLName: start.Name, Map: m})
+	case reflect.Struct:
+		// Go through json so the elements get the json names of the fields
+		b, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+		var data any
+		if err := json.Unmarshal(b, &data); err != nil {
+			return err
+		}
+		return xmlEncodeValue(e, name, data)
+	}
+
+	return e.Encode(value)
 }
 
 // XML generates an object or an array of objects in json format
@@ -157,14 +179,14 @@ func xmlFunc(f *Faker, xo *XMLOptions) ([]byte, error) {
 		return nil, errors.New("must pass fields in order to build json object(s)")
 	}
 
-	// Check root element string
-	if xo.RootElement == "" {
-		xo.RecordElement = "xml"
+	// Default the root and record element names, without changing the options that were passed in
+	rootElement := xo.RootElement
+	if rootElement == "" {
+		rootElement = "xml"
 	}
-
-	// Check record element string
-	if xo.RecordElement == "" {
-		xo.RecordElement = "record"
+	recordElement := xo.RecordElement
+	if recordElement == "" {
+		recordElement = "record"
 	}
 
 	// Get key order by order of fields array
@@ -175,7 +197,7 @@ func xmlFunc(f *Faker, xo *XMLOptions) ([]byte, error) {
 
 	if xo.Type == "single" {
 		v := xmlMap{
-			XMLName:  xml.Name{Local: xo.RootElement},
+			XMLName:  xml.Name{Local: rootElement},
 			KeyOrder: keyOrder,
 			Map:      make(map[string]any),
 		}
@@ -217,13 +239,13 @@ func xmlFunc(f *Faker, xo *XMLOptions) ([]byte, error) {
 		}
 
 		xa := xmlArray{
-			XMLName: xml.Name{Local: xo.RootElement},
-			Array:   make([]xmlMap, xo.RowCount),
+			XMLName: xml.Name{Local: rootElement},
+			Array:   make([]xmlMap, 0, xo.RowCount),
 		}
 
 		for i := 1; i <= int(xo.RowCount); i++ {
 			v := xmlMap{
-				XMLName:  xml.Name{Local: xo.RecordElement},
+				XMLName:  xml.Name{Local: recordElement},
 				KeyOrder: keyOrder,
 				Map:      make(map[string]any),
 			}

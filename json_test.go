@@ -2,8 +2,10 @@ package gofakeit
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"testing"
+	"time"
 )
 
 func ExampleJSON_object() {
@@ -592,5 +594,36 @@ func BenchmarkJSONLookup100(b *testing.B) {
 		if err != nil {
 			b.Fatal(err.Error())
 		}
+	}
+}
+
+func TestJSONErrorAndTimeValues(t *testing.T) {
+	// An error used to be written as {}, a time keeps its usual text
+	AddFuncLookup("json_error_value", Info{Generate: func(*Faker, *MapParams, *Info) (any, error) { return errors.New("not found"), nil }})
+	AddFuncLookup("json_time_value", Info{Generate: func(*Faker, *MapParams, *Info) (any, error) {
+		return time.Date(2026, 11, 22, 10, 30, 0, 0, time.UTC), nil
+	}})
+	t.Cleanup(func() {
+		RemoveFuncLookup("json_error_value")
+		RemoveFuncLookup("json_time_value")
+	})
+
+	fields := []Field{{Name: "e", Function: "json_error_value"}, {Name: "t", Function: "json_time_value"}}
+	want := `{"e":"not found","t":"2026-11-22T10:30:00Z"}`
+
+	got, err := New(11).JSON(&JSONOptions{Type: "object", Fields: fields})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if string(got) != want {
+		t.Fatalf("object: got %s, want %s", got, want)
+	}
+
+	got, err = New(11).JSON(&JSONOptions{Type: "array", RowCount: 1, Fields: fields})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if string(got) != "["+want+"]" {
+		t.Fatalf("array: got %s, want [%s]", got, want)
 	}
 }
