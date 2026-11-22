@@ -81,8 +81,8 @@ func xmlMapLoop(e *xml.Encoder, m *xmlMap) error {
 		switch v.Kind() {
 		case reflect.Bool,
 			reflect.String,
-			reflect.Int, reflect.Int8, reflect.Int32, reflect.Int64,
-			reflect.Uint, reflect.Uint8, reflect.Uint32, reflect.Uint64,
+			reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,
+			reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64,
 			reflect.Float32, reflect.Float64:
 			err = e.Encode(xmlEntry{XMLName: xml.Name{Local: key}, Value: m.Map[key]})
 			if err != nil {
@@ -91,7 +91,7 @@ func xmlMapLoop(e *xml.Encoder, m *xmlMap) error {
 		case reflect.Slice:
 			e.EncodeToken(xml.StartElement{Name: xml.Name{Local: key}})
 			for i := 0; i < v.Len(); i++ {
-				err = e.Encode(xmlEntry{XMLName: xml.Name{Local: "value"}, Value: v.Index(i).String()})
+				err = e.Encode(xmlEntry{XMLName: xml.Name{Local: "value"}, Value: v.Index(i).Interface()})
 				if err != nil {
 					return err
 				}
