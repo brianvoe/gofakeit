@@ -449,9 +449,9 @@ func ExamplePerson() {
 	// 5643954059
 	// april_muller@joseph.net
 	// Hipercard
-	// 6062825257093882
-	// 10/29
-	// 162
+	// 6062820525709393
+	// 07/34
+	// 062
 }
 
 func ExampleFaker_Person() {
@@ -512,9 +512,9 @@ func ExampleFaker_Person() {
 	// 5643954059
 	// april_muller@joseph.net
 	// Hipercard
-	// 6062825257093882
-	// 10/29
-	// 162
+	// 6062820525709393
+	// 07/34
+	// 062
 }
 
 func BenchmarkPerson(b *testing.B) {

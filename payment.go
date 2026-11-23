@@ -72,7 +72,8 @@ func (f *Faker) CreditCard() *CreditCardInfo { return creditCard(f) }
 
 func creditCard(f *Faker) *CreditCardInfo {
 	ccType := randomString(f, data.CreditCardTypes)
-	ccv, _ := generate(f, strings.Repeat("#", int(data.CreditCards[ccType].Code.Size)))
+	// A security code can start with a 0
+	ccv := digitN(f, data.CreditCards[ccType].Code.Size)
 
 	return &CreditCardInfo{
 		Type:   data.CreditCards[ccType].Display,
@@ -181,7 +182,7 @@ func CreditCardCvv() string { return creditCardCvv(GlobalFaker) }
 // Its a string because you could have 017 as an exp date
 func (f *Faker) CreditCardCvv() string { return creditCardCvv(f) }
 
-func creditCardCvv(f *Faker) string { return numerify(f, "###") }
+func creditCardCvv(f *Faker) string { return digitN(f, 3) }
 
 // isLuhn check is used for checking if credit card is a valid luhn card
 func isLuhn(s string) bool {
@@ -235,7 +236,7 @@ func AchAccount() string { return achAccount(GlobalFaker) }
 // AchAccount will generate a 12 digit account number
 func (f *Faker) AchAccount() string { return achAccount(f) }
 
-func achAccount(f *Faker) string { return numerify(f, "############") }
+func achAccount(f *Faker) string { return digitN(f, 12) }
 
 // BitcoinAddress will generate a random bitcoin address base58 consisting of numbers, upper and lower characters
 func BitcoinAddress() string { return bitcoinAddress(GlobalFaker) }
