@@ -125,6 +125,25 @@ func TestTimeRangeGenerate(t *testing.T) {
 	}
 }
 
+func TestDateRange_ClockOnlyTimes(t *testing.T) {
+	f := New(11)
+	t1, _ := time.Parse("15:04", "09:00") // Year 0
+	t2, _ := time.Parse("15:04", "17:00") // Year 0
+
+	for range 100 {
+		res := f.DateRange(t1, t2)
+		if res.IsZero() {
+			t.Fatal("expected non-zero result from DateRange")
+		}
+	}
+
+	// Zero time.Time{} should not panic or overflow
+	resZero := f.DateRange(time.Time{}, time.Now())
+	if resZero.IsZero() {
+		t.Fatal("expected non-zero result when given zero time")
+	}
+}
+
 func BenchmarkDateRange(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		DateRange(time.Now().AddDate(-30, 0, 0), time.Now())

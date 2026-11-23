@@ -464,3 +464,65 @@ func BenchmarkBankType(b *testing.B) {
 		BankType()
 	}
 }
+
+func TestCreditCardNumber_LongBinNoPanic(t *testing.T) {
+	// Amex has length 15; a 16-character or 17-character bin previously caused
+	// strings.Repeat with negative count and panicking.
+	f := New(11)
+	num := f.CreditCardNumber(&CreditCardOptions{
+		Types: []string{"american-express"},
+		Bins:  []string{"3782822463100053"},
+	})
+	if len(num) != 15 {
+		t.Errorf("expected 15 digits for amex, got %d (%q)", len(num), num)
+	}
+	if !isLuhn(num) {
+		t.Errorf("expected valid luhn number, got %q", num)
+	}
+}
+
+func TestCreditCardNumber_GapsOutOfBoundsNoPanic(t *testing.T) {
+	f := New(11)
+	// Testing gaps with various card configurations
+	for range 100 {
+		num := f.CreditCardNumber(&CreditCardOptions{
+			Types: []string{"maestro", "diners-club", "american-express"},
+			Gaps:  true,
+		})
+		if num == "" {
+			t.Fatal("expected non-empty card number")
+		}
+	}
+}
+
+func TestCreditCardNumber_LeadingZeroBin(t *testing.T) {
+	f := New(11)
+	num := f.CreditCardNumber(&CreditCardOptions{
+		Types: []string{"visa"},
+		Bins:  []string{"0123"},
+	})
+	if len(num) != 16 {
+		t.Errorf("expected length 16, got %d (%q)", len(num), num)
+	}
+	if !strings.HasPrefix(num, "0123") {
+		t.Errorf("expected prefix '0123', got %q", num)
+	}
+	if !isLuhn(num) {
+		t.Errorf("expected valid luhn number, got %q", num)
+	}
+}
+
+func TestPrice_MinMaxOrderAndPrecision(t *testing.T) {
+	f := New(11)
+
+	// min > max should not produce invalid outputs or panic
+	p := f.Price(100.0, 10.0)
+	if p < 10.0 || p > 100.0 {
+		t.Errorf("expected price between 10.0 and 100.0, got %f", p)
+	}
+
+	// Precision test: 10.55 should not truncate to 10.54 due to float precision
+	if got := f.Price(10.55, 10.55); got != 10.55 {
+		t.Errorf("expected exactly 10.55, got %f", got)
+	}
+}

@@ -45,6 +45,8 @@ func DateRange(start, end time.Time) time.Time { return dateRange(GlobalFaker, s
 func (f *Faker) DateRange(start, end time.Time) time.Time { return dateRange(f, start, end) }
 
 func dateRange(f *Faker, start time.Time, end time.Time) time.Time {
+	start = clockOnSafeDay(start)
+	end = clockOnSafeDay(end)
 	return time.Unix(0, randInt64Range(f, start.UnixNano(), end.UnixNano())).UTC()
 }
 
