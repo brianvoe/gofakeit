@@ -366,6 +366,50 @@ func ExampleFaker_AchAccount() {
 	// Output: 881252759890
 }
 
+// Digits of a card security code or of an account number can be 0 in front, like 007 and 000123456789:
+// about one in ten of them starts with a 0
+func TestDigitStringsStartWithZero(t *testing.T) {
+	const samples = 30000
+	card := func(f *Faker) (string, int) {
+		info := f.CreditCard()
+		return info.Cvv, len(info.Cvv)
+	}
+
+	cases := []struct {
+		name   string
+		get    func(f *Faker) (string, int)
+		length int // 0 when it depends on the card
+	}{
+		{"CreditCardCvv", func(f *Faker) (string, int) { cvv := f.CreditCardCvv(); return cvv, len(cvv) }, 3},
+		{"CreditCard().Cvv", card, 0},
+		{"AchAccount", func(f *Faker) (string, int) { acc := f.AchAccount(); return acc, len(acc) }, 12},
+	}
+
+	for _, tc := range cases {
+		f := New(11)
+		zeros := 0
+		for range samples {
+			value, length := tc.get(f)
+			if tc.length != 0 && length != tc.length {
+				t.Fatalf("%s: %q has %d digits, want %d", tc.name, value, length, tc.length)
+			}
+
+			if strings.Trim(value, "0123456789") != "" {
+				t.Fatalf("%s: %q is not made of digits", tc.name, value)
+			}
+
+			if value[0] == '0' {
+				zeros++
+			}
+		}
+
+		// 3,000 expected, the limits are more than 11 standard deviations away
+		if zeros < samples/10*80/100 || zeros > samples/10*120/100 {
+			t.Errorf("%s: %d of %d values start with a 0, about %d expected", tc.name, zeros, samples, samples/10)
+		}
+	}
+}
+
 func BenchmarkAchAccount(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		AchAccount()
