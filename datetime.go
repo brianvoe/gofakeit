@@ -44,8 +44,36 @@ func DateRange(start, end time.Time) time.Time { return dateRange(GlobalFaker, s
 // DateRange will generate a random time.Time struct between a start and end date
 func (f *Faker) DateRange(start, end time.Time) time.Time { return dateRange(f, start, end) }
 
+func inNanoWindow(t time.Time) bool {
+	y := t.Year()
+	return y >= 1678 && y <= 2261
+}
+
 func dateRange(f *Faker, start time.Time, end time.Time) time.Time {
-	return time.Unix(0, randInt64Range(f, start.UnixNano(), end.UnixNano())).UTC()
+	if inNanoWindow(start) && inNanoWindow(end) {
+		return time.Unix(0, randInt64Range(f, start.UnixNano(), end.UnixNano())).UTC()
+	}
+
+	if start.After(end) {
+		start, end = end, start
+	}
+
+	startSec := start.Unix()
+	endSec := end.Unix()
+	sec := randInt64Range(f, startSec, endSec)
+
+	var nano int64
+	if startSec == endSec {
+		nano = randInt64Range(f, int64(start.Nanosecond()), int64(end.Nanosecond()))
+	} else if sec == startSec {
+		nano = randInt64Range(f, int64(start.Nanosecond()), 999999999)
+	} else if sec == endSec {
+		nano = randInt64Range(f, 0, int64(end.Nanosecond()))
+	} else {
+		nano = int64(f.IntN(1000000000))
+	}
+
+	return time.Unix(sec, nano).UTC()
 }
 
 // NanoSecond will generate a random nano second

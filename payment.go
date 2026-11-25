@@ -53,7 +53,7 @@ func Price(min, max float64) float64 { return price(GlobalFaker, min, max) }
 func (f *Faker) Price(min, max float64) float64 { return price(f, min, max) }
 
 func price(f *Faker, min, max float64) float64 {
-	return math.Floor(float64Range(f, min, max)*100) / 100
+	return math.Floor(float64Range(f, min, max)*100+1e-9) / 100
 }
 
 // CreditCardInfo is a struct containing credit variables
@@ -132,24 +132,40 @@ func creditCardNumber(f *Faker, cco *CreditCardOptions) string {
 	} else {
 		numStr = strconv.FormatUint(uint64(randomUint(f, cardInfo.Patterns)), 10)
 	}
-	numStr += strings.Repeat("#", int(length)-len(numStr))
+	diff := int(length) - len(numStr)
+	if diff > 0 {
+		numStr += strings.Repeat("#", diff)
+	} else if diff < 0 {
+		numStr = numStr[:length]
+	}
 	numStr = numerify(f, numStr)
+	targetLen := len(numStr)
 	ui, _ := strconv.ParseUint(numStr, 10, 64)
+
+	formatCard := func(v uint64) string {
+		s := strconv.FormatUint(v, 10)
+		if len(s) < targetLen {
+			s = strings.Repeat("0", targetLen-len(s)) + s
+		}
+		return s
+	}
 
 	// Loop through until its a valid luhn
 	for {
-		valid := isLuhn(strconv.FormatUint(ui, 10))
-		if valid {
+		if isLuhn(formatCard(ui)) {
 			break
 		}
 		ui++
 	}
-	numStr = strconv.FormatUint(ui, 10)
+	numStr = formatCard(ui)
 
 	// Add gaps to number
 	if cco.Gaps {
 		for i, spot := range cardInfo.Gaps {
-			numStr = numStr[:(int(spot)+i)] + " " + numStr[(int(spot)+i):]
+			spotIdx := int(spot) + i
+			if spotIdx < len(numStr) {
+				numStr = numStr[:spotIdx] + " " + numStr[spotIdx:]
+			}
 		}
 	}
 
