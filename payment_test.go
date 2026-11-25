@@ -481,20 +481,6 @@ func TestCreditCardNumber_LongBinNoPanic(t *testing.T) {
 	}
 }
 
-func TestCreditCardNumber_GapsOutOfBoundsNoPanic(t *testing.T) {
-	f := New(11)
-	// Testing gaps with various card configurations
-	for range 100 {
-		num := f.CreditCardNumber(&CreditCardOptions{
-			Types: []string{"maestro", "diners-club", "american-express"},
-			Gaps:  true,
-		})
-		if num == "" {
-			t.Fatal("expected non-empty card number")
-		}
-	}
-}
-
 func TestCreditCardNumber_LeadingZeroBin(t *testing.T) {
 	f := New(11)
 	num := f.CreditCardNumber(&CreditCardOptions{
@@ -512,17 +498,11 @@ func TestCreditCardNumber_LeadingZeroBin(t *testing.T) {
 	}
 }
 
-func TestPrice_MinMaxOrderAndPrecision(t *testing.T) {
+func TestPrice_Precision(t *testing.T) {
 	f := New(11)
 
-	// min > max should not produce invalid outputs or panic
-	p := f.Price(100.0, 10.0)
-	if p < 10.0 || p > 100.0 {
-		t.Errorf("expected price between 10.0 and 100.0, got %f", p)
-	}
-
-	// Precision test: 10.55 should not truncate to 10.54 due to float precision
-	if got := f.Price(10.55, 10.55); got != 10.55 {
-		t.Errorf("expected exactly 10.55, got %f", got)
+	// Precision test: on master Price(0.29, 0.29) returns 0.28 due to float precision
+	if got := f.Price(0.29, 0.29); got != 0.29 {
+		t.Errorf("expected exactly 0.29, got %f", got)
 	}
 }

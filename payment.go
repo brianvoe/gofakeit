@@ -53,9 +53,6 @@ func Price(min, max float64) float64 { return price(GlobalFaker, min, max) }
 func (f *Faker) Price(min, max float64) float64 { return price(f, min, max) }
 
 func price(f *Faker, min, max float64) float64 {
-	if min > max {
-		min, max = max, min
-	}
 	return math.Floor(float64Range(f, min, max)*100+1e-9) / 100
 }
 

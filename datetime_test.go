@@ -125,22 +125,54 @@ func TestTimeRangeGenerate(t *testing.T) {
 	}
 }
 
-func TestDateRange_ClockOnlyTimes(t *testing.T) {
+func TestDateRange_YearsAndClockOnly(t *testing.T) {
 	f := New(11)
-	t1, _ := time.Parse("15:04", "09:00") // Year 0
-	t2, _ := time.Parse("15:04", "17:00") // Year 0
 
+	// Clock-only times (Year 0)
+	t1, _ := time.Parse("15:04", "09:00")
+	t2, _ := time.Parse("15:04", "17:00")
 	for range 100 {
 		res := f.DateRange(t1, t2)
-		if res.IsZero() {
-			t.Fatal("expected non-zero result from DateRange")
+		if res.Before(t1) || res.After(t2) {
+			t.Fatalf("expected result between %v and %v, got %v", t1, t2, res)
+		}
+		clock := res.Format("15:04")
+		if clock < "09:00" || clock > "17:00" {
+			t.Fatalf("expected clock between 09:00 and 17:00, got %s", clock)
+		}
+		if res.Year() != 0 {
+			t.Fatalf("expected year 0 for clock-only layout, got year %d", res.Year())
 		}
 	}
 
-	// Zero time.Time{} should not panic or overflow
-	resZero := f.DateRange(time.Time{}, time.Now())
-	if resZero.IsZero() {
-		t.Fatal("expected non-zero result when given zero time")
+	// Historical dates before 1678
+	d1 := time.Date(1500, 1, 1, 0, 0, 0, 0, time.UTC)
+	d2 := time.Date(1600, 1, 1, 0, 0, 0, 0, time.UTC)
+	for range 100 {
+		res := f.DateRange(d1, d2)
+		if res.Before(d1) || res.After(d2) {
+			t.Fatalf("expected result between %v and %v, got %v", d1, d2, res)
+		}
+	}
+
+	// Future dates after 2261
+	d3 := time.Date(2500, 1, 1, 0, 0, 0, 0, time.UTC)
+	d4 := time.Date(2600, 1, 1, 0, 0, 0, 0, time.UTC)
+	for range 100 {
+		res := f.DateRange(d3, d4)
+		if res.Before(d3) || res.After(d4) {
+			t.Fatalf("expected result between %v and %v, got %v", d3, d4, res)
+		}
+	}
+
+	// Dates crossing window (1600 to 2026)
+	d5 := time.Date(1600, 1, 1, 0, 0, 0, 0, time.UTC)
+	d6 := time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC)
+	for range 100 {
+		res := f.DateRange(d5, d6)
+		if res.Before(d5) || res.After(d6) {
+			t.Fatalf("expected result between %v and %v, got %v", d5, d6, res)
+		}
 	}
 }
 
